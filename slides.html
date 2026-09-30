@@ -1,131 +1,130 @@
 <!doctype html>
 <html><head><meta charset="utf-8"><title>CT Signal — Hack for Humanity</title>
 <style>
-  html,body{margin:0;height:100%;background:#101418;color:#eef2f5;
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-  .slide{display:none;min-height:100vh;box-sizing:border-box;padding:6vh 8vw;
-    flex-direction:column;justify-content:center}
-  .slide.active{display:flex}
-  h1{font-size:4.2rem;margin:.2em 0;line-height:1.05}
-  h2{font-size:2.6rem;color:#7fb4ff;margin:0 0 .6em}
-  .sub{color:#9fb0bf;font-size:1.5rem}
-  .accent{color:#ff8f6b}
-  ul{font-size:1.55rem;line-height:1.55;padding-left:1.2em}
-  li{margin:.35em 0}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;font-size:1.3rem}
-  .card{background:#1a2129;border:1px solid #2b3a48;border-radius:12px;padding:1.2rem 1.4rem}
-  .num{font-size:2.4rem;font-weight:700;color:#8fd6a9}
-  .pipeline{font-size:1.5rem;line-height:2;background:#1a2129;border-radius:12px;
-    padding:1rem 1.5rem;border:1px solid #2b3a48}
-  .foot{position:fixed;bottom:2vh;left:8vw;color:#69788a;font-size:1rem}
-  .k{background:#243040;border-radius:6px;padding:0 .4em;font-family:ui-monospace,monospace}
-  .shot{background:#151c24;border-radius:12px;box-shadow:0 6px 28px #0008;margin-top:1.4rem}
-  .panel{background:#151c24;border:1px solid #2b3a48;border-radius:12px;padding:.6rem;
-    align-self:center}
-  .panel img{width:100%;display:block;border-radius:8px}
-  .shot img{width:100%;max-height:36vh;object-fit:contain;object-position:top;
-    border-radius:12px;display:block;background:#151c24}
-  .cap{color:#69788a;font-size:.95rem;margin:.35rem 0 0;text-align:center}
-  .flow{display:flex;gap:.6rem;align-items:stretch;margin:1.2rem 0;flex-wrap:wrap}
-  .step{background:#1a2129;border:1px solid #2b3a48;border-radius:12px;
-    padding:.9rem 1.1rem;font-size:1.15rem;flex:1;min-width:170px}
-  .step b{color:#7fb4ff;display:block;font-size:.85rem;letter-spacing:.06em;margin-bottom:.3rem}
-  .step.hot{border-color:#ff8f6b}.step.hot b{color:#ff8f6b}
-  .arr{align-self:center;color:#3d4f60;font-size:1.6rem}
+:root{--bg:#101418;--panel:#151c24;--ink:#e8eef4;--dim:#8fa2b3;--line:#22303c;
+  --acc:#f2a65a; --blue:#5b93d9; --red:#e5484d; --mono:ui-monospace,Menlo,monospace}
+html{font-size:20px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
+section{display:none;min-height:100vh;padding:7vh 8vw;flex-direction:column;justify-content:center;gap:2.6rem;position:relative}
+section.on{display:flex}
+.kicker{font-size:1rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);font-weight:700}
+h1{font-size:5.6rem;margin:0;line-height:1.02;letter-spacing:-.02em}
+h2{font-size:3.1rem;margin:0;line-height:1.12;letter-spacing:-.01em}
+p,li{font-size:2.1rem;line-height:1.5;color:#cdd9e5;margin:0}
+ul{padding-left:1.6rem;margin:0}
+li{margin:.7rem 0}
+b{color:var(--ink)}
+.accent{color:var(--acc)}
+.mono{font-family:var(--mono)}
+.hint{position:absolute;bottom:2.6vh;left:8vw;color:var(--dim);font-size:1.05rem}
+.count{position:absolute;bottom:2.6vh;right:8vw;color:var(--dim);font-size:1.05rem}
+.tag{font-size:2.3rem;color:var(--dim);line-height:1.4}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.5rem 1.2rem;
+  color:var(--acc);font-family:var(--mono);font-size:1.4rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center}
+.cards{display:flex;gap:1.4rem;align-items:stretch}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.2rem;min-width:0}
+.panel .tag2{font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:.7rem}
+.panel .src{color:var(--blue);font-size:1.05rem}
+.panel .h{font-size:1.25rem;line-height:1.3;margin:.4rem 0}
+.panel .q{color:var(--acc);font-size:1.1rem;line-height:1.35;margin:.3rem 0}
+.panel .a{font-size:1.1rem;line-height:1.4;color:#cdd9e5}
+.panel img{width:100%;border-radius:8px;display:block}
+.stats{display:flex;gap:1.4rem;flex-wrap:wrap}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.3rem 1.5rem;text-align:center}
+.stat b{display:block;font-size:2.7rem;color:var(--acc);line-height:1.15}
+.stat span{font-size:1.2rem;color:var(--dim)}
+.flow{display:flex;gap:1rem;align-items:stretch}
+.step{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1.2rem 1rem;
+  font-size:1.35rem;line-height:1.35;color:#cdd9e5}
+.step b{display:block;font-size:.95rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin-bottom:.5rem}
+.arr{align-self:center;color:var(--dim);font-size:1.7rem}
+.quote{font-size:1.45rem;font-style:italic;color:var(--dim);border-left:3px solid var(--acc);padding-left:1.2rem;line-height:1.45}
+.why{font-size:1.6rem;line-height:1.45;color:#cdd9e5}
+img.big{width:100%;border-radius:12px;border:1px solid var(--line)}
+.rule{border-top:1px solid var(--line)}
+nav{position:fixed;bottom:2.2vh;left:50%;transform:translateX(-50%);color:#2f4250;font-size:1.4rem;z-index:5}
 </style></head><body>
 
-<section class="slide active">
-  <div class="sub">Hack for Humanity · Challenge 4: CTData.org, Made Conversational</div>
-  <h1>CT <span class="accent">Signal</span></h1>
-  <div class="sub">CTData answers questions.<br>This makes CTData <b>ask them</b> — and
-  every number is fetched, never generated.</div>
-  <div class="sub" style="margin-top:1.4em">live: <span class="k">ct-signal.vercel.app</span></div>
-  <div class="shot" style="max-width:860px"><img src="shots/board.png" alt="CT Pulse board"></div>
+<section class="on">
+  <div class="kicker">Hack for Humanity · Challenge 4 · CTData.org, Made Conversational</div>
+  <h1>CT&nbsp;<span class="accent">Signal</span></h1>
+  <div class="tag">News happens. Connecticut answers — in minutes, in your inbox,<br>with numbers nobody wrote.</div>
+  <div><span class="chip">ct-signal.vercel.app</span></div>
+  <div class="hint">← → to navigate</div><div class="count">1 / 5</div>
 </section>
 
-<section class="slide">
-  <h2>The problem: a last mile of attention</h2>
+<section>
+  <div class="kicker">The problem</div>
+  <h2>CTData's numbers arrive too late to the conversation</h2>
   <ul>
-    <li>CTData puts out real data for democracy — 11 topic portals, dashboards, town profiles…</li>
-    <li>…but people only act on data <b>when a story makes them care</b>. That moment passes.</li>
-    <li>Evidence it's real: CTData staffs a human <b>“Ask a Data Question” Data Helpline</b> —
-        people want answers and can't reach them.</li>
-    <li>Our "who": the 99% who'll never open a data portal — and CTData, whose newsletter
-        needs exactly this content.</li>
+    <li><b>11 portals, a metrics report, a county index</b> — all of it waiting for people who already know to look.</li>
+    <li><b>People engage when a story breaks</b> — and by the time the data arrives, the moment is gone.</li>
+    <li><b>CTData already staffs a manual "Ask a Data Question" line.</b> Demand exists. The pipeline doesn't.</li>
   </ul>
+  <div class="quote">"Ask a Data Question" is one of our most popular services. — CTData stakeholder</div>
+  <div class="count">2 / 5</div>
 </section>
 
-<section class="slide">
-  <h2>The loop — AI where AI is uniquely able</h2>
+<section>
+  <div class="kicker">The loop</div>
+  <h2>An AI decides relevance.<br>A machine does everything else.</h2>
   <div class="flow">
-    <div class="step"><b>LISTEN</b>5 live feeds<br>+ civic calendar</div>
+    <div class="step"><b>Listen</b>Live feeds + the civic calendar (school year, tax deadlines, census releases)</div>
     <div class="arr">→</div>
-    <div class="step hot"><b>GEMINI PICKS</b>question from a<br>closed catalog</div>
+    <div class="step"><b>Gemini decides</b>News arrives as language; Data Commons speaks DCIDs. Reading intent and relevance <i>is</i> the AI's job.</div>
     <div class="arr">→</div>
-    <div class="step"><b>DRY-RUN</b>must execute or<br>question dies</div>
+    <div class="step"><b>Fetch, never write</b>Query dry-runs first; values come from Data Commons / CT open-data APIs</div>
     <div class="arr">→</div>
-    <div class="step"><b>REAL QUERIES</b>Data Commons<br>+ CT Socrata</div>
-    <div class="arr">→</div>
-    <div class="step hot"><b>HONEST CARD</b>headline → query →<br>number → citation</div>
+    <div class="step"><b>Publish</b>Card on the site · weekly digest for CTData</div>
   </div>
-  <ul>
-    <li><b>Why AI is integral:</b> news arrives as <i>language</i>; Data Commons
-        speaks <i>DCIDs</i>. Judging which story is a population-level story, and
-        which indicator answers it — <span class="accent">semantic intent and
-        relevance</span> — is exactly the step rules can't do.</li>
-    <li>But the LLM <span class="accent">never writes a number</span>: its judgment
-        picks the query; official APIs return the answer. Failure mode is a
-        <b>missing card</b>, never a wrong one.</li>
-  </ul>
+  <div class="why"><b>The LLM never writes a number</b> — it only chooses which dataset answers the question. Retrieval failures fall back to cache, visibly labeled.</div>
+  <div class="count">3 / 5</div>
 </section>
 
-<section class="slide">
-  <h2>Anatomy — one national story, this morning</h2>
-  <div class="flow" style="margin:.8rem 0">
-    <div class="step hot" style="flex:1"><b>① THE TRIGGER</b>a real NYT crime story
-      enters the feed</div>
-    <div class="arr">→</div>
-    <div class="step hot" style="flex:1"><b>② THE SEMANTIC JUMP</b>AI decides it is a
-      public-safety question worth the national crime indicator</div>
-    <div class="arr">→</div>
-    <div class="step hot" style="flex:1"><b>③ THE RECEIPT</b>official data answers —
-      with the map and the exact query</div>
-  </div>
-  <div style="display:grid;grid-template-columns:1.2fr 1fr 1.2fr;gap:.8rem">
-    <div class="panel"><img src="shots/case_headline.png"></div>
-    <div class="panel"><img src="shots/case_question.png"></div>
-    <div class="panel"><img src="shots/case_chart.png"></div>
-  </div>
-  <p class="cap">The gore happened nationally. CT ranks <b>3rd safest</b> — and that
-  calmer story only exists because the loop noticed the headline.</p>
-</section>
-
-<section class="slide">
-  <h2>Impact — and receipts</h2>
-  <div class="grid" style="align-items:center">
-    <div>
-      <ul>
-        <li>Drops straight into CTData's <b>weekly newsletter</b>, homepage, or an
-            SMS line — per-town and multilingual are config changes, not rebuilds.</li>
-        <li>Validated live, failures included: BLS v1 dead, portal search leaked
-            other states, a "voter turnout" dataset was a hyperlink.
-            <b>The log ships in the repo.</b></li>
-        <li>Next: SOTUS election CSVs (Nov 3), more datasets = more card types.
-            The whole surface area is one YAML file.</li>
-      </ul>
-      <div class="sub" style="margin-top:1.2em">One headline in → one honest card out.</div>
+<section>
+  <div class="kicker">Live pipeline, dissected</div>
+  <h2>The article was California tragedy.<br>The answer was <span class="accent">Connecticut, 3rd safest</span>.</h2>
+  <div class="cards">
+    <div class="panel" style="flex:.9">
+      <div class="tag2">① The trigger · real</div>
+      <div class="src">The New York Times</div>
+      <div class="h">California Couple Charged With Murder in Shooting of Son-in-Law</div>
     </div>
-    <div class="shot" style="margin-top:0"><img src="shots/newsletter_mock.png"
-      alt="CTData Weekly newsletter mockup built from CT Signal cards" style="max-height:62vh"></div>
+    <div class="panel" style="flex:1.05">
+      <div class="tag2">② The semantic jump · AI</div>
+      <div class="q">"Is Connecticut safe? Compare all 50 states."</div>
+      <div class="a mono" style="font-size:1rem;margin-top:.6rem">violent_crime_per_100k → Count_CriminalActivities_ViolentCrime · CT: 147 per 100k · #3 of 52</div>
+    </div>
+    <div class="panel" style="flex:1.15">
+      <div class="tag2">③ The receipt · fetched</div>
+      <img src="shots/case_chart.png" alt="national crime-rate map">
+    </div>
   </div>
+  <div class="count">4 / 5</div>
 </section>
 
-<div class="foot">CT Signal · ct-signal.vercel.app · github.com/alexvnesta/ct-signal · ←/→ to navigate</div>
+<section>
+  <div class="kicker">What CTData gets Monday</div>
+  <h2>Owned, branded, honest</h2>
+  <div class="grid">
+    <ul>
+      <li>A <b>weekly digest CTData can send under its own logo</b> — built from the same feed.</li>
+      <li>Every number traces to a <b>named dataset, variable and date</b>; fallbacks are labeled <span class="mono">cache</span>.</li>
+      <li>The AI <b>summarizes and decides what to query</b> — it never writes a figure.</li>
+    </ul>
+    <img class="big" src="shots/newsletter_mock.png" alt="CTData Weekly mockup, dark themed">
+  </div>
+  <div class="count">5 / 5</div>
+</section>
 
+<nav>← →</nav>
 <script>
-const s=[...document.querySelectorAll(".slide")];let i=0;
-const show=n=>{s[i].classList.remove("active");i=(n+s.length)%s.length;s[i].classList.add("active")};
-addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key===" ")show(i+1);
-  if(e.key==="ArrowLeft")show(i-1)});
-addEventListener("click",()=>show(i+1));
+const secs=[...document.querySelectorAll('section')];let i=0;
+function show(n){i=Math.max(0,Math.min(secs.length-1,n));secs.forEach((s,k)=>s.classList.toggle('on',k===i))}
+addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key))show(i+1);
+  if(['ArrowLeft','PageUp'].includes(e.key))show(i-1);if(e.key==='Home')show(0);if(e.key==='End')show(4)});
+addEventListener('click',e=>{if(!getSelection().toString())show(i+1)});
 </script></body></html>
