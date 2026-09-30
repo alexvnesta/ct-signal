@@ -19,6 +19,16 @@
     padding:1rem 1.5rem;border:1px solid #2b3a48}
   .foot{position:fixed;bottom:2vh;left:8vw;color:#69788a;font-size:1rem}
   .k{background:#243040;border-radius:6px;padding:0 .4em;font-family:ui-monospace,monospace}
+  .shot{background:#fff;border-radius:12px;box-shadow:0 6px 28px #0008;margin-top:1.4rem}
+  .shot img{width:100%;max-height:36vh;object-fit:contain;object-position:top;
+    border-radius:12px;display:block;background:#fff}
+  .cap{color:#69788a;font-size:.95rem;margin:.35rem 0 0;text-align:center}
+  .flow{display:flex;gap:.6rem;align-items:stretch;margin:1.2rem 0;flex-wrap:wrap}
+  .step{background:#1a2129;border:1px solid #2b3a48;border-radius:12px;
+    padding:.9rem 1.1rem;font-size:1.15rem;flex:1;min-width:170px}
+  .step b{color:#7fb4ff;display:block;font-size:.85rem;letter-spacing:.06em;margin-bottom:.3rem}
+  .step.hot{border-color:#ff8f6b}.step.hot b{color:#ff8f6b}
+  .arr{align-self:center;color:#3d4f60;font-size:1.6rem}
 </style></head><body>
 
 <section class="slide active">
@@ -26,7 +36,8 @@
   <h1>CT <span class="accent">Signal</span></h1>
   <div class="sub">CTData answers questions.<br>This makes CTData <b>ask them</b> — and
   every number is fetched, never generated.</div>
-  <div class="sub" style="margin-top:2em">live: <span class="k">ct-signal.vercel.app</span></div>
+  <div class="sub" style="margin-top:1.4em">live: <span class="k">ct-signal.vercel.app</span></div>
+  <div class="shot" style="max-width:860px"><img src="shots/board.png" alt="CT Pulse board"></div>
 </section>
 
 <section class="slide">
@@ -43,12 +54,16 @@
 
 <section class="slide">
   <h2>The loop — AI where AI is uniquely able</h2>
-  <div class="pipeline">
-    5 live feeds + civic calendar
-    → <b>Gemini picks questions</b> from a <span class="accent">closed catalog</span>
-    → every question <b>dry-run validated</b>
-    → Data Commons / CT Socrata <b>execute real queries</b>
-    → card: headline → question → query → number → chart → citation
+  <div class="flow">
+    <div class="step"><b>LISTEN</b>5 live feeds<br>+ civic calendar</div>
+    <div class="arr">→</div>
+    <div class="step hot"><b>GEMINI PICKS</b>question from a<br>closed catalog</div>
+    <div class="arr">→</div>
+    <div class="step"><b>DRY-RUN</b>must execute or<br>question dies</div>
+    <div class="arr">→</div>
+    <div class="step"><b>REAL QUERIES</b>Data Commons<br>+ CT Socrata</div>
+    <div class="arr">→</div>
+    <div class="step hot"><b>HONEST CARD</b>headline → query →<br>number → citation</div>
   </div>
   <ul>
     <li>The LLM <span class="accent">never writes a number</span> — its only job is
@@ -58,21 +73,17 @@
 </section>
 
 <section class="slide">
-  <h2>Live, from today's news</h2>
-  <div class="grid">
-    <div class="card"><div class="num">$1,488 · #17/52</div>
-      Median gross rent — from a rent-costs headline</div>
-    <div class="card"><div class="num">5.8% · #3/52</div>
-      Unemployment, CT vs US monthly trend (Aug 2026)</div>
-    <div class="card"><div class="num">+59.9%</div>
-      Bridgeport's taxable property base — all 169 towns, revaluation year</div>
-    <div class="card"><div class="num">147/100k · 3rd lowest</div>
-      Violent crime — the safety story nobody headlines (#50 of 52 <i>highest</i>)</div>
+  <h2>Live, from today's news <span style="font-size:1.2rem;color:#69788a">· ct-signal.vercel.app</span></h2>
+  <div class="shot"><img src="shots/board.png" alt="CT Pulse board — six indicator tiles"></div>
+  <p class="cap">The pulse board — six indicators, 52 states, refreshed every cycle — plus a crime card mid-demo with provenance open</p>
+  <div class="grid" style="margin-top:1rem;align-items:start">
+    <div class="shot"><img src="shots/card_map.png" alt="Violent crime card with 51-state choropleth and provenance drawer"></div>
+    <div>
+      <div class="card"><div class="num">$1,488 · #17/52</div>Median gross rent — from a rent-costs headline</div>
+      <div class="card" style="margin-top:.7rem"><div class="num">5.8% · #3/52</div>Unemployment, CT vs US monthly trend (Aug 2026)</div>
+      <div class="card" style="margin-top:.7rem"><div class="num">+59.9%</div>Bridgeport's taxable base — all 169 towns, revaluation year</div>
+    </div>
   </div>
-  <ul style="margin-top:1.2em">
-    <li>Open the <b>provenance drawer</b>: dataset + exact query under every card.</li>
-    <li>Watch: <span class="k">./deploy.sh --once</span> — new cycle, feed grows, site redeploys.</li>
-  </ul>
 </section>
 
 <section class="slide">
