@@ -1,0 +1,100 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>CT Signal — Hack for Humanity</title>
+<style>
+  html,body{margin:0;height:100%;background:#101418;color:#eef2f5;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  .slide{display:none;min-height:100vh;box-sizing:border-box;padding:6vh 8vw;
+    flex-direction:column;justify-content:center}
+  .slide.active{display:flex}
+  h1{font-size:4.2rem;margin:.2em 0;line-height:1.05}
+  h2{font-size:2.6rem;color:#7fb4ff;margin:0 0 .6em}
+  .sub{color:#9fb0bf;font-size:1.5rem}
+  .accent{color:#ff8f6b}
+  ul{font-size:1.55rem;line-height:1.55;padding-left:1.2em}
+  li{margin:.35em 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;font-size:1.3rem}
+  .card{background:#1a2129;border:1px solid #2b3a48;border-radius:12px;padding:1.2rem 1.4rem}
+  .num{font-size:2.4rem;font-weight:700;color:#8fd6a9}
+  .pipeline{font-size:1.5rem;line-height:2;background:#1a2129;border-radius:12px;
+    padding:1rem 1.5rem;border:1px solid #2b3a48}
+  .foot{position:fixed;bottom:2vh;left:8vw;color:#69788a;font-size:1rem}
+  .k{background:#243040;border-radius:6px;padding:0 .4em;font-family:ui-monospace,monospace}
+</style></head><body>
+
+<section class="slide active">
+  <div class="sub">Hack for Humanity · Challenge 4: CTData.org, Made Conversational</div>
+  <h1>CT <span class="accent">Signal</span></h1>
+  <div class="sub">CTData answers questions.<br>This makes CTData <b>ask them</b> — and
+  every number is fetched, never generated.</div>
+  <div class="sub" style="margin-top:2em">live: <span class="k">ct-signal.vercel.app</span></div>
+</section>
+
+<section class="slide">
+  <h2>The problem: a last mile of attention</h2>
+  <ul>
+    <li>CTData puts out real data for democracy — 11 topic portals, dashboards, town profiles…</li>
+    <li>…but people only act on data <b>when a story makes them care</b>. That moment passes.</li>
+    <li>Evidence it's real: CTData staffs a human <b>“Ask a Data Question” Data Helpline</b> —
+        people want answers and can't reach them.</li>
+    <li>Our "who": the 99% who'll never open a data portal — and CTData, whose newsletter
+        needs exactly this content.</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>The loop — AI where AI is uniquely able</h2>
+  <div class="pipeline">
+    5 live feeds + civic calendar
+    → <b>Gemini picks questions</b> from a <span class="accent">closed catalog</span>
+    → every question <b>dry-run validated</b>
+    → Data Commons / CT Socrata <b>execute real queries</b>
+    → card: headline → question → query → number → chart → citation
+  </div>
+  <ul>
+    <li>The LLM <span class="accent">never writes a number</span> — its only job is
+        matching stories to 6 validated 52-state indicators + 3 verified CT tables.</li>
+    <li>Failure mode is a <b>missing card</b>, never a wrong one.</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Live, from today's news</h2>
+  <div class="grid">
+    <div class="card"><div class="num">$1,488 · #17/52</div>
+      Median gross rent — from a rent-costs headline</div>
+    <div class="card"><div class="num">5.8% · #3/52</div>
+      Unemployment, CT vs US monthly trend (Aug 2026)</div>
+    <div class="card"><div class="num">+59.9%</div>
+      Bridgeport's taxable property base — all 169 towns, revaluation year</div>
+    <div class="card"><div class="num">147/100k · 3rd lowest</div>
+      Violent crime — the safety story nobody headlines (#50 of 52 <i>highest</i>)</div>
+  </div>
+  <ul style="margin-top:1.2em">
+    <li>Open the <b>provenance drawer</b>: dataset + exact query under every card.</li>
+    <li>Watch: <span class="k">./deploy.sh --once</span> — new cycle, feed grows, site redeploys.</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>Impact — and receipts</h2>
+  <ul>
+    <li>Drops into CTData's <b>existing weekly newsletter</b>, homepage, or an SMS line;
+        multilingual and per-town are config changes, not rebuilds.</li>
+    <li>Every endpoint, DCID and dataset was <b>validated live</b> — including what failed:
+        BLS v1 is dead, portal search leaked other states' data, a "voter turnout" dataset
+        turned out to be a hyperlink. The log ships in the repo.</li>
+    <li>Next: SOTUS election CSVs (Nov 3), town digest emails, more datasets = more card
+        types — <span class="k">catalog/indicators.yaml</span> is the whole surface area.</li>
+  </ul>
+  <div class="sub" style="margin-top:1.5em">One headline in → one honest card out. Every day, forever.</div>
+</section>
+
+<div class="foot">CT Signal · ct-signal.vercel.app · github.com/alexvnesta/ct-signal · ←/→ to navigate</div>
+
+<script>
+const s=[...document.querySelectorAll(".slide")];let i=0;
+const show=n=>{s[i].classList.remove("active");i=(n+s.length)%s.length;s[i].classList.add("active")};
+addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key===" ")show(i+1);
+  if(e.key==="ArrowLeft")show(i-1)});
+addEventListener("click",()=>show(i+1));
+</script></body></html>

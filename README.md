@@ -43,14 +43,15 @@ to-dos in `docs/plan-6h.md`.
 
 ## Vercel
 
-Static deploy: `vercel.json` + `.vercelignore` ship only the built UI
-(`index.html` + `feed.json` at the repo root, copied by `deploy.sh`).
+Git-integrated static deploy (Vercel auto-builds on push to `master`;
+`vercel.json` + `.vercelignore` keep the upload to just the built UI).
 
 ```bash
-npm i -g vercel && vercel login      # once
-./deploy.sh --once                   # one cycle + prod deploy
-./deploy.sh                          # event-day loop: cycle + deploy every 15 min
-./deploy.sh --pin                    # judge-proof: snapshot feed, then deploy
+./deploy.sh --once    # one cycle, commit root index.html+feed.json, push → auto-deploy
+./deploy.sh           # event-day loop: cycle + push every 15 min
+./deploy.sh --pin     # judge-proof: snapshot feed to fixtures/, push
 ```
 
-`.env` (all API keys) is git- and Vercel-ignored.
+Live at https://ct-signal.vercel.app. `.env` (all API keys) is git- and
+Vercel-ignored. Turn OFF Deployment Protection (project settings) so
+judges can view without a Vercel login.

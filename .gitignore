@@ -9,5 +9,3 @@ data/asked_log.json
 .venv/
 .vercel/
 .DS_Store
-/index.html
-/feed.json
