@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+import re
 import time
 
 import requests
@@ -27,7 +28,10 @@ def load_seeds(today: dt.date | None = None) -> list[dict]:
 
 def _keyword_hits(title: str, keywords: list[str]) -> list[str]:
     lowered = title.lower()
-    return [kw for kw in keywords if kw in lowered]
+    return [
+        kw for kw in keywords
+        if re.search(rf"\b{re.escape(kw)}\b", lowered)
+    ]
 
 
 def propose_from_catalog(

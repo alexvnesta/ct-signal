@@ -4,20 +4,22 @@
 <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 <style>
-body{font-family:system-ui;margin:2rem auto;max-width:880px;color:#222;padding:0 1rem}
+body{font-family:system-ui;margin:2rem auto;max-width:880px;color:#eef2f5;
+  background:#101418;padding:0 1rem}
 h1{margin-bottom:.2rem}
-.meta{color:#777;font-size:.85rem}
+a{color:#7fb4ff}
+.meta{color:#9fb0bf;font-size:.85rem}
 #board{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.8rem;
   margin:1.2rem 0 2rem}
-.tile{background:#101418;color:#eef2f5;border-radius:12px;padding:1rem 1.1rem}
+.tile{background:#1a2129;border:1px solid #2b3a48;border-radius:12px;padding:1rem 1.1rem;color:#eef2f5}
 .tname{color:#9fb0bf;font-size:.85rem}
 .val{font-size:1.9rem;font-weight:700;color:#8fd6a9;margin:.15rem 0}
 .chip{background:#243040;border-radius:99px;padding:.1rem .6rem;font-size:.75rem;color:#cfdcea}
-article{border:1px solid #ddd;border-radius:8px;padding:1rem;margin:1rem 0}
+article{background:#151c24;border:1px solid #2b3a48;border-radius:8px;padding:1rem;margin:1rem 0}
 .answer{font-size:1.15rem;font-weight:600;margin:.4rem 0}
-details{margin-top:.5rem;font-size:.85rem;color:#444}
-code{background:#f4f4f4;padding:0 .25rem}
-.badge{background:#eee;border-radius:4px;padding:0 .35rem;font-size:.75rem}
+details{margin-top:.5rem;font-size:.85rem;color:#9fb0bf}
+code{background:#243040;color:#cfdcea;padding:0 .25rem;border-radius:4px}
+.badge{background:#243040;color:#cfdcea;border-radius:4px;padding:0 .35rem;font-size:.75rem}
 </style></head><body>
 <h1>CT Signal</h1>
 <p class="meta">Questions generated from live news + civic calendar,

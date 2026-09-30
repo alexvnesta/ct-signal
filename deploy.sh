@@ -17,7 +17,7 @@ cycle() {
 deploy() {
   cp output/index.html output/feed.json output/board.json .
   cp us.json output/us.json
-  git add index.html feed.json board.json
+  git add -A index.html feed.json board.json shots slides.html
   if git diff --cached --quiet --exit-code -- index.html feed.json board.json; then
     echo "no card changes, nothing to push $(date +%H:%M:%S)"
     return

@@ -19,9 +19,12 @@
     padding:1rem 1.5rem;border:1px solid #2b3a48}
   .foot{position:fixed;bottom:2vh;left:8vw;color:#69788a;font-size:1rem}
   .k{background:#243040;border-radius:6px;padding:0 .4em;font-family:ui-monospace,monospace}
-  .shot{background:#fff;border-radius:12px;box-shadow:0 6px 28px #0008;margin-top:1.4rem}
+  .shot{background:#151c24;border-radius:12px;box-shadow:0 6px 28px #0008;margin-top:1.4rem}
+  .panel{background:#151c24;border:1px solid #2b3a48;border-radius:12px;padding:.6rem;
+    align-self:center}
+  .panel img{width:100%;display:block;border-radius:8px}
   .shot img{width:100%;max-height:36vh;object-fit:contain;object-position:top;
-    border-radius:12px;display:block;background:#fff}
+    border-radius:12px;display:block;background:#151c24}
   .cap{color:#69788a;font-size:.95rem;margin:.35rem 0 0;text-align:center}
   .flow{display:flex;gap:.6rem;align-items:stretch;margin:1.2rem 0;flex-wrap:wrap}
   .step{background:#1a2129;border:1px solid #2b3a48;border-radius:12px;
@@ -66,38 +69,55 @@
     <div class="step hot"><b>HONEST CARD</b>headline → query →<br>number → citation</div>
   </div>
   <ul>
-    <li>The LLM <span class="accent">never writes a number</span> — its only job is
-        matching stories to 6 validated 52-state indicators + 3 verified CT tables.</li>
-    <li>Failure mode is a <b>missing card</b>, never a wrong one.</li>
+    <li><b>Why AI is integral:</b> news arrives as <i>language</i>; Data Commons
+        speaks <i>DCIDs</i>. Judging which story is a population-level story, and
+        which indicator answers it — <span class="accent">semantic intent and
+        relevance</span> — is exactly the step rules can't do.</li>
+    <li>But the LLM <span class="accent">never writes a number</span>: its judgment
+        picks the query; official APIs return the answer. Failure mode is a
+        <b>missing card</b>, never a wrong one.</li>
   </ul>
 </section>
 
 <section class="slide">
-  <h2>Live, from today's news <span style="font-size:1.2rem;color:#69788a">· ct-signal.vercel.app</span></h2>
-  <div class="shot"><img src="shots/board.png" alt="CT Pulse board — six indicator tiles"></div>
-  <p class="cap">The pulse board — six indicators, 52 states, refreshed every cycle — plus a crime card mid-demo with provenance open</p>
-  <div class="grid" style="margin-top:1rem;align-items:start">
-    <div class="shot"><img src="shots/card_map.png" alt="Violent crime card with 51-state choropleth and provenance drawer"></div>
-    <div>
-      <div class="card"><div class="num">$1,488 · #17/52</div>Median gross rent — from a rent-costs headline</div>
-      <div class="card" style="margin-top:.7rem"><div class="num">5.8% · #3/52</div>Unemployment, CT vs US monthly trend (Aug 2026)</div>
-      <div class="card" style="margin-top:.7rem"><div class="num">+59.9%</div>Bridgeport's taxable base — all 169 towns, revaluation year</div>
-    </div>
+  <h2>Anatomy — one national story, this morning</h2>
+  <div class="flow" style="margin:.8rem 0">
+    <div class="step hot" style="flex:1"><b>① THE TRIGGER</b>a real NYT crime story
+      enters the feed</div>
+    <div class="arr">→</div>
+    <div class="step hot" style="flex:1"><b>② THE SEMANTIC JUMP</b>AI decides it is a
+      public-safety question worth the national crime indicator</div>
+    <div class="arr">→</div>
+    <div class="step hot" style="flex:1"><b>③ THE RECEIPT</b>official data answers —
+      with the map and the exact query</div>
   </div>
+  <div style="display:grid;grid-template-columns:1.2fr 1fr 1.2fr;gap:.8rem">
+    <div class="panel"><img src="shots/case_headline.png"></div>
+    <div class="panel"><img src="shots/case_question.png"></div>
+    <div class="panel"><img src="shots/case_chart.png"></div>
+  </div>
+  <p class="cap">The gore happened nationally. CT ranks <b>3rd safest</b> — and that
+  calmer story only exists because the loop noticed the headline.</p>
 </section>
 
 <section class="slide">
   <h2>Impact — and receipts</h2>
-  <ul>
-    <li>Drops into CTData's <b>existing weekly newsletter</b>, homepage, or an SMS line;
-        multilingual and per-town are config changes, not rebuilds.</li>
-    <li>Every endpoint, DCID and dataset was <b>validated live</b> — including what failed:
-        BLS v1 is dead, portal search leaked other states' data, a "voter turnout" dataset
-        turned out to be a hyperlink. The log ships in the repo.</li>
-    <li>Next: SOTUS election CSVs (Nov 3), town digest emails, more datasets = more card
-        types — <span class="k">catalog/indicators.yaml</span> is the whole surface area.</li>
-  </ul>
-  <div class="sub" style="margin-top:1.5em">One headline in → one honest card out. Every day, forever.</div>
+  <div class="grid" style="align-items:center">
+    <div>
+      <ul>
+        <li>Drops straight into CTData's <b>weekly newsletter</b>, homepage, or an
+            SMS line — per-town and multilingual are config changes, not rebuilds.</li>
+        <li>Validated live, failures included: BLS v1 dead, portal search leaked
+            other states, a "voter turnout" dataset was a hyperlink.
+            <b>The log ships in the repo.</b></li>
+        <li>Next: SOTUS election CSVs (Nov 3), more datasets = more card types.
+            The whole surface area is one YAML file.</li>
+      </ul>
+      <div class="sub" style="margin-top:1.2em">One headline in → one honest card out.</div>
+    </div>
+    <div class="shot" style="margin-top:0"><img src="shots/newsletter_mock.png"
+      alt="CTData Weekly newsletter mockup built from CT Signal cards" style="max-height:62vh"></div>
+  </div>
 </section>
 
 <div class="foot">CT Signal · ct-signal.vercel.app · github.com/alexvnesta/ct-signal · ←/→ to navigate</div>

@@ -16,6 +16,19 @@ def _pin_schema(spec: dict) -> dict:
     return spec
 
 
+def _dark(chart):
+    return (
+        chart
+        .configure_axis(labelColor="#9fb0bf", titleColor="#9fb0bf",
+                        gridColor="#26313d", domainColor="#26313d",
+                        tickColor="#26313d")
+        .configure_legend(labelColor="#9fb0bf", titleColor="#9fb0bf",
+                          symbolStrokeWidth=0)
+        .configure_title(color="#eef2f5", subtitleColor="#9fb0bf")
+        .configure_view(strokeWidth=0)
+    )
+
+
 def _highlight_color() -> dict:
     return {
         "field": "highlight",
@@ -43,6 +56,7 @@ def rank_strip(rows: list[dict], *, title: str, unit: str = "") -> dict:
         .properties(width=420, height=max(140, 14 * len(rows)),
                     title=alt.TitleParams(text=title, subtitle="Connecticut highlighted"))
     )
+    chart = _dark(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 
 
@@ -66,6 +80,7 @@ def dot_strip(rows: list[dict], *, title: str = "") -> dict:
         .properties(width="container", height=46,
                     title=alt.TitleParams(text=title, fontSize=11, color="#69788a"))
     )
+    chart = _dark(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 
 
@@ -77,7 +92,7 @@ def state_map(rows: list[dict], *, title: str, unit: str = "") -> dict:
                              fields=["value", "rank"]),
     )
     base = (
-        joined.mark_geoshape(stroke="#101418", strokeWidth=0.4)
+        joined.mark_geoshape(stroke="#22303c", strokeWidth=0.4)
         .encode(
             color=alt.Color("value:Q")
             .title(f"{title}{f' ({unit})' if unit else ''}")
@@ -101,6 +116,7 @@ def state_map(rows: list[dict], *, title: str, unit: str = "") -> dict:
         .project(type="albersUsa")
         .properties(width=460, height=280, title=alt.TitleParams(text=title))
     )
+    chart = _dark(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 
 
@@ -123,4 +139,5 @@ def trend(rows: list[dict], *, title: str, unit: str = "") -> dict:
         )
         .properties(width=420, height=200, title=alt.TitleParams(text=title))
     )
+    chart = _dark(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
