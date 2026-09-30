@@ -15,9 +15,10 @@ cycle() {
 }
 
 deploy() {
-  cp output/index.html output/feed.json .
-  git add index.html feed.json
-  if git diff --cached --quiet --exit-code -- index.html feed.json; then
+  cp output/index.html output/feed.json output/board.json .
+  cp us.json output/us.json
+  git add index.html feed.json board.json
+  if git diff --cached --quiet --exit-code -- index.html feed.json board.json; then
     echo "no card changes, nothing to push $(date +%H:%M:%S)"
     return
   fi
@@ -32,6 +33,7 @@ case "${1:-loop}" in
     ;;
   --pin)
     cp output/feed.json fixtures/last_feed.json
+    [ -f output/us.json ] || cp us.json output/us.json
     git add fixtures/last_feed.json
     git commit -q -m "pin feed snapshot $(date +%H:%M)" && git push -q
     echo "feed pinned + pushed ($(date +%H:%M:%S))"

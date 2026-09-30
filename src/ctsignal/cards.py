@@ -10,11 +10,14 @@ def _now() -> str:
     return dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
 
 
-def _display(indicator: dict, value: float) -> str:
+def display(indicator: dict, value: float) -> str:
     prefix = indicator.get("prefix", "")
     suffix = indicator.get("suffix", "")
     precision = ".1f" if indicator.get("unit") == "percent" else ",.0f"
     return f"{prefix}{value:{precision}}{suffix}"
+
+
+_display = display
 
 
 def _card_id(indicator_id: str, question: str) -> str:
@@ -53,6 +56,10 @@ def from_stackup(indicator: dict, proposal: dict, result: dict,
         "answer_values": result["ct"],
         "chart_kind": kind,
         "chart": spec,
+        "chart2": (charts.state_map(result["rows"],
+                                    title=indicator["title"],
+                                    unit=indicator.get("unit", ""))
+                   if kind == "rank_strip" else None),
         "citations": [
             f"https://datacommons.org/data/commons/{indicator['dcid']}",
         ],

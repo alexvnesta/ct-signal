@@ -5,8 +5,31 @@ import datetime as dt
 import json
 import time
 
-from . import cards, config, feeds, questions
+from . import cards, charts, config, feeds, questions
 from .sources import datacommons, socrata
+
+
+def build_board(catalog: dict) -> dict:
+    tiles = []
+    for indicator in catalog.get("stackup", []):
+        fixture = config.FIXTURES_DIR / f"dc_{indicator['id']}.json"
+        try:
+            result = datacommons.stackup(indicator, fixture=fixture)
+        except Exception:
+            result = None
+        if not result:
+            continue
+        tiles.append({
+            "id": indicator["id"],
+            "title": indicator["title"],
+            "topic": indicator["topic"],
+            "value": cards.display(indicator, result["ct"]["value"]),
+            "rank": result["ct"]["rank"],
+            "n": result["n"],
+            "date": result["ct"]["date"],
+            "strip": charts.dot_strip(result["rows"], title="rank across states"),
+        })
+    return {"tiles": tiles}
 
 
 def _now() -> str:
@@ -132,7 +155,7 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
     ordered = sorted(cards_by_id.values(), key=lambda c: c["generated_at"], reverse=True)
     from . import publish
 
-    publish.publish(ordered)
+    publish.publish(ordered, build_board(catalog))
     print(f"  feed: {len(ordered)} cards (+{added} new)")
     return added
 
