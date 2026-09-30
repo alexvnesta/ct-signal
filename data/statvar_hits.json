@@ -1,0 +1,56 @@
+{
+ "rent": [
+  "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsuranceRealEstateRentalLeasing_RealValue",
+  "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue",
+  "Count_Establishment_FederalGovernmentOwnedEstablishment_NAICSRealEstateRentalLeasing",
+  "Count_Establishment_LocalGovernmentOwnedEstablishment_NAICSRealEstateRentalLeasing",
+  "Count_Establishment_NAICSRealEstateRentalLeasing",
+  "Count_Establishment_NAICSRealEstateRentalLeasing_WithPayroll",
+  "Count_Establishment_PrivatelyOwnedEstablishment_NAICSRealEstateRentalLeasing",
+  "Count_Household_FamilyHousehold_RenterOccupied"
+ ],
+ "income": [
+  "Count_Household_FamilyHousehold_IncomeOf100000To149999InflationAdjustedUSDCurrentYear",
+  "Count_Household_FamilyHousehold_IncomeOf10000OrLessInflationAdjustedUSDCurrentYear",
+  "Count_Household_FamilyHousehold_IncomeOf10000To14999InflationAdjustedUSDCurrentYear",
+  "Count_Household_FamilyHousehold_IncomeOf150000To199999InflationAdjustedUSDCurrentYear",
+  "Count_Household_FamilyHousehold_IncomeOf15000To24999InflationAdjustedUSDCurrentYear",
+  "Count_Household_FamilyHousehold_IncomeOf200000OrMoreInflationAdjustedUSDCurrentYear",
+  "Count_Household_FamilyHousehold_IncomeOf25000To34999InflationAdjustedUSDCurrentYear",
+  "Count_Household_FamilyHousehold_IncomeOf35000To49999InflationAdjustedUSDCurrentYear"
+ ],
+ "unemploy": [
+  "Count_Person_16OrMoreYears_Unemployed_InLaborForce_NoHealthInsurance",
+  "Count_Person_18OrMoreYears_Civilian_Unemployed_InLaborForce_NonInstitutionalized",
+  "Count_Person_18OrMoreYears_Unemployed_InLaborForce_NoHealthInsurance",
+  "Count_Person_18OrMoreYears_Unemployed_InLaborForce_WithHealthInsurance",
+  "Count_Person_19To64Years_Civilian_Unemployed_InLaborForce_NonInstitutionalized",
+  "Count_Person_19To64Years_Unemployed_InLaborForce_NoHealthInsurance",
+  "Count_Person_19To64Years_Unemployed_InLaborForce_WithHealthInsurance",
+  "Count_Person_Civilian_Unemployed"
+ ],
+ "poverty": [
+  "Count_Household_0.5OrLessRatioToPovertyLine_FamilyHousehold",
+  "Count_Household_1.25OrLessRatioToPovertyLine_FamilyHousehold",
+  "Count_Household_1.5OrLessRatioToPovertyLine_FamilyHousehold",
+  "Count_Household_1.85OrLessRatioToPovertyLine_FamilyHousehold",
+  "Count_Household_2OrLessRatioToPovertyLine_FamilyHousehold",
+  "Count_Household_3OrLessRatioToPovertyLine_FamilyHousehold",
+  "Count_Household_4OrLessRatioToPovertyLine_FamilyHousehold",
+  "Count_Household_5OrLessRatioToPovertyLine_FamilyHousehold"
+ ],
+ "crime": [
+  "Count_CriminalActivities_ViolentCrime"
+ ],
+ "naep": [
+  "Percent_NAEP_CumulativeAtAdvanced_In_Count_Student_AsianAlone_SchoolGrade12_Reading",
+  "Percent_NAEP_CumulativeAtAdvanced_In_Count_Student_AsianAlone_SchoolGrade4_Mathematics",
+  "Percent_NAEP_CumulativeAtAdvanced_In_Count_Student_AsianAlone_SchoolGrade4_Reading",
+  "Percent_NAEP_CumulativeAtAdvanced_In_Count_Student_AsianAlone_SchoolGrade4_Science",
+  "Percent_NAEP_CumulativeAtAdvanced_In_Count_Student_AsianAlone_SchoolGrade8_Mathematics",
+  "Percent_NAEP_CumulativeAtAdvanced_In_Count_Student_AsianAlone_SchoolGrade8_Reading",
+  "Percent_NAEP_CumulativeAtAdvanced_In_Count_Student_AsianAlone_SchoolGrade8_Science",
+  "Percent_NAEP_CumulativeAtAdvanced_In_Count_Student_BlackOrAfricanAmericanAlone_SchoolGrade12_Reading"
+ ],
+ "home_value": []
+}

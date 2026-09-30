@@ -1,0 +1,14 @@
+{
+  "latest_year": 2025,
+  "prior_year": 2024,
+  "rows": [
+    {"town": "Woodstock", "latest": 1107808420, "prior": 1075412000},
+    {"town": "Stamford", "latest": 42126300000, "prior": 40887500000},
+    {"town": "Greenwich", "latest": 54418900000, "prior": 52997100000},
+    {"town": "New Haven", "latest": 19774400000, "prior": 18778200000},
+    {"town": "Hartford", "latest": 15399600000, "prior": 14831100000},
+    {"town": "Brookfield", "latest": 7530800000, "prior": 7119400000},
+    {"town": "Old Saybrook", "latest": 6800100000, "prior": 6653200000},
+    {"town": "Danielson", "latest": 2609400000, "prior": 2585000000}
+  ]
+}

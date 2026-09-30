@@ -1,0 +1,13 @@
+.env
+.env.example
+.venv/
+src/
+docs/
+catalog/
+data/
+fixtures/
+requirements.txt
+validate.py
+run.py
+.gitignore
+.git

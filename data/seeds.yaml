@@ -1,0 +1,18 @@
+seeds:
+  - date: 2026-10-30
+    days_window: 14
+    stream: stackup
+    indicator: unemployment
+    reason: October jobs report cycle
+
+  - date: 2026-10-14
+    days_window: 21
+    stream: stackup
+    indicator: poverty
+    reason: Fall safety-net and benefits enrollment coverage
+
+  - date: 2026-11-03
+    days_window: 45
+    stream: local
+    question: How does Connecticut's voter turnout in gubernatorial years compare with recent presidential years?
+    reason: 2026 general election (governor's race)

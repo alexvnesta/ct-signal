@@ -1,0 +1,105 @@
+stackup:
+  - id: median_rent
+    topic: housing
+    title: Median gross rent
+    dcid: Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied
+    unit: USD
+    prefix: "$"
+    keywords: [rent, renter, landlord, eviction, shelter, housing costs]
+    question: How expensive is renting in Connecticut compared to the rest of America?
+    answer: "Connecticut's median gross rent was ${value} in {date}, ranking #{rank} of {n} states."
+    validated: "live 2026-09-30"
+
+  - id: unemployment
+    topic: economy
+    title: Unemployment rate
+    dcid: UnemploymentRate_Person
+    trend: true
+    unit: percent
+    suffix: "%"
+    keywords: [unemployment, jobs report, layoffs, hiring, jobless]
+    question: Is Connecticut's job market doing better or worse than the rest of the country?
+    answer: "Connecticut's unemployment rate is {value} ({date}), ranking #{rank} of {n} states."
+    validated: "live 2026-09-30"
+
+  - id: median_home_value
+    topic: housing
+    title: Median home value
+    dcid: Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied
+    unit: USD
+    prefix: "$"
+    keywords: [home prices, homevalues, housing market, homebuyers, affordability]
+    question: Are Connecticut homes expensive by national standards?
+    answer: "The median Connecticut home is worth ${value} ({date}), ranking #{rank} of {n} states."
+    validated: "live 2026-09-30"
+
+  - id: household_income
+    topic: economy
+    title: Median household income
+    dcid: Median_Income_Household
+    unit: USD
+    prefix: "$"
+    keywords: [wages, income, pay raise, cost of living, poverty line]
+    question: What do Connecticut households earn compared with the rest of the country?
+    answer: "Connecticut's median household income is ${value} ({date}), ranking #{rank} of {n} states."
+    validated: "live 2026-09-30"
+
+  - id: poverty
+    topic: equity
+    title: Share below poverty line
+    dcid: Count_Person_BelowPovertyLevelInThePast12Months
+    denominator: Count_Person
+    per: 100
+    unit: percent
+    suffix: "%"
+    keywords: [poverty, safety net, SNAP, food insecurity, hardship]
+    question: How many Connecticut residents live below the poverty line compared with other states?
+    answer: "{value} of Connecticut residents live below the poverty line ({date}), ranking #{rank} of {n} states."
+    validated: "live 2026-09-30"
+
+  - id: violent_crime
+    topic: justice
+    title: Violent crime per 100k
+    dcid: Count_CriminalActivities_ViolentCrime
+    denominator: Count_Person
+    per: 100000
+    unit: per 100k
+    keywords: [crime, homicide, violent crime, public safety, shooting]
+    question: How safe is Connecticut compared with the rest of the country?
+    answer: "Connecticut reports {value} violent crimes per 100k people, ranking #{rank} of {n} states."
+    validated: "live 2026-09-30"
+
+local:
+  - id: grand_list_growth
+    topic: local-finance
+    socrata_id: webp-fgt3
+    question: Which Connecticut towns grew their property tax base fastest?
+    keywords: [budget, mill rate, property tax, town meeting, assessment, grand list]
+    answer: "{top_town} added ${added} of net taxable property in {latest_year} (+{pct}%), the fastest of {n} towns."
+    validated: "row-verified 2026-09-30"
+
+  - id: equalized_grand_list
+    topic: local-finance
+    socrata_id: 8rr8-a322
+    answerer: town_metric_growth
+    columns:
+      socrata_id: 8rr8-a322
+      year: grand_list_year
+      town: town_name
+      value: total_net_assessment
+    question: Which Connecticut towns saw the fastest growth in equalized property assessments?
+    chart_label: Equalized assessment growth
+    keywords: [property tax, assessment, reassessment, revaluation]
+    answer: "{top_town} posted the fastest equalized assessment growth in {latest_year} (+{pct}%), adding ${added} of the {n} towns measured."
+    validated: "row-verified 2026-09-30"
+
+  - id: municipal_fiscal
+    topic: local-finance
+    socrata_id: xgef-f6jp
+    keywords: [municipal finance, town budget]
+    validated: "row-verified 2026-09-30"
+
+removed:
+  - "naep_reading: no plain all-student average-scale-score statvar in DC as of 2026-09-30
+    (only demographic slices + CumulativeAtAdvanced); education stack-up to come from CT
+    Socrata school report-card datasets on event day."

@@ -1,0 +1,81 @@
+{
+ "byVariable": {
+  "UnemploymentRate_Person": {
+   "byEntity": {
+    "geoId/32": {
+     "observations": [
+      {
+       "date": "2026-08",
+       "value": 5.8
+      }
+     ]
+    },
+    "geoId/09": {
+     "observations": [
+      {
+       "date": "2026-08",
+       "value": 5.1
+      }
+     ]
+    },
+    "geoId/06": {
+     "observations": [
+      {
+       "date": "2026-08",
+       "value": 5.0
+      }
+     ]
+    },
+    "geoId/53": {
+     "observations": [
+      {
+       "date": "2026-08",
+       "value": 4.9
+      }
+     ]
+    },
+    "geoId/48": {
+     "observations": [
+      {
+       "date": "2026-08",
+       "value": 4.2
+      }
+     ]
+    },
+    "geoId/39": {
+     "observations": [
+      {
+       "date": "2026-08",
+       "value": 4.0
+      }
+     ]
+    },
+    "geoId/38": {
+     "observations": [
+      {
+       "date": "2026-08",
+       "value": 3.1
+      }
+     ]
+    },
+    "geoId/49": {
+     "observations": [
+      {
+       "date": "2026-08",
+       "value": 3.0
+      }
+     ]
+    },
+    "geoId/33": {
+     "observations": [
+      {
+       "date": "2026-08",
+       "value": 2.7
+      }
+     ]
+    }
+   }
+  }
+ },
+ "names": {}
+}

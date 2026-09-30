@@ -1,0 +1,89 @@
+{
+ "byVariable": {
+  "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied": {
+   "byEntity": {
+    "geoId/15": {
+     "observations": [
+      {
+       "date": "2023",
+       "value": 1960
+      }
+     ]
+    },
+    "geoId/34": {
+     "observations": [
+      {
+       "date": "2023",
+       "value": 1767
+      }
+     ]
+    },
+    "geoId/06": {
+     "observations": [
+      {
+       "date": "2023",
+       "value": 1734
+      }
+     ]
+    },
+    "geoId/25": {
+     "observations": [
+      {
+       "date": "2023",
+       "value": 1708
+      }
+     ]
+    },
+    "geoId/24": {
+     "observations": [
+      {
+       "date": "2023",
+       "value": 1660
+      }
+     ]
+    },
+    "geoId/09": {
+     "observations": [
+      {
+       "date": "2023",
+       "value": 1588
+      }
+     ]
+    },
+    "geoId/36": {
+     "observations": [
+      {
+       "date": "2023",
+       "value": 1540
+      }
+     ]
+    },
+    "geoId/53": {
+     "observations": [
+      {
+       "date": "2023",
+       "value": 1508
+      }
+     ]
+    },
+    "geoId/12": {
+     "observations": [
+      {
+       "date": "2023",
+       "value": 1432
+      }
+     ]
+    },
+    "geoId/48": {
+     "observations": [
+      {
+       "date": "2023",
+       "value": 1254
+      }
+     ]
+    }
+   }
+  }
+ },
+ "names": {}
+}

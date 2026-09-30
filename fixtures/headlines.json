@@ -1,0 +1,26 @@
+[
+  {
+    "id": "fixrent01",
+    "title": "Renters battered by record shelter costs, national report finds",
+    "url": "https://www.nytimes.com/section/us",
+    "source": "NYT U.S. (fixture)",
+    "published": "2026-09-30",
+    "stream": "national"
+  },
+  {
+    "id": "fixjobs01",
+    "title": "Job growth cools as unemployment edges up in several states",
+    "url": "https://www.pbs.org/newshour",
+    "source": "PBS NewsHour (fixture)",
+    "published": "2026-09-30",
+    "stream": "national"
+  },
+  {
+    "id": "fixctgl01",
+    "title": "Mill-rate fights loom as town grand lists stall in some suburbs",
+    "url": "https://ctmirror.org",
+    "source": "CT Mirror (fixture)",
+    "published": "2026-09-30",
+    "stream": "ct"
+  }
+]
