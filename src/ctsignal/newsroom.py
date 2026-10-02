@@ -129,7 +129,7 @@ automated data desk</div>
 <details class="embed"><summary>Embed this story</summary>
 <p class="meta">Free to embed with attribution — the embed stays updated as
 the underlying data refreshes.</p>
-<textarea readonly rows="2" onclick="this.select()">&lt;iframe src="https://ctsignal.org/story/{card["id"]}/embed" width="100%" height="540" style="border:0;border-radius:10px" loading="lazy" title="{_ESC(card["question"])}"&gt;&lt;/iframe&gt;</textarea>
+<textarea id="embed-snippet" name="embed-snippet" aria-label="Embed code for this story" readonly rows="2" onclick="this.select()">&lt;iframe src="https://ctsignal.org/story/{card["id"]}/embed" width="100%" height="540" style="border:0;border-radius:10px" loading="lazy" title="{_ESC(card["question"])}"&gt;&lt;/iframe&gt;</textarea>
 </details>
 <p class="meta">Found an error? Corrections are public, annotated, and diffable —
 see <a href="/corrections">the corrections policy</a>.</p>
