@@ -29,6 +29,10 @@ jobs:
       - name: install
         run: pip install -r requirements.txt
 
+      - name: story OG covers
+        continue-on-error: true   # missing covers degrade to the generic og-cover
+        run: python scripts/make_story_covers.py
+
       - name: run one cycle
         continue-on-error: true   # a failed cycle just re-publishes the last feed
         run: python run.py --once
