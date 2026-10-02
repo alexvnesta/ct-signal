@@ -119,6 +119,7 @@ section{padding:1.6rem 0}
 .chip{align-self:flex-start;background:var(--panel2);color:#cfdcea;border-radius:99px;
   padding:.1rem .65rem;font-size:.74rem}
 
+.sub a,.meta a{text-decoration:underline}
 .klink{color:inherit;text-decoration:none;border-bottom:1px dotted currentColor}
 .klink:hover{border-bottom-style:solid}
 .skip{position:absolute;left:-9999px;top:0;z-index:20;background:var(--acc);color:#10161d;padding:8px 14px;border-radius:0 0 10px 0;font-weight:700}
