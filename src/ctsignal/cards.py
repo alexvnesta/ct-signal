@@ -24,6 +24,16 @@ def _card_id(indicator_id: str, question: str) -> str:
     return hashlib.sha1(f"{indicator_id}:{question}".encode()).hexdigest()[:12]
 
 
+def _ordinal(n: int) -> str:
+    """3 -> '3rd'. Used so low-is-better indicators phrase honestly:
+    '3rd safest', not '#50 of 52'. Deterministic — no LLM in the sentence."""
+    if 10 <= n % 100 <= 20:
+        sfx = "th"
+    else:
+        sfx = {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    return f"{n}{sfx}"
+
+
 def from_stackup(indicator: dict, proposal: dict, result: dict,
                  trend_rows: list[dict] | None = None) -> dict:
     question = proposal.get("question_override") or indicator["question"]
@@ -33,6 +43,8 @@ def from_stackup(indicator: dict, proposal: dict, result: dict,
         date=result["ct"]["date"][:4],
         rank=result["ct"]["rank"],
         n=result["n"],
+        rank_word=_ordinal(result["ct"]["rank"]),
+        low_word=_ordinal(result["n"] - result["ct"]["rank"] + 1),
     )
     if trend_rows:
         spec = charts.trend(

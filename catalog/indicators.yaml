@@ -54,7 +54,7 @@ stackup:
     suffix: "%"
     keywords: [poverty, safety net, SNAP, food insecurity, hardship]
     question: How many Connecticut residents live below the poverty line compared with other states?
-    answer: "{value} of Connecticut residents live below the poverty line ({date}), ranking #{rank} of {n} states."
+    answer: "{value} of Connecticut residents live below the poverty line ({date}) — the {low_word} lowest poverty rate among the {n} states."
     validated: "live 2026-09-30"
 
   - id: violent_crime
@@ -66,7 +66,7 @@ stackup:
     unit: per 100k
     keywords: [crime, homicide, violent crime, public safety, shooting]
     question: How safe is Connecticut compared with the rest of the country?
-    answer: "Connecticut reports {value} violent crimes per 100k people, ranking #{rank} of {n} states."
+    answer: "Connecticut reports {value} violent crimes per 100k people ({date}) — the {low_word} safest of the {n} states."
     validated: "live 2026-09-30"
 
 local:

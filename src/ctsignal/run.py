@@ -44,7 +44,11 @@ def _load_json(path, default):
 
 
 def _asked_key(card: dict) -> str:
-    return f"{card['indicator']}:{card['question'][:80]}"
+    # Key on the DATA date so a new vintage (ACS year roll, monthly BLS print)
+    # refreshes the card, while re-proposals of the same vintage stay silent.
+    vals = card.get("answer_values") or {}
+    when = vals.get("date") or ""
+    return f"{card['indicator']}:{card['question'][:80]}:{when}"
 
 
 def answer_proposals(proposals: list[dict], catalog: dict, demo: bool) -> list[dict]:
@@ -143,12 +147,15 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
     added = 0
     for card in new_cards:
         key = _asked_key(card)
-        if key in asked or card["id"] in cards_by_id:
+        if key in asked:
             continue
         asked[key] = card["generated_at"]
+        if card["id"] not in cards_by_id:
+            added += 1
+            print(f"  + card [{card['stream']}/{card['topic']}] {card['answer_text'][:90]}")
+        else:
+            print(f"  ~ refreshed [{card['stream']}/{card['topic']}] {card['answer_text'][:90]}")
         cards_by_id[card["id"]] = card
-        added += 1
-        print(f"  + card [{card['stream']}/{card['topic']}] {card['answer_text'][:90]}")
 
     config.ASKED_LOG_PATH.parent.mkdir(exist_ok=True)
     config.ASKED_LOG_PATH.write_text(json.dumps(asked, indent=2, sort_keys=True))
