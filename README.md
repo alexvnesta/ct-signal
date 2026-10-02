@@ -1,11 +1,23 @@
 # CT Signal
 
-News → question → real query → card. A continual loop that makes
-CTData.org conversational in reverse: it asks Connecticut the questions its
-news cycle is already asking, and answers them only with fetched numbers.
+**Live → [ct-signal.vercel.app](https://ct-signal.vercel.app)** · Deck → [/slides](https://ct-signal.vercel.app/slides) · Hack for Humanity · Challenge 4: CTData.org, Made Conversational
+
+News happens → CT data answers. A continual loop that makes CTData.org
+conversational **in reverse**: it asks Connecticut the questions its news
+cycle is already asking, and answers them only with fetched numbers.
+
+- **The AI decides relevance, nothing else.** News arrives as language;
+  Data Commons speaks DCIDs — summarizing intent and picking the query is
+  the model's whole job. It never writes a number.
+- **Every figure is fetched.** Each card's provenance drawer names the
+  dataset, variable, data date, and the literal query that produced it.
+- **Closed-set by design.** The model picks only from a curated catalog
+  (`catalog/indicators.yaml`); an unmatched story produces no card, and
+  cache fills are labeled `cache`. Degrades, never wrong.
 
 - `docs/proposal.md` — problem, solution, rubric mapping, pitch
 - `docs/use_cases.md` — six cards, each traced to a live test
+- `docs/judge-qa.md` — adversarial Q&A drill, by judge, with tiebreaker doctrine
 - `docs/data_sources.md` — validation log (incl. failures: BLS v1 dead,
   data.ct.gov search is network-wide, DC needs a free key)
 - `docs/architecture.md` / `docs/plan-6h.md`
