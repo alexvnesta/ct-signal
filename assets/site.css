@@ -20,7 +20,7 @@ a:hover{text-decoration:underline;text-underline-offset:3px}
 /* in-content links carry a non-color cue (WCAG 1.4.1); brand + nav opt out */
 .meta a, .breadcrumb a, .provenance a, .footgrid a, .how a, .card a
 {text-decoration:underline;text-underline-offset:3px;
-  text-decoration-color:#7fb4ff80}
+  text-decoration-color:inherit}
 ::selection{background:#f2a65a44}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:3px}
 .skip{position:absolute;left:-9999px}

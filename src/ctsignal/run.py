@@ -158,6 +158,15 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
         else:
             print(f"  ~ refreshed [{card['stream']}/{card['topic']}] {card['answer_text'][:90]}")
         cards_by_id[card["id"]] = card
+        # one card per indicator: if the question text was reworded, the
+        # regenerated card has a new id — drop the stale sibling so the
+        # board never shows the same indicator twice (the superseded story
+        # page stays committed on disk as audit trail).
+        for oid, oc in list(cards_by_id.items()):
+            if (oid != card["id"] and oc.get("indicator") == card.get("indicator")
+                    and oc.get("stream") == card.get("stream")):
+                del cards_by_id[oid]
+                print(f"  - superseded [{card['stream']}/{card['topic']}] {oid}")
 
     config.ASKED_LOG_PATH.parent.mkdir(exist_ok=True)
     config.ASKED_LOG_PATH.write_text(json.dumps(asked, indent=2, sort_keys=True))

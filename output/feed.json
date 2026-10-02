@@ -1,6 +1,1100 @@
 {
   "cards": [
     {
+      "answer_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest of 169 towns.",
+      "answer_values": {
+        "date": "2025",
+        "n": 169,
+        "top": {
+          "added": 4852857051.0,
+          "latest": 12953550811.0,
+          "pct": 59.906684473898686,
+          "prior": 8100693760.0,
+          "town": "Bridgeport"
+        }
+      },
+      "cache": false,
+      "chart": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
+        "config": {
+          "axis": {
+            "domainColor": "#26313d",
+            "gridColor": "#26313d",
+            "labelColor": "#9fb0bf",
+            "tickColor": "#26313d",
+            "titleColor": "#9fb0bf"
+          },
+          "legend": {
+            "labelColor": "#9fb0bf",
+            "symbolStrokeWidth": 0,
+            "titleColor": "#9fb0bf"
+          },
+          "title": {
+            "color": "#eef2f5",
+            "subtitleColor": "#9fb0bf"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
+          }
+        },
+        "data": {
+          "values": [
+            {
+              "highlight": true,
+              "rank": 1,
+              "state": "Bridgeport",
+              "value": 59.91
+            },
+            {
+              "highlight": false,
+              "rank": 2,
+              "state": "Fairfield",
+              "value": 51.25
+            },
+            {
+              "highlight": false,
+              "rank": 3,
+              "state": "Westport",
+              "value": 50.51
+            },
+            {
+              "highlight": false,
+              "rank": 4,
+              "state": "Ellington",
+              "value": 46.7
+            },
+            {
+              "highlight": false,
+              "rank": 5,
+              "state": "Clinton",
+              "value": 46.56
+            },
+            {
+              "highlight": false,
+              "rank": 6,
+              "state": "Durham",
+              "value": 45.99
+            },
+            {
+              "highlight": false,
+              "rank": 7,
+              "state": "Stafford",
+              "value": 45.78
+            },
+            {
+              "highlight": false,
+              "rank": 8,
+              "state": "North Stonington",
+              "value": 44.95
+            },
+            {
+              "highlight": false,
+              "rank": 9,
+              "state": "Southington",
+              "value": 44.73
+            },
+            {
+              "highlight": false,
+              "rank": 10,
+              "state": "Deep River",
+              "value": 43.48
+            }
+          ]
+        },
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#f2a65a",
+                "#9aa5b1"
+              ]
+            },
+            "type": "nominal"
+          },
+          "tooltip": [
+            {
+              "field": "state",
+              "title": "Town",
+              "type": "nominal"
+            },
+            {
+              "field": "value",
+              "title": "Net grand list growth, 2025 (top 10 towns)",
+              "type": "quantitative"
+            },
+            {
+              "field": "rank",
+              "title": "Rank",
+              "type": "quantitative"
+            }
+          ],
+          "x": {
+            "field": "value",
+            "title": "Net grand list growth, 2025 (top 10 towns) (% change)",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "Deep River",
+              "Southington",
+              "North Stonington",
+              "Stafford",
+              "Durham",
+              "Clinton",
+              "Ellington",
+              "Westport",
+              "Fairfield",
+              "Bridgeport"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
+        },
+        "height": 140,
+        "mark": {
+          "tooltip": false,
+          "type": "bar"
+        },
+        "title": {
+          "subtitle": "Connecticut highlighted",
+          "text": "Net grand list growth, 2025 (top 10 towns)"
+        },
+        "width": 420
+      },
+      "chart_kind": "rank_strip",
+      "citations": [
+        "https://data.ct.gov/d/webp-fgt3"
+      ],
+      "generated_at": "2026-10-02T04:23:22+00:00",
+      "headline": {
+        "id": "seed-2026-11-03",
+        "published": "2026-11-03",
+        "published_sort": 0,
+        "source": "civic calendar",
+        "title": "[civic calendar] 2026 general election (governor's race)",
+        "url": ""
+      },
+      "id": "b37766e764aa",
+      "indicator": "grand_list_growth",
+      "query": "GET /resource/webp-fgt3.json $order=year DESC (169 places, last 2 years)",
+      "question": "Which Connecticut towns grew their property tax base fastest?",
+      "stream": "local",
+      "topic": "local-finance"
+    },
+    {
+      "answer_text": "9.6% of Connecticut residents live below the poverty line (2024) \u2014 the 10th-lowest poverty rate among the 52 peers (50 states, DC and Puerto Rico).",
+      "answer_values": {
+        "date": "2024",
+        "rank": 43,
+        "value": 9.59
+      },
+      "cache": false,
+      "chart": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
+        "config": {
+          "axis": {
+            "domainColor": "#26313d",
+            "gridColor": "#26313d",
+            "labelColor": "#9fb0bf",
+            "tickColor": "#26313d",
+            "titleColor": "#9fb0bf"
+          },
+          "legend": {
+            "labelColor": "#9fb0bf",
+            "symbolStrokeWidth": 0,
+            "titleColor": "#9fb0bf"
+          },
+          "title": {
+            "color": "#eef2f5",
+            "subtitleColor": "#9fb0bf"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
+          }
+        },
+        "data": {
+          "values": [
+            {
+              "highlight": false,
+              "rank": 1,
+              "state": "Puerto Rico",
+              "value": 40.8
+            },
+            {
+              "highlight": false,
+              "rank": 2,
+              "state": "Louisiana",
+              "value": 18.38
+            },
+            {
+              "highlight": false,
+              "rank": 3,
+              "state": "Mississippi",
+              "value": 18.24
+            },
+            {
+              "highlight": false,
+              "rank": 4,
+              "state": "New Mexico",
+              "value": 17.45
+            },
+            {
+              "highlight": false,
+              "rank": 5,
+              "state": "West Virginia",
+              "value": 16.3
+            },
+            {
+              "highlight": false,
+              "rank": 6,
+              "state": "Kentucky",
+              "value": 15.38
+            },
+            {
+              "highlight": false,
+              "rank": 7,
+              "state": "Arkansas",
+              "value": 15.21
+            },
+            {
+              "highlight": false,
+              "rank": 8,
+              "state": "Alabama",
+              "value": 14.87
+            },
+            {
+              "highlight": false,
+              "rank": 9,
+              "state": "District of Columbia",
+              "value": 14.56
+            },
+            {
+              "highlight": false,
+              "rank": 10,
+              "state": "Oklahoma",
+              "value": 14.53
+            },
+            {
+              "highlight": false,
+              "rank": 11,
+              "state": "New York",
+              "value": 13.56
+            },
+            {
+              "highlight": false,
+              "rank": 12,
+              "state": "South Carolina",
+              "value": 13.03
+            },
+            {
+              "highlight": false,
+              "rank": 13,
+              "state": "Tennessee",
+              "value": 12.99
+            },
+            {
+              "highlight": false,
+              "rank": 14,
+              "state": "Michigan",
+              "value": 12.87
+            },
+            {
+              "highlight": false,
+              "rank": 15,
+              "state": "Ohio",
+              "value": 12.85
+            },
+            {
+              "highlight": false,
+              "rank": 16,
+              "state": "Texas",
+              "value": 12.85
+            },
+            {
+              "highlight": false,
+              "rank": 17,
+              "state": "Georgia",
+              "value": 12.65
+            },
+            {
+              "highlight": false,
+              "rank": 18,
+              "state": "North Carolina",
+              "value": 12.15
+            },
+            {
+              "highlight": false,
+              "rank": 19,
+              "state": "Missouri",
+              "value": 12.08
+            },
+            {
+              "highlight": false,
+              "rank": 20,
+              "state": "Nevada",
+              "value": 11.9
+            },
+            {
+              "highlight": false,
+              "rank": 21,
+              "state": "Arizona",
+              "value": 11.82
+            },
+            {
+              "highlight": false,
+              "rank": 22,
+              "state": "Indiana",
+              "value": 11.78
+            },
+            {
+              "highlight": false,
+              "rank": 23,
+              "state": "California",
+              "value": 11.77
+            },
+            {
+              "highlight": false,
+              "rank": 24,
+              "state": "Florida",
+              "value": 11.76
+            },
+            {
+              "highlight": false,
+              "rank": 25,
+              "state": "Oregon",
+              "value": 11.66
+            },
+            {
+              "highlight": false,
+              "rank": 26,
+              "state": "Illinois",
+              "value": 11.52
+            },
+            {
+              "highlight": false,
+              "rank": 27,
+              "state": "Pennsylvania",
+              "value": 11.3
+            },
+            {
+              "highlight": false,
+              "rank": 28,
+              "state": "South Dakota",
+              "value": 11.21
+            },
+            {
+              "highlight": false,
+              "rank": 29,
+              "state": "Montana",
+              "value": 10.98
+            },
+            {
+              "highlight": false,
+              "rank": 30,
+              "state": "Kansas",
+              "value": 10.84
+            },
+            {
+              "highlight": false,
+              "rank": 31,
+              "state": "Iowa",
+              "value": 10.64
+            },
+            {
+              "highlight": false,
+              "rank": 32,
+              "state": "Rhode Island",
+              "value": 10.62
+            },
+            {
+              "highlight": false,
+              "rank": 33,
+              "state": "North Dakota",
+              "value": 10.24
+            },
+            {
+              "highlight": false,
+              "rank": 34,
+              "state": "Maine",
+              "value": 10.24
+            },
+            {
+              "highlight": false,
+              "rank": 35,
+              "state": "Wisconsin",
+              "value": 10.21
+            },
+            {
+              "highlight": false,
+              "rank": 36,
+              "state": "Wyoming",
+              "value": 10.18
+            },
+            {
+              "highlight": false,
+              "rank": 37,
+              "state": "Nebraska",
+              "value": 10.14
+            },
+            {
+              "highlight": false,
+              "rank": 38,
+              "state": "Alaska",
+              "value": 9.87
+            },
+            {
+              "highlight": false,
+              "rank": 39,
+              "state": "Hawaii",
+              "value": 9.87
+            },
+            {
+              "highlight": false,
+              "rank": 40,
+              "state": "Idaho",
+              "value": 9.83
+            },
+            {
+              "highlight": false,
+              "rank": 41,
+              "state": "Delaware",
+              "value": 9.79
+            },
+            {
+              "highlight": false,
+              "rank": 42,
+              "state": "Vermont",
+              "value": 9.73
+            },
+            {
+              "highlight": true,
+              "rank": 43,
+              "state": "Connecticut",
+              "value": 9.59
+            },
+            {
+              "highlight": false,
+              "rank": 44,
+              "state": "Massachusetts",
+              "value": 9.57
+            },
+            {
+              "highlight": false,
+              "rank": 45,
+              "state": "Washington",
+              "value": 9.51
+            },
+            {
+              "highlight": false,
+              "rank": 46,
+              "state": "Virginia",
+              "value": 9.43
+            },
+            {
+              "highlight": false,
+              "rank": 47,
+              "state": "New Jersey",
+              "value": 9.34
+            },
+            {
+              "highlight": false,
+              "rank": 48,
+              "state": "Maryland",
+              "value": 9.16
+            },
+            {
+              "highlight": false,
+              "rank": 49,
+              "state": "Colorado",
+              "value": 9.02
+            },
+            {
+              "highlight": false,
+              "rank": 50,
+              "state": "Minnesota",
+              "value": 8.96
+            },
+            {
+              "highlight": false,
+              "rank": 51,
+              "state": "Utah",
+              "value": 8.02
+            },
+            {
+              "highlight": false,
+              "rank": 52,
+              "state": "New Hampshire",
+              "value": 6.94
+            }
+          ]
+        },
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#f2a65a",
+                "#9aa5b1"
+              ]
+            },
+            "type": "nominal"
+          },
+          "tooltip": [
+            {
+              "field": "state",
+              "title": "Peer",
+              "type": "nominal"
+            },
+            {
+              "field": "value",
+              "title": "Share below poverty line",
+              "type": "quantitative"
+            },
+            {
+              "field": "rank",
+              "title": "Rank",
+              "type": "quantitative"
+            }
+          ],
+          "x": {
+            "field": "value",
+            "title": "Share below poverty line (percent)",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "New Hampshire",
+              "Utah",
+              "Minnesota",
+              "Colorado",
+              "Maryland",
+              "New Jersey",
+              "Virginia",
+              "Washington",
+              "Massachusetts",
+              "Connecticut",
+              "Vermont",
+              "Delaware",
+              "Idaho",
+              "Hawaii",
+              "Alaska",
+              "Nebraska",
+              "Wyoming",
+              "Wisconsin",
+              "Maine",
+              "North Dakota",
+              "Rhode Island",
+              "Iowa",
+              "Kansas",
+              "Montana",
+              "South Dakota",
+              "Pennsylvania",
+              "Illinois",
+              "Oregon",
+              "Florida",
+              "California",
+              "Indiana",
+              "Arizona",
+              "Nevada",
+              "Missouri",
+              "North Carolina",
+              "Georgia",
+              "Texas",
+              "Ohio",
+              "Michigan",
+              "Tennessee",
+              "South Carolina",
+              "New York",
+              "Oklahoma",
+              "District of Columbia",
+              "Alabama",
+              "Arkansas",
+              "Kentucky",
+              "West Virginia",
+              "New Mexico",
+              "Mississippi",
+              "Louisiana",
+              "Puerto Rico"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
+        },
+        "height": 728,
+        "mark": {
+          "tooltip": false,
+          "type": "bar"
+        },
+        "title": {
+          "subtitle": "Connecticut highlighted",
+          "text": "Share below poverty line"
+        },
+        "width": 420
+      },
+      "chart2": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
+        "config": {
+          "axis": {
+            "domainColor": "#26313d",
+            "gridColor": "#26313d",
+            "labelColor": "#9fb0bf",
+            "tickColor": "#26313d",
+            "titleColor": "#9fb0bf"
+          },
+          "legend": {
+            "labelColor": "#9fb0bf",
+            "symbolStrokeWidth": 0,
+            "titleColor": "#9fb0bf"
+          },
+          "title": {
+            "color": "#eef2f5",
+            "subtitleColor": "#9fb0bf"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
+          }
+        },
+        "data": {
+          "format": {
+            "feature": "states",
+            "type": "topojson"
+          },
+          "url": "us.json"
+        },
+        "height": 280,
+        "layer": [
+          {
+            "encoding": {
+              "color": {
+                "field": "value",
+                "legend": {
+                  "direction": "horizontal",
+                  "gradientLength": 180,
+                  "orient": "bottom"
+                },
+                "title": "Share below poverty line (percent)",
+                "type": "quantitative"
+              },
+              "tooltip": [
+                {
+                  "field": "properties.name",
+                  "title": "Peer",
+                  "type": "nominal"
+                },
+                {
+                  "field": "value",
+                  "title": "Share below poverty line",
+                  "type": "quantitative"
+                },
+                {
+                  "field": "rank",
+                  "title": "Rank",
+                  "type": "quantitative"
+                }
+              ]
+            },
+            "mark": {
+              "stroke": "#22303c",
+              "strokeWidth": 0.4,
+              "type": "geoshape"
+            },
+            "transform": [
+              {
+                "from": {
+                  "data": {
+                    "values": [
+                      {
+                        "highlight": false,
+                        "rank": 1,
+                        "state": "Puerto Rico",
+                        "value": 40.8
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 2,
+                        "state": "Louisiana",
+                        "value": 18.38
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 3,
+                        "state": "Mississippi",
+                        "value": 18.24
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 4,
+                        "state": "New Mexico",
+                        "value": 17.45
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 5,
+                        "state": "West Virginia",
+                        "value": 16.3
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 6,
+                        "state": "Kentucky",
+                        "value": 15.38
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 7,
+                        "state": "Arkansas",
+                        "value": 15.21
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 8,
+                        "state": "Alabama",
+                        "value": 14.87
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 9,
+                        "state": "District of Columbia",
+                        "value": 14.56
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 10,
+                        "state": "Oklahoma",
+                        "value": 14.53
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 11,
+                        "state": "New York",
+                        "value": 13.56
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 12,
+                        "state": "South Carolina",
+                        "value": 13.03
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 13,
+                        "state": "Tennessee",
+                        "value": 12.99
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 14,
+                        "state": "Michigan",
+                        "value": 12.87
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 15,
+                        "state": "Ohio",
+                        "value": 12.85
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 16,
+                        "state": "Texas",
+                        "value": 12.85
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 17,
+                        "state": "Georgia",
+                        "value": 12.65
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 18,
+                        "state": "North Carolina",
+                        "value": 12.15
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 19,
+                        "state": "Missouri",
+                        "value": 12.08
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 20,
+                        "state": "Nevada",
+                        "value": 11.9
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 21,
+                        "state": "Arizona",
+                        "value": 11.82
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 22,
+                        "state": "Indiana",
+                        "value": 11.78
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 23,
+                        "state": "California",
+                        "value": 11.77
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 24,
+                        "state": "Florida",
+                        "value": 11.76
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 25,
+                        "state": "Oregon",
+                        "value": 11.66
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 26,
+                        "state": "Illinois",
+                        "value": 11.52
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 27,
+                        "state": "Pennsylvania",
+                        "value": 11.3
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 28,
+                        "state": "South Dakota",
+                        "value": 11.21
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 29,
+                        "state": "Montana",
+                        "value": 10.98
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 30,
+                        "state": "Kansas",
+                        "value": 10.84
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 31,
+                        "state": "Iowa",
+                        "value": 10.64
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 32,
+                        "state": "Rhode Island",
+                        "value": 10.62
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 33,
+                        "state": "North Dakota",
+                        "value": 10.24
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 34,
+                        "state": "Maine",
+                        "value": 10.24
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 35,
+                        "state": "Wisconsin",
+                        "value": 10.21
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 36,
+                        "state": "Wyoming",
+                        "value": 10.18
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 37,
+                        "state": "Nebraska",
+                        "value": 10.14
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 38,
+                        "state": "Alaska",
+                        "value": 9.87
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 39,
+                        "state": "Hawaii",
+                        "value": 9.87
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 40,
+                        "state": "Idaho",
+                        "value": 9.83
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 41,
+                        "state": "Delaware",
+                        "value": 9.79
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 42,
+                        "state": "Vermont",
+                        "value": 9.73
+                      },
+                      {
+                        "highlight": true,
+                        "rank": 43,
+                        "state": "Connecticut",
+                        "value": 9.59
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 44,
+                        "state": "Massachusetts",
+                        "value": 9.57
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 45,
+                        "state": "Washington",
+                        "value": 9.51
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 46,
+                        "state": "Virginia",
+                        "value": 9.43
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 47,
+                        "state": "New Jersey",
+                        "value": 9.34
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 48,
+                        "state": "Maryland",
+                        "value": 9.16
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 49,
+                        "state": "Colorado",
+                        "value": 9.02
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 50,
+                        "state": "Minnesota",
+                        "value": 8.96
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 51,
+                        "state": "Utah",
+                        "value": 8.02
+                      },
+                      {
+                        "highlight": false,
+                        "rank": 52,
+                        "state": "New Hampshire",
+                        "value": 6.94
+                      }
+                    ]
+                  },
+                  "fields": [
+                    "value",
+                    "rank"
+                  ],
+                  "key": "state"
+                },
+                "lookup": "properties.name"
+              }
+            ]
+          },
+          {
+            "mark": {
+              "fill": null,
+              "stroke": "#f2a65a",
+              "strokeWidth": 2,
+              "type": "geoshape"
+            },
+            "transform": [
+              {
+                "filter": {
+                  "equal": "Connecticut",
+                  "field": "properties.name"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": {
+          "type": "albersUsa"
+        },
+        "title": {
+          "text": "Share below poverty line"
+        },
+        "width": 460
+      },
+      "chart_kind": "rank_strip",
+      "citations": [
+        "https://datacommons.org/data/commons/Count_Person_BelowPovertyLevelInThePast12Months"
+      ],
+      "generated_at": "2026-10-02T04:23:22+00:00",
+      "headline": {
+        "id": "seed-2026-10-14",
+        "published": "2026-10-14",
+        "published_sort": 0,
+        "source": "civic calendar",
+        "title": "[civic calendar] Fall safety-net and benefits enrollment coverage",
+        "url": ""
+      },
+      "id": "797faed5a836",
+      "indicator": "poverty",
+      "query": "DC v2 observations variable=Count_Person_BelowPovertyLevelInThePast12Months parent=country/USA type=State",
+      "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
+      "stream": "stackup",
+      "topic": "equity"
+    },
+    {
       "answer_text": "Connecticut reports 147 violent crimes per 100k people (2023) \u2014 the 3rd-safest of the 52 peers (50 states, DC and Puerto Rico).",
       "answer_values": {
         "date": "2023",
@@ -1493,1097 +2587,6 @@
       "topic": "economy"
     },
     {
-      "answer_text": "9.6% of Connecticut residents live below the poverty line (2024) \u2014 the 10th-lowest poverty rate among the 52 peers (50 states, DC and Puerto Rico).",
-      "answer_values": {
-        "date": "2024",
-        "rank": 43,
-        "value": 9.59
-      },
-      "cache": false,
-      "chart": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "config": {
-          "axis": {
-            "domainColor": "#26313d",
-            "gridColor": "#26313d",
-            "labelColor": "#9fb0bf",
-            "tickColor": "#26313d",
-            "titleColor": "#9fb0bf"
-          },
-          "legend": {
-            "labelColor": "#9fb0bf",
-            "symbolStrokeWidth": 0,
-            "titleColor": "#9fb0bf"
-          },
-          "title": {
-            "color": "#eef2f5",
-            "subtitleColor": "#9fb0bf"
-          },
-          "view": {
-            "continuousHeight": 300,
-            "continuousWidth": 300,
-            "strokeWidth": 0
-          }
-        },
-        "data": {
-          "values": [
-            {
-              "highlight": false,
-              "rank": 1,
-              "state": "Puerto Rico",
-              "value": 40.8
-            },
-            {
-              "highlight": false,
-              "rank": 2,
-              "state": "Louisiana",
-              "value": 18.38
-            },
-            {
-              "highlight": false,
-              "rank": 3,
-              "state": "Mississippi",
-              "value": 18.24
-            },
-            {
-              "highlight": false,
-              "rank": 4,
-              "state": "New Mexico",
-              "value": 17.45
-            },
-            {
-              "highlight": false,
-              "rank": 5,
-              "state": "West Virginia",
-              "value": 16.3
-            },
-            {
-              "highlight": false,
-              "rank": 6,
-              "state": "Kentucky",
-              "value": 15.38
-            },
-            {
-              "highlight": false,
-              "rank": 7,
-              "state": "Arkansas",
-              "value": 15.21
-            },
-            {
-              "highlight": false,
-              "rank": 8,
-              "state": "Alabama",
-              "value": 14.87
-            },
-            {
-              "highlight": false,
-              "rank": 9,
-              "state": "District of Columbia",
-              "value": 14.56
-            },
-            {
-              "highlight": false,
-              "rank": 10,
-              "state": "Oklahoma",
-              "value": 14.53
-            },
-            {
-              "highlight": false,
-              "rank": 11,
-              "state": "New York",
-              "value": 13.56
-            },
-            {
-              "highlight": false,
-              "rank": 12,
-              "state": "South Carolina",
-              "value": 13.03
-            },
-            {
-              "highlight": false,
-              "rank": 13,
-              "state": "Tennessee",
-              "value": 12.99
-            },
-            {
-              "highlight": false,
-              "rank": 14,
-              "state": "Michigan",
-              "value": 12.87
-            },
-            {
-              "highlight": false,
-              "rank": 15,
-              "state": "Ohio",
-              "value": 12.85
-            },
-            {
-              "highlight": false,
-              "rank": 16,
-              "state": "Texas",
-              "value": 12.85
-            },
-            {
-              "highlight": false,
-              "rank": 17,
-              "state": "Georgia",
-              "value": 12.65
-            },
-            {
-              "highlight": false,
-              "rank": 18,
-              "state": "North Carolina",
-              "value": 12.15
-            },
-            {
-              "highlight": false,
-              "rank": 19,
-              "state": "Missouri",
-              "value": 12.08
-            },
-            {
-              "highlight": false,
-              "rank": 20,
-              "state": "Nevada",
-              "value": 11.9
-            },
-            {
-              "highlight": false,
-              "rank": 21,
-              "state": "Arizona",
-              "value": 11.82
-            },
-            {
-              "highlight": false,
-              "rank": 22,
-              "state": "Indiana",
-              "value": 11.78
-            },
-            {
-              "highlight": false,
-              "rank": 23,
-              "state": "California",
-              "value": 11.77
-            },
-            {
-              "highlight": false,
-              "rank": 24,
-              "state": "Florida",
-              "value": 11.76
-            },
-            {
-              "highlight": false,
-              "rank": 25,
-              "state": "Oregon",
-              "value": 11.66
-            },
-            {
-              "highlight": false,
-              "rank": 26,
-              "state": "Illinois",
-              "value": 11.52
-            },
-            {
-              "highlight": false,
-              "rank": 27,
-              "state": "Pennsylvania",
-              "value": 11.3
-            },
-            {
-              "highlight": false,
-              "rank": 28,
-              "state": "South Dakota",
-              "value": 11.21
-            },
-            {
-              "highlight": false,
-              "rank": 29,
-              "state": "Montana",
-              "value": 10.98
-            },
-            {
-              "highlight": false,
-              "rank": 30,
-              "state": "Kansas",
-              "value": 10.84
-            },
-            {
-              "highlight": false,
-              "rank": 31,
-              "state": "Iowa",
-              "value": 10.64
-            },
-            {
-              "highlight": false,
-              "rank": 32,
-              "state": "Rhode Island",
-              "value": 10.62
-            },
-            {
-              "highlight": false,
-              "rank": 33,
-              "state": "North Dakota",
-              "value": 10.24
-            },
-            {
-              "highlight": false,
-              "rank": 34,
-              "state": "Maine",
-              "value": 10.24
-            },
-            {
-              "highlight": false,
-              "rank": 35,
-              "state": "Wisconsin",
-              "value": 10.21
-            },
-            {
-              "highlight": false,
-              "rank": 36,
-              "state": "Wyoming",
-              "value": 10.18
-            },
-            {
-              "highlight": false,
-              "rank": 37,
-              "state": "Nebraska",
-              "value": 10.14
-            },
-            {
-              "highlight": false,
-              "rank": 38,
-              "state": "Alaska",
-              "value": 9.87
-            },
-            {
-              "highlight": false,
-              "rank": 39,
-              "state": "Hawaii",
-              "value": 9.87
-            },
-            {
-              "highlight": false,
-              "rank": 40,
-              "state": "Idaho",
-              "value": 9.83
-            },
-            {
-              "highlight": false,
-              "rank": 41,
-              "state": "Delaware",
-              "value": 9.79
-            },
-            {
-              "highlight": false,
-              "rank": 42,
-              "state": "Vermont",
-              "value": 9.73
-            },
-            {
-              "highlight": true,
-              "rank": 43,
-              "state": "Connecticut",
-              "value": 9.59
-            },
-            {
-              "highlight": false,
-              "rank": 44,
-              "state": "Massachusetts",
-              "value": 9.57
-            },
-            {
-              "highlight": false,
-              "rank": 45,
-              "state": "Washington",
-              "value": 9.51
-            },
-            {
-              "highlight": false,
-              "rank": 46,
-              "state": "Virginia",
-              "value": 9.43
-            },
-            {
-              "highlight": false,
-              "rank": 47,
-              "state": "New Jersey",
-              "value": 9.34
-            },
-            {
-              "highlight": false,
-              "rank": 48,
-              "state": "Maryland",
-              "value": 9.16
-            },
-            {
-              "highlight": false,
-              "rank": 49,
-              "state": "Colorado",
-              "value": 9.02
-            },
-            {
-              "highlight": false,
-              "rank": 50,
-              "state": "Minnesota",
-              "value": 8.96
-            },
-            {
-              "highlight": false,
-              "rank": 51,
-              "state": "Utah",
-              "value": 8.02
-            },
-            {
-              "highlight": false,
-              "rank": 52,
-              "state": "New Hampshire",
-              "value": 6.94
-            }
-          ]
-        },
-        "encoding": {
-          "color": {
-            "field": "highlight",
-            "legend": null,
-            "scale": {
-              "domain": [
-                true,
-                false
-              ],
-              "range": [
-                "#f2a65a",
-                "#9aa5b1"
-              ]
-            },
-            "type": "nominal"
-          },
-          "tooltip": [
-            {
-              "field": "state",
-              "title": "Peer",
-              "type": "nominal"
-            },
-            {
-              "field": "value",
-              "title": "Share below poverty line",
-              "type": "quantitative"
-            },
-            {
-              "field": "rank",
-              "title": "Rank",
-              "type": "quantitative"
-            }
-          ],
-          "x": {
-            "field": "value",
-            "title": "Share below poverty line (percent)",
-            "type": "quantitative"
-          },
-          "y": {
-            "field": "state",
-            "sort": [
-              "New Hampshire",
-              "Utah",
-              "Minnesota",
-              "Colorado",
-              "Maryland",
-              "New Jersey",
-              "Virginia",
-              "Washington",
-              "Massachusetts",
-              "Connecticut",
-              "Vermont",
-              "Delaware",
-              "Idaho",
-              "Hawaii",
-              "Alaska",
-              "Nebraska",
-              "Wyoming",
-              "Wisconsin",
-              "Maine",
-              "North Dakota",
-              "Rhode Island",
-              "Iowa",
-              "Kansas",
-              "Montana",
-              "South Dakota",
-              "Pennsylvania",
-              "Illinois",
-              "Oregon",
-              "Florida",
-              "California",
-              "Indiana",
-              "Arizona",
-              "Nevada",
-              "Missouri",
-              "North Carolina",
-              "Georgia",
-              "Texas",
-              "Ohio",
-              "Michigan",
-              "Tennessee",
-              "South Carolina",
-              "New York",
-              "Oklahoma",
-              "District of Columbia",
-              "Alabama",
-              "Arkansas",
-              "Kentucky",
-              "West Virginia",
-              "New Mexico",
-              "Mississippi",
-              "Louisiana",
-              "Puerto Rico"
-            ],
-            "title": null,
-            "type": "nominal"
-          }
-        },
-        "height": 728,
-        "mark": {
-          "tooltip": false,
-          "type": "bar"
-        },
-        "title": {
-          "subtitle": "Connecticut highlighted",
-          "text": "Share below poverty line"
-        },
-        "width": 420
-      },
-      "chart2": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "config": {
-          "axis": {
-            "domainColor": "#26313d",
-            "gridColor": "#26313d",
-            "labelColor": "#9fb0bf",
-            "tickColor": "#26313d",
-            "titleColor": "#9fb0bf"
-          },
-          "legend": {
-            "labelColor": "#9fb0bf",
-            "symbolStrokeWidth": 0,
-            "titleColor": "#9fb0bf"
-          },
-          "title": {
-            "color": "#eef2f5",
-            "subtitleColor": "#9fb0bf"
-          },
-          "view": {
-            "continuousHeight": 300,
-            "continuousWidth": 300,
-            "strokeWidth": 0
-          }
-        },
-        "data": {
-          "format": {
-            "feature": "states",
-            "type": "topojson"
-          },
-          "url": "us.json"
-        },
-        "height": 280,
-        "layer": [
-          {
-            "encoding": {
-              "color": {
-                "field": "value",
-                "legend": {
-                  "direction": "horizontal",
-                  "gradientLength": 180,
-                  "orient": "bottom"
-                },
-                "title": "Share below poverty line (percent)",
-                "type": "quantitative"
-              },
-              "tooltip": [
-                {
-                  "field": "properties.name",
-                  "title": "Peer",
-                  "type": "nominal"
-                },
-                {
-                  "field": "value",
-                  "title": "Share below poverty line",
-                  "type": "quantitative"
-                },
-                {
-                  "field": "rank",
-                  "title": "Rank",
-                  "type": "quantitative"
-                }
-              ]
-            },
-            "mark": {
-              "stroke": "#22303c",
-              "strokeWidth": 0.4,
-              "type": "geoshape"
-            },
-            "transform": [
-              {
-                "from": {
-                  "data": {
-                    "values": [
-                      {
-                        "highlight": false,
-                        "rank": 1,
-                        "state": "Puerto Rico",
-                        "value": 40.8
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 2,
-                        "state": "Louisiana",
-                        "value": 18.38
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 3,
-                        "state": "Mississippi",
-                        "value": 18.24
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 4,
-                        "state": "New Mexico",
-                        "value": 17.45
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 5,
-                        "state": "West Virginia",
-                        "value": 16.3
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 6,
-                        "state": "Kentucky",
-                        "value": 15.38
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 7,
-                        "state": "Arkansas",
-                        "value": 15.21
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 8,
-                        "state": "Alabama",
-                        "value": 14.87
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 9,
-                        "state": "District of Columbia",
-                        "value": 14.56
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 10,
-                        "state": "Oklahoma",
-                        "value": 14.53
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 11,
-                        "state": "New York",
-                        "value": 13.56
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 12,
-                        "state": "South Carolina",
-                        "value": 13.03
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 13,
-                        "state": "Tennessee",
-                        "value": 12.99
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 14,
-                        "state": "Michigan",
-                        "value": 12.87
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 15,
-                        "state": "Ohio",
-                        "value": 12.85
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 16,
-                        "state": "Texas",
-                        "value": 12.85
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 17,
-                        "state": "Georgia",
-                        "value": 12.65
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 18,
-                        "state": "North Carolina",
-                        "value": 12.15
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 19,
-                        "state": "Missouri",
-                        "value": 12.08
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 20,
-                        "state": "Nevada",
-                        "value": 11.9
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 21,
-                        "state": "Arizona",
-                        "value": 11.82
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 22,
-                        "state": "Indiana",
-                        "value": 11.78
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 23,
-                        "state": "California",
-                        "value": 11.77
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 24,
-                        "state": "Florida",
-                        "value": 11.76
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 25,
-                        "state": "Oregon",
-                        "value": 11.66
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 26,
-                        "state": "Illinois",
-                        "value": 11.52
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 27,
-                        "state": "Pennsylvania",
-                        "value": 11.3
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 28,
-                        "state": "South Dakota",
-                        "value": 11.21
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 29,
-                        "state": "Montana",
-                        "value": 10.98
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 30,
-                        "state": "Kansas",
-                        "value": 10.84
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 31,
-                        "state": "Iowa",
-                        "value": 10.64
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 32,
-                        "state": "Rhode Island",
-                        "value": 10.62
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 33,
-                        "state": "North Dakota",
-                        "value": 10.24
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 34,
-                        "state": "Maine",
-                        "value": 10.24
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 35,
-                        "state": "Wisconsin",
-                        "value": 10.21
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 36,
-                        "state": "Wyoming",
-                        "value": 10.18
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 37,
-                        "state": "Nebraska",
-                        "value": 10.14
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 38,
-                        "state": "Alaska",
-                        "value": 9.87
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 39,
-                        "state": "Hawaii",
-                        "value": 9.87
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 40,
-                        "state": "Idaho",
-                        "value": 9.83
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 41,
-                        "state": "Delaware",
-                        "value": 9.79
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 42,
-                        "state": "Vermont",
-                        "value": 9.73
-                      },
-                      {
-                        "highlight": true,
-                        "rank": 43,
-                        "state": "Connecticut",
-                        "value": 9.59
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 44,
-                        "state": "Massachusetts",
-                        "value": 9.57
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 45,
-                        "state": "Washington",
-                        "value": 9.51
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 46,
-                        "state": "Virginia",
-                        "value": 9.43
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 47,
-                        "state": "New Jersey",
-                        "value": 9.34
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 48,
-                        "state": "Maryland",
-                        "value": 9.16
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 49,
-                        "state": "Colorado",
-                        "value": 9.02
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 50,
-                        "state": "Minnesota",
-                        "value": 8.96
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 51,
-                        "state": "Utah",
-                        "value": 8.02
-                      },
-                      {
-                        "highlight": false,
-                        "rank": 52,
-                        "state": "New Hampshire",
-                        "value": 6.94
-                      }
-                    ]
-                  },
-                  "fields": [
-                    "value",
-                    "rank"
-                  ],
-                  "key": "state"
-                },
-                "lookup": "properties.name"
-              }
-            ]
-          },
-          {
-            "mark": {
-              "fill": null,
-              "stroke": "#f2a65a",
-              "strokeWidth": 2,
-              "type": "geoshape"
-            },
-            "transform": [
-              {
-                "filter": {
-                  "equal": "Connecticut",
-                  "field": "properties.name"
-                }
-              }
-            ]
-          }
-        ],
-        "projection": {
-          "type": "albersUsa"
-        },
-        "title": {
-          "text": "Share below poverty line"
-        },
-        "width": 460
-      },
-      "chart_kind": "rank_strip",
-      "citations": [
-        "https://datacommons.org/data/commons/Count_Person_BelowPovertyLevelInThePast12Months"
-      ],
-      "generated_at": "2026-10-02T01:38:41+00:00",
-      "headline": {
-        "id": "seed-2026-10-14",
-        "published": "2026-10-14",
-        "published_sort": 0,
-        "source": "civic calendar",
-        "title": "[civic calendar] Fall safety-net and benefits enrollment coverage",
-        "url": ""
-      },
-      "id": "a9f3ddd2243a",
-      "indicator": "poverty",
-      "query": "DC v2 observations variable=Count_Person_BelowPovertyLevelInThePast12Months parent=country/USA type=State",
-      "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "stream": "stackup",
-      "topic": "equity"
-    },
-    {
-      "answer_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest of 169 towns.",
-      "answer_values": {
-        "date": "2025",
-        "n": 169,
-        "top": {
-          "added": 4852857051.0,
-          "latest": 12953550811.0,
-          "pct": 59.906684473898686,
-          "prior": 8100693760.0,
-          "town": "Bridgeport"
-        }
-      },
-      "cache": false,
-      "chart": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "config": {
-          "axis": {
-            "domainColor": "#26313d",
-            "gridColor": "#26313d",
-            "labelColor": "#9fb0bf",
-            "tickColor": "#26313d",
-            "titleColor": "#9fb0bf"
-          },
-          "legend": {
-            "labelColor": "#9fb0bf",
-            "symbolStrokeWidth": 0,
-            "titleColor": "#9fb0bf"
-          },
-          "title": {
-            "color": "#eef2f5",
-            "subtitleColor": "#9fb0bf"
-          },
-          "view": {
-            "continuousHeight": 300,
-            "continuousWidth": 300,
-            "strokeWidth": 0
-          }
-        },
-        "data": {
-          "values": [
-            {
-              "highlight": true,
-              "rank": 1,
-              "state": "Bridgeport",
-              "value": 59.91
-            },
-            {
-              "highlight": false,
-              "rank": 2,
-              "state": "Fairfield",
-              "value": 51.25
-            },
-            {
-              "highlight": false,
-              "rank": 3,
-              "state": "Westport",
-              "value": 50.51
-            },
-            {
-              "highlight": false,
-              "rank": 4,
-              "state": "Ellington",
-              "value": 46.7
-            },
-            {
-              "highlight": false,
-              "rank": 5,
-              "state": "Clinton",
-              "value": 46.56
-            },
-            {
-              "highlight": false,
-              "rank": 6,
-              "state": "Durham",
-              "value": 45.99
-            },
-            {
-              "highlight": false,
-              "rank": 7,
-              "state": "Stafford",
-              "value": 45.78
-            },
-            {
-              "highlight": false,
-              "rank": 8,
-              "state": "North Stonington",
-              "value": 44.95
-            },
-            {
-              "highlight": false,
-              "rank": 9,
-              "state": "Southington",
-              "value": 44.73
-            },
-            {
-              "highlight": false,
-              "rank": 10,
-              "state": "Deep River",
-              "value": 43.48
-            }
-          ]
-        },
-        "encoding": {
-          "color": {
-            "field": "highlight",
-            "legend": null,
-            "scale": {
-              "domain": [
-                true,
-                false
-              ],
-              "range": [
-                "#f2a65a",
-                "#9aa5b1"
-              ]
-            },
-            "type": "nominal"
-          },
-          "tooltip": [
-            {
-              "field": "state",
-              "title": "Town",
-              "type": "nominal"
-            },
-            {
-              "field": "value",
-              "title": "Net grand list growth, 2025 (top 10 towns)",
-              "type": "quantitative"
-            },
-            {
-              "field": "rank",
-              "title": "Rank",
-              "type": "quantitative"
-            }
-          ],
-          "x": {
-            "field": "value",
-            "title": "Net grand list growth, 2025 (top 10 towns) (% change)",
-            "type": "quantitative"
-          },
-          "y": {
-            "field": "state",
-            "sort": [
-              "Deep River",
-              "Southington",
-              "North Stonington",
-              "Stafford",
-              "Durham",
-              "Clinton",
-              "Ellington",
-              "Westport",
-              "Fairfield",
-              "Bridgeport"
-            ],
-            "title": null,
-            "type": "nominal"
-          }
-        },
-        "height": 140,
-        "mark": {
-          "tooltip": false,
-          "type": "bar"
-        },
-        "title": {
-          "subtitle": "Connecticut highlighted",
-          "text": "Net grand list growth, 2025 (top 10 towns)"
-        },
-        "width": 420
-      },
-      "chart_kind": "rank_strip",
-      "citations": [
-        "https://data.ct.gov/d/webp-fgt3"
-      ],
-      "generated_at": "2026-10-02T01:38:41+00:00",
-      "headline": {
-        "id": "seed-2026-11-03",
-        "published": "2026-11-03",
-        "published_sort": 0,
-        "source": "civic calendar",
-        "title": "[civic calendar] 2026 general election (governor's race)",
-        "url": ""
-      },
-      "id": "b37766e764aa",
-      "indicator": "grand_list_growth",
-      "query": "GET /resource/webp-fgt3.json $order=year DESC (169 places, last 2 years)",
-      "question": "Which Connecticut towns grew their property tax base fastest?",
-      "stream": "local",
-      "topic": "local-finance"
-    },
-    {
       "answer_text": "Connecticut's median gross rent was $1,488 in 2024 \u2014 the 17th-highest among the 52 peers (50 states, DC and Puerto Rico).",
       "answer_values": {
         "date": "2024",
@@ -3485,5 +3488,5 @@
       "topic": "housing"
     }
   ],
-  "generated_at": "2026-10-02T01:39:13+00:00"
+  "generated_at": "2026-10-02T04:23:22+00:00"
 }

@@ -8,6 +8,7 @@
       "rank_label": "17th-highest",
       "strip": {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
           "axis": {
             "domainColor": "#26313d",
@@ -358,14 +359,14 @@
             {
               "highlight": false,
               "rank": 47,
-              "state": "Mississippi",
+              "state": "North Dakota",
               "value": 954.0,
               "y": 0
             },
             {
               "highlight": false,
               "rank": 48,
-              "state": "North Dakota",
+              "state": "Mississippi",
               "value": 954.0,
               "y": 0
             },
@@ -534,6 +535,7 @@
       "rank_label": "3rd-highest",
       "strip": {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
           "axis": {
             "domainColor": "#26313d",
@@ -632,14 +634,14 @@
             {
               "highlight": false,
               "rank": 11,
-              "state": "Delaware",
+              "state": "Texas",
               "value": 4.8,
               "y": 0
             },
             {
               "highlight": false,
               "rank": 12,
-              "state": "Texas",
+              "state": "Delaware",
               "value": 4.8,
               "y": 0
             },
@@ -653,35 +655,35 @@
             {
               "highlight": false,
               "rank": 14,
-              "state": "Minnesota",
-              "value": 4.6,
-              "y": 0
-            },
-            {
-              "highlight": false,
-              "rank": 15,
-              "state": "Florida",
-              "value": 4.6,
-              "y": 0
-            },
-            {
-              "highlight": false,
-              "rank": 16,
-              "state": "Illinois",
-              "value": 4.6,
-              "y": 0
-            },
-            {
-              "highlight": false,
-              "rank": 17,
               "state": "Oklahoma",
               "value": 4.6,
               "y": 0
             },
             {
               "highlight": false,
-              "rank": 18,
+              "rank": 15,
+              "state": "Illinois",
+              "value": 4.6,
+              "y": 0
+            },
+            {
+              "highlight": false,
+              "rank": 16,
               "state": "New Jersey",
+              "value": 4.6,
+              "y": 0
+            },
+            {
+              "highlight": false,
+              "rank": 17,
+              "state": "Florida",
+              "value": 4.6,
+              "y": 0
+            },
+            {
+              "highlight": false,
+              "rank": 18,
+              "state": "Minnesota",
               "value": 4.6,
               "y": 0
             },
@@ -709,35 +711,35 @@
             {
               "highlight": false,
               "rank": 22,
-              "state": "New York",
-              "value": 4.2,
-              "y": 0
-            },
-            {
-              "highlight": false,
-              "rank": 23,
-              "state": "Kansas",
-              "value": 4.2,
-              "y": 0
-            },
-            {
-              "highlight": false,
-              "rank": 24,
               "state": "Maryland",
               "value": 4.2,
               "y": 0
             },
             {
               "highlight": false,
+              "rank": 23,
+              "state": "New York",
+              "value": 4.2,
+              "y": 0
+            },
+            {
+              "highlight": false,
+              "rank": 24,
+              "state": "Kansas",
+              "value": 4.2,
+              "y": 0
+            },
+            {
+              "highlight": false,
               "rank": 25,
-              "state": "Colorado",
+              "state": "South Carolina",
               "value": 4.1,
               "y": 0
             },
             {
               "highlight": false,
               "rank": 26,
-              "state": "South Carolina",
+              "state": "Colorado",
               "value": 4.1,
               "y": 0
             },
@@ -800,7 +802,7 @@
             {
               "highlight": false,
               "rank": 35,
-              "state": "Utah",
+              "state": "Tennessee",
               "value": 3.6,
               "y": 0
             },
@@ -814,42 +816,42 @@
             {
               "highlight": false,
               "rank": 37,
-              "state": "Tennessee",
-              "value": 3.6,
-              "y": 0
-            },
-            {
-              "highlight": false,
-              "rank": 38,
               "state": "Indiana",
               "value": 3.6,
               "y": 0
             },
             {
               "highlight": false,
+              "rank": 38,
+              "state": "Utah",
+              "value": 3.6,
+              "y": 0
+            },
+            {
+              "highlight": false,
               "rank": 39,
-              "state": "Ohio",
+              "state": "Idaho",
               "value": 3.4,
               "y": 0
             },
             {
               "highlight": false,
               "rank": 40,
-              "state": "Iowa",
+              "state": "Ohio",
               "value": 3.4,
               "y": 0
             },
             {
               "highlight": false,
               "rank": 41,
-              "state": "Wisconsin",
+              "state": "Iowa",
               "value": 3.4,
               "y": 0
             },
             {
               "highlight": false,
               "rank": 42,
-              "state": "Idaho",
+              "state": "Wisconsin",
               "value": 3.4,
               "y": 0
             },
@@ -1060,6 +1062,7 @@
       "rank_label": "19th-highest",
       "strip": {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
           "axis": {
             "domainColor": "#26313d",
@@ -1586,6 +1589,7 @@
       "rank_label": "9th-highest",
       "strip": {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
           "axis": {
             "domainColor": "#26313d",
@@ -2112,6 +2116,7 @@
       "rank_label": "10th-lowest",
       "strip": {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
           "axis": {
             "domainColor": "#26313d",
@@ -2638,6 +2643,7 @@
       "rank_label": "3rd-safest",
       "strip": {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
           "axis": {
             "domainColor": "#26313d",

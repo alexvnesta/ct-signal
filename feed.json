@@ -7,6 +7,34 @@
   "favicon": "https://ctsignal.org/assets/favicon.svg",
   "items": [
     {
+      "id": "https://ctsignal.org/story/b37766e764aa",
+      "url": "https://ctsignal.org/story/b37766e764aa",
+      "title": "Which Connecticut towns grew their property tax base fastest?",
+      "content_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest of 169 towns.. Triggered by: [civic calendar] 2026 general election (governor's race)",
+      "date_published": "2026-10-02T04:23:22+00:00",
+      "_tags": [
+        "local-finance"
+      ],
+      "image": "https://ctsignal.org/assets/story-b37766e764aa.png",
+      "attachments": [
+        {
+          "url": "https://ctsignal.org/assets/story-b37766e764aa.png",
+          "mime_type": "image/png",
+          "size_in_bytes": 47106
+        }
+      ]
+    },
+    {
+      "id": "https://ctsignal.org/story/797faed5a836",
+      "url": "https://ctsignal.org/story/797faed5a836",
+      "title": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
+      "content_text": "9.6% of Connecticut residents live below the poverty line (2024) — the 10th-lowest poverty rate among the 52 peers (50 states, DC and Puerto Rico).. Triggered by: [civic calendar] Fall safety-net and benefits enrollment coverage",
+      "date_published": "2026-10-02T04:23:22+00:00",
+      "_tags": [
+        "equity"
+      ]
+    },
+    {
       "id": "https://ctsignal.org/story/ed851796295a",
       "url": "https://ctsignal.org/story/ed851796295a",
       "title": "How safe is Connecticut compared with the rest of the country?",
@@ -39,42 +67,6 @@
           "url": "https://ctsignal.org/assets/story-0b26178760d4.png",
           "mime_type": "image/png",
           "size_in_bytes": 54771
-        }
-      ]
-    },
-    {
-      "id": "https://ctsignal.org/story/a9f3ddd2243a",
-      "url": "https://ctsignal.org/story/a9f3ddd2243a",
-      "title": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "content_text": "9.6% of Connecticut residents live below the poverty line (2024) — the 10th-lowest poverty rate among the 52 peers (50 states, DC and Puerto Rico).. Triggered by: [civic calendar] Fall safety-net and benefits enrollment coverage",
-      "date_published": "2026-10-02T01:38:41+00:00",
-      "_tags": [
-        "equity"
-      ],
-      "image": "https://ctsignal.org/assets/story-a9f3ddd2243a.png",
-      "attachments": [
-        {
-          "url": "https://ctsignal.org/assets/story-a9f3ddd2243a.png",
-          "mime_type": "image/png",
-          "size_in_bytes": 60216
-        }
-      ]
-    },
-    {
-      "id": "https://ctsignal.org/story/b37766e764aa",
-      "url": "https://ctsignal.org/story/b37766e764aa",
-      "title": "Which Connecticut towns grew their property tax base fastest?",
-      "content_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest of 169 towns.. Triggered by: [civic calendar] 2026 general election (governor's race)",
-      "date_published": "2026-10-02T01:38:41+00:00",
-      "_tags": [
-        "local-finance"
-      ],
-      "image": "https://ctsignal.org/assets/story-b37766e764aa.png",
-      "attachments": [
-        {
-          "url": "https://ctsignal.org/assets/story-b37766e764aa.png",
-          "mime_type": "image/png",
-          "size_in_bytes": 47106
         }
       ]
     },
