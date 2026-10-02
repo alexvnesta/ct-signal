@@ -62,7 +62,7 @@ nav.sitebar a.rss{margin-left:auto;color:var(--acc)}
 .hero h1 a:hover{color:var(--acc);text-decoration:none}
 .lede{font-size:1.25rem;line-height:1.5;color:var(--ink);margin:0 0 1rem}
 .hero .meta, .meta{color:var(--dim);font-size:.85rem;line-height:1.55}
-.more{font-weight:700;font-size:.9rem}
+.more{font-weight:700;font-size:.9rem;display:inline-block;padding:10px 0;min-height:44px}
 .badge{background:var(--panel2);color:#cfdcea;border-radius:4px;
   padding:.05rem .4rem;font-size:.72rem;white-space:nowrap}
 
