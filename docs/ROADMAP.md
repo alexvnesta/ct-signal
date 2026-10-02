@@ -1,0 +1,63 @@
+# Roadmap — distribution & monetization plan
+
+Adopted 2026-10-02 after the review board signed off (see REVIEW_BOARD.md).
+Rule inherited from the board: **nothing ships that breaks the 100/100/100/100
+bar** — every phase below ends with the same verification loop we already
+have (Lighthouse mobile on home + a story, a11y spot-check, live byte
+verification after push).
+
+## Phase A — in-repo only, no accounts needed (execute first)
+
+| # | Item | What it is | Done when |
+|---|------|-----------|-----------|
+| A1 | Design craft pass | Self-host Newsreader/Source Serif 4 for story headlines (`font-display: swap` + `size-adjust`, CLS must stay 0); FT/Datawrapper-style chart upgrades: direct labels on trend endpoints, one annotation on the highlighted peer, cleaner axis units. Branch + before/after screenshots, pick together. | Chosen upgrades live, all Lighthouse categories still 100 |
+| A2 | Sponsor slot | One honest, designed-in slot under the board: default state = "Independent · automated · reader-supported", swaps to "Board brought to you by …". No ad networks, no layout shift. | Slot ships in "vacant" state |
+| A3 | Embed widget | `/story/<id>/embed` — chromeless answer + chart + attribution link; "Embed" button on stories reveals a copy-paste iframe snippet. Every embed = distribution + backlink. | Embed renders, snippet copies, attribution required |
+| A4 | Topic hub pages | `/topic/housing`, `/topic/jobs` etc., listing all stories per topic. Interlinking = the SEO long game; titles target "connecticut X vs national" queries. | Hubs live, in nav, in sitemap |
+| A5 | Weekly digest generator | `scripts/make_digest.py` renders one email HTML from feed.json + board.json (what changed on the board this week, top 3 stories, links). Output committed under `output/digest/`. Sending wired in Phase B. | Digest renders for the current week |
+
+## Phase B — one-time accounts (human: ~20 min each; agent wires the rest)
+
+| # | Account | Unlocks | Agent wires |
+|---|---------|---------|-------------|
+| B1 | Bluesky app token | Auto-post story cards (we already generate the 1200×630 covers + alt text) on publish | GH Action step in pulse: post on feed diff |
+| B2 | Buttondown (free ≤100 subs) | Weekly digest delivery + subscribe UI link | Digest posted via API; subscribe page in footer |
+| B3 | Google News Publisher Center | Feed already ready (RSS + masthead + automation disclosure) | Submission checklist + byline/schema fixes if asked |
+| B4 | Existing backlog | `DC_API_KEY` + `GEMINI_API_KEY` GH secrets (LLM matching, signed DC fetches); Porkbun email forwarding for hello@ (matters once sponsors/newsletter replies are real) | Verify first LLM-matched cycle end-to-end |
+
+## Phase C — outreach (human posts, agent drafts; sequenced after A+B1/B2)
+
+1. **Meta-story launch**: "An autonomous newsroom that won't let an LLM write
+   the numbers" — HN Show + Indie Hackers (agent drafts; human posts). Best
+   single source of first backlinks.
+2. **Nieman Lab pitch** (~250 words, agent drafts) — working systems with
+   honest automation disclosure get covered.
+3. **r/Connecticut + Nextdoor**: every digest issue carries a "ready to post"
+   snippet per notable stat (generated in A5).
+4. **Syndication email**: template to CT newsletters/outlets offering free
+   republication + the A3 embed. The ask is a link back, nothing else.
+5. **Sponsor one-pager**: after 2–4 weeks of traffic baseline — credit
+   unions, insurers, law firms buy local-data attention; slot A2 is the
+   product. Agent drafts; human makes the calls.
+
+## Phase D — the franchise (only after traction evidence)
+
+- **NY / NJ / MA Signal**: the repo is already state-parameterized; audit
+  catalog indicators for state-agnostic equivalents; each edition = config +
+  catalog + cron. Sell to partner newsletters as white-label data blocks.
+- **Paid feed tier**: `board.json`/`feed.json` are already public; the paid
+  product is schema stability + SLA + CSV exports, not hosting.
+- **Grants**: CT local-news funders (Democracy Fund ecosystem, IFNI associate)
+  — evidence = digest, citations, traffic baseline.
+
+## Explicit non-goals
+
+No ad networks (kills the perf scores at our scale), no comment systems, no
+SPA frameworks, no cookie banners (nothing set), no design-template swaps —
+templates inform, we build.
+
+## Verification protocol (every ship, forever)
+
+Lighthouse mobile (home + one story) → all 100s; contrast spot-check on new
+UI; redirects/headers sweep; live byte-check after Vercel deploy. Machine
+cycles inherit the audited generators, so the bar can't rot between reviews.
