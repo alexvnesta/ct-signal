@@ -1,6 +1,7 @@
 # CT Signal
 
-**Live → [ct-signal.vercel.app](https://ct-signal.vercel.app)** · Deck → [/slides](https://ct-signal.vercel.app/slides) · Hack for Humanity · Challenge 4: CTData.org, Made Conversational
+**Live → [ctsignal.org](https://ctsignal.org)** (DNS propagating; mirror:
+[ct-signal.vercel.app](https://ct-signal.vercel.app)) · Deck → [/slides](https://ct-signal.vercel.app/slides) · Hack for Humanity · Challenge 4: CTData.org, Made Conversational
 
 News happens → CT data answers. A continual loop that makes CTData.org
 conversational **in reverse**: it asks Connecticut the questions its news
@@ -18,6 +19,7 @@ cycle is already asking, and answers them only with fetched numbers.
 - `docs/proposal.md` — problem, solution, rubric mapping, pitch
 - `docs/use_cases.md` — six cards, each traced to a live test
 - `docs/judge-qa.md` — adversarial Q&A drill, by judge, with tiebreaker doctrine
+- `docs/newsroom.md` — the plan from demo → legit news site (decisions, ladder, ops)
 - `docs/data_sources.md` — validation log (incl. failures: BLS v1 dead,
   data.ct.gov search is network-wide, DC needs a free key)
 - `docs/architecture.md` / `docs/plan-6h.md`
@@ -52,18 +54,24 @@ to-dos in `docs/plan-6h.md`.
 - `catalog/indicators.yaml` — the closed set the LLM/heuristics may pick from
 - `src/ctsignal/` — feeds → questions → sources → cards → publish
 - `output/feed.json`, `output/index.html` — deterministic published feed
+- `story/<id>/` — permalink story pages; `archive/<YYYY-MM>/` — every card
+  ever, as JSON; `feed.xml` + `sitemap.xml`; `/about` `/methodology`
+  `/masthead` `/corrections` — the news site layer (`src/ctsignal/newsroom.py`)
 
-## Vercel
+## Deploy
 
-Git-integrated static deploy (Vercel auto-builds on push to `master`;
-`vercel.json` + `.vercelignore` keep the upload to just the built UI).
+Git-integrated static deploy to Vercel; **GitHub Actions (`pulse` workflow)
+runs one cycle every 15 minutes** and pushes — the commit is the deploy and
+the audit trail. Needs repo secrets `DC_API_KEY` + `GEMINI_API_KEY`; without
+them pulses degrade to heuristics + keyless Socrata, never break the feed.
 
 ```bash
-./deploy.sh --once    # one cycle, commit root index.html+feed.json, push → auto-deploy
-./deploy.sh           # event-day loop: cycle + push every 15 min
-./deploy.sh --pin     # judge-proof: snapshot feed to fixtures/, push
+./deploy.sh --deploy   # publish current output/ (what CI does)
+./deploy.sh --once     # manual cycle + push (laptop, optional now)
+./deploy.sh --pin      # snapshot feed to fixtures/, push
 ```
 
-Live at https://ct-signal.vercel.app. `.env` (all API keys) is git- and
-Vercel-ignored. Turn OFF Deployment Protection (project settings) so
-judges can view without a Vercel login.
+Live at https://ctsignal.org (vercel.app until DNS finishes). `.env` (all API
+keys) is git- and Vercel-ignored; `SITE_URL`/`CONTACT_EMAIL` override the
+canonical URL/contact defaults. Deployment Protection is OFF (project
+settings) so anyone can view.
