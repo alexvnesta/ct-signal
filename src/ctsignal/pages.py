@@ -210,8 +210,7 @@ def _sources_body() -> str:
 
     def chip(status: str) -> str:
         if status.startswith("ok"):
-            return (f'<span style="color:var(--ok)">&#9679; verified '
-                    f'{status[3:].strip() or "live"}</span>')
+            return f'<span style="color:var(--ok)">&#9679; verified</span>'
         if status.startswith("thin"):
             return f'<span style="color:var(--acc)">&#9679; {esc(status)}</span>'
         if status.startswith("error"):
