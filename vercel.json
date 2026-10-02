@@ -16,6 +16,11 @@
       "source": "/story/a9f3ddd2243a",
       "destination": "/story/797faed5a836",
       "permanent": true
+    },
+    {
+      "source": "/topic/:t/",
+      "destination": "/topic/:t",
+      "permanent": true
     }
   ],
   "headers": [
