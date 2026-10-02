@@ -17,7 +17,6 @@ _MUTED_COLOR = "#9aa5b1"
 
 def _pin_schema(spec: dict) -> dict:
     spec["$schema"] = "https://vega.github.io/schema/vega-lite/v6.json"
-    spec["$schema"] = "https://vega.github.io/schema/vega-lite/v5.json"
     spec["background"] = "transparent"
     return spec
 

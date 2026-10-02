@@ -15,7 +15,7 @@
       },
       "cache": false,
       "chart": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
         "background": "transparent",
         "config": {
           "axis": {
@@ -203,7 +203,7 @@
       },
       "cache": false,
       "chart": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
         "background": "transparent",
         "config": {
           "axis": {
@@ -657,7 +657,7 @@
         "width": "container"
       },
       "chart2": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
         "background": "transparent",
         "config": {
           "axis": {
@@ -1109,7 +1109,7 @@
       },
       "cache": false,
       "chart": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
         "background": "transparent",
         "config": {
           "axis": {
@@ -1563,7 +1563,7 @@
         "width": "container"
       },
       "chart2": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
         "config": {
           "axis": {
             "domainColor": "#26313d",
@@ -2014,7 +2014,7 @@
       },
       "cache": false,
       "chart": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
         "autosize": {
           "contains": "padding"
         },
@@ -2681,7 +2681,7 @@
       },
       "cache": false,
       "chart": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
         "background": "transparent",
         "config": {
           "axis": {
@@ -3135,7 +3135,7 @@
         "width": "container"
       },
       "chart2": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
         "config": {
           "axis": {
             "domainColor": "#26313d",

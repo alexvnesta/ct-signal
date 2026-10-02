@@ -7,7 +7,7 @@
   },
   "cache": false,
   "chart": {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
     "autosize": {
       "contains": "padding"
     },
