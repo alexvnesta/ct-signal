@@ -155,11 +155,20 @@ by hand.</p><p><a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a></p></d
 <script defer src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<script>window.addEventListener("DOMContentLoaded",()=>{const go=()=>{
+<script>window.addEventListener("DOMContentLoaded",()=>{
+// The .viz wrapper already carries role=img + aria-label and a figcaption, so
+// vega's own SVG must be presentational: hide its nested graphics-symbol roles
+// (which Lighthouse flags as img-role nodes lacking alt text).
+const tidy=root=>{const svg=root&&root.querySelector("svg");if(!svg)return;
+  svg.setAttribute("aria-hidden","true");svg.setAttribute("focusable","false");
+  svg.querySelectorAll("[role],[aria-roledescription]").forEach(n=>{
+    n.removeAttribute("role");n.removeAttribute("aria-roledescription");});};
+const go=()=>{
 document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementById(
   s.dataset.target); if(!el) return; try{ vegaEmbed(el, JSON.parse(
   s.textContent), {actions:false,renderer:"svg",
-  config:{background:"transparent"}}).catch(e=>console.warn("chart:",e));
+  config:{background:"transparent"}}).then(r=>tidy(r.embedOptions.container||el))
+  .catch(e=>console.warn("chart:",e));
   }catch(e){console.warn("spec:",e);}});};
   if(window.vegaEmbed) go(); else window.addEventListener("load",go);});</script>
 </body></html>
