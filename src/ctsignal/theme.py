@@ -347,9 +347,9 @@ def page(*, title: str, desc: str, path: str, body: str, **kw) -> str:
 
 # Inline JSON spec islands + one loader keep charts dependency-light and work
 # identically on the board and story pages.
-VEGA_LOAD = """<script defer src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+VEGA_LOAD = """<script defer src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
 <script>window.addEventListener("DOMContentLoaded",()=>{
 // vega-embed replaces the target div, so re-assert the accessible wrapper
 // (role=img + label + tabindex) on the node that ends up in the DOM, and make

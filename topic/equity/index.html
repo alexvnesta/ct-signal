@@ -70,9 +70,9 @@ by hand.</p><p><a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a></p></d
 <div class="wrap colophon"><span>© 2026 CT Signal · Independent automated newsroom</span>
 <span>Built at Hack for Humanity · Runs on free-tier public infrastructure</span></div>
 </footer>
-<script defer src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
 <script>window.addEventListener("DOMContentLoaded",()=>{
 // vega-embed replaces the target div, so re-assert the accessible wrapper
 // (role=img + label + tabindex) on the node that ends up in the DOM, and make
@@ -82,12 +82,15 @@ const tidy=root=>{const svg=root&&root.querySelector("svg");if(!svg)return;
   svg.setAttribute("aria-hidden","true");svg.setAttribute("focusable","false");
   svg.querySelectorAll("[role],[aria-roledescription]").forEach(n=>{
     n.removeAttribute("role");n.removeAttribute("aria-roledescription");});};
+const views=[];let rt;
+window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{
+  views.forEach(v=>{try{v.resize().run()}catch(e){}});},150);});
 const go=()=>{
 document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementById(
   s.dataset.target); if(!el) return; const holder=el.parentElement,
   label=el.getAttribute("aria-label"); try{ vegaEmbed(el, JSON.parse(
   s.textContent), {actions:false,renderer:"svg",
-  config:{background:"transparent"}}).then(r=>{
+  config:{background:"transparent"}}).then(r=>{ views.push(r.view);
     const node=holder.querySelector(".vega-embed")||holder;
     node.setAttribute("role","img");node.setAttribute("aria-label",label);
     node.setAttribute("tabindex","0");tidy(node);})
