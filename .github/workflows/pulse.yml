@@ -50,3 +50,17 @@ jobs:
         run: bash deploy.sh --deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Distribution: both self-skip until their secrets exist, so this
+      # merges today and lights up the moment a token is added.
+      - name: Bluesky card posts
+        if: always()
+        env:
+          BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
+          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
+        run: bash scripts/ci_post_bsky.sh
+      - name: Buttondown digest draft
+        if: always()
+        env:
+          BUTTONDOWN_KEY: ${{ secrets.BUTTONDOWN_KEY }}
+        run: bash scripts/ci_digest_draft.sh
