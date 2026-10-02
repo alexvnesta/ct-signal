@@ -168,7 +168,8 @@ provenance →</a></p>
 </div>"""
     head = theme.head(title=f'{card["question"]} · embedded on CT Signal',
                       desc=card["answer_text"][:200],
-                      path=f'/story/{card["id"]}', og_type="article")
+                      path=f'/story/{card["id"]}', og_type="article",
+                      preload_font=False)
     return f'<!doctype html><html lang="en">{head}<body>{body}' \
            f'{theme.VEGA_LOAD}</body></html>\n'
 

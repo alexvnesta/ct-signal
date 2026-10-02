@@ -2551,7 +2551,7 @@
               ],
               "x": {
                 "axis": {
-                  "labelExpr": "slice(value, 5, 7) === '01' ? slice(value, 0, 4) : ''"
+                  "labelOverlap": true
                 },
                 "field": "date",
                 "title": "Date",

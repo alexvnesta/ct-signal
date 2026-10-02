@@ -285,7 +285,7 @@ def article_json_ld(*, card_id: str, headline: str, description: str,
     }
 
 
-def head(*, title: str, desc: str, path: str, og_type: str = "website",
+def head(*, title: str, desc: str, path: str, og_type: str = "website", preload_font: bool = True,
          og_title: str | None = None, og_desc: str | None = None,
          image: str | None = None, published: str | None = None,
          json_ld: dict | list | None = None) -> str:
@@ -327,7 +327,7 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website",
  href="{config.SITE_URL}/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="{config.SITE_URL}/feed.json">
-<link rel="preload" href="/assets/fonts/newsreader-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+{"" if not preload_font else '<link rel="preload" href="/assets/fonts/newsreader-700-latin.woff2" as="font" type="font/woff2" crossorigin>'}
 <link rel="stylesheet" href="/assets/site.css">
 {ld}"""
 
