@@ -60,7 +60,7 @@ def rank_strip(rows: list[dict], *, title: str, unit: str = "",
                 alt.Tooltip("rank:Q").title("Rank"),
             ],
         )
-        .properties(width=420, height=max(140, 14 * len(rows)),
+        .properties(width="container", height=max(140, 14 * len(rows)),
                     title=alt.TitleParams(text=title, subtitle="Connecticut highlighted"))
     )
     chart = _dark(chart)
@@ -170,7 +170,7 @@ def trend(rows: list[dict], *, title: str, unit: str = "") -> dict:
                                     range=[_HIGHLIGHT_COLOR, _MUTED_COLOR])))
     )
     chart = (line + labels).properties(
-        width=420, height=200, title=alt.TitleParams(text=title),
+        width="container", height=200, title=alt.TitleParams(text=title),
         autosize=alt.AutoSizeParams(contains="padding"),
         padding=alt.Padding(right=64))
     chart = _dark(chart)

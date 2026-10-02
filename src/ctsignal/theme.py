@@ -359,12 +359,15 @@ const tidy=root=>{const svg=root&&root.querySelector("svg");if(!svg)return;
   svg.setAttribute("aria-hidden","true");svg.setAttribute("focusable","false");
   svg.querySelectorAll("[role],[aria-roledescription]").forEach(n=>{
     n.removeAttribute("role");n.removeAttribute("aria-roledescription");});};
+const views=[];let rt;
+window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{
+  views.forEach(v=>{try{v.resize().run()}catch(e){}});},150);});
 const go=()=>{
 document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementById(
   s.dataset.target); if(!el) return; const holder=el.parentElement,
   label=el.getAttribute("aria-label"); try{ vegaEmbed(el, JSON.parse(
   s.textContent), {actions:false,renderer:"svg",
-  config:{background:"transparent"}}).then(r=>{
+  config:{background:"transparent"}}).then(r=>{ views.push(r.view);
     const node=holder.querySelector(".vega-embed")||holder;
     node.setAttribute("role","img");node.setAttribute("aria-label",label);
     node.setAttribute("tabindex","0");tidy(node);})
