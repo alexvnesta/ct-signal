@@ -13,7 +13,9 @@ old = subprocess.run(["git", "show", "HEAD~1:output/cards.json"],
 try:
     old_ids = {c["id"] for c in json.loads(old)["cards"]}
 except Exception:
-    old_ids = set()
+    # No previous cards.json in history (first push after the file shipped):
+    # post nothing rather than dumping the whole backlog at the audience.
+    old_ids = new
 print(" ".join(new - old_ids))
 PY
 )
@@ -22,7 +24,7 @@ PY
 SESS=$(curl -s -X POST https://bsky.social/xrpc/com.atproto.server.createSession \
   -H 'content-type: application/json' \
   -d "{\"identifier\":\"$BSKY_HANDLE\",\"password\":\"$BSKY_APP_PASSWORD\"}")
-SID=$(printf '%s' "$SESS" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("access_token",""))')
+SID=$(printf '%s' "$SESS" | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d.get("accessJwt") or d.get("access_token",""))')
 DID=$(printf '%s' "$SESS" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("did",""))')
 [ -z "$SID" ] || [ -z "$DID" ] && { echo "bsky: session failed" >&2; exit 0; }
 

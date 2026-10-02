@@ -1,58 +1,62 @@
-# Launch checklist — the five remaining keys (all yours, all ~5 minutes)
+# Launch status — shipped the night of Oct 2, 2026
 
-The site runs itself; the repo is public; distribution is pre-wired and
-dark until each secret exists. Nothing here needs code from me first —
-each item lights up an already-merged path.
+Everything that was "pre-wired and dark" is now lit. Each item below was
+verified against the live service, not assumed.
 
-## 1. Search Console + Bing Webmaster (biggest lever, zero cost)
+## 1. Search Console + Bing — DONE
 
-- <https://search.google.com/search-console> → add property
-  `https://ctsignal.org` → verification method **HTML file** is easiest:
-  download the file, commit it to the repo root, done (Vercel serves it).
-  DNS TXT also fine — apex is at Porkbun.
-- Then **Sitemaps → add** `https://ctsignal.org/sitemap.xml` (186 URLs).
-- Bing Webmaster Tools ("Import from Search Console" is one click).
-- Optional while you're in there: Request Indexing on the homepage and
-  the five live stories.
+- Property `https://ctsignal.org` verified via HTML file
+  (`google581efe0b3bcbbb99.html`, committed — do not delete; `cleanUrls`
+  stayed OFF because it 308'd the verification path).
+- Sitemap `https://ctsignal.org/sitemap.xml` submitted.
+- Bing imported the property via "Import from Search Console"; Sitemaps
+  page shows the feed Imported/Processing.
 
-## 2. Buttondown (weekly digest, drafts mode)
+## 2. Buttondown — DONE
 
-- Free plan: <https://buttondown.com> → create account → create list
-  "weekly" → API key.
-- Repo → Settings → Secrets → Actions → new secret `BUTTONDOWN_KEY`.
-- Behavior from then on: the cycle that bumps `output/digest/<week>.html`
-  files a **draft** with Buttondown automatically. A human (you) presses
-  send — no accidental mail. Subscribe widget in the footer is a
-  follow-up 10-minute step once the list exists.
+- Account `buttondown.com/ctsignal`, branded (name, bio, `#f2a65a` tint).
+- Scoped CI key (Emails RW, Sending disabled) lives as `BUTTONDOWN_KEY`.
+- API pinned to `2026-04-01`: the digest step files a **draft** with
+  `{subject, body}` — verified 201 against production; a human presses
+  send. Remaining 10-minute follow-up: footer subscribe widget (the list
+  exists now).
 
-## 3. Bluesky (cards auto-post)
+## 3. Bluesky — DONE (handle is the domain)
 
-- bsky.app → Settings → App passwords → "ct-signal bot" (handles posting).
-- Two secrets: `BSKY_HANDLE` (e.g. `ctsignal.bsky.social`) and
-  `BSKY_APP_PASSWORD`.
-- Behavior: any cycle that publishes a **new** card id posts one update
-  (question, answer, link card, "sources on the page"). Rewords and data
-  refreshes don't double-post. No hashtags, no emoji, receipts voice.
+- Account **@ctsignal.org** (did:plc:pwesbwayfxnpvnfpvf7xj6cl), email
+  `social@ctsignal.org` confirmed, avatar/bio set via XRPC, launch card
+  posted (link card renders with ctsignal.org attribution).
+- `@ctsignal.org` works because Porkbun DNS serves
+  `_atproto TXT "did=did:plc:..."` (exact value:
+  `did=did:plc:pwesbwayfxnpvnfpvf7xj6cl`). Keep that TXT record.
+- Secrets: `BSKY_HANDLE=ctsignal.org`, `BSKY_APP_PASSWORD` (label
+  "ct-signal-ci", no DM access). createSession verified live.
+- Poster fix shipped same night: session token lives at `accessJwt`, not
+  `access_token`; first run after the secrets land posts nothing rather
+  than dumping the whole card backlog.
 
-## 4. Porkbun (mail + handles)
+## 4. Porkbun — DONE
 
-- Email forwarding: Porkbun → your domain → "Email Forwarding" → create
-  `hello@ctsignal.org` → forwards to your inbox. (Site already links
-  `mailto:hello@ctsignal.org`; this makes the address real.)
-- Reserve `@ctsignal` on Bluesky/X while you're logging in anyway.
+- Email forwarding (free, MX → fwd1.porkbun.com): `social@ctsignal.org`
+  (account-notification sink) and `hello@ctsignal.org` (public contact)
+  both forward to the personal inbox. Bluesky's verification email rode
+  this path end-to-end — forwarding proven by real mail, not by hope.
+- A hosted-email free trial sits unconfigured on the domain; it expires
+  Oct 17 harmlessly. Don't configure it unless a real inbox is wanted —
+  hosted mail and forwarding share one MX story.
 
-## 5. Google News Publisher Center
+## 5. Publisher Center — DONE
 
-- <https://publishercenter.google.com> → publication "CT Signal" →
-  add website `ctsignal.org` → RSS: `https://ctsignal.org/feed.xml` →
-  category News. Reviewers check for About/Methodology/Masthead/Contact —
-  all four exist and are linked from every page's footer.
-- Acceptance typically takes days; the feed keeps it fresh on its own.
+- Publication "CT Signal" claimed (id `CAowg-_hCw`), US/English. The
+  March-2025 Publisher Center auto-builds the Google News page from the
+  sitemap + feed once claimed; no feed-section wizard remains to click.
 
-## Then
+## Watching
 
-Watch the Actions tab for a day: green schedule ticks (every ~15 min,
-public repos are no longer throttled), occasional `ct-signal-bot`
-"feed: HH:MM card refresh" commits = real data movement. After ~2 weeks
-of baseline traffic the Phase C drafts (HN meta-story, Nieman Lab pitch,
-sponsor one-pager) become writable with numbers in hand.
+- Actions tab: green scheduled ticks; `ct-signal-bot` "feed: HH:MM card
+  refresh" commits mean data moved (heartbeat restored when repo
+  privileges were flipped — see commit `256f7f9`).
+- Search Console coverage reports over the next week; index request on
+  homepage + live stories is worth one click once content looks settled.
+- After ~2 weeks of baseline the Phase C drafts (HN meta-story, Nieman
+  pitch, sponsor one-pager) become writable with numbers in hand.
