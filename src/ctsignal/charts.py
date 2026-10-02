@@ -7,12 +7,13 @@ import altair as alt
 alt.data_transformers.disable_max_rows()
 alt.data_transformers.consolidate_datasets = False
 
-_HIGHLIGHT_COLOR = "#c0392b"
+_HIGHLIGHT_COLOR = "#f2a65a"
 _MUTED_COLOR = "#9aa5b1"
 
 
 def _pin_schema(spec: dict) -> dict:
     spec["$schema"] = "https://vega.github.io/schema/vega-lite/v5.json"
+    spec["background"] = "transparent"
     return spec
 
 

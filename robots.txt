@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Every page here is the publishable surface; nothing to hide.
+
+Sitemap: https://ctsignal.org/sitemap.xml

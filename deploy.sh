@@ -16,7 +16,10 @@ cycle() {
 }
 
 deploy() {
-  cp output/index.html output/feed.json output/board.json .
+  # write_all already regenerates the static pages, feeds (rss/json/sitemap),
+  # assets/site.css, and story/ at the repo root. Only the two pipeline
+  # intermediates that live in output/ need to be staged at root.
+  cp output/index.html output/board.json .
   cp us.json output/us.json
   git add -A
   if git diff --cached --quiet --exit-code; then

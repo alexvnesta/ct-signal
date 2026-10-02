@@ -36,7 +36,7 @@
         {
           "highlight": false,
           "rank": 1,
-          "state": "geoId/72",
+          "state": "Puerto Rico",
           "value": 40.8
         },
         {
@@ -357,7 +357,7 @@
             false
           ],
           "range": [
-            "#c0392b",
+            "#f2a65a",
             "#9aa5b1"
           ]
         },
@@ -439,7 +439,7 @@
           "New Mexico",
           "Mississippi",
           "Louisiana",
-          "geoId/72"
+          "Puerto Rico"
         ],
         "title": null,
         "type": "nominal"
@@ -533,7 +533,7 @@
                   {
                     "highlight": false,
                     "rank": 1,
-                    "state": "geoId/72",
+                    "state": "Puerto Rico",
                     "value": 40.8
                   },
                   {
@@ -857,7 +857,7 @@
       {
         "mark": {
           "fill": null,
-          "stroke": "#c0392b",
+          "stroke": "#f2a65a",
           "strokeWidth": 2,
           "type": "geoshape"
         },

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<rect width="64" height="64" rx="12" fill="#0a0f14"/>
+<text x="7" y="44" font-family="Helvetica,Arial,sans-serif" font-weight="bold"
+font-size="28" fill="#e9eef4">CT</text>
+<polygon points="51.5,8.3 30,38 40.5,38 35.5,58 57,26.5 46,26.5" fill="#f2a65a"/>
+</svg>

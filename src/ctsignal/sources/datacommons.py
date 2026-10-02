@@ -23,6 +23,8 @@ STATE_NAMES = {
     "geoId/47": "Tennessee", "geoId/48": "Texas", "geoId/49": "Utah",
     "geoId/50": "Vermont", "geoId/51": "Virginia", "geoId/53": "Washington",
     "geoId/54": "West Virginia", "geoId/55": "Wisconsin", "geoId/56": "Wyoming",
+    # PR joins the 52-peer set and prints with a real name (DC is mapped above).
+    "geoId/72": "Puerto Rico",
 }
 
 CT = "geoId/09"

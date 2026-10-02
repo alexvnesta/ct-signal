@@ -1,83 +1,129 @@
+"""Homepage export: the Connecticut board + the rolling feed of answered
+questions, server-rendered so crawlers, RSS readers, and link previews all see
+real content. Charts embed as JSON islands; the vega loader in theme upgrades
+them to SVG progressively.
+"""
 from __future__ import annotations
 
+import datetime as dt
+import html
 import json
 
-from . import config
+from . import config, theme
 
-_TEMPLATE = """<!doctype html>
-<html><head><meta charset="utf-8"><title>CT Signal</title>
-<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-<style>
-body{font-family:system-ui;margin:2rem auto;max-width:880px;color:#eef2f5;
-  background:#101418;padding:0 1rem}
-h1{margin-bottom:.2rem}
-a{color:#7fb4ff}
-.meta{color:#9fb0bf;font-size:.85rem}
-#board{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.8rem;
-  margin:1.2rem 0 2rem}
-.tile{background:#1a2129;border:1px solid #2b3a48;border-radius:12px;padding:1rem 1.1rem;color:#eef2f5}
-.tname{color:#9fb0bf;font-size:.85rem}
-.val{font-size:1.9rem;font-weight:700;color:#8fd6a9;margin:.15rem 0}
-.chip{background:#243040;border-radius:99px;padding:.1rem .6rem;font-size:.75rem;color:#cfdcea}
-article{background:#151c24;border:1px solid #2b3a48;border-radius:8px;padding:1rem;margin:1rem 0}
-.answer{font-size:1.15rem;font-weight:600;margin:.4rem 0}
-details{margin-top:.5rem;font-size:.85rem;color:#9fb0bf}
-code{background:#243040;color:#cfdcea;padding:0 .25rem;border-radius:4px}
-.badge{background:#243040;color:#cfdcea;border-radius:4px;padding:0 .35rem;font-size:.75rem}
-</style></head><body>
-<h1>CT Signal</h1>
-<p class="meta">Questions generated from live news + civic calendar,
-answered only with fetched numbers.
-<a href="feed.xml">RSS</a> · <a href="about">about</a> ·
-<a href="methodology">how we work</a></p>
-<div id="board"></div><div id="feed"></div>
-<footer style="border-top:1px solid #2b3a48;margin-top:2rem;padding-top:1rem;color:#9fb0bf;font-size:.85rem">
-CT Signal is an automated newsroom — the news cycle picks the question, public
-data answers it. <a href="about">About</a> · <a href="methodology">Methodology</a> ·
-<a href="masthead">Masthead</a> · <a href="corrections">Corrections</a> ·
-<a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a>
-</footer>
-<script>
-Promise.all([
-  fetch("feed.json").then(r=>r.json()),
-  fetch("board.json").then(r=>r.json()).catch(()=>({tiles:[]}))
-]).then(([feed,board])=>{
-  const ago=iso=>{const s=(Date.now()-new Date(iso))/1000;
-    if(s<90)return"just now";if(s<5400)return Math.round(s/60)+" min ago";
-    if(s<86400)return Math.round(s/3600)+" h ago";return iso.slice(0,10);};
-  const broot=document.getElementById("board");
-  for(const t of board.tiles){
-    const d=document.createElement("div");d.className="tile";
-    d.innerHTML=`<div class="tname">${t.title}</div>
-      <div class="val">${t.value}</div>
-      <span class="chip">#${t.rank} of ${t.n} states · data ${t.date}</span>
-      <div class="strip-${t.id}"></div>`;
-    broot.appendChild(d);
-    vegaEmbed(`.strip-${t.id}`,t.strip,{actions:false});
-  }
-  const root=document.getElementById("feed");
-  for(const c of feed.cards){
-    const a=document.createElement("article");
-    a.innerHTML=`<div class="meta"><span class="badge">${c.stream} · ${c.topic}</span>
-      ${c.cache?'<span class="badge">cache</span>':''}
-      ${c.headline.url?`<a href="${c.headline.url}">${c.headline.title}</a>`:c.headline.title}
-      · ${ago(c.generated_at)}</div>
-      <div><em>${c.question}</em></div>
-      <div class="answer">${c.answer_text}</div>
-      <div class="chart-${c.id}"></div>
-      <div class="chart2-${c.id}"></div>
-      <details><summary>provenance</summary>
-      dataset: <code>${c.citations.join(", ")}</code><br>
-      query: <code>${c.query}</code></details>`;
-    root.prepend(a);
-    vegaEmbed(`.chart-${c.id}`, c.chart, {actions:false});
-    if(c.chart2) vegaEmbed(`.chart2-${c.id}`, c.chart2, {actions:false});
-  }
-});
-</script></body></html>
-"""
+_ESC = html.escape
+
+
+def _parse(ts: str) -> dt.datetime:
+    return dt.datetime.fromisoformat(ts)
+
+
+def ago(iso: str, now: dt.datetime) -> str:
+    s = (now - _parse(iso)).total_seconds()
+    if s < 90:
+        return "just now"
+    if s < 5400:
+        return f"{round(s / 60)} min ago"
+    if s < 86400:
+        return f"{round(s / 3600)} h ago"
+    return iso[:10]
+
+
+def _trigger_line(card: dict) -> str:
+    h = card["headline"]
+    title = _ESC(h["title"])
+    if h.get("url"):
+        title = (f'<a href="{_ESC(h["url"])}" rel="noopener">'
+                 f'{title}</a>')
+    src = f'{_ESC(h["source"])} · ' if h.get("source") else ""
+    return f'Triggered by {src}{title}'
+
+
+def _kicker(card: dict, when: str) -> str:
+    cache = ' <span class="badge">cache</span>' if card.get("cache") else ""
+    return (f'{_ESC(card["topic"])} · {_ESC(card["stream"])} desk'
+            f'{cache} · {when}')
+
+
+def home_html(cards: list[dict], board: dict) -> str:
+    now = _parse(cards[0]["generated_at"]) if cards else (
+        dt.datetime.now(dt.timezone.utc))
+
+    hero = ""
+    if cards:
+        c = cards[0]
+        hero = f"""<div class="wrap"><div class="hero">
+<div class="kicker">Today's lead · {_ESC(c["topic"])} desk</div>
+<h1><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h1>
+<p class="lede">{_ESC(c["answer_text"])}</p>
+<div class="meta">{_trigger_line(c)} · {ago(c["generated_at"], now)}</div>
+<p><a class="more" href="/story/{c["id"]}">Read the full story with the chart
+and the literal query →</a></p>
+</div></div>"""
+
+    tiles = ""
+    for i, t in enumerate(board.get("tiles", [])):
+        tiles += f"""<div class="tile">
+<div class="tname">{_ESC(t["title"])}</div>
+<div class="val">{_ESC(str(t["value"]))}</div>
+{theme.viz(json.dumps(t["strip"], default=str), f"strip{i}")}
+<span class="chip">#{_ESC(str(t["rank"]))} of {_ESC(str(t["n"]))} peers · data {_ESC(str(t["date"]))}</span>
+</div>"""
+
+    signals = ""
+    for c in cards[1:] if cards else []:
+        signals += f"""<li class="sig">
+<div class="kicker">{_kicker(c, ago(c["generated_at"], now))}</div>
+<h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
+<p class="answer">{_ESC(c["answer_text"])}</p>
+<div class="meta">{_trigger_line(c)} ·
+<a class="more" href="/story/{c["id"]}">the story with receipts →</a></div>
+</li>"""
+
+    n_peers = (board.get("tiles") or [{}])[0].get("n", "52")
+    body = f"""{hero}
+<section><div class="wrap">
+<div class="sechead"><h2>The Connecticut board</h2>
+<p class="sechelp">Where we stand among our peers — refreshed with every data
+vintage.</p></div>
+<div class="tiles">{tiles}</div>
+<p class="legend">“{n_peers} peers” = the 50 states, Washington DC, and Puerto
+Rico. Each tile prints the vintage of its own dataset; older vintages are the
+honest limit of annual surveys, not a lag in the pipeline.</p>
+</div></section>
+
+<section id="signals"><div class="wrap col">
+<div class="sechead"><h2>Latest questions</h2>
+<p class="sechelp">Every question below was raised by a real headline first.</p></div>
+<ol class="signals">{signals}</ol>
+</div></section>
+
+<section><div class="wrap">
+<div class="sechead"><h2>How this newsroom works</h2>
+<p class="sechelp">Four steps, every 15 minutes, in public.</p></div>
+<div class="how">
+<div class="step"><b>1 · Listen</b><p>CT and national feeds plus a civic
+calendar. <strong>Headlines pick the topic.</strong> An unmatched story
+produces nothing.</p></div>
+<div class="step"><b>2 · Choose</b><p>A language model matches the moment to a
+<strong>closed catalog</strong> of validated indicators — questions it can
+actually answer.</p></div>
+<div class="step"><b>3 · Fetch</b><p><strong>No number here was written by a
+language model.</strong> Ranks come from executed queries against Data Commons
+and data.ct.gov.</p></div>
+<div class="step"><b>4 · Publish</b><p>Board, story page, RSS, archive —
+every 15 minutes. <strong>The git history is the audit trail</strong>, and the
+failure log ships with it.</p></div>
+</div>
+</div></section>"""
+
+    return theme.page(
+        title="CT Signal — Connecticut's automated data desk",
+        desc="An automated newsroom: the news cycle picks the question, public "
+             "data answers it. Rankings, charts, and the literal query behind "
+             "every number — refreshed every 15 minutes.",
+        path="/", body=body,
+        og_title="CT Signal — Connecticut's automated data desk")
 
 
 def publish(cards: list[dict], board: dict | None = None) -> None:
@@ -93,7 +139,7 @@ def publish(cards: list[dict], board: dict | None = None) -> None:
         (config.OUTPUT_DIR / "board.json").write_text(
             json.dumps(board, indent=2, sort_keys=True, default=str)
         )
-    (config.OUTPUT_DIR / "index.html").write_text(_TEMPLATE)
+    (config.OUTPUT_DIR / "index.html").write_text(home_html(cards, board or {}))
     from . import newsroom
 
     newsroom.write_all(cards)
