@@ -885,14 +885,14 @@
       "citations": [
         "https://datacommons.org/data/commons/Count_CriminalActivities_ViolentCrime"
       ],
-      "generated_at": "2026-10-02T01:38:58+00:00",
+      "generated_at": "2026-10-02T01:39:13+00:00",
       "headline": {
         "id": "fixcrime01",
         "published": "2026-09-30",
         "source": "NYT U.S. (fixture)",
         "stream": "national",
         "title": "California Couple Charged With Murder in Shooting of Son-in-Law",
-        "url": "https://www.nytimes.com/2026-09-30/us/jonathan-mckinsey-shooting-california-charges.html"
+        "url": "https://www.nytimes.com/2026/09/30/us/jonathan-mckinsey-shooting-california-charges.html"
       },
       "id": "ed851796295a",
       "indicator": "violent_crime",
@@ -3484,5 +3484,5 @@
       "topic": "housing"
     }
   ],
-  "generated_at": "2026-10-02T01:38:58+00:00"
+  "generated_at": "2026-10-02T01:39:13+00:00"
 }
