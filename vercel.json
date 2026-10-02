@@ -8,7 +8,12 @@
     },
     {
       "source": "/:page(about|methodology|masthead|corrections)/",
-      "destination": "/:page",
+      "destination": "/:page.html",
+      "permanent": true
+    },
+    {
+      "source": "/:page(about|methodology|masthead|corrections)",
+      "destination": "/:page.html",
       "permanent": true
     },
     {
