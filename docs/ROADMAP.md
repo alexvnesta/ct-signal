@@ -79,3 +79,23 @@ cycles inherit the audited generators, so the bar can't rot between reviews.
 - Digest issue 2026-W40 frozen at output/digest/2026-W40.html.
 - Sponsor strip verified on mobile 390 px: no overflow, contrast from
   the audited palette.
+
+
+## HARDENING BACKLOG (from 2026-10-02 three-auditor review: SRE/health/security)
+
+Shipped in the hardening pass: rebase-retry push, publish-only-on-success,
+asked-log-after-publish, atomic writes, strict feed.json, failures.log in-repo,
+token confinement, link scheme allowlist, island `<!--` hardening, CI no
+longer masks failures (red = red), first smoke-test suite (tests/).
+
+Deliberately deferred (each is a tidy refactor, none is load-bearing):
+- Shared `trigger_fragment()` (publish/newsroom render the same trigger line).
+- `scripts/_brand.py` (palette + fonts + SITE currently triplicated across
+  the three scripts/ files).
+- Split `run.answer_proposals` into `_answer_stackup/_answer_local`,
+  data-driven local answerers (grand_list hardcoded four times).
+- Socrata `$limit: 400` → paginate or detect truncation.
+- Rename pipeline state `output/feed.json` → `output/cards.json`
+  (name collides with the JSON Feed spec file at root).
+- Generate vercel redirect fragments when a card id is superseded.
+- Feed display names belong in config next to each URL, not a host map.
