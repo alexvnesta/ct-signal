@@ -1,0 +1,19 @@
+# CT Signal
+
+> CT Signal is an automated newsroom for Connecticut: the news cycle picks the
+> question, public data answers it. Every number is fetched from a named public
+> dataset (Data Commons, data.ct.gov) — never written by a language model.
+> Published every 15 minutes as static, citable story pages with the query
+> attached.
+
+## Pages
+
+- [The board](https://ctsignal.org/): current Connecticut rankings among the 52 U.S. peers (50 states, DC, Puerto Rico).
+- [Latest questions](https://ctsignal.org/#signals): the rolling feed of answered news questions.
+- [RSS](https://ctsignal.org/feed.xml) / [JSON Feed](https://ctsignal.org/feed.json)
+- [About](https://ctsignal.org/about), [Methodology](https://ctsignal.org/methodology), [Masthead](https://ctsignal.org/masthead), [Corrections](https://ctsignal.org/corrections)
+
+## Notes
+
+- Story permalinks: https://ctsignal.org/story/<id> — republication is free with attribution and a link.
+- Data honesty rules: ranks use all 52 peers and are phrased direction-honestly; every card prints its data vintage.

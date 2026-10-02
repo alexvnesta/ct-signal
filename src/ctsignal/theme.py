@@ -153,7 +153,7 @@ code{background:var(--panel2);color:#cfdcea;padding:.1rem .35rem;border-radius:4
 footer.site{border-top:1px solid var(--line);background:var(--bg2);margin-top:2.5rem;
   padding:1.8rem 0 2.2rem}
 .footgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1.5rem}
-.footgrid h3{margin:.2rem 0 .6rem;color:var(--dim);font-size:.74rem;
+.footgrid h2{margin:.2rem 0 .6rem;color:var(--dim);font-size:.74rem;
   letter-spacing:.16em;text-transform:uppercase}
 .footgrid p{color:var(--dim);font-size:.87rem;margin:.3rem 0}
 .footgrid ul{list-style:none;margin:0;padding:0}
@@ -202,16 +202,16 @@ def footer() -> str:
     email = config.CONTACT_EMAIL
     year = dt.date.today().year
     return f"""<footer class="site"><div class="wrap footgrid">
-<div><h3>CT&nbsp;<span style="color:var(--acc)">⚡</span>&nbsp;Signal</h3>
+<div><h2>CT&nbsp;<span style="color:var(--acc)">⚡</span>&nbsp;Signal</h3>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
 public data answers it — every number fetched from a named dataset, never typed
 by hand.</p><p><a href="mailto:{email}">{email}</a></p></div>
-<div><h3>Sections</h3><ul>
+<div><h2>Sections</h2><ul>
 <li><a href="/">The board</a></li>
 <li><a href="/#signals">Latest questions</a></li>
 <li><a href="/feed.xml">RSS feed</a></li>
 <li><a href="https://github.com/alexvnesta/ct-signal/tree/master/archive">Card archive</a></li></ul></div>
-<div><h3>Newsroom</h3><ul>
+<div><h2>Newsroom</h2><ul>
 <li><a href="/about">About</a></li>
 <li><a href="/methodology">How we work</a></li>
 <li><a href="/masthead">Masthead</a></li>
@@ -337,11 +337,28 @@ def viz(spec_json: str, el_id: str, *, label: str,
         caption: str | None = None) -> str:
     """Chart island with a text alternative (WCAG 1.1.1): the container carries
     role=img + aria-label and is keyboard-scrollable; an optional visible
-    figcaption doubles as the takeaway line."""
+    figcaption doubles as the takeaway line. The spec is normalized here —
+    transparent background, no vega-internal ARIA (the wrapper already speaks),
+    and a reserved min-height so SVG injection never shifts layout."""
+    try:
+        spec = json.loads(spec_json)
+    except ValueError:
+        spec = {}
+    if spec:
+        spec.setdefault("background", "transparent")
+        spec["aria"] = False
+        reserve = ""
+        h = spec.get("height")
+        if isinstance(h, (int, float)):
+            pad = 58 if spec.get("title") else 16
+            reserve = f' style="min-height:{int(h) + pad}px"'
+        spec_json = json.dumps(spec, default=str)
+    else:
+        reserve = ' style="min-height:120px"'
     safe = spec_json.replace("</", "<\\/")
     cap = (f'<figcaption>{_ESC(caption)}</figcaption>' if caption
            else f'<figcaption class="sr-only">{_ESC(label)}</figcaption>')
     return (f'<figure class="vizwrap"><div class="viz" id="{el_id}" role="img" '
-            f'tabindex="0" aria-label="{_ESC(label)}"></div>{cap}</figure>'
+            f'tabindex="0" aria-label="{_ESC(label)}"{reserve}></div>{cap}</figure>'
             f'<script type="application/json" class="vs" '
             f'data-target="{el_id}">{safe}</script>')
