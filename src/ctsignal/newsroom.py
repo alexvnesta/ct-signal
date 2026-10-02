@@ -50,16 +50,9 @@ def _spec_json(obj) -> str:
 
 
 def _trigger_html(card: dict) -> str:
-    h = card["headline"]
-    title = _ESC(h["title"])
-    src = h.get("source") or ""
-    if src and title.startswith(f"[{_ESC(src)}]"):  # don't print label twice
-        title = title[len(f"[{_ESC(src)}]") + 1:].lstrip()
-    if h.get("url"):
-        title = f'<a href="{_ESC(h["url"])}" rel="noopener">{title}</a>'
-    src = f'{_ESC(src)} · ' if src else ""
+    prefix, title = theme.trigger_parts(card)
     return (f'<div class="card"><div class="label">Triggered by</div>'
-            f'<div style="font-size:1.05rem;line-height:1.35">{src}{title}</div></div>')
+            f'<div style="font-size:1.05rem;line-height:1.35">{prefix}{title}</div></div>')
 
 
 def _provenance_html(card: dict) -> str:

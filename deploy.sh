@@ -20,7 +20,7 @@ cd "$(dirname "$0")"
 PY=.venv/bin/python
 LOG=.pulse.log
 GEN=(index.html board.json feed.json feed.xml sitemap.xml llms.txt us.json
-     assets story topic output/feed.json output/index.html output/board.json
+     assets story topic output/cards.json output/index.html output/board.json
      output/us.json output/digest data/asked_log.json data/failures.log
      data/validation_report.json)
 
@@ -79,7 +79,7 @@ case "${1:-loop}" in
   --once)   cycle ;;
   --deploy) publish ;;
   --pin)
-    cp output/feed.json fixtures/last_feed.json
+    cp output/cards.json fixtures/last_feed.json
     [ -f output/us.json ] || cp us.json output/us.json
     bot add -A -- fixtures/last_feed.json output/us.json
     if ! bot diff --cached --quiet --exit-code; then

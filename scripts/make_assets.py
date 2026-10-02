@@ -14,21 +14,11 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / "assets"
 OUT.mkdir(exist_ok=True)
 
-BG = (14, 20, 27)          # --bg
-BG2 = (10, 15, 20)         # --bg2
-PANEL = (21, 29, 39)       # --panel
-LINE = (40, 57, 74)        # --line
-INK = (233, 238, 244)      # --ink
-DIM = (147, 167, 185)      # --dim
-ACC = (242, 166, 90)       # --acc
-OK = (143, 214, 169)       # --ok
+import sys as _sys
+_sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from _brand import BG2, PANEL, LINE, INK, DIM, ACC, OK, SANS, SERIF, font
 
-SANS = "/System/Library/Fonts/Helvetica.ttc"          # idx 0 reg, 1 bold
-SERIF = "/System/Library/Fonts/Supplemental/Georgia.ttf"
-
-
-def font(path, size, index=0):
-    return ImageFont.truetype(path, size, index=index)
+BG = (14, 20, 27)          # --bg (icon field only; see _brand for the rest)
 
 
 def rounded(draw, box, r, fill):

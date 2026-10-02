@@ -49,18 +49,19 @@ def _load_json(path, default):
 
 
 def _load_feed() -> dict:
-    # Strict on purpose: output/feed.json is committed state. Corrupt or
-    # wrong-shape must fail the cycle loudly — the old lenient default let a
-    # truncated file silently republish a board of one card.
-    path = config.OUTPUT_DIR / "feed.json"
+    # Strict on purpose: output/cards.json (pipeline card state — NOT the
+    # root feed.json, which is the JSON Feed spec file) is committed state.
+    # Corrupt or wrong-shape must fail the cycle loudly; the old lenient
+    # default let a truncated file silently republish an empty board.
+    path = config.OUTPUT_DIR / "cards.json"
     try:
         data = json.loads(path.read_text())
     except FileNotFoundError:
         return {"cards": []}
     except json.JSONDecodeError as exc:
-        raise RuntimeError(f"output/feed.json corrupt: {exc}") from exc
+        raise RuntimeError(f"output/cards.json corrupt: {exc}") from exc
     if not isinstance(data, dict) or not isinstance(data.get("cards"), list):
-        raise RuntimeError("output/feed.json malformed (want dict with "
+        raise RuntimeError("output/cards.json malformed (want dict with "
                            "'cards' list)")
     return data
 
@@ -73,6 +74,58 @@ def _asked_key(card: dict) -> str:
     return f"{card['indicator']}:{card['question'][:80]}:{when}"
 
 
+def _answer_stackup(proposal: dict, item: dict) -> dict | None:
+    fixture = config.FIXTURES_DIR / f"dc_{item['id']}.json"
+    result = datacommons.stackup(item, fixture=fixture)
+    if result is None:
+        print(f"  discard (no data): {item['id']} <- {proposal['headline']['title'][:60]}")
+        return None
+    trend_rows = None
+    if item.get("trend"):
+        try:
+            trend_rows = datacommons.trend(item)
+        except Exception as exc:
+            print(f"  trend failed ({exc}); rank strip only")
+    return cards.from_stackup(item, proposal, result, trend_rows=trend_rows)
+
+
+def _answer_local(proposal: dict, item: dict | None, demo: bool) -> dict | None:
+    if (item is None
+            or not (item.get("columns")
+                    or proposal.get("indicator_id") in (None, "grand_list_growth"))):
+        print(f"  skip (no answerer yet): {proposal.get('indicator_id')} <- {proposal['headline']['title'][:60]}")
+        return None
+    cfg = item.get("columns") or socrata.GRAND_LIST_CFG
+    fixture = None
+    fx_path = config.FIXTURES_DIR / "grand_list.json"
+    if demo and item["id"] == "grand_list_growth" and fx_path.exists():
+        fixture = json.loads(fx_path.read_text())
+    try:
+        result = socrata.town_metric_growth(cfg)
+    except Exception:
+        result = socrata.town_metric_growth(cfg, fixture=fixture) if fixture else None
+    if result is None:
+        print(f"  discard (no data): {item['id']}")
+        return None
+    if proposal.get("indicator_id") is None:
+        proposal = {**proposal, "question_override": None}
+    return cards.from_local(item, proposal, result)
+
+
+def _record_redirect(old_id: str, new_id: str) -> None:
+    """A reworded question mints a new card id; the old permalink must 301 to
+    the new one. Enforced by code now — the old hand-edit step was a rule
+    nobody (including past me) reliably remembered."""
+    path = config.ROOT / "vercel.json"
+    cfg = json.loads(path.read_text())
+    redirects = cfg.setdefault("redirects", [])
+    entry = {"source": f"/story/{old_id}", "destination": f"/story/{new_id}",
+             "permanent": True}
+    if not any(r.get("source") == entry["source"] for r in redirects):
+        redirects.append(entry)
+        util.atomic_write_text(path, json.dumps(cfg, indent=2) + "\n")
+
+
 def answer_proposals(proposals: list[dict], catalog: dict, demo: bool) -> list[dict]:
     stackup_by_id = {i["id"]: i for i in catalog.get("stackup", [])}
     local_by_id = {i["id"]: i for i in catalog.get("local", [])}
@@ -81,41 +134,16 @@ def answer_proposals(proposals: list[dict], catalog: dict, demo: bool) -> list[d
         indicator_id = proposal.get("indicator_id")
         try:
             if proposal["stream"] == "stackup" and indicator_id in stackup_by_id:
-                indicator = stackup_by_id[indicator_id]
-                fixture = config.FIXTURES_DIR / f"dc_{indicator_id}.json"
-                result = datacommons.stackup(indicator, fixture=fixture)
-                if result is None:
-                    print(f"  discard (no data): {indicator_id} <- {proposal['headline']['title'][:60]}")
-                    continue
-                trend_rows = None
-                if indicator.get("trend"):
-                    try:
-                        trend_rows = datacommons.trend(indicator)
-                    except Exception as exc:
-                        print(f"  trend failed ({exc}); rank strip only")
-                built.append(cards.from_stackup(indicator, proposal, result, trend_rows=trend_rows))
+                card = _answer_stackup(proposal, stackup_by_id[indicator_id])
             elif proposal["stream"] == "local":
-                item = local_by_id.get(indicator_id or "grand_list_growth")
-                if item is None or not (item.get("columns") or indicator_id in (None, "grand_list_growth")):
-                    print(f"  skip (no answerer yet): {indicator_id} <- {proposal['headline']['title'][:60]}")
-                    continue
-                cfg = item.get("columns") or socrata.GRAND_LIST_CFG
-                fixture = None
-                fx_path = config.FIXTURES_DIR / "grand_list.json"
-                if demo and item["id"] == "grand_list_growth" and fx_path.exists():
-                    fixture = json.loads(fx_path.read_text())
-                try:
-                    result = socrata.town_metric_growth(cfg)
-                except Exception:
-                    result = socrata.town_metric_growth(cfg, fixture=fixture) if fixture else None
-                if result is None:
-                    print(f"  discard (no data): {item['id']}")
-                    continue
-                if indicator_id is None:
-                    proposal = {**proposal, "question_override": None}
-                built.append(cards.from_local(item, proposal, result))
+                card = _answer_local(proposal,
+                                     local_by_id.get(indicator_id or "grand_list_growth"),
+                                     demo)
             else:
                 print(f"  skip (no answerer yet): {indicator_id or proposal['stream']} <- {proposal['headline']['title'][:60]}")
+                continue
+            if card:
+                built.append(card)
         except Exception as exc:
             print(f"  error: {indicator_id}: {exc}")
     return built
@@ -187,6 +215,7 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
             if (oid != card["id"] and oc.get("indicator") == card.get("indicator")
                     and oc.get("stream") == card.get("stream")):
                 del cards_by_id[oid]
+                _record_redirect(oid, card["id"])
                 print(f"  - superseded [{card['stream']}/{card['topic']}] {oid}")
 
     config.ASKED_LOG_PATH.parent.mkdir(exist_ok=True)

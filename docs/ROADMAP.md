@@ -88,14 +88,15 @@ asked-log-after-publish, atomic writes, strict feed.json, failures.log in-repo,
 token confinement, link scheme allowlist, island `<!--` hardening, CI no
 longer masks failures (red = red), first smoke-test suite (tests/).
 
-Deliberately deferred (each is a tidy refactor, none is load-bearing):
-- Shared `trigger_fragment()` (publish/newsroom render the same trigger line).
-- `scripts/_brand.py` (palette + fonts + SITE currently triplicated across
-  the three scripts/ files).
-- Split `run.answer_proposals` into `_answer_stackup/_answer_local`,
-  data-driven local answerers (grand_list hardcoded four times).
-- Socrata `$limit: 400` → paginate or detect truncation.
-- Rename pipeline state `output/feed.json` → `output/cards.json`
-  (name collides with the JSON Feed spec file at root).
-- Generate vercel redirect fragments when a card id is superseded.
+Shipped in the same day's backlog pass: shared `theme.trigger_parts()`
+(one trigger renderer for board + stories), `scripts/_brand.py` (one brand
+recipe for all generated artifacts), `answer_proposals` split into
+`_answer_stackup`/`_answer_local`, Socrata `$offset` pagination (the old
+`$limit: 400` silently truncated the 169-town dataset by design), pipeline
+state renamed `output/feed.json` → `output/cards.json` (no more collision
+with the JSON Feed file at root), and superseded story ids now record their
+301 in vercel.json **from code** — the hand-edit step was a rule nobody
+reliably remembered.
+
+Still deferred (cosmetic only):
 - Feed display names belong in config next to each URL, not a host map.

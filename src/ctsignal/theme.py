@@ -231,6 +231,22 @@ def header() -> str:
     )
 
 
+def trigger_parts(card: dict) -> tuple[str, str]:
+    """The 'Triggered by' attribution, rendered once for home and stories.
+    Returns (source-prefix, title-html); both already HTML-escaped."""
+    h = card["headline"]
+    title = _ESC(h["title"])
+    src = h.get("source") or ""
+    # civic-calendar entries carry "[civic calendar] ..." in the title;
+    # don't print the source label twice.
+    if src and title.startswith(f"[{_ESC(src)}]"):
+        title = title[len(f"[{_ESC(src)}]") + 1:].lstrip()
+    if h.get("url"):
+        title = f'<a href="{_ESC(h["url"])}" rel="noopener">{title}</a>'
+    prefix = f'{_ESC(src)} \u00b7 ' if src else ""
+    return prefix, title
+
+
 def footer() -> str:
     email = config.CONTACT_EMAIL
     year = dt.date.today().year
@@ -350,7 +366,6 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website",
 def page(*, title: str, desc: str, path: str, body: str, **kw) -> str:
     h = head(title=title, desc=desc, path=path, **kw)
     return (f'<!doctype html>\n<html lang="en"><head>\n{h}\n</head>\n<body>\n'
-            f'<a class="skip" href="#main">Skip to content</a>\n'
             f'{header()}\n<main id="main">\n{body}\n</main>\n{footer()}\n'
             f'{VEGA_LOAD}\n</body></html>\n')
 

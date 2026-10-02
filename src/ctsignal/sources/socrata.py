@@ -5,17 +5,31 @@ import requests
 from .. import config
 
 
+def _paginated(fetch, page: int = 1000, max_rows: int = 40000) -> list[dict]:
+    """Loop $offset pages until a short page ends the dataset."""
+    out, off = [], 0
+    while True:
+        batch = fetch(off)
+        out += batch
+        if len(batch) < page or len(out) >= max_rows:
+            return out
+        off += page
+
+
 def rows(dataset_id: str, **soql: str) -> list[dict]:
-    resp = requests.get(
-        f"{config.SOCRATA_PORTAL}/resource/{dataset_id}.json",
-        params={"$limit": 400, **soql},
-        headers={**config.UA,
-                 **({"X-App-Token": config.SOCRATA_TOKEN}
-                    if config.SOCRATA_TOKEN else {})},
-        timeout=20,
-    )
-    resp.raise_for_status()
-    return resp.json()
+    def fetch(offset: int) -> list[dict]:
+        resp = requests.get(
+            f"{config.SOCRATA_PORTAL}/resource/{dataset_id}.json",
+            params={"$limit": 1000, "$offset": offset, **soql},
+            headers={**config.UA,
+                     **({"X-App-Token": config.SOCRATA_TOKEN}
+                        if config.SOCRATA_TOKEN else {})},
+            timeout=20,
+        )
+        resp.raise_for_status()
+        return resp.json()
+
+    return _paginated(fetch)
 
 
 def town_metric_growth(cfg: dict, fixture: dict | None = None) -> dict | None:

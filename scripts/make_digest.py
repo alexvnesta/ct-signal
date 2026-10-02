@@ -13,12 +13,13 @@ import pathlib
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-SITE = (sys.environ.get("SITE_URL") or "https://ctsignal.org").rstrip("/")
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from _brand import SITE  # noqa: E402  (shared brand recipe)
 E = html.escape
 
 
 def main() -> None:
-    feed = json.loads((ROOT / "output" / "feed.json").read_text())
+    feed = json.loads((ROOT / "output" / "cards.json").read_text())
     board = json.loads((ROOT / "board.json").read_text())
     cards = feed["cards"]
     if not cards:

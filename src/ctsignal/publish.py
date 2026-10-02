@@ -31,18 +31,8 @@ def ago(iso: str, now: dt.datetime) -> str:
 
 
 def _trigger_line(card: dict) -> str:
-    h = card["headline"]
-    title = _ESC(h["title"])
-    src = h.get("source") or ""
-    # civic-calendar entries carry "[civic calendar] ..." in the title; don't
-    # print the source label twice.
-    if src and title.startswith(f"[{_ESC(src)}]"):
-        title = title[len(f"[{_ESC(src)}]") + 1:].lstrip()
-    if h.get("url"):
-        title = (f'<a href="{_ESC(h["url"])}" rel="noopener">'
-                 f'{title}</a>')
-    src = f'{_ESC(src)} · ' if src else ""
-    return f'Triggered by {src}{title}'
+    prefix, title = theme.trigger_parts(card)
+    return f'Triggered by {prefix}{title}'
 
 
 def _kicker(card: dict, when: str) -> str:
@@ -159,7 +149,7 @@ def publish(cards: list[dict], board: dict | None = None) -> None:
         "generated_at": cards[0]["generated_at"] if cards else None,
         "cards": cards,
     }
-    util.write_json(config.OUTPUT_DIR / "feed.json", feed)
+    util.write_json(config.OUTPUT_DIR / "cards.json", feed)
     if board is not None:
         util.write_json(config.OUTPUT_DIR / "board.json", board)
     util.atomic_write_text(config.OUTPUT_DIR / "index.html",

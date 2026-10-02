@@ -8,7 +8,7 @@ import os
 
 def atomic_write_text(path, text: str) -> None:
     """Write via tmp+rename: a kill mid-write can never truncate a committed
-    artifact (a half-written output/feed.json once meant an empty board)."""
+    artifact (a half-written pipeline state once meant an empty board)."""
     tmp = path.with_name(path.name + ".tmp")
     tmp.write_text(text)
     os.replace(tmp, path)

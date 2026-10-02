@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import json
 import pathlib
-import textwrap
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -18,46 +17,10 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / "assets"
 OUT.mkdir(exist_ok=True)
 
-BG2 = (10, 15, 20)
-PANEL = (21, 29, 39)
-LINE = (40, 57, 74)
-INK = (233, 238, 244)
-DIM = (147, 167, 185)
-ACC = (242, 166, 90)
-OK = (143, 214, 169)
+import sys as _sys
+_sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from _brand import BG2, PANEL, LINE, INK, DIM, ACC, OK, SANS, SERIF, font, SITE, wrap
 
-import sys
-
-if sys.platform == "darwin":
-    SANS = "/System/Library/Fonts/Helvetica.ttc"      # idx 0 reg, 1 bold
-    SERIF = "/System/Library/Fonts/Supplemental/Georgia.ttf"
-else:  # GitHub-hosted runners: DejaVu ships with the ubuntu image
-    SANS = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-    SERIF = "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf"
-_BOLD = SANS.replace("DejaVuSans", "DejaVuSans-Bold") if sys.platform != "darwin" else SANS
-
-
-def font(path, size, index=0):
-    if index and path == SANS and sys.platform != "darwin":
-        path, index = _BOLD, 0   # DejaVu bold is a separate file, not a ttc face
-    try:
-        return ImageFont.truetype(path, size, index=index)
-    except OSError:  # platform font drift must not kill a cover run
-        return ImageFont.load_default(size)
-
-
-def wrap(draw, text, f, max_w):
-    words, lines, cur = text.split(), [], ""
-    for w in words:
-        t = (cur + " " + w).strip()
-        if draw.textlength(t, font=f) <= max_w:
-            cur = t
-        else:
-            lines.append(cur)
-            cur = w
-    if cur:
-        lines.append(cur)
-    return lines
 
 
 def bolt(draw, x, y, s, color):
