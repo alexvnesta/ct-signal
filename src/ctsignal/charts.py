@@ -87,14 +87,10 @@ def dot_strip(rows: list[dict], *, title: str = "") -> dict:
         .properties(width="container", height=46,
                     title=alt.TitleParams(text=title, fontSize=11, color="#7d91a5"))
     )
-    ct = [{**r, "y": 0} for r in strip if r["state"] == "Connecticut"]
-    tag = (
-        alt.Chart(alt.Data(values=ct))
-        .mark_text(text="CT", dy=16, fontSize=10, fontWeight=700,
-                   color="#e9eef4")
-        .encode(x=alt.X("rank:O").sort(order), y=alt.Y("y:Q").scale(domain=[-0.5, 0.5]))
-    )
-    chart = _dark(chart + tag)
+    # No CT text tag here: layering breaks width:"container" resolution
+    # (svg renders 0-wide). The orange dot + tooltip + board legend already
+    # identify Connecticut; visual review over decoration.
+    chart = _dark(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 
 
