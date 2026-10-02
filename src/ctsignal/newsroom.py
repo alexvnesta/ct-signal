@@ -149,9 +149,10 @@ def rss_xml(cards: list[dict]) -> str:
                 if h.get("url") else _ESC(h["title"]))
         story = permalink(c)
         art = ""
-        if (config.ROOT / "assets" / f"story-{c['id']}.png").exists():
+        png = config.ROOT / "assets" / f"story-{c['id']}.png"
+        if png.exists():
             art = (f'<enclosure url="{config.SITE_URL}/assets/story-{c["id"]}.png"'
-                   f' length="0" type="image/png"/>')
+                   f' length="{png.stat().st_size}" type="image/png"/>')
         desc = (f'{_ESC(c["answer_text"])}<br/><br/>'
                 f'<a href="{story}">Read the full story with the chart and '
                 f'the query</a><br/><br/>Triggered by: {trig}')
@@ -198,6 +199,8 @@ def json_feed(cards: list[dict]) -> str:
             it["attachments"] = [{
                 "url": f"{config.SITE_URL}/assets/story-{c['id']}.png",
                 "mime_type": "image/png",
+                "size_in_bytes": (config.ROOT / "assets" /
+                                  f"story-{c['id']}.png").stat().st_size,
             }]
         items.append(it)
     feed = {

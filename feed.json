@@ -19,7 +19,8 @@
       "attachments": [
         {
           "url": "https://ctsignal.org/assets/story-ed851796295a.png",
-          "mime_type": "image/png"
+          "mime_type": "image/png",
+          "size_in_bytes": 48976
         }
       ]
     },
@@ -36,7 +37,8 @@
       "attachments": [
         {
           "url": "https://ctsignal.org/assets/story-0b26178760d4.png",
-          "mime_type": "image/png"
+          "mime_type": "image/png",
+          "size_in_bytes": 54771
         }
       ]
     },
@@ -53,7 +55,8 @@
       "attachments": [
         {
           "url": "https://ctsignal.org/assets/story-a9f3ddd2243a.png",
-          "mime_type": "image/png"
+          "mime_type": "image/png",
+          "size_in_bytes": 60216
         }
       ]
     },
@@ -70,7 +73,8 @@
       "attachments": [
         {
           "url": "https://ctsignal.org/assets/story-b37766e764aa.png",
-          "mime_type": "image/png"
+          "mime_type": "image/png",
+          "size_in_bytes": 47106
         }
       ]
     },
@@ -87,7 +91,8 @@
       "attachments": [
         {
           "url": "https://ctsignal.org/assets/story-0125297ea839.png",
-          "mime_type": "image/png"
+          "mime_type": "image/png",
+          "size_in_bytes": 53763
         }
       ]
     }
