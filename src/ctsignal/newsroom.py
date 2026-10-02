@@ -134,11 +134,15 @@ def rss_xml(cards: list[dict]) -> str:
         trig = (f'<a href="{_ESC(h["url"])}">{_ESC(h["title"])}</a>'
                 if h.get("url") else _ESC(h["title"]))
         story = permalink(c)
+        art = ""
+        if (config.ROOT / "assets" / f"story-{c['id']}.png").exists():
+            art = (f'<enclosure url="{config.SITE_URL}/assets/story-{c["id"]}.png"'
+                   f' length="0" type="image/png"/>')
         desc = (f'{_ESC(c["answer_text"])}<br/><br/>'
                 f'<a href="{story}">Read the full story with the chart and '
                 f'the query</a><br/><br/>Triggered by: {trig}')
         items.append(
-            f'<item><title>{_ESC(c["question"])}</title>'
+            f'<item><title>{_ESC(c["question"])}</title>{art}'
             f'<link>{story}</link><guid isPermaLink="true">{story}</guid>'
             f'<pubDate>{_rfc822(c["generated_at"])}</pubDate>'
             f'<category>{_ESC(c["topic"])}</category>'
@@ -147,7 +151,7 @@ def rss_xml(cards: list[dict]) -> str:
     return (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>'
-        f'<title>CT Signal</title><link>{config.SITE_URL}</link>'
+        f'<title>CT Signal</title><link>{config.SITE_URL}/</link>'
         f'<atom:link href="{config.SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>'
         '<description>Connecticut data answers to the questions its news cycle is '
         'already asking. Automated data desk — every number fetched, never written.'
@@ -167,14 +171,21 @@ def json_feed(cards: list[dict]) -> str:
     for c in cards:
         h = c["headline"]
         trig = f' Triggered by: {h["title"]}' if h.get("title") else ""
-        items.append({
+        it = {
             "id": permalink(c),
             "url": permalink(c),
             "title": c["question"],
             "content_text": c["answer_text"] + "." + trig,
             "date_published": c["generated_at"],
             "_tags": [c["topic"]],
-        })
+        }
+        if (config.ROOT / "assets" / f"story-{c['id']}.png").exists():
+            it["image"] = f"{config.SITE_URL}/assets/story-{c['id']}.png"
+            it["attachments"] = [{
+                "url": f"{config.SITE_URL}/assets/story-{c['id']}.png",
+                "mime_type": "image/png",
+            }]
+        items.append(it)
     feed = {
         "version": "https://jsonfeed.org/version/1.1",
         "title": "CT Signal",
