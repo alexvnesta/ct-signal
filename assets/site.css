@@ -158,7 +158,14 @@ code{background:var(--panel2);color:#cfdcea;padding:.1rem .35rem;border-radius:4
 /* --------------------------------------------------------------- footer --- */
 footer.site{border-top:1px solid var(--line);background:var(--bg2);margin-top:2.5rem;
   padding:1.8rem 0 2.2rem}
-.footgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1.5rem}
+.footgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1.3fr;gap:1.5rem}
+.footgrid form{display:flex;gap:.4rem;margin-top:.4rem}
+.footgrid input{flex:1;min-width:0;background:var(--bg2);border:1px solid var(--line);
+color:var(--ink);padding:.45rem .6rem;font:inherit;font-size:.87rem}
+.footgrid input:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.footgrid form button{background:var(--acc);color:#14181c;border:0;padding:.45rem .8rem;
+font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
+@media(max-width:880px){.footgrid{grid-template-columns:1fr 1fr}}
 .footgrid h2{margin:.2rem 0 .6rem;color:var(--dim);font-size:.74rem;
   letter-spacing:.16em;text-transform:uppercase}
 .footgrid p{color:var(--dim);font-size:.87rem;margin:.3rem 0}

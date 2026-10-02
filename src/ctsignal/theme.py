@@ -184,7 +184,14 @@ code{background:var(--panel2);color:#cfdcea;padding:.1rem .35rem;border-radius:4
 /* --------------------------------------------------------------- footer --- */
 footer.site{border-top:1px solid var(--line);background:var(--bg2);margin-top:2.5rem;
   padding:1.8rem 0 2.2rem}
-.footgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1.5rem}
+.footgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1.3fr;gap:1.5rem}
+.footgrid form{display:flex;gap:.4rem;margin-top:.4rem}
+.footgrid input{flex:1;min-width:0;background:var(--bg2);border:1px solid var(--line);
+color:var(--ink);padding:.45rem .6rem;font:inherit;font-size:.87rem}
+.footgrid input:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.footgrid form button{background:var(--acc);color:#14181c;border:0;padding:.45rem .8rem;
+font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
+@media(max-width:880px){.footgrid{grid-template-columns:1fr 1fr}}
 .footgrid h2{margin:.2rem 0 .6rem;color:var(--dim);font-size:.74rem;
   letter-spacing:.16em;text-transform:uppercase}
 .footgrid p{color:var(--dim);font-size:.87rem;margin:.3rem 0}
@@ -267,7 +274,15 @@ by hand.</p><p><a href="mailto:{email}">{email}</a></p></div>
 <li><a href="/masthead">Masthead</a></li>
 <li><a href="/corrections">Corrections</a></li>
 <li><a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></li>
-</ul></div></div>
+</ul></div>
+<div><h2>Weekly digest</h2>
+<p>The strongest signal of the week, one email, every Monday.
+Unsubscribe in one click — we sell no data.</p>
+<form action="https://buttondown.com/api/emails/embed-subscribe/ctsignal"
+method="post" target="_blank" rel="noopener">
+<label class="sr-only" for="foot-sub-email">Email address</label>
+<input id="foot-sub-email" type="email" name="email" placeholder="you@example.com" required>
+<button type="submit">Subscribe</button></form></div></div>
 <div class="wrap colophon"><span>© {year} CT Signal · Independent automated newsroom</span>
 <span>Built at Hack for Humanity · Runs on free-tier public infrastructure</span></div>
 </footer>"""
