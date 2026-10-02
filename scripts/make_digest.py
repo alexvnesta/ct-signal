@@ -61,6 +61,8 @@ def main() -> None:
 <body style="margin:0;background:#0a0f14;padding:24px 12px">
 <div style="max-width:560px;margin:0 auto;background:#0e141b;border:1px solid #24394e;
 border-radius:12px;padding:24px">
+<img src="{SITE}/assets/digest-header.png" width="512" alt="CT Signal"
+style="width:100%;border-radius:8px;display:block;margin:0 0 16px">
 <p style="font:700 12px/1 -apple-system,Segoe UI,Roboto,sans-serif;letter-spacing:.14em;
 text-transform:uppercase;color:#f2a65a;margin:0">CT ⚡ SIGNAL · weekly board digest</p>
 <p style="font:13px/1.4 -apple-system,Segoe UI,Roboto,sans-serif;color:#7d91a5;margin:6px 0 0">

@@ -16,7 +16,10 @@ OUT.mkdir(exist_ok=True)
 
 import sys as _sys
 _sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import os
+
 from _brand import BG2, PANEL, LINE, INK, DIM, ACC, OK, SANS, SERIF, font
+from _kit import dot_map, duotone, scrim, SRC
 
 BG = (14, 20, 27)          # --bg (icon field only; see _brand for the rest)
 
@@ -45,7 +48,7 @@ def brand(draw, x, y, size):
     return w_ct + gap + bolt_s + gap + w_sig
 
 
-def og_cover():
+def _og_flat():
     W, H = 1200, 630
     img = Image.new("RGB", (W, H), BG2)
     d = ImageDraw.Draw(img)
@@ -85,6 +88,43 @@ def og_cover():
     img.save(OUT / "og-cover.png", optimize=True)
 
 
+def og_cover():
+    # Social card: generated hero, duotoned; CT dot-map from real geometry.
+    # Falls back to the flat vector build when the art sources are absent.
+    hero = os.path.join(SRC, "hero-waveform.webp")
+    try:
+        img = duotone(hero, 1200, 630, BG2, ACC).convert("RGBA")
+        mark = dot_map(500, None, ACC, grid=LINE)
+        img.paste(mark, (1200 - mark.width - 56, (630 - mark.height) // 2 + 30), mark)
+        scrim(img, (46, 196, 830, 420), BG, 110)
+        d = ImageDraw.Draw(img)
+        brand(d, 70, 215, 112)
+        d.text((72, 372), "Every number fetched, never typed.  ·  ctsignal.org",
+               font=font(SANS, 30), fill=DIM)
+        d.line((70, 588, 420, 588), fill=ACC, width=3)
+        img.convert("RGB").save(OUT / "og-cover.png", optimize=True)
+    except (OSError, ValueError):
+        _og_flat()
+
+
+def digest_header():
+    # Header band for the weekly email: contour weave, inverted to brand colours.
+    src = os.path.join(SRC, "hero-contours.webp")
+    try:
+        img = duotone(src, 1200, 260, BG, ACC, gamma=0.9, invert=True).convert("RGBA")
+        mark = dot_map(230, None, ACC, grid=None)
+        img.paste(mark, (1200 - mark.width - 60, (260 - mark.height) // 2), mark)
+        scrim(img, (46, 36, 660, 224), BG, 120)
+        d = ImageDraw.Draw(img)
+        brand(d, 70, 66, 86)
+        d.text((72, 190), "The weekly digest  ·  every Thursday",
+               font=font(SANS, 24), fill=DIM)
+        img.convert("RGB").save(OUT / "digest-header.png", optimize=True)
+    except (OSError, ValueError):
+        pass  # emails simply render without the band
+
+
+
 def favicon_png(size, path):
     img = Image.new("RGBA", (size, size), BG)
     d = ImageDraw.Draw(img)
@@ -110,6 +150,7 @@ font-size="28" fill="#e9eef4">CT</text>
 
 if __name__ == "__main__":
     og_cover()
+    digest_header()
     favicon_png(32, OUT / "favicon-32.png")
     favicon_png(192, OUT / "icon-192.png")
     favicon_png(512, OUT / "icon-512.png")
