@@ -7,6 +7,10 @@ import altair as alt
 alt.data_transformers.disable_max_rows()
 alt.data_transformers.consolidate_datasets = False
 
+def _tick_fmt(unit: str) -> str:
+    return {"USD": "$,.0f", "percent": ".1f", "per 100k": ",.0f"}.get(unit, ",.0f")
+
+
 _HIGHLIGHT_COLOR = "#f2a65a"
 _MUTED_COLOR = "#9aa5b1"
 
@@ -46,7 +50,8 @@ def rank_strip(rows: list[dict], *, title: str, unit: str = "",
         alt.Chart(alt.Data(values=rows))
         .mark_bar(tooltip=False)
         .encode(
-            x=alt.X("value:Q").title(f"{title}{f' ({unit})' if unit else ''}"),
+            x=alt.X("value:Q").title(f"{title}{f' ({unit})' if unit else ''}")
+                .axis(alt.Axis(format=_tick_fmt(unit))),
             y=alt.Y("state:N").sort(order).title(None),
             color=cast(Any, _highlight_color()),
             tooltip=[
@@ -82,7 +87,14 @@ def dot_strip(rows: list[dict], *, title: str = "") -> dict:
         .properties(width="container", height=46,
                     title=alt.TitleParams(text=title, fontSize=11, color="#7d91a5"))
     )
-    chart = _dark(chart)
+    ct = [{**r, "y": 0} for r in strip if r["state"] == "Connecticut"]
+    tag = (
+        alt.Chart(alt.Data(values=ct))
+        .mark_text(dy=16, fontSize=10, fontWeight=700, color="#e9eef4")
+        .encode(x=alt.X("rank:O").sort(order), y=alt.Y("y:Q").scale(domain=[-0.5, 0.5]))
+        .properties(text="CT")
+    )
+    chart = _dark(chart + tag)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 
 
@@ -123,15 +135,16 @@ def state_map(rows: list[dict], *, title: str, unit: str = "") -> dict:
 
 
 def trend(rows: list[dict], *, title: str, unit: str = "") -> dict:
-    series = alt.Color("series:N").legend(alt.Legend(title=None)).scale(
+    series = alt.Color("series:N").legend(None).scale(
         domain=["Connecticut", "United States"], range=[_HIGHLIGHT_COLOR, _MUTED_COLOR]
     )
-    chart = (
+    line = (
         alt.Chart(alt.Data(values=rows))
         .mark_line(point=True)
         .encode(
             x=alt.X("date:O").title("Date"),
-            y=alt.Y("value:Q").title(f"{title}{f' ({unit})' if unit else ''}"),
+            y=alt.Y("value:Q").title(f"{title}{f' ({unit})' if unit else ''}")
+                .axis(alt.Axis(format=_tick_fmt(unit))),
             color=series,
             tooltip=[
                 alt.Tooltip("series:N"),
@@ -139,7 +152,28 @@ def trend(rows: list[dict], *, title: str, unit: str = "") -> dict:
                 alt.Tooltip("value:Q"),
             ],
         )
-        .properties(width=420, height=200, title=alt.TitleParams(text=title))
     )
+    # FT-style direct labelling: name each series at its own endpoint —
+    # no legend to decode, no colour-only signal.
+    ends = []
+    for name, short in (("Connecticut", "CT"), ("United States", "US")):
+        pts = [r for r in rows if r["series"] == name]
+        if pts:
+            e = max(pts, key=lambda r: str(r["date"]))
+            ends.append({**e, "short": short})
+    labels = (
+        alt.Chart(alt.Data(values=ends))
+        .mark_text(align="left", dx=8, dy=-8, fontSize=12, fontWeight=700)
+        .encode(x=alt.X("date:O"), y=alt.Y("value:Q"),
+                text=alt.Text("short:N"),
+                color=alt.Color("series:N", legend=None,
+                                scale=alt.Scale(
+                                    domain=["Connecticut", "United States"],
+                                    range=[_HIGHLIGHT_COLOR, _MUTED_COLOR])))
+    )
+    chart = (line + labels).properties(
+        width=420, height=200, title=alt.TitleParams(text=title),
+        autosize=alt.AutoSizeParams(contains="padding"),
+        padding=alt.Padding(right=64))
     chart = _dark(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))

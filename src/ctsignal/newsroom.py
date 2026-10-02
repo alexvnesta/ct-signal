@@ -112,7 +112,9 @@ def story_html(card: dict) -> str:
                            caption="Peer map; Connecticut outlined. "
                                    "AlbersUSA omits DC and Puerto Rico.")
     cache_badge = ' <span class="badge">cache</span>' if card.get("cache") else ""
-    kicker = f'{_ESC(card["topic"])} · {_ESC(card["stream"])} desk{cache_badge}'
+    kicker = (f'<a class="klink" href="/topic/{_ESC(card["topic"])}">'
+              f'{_ESC(card["topic"])}</a> · {_ESC(card["stream"])} desk'
+              f'{cache_badge}')
     og = _story_og(card)
     body = f"""<div class="wrap col">
 <div class="breadcrumb"><a href="/">← The board</a></div>
@@ -124,6 +126,11 @@ automated data desk</div>
 <div class="card"><div class="label">The data</div>{chart}{chart2}</div>
 {_trigger_html(card)}
 {_provenance_html(card)}
+<details class="embed"><summary>Embed this story</summary>
+<p class="meta">Free to embed with attribution — the embed stays updated as
+the underlying data refreshes.</p>
+<textarea readonly rows="2" onclick="this.select()">&lt;iframe src="https://ctsignal.org/story/{card["id"]}/embed" width="100%" height="540" style="border:0;border-radius:10px" loading="lazy" title="{_ESC(card["question"])}"&gt;&lt;/iframe&gt;</textarea>
+</details>
 <p class="meta">Found an error? Corrections are public, annotated, and diffable —
 see <a href="/corrections">the corrections policy</a>.</p>
 </div>"""
@@ -139,6 +146,63 @@ see <a href="/corrections">the corrections policy</a>.</p>
             description=card["answer_text"][:200],
             published=card["generated_at"], section=card["topic"],
             image=og))
+
+
+
+def embed_html(card: dict) -> str:
+    """Chromeless story card for iframes. Canonical points at the story so
+    embeds consolidate link equity instead of duplicating it."""
+    label = f'{card["question"]}. {card["answer_text"]}'
+    chart = theme.viz(_spec_json(card["chart"]), "chart", label=label,
+                      caption=None)
+    body = f"""<div style="background:var(--bg);color:var(--ink);
+font:16px/1.6 var(--sans);padding:1rem 1.2rem;min-height:100vh;box-sizing:border-box">
+<div class="kicker"><a class="klink" href="/story/{card["id"]}" target="_blank"
+rel="noopener">{_ESC(card["topic"])}</a> · CT Signal</div>
+<h1 style="font:700 1.25rem/1.3 var(--serif);margin:.4rem 0">{_ESC(card["question"])}</h1>
+<div class="answerbox" style="font-size:.95rem">{_ESC(card["answer_text"])}</div>
+{chart}
+<p class="meta" style="margin:.8rem 0 0">Data refreshes automatically ·
+<a href="/story/{card["id"]}" target="_blank" rel="noopener">full story with
+provenance →</a></p>
+</div>"""
+    head = theme.head(title=f'{card["question"]} · embedded on CT Signal',
+                      desc=card["answer_text"][:200],
+                      path=f'/story/{card["id"]}', og_type="article")
+    return f'<!doctype html><html lang="en">{head}<body>{body}' \
+           f'{theme.VEGA_LOAD}</body></html>\n'
+
+
+def _topics(cards: list[dict]) -> dict:
+    out: dict = {}
+    for c in sorted(cards, key=lambda c: c["generated_at"], reverse=True):
+        out.setdefault(c["topic"], []).append(c)
+    return out
+
+
+def topic_html(topic: str, cards: list[dict]) -> str:
+    items = "".join(
+        f"""<li class="sig">
+<div class="kicker"><span class="badge">{_ESC(c["stream"])} desk</span> ·
+{_pretty(c["generated_at"])}</div>
+<h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
+<p class="answer">{_ESC(c["answer_text"])}</p>
+</li>""" for c in cards)
+    body = f"""<div class="wrap col">
+<div class="breadcrumb"><a href="/">← The board</a></div>
+<div class="kicker">Topic desk</div>
+<h1 style="font:700 clamp(1.6rem,4vw,2.3rem)/1.2 var(--serif);margin:.4rem 0 .3rem">{_ESC(topic)}</h1>
+<p class="meta">Every question this desk has answered, newest first. All
+numbers fetched from named public datasets — never written by hand.</p>
+<ol class="signals">{items}</ol>
+</div>"""
+    return theme.page(
+        title=f"{topic.capitalize()} stories · CT Signal",
+        desc=f"All CT Signal answers on {topic}: charts, rankings, and the "
+             "query behind every number.",
+        path=f"/topic/{topic}", body=body,
+        og_title=f"{topic.capitalize()} — CT Signal")
+
 
 
 def rss_xml(cards: list[dict]) -> str:
@@ -223,6 +287,10 @@ def sitemap_xml(cards: list[dict]) -> str:
     for c in cards:
         parts.append(f'<url><loc>{permalink(c)}</loc>'
                      f'<lastmod>{_day(c["generated_at"])}</lastmod></url>')
+    for topic, tcards in _topics(cards).items():
+        newest = max(_day(c["generated_at"]) for c in tcards)
+        parts.append(f'<url><loc>{config.SITE_URL}/topic/{topic}</loc>'
+                     f'<lastmod>{newest}</lastmod></url>')
     for p in ("about", "methodology", "masthead", "corrections"):
         parts.append(f'<url><loc>{config.SITE_URL}/{p}</loc>'
                      f'<lastmod>{now}</lastmod></url>')
@@ -247,6 +315,15 @@ def write_all(cards: list[dict]) -> None:
         story = config.STORY_DIR / card["id"]
         story.mkdir(parents=True, exist_ok=True)
         (story / "index.html").write_text(story_html(card))
+        emb = story / "embed"
+        emb.mkdir(exist_ok=True)
+        (emb / "index.html").write_text(embed_html(card))
+    tdir = config.ROOT / "topic"
+    tdir.mkdir(exist_ok=True)
+    for topic, tcards in _topics(cards).items():
+        hd = tdir / topic
+        hd.mkdir(exist_ok=True)
+        (hd / "index.html").write_text(topic_html(topic, tcards))
     if cards:
         (config.ROOT / "feed.xml").write_text(rss_xml(cards))
         (config.ROOT / "feed.json").write_text(json_feed(cards))
