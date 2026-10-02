@@ -142,15 +142,16 @@ def trend(rows: list[dict], *, title: str, unit: str = "") -> dict:
         alt.Chart(alt.Data(values=rows))
         .mark_line(point=True)
         .encode(
-            x=alt.X("date:O").title("Date")
-                .axis(alt.Axis(labelOverlap=True)),
+            x=alt.X("date:T").title(None).axis(
+                alt.Axis(format="%Y", tickCount=6, grid=False,
+                           domainColor="#28394a")),
             y=alt.Y("value:Q").title(f"{title}{f' ({unit})' if unit else ''}")
                 .axis(alt.Axis(format=_tick_fmt(unit))),
             color=series,
             tooltip=[
                 alt.Tooltip("series:N"),
-                alt.Tooltip("date:O"),
-                alt.Tooltip("value:Q"),
+                alt.Tooltip("date:T").title("Month").format("%Y-%m"),
+                alt.Tooltip("value:Q").format(".1f"),
             ],
         )
     )

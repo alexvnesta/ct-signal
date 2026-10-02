@@ -2542,20 +2542,26 @@
                 },
                 {
                   "field": "date",
-                  "type": "ordinal"
+                  "format": "%Y-%m",
+                  "title": "Month",
+                  "type": "temporal"
                 },
                 {
                   "field": "value",
+                  "format": ".1f",
                   "type": "quantitative"
                 }
               ],
               "x": {
                 "axis": {
-                  "labelOverlap": true
+                  "domainColor": "#28394a",
+                  "format": "%Y",
+                  "grid": false,
+                  "tickCount": 6
                 },
                 "field": "date",
-                "title": "Date",
-                "type": "ordinal"
+                "title": null,
+                "type": "temporal"
               },
               "y": {
                 "axis": {
