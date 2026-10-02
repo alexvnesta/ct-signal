@@ -7,12 +7,9 @@
       "rank": 17,
       "rank_label": "17th-highest",
       "strip": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
-          "view": {
-            "continuousWidth": 300,
-            "continuousHeight": 300,
-            "strokeWidth": 0
-          },
           "axis": {
             "domainColor": "#26313d",
             "gridColor": "#26313d",
@@ -28,8 +25,14 @@
           "title": {
             "color": "#eef2f5",
             "subtitleColor": "#9fb0bf"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
           }
         },
+        "height": 46,
         "layer": [
           {
             "data": {
@@ -400,10 +403,6 @@
                 }
               ]
             },
-            "mark": {
-              "type": "circle",
-              "size": 42
-            },
             "encoding": {
               "color": {
                 "field": "highlight",
@@ -515,10 +514,14 @@
                 "type": "quantitative"
               }
             },
+            "mark": {
+              "size": 42,
+              "type": "circle"
+            },
             "title": {
-              "text": "rank across the 52 peers",
               "color": "#7d91a5",
-              "fontSize": 11
+              "fontSize": 11,
+              "text": "rank across the 52 peers"
             }
           },
           {
@@ -532,13 +535,6 @@
                   "y": 0
                 }
               ]
-            },
-            "mark": {
-              "type": "text",
-              "color": "#e9eef4",
-              "dy": 16,
-              "fontSize": 10,
-              "fontWeight": 700
             },
             "encoding": {
               "x": {
@@ -610,13 +606,17 @@
                 "type": "quantitative"
               }
             },
-            "text": "CT"
+            "mark": {
+              "color": "#e9eef4",
+              "dy": 16,
+              "fontSize": 10,
+              "fontWeight": 700,
+              "text": "CT",
+              "type": "text"
+            }
           }
         ],
-        "height": 46,
-        "width": "container",
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "background": "transparent"
+        "width": "container"
       },
       "title": "Median gross rent",
       "topic": "housing",
@@ -629,12 +629,9 @@
       "rank": 3,
       "rank_label": "3rd-highest",
       "strip": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
-          "view": {
-            "continuousWidth": 300,
-            "continuousHeight": 300,
-            "strokeWidth": 0
-          },
           "axis": {
             "domainColor": "#26313d",
             "gridColor": "#26313d",
@@ -650,8 +647,14 @@
           "title": {
             "color": "#eef2f5",
             "subtitleColor": "#9fb0bf"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
           }
         },
+        "height": 46,
         "layer": [
           {
             "data": {
@@ -1022,10 +1025,6 @@
                 }
               ]
             },
-            "mark": {
-              "type": "circle",
-              "size": 42
-            },
             "encoding": {
               "color": {
                 "field": "highlight",
@@ -1137,10 +1136,14 @@
                 "type": "quantitative"
               }
             },
+            "mark": {
+              "size": 42,
+              "type": "circle"
+            },
             "title": {
-              "text": "rank across the 52 peers",
               "color": "#7d91a5",
-              "fontSize": 11
+              "fontSize": 11,
+              "text": "rank across the 52 peers"
             }
           },
           {
@@ -1154,13 +1157,6 @@
                   "y": 0
                 }
               ]
-            },
-            "mark": {
-              "type": "text",
-              "color": "#e9eef4",
-              "dy": 16,
-              "fontSize": 10,
-              "fontWeight": 700
             },
             "encoding": {
               "x": {
@@ -1232,13 +1228,17 @@
                 "type": "quantitative"
               }
             },
-            "text": "CT"
+            "mark": {
+              "color": "#e9eef4",
+              "dy": 16,
+              "fontSize": 10,
+              "fontWeight": 700,
+              "text": "CT",
+              "type": "text"
+            }
           }
         ],
-        "height": 46,
-        "width": "container",
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "background": "transparent"
+        "width": "container"
       },
       "title": "Unemployment rate",
       "topic": "economy",
@@ -1251,12 +1251,9 @@
       "rank": 19,
       "rank_label": "19th-highest",
       "strip": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
-          "view": {
-            "continuousWidth": 300,
-            "continuousHeight": 300,
-            "strokeWidth": 0
-          },
           "axis": {
             "domainColor": "#26313d",
             "gridColor": "#26313d",
@@ -1272,8 +1269,14 @@
           "title": {
             "color": "#eef2f5",
             "subtitleColor": "#9fb0bf"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
           }
         },
+        "height": 46,
         "layer": [
           {
             "data": {
@@ -1644,10 +1647,6 @@
                 }
               ]
             },
-            "mark": {
-              "type": "circle",
-              "size": 42
-            },
             "encoding": {
               "color": {
                 "field": "highlight",
@@ -1759,10 +1758,14 @@
                 "type": "quantitative"
               }
             },
+            "mark": {
+              "size": 42,
+              "type": "circle"
+            },
             "title": {
-              "text": "rank across the 52 peers",
               "color": "#7d91a5",
-              "fontSize": 11
+              "fontSize": 11,
+              "text": "rank across the 52 peers"
             }
           },
           {
@@ -1776,13 +1779,6 @@
                   "y": 0
                 }
               ]
-            },
-            "mark": {
-              "type": "text",
-              "color": "#e9eef4",
-              "dy": 16,
-              "fontSize": 10,
-              "fontWeight": 700
             },
             "encoding": {
               "x": {
@@ -1854,13 +1850,17 @@
                 "type": "quantitative"
               }
             },
-            "text": "CT"
+            "mark": {
+              "color": "#e9eef4",
+              "dy": 16,
+              "fontSize": 10,
+              "fontWeight": 700,
+              "text": "CT",
+              "type": "text"
+            }
           }
         ],
-        "height": 46,
-        "width": "container",
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "background": "transparent"
+        "width": "container"
       },
       "title": "Median home value",
       "topic": "housing",
@@ -1873,12 +1873,9 @@
       "rank": 9,
       "rank_label": "9th-highest",
       "strip": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
-          "view": {
-            "continuousWidth": 300,
-            "continuousHeight": 300,
-            "strokeWidth": 0
-          },
           "axis": {
             "domainColor": "#26313d",
             "gridColor": "#26313d",
@@ -1894,8 +1891,14 @@
           "title": {
             "color": "#eef2f5",
             "subtitleColor": "#9fb0bf"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
           }
         },
+        "height": 46,
         "layer": [
           {
             "data": {
@@ -2266,10 +2269,6 @@
                 }
               ]
             },
-            "mark": {
-              "type": "circle",
-              "size": 42
-            },
             "encoding": {
               "color": {
                 "field": "highlight",
@@ -2381,10 +2380,14 @@
                 "type": "quantitative"
               }
             },
+            "mark": {
+              "size": 42,
+              "type": "circle"
+            },
             "title": {
-              "text": "rank across the 52 peers",
               "color": "#7d91a5",
-              "fontSize": 11
+              "fontSize": 11,
+              "text": "rank across the 52 peers"
             }
           },
           {
@@ -2398,13 +2401,6 @@
                   "y": 0
                 }
               ]
-            },
-            "mark": {
-              "type": "text",
-              "color": "#e9eef4",
-              "dy": 16,
-              "fontSize": 10,
-              "fontWeight": 700
             },
             "encoding": {
               "x": {
@@ -2476,13 +2472,17 @@
                 "type": "quantitative"
               }
             },
-            "text": "CT"
+            "mark": {
+              "color": "#e9eef4",
+              "dy": 16,
+              "fontSize": 10,
+              "fontWeight": 700,
+              "text": "CT",
+              "type": "text"
+            }
           }
         ],
-        "height": 46,
-        "width": "container",
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "background": "transparent"
+        "width": "container"
       },
       "title": "Median household income",
       "topic": "economy",
@@ -2495,12 +2495,9 @@
       "rank": 43,
       "rank_label": "10th-lowest",
       "strip": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
-          "view": {
-            "continuousWidth": 300,
-            "continuousHeight": 300,
-            "strokeWidth": 0
-          },
           "axis": {
             "domainColor": "#26313d",
             "gridColor": "#26313d",
@@ -2516,8 +2513,14 @@
           "title": {
             "color": "#eef2f5",
             "subtitleColor": "#9fb0bf"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
           }
         },
+        "height": 46,
         "layer": [
           {
             "data": {
@@ -2888,10 +2891,6 @@
                 }
               ]
             },
-            "mark": {
-              "type": "circle",
-              "size": 42
-            },
             "encoding": {
               "color": {
                 "field": "highlight",
@@ -3003,10 +3002,14 @@
                 "type": "quantitative"
               }
             },
+            "mark": {
+              "size": 42,
+              "type": "circle"
+            },
             "title": {
-              "text": "rank across the 52 peers",
               "color": "#7d91a5",
-              "fontSize": 11
+              "fontSize": 11,
+              "text": "rank across the 52 peers"
             }
           },
           {
@@ -3020,13 +3023,6 @@
                   "y": 0
                 }
               ]
-            },
-            "mark": {
-              "type": "text",
-              "color": "#e9eef4",
-              "dy": 16,
-              "fontSize": 10,
-              "fontWeight": 700
             },
             "encoding": {
               "x": {
@@ -3098,13 +3094,17 @@
                 "type": "quantitative"
               }
             },
-            "text": "CT"
+            "mark": {
+              "color": "#e9eef4",
+              "dy": 16,
+              "fontSize": 10,
+              "fontWeight": 700,
+              "text": "CT",
+              "type": "text"
+            }
           }
         ],
-        "height": 46,
-        "width": "container",
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "background": "transparent"
+        "width": "container"
       },
       "title": "Share below poverty line",
       "topic": "equity",
@@ -3117,12 +3117,9 @@
       "rank": 50,
       "rank_label": "3rd-safest",
       "strip": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
-          "view": {
-            "continuousWidth": 300,
-            "continuousHeight": 300,
-            "strokeWidth": 0
-          },
           "axis": {
             "domainColor": "#26313d",
             "gridColor": "#26313d",
@@ -3138,8 +3135,14 @@
           "title": {
             "color": "#eef2f5",
             "subtitleColor": "#9fb0bf"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
           }
         },
+        "height": 46,
         "layer": [
           {
             "data": {
@@ -3510,10 +3513,6 @@
                 }
               ]
             },
-            "mark": {
-              "type": "circle",
-              "size": 42
-            },
             "encoding": {
               "color": {
                 "field": "highlight",
@@ -3625,10 +3624,14 @@
                 "type": "quantitative"
               }
             },
+            "mark": {
+              "size": 42,
+              "type": "circle"
+            },
             "title": {
-              "text": "rank across the 52 peers",
               "color": "#7d91a5",
-              "fontSize": 11
+              "fontSize": 11,
+              "text": "rank across the 52 peers"
             }
           },
           {
@@ -3642,13 +3645,6 @@
                   "y": 0
                 }
               ]
-            },
-            "mark": {
-              "type": "text",
-              "color": "#e9eef4",
-              "dy": 16,
-              "fontSize": 10,
-              "fontWeight": 700
             },
             "encoding": {
               "x": {
@@ -3720,13 +3716,17 @@
                 "type": "quantitative"
               }
             },
-            "text": "CT"
+            "mark": {
+              "color": "#e9eef4",
+              "dy": 16,
+              "fontSize": 10,
+              "fontWeight": 700,
+              "text": "CT",
+              "type": "text"
+            }
           }
         ],
-        "height": 46,
-        "width": "container",
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "background": "transparent"
+        "width": "container"
       },
       "title": "Violent crime per 100k",
       "topic": "justice",

@@ -90,9 +90,9 @@ def dot_strip(rows: list[dict], *, title: str = "") -> dict:
     ct = [{**r, "y": 0} for r in strip if r["state"] == "Connecticut"]
     tag = (
         alt.Chart(alt.Data(values=ct))
-        .mark_text(dy=16, fontSize=10, fontWeight=700, color="#e9eef4")
+        .mark_text(text="CT", dy=16, fontSize=10, fontWeight=700,
+                   color="#e9eef4")
         .encode(x=alt.X("rank:O").sort(order), y=alt.Y("y:Q").scale(domain=[-0.5, 0.5]))
-        .properties(text="CT")
     )
     chart = _dark(chart + tag)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
