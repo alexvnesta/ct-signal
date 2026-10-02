@@ -39,7 +39,8 @@ def _highlight_color() -> dict:
     }
 
 
-def rank_strip(rows: list[dict], *, title: str, unit: str = "") -> dict:
+def rank_strip(rows: list[dict], *, title: str, unit: str = "",
+             peer_word: str = "Peer") -> dict:
     order = [r["state"] for r in sorted(rows, key=lambda r: -r["rank"])]
     chart = (
         alt.Chart(alt.Data(values=rows))
@@ -49,7 +50,7 @@ def rank_strip(rows: list[dict], *, title: str, unit: str = "") -> dict:
             y=alt.Y("state:N").sort(order).title(None),
             color=cast(Any, _highlight_color()),
             tooltip=[
-                alt.Tooltip("state:N").title("Peer"),
+                alt.Tooltip("state:N").title(peer_word),
                 alt.Tooltip("value:Q").title(title),
                 alt.Tooltip("rank:Q").title("Rank"),
             ],
@@ -79,7 +80,7 @@ def dot_strip(rows: list[dict], *, title: str = "") -> dict:
             ],
         )
         .properties(width="container", height=46,
-                    title=alt.TitleParams(text=title, fontSize=11, color="#69788a"))
+                    title=alt.TitleParams(text=title, fontSize=11, color="#7d91a5"))
     )
     chart = _dark(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))

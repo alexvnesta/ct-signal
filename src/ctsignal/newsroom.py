@@ -52,7 +52,6 @@ def _trigger_html(card: dict) -> str:
     src = h.get("source") or ""
     if src and title.startswith(f"[{_ESC(src)}]"):  # don't print label twice
         title = title[len(f"[{_ESC(src)}]") + 1:].lstrip()
-        src = ""
     if h.get("url"):
         title = f'<a href="{_ESC(h["url"])}" rel="noopener">{title}</a>'
     src = f'{_ESC(src)} · ' if src else ""
@@ -86,10 +85,25 @@ def story_html(card: dict) -> str:
     q = _ESC(card["question"])
     a = _ESC(card["answer_text"])
     url = permalink(card)
-    label = f'Peer ranking chart for “{card["question"]}”. {card["answer_text"]}'
+    kind = card.get("chart_kind", "rank_strip")
+    local = card.get("stream") == "local"
+    if local:
+        desc = ("Top 10 Connecticut towns by net grand list growth; the "
+                "fastest town highlighted in orange. Source and query below.")
+        label = (f'Town ranking chart for “{card["question"]}”. '
+                 f'{card["answer_text"]}')
+    elif kind == "trend":
+        desc = ("Monthly series, Connecticut (orange) against the United "
+                "States average. Source and query below.")
+        label = (f'Time-trend chart for “{card["question"]}”. '
+                 f'{card["answer_text"]}')
+    else:
+        desc = ("Every peer ranked; Connecticut highlighted in orange. "
+                "Source and query below.")
+        label = (f'Peer ranking chart for “{card["question"]}”. '
+                 f'{card["answer_text"]}')
     chart = theme.viz(_spec_json(card["chart"]), "chart", label=label,
-                      caption="Every peer ranked; Connecticut highlighted in "
-                              "orange. Source and query below.")
+                      caption=desc)
     chart2 = ""
     if card.get("chart2"):
         chart2 = theme.viz(_spec_json(card["chart2"]), "chart2",

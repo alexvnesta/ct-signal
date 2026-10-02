@@ -5,6 +5,7 @@ stackup:
     dcid: Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied
     unit: USD
     prefix: "$"
+    direction: high
     keywords: [rent, renter, landlord, eviction, shelter, housing costs]
     question: How expensive is renting in Connecticut compared to the rest of America?
     answer: "Connecticut's median gross rent was ${value} in {date} — the {rank_word}-highest of the {n} peers (50 states, DC and Puerto Rico)."
@@ -17,6 +18,7 @@ stackup:
     trend: true
     unit: percent
     suffix: "%"
+    direction: high
     keywords: [unemployment, jobs report, layoffs, hiring, jobless]
     question: Is Connecticut's job market doing better or worse than the rest of the country?
     answer: "Connecticut's unemployment rate is {value} ({date}) — the {rank_word}-highest among the {n} peers (50 states, DC and Puerto Rico)."
@@ -28,6 +30,7 @@ stackup:
     dcid: Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied
     unit: USD
     prefix: "$"
+    direction: high
     keywords: [home prices, homevalues, housing market, homebuyers, affordability]
     question: Are Connecticut homes expensive by national standards?
     answer: "The median Connecticut home is worth ${value} ({date}) — the {rank_word}-highest of the {n} peers (50 states, DC and Puerto Rico)."
@@ -39,6 +42,7 @@ stackup:
     dcid: Median_Income_Household
     unit: USD
     prefix: "$"
+    direction: high
     keywords: [wages, income, pay raise, cost of living, poverty line]
     question: What do Connecticut households earn compared with the rest of the country?
     answer: "Connecticut's median household income is ${value} ({date}) — the {rank_word}-highest among the {n} peers (50 states, DC and Puerto Rico)."
@@ -52,6 +56,7 @@ stackup:
     per: 100
     unit: percent
     suffix: "%"
+    direction: low
     keywords: [poverty, safety net, SNAP, food insecurity, hardship]
     question: How many Connecticut residents live below the poverty line compared with the rest of the country?
     answer: "{value} of Connecticut residents live below the poverty line ({date}) — the {low_word}-lowest poverty rate among the {n} peers (50 states, DC and Puerto Rico)."
@@ -64,6 +69,8 @@ stackup:
     denominator: Count_Person
     per: 100000
     unit: per 100k
+    direction: low
+    superlative: safest
     keywords: [crime, homicide, violent crime, public safety, shooting]
     question: How safe is Connecticut compared with the rest of the country?
     answer: "Connecticut reports {value} violent crimes per 100k people ({date}) — the {low_word}-safest of the {n} peers (50 states, DC and Puerto Rico)."

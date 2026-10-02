@@ -12,7 +12,7 @@ on purpose: "what we ruled out" is research.
 | data.ct.gov Socrata token | ❌ rejected | Tyler-hosted portal answers "Invalid app_token specified" for both the key ID and the secret (header and query param). Anonymous SODA works fine → we run keyless; token file kept in `.env` harmlessly |
 | Data Commons NL API | ⚠️ unresolved | Key must go in `x-api-key` header; `/api/detect-intent` returns 405 (endpoint likely renamed). Unused by the pipeline; stat-var discovery done via `fetch_available_statistical_variables` instead |
 
-## Validated Data Commons DCIDs (2024–2026 v2 naming; 52 states each)
+## Validated Data Commons DCIDs (2024–2026 v2 naming; 52 peers each (50 states, DC, Puerto Rico))
 
 | Indicator | DCID | CT latest (fetched) |
 |---|---|---|

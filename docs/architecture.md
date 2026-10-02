@@ -20,7 +20,7 @@ civic calendar  (closed-set JSON,   CT Socrata          + provenance     index.h
 | `config.py` | env (DC key), feed list, entities, topic allowlist, paths |
 | `feeds.py` | fetch+parse RSS, normalize, dedupe by title hash |
 | `questions.py` | propose questions: closed-set keyword heuristics; `propose_with_llm` stub (Gemini/GPT at event); calendar seeds |
-| `sources/datacommons.py` | v2 observation for all 51 states; rank computation |
+| `sources/datacommons.py` | v2 observation for all 52 peers (50 states, DC, Puerto Rico); rank computation |
 | `sources/socrata.py` | SoQL row fetch on data.ct.gov (portal-scoped datasets only) |
 | `charts.py` | Altair → Vega-Lite spec (rank strip, trend); spec is data, shipped inline |
 | `cards.py` | assemble card with provenance chain; answer templates from catalog |

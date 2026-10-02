@@ -44,8 +44,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline;text-underline-offset:3px}
 /* in-content links carry a non-color cue (WCAG 1.4.1); brand + nav opt out */
-.meta a, .breadcrumb a, .provenance a, .footgrid a, .how a, article a,
-.card .label + a{text-decoration:underline;text-underline-offset:3px;
+.meta a, .breadcrumb a, .provenance a, .footgrid a, .how a, .card a
+{text-decoration:underline;text-underline-offset:3px;
   text-decoration-color:#7fb4ff80}
 ::selection{background:#f2a65a44}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:3px}
@@ -370,8 +370,7 @@ def viz(spec_json: str, el_id: str, *, label: str,
     else:
         reserve = ' style="min-height:120px"'
     safe = spec_json.replace("</", "<\\/")
-    cap = (f'<figcaption>{_ESC(caption)}</figcaption>' if caption
-           else f'<figcaption class="sr-only">{_ESC(label)}</figcaption>')
+    cap = f'<figcaption>{_ESC(caption)}</figcaption>' if caption else ''
     return (f'<figure class="vizwrap"><div class="viz" id="{el_id}" role="img" '
             f'tabindex="0" aria-label="{_ESC(label)}"{reserve}></div>{cap}</figure>'
             f'<script type="application/json" class="vs" '

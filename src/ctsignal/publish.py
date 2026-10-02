@@ -38,7 +38,6 @@ def _trigger_line(card: dict) -> str:
     # print the source label twice.
     if src and title.startswith(f"[{_ESC(src)}]"):
         title = title[len(f"[{_ESC(src)}]") + 1:].lstrip()
-        src = ""
     if h.get("url"):
         title = (f'<a href="{_ESC(h["url"])}" rel="noopener">'
                  f'{title}</a>')
@@ -70,13 +69,14 @@ and the literal query →</a></p>
 
     tiles = ""
     for i, t in enumerate(board.get("tiles", [])):
-        label = (f'{t["title"]}: Connecticut at {_ESC(str(t["value"]))}, '
-                 f'rank {t["rank"]} of {t["n"]} peers')
+        pos = str(t.get("rank_label") or f'#{t["rank"]}')
+        label = (f'{t["title"]}: Connecticut at {_ESC(str(t["value"]))} — '
+                 f'{_ESC(pos)} of {t["n"]} peers')
         tiles += f"""<div class="tile">
 <div class="tname">{_ESC(t["title"])}</div>
 <div class="val">{_ESC(str(t["value"]))}</div>
 {theme.viz(json.dumps(t["strip"], default=str), f"strip{i}", label=label)}
-<span class="chip">#{_ESC(str(t["rank"]))} of {_ESC(str(t["n"]))} peers · data {_ESC(str(t["date"]))}</span>
+<span class="chip">{_ESC(pos)} of {_ESC(str(t["n"]))} peers · data {_ESC(str(t["date"]))}</span>
 </div>"""
 
     signals = ""
@@ -110,8 +110,10 @@ and the literal query →</a></p>
 vintage.</p></div>
 <div class="tiles">{tiles}</div>
 <p class="legend">“{n_peers} peers” = the 50 states, Washington DC, and Puerto
-Rico. Each tile prints the vintage of its own dataset; older vintages are the
-honest limit of annual surveys, not a lag in the pipeline.</p>
+Rico. Charts plot every peer; rank 1 is the highest value, and chips say
+“highest”, “lowest” or a plain-language superlative — never a bare number.
+Each tile prints the vintage of its own dataset; older vintages are the honest
+limit of annual surveys, not a lag in the pipeline.</p>
 </div></section>
 
 {signals_html}

@@ -1,6 +1,7 @@
 {
   "answer_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest of 169 towns.",
   "answer_values": {
+    "date": "2025",
     "n": 169,
     "top": {
       "added": 4852857051.0,
@@ -119,7 +120,7 @@
       "tooltip": [
         {
           "field": "state",
-          "title": "Peer",
+          "title": "Town",
           "type": "nominal"
         },
         {

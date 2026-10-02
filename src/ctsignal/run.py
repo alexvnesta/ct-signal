@@ -25,6 +25,8 @@ def build_board(catalog: dict) -> dict:
             "topic": indicator["topic"],
             "value": cards.display(indicator, result["ct"]["value"]),
             "rank": result["ct"]["rank"],
+            "rank_label": cards.human_rank(indicator, result["ct"]["rank"],
+                                           result["n"]),
             "n": result["n"],
             "date": result["ct"]["date"],
             "strip": charts.dot_strip(result["rows"], title="rank across the 52 peers"),

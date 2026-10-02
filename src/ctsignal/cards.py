@@ -34,6 +34,18 @@ def _ordinal(n: int) -> str:
     return f"{n}{sfx}"
 
 
+def human_rank(indicator: dict, rank: int, n: int) -> str:
+    """Direction-honest rank phrase for board chips: never a bare '#50 of 52'.
+    Needs indicator['direction'] ('high'|'low') and optional
+    indicator['superlative'] (e.g. 'safe' -> '3rd-safest')."""
+    direction = indicator.get("direction", "high")
+    sup = indicator.get("superlative")
+    if direction == "low":
+        word = _ordinal(n - rank + 1)
+        return f"{word}-{sup or 'lowest'}"
+    return f"{_ordinal(rank)}-highest"
+
+
 def from_stackup(indicator: dict, proposal: dict, result: dict,
                  trend_rows: list[dict] | None = None) -> dict:
     question = proposal.get("question_override") or indicator["question"]
@@ -93,7 +105,7 @@ def from_local(item: dict, proposal: dict, result: dict) -> dict:
     spec = charts.rank_strip(
         result["rows"],
         title=f"{item.get('chart_label', 'Net grand list growth')}, {result['latest_year']} (top 10 towns)",
-        unit="% change",
+        unit="% change", peer_word="Town",
     )
     return {
         "id": _card_id(item["id"], question),
@@ -104,7 +116,8 @@ def from_local(item: dict, proposal: dict, result: dict) -> dict:
         "headline": proposal["headline"],
         "question": question,
         "answer_text": answer,
-        "answer_values": {"top": top, "n": result["n"]},
+        "answer_values": {"top": top, "n": result["n"],
+                         "date": str(result["latest_year"])},
         "chart_kind": "rank_strip",
         "chart": spec,
         "citations": [

@@ -892,7 +892,7 @@
         "source": "NYT U.S. (fixture)",
         "stream": "national",
         "title": "California Couple Charged With Murder in Shooting of Son-in-Law",
-        "url": "https://www.nytimes.com/2026/09/30/us/jonathan-mckinsey-shooting-california-charges.html"
+        "url": ""
       },
       "id": "ed851796295a",
       "indicator": "violent_crime",
@@ -2396,6 +2396,7 @@
     {
       "answer_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest of 169 towns.",
       "answer_values": {
+        "date": "2025",
         "n": 169,
         "top": {
           "added": 4852857051.0,
@@ -2514,7 +2515,7 @@
           "tooltip": [
             {
               "field": "state",
-              "title": "Peer",
+              "title": "Town",
               "type": "nominal"
             },
             {
