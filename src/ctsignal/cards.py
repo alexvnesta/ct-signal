@@ -124,5 +124,6 @@ def from_local(item: dict, proposal: dict, result: dict) -> dict:
             f"https://data.ct.gov/d/{item['socrata_id']}",
         ],
         "query": result["query"],
+        "towns": result.get("all"),
         "cache": False,
     }

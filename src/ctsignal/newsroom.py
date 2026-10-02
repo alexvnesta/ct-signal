@@ -11,6 +11,7 @@ import datetime as dt
 import email.utils
 import html
 import json
+import shutil
 
 from . import config, theme, util
 
@@ -134,6 +135,7 @@ automated data desk</div>
 <div class="card"><div class="label">The data</div>{chart}{chart2}</div>
 {_trigger_html(card)}
 {_provenance_html(card)}
+{_freshness_html(card)}
 <details class="embed"><summary>Embed this story</summary>
 <p class="meta">Free to embed with attribution — the embed stays updated as
 the underlying data refreshes.</p>
@@ -300,9 +302,16 @@ def sitemap_xml(cards: list[dict]) -> str:
         newest = max(_day(c["generated_at"]) for c in tcards)
         parts.append(f'<url><loc>{config.SITE_URL}/topic/{topic}</loc>'
                      f'<lastmod>{newest}</lastmod></url>')
-    for p in ("about", "methodology", "masthead", "corrections"):
+    for p in sorted(pages._PAGES):
         parts.append(f'<url><loc>{config.SITE_URL}/{p}</loc>'
                      f'<lastmod>{now}</lastmod></url>')
+    parts.append(f'<url><loc>{config.SITE_URL}/archive</loc>'
+                 f'<lastmod>{now}</lastmod></url>')
+    for c in cards:
+        for row in (c.get("towns") or [])[:200]:
+            parts.append(
+                f'<url><loc>{config.SITE_URL}/town/{_slug(row["town"])}</loc>'
+                f'<lastmod>{_day(c["generated_at"])}</lastmod></url>')
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
             + "".join(parts) + '</urlset>\n')
@@ -333,7 +342,109 @@ def write_all(cards: list[dict]) -> None:
         hd = tdir / topic
         hd.mkdir(exist_ok=True)
         (hd / "index.html").write_text(topic_html(topic, tcards))
+    troot = config.ROOT / "town"
+    for c in cards:
+        for row in (c.get("towns") or []):
+            hd = troot / _slug(row["town"])
+            hd.mkdir(parents=True, exist_ok=True)
+            util.atomic_write_text(hd / "index.html", town_html(row, c))
+    if troot.exists():
+        live = {_slug(r["town"]) for c in cards for r in (c.get("towns") or [])}
+        for stale in troot.iterdir():
+            if stale.is_dir() and stale.name not in live:
+                shutil.rmtree(stale)
+    util.atomic_write_text(config.ARCHIVE_DIR / "index.html",
+                           archive_html(cards))
     if cards:
         util.atomic_write_text(config.ROOT / "feed.xml", rss_xml(cards))
         util.write_json(config.ROOT / "feed.json", json.loads(json_feed(cards)))
         util.atomic_write_text(config.ROOT / "sitemap.xml", sitemap_xml(cards))
+
+
+def _slug(name: str) -> str:
+    import re as _re
+    return _re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
+def _freshness_html(card: dict) -> str:
+    """Honesty strip: how many archived vintages exist for this card."""
+    vers = sorted(set(config.ARCHIVE_DIR.glob(f"*/{card['id']}.json")))
+    if len(vers) < 2:
+        return ""
+    return (f'<p class="meta">This story refreshes automatically with its '
+            f'dataset &mdash; {len(vers)} archived vintages on record in '
+            f'<a href="/archive">the public archive</a>.</p>')
+
+
+def town_html(row: dict, card: dict) -> str:
+    esc = html.escape
+    n = card.get("answer_values", {}).get("n") or len(card.get("towns") or [])
+    b = card.get("answer_values", {}).get("top") or {}
+    med = sorted(r["pct"] for r in card.get("towns") or [])
+    median = med[len(med) // 2] if med else 0.0
+    body = f"""<article class="wrap col">
+<div class="label">Connecticut town file</div>
+<h1 style="font:700 clamp(1.7rem,4vw,2.4rem)/1.15 var(--serif);margin:.4rem 0 .3rem">{esc(row["town"])}</h1>
+<p class="sub">Property tax base (net grand list), from the Connecticut Open
+Data Portal &mdash; every number fetched, never typed. This is one row of
+<a href="/story/{card["id"]}">the full story</a> with the chart and the query.</p>
+<table class="towntab"><tbody>
+<tr><td>Net grand list, {esc(str(card["answer_values"].get("date", "")))}</td><td>${row["latest"]:,.0f}</td></tr>
+<tr><td>Net grand list, prior vintage</td><td>${row["prior"]:,.0f}</td></tr>
+<tr><td>Change in two years</td><td>${row["added"]:,.0f} ({row["pct"]:+.1f}%)</td></tr>
+<tr><td>Rank among {n} Connecticut places</td><td>{row["rank"]} of {n}</td></tr>
+<tr><td>Statewide median change (for context)</td><td>{median:+.1f}%</td></tr>
+</tbody></table>
+<p class="meta">Fastest-growing place this vintage: {esc(b.get("town", ""))}.
+Dataset citation and the literal query live on
+<a href="/story/{card["id"]}">the source story</a>; errors are corrected publicly.</p>
+</article>"""
+    title = f'{row["town"]} property tax base · CT Signal town file'
+    desc = (f'{row["town"]}\'s net taxable property: ${row["latest"]:,.0f}, '
+            f'{row["pct"]:+.1f}% over two years, rank {row["rank"]} of {n}.')
+    return theme.page(title=title, desc=esc(desc), path=f'/town/{_slug(row["town"])}',
+                      body=body)
+
+
+def archive_html(cards: list[dict]) -> str:
+    """On-site index of every card ever published (the audit trail, browsable)."""
+    esc = html.escape
+    seen: dict[str, tuple[str, dict]] = {}
+    for path in config.ARCHIVE_DIR.rglob("*.json"):
+        try:
+            c = json.loads(path.read_text())
+        except (json.JSONDecodeError, OSError):
+            continue
+        prev = seen.get(c["id"])
+        if prev is None or c.get("generated_at", "") > prev[0]:
+            seen[c["id"]] = (c.get("generated_at", ""), c)
+    months: dict[str, list[dict]] = {}
+    for _, c in seen.values():
+        months.setdefault(c.get("generated_at", "?")[:7], []).append(c)
+    blocks = []
+    for month in sorted(months, reverse=True):
+        rows = sorted(months[month], key=lambda c: c.get("generated_at", ""),
+                      reverse=True)
+        lis = "".join(
+            f'<li style="padding:.5rem 0;border-bottom:1px solid var(--line)">'
+            f'<a href="/story/{c["id"]}">{esc(c["question"])}</a> '
+            f'<span class="meta">&middot; {esc(c.get("topic", ""))} &middot; '
+            f'{esc(c.get("generated_at", ""))[:10]}</span></li>'
+            for c in rows)
+        blocks.append(
+            f'<h2 style="font:700 1.15rem/1.3 var(--serif);margin:1.4rem 0 .2rem">'
+            f'{esc(month)}</h2><ul style="list-style:none;padding:0">{lis}</ul>')
+    total = len(seen)
+    body = f"""<article class="wrap col">
+<div class="label">Public archive</div>
+<h1 style="font:700 clamp(1.7rem,4vw,2.3rem)/1.15 var(--serif);margin:.4rem 0 .3rem">
+Every question we have answered</h1>
+<p class="sub">{total} published cards, kept forever &mdash; including every
+story whose data vintage was superseded. Raw JSON lives in the repository,
+one file per card per month; this page is the human-readable index.</p>
+{''.join(blocks)}
+</article>"""
+    return theme.page(title="Card archive · CT Signal",
+                      desc="Every question CT Signal has answered, kept "
+                           "forever with its data vintage.",
+                      path="/archive", body=body)

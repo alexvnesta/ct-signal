@@ -61,6 +61,12 @@ def town_metric_growth(cfg: dict, fixture: dict | None = None) -> dict | None:
         "latest_year": latest_year,
         "prior_year": prior_year,
         "n": len(scored),
+        "all": [
+            {"town": s["town"], "latest": round(s["latest"], 2),
+             "prior": round(s["prior"], 2), "added": round(s["added"], 2),
+             "pct": round(s["pct"], 2), "rank": i + 1}
+            for i, s in enumerate(scored)
+        ],
         "rows": [
             {"state": s["town"], "value": round(s["pct"], 2), "rank": i + 1,
              "highlight": i == 0}

@@ -6,6 +6,9 @@ every pipeline write.
 """
 from __future__ import annotations
 
+import html
+import json
+
 from . import config, theme
 
 _PAGES: dict[str, tuple[str, str, str]] = {}  # slug -> (title, desc, body)
@@ -193,3 +196,65 @@ def write_pages() -> None:
 so this link either predates or postdates the record.</p>
 <p><a class="more" href="/">← Back to the Connecticut board</a></p>
 </article>"""))
+
+
+def _sources_body() -> str:
+    from . import feeds, questions
+
+    esc = html.escape
+    try:
+        report = json.loads((config.ROOT / "data" /
+                             "validation_report.json").read_text())
+    except (OSError, json.JSONDecodeError):
+        report = {}
+
+    def chip(status: str) -> str:
+        if status.startswith("ok"):
+            return (f'<span style="color:var(--ok)">&#9679; verified '
+                    f'{status[3:].strip() or "live"}</span>')
+        if status.startswith("thin"):
+            return f'<span style="color:var(--acc)">&#9679; {esc(status)}</span>'
+        if status.startswith("error"):
+            return f'<span style="color:#e5645f">&#9679; endpoint failing</span>'
+        return '<span style="color:var(--dim)">&#9679; not checked yet</span>'
+
+    rows = []
+    for ind in questions.load_catalog().get("stackup", []):
+        st = report.get(ind["id"], {}).get("status", "")
+        rows.append(
+            f'<tr><td>{esc(ind["title"])}<br><span class="meta">'
+            f'<a href="https://datacommons.org/data/commons/{ind["dcid"]}">'
+            f'Data Commons &middot; {esc(ind["dcid"])}</a></span></td>'
+            f'<td style="text-align:right">{chip(st)}</td></tr>')
+    rows.append(
+        '<tr><td>Grand list by town (property tax base)<br><span class="meta">'
+        '<a href="https://data.ct.gov/d/webp-fgt3">CT Open Data Portal '
+        '&middot; webp-fgt3</a></span></td>'
+        '<td style="text-align:right">'
+        '<span style="color:var(--dim)">&#9679; live every cycle</span></td></tr>')
+
+    trig = "".join(
+        f'<li style="padding:.3rem 0">{esc(feeds._source_name(u))} &middot; '
+        f'<span class="meta"><a href="{esc(u)}">{esc(u)}</a></span></li>'
+        for u in list(config.CT_FEEDS) + list(config.NATIONAL_FEEDS))
+    return f"""<article class="wrap col">
+<div class="label">Data sources</div>
+<h1 style="font:700 clamp(1.7rem,4vw,2.3rem)/1.15 var(--serif);margin:.4rem 0 .3rem">
+What we watch</h1>
+<p class="sub">Every dataset the desk queries, with its last endpoint check.
+Status chips reflect the committed validation report &mdash; when an upstream
+endpoint degrades, you see it here first, not in a silent gap.</p>
+<table class="towntab"><tbody>{''.join(rows)}</tbody></table>
+<h2 style="font:700 1.15rem/1.3 var(--serif);margin:1.4rem 0 .3rem">What triggers a question</h2>
+<p class="sub">Live news feeds scanned every cycle; a question is only asked
+when a tracked dataset can answer it.</p>
+<ul style="list-style:none;padding:0">{trig}</ul>
+<p class="meta">The endpoint check runs from the validate script and is
+committed with the repo; a failing chip means the pipeline is answering from
+labeled cached/fallback data until it recovers.</p>
+</article>"""
+
+
+_page("sources", "Data sources · CT Signal",
+      "Every dataset CT Signal queries, with live endpoint health.",
+      _sources_body())

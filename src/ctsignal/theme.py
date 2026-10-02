@@ -121,6 +121,12 @@ section{padding:1.6rem 0}
 
 .klink{color:inherit;text-decoration:none;border-bottom:1px dotted currentColor}
 .klink:hover{border-bottom-style:solid}
+.skip{position:absolute;left:-9999px;top:0;z-index:20;background:var(--acc);color:#10161d;padding:8px 14px;border-radius:0 0 10px 0;font-weight:700}
+.skip:focus{left:0}
+.towntab{width:100%;border-collapse:collapse;margin:.8rem 0}
+.towntab td{padding:.45rem .6rem;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.towntab td:first-child{color:var(--dim)}
+.towntab td:last-child{text-align:right;font-weight:700}
 .sponsor{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center;
   justify-content:space-between;border:1px dashed var(--line);border-radius:10px;
   padding:.7rem 1rem;margin-top:1rem;background:var(--panel)}
@@ -216,6 +222,7 @@ def dateline(now: dt.datetime | None = None) -> str:
 
 def header() -> str:
     return (
+        '<a class="skip" href="#main">Skip to content</a>'
         '<header class="site"><div class="wrap mast">'
         + _BRAND
         + f'<span class="tagline">{dateline()}</span>'
@@ -234,8 +241,9 @@ by hand.</p><p><a href="mailto:{email}">{email}</a></p></div>
 <div><h2>Sections</h2><ul>
 <li><a href="/">The board</a></li>
 <li><a href="/#signals">Latest questions</a></li>
-<li><a href="/feed.xml">RSS feed</a></li>
-<li><a href="https://github.com/alexvnesta/ct-signal/tree/master/archive">Card archive</a></li></ul></div>
+<li><a href="/archive">Card archive</a></li>
+<li><a href="/sources">Data sources</a></li>
+<li><a href="/feed.xml">RSS feed</a></li></ul></div>
 <div><h2>Newsroom</h2><ul>
 <li><a href="/about">About</a></li>
 <li><a href="/methodology">How we work</a></li>
@@ -327,6 +335,8 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website",
 {art}<meta name="theme-color" content="#0e141b">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="/assets/favicon-32.png" type="image/png">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="alternate" type="application/rss+xml" title="CT Signal"
  href="{config.SITE_URL}/feed.xml">

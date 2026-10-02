@@ -121,6 +121,14 @@ font-size="28" fill="#e9eef4">CT</text>
 if __name__ == "__main__":
     og_cover()
     favicon_png(32, OUT / "favicon-32.png")
+    favicon_png(192, OUT / "icon-192.png")
+    favicon_png(512, OUT / "icon-512.png")
+    # maskable: brand glyph shrunk into the safe zone on a solid field
+    m = Image.new("RGB", (512, 512), BG2)
+    md = ImageDraw.Draw(m)
+    rounded(md, (46, 46, 466, 466), 96, PANEL)
+    brand(md, 256 - 130, 256 - 108, 260)
+    m.save(OUT / "icon-maskable-512.png", optimize=True)
     favicon_png(180, OUT / "apple-touch-icon.png")
     favicon_svg()
     print("assets written:", sorted(p.name for p in OUT.iterdir()))
