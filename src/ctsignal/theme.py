@@ -325,18 +325,23 @@ VEGA_LOAD = """<script defer src="https://cdn.jsdelivr.net/npm/vega@5"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 <script>window.addEventListener("DOMContentLoaded",()=>{
-// The .viz wrapper already carries role=img + aria-label and a figcaption, so
-// vega's own SVG must be presentational: hide its nested graphics-symbol roles
-// (which Lighthouse flags as img-role nodes lacking alt text).
+// vega-embed replaces the target div, so re-assert the accessible wrapper
+// (role=img + label + tabindex) on the node that ends up in the DOM, and make
+// the injected SVG presentational — its nested graphics-symbol roles would
+// otherwise be flagged as img-role nodes without alt text.
 const tidy=root=>{const svg=root&&root.querySelector("svg");if(!svg)return;
   svg.setAttribute("aria-hidden","true");svg.setAttribute("focusable","false");
   svg.querySelectorAll("[role],[aria-roledescription]").forEach(n=>{
     n.removeAttribute("role");n.removeAttribute("aria-roledescription");});};
 const go=()=>{
 document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementById(
-  s.dataset.target); if(!el) return; try{ vegaEmbed(el, JSON.parse(
+  s.dataset.target); if(!el) return; const holder=el.parentElement,
+  label=el.getAttribute("aria-label"); try{ vegaEmbed(el, JSON.parse(
   s.textContent), {actions:false,renderer:"svg",
-  config:{background:"transparent"}}).then(r=>tidy(r.embedOptions.container||el))
+  config:{background:"transparent"}}).then(r=>{
+    const node=holder.querySelector(".vega-embed")||holder;
+    node.setAttribute("role","img");node.setAttribute("aria-label",label);
+    node.setAttribute("tabindex","0");tidy(node);})
   .catch(e=>console.warn("chart:",e));
   }catch(e){console.warn("spec:",e);}});};
   if(window.vegaEmbed) go(); else window.addEventListener("load",go);});</script>"""
