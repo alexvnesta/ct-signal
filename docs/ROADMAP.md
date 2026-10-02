@@ -6,15 +6,15 @@ bar** — every phase below ends with the same verification loop we already
 have (Lighthouse mobile on home + a story, a11y spot-check, live byte
 verification after push).
 
-## Phase A — in-repo only, no accounts needed (execute first)
+## Phase A — in-repo only, no accounts needed — **SHIPPED 2026-10-02**
 
 | # | Item | What it is | Done when |
 |---|------|-----------|-----------|
-| A1 | Design craft pass | Self-host Newsreader/Source Serif 4 for story headlines (`font-display: swap` + `size-adjust`, CLS must stay 0); FT/Datawrapper-style chart upgrades: direct labels on trend endpoints, one annotation on the highlighted peer, cleaner axis units. Branch + before/after screenshots, pick together. | Chosen upgrades live, all Lighthouse categories still 100 |
-| A2 | Sponsor slot | One honest, designed-in slot under the board: default state = "Independent · automated · reader-supported", swaps to "Board brought to you by …". No ad networks, no layout shift. | Slot ships in "vacant" state |
-| A3 | Embed widget | `/story/<id>/embed` — chromeless answer + chart + attribution link; "Embed" button on stories reveals a copy-paste iframe snippet. Every embed = distribution + backlink. | Embed renders, snippet copies, attribution required |
-| A4 | Topic hub pages | `/topic/housing`, `/topic/jobs` etc., listing all stories per topic. Interlinking = the SEO long game; titles target "connecticut X vs national" queries. | Hubs live, in nav, in sitemap |
-| A5 | Weekly digest generator | `scripts/make_digest.py` renders one email HTML from feed.json + board.json (what changed on the board this week, top 3 stories, links). Output committed under `output/digest/`. Sending wired in Phase B. | Digest renders for the current week |
+| A1 ✅ | Design craft pass | Self-host Newsreader/Source Serif 4 for story headlines (`font-display: swap` + `size-adjust`, CLS must stay 0); FT/Datawrapper-style chart upgrades: direct labels on trend endpoints, one annotation on the highlighted peer, cleaner axis units. Branch + before/after screenshots, pick together. | Chosen upgrades live, all Lighthouse categories still 100 |
+| A2 ✅ | Sponsor slot | One honest, designed-in slot under the board: default state = "Independent · automated · reader-supported", swaps to "Board brought to you by …". No ad networks, no layout shift. | Slot ships in "vacant" state |
+| A3 ✅ | Embed widget | `/story/<id>/embed` — chromeless answer + chart + attribution link; "Embed" button on stories reveals a copy-paste iframe snippet. Every embed = distribution + backlink. | Embed renders, snippet copies, attribution required |
+| A4 ✅ | Topic hub pages | `/topic/housing`, `/topic/jobs` etc., listing all stories per topic. Interlinking = the SEO long game; titles target "connecticut X vs national" queries. | Hubs live, in nav, in sitemap |
+| A5 ✅ | Weekly digest generator | `scripts/make_digest.py` renders one email HTML from feed.json + board.json (what changed on the board this week, top 3 stories, links). Output committed under `output/digest/`. Sending wired in Phase B. | Digest renders for the current week |
 
 ## Phase B — one-time accounts (human: ~20 min each; agent wires the rest)
 
@@ -61,3 +61,21 @@ templates inform, we build.
 Lighthouse mobile (home + one story) → all 100s; contrast spot-check on new
 UI; redirects/headers sweep; live byte-check after Vercel deploy. Machine
 cycles inherit the audited generators, so the bar can't rot between reviews.
+
+## Phase A ship notes (verification evidence)
+
+- Newsreader 700 latin subset (24 KB) self-hosted + preloaded: computed
+  h1 font verified in browser; story trace LCP 136 ms, **CLS 0.00** with
+  the swap; Lighthouse mobile home 100/100/100/100.
+- Trend charts: CT/US direct endpoint labels verified in live SVG; axis
+  uses labelOverlap after two labelExpr signal failures on the real
+  renderer (caught only because we checked the live console, not the
+  local spec).
+- `/story/<id>/embed`: renders standalone, canonical consolidates to the
+  story, console clean (preload skipped on embed pages).
+- `/topic/<x>` hubs: 5 live, in sitemap with per-topic lastmod,
+  trailing-slash 308 rule added; Lighthouse 100/100/100/100 after an
+  h1→h3 heading-skip fix.
+- Digest issue 2026-W40 frozen at output/digest/2026-W40.html.
+- Sponsor strip verified on mobile 390 px: no overflow, contrast from
+  the audited palette.
