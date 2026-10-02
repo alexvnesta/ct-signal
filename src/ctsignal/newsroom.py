@@ -49,9 +49,13 @@ def _spec_json(obj) -> str:
 def _trigger_html(card: dict) -> str:
     h = card["headline"]
     title = _ESC(h["title"])
+    src = h.get("source") or ""
+    if src and title.startswith(f"[{_ESC(src)}]"):  # don't print label twice
+        title = title[len(f"[{_ESC(src)}]") + 1:].lstrip()
+        src = ""
     if h.get("url"):
         title = f'<a href="{_ESC(h["url"])}" rel="noopener">{title}</a>'
-    src = f'{_ESC(h["source"])} · ' if h.get("source") else ""
+    src = f'{_ESC(src)} · ' if src else ""
     return (f'<div class="card"><div class="label">Triggered by</div>'
             f'<div style="font-size:1.05rem;line-height:1.35">{src}{title}</div></div>')
 
@@ -59,7 +63,10 @@ def _trigger_html(card: dict) -> str:
 def _provenance_html(card: dict) -> str:
     cites = "<br>".join(f'<a href="{_ESC(c)}">{_ESC(c)}</a>' for c in card["citations"])
     vals = card.get("answer_values") or {}
-    data_date = f' · data as of <b>{_ESC(str(vals.get("date")))}</b>' if vals.get("date") else ""
+    if vals.get("date"):
+        data_date = f' · data as of <b>{_ESC(str(vals.get("date")))}</b>'
+    else:
+        data_date = ' · data vintage: see query above'
     cache = ' <span class="badge">cache</span>' if card.get("cache") else ""
     return (f'<div class="card provenance"><div class="label">'
             f'Provenance · fetched, never written</div>'
@@ -67,16 +74,32 @@ def _provenance_html(card: dict) -> str:
             f'<br>published {_pretty(card["generated_at"])}{data_date}{cache}</div></div>')
 
 
+def _story_og(card: dict) -> str | None:
+    """Per-story cover if generated (scripts/make_story_covers.py); the
+    generic cover otherwise. Checked at build time so a missing PNG never
+    yields a 404 og:image."""
+    p = config.ROOT / "assets" / f"story-{card['id']}.png"
+    return f"{config.SITE_URL}/assets/story-{card['id']}.png" if p.exists() else None
+
+
 def story_html(card: dict) -> str:
     q = _ESC(card["question"])
     a = _ESC(card["answer_text"])
     url = permalink(card)
-    chart = theme.viz(_spec_json(card["chart"]), "chart")
+    label = f'Peer ranking chart for “{card["question"]}”. {card["answer_text"]}'
+    chart = theme.viz(_spec_json(card["chart"]), "chart", label=label,
+                      caption="Every peer ranked; Connecticut highlighted in "
+                              "orange. Source and query below.")
     chart2 = ""
     if card.get("chart2"):
-        chart2 = theme.viz(_spec_json(card["chart2"]), "chart2")
+        chart2 = theme.viz(_spec_json(card["chart2"]), "chart2",
+                           label=f'United States map, same data: '
+                                 f'{card["answer_text"]}',
+                           caption="Peer map; Connecticut outlined. "
+                                   "AlbersUSA omits DC and Puerto Rico.")
     cache_badge = ' <span class="badge">cache</span>' if card.get("cache") else ""
     kicker = f'{_ESC(card["topic"])} · {_ESC(card["stream"])} desk{cache_badge}'
+    og = _story_og(card)
     body = f"""<div class="wrap col">
 <div class="breadcrumb"><a href="/">← The board</a></div>
 <div class="kicker">{kicker}</div>
@@ -95,7 +118,13 @@ see <a href="/corrections">the corrections policy</a>.</p>
         desc=card["answer_text"][:200],
         path=f"/story/{card['id']}",
         body=body, og_type="article", og_title=card["question"],
-        og_desc=card["answer_text"][:200], published=card["generated_at"])
+        og_desc=card["answer_text"][:200], published=card["generated_at"],
+        image=og,
+        json_ld=theme.article_json_ld(
+            card_id=card["id"], headline=card["question"],
+            description=card["answer_text"][:200],
+            published=card["generated_at"], section=card["topic"],
+            image=og))
 
 
 def rss_xml(cards: list[dict]) -> str:
@@ -123,7 +152,7 @@ def rss_xml(cards: list[dict]) -> str:
         '<description>Connecticut data answers to the questions its news cycle is '
         'already asking. Automated data desk — every number fetched, never written.'
         '</description><language>en-us</language>'
-        '<docs>http://www.rssboard.org/rss-specification</docs>'
+        '<docs>https://www.rssboard.org/rss-specification</docs>'
         '<generator>CT Signal pipeline</generator>'
         '<ttl>15</ttl>'
         f'<managingEditor>{config.CONTACT_EMAIL} (CT Signal)</managingEditor>'

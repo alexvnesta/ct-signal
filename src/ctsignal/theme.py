@@ -4,11 +4,17 @@ one footer. Pages stay dumb; taste lives here.
 Everything links /assets/site.css (absolute) so story pages, the board, and the
 static pages share one cached stylesheet. Internal navigation is root-relative;
 canonical/OG URLs use config.SITE_URL so previews can render anywhere.
+
+Accessibility contract (WCAG 2.2 AA): every color pair used for meaningful text
+passes 4.5:1; in-content links carry an underline, not just color; charts carry
+aria-labels + captions; there is a skip link and a main landmark; :focus-visible
+is always visible on the dark theme.
 """
 from __future__ import annotations
 
 import datetime as dt
 import html
+import json
 
 from . import config
 
@@ -16,12 +22,15 @@ _ESC = html.escape
 
 # ---------------------------------------------------------------- palette ---
 # Dark editorial: ink navy background, warm orange mast accent, green answers,
-# blue links. Contrast: ink on bg = 13.9:1, dim on bg = 7.4:1 (AA+ everywhere).
+# blue links. Verified AA+ on every surface (see CONTRAST note in CSS header).
 
 CSS = """
+/* Contrast (WCAG 2.2 AA, verified): ink #e9eef4/bg 15.9 · dim #93a7b9/bg 7.5
+   faint #7d91a5/bg 5.7 on panel 5.2 · acc #f2a65a/bg 9.2 · blue #7fb4ff/bg 8.7
+   ok #8fd6a9/panel 10.0 · badge #cfdcea/panel2 11.2 — all >= 4.5:1 normal text */
 :root{
   --bg:#0e141b; --bg2:#0a0f14; --panel:#151d27; --panel2:#1a2531; --line:#28394a;
-  --ink:#e9eef4; --dim:#93a7b9; --faint:#5f7387;
+  --ink:#e9eef4; --dim:#93a7b9; --faint:#7d91a5;
   --acc:#f2a65a; --blue:#7fb4ff; --ok:#8fd6a9; --warn:#e5c07b;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
@@ -34,9 +43,22 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline;text-underline-offset:3px}
+/* in-content links carry a non-color cue (WCAG 1.4.1); brand + nav opt out */
+.meta a, .breadcrumb a, .provenance a, .footgrid a, .how a, article a,
+.card .label + a{text-decoration:underline;text-underline-offset:3px;
+  text-decoration-color:#7fb4ff80}
 ::selection{background:#f2a65a44}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:3px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:1rem;top:.6rem;z-index:20;background:var(--acc);color:#0a0f14;
+  padding:.5rem .9rem;border-radius:8px;font-weight:700;text-decoration:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:
+  hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:
+  none!important;scroll-behavior:auto!important}}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 1.2rem}
 .col{max-width:var(--col)}
+main{display:block}
 
 /* ------------------------------------------------------------ masthead --- */
 header.site{background:var(--bg2);border-bottom:1px solid var(--line);
@@ -50,6 +72,7 @@ header.site{background:var(--bg2);border-bottom:1px solid var(--line);
 nav.sitebar{display:flex;flex-wrap:wrap;gap:.15rem;border-top:1px solid var(--line);
   margin-top:.15rem}
 nav.sitebar a{color:var(--dim);font-size:.84rem;font-weight:600;padding:.55rem .8rem;
+  min-height:44px;display:inline-flex;align-items:center;
   border-bottom:2px solid transparent;text-transform:uppercase;letter-spacing:.06em;
   text-decoration:none!important}
 nav.sitebar a:hover{color:var(--ink);border-bottom-color:var(--acc)}
@@ -86,7 +109,7 @@ section{padding:1.6rem 0}
 .tile .viz{min-height:58px;margin:.15rem 0 .2rem}
 .chip{align-self:flex-start;background:var(--panel2);color:#cfdcea;border-radius:99px;
   padding:.1rem .65rem;font-size:.74rem}
-.legend{color:var(--faint);font-size:.78rem;margin:1rem 0 0}
+.legend{color:var(--faint);font-size:.8rem;margin:1rem 0 0}
 
 /* ------------------------------------------------------------- signals --- */
 ol.signals{list-style:none;margin:0;padding:0}
@@ -115,18 +138,22 @@ li.sig .meta{font-size:.82rem}
 .answerbox{background:var(--panel);border:1px solid var(--line);
   border-left:4px solid var(--ok);border-radius:10px;padding:1rem 1.2rem;
   font:600 1.3rem/1.4 var(--sans);margin:.9rem 0 1.2rem}
+figure.vizwrap{margin:0}
+figure.vizwrap figcaption{color:var(--faint);font-size:.8rem;margin-top:.4rem;
+  line-height:1.45}
 .viz{overflow-x:auto}
+.viz:focus-visible{outline:2px solid var(--acc);outline-offset:4px;border-radius:6px}
 .viz .vega-embed .chart-wrapper{margin:0}
 .viz .vega-embed details summary{color:var(--dim)}
 code{background:var(--panel2);color:#cfdcea;padding:.1rem .35rem;border-radius:4px;
   font:.85em/1.5 var(--mono);word-break:break-all}
-footer .meta a, .provenance a{color:var(--blue)}
+.provenance a{color:var(--blue)}
 
 /* --------------------------------------------------------------- footer --- */
 footer.site{border-top:1px solid var(--line);background:var(--bg2);margin-top:2.5rem;
   padding:1.8rem 0 2.2rem}
 .footgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1.5rem}
-.footgrid h4{margin:.2rem 0 .6rem;color:var(--dim);font-size:.74rem;
+.footgrid h3{margin:.2rem 0 .6rem;color:var(--dim);font-size:.74rem;
   letter-spacing:.16em;text-transform:uppercase}
 .footgrid p{color:var(--dim);font-size:.87rem;margin:.3rem 0}
 .footgrid ul{list-style:none;margin:0;padding:0}
@@ -167,7 +194,7 @@ def header() -> str:
         '<header class="site"><div class="wrap mast">'
         + _BRAND
         + f'<span class="tagline">{dateline()}</span>'
-        + f'</div><nav class="sitebar wrap">{_NAV}</nav></header>'
+        + f'</div><nav class="sitebar wrap" aria-label="Primary">{_NAV}</nav></header>'
     )
 
 
@@ -175,16 +202,16 @@ def footer() -> str:
     email = config.CONTACT_EMAIL
     year = dt.date.today().year
     return f"""<footer class="site"><div class="wrap footgrid">
-<div><h4>CT&nbsp;<span style="color:var(--acc)">⚡</span>&nbsp;Signal</h4>
+<div><h3>CT&nbsp;<span style="color:var(--acc)">⚡</span>&nbsp;Signal</h3>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
 public data answers it — every number fetched from a named dataset, never typed
 by hand.</p><p><a href="mailto:{email}">{email}</a></p></div>
-<div><h4>Sections</h4><ul>
+<div><h3>Sections</h3><ul>
 <li><a href="/">The board</a></li>
 <li><a href="/#signals">Latest questions</a></li>
 <li><a href="/feed.xml">RSS feed</a></li>
 <li><a href="https://github.com/alexvnesta/ct-signal/tree/master/archive">Card archive</a></li></ul></div>
-<div><h4>Newsroom</h4><ul>
+<div><h3>Newsroom</h3><ul>
 <li><a href="/about">About</a></li>
 <li><a href="/methodology">How we work</a></li>
 <li><a href="/masthead">Masthead</a></li>
@@ -196,13 +223,62 @@ by hand.</p><p><a href="mailto:{email}">{email}</a></p></div>
 </footer>"""
 
 
+_ORG = {"@type": "Organization", "name": "CT Signal",
+        "url": f"{config.SITE_URL}/",
+        "logo": {"@type": "ImageObject",
+                 "url": f"{config.SITE_URL}/assets/og-cover.png",
+                 "width": 1200, "height": 630}}
+
+
+def site_json_ld() -> dict:
+    return {"@context": "https://schema.org", "@graph": [
+        {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website",
+         "url": f"{config.SITE_URL}/", "name": "CT Signal",
+         "description": "Connecticut data answers to the questions its news "
+                        "cycle is already asking. Every number fetched, "
+                        "never written.",
+         "inLanguage": "en-US", "publisher": {"@id": f"{config.SITE_URL}/#org"}},
+        {"@type": "Organization", "@id": f"{config.SITE_URL}/#org",
+         "name": "CT Signal", "url": f"{config.SITE_URL}/",
+         "email": config.CONTACT_EMAIL,
+         "logo": dict(_ORG["logo"]),
+         "sameAs": ["https://github.com/alexvnesta/ct-signal"]},
+    ]}
+
+
+def article_json_ld(*, card_id: str, headline: str, description: str,
+                    published: str, section: str,
+                    image: str | None = None) -> dict:
+    url = f"{config.SITE_URL}/story/{card_id}"
+    return {
+        "@context": "https://schema.org", "@type": "NewsArticle",
+        "@id": f"{url}#article",
+        "mainEntityOfPage": {"@type": "WebPage", "@id": url},
+        "headline": headline, "description": description,
+        "image": [image or f"{config.SITE_URL}/assets/og-cover.png"],
+        "datePublished": published, "dateModified": published,
+        "author": {"@type": "Organization", "name": "CT Signal",
+                   "url": f"{config.SITE_URL}/"},
+        "publisher": dict(_ORG),
+        "articleSection": section, "inLanguage": "en-US",
+        "isAccessibleForFree": True,
+    }
+
+
 def head(*, title: str, desc: str, path: str, og_type: str = "website",
          og_title: str | None = None, og_desc: str | None = None,
-         image: str | None = None, published: str | None = None) -> str:
+         image: str | None = None, published: str | None = None,
+         json_ld: dict | list | None = None) -> str:
     url = f"{config.SITE_URL}{path}"
     img = image or f"{config.SITE_URL}/assets/og-cover.png"
+    img_alt = og_title or title
     art = (f'<meta property="article:published_time" content="{published}">'
            if published else "")
+    ld = ""
+    if json_ld is not None:
+        blob = json.dumps(json_ld, ensure_ascii=False, separators=(",", ":"))
+        ld = (f'<script type="application/ld+json">'
+              f'{blob.replace("</", "<\\/")}</script>')
     return f"""<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{_ESC(title)}</title>
@@ -216,21 +292,31 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website",
 <meta property="og:image" content="{img}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{_ESC(img_alt)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@ctsignal">
+<meta name="twitter:title" content="{_ESC(og_title or title)}">
+<meta name="twitter:description" content="{_ESC(og_desc or desc)}">
+<meta name="twitter:image" content="{img}">
+<meta name="twitter:image:alt" content="{_ESC(img_alt)}">
 {art}<meta name="theme-color" content="#0e141b">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="/assets/favicon-32.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="alternate" type="application/rss+xml" title="CT Signal"
  href="{config.SITE_URL}/feed.xml">
-<link rel="stylesheet" href="/assets/site.css">"""
+<link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
+ href="{config.SITE_URL}/feed.json">
+<link rel="stylesheet" href="/assets/site.css">
+{ld}"""
 
 
 def page(*, title: str, desc: str, path: str, body: str, **kw) -> str:
     h = head(title=title, desc=desc, path=path, **kw)
     return (f'<!doctype html>\n<html lang="en"><head>\n{h}\n</head>\n<body>\n'
-            f'{header()}\n{body}\n{footer()}\n{VEGA_LOAD}\n</body></html>\n')
+            f'<a class="skip" href="#main">Skip to content</a>\n'
+            f'{header()}\n<main id="main">\n{body}\n</main>\n{footer()}\n'
+            f'{VEGA_LOAD}\n</body></html>\n')
 
 
 # Inline JSON spec islands + one loader keep charts dependency-light and work
@@ -247,8 +333,15 @@ document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementB
   if(window.vegaEmbed) go(); else window.addEventListener("load",go);});</script>"""
 
 
-def viz(spec_json: str, el_id: str) -> str:
+def viz(spec_json: str, el_id: str, *, label: str,
+        caption: str | None = None) -> str:
+    """Chart island with a text alternative (WCAG 1.1.1): the container carries
+    role=img + aria-label and is keyboard-scrollable; an optional visible
+    figcaption doubles as the takeaway line."""
     safe = spec_json.replace("</", "<\\/")
-    return (f'<div class="viz" id="{el_id}"></div>'
+    cap = (f'<figcaption>{_ESC(caption)}</figcaption>' if caption
+           else f'<figcaption class="sr-only">{_ESC(label)}</figcaption>')
+    return (f'<figure class="vizwrap"><div class="viz" id="{el_id}" role="img" '
+            f'tabindex="0" aria-label="{_ESC(label)}"></div>{cap}</figure>'
             f'<script type="application/json" class="vs" '
             f'data-target="{el_id}">{safe}</script>')

@@ -1,5 +1,5 @@
 {
-  "answer_text": "9.6% of Connecticut residents live below the poverty line (2024) \u2014 the 10th lowest poverty rate among the 52 states.",
+  "answer_text": "9.6% of Connecticut residents live below the poverty line (2024) \u2014 the 10th-lowest poverty rate among the 52 peers (50 states, DC and Puerto Rico).",
   "answer_values": {
     "date": "2024",
     "rank": 43,
@@ -366,7 +366,7 @@
       "tooltip": [
         {
           "field": "state",
-          "title": "State",
+          "title": "Peer",
           "type": "nominal"
         },
         {
@@ -505,7 +505,7 @@
           "tooltip": [
             {
               "field": "properties.name",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {
@@ -895,7 +895,7 @@
   "id": "a9f3ddd2243a",
   "indicator": "poverty",
   "query": "DC v2 observations variable=Count_Person_BelowPovertyLevelInThePast12Months parent=country/USA type=State",
-  "question": "How many Connecticut residents live below the poverty line compared with other states?",
+  "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
   "stream": "stackup",
   "topic": "equity"
 }

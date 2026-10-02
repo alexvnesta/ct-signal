@@ -49,7 +49,7 @@ def rank_strip(rows: list[dict], *, title: str, unit: str = "") -> dict:
             y=alt.Y("state:N").sort(order).title(None),
             color=cast(Any, _highlight_color()),
             tooltip=[
-                alt.Tooltip("state:N").title("State"),
+                alt.Tooltip("state:N").title("Peer"),
                 alt.Tooltip("value:Q").title(title),
                 alt.Tooltip("rank:Q").title("Rank"),
             ],
@@ -74,7 +74,7 @@ def dot_strip(rows: list[dict], *, title: str = "") -> dict:
                 grid=False)).title(None).scale(domain=[-0.5, 0.5]),
             color=cast(Any, _highlight_color()),
             tooltip=[
-                alt.Tooltip("state:N").title("State"),
+                alt.Tooltip("state:N").title("Peer"),
                 alt.Tooltip("rank:Q").title("Rank"),
             ],
         )
@@ -100,7 +100,7 @@ def state_map(rows: list[dict], *, title: str, unit: str = "") -> dict:
             .legend(alt.Legend(orient="bottom", direction="horizontal",
                                gradientLength=180)),
             tooltip=[
-                alt.Tooltip("properties.name:N").title("State"),
+                alt.Tooltip("properties.name:N").title("Peer"),
                 alt.Tooltip("value:Q").title(title),
                 alt.Tooltip("rank:Q").title("Rank"),
             ],

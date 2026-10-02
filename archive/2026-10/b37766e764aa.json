@@ -119,7 +119,7 @@
       "tooltip": [
         {
           "field": "state",
-          "title": "State",
+          "title": "Peer",
           "type": "nominal"
         },
         {

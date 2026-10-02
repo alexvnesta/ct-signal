@@ -1,5 +1,5 @@
 {
-  "answer_text": "Connecticut reports 147 violent crimes per 100k people (2023) \u2014 the 3rd safest of the 52 states.",
+  "answer_text": "Connecticut reports 147 violent crimes per 100k people (2023) \u2014 the 3rd-safest of the 52 peers (50 states, DC and Puerto Rico).",
   "answer_values": {
     "date": "2023",
     "rank": 50,
@@ -366,7 +366,7 @@
       "tooltip": [
         {
           "field": "state",
-          "title": "State",
+          "title": "Peer",
           "type": "nominal"
         },
         {
@@ -505,7 +505,7 @@
           "tooltip": [
             {
               "field": "properties.name",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {

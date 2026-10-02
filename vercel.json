@@ -1,4 +1,11 @@
 {
   "framework": null,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/story/:id/",
+      "destination": "/story/:id",
+      "permanent": true
+    }
+  ]
 }

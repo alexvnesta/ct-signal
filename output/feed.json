@@ -1,7 +1,7 @@
 {
   "cards": [
     {
-      "answer_text": "Connecticut reports 147 violent crimes per 100k people (2023) \u2014 the 3rd safest of the 52 states.",
+      "answer_text": "Connecticut reports 147 violent crimes per 100k people (2023) \u2014 the 3rd-safest of the 52 peers (50 states, DC and Puerto Rico).",
       "answer_values": {
         "date": "2023",
         "rank": 50,
@@ -368,7 +368,7 @@
           "tooltip": [
             {
               "field": "state",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {
@@ -507,7 +507,7 @@
               "tooltip": [
                 {
                   "field": "properties.name",
-                  "title": "State",
+                  "title": "Peer",
                   "type": "nominal"
                 },
                 {
@@ -902,7 +902,7 @@
       "topic": "justice"
     },
     {
-      "answer_text": "Connecticut's unemployment rate is 5.8% (2026), ranking #3 of 52 states.",
+      "answer_text": "Connecticut's unemployment rate is 5.8% (2026) \u2014 the 3rd-highest among the 52 peers (50 states, DC and Puerto Rico).",
       "answer_values": {
         "date": "2026-07",
         "rank": 3,
@@ -1493,7 +1493,7 @@
       "topic": "economy"
     },
     {
-      "answer_text": "9.6% of Connecticut residents live below the poverty line (2024) \u2014 the 10th lowest poverty rate among the 52 states.",
+      "answer_text": "9.6% of Connecticut residents live below the poverty line (2024) \u2014 the 10th-lowest poverty rate among the 52 peers (50 states, DC and Puerto Rico).",
       "answer_values": {
         "date": "2024",
         "rank": 43,
@@ -1860,7 +1860,7 @@
           "tooltip": [
             {
               "field": "state",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {
@@ -1999,7 +1999,7 @@
               "tooltip": [
                 {
                   "field": "properties.name",
-                  "title": "State",
+                  "title": "Peer",
                   "type": "nominal"
                 },
                 {
@@ -2389,7 +2389,7 @@
       "id": "a9f3ddd2243a",
       "indicator": "poverty",
       "query": "DC v2 observations variable=Count_Person_BelowPovertyLevelInThePast12Months parent=country/USA type=State",
-      "question": "How many Connecticut residents live below the poverty line compared with other states?",
+      "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -2514,7 +2514,7 @@
           "tooltip": [
             {
               "field": "state",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {
@@ -2583,7 +2583,7 @@
       "topic": "local-finance"
     },
     {
-      "answer_text": "Connecticut's median gross rent was $1,488 in 2024, ranking #17 of 52 states.",
+      "answer_text": "Connecticut's median gross rent was $1,488 in 2024 \u2014 the 17th-highest among the 52 peers (50 states, DC and Puerto Rico).",
       "answer_values": {
         "date": "2024",
         "rank": 17,
@@ -2950,7 +2950,7 @@
           "tooltip": [
             {
               "field": "state",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {
@@ -3089,7 +3089,7 @@
               "tooltip": [
                 {
                   "field": "properties.name",
-                  "title": "State",
+                  "title": "Peer",
                   "type": "nominal"
                 },
                 {

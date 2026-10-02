@@ -20,22 +20,29 @@ def _parse(ts: str) -> dt.datetime:
 
 def ago(iso: str, now: dt.datetime) -> str:
     s = (now - _parse(iso)).total_seconds()
+    stamp = iso[11:16] + " UTC"
     if s < 90:
-        return "just now"
+        return f"just now · {stamp}"
     if s < 5400:
-        return f"{round(s / 60)} min ago"
+        return f"{round(s / 60)} min ago · {stamp}"
     if s < 86400:
-        return f"{round(s / 3600)} h ago"
+        return f"{round(s / 3600)} h ago · {stamp}"
     return iso[:10]
 
 
 def _trigger_line(card: dict) -> str:
     h = card["headline"]
     title = _ESC(h["title"])
+    src = h.get("source") or ""
+    # civic-calendar entries carry "[civic calendar] ..." in the title; don't
+    # print the source label twice.
+    if src and title.startswith(f"[{_ESC(src)}]"):
+        title = title[len(f"[{_ESC(src)}]") + 1:].lstrip()
+        src = ""
     if h.get("url"):
         title = (f'<a href="{_ESC(h["url"])}" rel="noopener">'
                  f'{title}</a>')
-    src = f'{_ESC(h["source"])} · ' if h.get("source") else ""
+    src = f'{_ESC(src)} · ' if src else ""
     return f'Triggered by {src}{title}'
 
 
@@ -53,7 +60,7 @@ def home_html(cards: list[dict], board: dict) -> str:
     if cards:
         c = cards[0]
         hero = f"""<div class="wrap"><div class="hero">
-<div class="kicker">Today's lead · {_ESC(c["topic"])} desk</div>
+<div class="kicker">Today's lead · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk</div>
 <h1><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h1>
 <p class="lede">{_ESC(c["answer_text"])}</p>
 <div class="meta">{_trigger_line(c)} · {ago(c["generated_at"], now)}</div>
@@ -63,10 +70,12 @@ and the literal query →</a></p>
 
     tiles = ""
     for i, t in enumerate(board.get("tiles", [])):
+        label = (f'{t["title"]}: Connecticut at {_ESC(str(t["value"]))}, '
+                 f'rank {t["rank"]} of {t["n"]} peers')
         tiles += f"""<div class="tile">
 <div class="tname">{_ESC(t["title"])}</div>
 <div class="val">{_ESC(str(t["value"]))}</div>
-{theme.viz(json.dumps(t["strip"], default=str), f"strip{i}")}
+{theme.viz(json.dumps(t["strip"], default=str), f"strip{i}", label=label)}
 <span class="chip">#{_ESC(str(t["rank"]))} of {_ESC(str(t["n"]))} peers · data {_ESC(str(t["date"]))}</span>
 </div>"""
 
@@ -80,6 +89,19 @@ and the literal query →</a></p>
 <a class="more" href="/story/{c["id"]}">the story with receipts →</a></div>
 </li>"""
 
+    fixture = any("(fixture)" in (c["headline"].get("source") or "")
+                  for c in cards)
+    help_ = ("Every question here is raised by a headline first. These cards "
+             "run on labeled demo fixtures; each fresh cycle replaces them "
+             "with live receipts."
+             if fixture else
+             "Every question below was raised by a real headline first.")
+    signals_html = f"""<section id="signals"><div class="wrap col">
+<div class="sechead"><h2>Latest questions</h2>
+<p class="sechelp">{help_}</p></div>
+<ol class="signals">{signals}</ol>
+</div></section>"""
+
     n_peers = (board.get("tiles") or [{}])[0].get("n", "52")
     body = f"""{hero}
 <section><div class="wrap">
@@ -92,11 +114,7 @@ Rico. Each tile prints the vintage of its own dataset; older vintages are the
 honest limit of annual surveys, not a lag in the pipeline.</p>
 </div></section>
 
-<section id="signals"><div class="wrap col">
-<div class="sechead"><h2>Latest questions</h2>
-<p class="sechelp">Every question below was raised by a real headline first.</p></div>
-<ol class="signals">{signals}</ol>
-</div></section>
+{signals_html}
 
 <section><div class="wrap">
 <div class="sechead"><h2>How this newsroom works</h2>
@@ -119,11 +137,12 @@ failure log ships with it.</p></div>
 
     return theme.page(
         title="CT Signal — Connecticut's automated data desk",
-        desc="An automated newsroom: the news cycle picks the question, public "
-             "data answers it. Rankings, charts, and the literal query behind "
-             "every number — refreshed every 15 minutes.",
+        desc="Connecticut's automated newsroom: the news cycle picks the "
+             "question, public data answers it. Charts, rankings, and the "
+             "query behind every number.",
         path="/", body=body,
-        og_title="CT Signal — Connecticut's automated data desk")
+        og_title="CT Signal — Connecticut's automated data desk",
+        json_ld=theme.site_json_ld())
 
 
 def publish(cards: list[dict], board: dict | None = None) -> None:

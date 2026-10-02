@@ -27,7 +27,7 @@ def build_board(catalog: dict) -> dict:
             "rank": result["ct"]["rank"],
             "n": result["n"],
             "date": result["ct"]["date"],
-            "strip": charts.dot_strip(result["rows"], title="rank across states"),
+            "strip": charts.dot_strip(result["rows"], title="rank across the 52 peers"),
         })
     return {"tiles": tiles}
 

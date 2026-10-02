@@ -417,7 +417,7 @@
           "tooltip": [
             {
               "field": "state",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {
@@ -517,7 +517,7 @@
         "title": {
           "color": "#69788a",
           "fontSize": 11,
-          "text": "rank across states"
+          "text": "rank across the 52 peers"
         },
         "width": "container"
       },
@@ -942,7 +942,7 @@
           "tooltip": [
             {
               "field": "state",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {
@@ -1042,7 +1042,7 @@
         "title": {
           "color": "#69788a",
           "fontSize": 11,
-          "text": "rank across states"
+          "text": "rank across the 52 peers"
         },
         "width": "container"
       },
@@ -1467,7 +1467,7 @@
           "tooltip": [
             {
               "field": "state",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {
@@ -1567,7 +1567,7 @@
         "title": {
           "color": "#69788a",
           "fontSize": 11,
-          "text": "rank across states"
+          "text": "rank across the 52 peers"
         },
         "width": "container"
       },
@@ -1992,7 +1992,7 @@
           "tooltip": [
             {
               "field": "state",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {
@@ -2092,7 +2092,7 @@
         "title": {
           "color": "#69788a",
           "fontSize": 11,
-          "text": "rank across states"
+          "text": "rank across the 52 peers"
         },
         "width": "container"
       },
@@ -2517,7 +2517,7 @@
           "tooltip": [
             {
               "field": "state",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {
@@ -2617,7 +2617,7 @@
         "title": {
           "color": "#69788a",
           "fontSize": 11,
-          "text": "rank across states"
+          "text": "rank across the 52 peers"
         },
         "width": "container"
       },
@@ -3042,7 +3042,7 @@
           "tooltip": [
             {
               "field": "state",
-              "title": "State",
+              "title": "Peer",
               "type": "nominal"
             },
             {
@@ -3142,7 +3142,7 @@
         "title": {
           "color": "#69788a",
           "fontSize": 11,
-          "text": "rank across states"
+          "text": "rank across the 52 peers"
         },
         "width": "container"
       },
