@@ -186,7 +186,7 @@ def topic_html(topic: str, cards: list[dict]) -> str:
         f"""<li class="sig">
 <div class="kicker"><span class="badge">{_ESC(c["stream"])} desk</span> ·
 {_pretty(c["generated_at"])}</div>
-<h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
+<h2><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h2>
 <p class="answer">{_ESC(c["answer_text"])}</p>
 </li>""" for c in cards)
     body = f"""<div class="wrap col">
