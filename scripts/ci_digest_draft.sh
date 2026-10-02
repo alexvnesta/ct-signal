@@ -12,9 +12,8 @@ import json, sys, urllib.request
 body = open(sys.argv[1]).read()
 payload = {
     "subject": f"CT Signal weekly board — {sys.argv[2]}",
-    "body_html": body,
-    "tags": ["digest"],
-    "unpublished": True,          # draft; human reviews and sends
+    "body": body,   # 2026-04-01 API: 'body' (body_html/tags/unpublished are now rejected);
+                    # fresh emails land as drafts by default — human reviews and sends.
 }
 req = urllib.request.Request(
     "https://api.buttondown.com/v1/emails",
