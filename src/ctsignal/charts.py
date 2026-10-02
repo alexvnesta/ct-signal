@@ -143,8 +143,8 @@ def trend(rows: list[dict], *, title: str, unit: str = "") -> dict:
         .mark_line(point=True)
         .encode(
             x=alt.X("date:O").title("Date")
-                .axis(alt.Axis(labelExpr="index % 12 === 0 "
-                                       "? slice(datum.label, 0, 4) : ''")),
+                .axis(alt.Axis(labelExpr="slice(value, 5, 7) === '01' "
+                                       "? slice(value, 0, 4) : ''")),
             y=alt.Y("value:Q").title(f"{title}{f' ({unit})' if unit else ''}")
                 .axis(alt.Axis(format=_tick_fmt(unit))),
             color=series,
