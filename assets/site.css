@@ -86,6 +86,10 @@ section{padding:1.6rem 0}
 .tname{color:var(--dim);font-size:.82rem;font-weight:600}
 .val{font:800 2rem/1.15 var(--sans);color:var(--ok);letter-spacing:-.01em}
 .tile .viz{min-height:58px;margin:.15rem 0 .2rem}
+/* width:"container" measures the .vega-embed node, which vega-embed's own
+   stylesheet makes inline-block; inside a flex tile that shrinks to the
+   (0-wide) svg and collapses. Force the measure chain to fill the tile. */
+.tile .viz,.tile .viz .vega-embed,.tile .viz .chart-wrapper{display:block;width:100%}
 .chip{align-self:flex-start;background:var(--panel2);color:#cfdcea;border-radius:99px;
   padding:.1rem .65rem;font-size:.74rem}
 
