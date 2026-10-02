@@ -1,6 +1,5 @@
 {
   "framework": null,
-  "cleanUrls": true,
   "redirects": [
     {
       "source": "/story/:id/",
