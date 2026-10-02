@@ -28,7 +28,6 @@ def _load_dotenv() -> None:
 _load_dotenv()
 
 DC_API_KEY = os.environ.get("DC_API_KEY", "")
-DC_ENDPOINT = "https://api.datacommons.org/v2/observation"
 SOCRATA_PORTAL = "https://data.ct.gov"
 
 CT_FEEDS = [
@@ -46,9 +45,9 @@ UA = {"User-Agent": "Mozilla/5.0 (CTSignal/1.0; +https://ctsignal.org)"}
 SITE_URL = (os.environ.get("SITE_URL") or "https://ctsignal.org").rstrip("/")
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL") or "hello@ctsignal.org"
 
+# Sent ONLY by sources/socrata.py, to SOCRATA_PORTAL only — never with the
+# RSS fetches that share config.UA (those hosts have no business seeing it).
 SOCRATA_TOKEN = os.environ.get("SOCRATA_TOKEN", "")
-if SOCRATA_TOKEN:
-    UA["X-App-Token"] = SOCRATA_TOKEN
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "")
 _DEFAULT_MODELS = "gemini-3.1-flash-lite,gemini-flash-lite-latest,gemini-2.5-flash-lite,gemini-3.8-flash"

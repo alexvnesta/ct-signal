@@ -227,7 +227,7 @@ def footer() -> str:
     email = config.CONTACT_EMAIL
     year = dt.date.today().year
     return f"""<footer class="site"><div class="wrap footgrid">
-<div><h2>CT&nbsp;<span style="color:var(--acc)">⚡</span>&nbsp;Signal</h3>
+<div><h2>CT&nbsp;<span style="color:var(--acc)">⚡</span>&nbsp;Signal</h2>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
 public data answers it — every number fetched from a named dataset, never typed
 by hand.</p><p><a href="mailto:{email}">{email}</a></p></div>
@@ -290,7 +290,7 @@ def article_json_ld(*, card_id: str, headline: str, description: str,
     }
 
 
-def head(*, title: str, desc: str, path: str, og_type: str = "website", preload_font: bool = True,  # noqa: kept for embed call sites
+def head(*, title: str, desc: str, path: str, og_type: str = "website",
          og_title: str | None = None, og_desc: str | None = None,
          image: str | None = None, published: str | None = None,
          json_ld: dict | list | None = None) -> str:
@@ -303,7 +303,7 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website", preload_
     if json_ld is not None:
         blob = json.dumps(json_ld, ensure_ascii=False, separators=(",", ":"))
         ld = (f'<script type="application/ld+json">'
-              f'{blob.replace("</", "<\\/")}</script>')
+              f'{blob.replace("</", "<\\/").replace("<!--", "<\\u0021--")}</script>')
     return f"""<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{_ESC(title)}</title>
@@ -397,7 +397,8 @@ def viz(spec_json: str, el_id: str, *, label: str,
         spec_json = json.dumps(spec, default=str)
     else:
         reserve = ' style="min-height:120px"'
-    safe = spec_json.replace("</", "<\\/")
+    safe = (spec_json.replace("</", "<\\/")
+            .replace("<!--", "<\\u0021--"))
     cap = f'<figcaption>{_ESC(caption)}</figcaption>' if caption else ''
     return (f'<figure class="vizwrap"><div class="viz" id="{el_id}" role="img" '
             f'tabindex="0" aria-label="{_ESC(label)}"{reserve}></div>{cap}</figure>'

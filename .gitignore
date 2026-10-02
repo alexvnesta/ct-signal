@@ -5,6 +5,12 @@ output/*
 !output/.gitkeep
 !output/feed.json
 !output/index.html
+!output/board.json
+!output/us.json
+!output/digest/
+!output/digest/*
 .venv/
 .vercel/
 .DS_Store
+
+.pulse.log

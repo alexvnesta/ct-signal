@@ -9,7 +9,9 @@ def rows(dataset_id: str, **soql: str) -> list[dict]:
     resp = requests.get(
         f"{config.SOCRATA_PORTAL}/resource/{dataset_id}.json",
         params={"$limit": 400, **soql},
-        headers=config.UA,
+        headers={**config.UA,
+                 **({"X-App-Token": config.SOCRATA_TOKEN}
+                    if config.SOCRATA_TOKEN else {})},
         timeout=20,
     )
     resp.raise_for_status()

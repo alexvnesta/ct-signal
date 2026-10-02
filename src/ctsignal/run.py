@@ -3,9 +3,10 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import re
 import time
 
-from . import cards, charts, config, feeds, questions
+from . import cards, charts, config, feeds, questions, util
 from .sources import datacommons, socrata
 
 
@@ -15,7 +16,9 @@ def build_board(catalog: dict) -> dict:
         fixture = config.FIXTURES_DIR / f"dc_{indicator['id']}.json"
         try:
             result = datacommons.stackup(indicator, fixture=fixture)
-        except Exception:
+        except Exception as exc:
+            print(f"  board tile failed: {indicator['id']} "
+                  f"({type(exc).__name__}: {exc})")
             result = None
         if not result:
             continue
@@ -43,6 +46,23 @@ def _load_json(path, default):
         return json.loads(path.read_text())
     except (FileNotFoundError, json.JSONDecodeError):
         return default
+
+
+def _load_feed() -> dict:
+    # Strict on purpose: output/feed.json is committed state. Corrupt or
+    # wrong-shape must fail the cycle loudly — the old lenient default let a
+    # truncated file silently republish a board of one card.
+    path = config.OUTPUT_DIR / "feed.json"
+    try:
+        data = json.loads(path.read_text())
+    except FileNotFoundError:
+        return {"cards": []}
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(f"output/feed.json corrupt: {exc}") from exc
+    if not isinstance(data, dict) or not isinstance(data.get("cards"), list):
+        raise RuntimeError("output/feed.json malformed (want dict with "
+                           "'cards' list)")
+    return data
 
 
 def _asked_key(card: dict) -> str:
@@ -115,14 +135,15 @@ def balance_by_topic(new_cards: list[dict]) -> list[dict]:
         if current is None or score > (current["headline"].get("published_sort") or 0):
             best[topic] = card
     kept = list(best.values())
+    kept_ids = {c["id"] for c in kept}
     for card in new_cards:
-        if card not in kept:
+        if card["id"] not in kept_ids:
             print(f"  balanced out (topic cap): {card['topic']} / {card['indicator']}")
     return kept
 
 
 def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
-    existing = _load_json(config.OUTPUT_DIR / "feed.json", {"cards": []})
+    existing = _load_feed()
     cards_by_id = {c["id"]: c for c in existing.get("cards", [])}
     asked = _load_json(config.ASKED_LOG_PATH, {})
 
@@ -183,14 +204,25 @@ def main() -> None:
     parser.add_argument("--once", action="store_true")
     parser.add_argument("--interval-min", type=float, default=15.0)
     parser.add_argument("--demo", action="store_true",
-                        help="merge fixture headlines + fixture-backed answers")
+                        help="merge fixture headlines; live fetches still tried first, fixtures as fallback")
     parser.add_argument("--no-llm", action="store_true",
                         help="heuristic proposer only (deterministic demo fallback)")
     args = parser.parse_args()
 
     catalog = questions.load_catalog()
     while True:
-        run_cycle(catalog, demo=args.demo, use_llm=not args.no_llm)
+        try:
+            run_cycle(catalog, demo=args.demo, use_llm=not args.no_llm)
+        except Exception as exc:
+            # one named line, committed with the site: "our failure log is
+            # public" is now a statement about this repo, not a hope
+            msg = re.sub(r"https?://\S+", "<url>", str(exc))[:200]
+            line = f"{_now()} cycle failed: {type(exc).__name__}: {msg}"
+            config.ASKED_LOG_PATH.parent.mkdir(exist_ok=True)
+            with open(config.ASKED_LOG_PATH.parent / "failures.log", "a") as fh:
+                fh.write(line + "\n")
+            print(line)
+            raise SystemExit(1)
         if args.once:
             break
         time.sleep(args.interval_min * 60)

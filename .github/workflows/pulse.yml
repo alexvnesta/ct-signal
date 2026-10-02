@@ -2,6 +2,7 @@ name: pulse
 
 # The newsroom heartbeat: every 15 minutes, run one pipeline cycle and push.
 # The commit IS the deploy (Vercel git integration) and the audit trail.
+# CI is the single producer; local deploy.sh is event-day overdrive only.
 
 on:
   schedule:
@@ -24,30 +25,28 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.13"
           cache: pip
 
       - name: install
         run: pip install -r requirements.txt
 
-      - name: story OG covers
-        continue-on-error: true   # missing covers degrade to the generic og-cover
-        run: python scripts/make_story_covers.py
-
       - name: run one cycle
-        continue-on-error: true   # a failed cycle just re-publishes the last feed
         run: python run.py --once
         env:
           DC_API_KEY: ${{ secrets.DC_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SOCRATA_TOKEN: ${{ secrets.SOCRATA_TOKEN }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           SITE_URL: https://ctsignal.org
           CONTACT_EMAIL: hello@ctsignal.org
 
+      - name: story OG covers
+        run: python scripts/make_story_covers.py
+        continue-on-error: true   # a missing cover degrades to the generic og-cover
+
       - name: publish + push
-        run: |
-          git config user.name "ct-signal-bot"
-          git config user.email "bot@ctsignal.org"
-          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          bash deploy.sh --deploy
+        if: always()   # a failed cycle re-publishes the last good site
+        run: bash deploy.sh --deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

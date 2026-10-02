@@ -12,7 +12,7 @@ import email.utils
 import html
 import json
 
-from . import config, theme
+from . import config, theme, util
 
 _ESC = html.escape
 
@@ -39,11 +39,13 @@ def permalink(card: dict) -> str:
 
 
 def _spec_json(obj) -> str:
-    # Choropleth topo loads "us.json" relatively; story pages live deeper
-    # than the site root, so pin it absolute.
-    return json.dumps(obj, default=str).replace(
-        '"us.json"', f'"{config.SITE_URL}/us.json"'
-    )
+    # Chart islands are JSON-in-HTML: neutralize both "</" and "<!--" so no
+    # external string (town names, feed text inside altair data) can flip the
+    # parser state; absolute us.json for deep story pages.
+    blob = json.dumps(obj, default=str).replace("</", "<\\/")
+    blob = blob.replace("<!--", "<\\u0021--")
+    return blob.replace('"us.json"', f'"{_ESC(config.SITE_URL)}/us.json"')
+
 
 
 def _trigger_html(card: dict) -> str:
@@ -77,8 +79,14 @@ def _story_og(card: dict) -> str | None:
     """Per-story cover if generated (scripts/make_story_covers.py); the
     generic cover otherwise. Checked at build time so a missing PNG never
     yields a 404 og:image."""
+    p = _cover_path(card)
+    return f"{config.SITE_URL}/assets/story-{card['id']}.png" if p else None
+
+
+def _cover_path(card: dict):
+    """The story's OG card on disk, or None (generic og-cover fallback)."""
     p = config.ROOT / "assets" / f"story-{card['id']}.png"
-    return f"{config.SITE_URL}/assets/story-{card['id']}.png" if p.exists() else None
+    return p if p.exists() else None
 
 
 def story_html(card: dict) -> str:
@@ -129,7 +137,7 @@ automated data desk</div>
 <details class="embed"><summary>Embed this story</summary>
 <p class="meta">Free to embed with attribution — the embed stays updated as
 the underlying data refreshes.</p>
-<textarea id="embed-snippet" name="embed-snippet" aria-label="Embed code for this story" readonly rows="2" onclick="this.select()">&lt;iframe src="https://ctsignal.org/story/{card["id"]}/embed" width="100%" height="540" style="border:0;border-radius:10px" loading="lazy" title="{_ESC(card["question"])}"&gt;&lt;/iframe&gt;</textarea>
+<textarea id="embed-snippet" name="embed-snippet" aria-label="Embed code for this story" readonly rows="2" onclick="this.select()">&lt;iframe src="{_ESC(config.SITE_URL)}/story/{card["id"]}/embed" width="100%" height="540" style="border:0;border-radius:10px" loading="lazy" title="{_ESC(card["question"])}"&gt;&lt;/iframe&gt;</textarea>
 </details>
 <p class="meta">Found an error? Corrections are public, annotated, and diffable —
 see <a href="/corrections">the corrections policy</a>.</p>
@@ -168,8 +176,7 @@ provenance →</a></p>
 </div>"""
     head = theme.head(title=f'{card["question"]} · embedded on CT Signal',
                       desc=card["answer_text"][:200],
-                      path=f'/story/{card["id"]}', og_type="article",
-                      preload_font=False)
+                      path=f'/story/{card["id"]}', og_type="article")
     return f'<!doctype html><html lang="en">{head}<body>{body}' \
            f'{theme.VEGA_LOAD}</body></html>\n'
 
@@ -214,8 +221,8 @@ def rss_xml(cards: list[dict]) -> str:
                 if h.get("url") else _ESC(h["title"]))
         story = permalink(c)
         art = ""
-        png = config.ROOT / "assets" / f"story-{c['id']}.png"
-        if png.exists():
+        png = _cover_path(c)
+        if png:
             art = (f'<enclosure url="{config.SITE_URL}/assets/story-{c["id"]}.png"'
                    f' length="{png.stat().st_size}" type="image/png"/>')
         desc = (f'{_ESC(c["answer_text"])}<br/><br/>'
@@ -259,13 +266,13 @@ def json_feed(cards: list[dict]) -> str:
             "date_published": c["generated_at"],
             "_tags": [c["topic"]],
         }
-        if (config.ROOT / "assets" / f"story-{c['id']}.png").exists():
+        png = _cover_path(c)
+        if png:
             it["image"] = f"{config.SITE_URL}/assets/story-{c['id']}.png"
             it["attachments"] = [{
                 "url": f"{config.SITE_URL}/assets/story-{c['id']}.png",
                 "mime_type": "image/png",
-                "size_in_bytes": (config.ROOT / "assets" /
-                                  f"story-{c['id']}.png").stat().st_size,
+                "size_in_bytes": png.stat().st_size,
             }]
         items.append(it)
     feed = {
@@ -283,6 +290,7 @@ def json_feed(cards: list[dict]) -> str:
 
 
 def sitemap_xml(cards: list[dict]) -> str:
+    from . import pages
     now = _day(dt.datetime.now(dt.timezone.utc).isoformat())
     parts = [f'<url><loc>{config.SITE_URL}/</loc><lastmod>{now}</lastmod></url>']
     for c in cards:
@@ -307,7 +315,7 @@ def write_all(cards: list[dict]) -> None:
     pages.write_pages()
     assets = config.ROOT / "assets"
     assets.mkdir(exist_ok=True)
-    (assets / "site.css").write_text(theme.CSS)
+    util.atomic_write_text(assets / "site.css", theme.CSS)
     for card in cards:
         arch = config.ARCHIVE_DIR / card["generated_at"][:7]
         arch.mkdir(parents=True, exist_ok=True)
@@ -315,10 +323,10 @@ def write_all(cards: list[dict]) -> None:
             json.dumps(card, indent=2, sort_keys=True, default=str))
         story = config.STORY_DIR / card["id"]
         story.mkdir(parents=True, exist_ok=True)
-        (story / "index.html").write_text(story_html(card))
+        util.atomic_write_text(story / "index.html", story_html(card))
         emb = story / "embed"
         emb.mkdir(exist_ok=True)
-        (emb / "index.html").write_text(embed_html(card))
+        util.atomic_write_text(emb / "index.html", embed_html(card))
     tdir = config.ROOT / "topic"
     tdir.mkdir(exist_ok=True)
     for topic, tcards in _topics(cards).items():
@@ -326,6 +334,6 @@ def write_all(cards: list[dict]) -> None:
         hd.mkdir(exist_ok=True)
         (hd / "index.html").write_text(topic_html(topic, tcards))
     if cards:
-        (config.ROOT / "feed.xml").write_text(rss_xml(cards))
-        (config.ROOT / "feed.json").write_text(json_feed(cards))
-        (config.ROOT / "sitemap.xml").write_text(sitemap_xml(cards))
+        util.atomic_write_text(config.ROOT / "feed.xml", rss_xml(cards))
+        util.write_json(config.ROOT / "feed.json", json.loads(json_feed(cards)))
+        util.atomic_write_text(config.ROOT / "sitemap.xml", sitemap_xml(cards))

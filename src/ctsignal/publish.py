@@ -9,13 +9,13 @@ import datetime as dt
 import html
 import json
 
-from . import config, theme
+from . import config, theme, util
 
 _ESC = html.escape
 
 
 def _parse(ts: str) -> dt.datetime:
-    return dt.datetime.fromisoformat(ts)
+    return util.parse_ts(ts)
 
 
 def ago(iso: str, now: dt.datetime) -> str:
@@ -159,14 +159,11 @@ def publish(cards: list[dict], board: dict | None = None) -> None:
         "generated_at": cards[0]["generated_at"] if cards else None,
         "cards": cards,
     }
-    (config.OUTPUT_DIR / "feed.json").write_text(
-        json.dumps(feed, indent=2, sort_keys=True, default=str)
-    )
+    util.write_json(config.OUTPUT_DIR / "feed.json", feed)
     if board is not None:
-        (config.OUTPUT_DIR / "board.json").write_text(
-            json.dumps(board, indent=2, sort_keys=True, default=str)
-        )
-    (config.OUTPUT_DIR / "index.html").write_text(home_html(cards, board or {}))
+        util.write_json(config.OUTPUT_DIR / "board.json", board)
+    util.atomic_write_text(config.OUTPUT_DIR / "index.html",
+                           home_html(cards, board or {}))
     from . import newsroom
 
     newsroom.write_all(cards)

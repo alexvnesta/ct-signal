@@ -1,6 +1,6 @@
-altair>=5.4
-feedparser>=6.0
-requests>=2.31
-PyYAML>=6.0
-datacommons-client>=2.1
-Pillow>=10.0
+altair==6.3.0
+feedparser==6.0.14
+requests==2.34.2
+PyYAML==6.0.3
+datacommons-client==2.1.6
+Pillow>=11,<12

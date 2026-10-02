@@ -13,7 +13,7 @@ import pathlib
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-SITE = "https://ctsignal.org"
+SITE = (sys.environ.get("SITE_URL") or "https://ctsignal.org").rstrip("/")
 E = html.escape
 
 

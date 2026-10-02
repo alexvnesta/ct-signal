@@ -43,7 +43,7 @@
       ]
     },
     {
-      "source": "/assets/:name(og-cover|favicon|favicon-32|apple-touch-icon|icon-192|icon-512)\\.(png|svg)",
+      "source": "/assets/:name(og-cover|favicon|favicon-32|apple-touch-icon)\\.(png|svg)",
       "headers": [
         {
           "key": "Cache-Control",

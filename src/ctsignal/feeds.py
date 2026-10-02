@@ -28,12 +28,20 @@ def _clean(title: str) -> str:
     return re.sub(r"\s+", " ", html.unescape(title)).strip()
 
 
+def _safe_link(u) -> str:
+    # feeds are third-party input: only http/https may become a clickable
+    # href on our pages (a javascript:/data: link executes in our origin)
+    return u if isinstance(u, str) and u.lower().startswith(
+        ("http://", "https://")) else "" 
+
+
 def fetch_feed(url: str) -> list[dict]:
     stream = "ct" if url in config.CT_FEEDS else "national"
     try:
         resp = requests.get(url, headers=config.UA, timeout=12)
         resp.raise_for_status()
-    except requests.RequestException:
+    except requests.RequestException as exc:
+        print(f"  feed fetch failed ({url}): {type(exc).__name__}")
         return []
     parsed = feedparser.parse(resp.content)
     out: list[dict] = []
@@ -45,7 +53,7 @@ def fetch_feed(url: str) -> list[dict]:
             {
                 "id": hashlib.sha1(title.lower().encode()).hexdigest()[:12],
                 "title": title,
-                "url": entry.get("link", ""),
+                "url": _safe_link(entry.get("link", "")),
                 "source": _source_name(url),
                 "published": str(entry.get("published", "") or entry.get("updated", "")),
                 "published_sort": (
