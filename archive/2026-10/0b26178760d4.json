@@ -613,7 +613,7 @@
           },
           "x": {
             "field": "date",
-            "type": "ordinal"
+            "type": "temporal"
           },
           "y": {
             "field": "value",

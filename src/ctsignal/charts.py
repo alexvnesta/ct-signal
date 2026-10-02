@@ -165,7 +165,7 @@ def trend(rows: list[dict], *, title: str, unit: str = "") -> dict:
     labels = (
         alt.Chart(alt.Data(values=ends))
         .mark_text(align="left", dx=8, dy=-8, fontSize=12, fontWeight=700)
-        .encode(x=alt.X("date:O"), y=alt.Y("value:Q"),
+        .encode(x=alt.X("date:T"), y=alt.Y("value:Q"),
                 text=alt.Text("short:N"),
                 color=alt.Color("series:N", legend=None,
                                 scale=alt.Scale(
