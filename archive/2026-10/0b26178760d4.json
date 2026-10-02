@@ -553,6 +553,9 @@
             }
           ],
           "x": {
+            "axis": {
+              "labelExpr": "index % 12 === 0 ? slice(datum.label, 0, 4) : ''"
+            },
             "field": "date",
             "title": "Date",
             "type": "ordinal"
