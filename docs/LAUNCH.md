@@ -60,3 +60,16 @@ verified against the live service, not assumed.
   homepage + live stories is worth one click once content looks settled.
 - After ~2 weeks of baseline the Phase C drafts (HN meta-story, Nieman
   pitch, sponsor one-pager) become writable with numbers in hand.
+
+## Brand kit — Oct 2 evening (free-tier generation)
+
+- Art sources: `assets-src/hero-*.webp`, generated free on the Stable Horde community GPU
+  pool (SDXL-class models; anonymous workers; key at ~/.config/ct-signal/horde-key).
+- Every shipped pixel is re-composed locally by `scripts/make_assets.py` via `scripts/_kit.py`:
+  luminance-stretched brand duotone, CT dot-map from Natural Earth 10m geometry
+  (public domain, `scripts/ct_poly.json`), legibility scrims, existing `_brand` wordmark.
+- Live now: `assets/og-cover.png` (all crawlers), `assets/digest-header.png` (wired into
+  the email template — appears on the next digest draft), Bluesky banner (set via
+  `com.atproto.repo.uploadBlob` + profile putRecord).
+- Flat-vector fallback: if `assets-src/` is ever removed, `og_cover()` reverts to the
+  original vector build instead of failing CI.
