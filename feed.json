@@ -6,6 +6,24 @@
   "items": [
     {
       "_tags": [
+        "economy"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 54771,
+          "url": "https://ctsignal.org/assets/story-0b26178760d4.png"
+        }
+      ],
+      "content_text": "Connecticut's unemployment rate is 5.1% (2026) \u2014 the 2nd-highest among the 9 peers (50 states, DC and Puerto Rico).. Triggered by: Disappointing 29,000 jobs added in September as unemployment ticks up",
+      "date_published": "2026-10-02T18:29:37+00:00",
+      "id": "https://ctsignal.org/story/0b26178760d4",
+      "image": "https://ctsignal.org/assets/story-0b26178760d4.png",
+      "title": "Is Connecticut's job market doing better or worse than the rest of the country?",
+      "url": "https://ctsignal.org/story/0b26178760d4"
+    },
+    {
+      "_tags": [
         "local-finance"
       ],
       "attachments": [
@@ -57,24 +75,6 @@
       "image": "https://ctsignal.org/assets/story-ed851796295a.png",
       "title": "How safe is Connecticut compared with the rest of the country?",
       "url": "https://ctsignal.org/story/ed851796295a"
-    },
-    {
-      "_tags": [
-        "economy"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 54771,
-          "url": "https://ctsignal.org/assets/story-0b26178760d4.png"
-        }
-      ],
-      "content_text": "Connecticut's unemployment rate is 5.8% (2026) \u2014 the 3rd-highest among the 52 peers (50 states, DC and Puerto Rico).. Triggered by: Job growth cools as unemployment edges up in several states",
-      "date_published": "2026-10-02T01:38:41+00:00",
-      "id": "https://ctsignal.org/story/0b26178760d4",
-      "image": "https://ctsignal.org/assets/story-0b26178760d4.png",
-      "title": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "url": "https://ctsignal.org/story/0b26178760d4"
     },
     {
       "_tags": [
