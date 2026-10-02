@@ -23,8 +23,16 @@ code{background:#243040;color:#cfdcea;padding:0 .25rem;border-radius:4px}
 </style></head><body>
 <h1>CT Signal</h1>
 <p class="meta">Questions generated from live news + civic calendar,
-answered only with fetched numbers.</p>
+answered only with fetched numbers.
+<a href="feed.xml">RSS</a> · <a href="about">about</a> ·
+<a href="methodology">how we work</a></p>
 <div id="board"></div><div id="feed"></div>
+<footer style="border-top:1px solid #2b3a48;margin-top:2rem;padding-top:1rem;color:#9fb0bf;font-size:.85rem">
+CT Signal is an automated newsroom — the news cycle picks the question, public
+data answers it. <a href="about">About</a> · <a href="methodology">Methodology</a> ·
+<a href="masthead">Masthead</a> · <a href="corrections">Corrections</a> ·
+<a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a>
+</footer>
 <script>
 Promise.all([
   fetch("feed.json").then(r=>r.json()),

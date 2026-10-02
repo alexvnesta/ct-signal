@@ -9,6 +9,8 @@ SEEDS_PATH = ROOT / "data" / "seeds.yaml"
 ASKED_LOG_PATH = ROOT / "data" / "asked_log.json"
 OUTPUT_DIR = ROOT / "output"
 FIXTURES_DIR = ROOT / "fixtures"
+STORY_DIR = ROOT / "story"        # durable permalink pages (news site)
+ARCHIVE_DIR = ROOT / "archive"    # every card, ever, as JSON (audit trail)
 
 
 def _load_dotenv() -> None:
@@ -39,7 +41,10 @@ NATIONAL_FEEDS = [
     "https://www.pbs.org/newshour/feeds/rss/headlines",
 ]
 
-UA = {"User-Agent": "Mozilla/5.0 (CTSignal/0.1; hackathon prototype)"}
+UA = {"User-Agent": "Mozilla/5.0 (CTSignal/1.0; +https://ctsignal.org)"}
+
+SITE_URL = (os.environ.get("SITE_URL") or "https://ctsignal.org").rstrip("/")
+CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL") or "hello@ctsignal.org"
 
 SOCRATA_TOKEN = os.environ.get("SOCRATA_TOKEN", "")
 if SOCRATA_TOKEN:

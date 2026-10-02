@@ -5,7 +5,6 @@ output/*
 !output/.gitkeep
 !output/feed.json
 !output/index.html
-data/asked_log.json
 .venv/
 .vercel/
 .DS_Store

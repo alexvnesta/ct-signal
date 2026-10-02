@@ -1,0 +1,591 @@
+{
+  "answer_text": "Connecticut's unemployment rate is 5.8% (2026), ranking #3 of 52 states.",
+  "answer_values": {
+    "date": "2026-07",
+    "rank": 3,
+    "value": 5.8
+  },
+  "cache": false,
+  "chart": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "config": {
+      "axis": {
+        "domainColor": "#26313d",
+        "gridColor": "#26313d",
+        "labelColor": "#9fb0bf",
+        "tickColor": "#26313d",
+        "titleColor": "#9fb0bf"
+      },
+      "legend": {
+        "labelColor": "#9fb0bf",
+        "symbolStrokeWidth": 0,
+        "titleColor": "#9fb0bf"
+      },
+      "title": {
+        "color": "#eef2f5",
+        "subtitleColor": "#9fb0bf"
+      },
+      "view": {
+        "continuousHeight": 300,
+        "continuousWidth": 300,
+        "strokeWidth": 0
+      }
+    },
+    "data": {
+      "values": [
+        {
+          "date": "2022-07",
+          "series": "Connecticut",
+          "value": 4.3
+        },
+        {
+          "date": "2022-08",
+          "series": "Connecticut",
+          "value": 3.9
+        },
+        {
+          "date": "2022-09",
+          "series": "Connecticut",
+          "value": 3.4
+        },
+        {
+          "date": "2022-10",
+          "series": "Connecticut",
+          "value": 3.5
+        },
+        {
+          "date": "2022-11",
+          "series": "Connecticut",
+          "value": 3.2
+        },
+        {
+          "date": "2022-12",
+          "series": "Connecticut",
+          "value": 2.9
+        },
+        {
+          "date": "2023-01",
+          "series": "Connecticut",
+          "value": 3.8
+        },
+        {
+          "date": "2023-02",
+          "series": "Connecticut",
+          "value": 4.0
+        },
+        {
+          "date": "2023-03",
+          "series": "Connecticut",
+          "value": 3.4
+        },
+        {
+          "date": "2023-04",
+          "series": "Connecticut",
+          "value": 2.6
+        },
+        {
+          "date": "2023-05",
+          "series": "Connecticut",
+          "value": 3.2
+        },
+        {
+          "date": "2023-06",
+          "series": "Connecticut",
+          "value": 3.0
+        },
+        {
+          "date": "2023-07",
+          "series": "Connecticut",
+          "value": 3.4
+        },
+        {
+          "date": "2023-08",
+          "series": "Connecticut",
+          "value": 3.3
+        },
+        {
+          "date": "2023-09",
+          "series": "Connecticut",
+          "value": 2.9
+        },
+        {
+          "date": "2023-10",
+          "series": "Connecticut",
+          "value": 3.1
+        },
+        {
+          "date": "2023-11",
+          "series": "Connecticut",
+          "value": 2.9
+        },
+        {
+          "date": "2023-12",
+          "series": "Connecticut",
+          "value": 2.8
+        },
+        {
+          "date": "2024-01",
+          "series": "Connecticut",
+          "value": 3.7
+        },
+        {
+          "date": "2024-02",
+          "series": "Connecticut",
+          "value": 3.9
+        },
+        {
+          "date": "2024-03",
+          "series": "Connecticut",
+          "value": 3.3
+        },
+        {
+          "date": "2024-04",
+          "series": "Connecticut",
+          "value": 2.7
+        },
+        {
+          "date": "2024-05",
+          "series": "Connecticut",
+          "value": 3.2
+        },
+        {
+          "date": "2024-06",
+          "series": "Connecticut",
+          "value": 3.0
+        },
+        {
+          "date": "2024-07",
+          "series": "Connecticut",
+          "value": 3.8
+        },
+        {
+          "date": "2024-08",
+          "series": "Connecticut",
+          "value": 3.5
+        },
+        {
+          "date": "2024-09",
+          "series": "Connecticut",
+          "value": 3.0
+        },
+        {
+          "date": "2024-10",
+          "series": "Connecticut",
+          "value": 3.2
+        },
+        {
+          "date": "2024-11",
+          "series": "Connecticut",
+          "value": 3.2
+        },
+        {
+          "date": "2024-12",
+          "series": "Connecticut",
+          "value": 3.0
+        },
+        {
+          "date": "2025-01",
+          "series": "Connecticut",
+          "value": 4.1
+        },
+        {
+          "date": "2025-02",
+          "series": "Connecticut",
+          "value": 4.3
+        },
+        {
+          "date": "2025-03",
+          "series": "Connecticut",
+          "value": 3.9
+        },
+        {
+          "date": "2025-04",
+          "series": "Connecticut",
+          "value": 3.3
+        },
+        {
+          "date": "2025-05",
+          "series": "Connecticut",
+          "value": 3.8
+        },
+        {
+          "date": "2025-06",
+          "series": "Connecticut",
+          "value": 3.6
+        },
+        {
+          "date": "2025-07",
+          "series": "Connecticut",
+          "value": 4.3
+        },
+        {
+          "date": "2025-08",
+          "series": "Connecticut",
+          "value": 4.1
+        },
+        {
+          "date": "2025-09",
+          "series": "Connecticut",
+          "value": 4.0
+        },
+        {
+          "date": "2025-11",
+          "series": "Connecticut",
+          "value": 4.4
+        },
+        {
+          "date": "2025-12",
+          "series": "Connecticut",
+          "value": 4.1
+        },
+        {
+          "date": "2026-01",
+          "series": "Connecticut",
+          "value": 5.5
+        },
+        {
+          "date": "2026-02",
+          "series": "Connecticut",
+          "value": 5.8
+        },
+        {
+          "date": "2026-03",
+          "series": "Connecticut",
+          "value": 5.1
+        },
+        {
+          "date": "2026-04",
+          "series": "Connecticut",
+          "value": 5.2
+        },
+        {
+          "date": "2026-05",
+          "series": "Connecticut",
+          "value": 5.0
+        },
+        {
+          "date": "2026-06",
+          "series": "Connecticut",
+          "value": 4.9
+        },
+        {
+          "date": "2026-07",
+          "series": "Connecticut",
+          "value": 5.8
+        },
+        {
+          "date": "2022-08",
+          "series": "United States",
+          "value": 3.6
+        },
+        {
+          "date": "2022-09",
+          "series": "United States",
+          "value": 3.5
+        },
+        {
+          "date": "2022-10",
+          "series": "United States",
+          "value": 3.6
+        },
+        {
+          "date": "2022-11",
+          "series": "United States",
+          "value": 3.6
+        },
+        {
+          "date": "2022-12",
+          "series": "United States",
+          "value": 3.5
+        },
+        {
+          "date": "2023-01",
+          "series": "United States",
+          "value": 3.5
+        },
+        {
+          "date": "2023-02",
+          "series": "United States",
+          "value": 3.6
+        },
+        {
+          "date": "2023-03",
+          "series": "United States",
+          "value": 3.5
+        },
+        {
+          "date": "2023-04",
+          "series": "United States",
+          "value": 3.4
+        },
+        {
+          "date": "2023-05",
+          "series": "United States",
+          "value": 3.6
+        },
+        {
+          "date": "2023-06",
+          "series": "United States",
+          "value": 3.6
+        },
+        {
+          "date": "2023-07",
+          "series": "United States",
+          "value": 3.5
+        },
+        {
+          "date": "2023-08",
+          "series": "United States",
+          "value": 3.7
+        },
+        {
+          "date": "2023-09",
+          "series": "United States",
+          "value": 3.7
+        },
+        {
+          "date": "2023-10",
+          "series": "United States",
+          "value": 3.9
+        },
+        {
+          "date": "2023-11",
+          "series": "United States",
+          "value": 3.7
+        },
+        {
+          "date": "2023-12",
+          "series": "United States",
+          "value": 3.8
+        },
+        {
+          "date": "2024-01",
+          "series": "United States",
+          "value": 3.7
+        },
+        {
+          "date": "2024-02",
+          "series": "United States",
+          "value": 3.9
+        },
+        {
+          "date": "2024-03",
+          "series": "United States",
+          "value": 3.9
+        },
+        {
+          "date": "2024-04",
+          "series": "United States",
+          "value": 3.9
+        },
+        {
+          "date": "2024-05",
+          "series": "United States",
+          "value": 3.9
+        },
+        {
+          "date": "2024-06",
+          "series": "United States",
+          "value": 4.1
+        },
+        {
+          "date": "2024-07",
+          "series": "United States",
+          "value": 4.2
+        },
+        {
+          "date": "2024-08",
+          "series": "United States",
+          "value": 4.2
+        },
+        {
+          "date": "2024-09",
+          "series": "United States",
+          "value": 4.1
+        },
+        {
+          "date": "2024-10",
+          "series": "United States",
+          "value": 4.1
+        },
+        {
+          "date": "2024-11",
+          "series": "United States",
+          "value": 4.2
+        },
+        {
+          "date": "2024-12",
+          "series": "United States",
+          "value": 4.1
+        },
+        {
+          "date": "2025-01",
+          "series": "United States",
+          "value": 4.0
+        },
+        {
+          "date": "2025-02",
+          "series": "United States",
+          "value": 4.2
+        },
+        {
+          "date": "2025-03",
+          "series": "United States",
+          "value": 4.2
+        },
+        {
+          "date": "2025-04",
+          "series": "United States",
+          "value": 4.2
+        },
+        {
+          "date": "2025-05",
+          "series": "United States",
+          "value": 4.3
+        },
+        {
+          "date": "2025-06",
+          "series": "United States",
+          "value": 4.1
+        },
+        {
+          "date": "2025-07",
+          "series": "United States",
+          "value": 4.3
+        },
+        {
+          "date": "2025-08",
+          "series": "United States",
+          "value": 4.3
+        },
+        {
+          "date": "2025-09",
+          "series": "United States",
+          "value": 4.4
+        },
+        {
+          "date": "2025-11",
+          "series": "United States",
+          "value": 4.5
+        },
+        {
+          "date": "2025-12",
+          "series": "United States",
+          "value": 4.4
+        },
+        {
+          "date": "2026-01",
+          "series": "United States",
+          "value": 4.3
+        },
+        {
+          "date": "2026-02",
+          "series": "United States",
+          "value": 4.4
+        },
+        {
+          "date": "2026-03",
+          "series": "United States",
+          "value": 4.3
+        },
+        {
+          "date": "2026-04",
+          "series": "United States",
+          "value": 4.3
+        },
+        {
+          "date": "2026-05",
+          "series": "United States",
+          "value": 4.3
+        },
+        {
+          "date": "2026-06",
+          "series": "United States",
+          "value": 4.2
+        },
+        {
+          "date": "2026-07",
+          "series": "United States",
+          "value": 4.1
+        },
+        {
+          "date": "2026-08",
+          "series": "United States",
+          "value": 4.1
+        }
+      ]
+    },
+    "encoding": {
+      "color": {
+        "field": "series",
+        "legend": {
+          "title": null
+        },
+        "scale": {
+          "domain": [
+            "Connecticut",
+            "United States"
+          ],
+          "range": [
+            "#c0392b",
+            "#9aa5b1"
+          ]
+        },
+        "type": "nominal"
+      },
+      "tooltip": [
+        {
+          "field": "series",
+          "type": "nominal"
+        },
+        {
+          "field": "date",
+          "type": "ordinal"
+        },
+        {
+          "field": "value",
+          "type": "quantitative"
+        }
+      ],
+      "x": {
+        "field": "date",
+        "title": "Date",
+        "type": "ordinal"
+      },
+      "y": {
+        "field": "value",
+        "title": "Unemployment rate (percent)",
+        "type": "quantitative"
+      }
+    },
+    "height": 200,
+    "mark": {
+      "point": true,
+      "type": "line"
+    },
+    "title": {
+      "text": "Unemployment rate"
+    },
+    "width": 420
+  },
+  "chart2": null,
+  "chart_kind": "trend",
+  "citations": [
+    "https://datacommons.org/data/commons/UnemploymentRate_Person"
+  ],
+  "generated_at": "2026-09-30T19:22:08+00:00",
+  "headline": {
+    "id": "fixjobs01",
+    "published": "2026-09-30",
+    "source": "PBS NewsHour (fixture)",
+    "stream": "national",
+    "title": "Job growth cools as unemployment edges up in several states",
+    "url": "https://www.pbs.org/newshour"
+  },
+  "id": "0b26178760d4",
+  "indicator": "unemployment",
+  "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
+  "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
+  "stream": "stackup",
+  "topic": "economy"
+}

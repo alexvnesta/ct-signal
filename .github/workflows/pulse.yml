@@ -1,0 +1,48 @@
+name: pulse
+
+# The newsroom heartbeat: every 15 minutes, run one pipeline cycle and push.
+# The commit IS the deploy (Vercel git integration) and the audit trail.
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pulse
+  cancel-in-progress: false
+
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: install
+        run: pip install -r requirements.txt
+
+      - name: run one cycle
+        continue-on-error: true   # a failed cycle just re-publishes the last feed
+        run: python run.py --once
+        env:
+          DC_API_KEY: ${{ secrets.DC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SITE_URL: https://ctsignal.org
+          CONTACT_EMAIL: hello@ctsignal.org
+
+      - name: publish + push
+        run: |
+          git config user.name "ct-signal-bot"
+          git config user.email "bot@ctsignal.org"
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          bash deploy.sh --deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

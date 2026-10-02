@@ -1,0 +1,189 @@
+{
+  "answer_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest of 169 towns.",
+  "answer_values": {
+    "n": 169,
+    "top": {
+      "added": 4852857051.0,
+      "latest": 12953550811.0,
+      "pct": 59.906684473898686,
+      "prior": 8100693760.0,
+      "town": "Bridgeport"
+    }
+  },
+  "cache": false,
+  "chart": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "config": {
+      "axis": {
+        "domainColor": "#26313d",
+        "gridColor": "#26313d",
+        "labelColor": "#9fb0bf",
+        "tickColor": "#26313d",
+        "titleColor": "#9fb0bf"
+      },
+      "legend": {
+        "labelColor": "#9fb0bf",
+        "symbolStrokeWidth": 0,
+        "titleColor": "#9fb0bf"
+      },
+      "title": {
+        "color": "#eef2f5",
+        "subtitleColor": "#9fb0bf"
+      },
+      "view": {
+        "continuousHeight": 300,
+        "continuousWidth": 300,
+        "strokeWidth": 0
+      }
+    },
+    "data": {
+      "values": [
+        {
+          "highlight": true,
+          "rank": 1,
+          "state": "Bridgeport",
+          "value": 59.91
+        },
+        {
+          "highlight": false,
+          "rank": 2,
+          "state": "Fairfield",
+          "value": 51.25
+        },
+        {
+          "highlight": false,
+          "rank": 3,
+          "state": "Westport",
+          "value": 50.51
+        },
+        {
+          "highlight": false,
+          "rank": 4,
+          "state": "Ellington",
+          "value": 46.7
+        },
+        {
+          "highlight": false,
+          "rank": 5,
+          "state": "Clinton",
+          "value": 46.56
+        },
+        {
+          "highlight": false,
+          "rank": 6,
+          "state": "Durham",
+          "value": 45.99
+        },
+        {
+          "highlight": false,
+          "rank": 7,
+          "state": "Stafford",
+          "value": 45.78
+        },
+        {
+          "highlight": false,
+          "rank": 8,
+          "state": "North Stonington",
+          "value": 44.95
+        },
+        {
+          "highlight": false,
+          "rank": 9,
+          "state": "Southington",
+          "value": 44.73
+        },
+        {
+          "highlight": false,
+          "rank": 10,
+          "state": "Deep River",
+          "value": 43.48
+        }
+      ]
+    },
+    "encoding": {
+      "color": {
+        "field": "highlight",
+        "legend": null,
+        "scale": {
+          "domain": [
+            true,
+            false
+          ],
+          "range": [
+            "#c0392b",
+            "#9aa5b1"
+          ]
+        },
+        "type": "nominal"
+      },
+      "tooltip": [
+        {
+          "field": "state",
+          "title": "State",
+          "type": "nominal"
+        },
+        {
+          "field": "value",
+          "title": "Net grand list growth, 2025 (top 10 towns)",
+          "type": "quantitative"
+        },
+        {
+          "field": "rank",
+          "title": "Rank",
+          "type": "quantitative"
+        }
+      ],
+      "x": {
+        "field": "value",
+        "title": "Net grand list growth, 2025 (top 10 towns) (% change)",
+        "type": "quantitative"
+      },
+      "y": {
+        "field": "state",
+        "sort": [
+          "Deep River",
+          "Southington",
+          "North Stonington",
+          "Stafford",
+          "Durham",
+          "Clinton",
+          "Ellington",
+          "Westport",
+          "Fairfield",
+          "Bridgeport"
+        ],
+        "title": null,
+        "type": "nominal"
+      }
+    },
+    "height": 140,
+    "mark": {
+      "tooltip": false,
+      "type": "bar"
+    },
+    "title": {
+      "subtitle": "Connecticut highlighted",
+      "text": "Net grand list growth, 2025 (top 10 towns)"
+    },
+    "width": 420
+  },
+  "chart_kind": "rank_strip",
+  "citations": [
+    "https://data.ct.gov/d/webp-fgt3"
+  ],
+  "generated_at": "2026-09-30T19:22:08+00:00",
+  "headline": {
+    "id": "seed-2026-11-03",
+    "published": "2026-11-03",
+    "published_sort": 0,
+    "source": "civic calendar",
+    "title": "[civic calendar] 2026 general election (governor's race)",
+    "url": ""
+  },
+  "id": "b37766e764aa",
+  "indicator": "grand_list_growth",
+  "query": "GET /resource/webp-fgt3.json $order=year DESC (169 places, last 2 years)",
+  "question": "Which Connecticut towns grew their property tax base fastest?",
+  "stream": "local",
+  "topic": "local-finance"
+}

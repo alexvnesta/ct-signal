@@ -4,6 +4,7 @@
 # Usage:
 #   ./deploy.sh            # loop: cycle + push every 15 min
 #   ./deploy.sh --once     # single cycle + push
+#   ./deploy.sh --deploy   # publish current output/ only (used by CI)
 #   ./deploy.sh --pin      # snapshot current feed as fixtures/last_feed.json, push
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -17,9 +18,9 @@ cycle() {
 deploy() {
   cp output/index.html output/feed.json output/board.json .
   cp us.json output/us.json
-  git add -A index.html feed.json board.json shots slides.html
-  if git diff --cached --quiet --exit-code -- index.html feed.json board.json; then
-    echo "no card changes, nothing to push $(date +%H:%M:%S)"
+  git add -A
+  if git diff --cached --quiet --exit-code; then
+    echo "no changes, nothing to push $(date +%H:%M:%S)"
     return
   fi
   git commit -q -m "feed: $(date +%H:%M) card refresh"
@@ -30,6 +31,9 @@ deploy() {
 case "${1:-loop}" in
   --once)
     cycle; deploy
+    ;;
+  --deploy)
+    deploy
     ;;
   --pin)
     cp output/feed.json fixtures/last_feed.json

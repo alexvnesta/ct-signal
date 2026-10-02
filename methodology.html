@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Methodology · CT Signal</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101418">
+<style>body{font-family:system-ui,sans-serif;background:#101418;color:#eef2f5;max-width:760px;margin:0 auto;padding:1.4rem 1rem 3rem;line-height:1.55}
+a{color:#7fb4ff}h1{font-size:1.9rem;margin:.2rem 0 1rem}h2{font-size:1.2rem;color:#f2a65a;margin-top:2rem}
+.home{font-weight:800;color:#eef2f5;text-decoration:none}.home b{color:#f2a65a}
+.meta{color:#9fb0bf;font-size:.9rem}code{background:#243040;color:#cfdcea;padding:0 .3rem;border-radius:4px;font-size:.85em}
+footer{border-top:1px solid #2b3a48;margin-top:2.5rem;padding-top:1rem}strong{color:#eef2f5}
+li{margin:.4rem 0}</style></head><body>
+<a class="home" href="/">CT&nbsp;<b>Signal</b></a>
+<h1>How CT Signal works</h1>
+<p class="meta">The whole system in four steps — and the rules that keep us honest.</p>
+
+<h2>1 · Listen</h2>
+<p>We watch Connecticut feeds (CT Mirror, Google News CT) and national feeds (NYT, NPR,
+PBS), plus a civic calendar (school year, tax deadlines, census releases). Headlines are
+deduplicated and tracked by age.</p>
+
+<h2>2 · Choose the question</h2>
+<p>A language model reads the headlines against our <strong>closed catalog</strong> of
+validated indicators and proposes only questions the catalog can actually answer.
+News arrives as language; data speaks in dataset codes — reading intent is the AI's
+entire job. An unmatched story produces nothing. If the model is unavailable, a
+keyword heuristic falls back; the catalog is the same either way.</p>
+
+<h2>3 · Fetch, never write</h2>
+<p><strong>No number on this site was written or rounded by a language model.</strong>
+Answers come from executed queries against Data Commons and the Connecticut Open Data
+Portal (Socrata), dry-run validated before publication. Every story page shows the
+dataset link and the literal query.</p>
+
+<h2>4 · Publish</h2>
+<p>Cards land on the board, get their own permalink story page, the RSS feed, and the
+archive — every 15 minutes, via a scheduled job whose commits are the audit trail.
+If a fetch fails, the card falls back to labeled <code>cache</code> or doesn't run.
+We fail by absence, never by invention.</p>
+
+<h2>The honesty rules</h2>
+<ul>
+<li><strong>Ranks use all 52</strong> (50 states + DC + PR) and are phrased human-first:
+"3rd safest", "10th lowest poverty" — never a bare "#50 of 52".</li>
+<li><strong>Data dates are printed on every card.</strong> ACS is annual, employment is
+monthly; the card tells you which vintage you're reading. The card answers the news
+question; the date tells you how current the answer is.</li>
+<li><strong>Unflattering cards publish too</strong> — including ones with caveats printed
+on the card (e.g., revaluation-driven grand-list jumps).</li>
+<li><strong>Our failure log is public:</strong> endpoint failures, dead APIs, and portal
+quirks are documented in the repo, not hidden.</li>
+</ul>
+
+<h2>Corrections</h2>
+<p>Found something wrong? <a href="mailto:hello@ctsignal.org">Email us</a> — we annotate
+the story, re-publish, and the change is visible in the commit history. See
+<a href="/corrections">the corrections policy</a>.</p>
+
+<footer class="meta"><a href="/">Board</a> · <a href="/about">About</a> ·
+<a href="/masthead">Masthead</a> · <a href="/corrections">Corrections</a> ·
+<a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></footer>
+</body></html>
