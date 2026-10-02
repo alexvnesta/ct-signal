@@ -571,7 +571,7 @@
               "format": ",.0f"
             },
             "field": "value",
-            "title": "Unemployment rate (%)",
+            "title": "Is Connecticut's job market doing better or worse than the rest of the country? (%)",
             "type": "quantitative"
           }
         },
@@ -640,9 +640,9 @@
       "right": 64
     },
     "title": {
-      "text": "Unemployment rate"
+      "text": "Is Connecticut's job market doing better or worse than the rest of the country?"
     },
-    "width": 420
+    "width": "container"
   },
   "chart2": null,
   "chart_kind": "trend",

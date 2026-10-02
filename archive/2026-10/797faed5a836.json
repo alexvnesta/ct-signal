@@ -382,6 +382,9 @@
         }
       ],
       "x": {
+        "axis": {
+          "format": ".1f"
+        },
         "field": "value",
         "title": "Share below poverty line (percent)",
         "type": "quantitative"
@@ -455,7 +458,7 @@
       "subtitle": "Connecticut highlighted",
       "text": "Share below poverty line"
     },
-    "width": 420
+    "width": "container"
   },
   "chart2": {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",

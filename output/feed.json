@@ -138,6 +138,9 @@
             }
           ],
           "x": {
+            "axis": {
+              "format": ",.0f"
+            },
             "field": "value",
             "title": "Net grand list growth, 2025 (top 10 towns) (% change)",
             "type": "quantitative"
@@ -169,7 +172,7 @@
           "subtitle": "Connecticut highlighted",
           "text": "Net grand list growth, 2025 (top 10 towns)"
         },
-        "width": 420
+        "width": "container"
       },
       "chart_kind": "rank_strip",
       "citations": [
@@ -575,6 +578,9 @@
             }
           ],
           "x": {
+            "axis": {
+              "format": ".1f"
+            },
             "field": "value",
             "title": "Share below poverty line (percent)",
             "type": "quantitative"
@@ -648,7 +654,7 @@
           "subtitle": "Connecticut highlighted",
           "text": "Share below poverty line"
         },
-        "width": 420
+        "width": "container"
       },
       "chart2": {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -1104,6 +1110,7 @@
       "cache": false,
       "chart": {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
           "axis": {
             "domainColor": "#26313d",
@@ -1477,6 +1484,9 @@
             }
           ],
           "x": {
+            "axis": {
+              "format": ",.0f"
+            },
             "field": "value",
             "title": "Violent crime per 100k (per 100k)",
             "type": "quantitative"
@@ -1550,7 +1560,7 @@
           "subtitle": "Connecticut highlighted",
           "text": "Violent crime per 100k"
         },
-        "width": 420
+        "width": "container"
       },
       "chart2": {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
@@ -2568,7 +2578,7 @@
                   "format": ",.0f"
                 },
                 "field": "value",
-                "title": "Unemployment rate (%)",
+                "title": "Is Connecticut's job market doing better or worse than the rest of the country? (%)",
                 "type": "quantitative"
               }
             },
@@ -2637,9 +2647,9 @@
           "right": 64
         },
         "title": {
-          "text": "Unemployment rate"
+          "text": "Is Connecticut's job market doing better or worse than the rest of the country?"
         },
-        "width": 420
+        "width": "container"
       },
       "chart2": null,
       "chart_kind": "trend",
@@ -2672,6 +2682,7 @@
       "cache": false,
       "chart": {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "background": "transparent",
         "config": {
           "axis": {
             "domainColor": "#26313d",
@@ -3045,6 +3056,9 @@
             }
           ],
           "x": {
+            "axis": {
+              "format": "$,.0f"
+            },
             "field": "value",
             "title": "Median gross rent (USD)",
             "type": "quantitative"
@@ -3118,7 +3132,7 @@
           "subtitle": "Connecticut highlighted",
           "text": "Median gross rent"
         },
-        "width": 420
+        "width": "container"
       },
       "chart2": {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",

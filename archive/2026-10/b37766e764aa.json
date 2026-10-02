@@ -136,6 +136,9 @@
         }
       ],
       "x": {
+        "axis": {
+          "format": ",.0f"
+        },
         "field": "value",
         "title": "Net grand list growth, 2025 (top 10 towns) (% change)",
         "type": "quantitative"
@@ -167,7 +170,7 @@
       "subtitle": "Connecticut highlighted",
       "text": "Net grand list growth, 2025 (top 10 towns)"
     },
-    "width": 420
+    "width": "container"
   },
   "chart_kind": "rank_strip",
   "citations": [
