@@ -92,7 +92,9 @@ section{padding:1.6rem 0}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:.9rem}
 .tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;
-  padding:1rem 1.15rem;display:flex;flex-direction:column;gap:.15rem}
+  padding:1rem 1.15rem;display:flex;flex-direction:column;gap:.15rem;
+  transition:border-color .15s}
+.tile:hover{border-color:var(--acc)}
 .tname{color:var(--dim);font-size:.82rem;font-weight:600}
 .val{font:800 2rem/1.15 var(--sans);color:var(--ok);letter-spacing:-.01em}
 .tile .viz{min-height:58px;margin:.15rem 0 .2rem}
