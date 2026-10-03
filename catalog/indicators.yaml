@@ -8,7 +8,7 @@ stackup:
     direction: high
     keywords: [rent, renter, landlord, eviction, shelter, housing costs]
     question: How expensive is renting in Connecticut compared to the rest of America?
-    answer: "Connecticut's median gross rent was ${value} in {date} — the {rank_word}-highest of the {n} peers (50 states, DC and Puerto Rico)."
+    answer: "Connecticut's median gross rent was ${value} in {date} , the {rank_word}-highest of {n} peers."
     validated: "live 2026-09-30"
 
   - id: unemployment
@@ -21,7 +21,7 @@ stackup:
     direction: high
     keywords: [unemployment, jobs report, layoffs, hiring, jobless]
     question: Is Connecticut's job market doing better or worse than the rest of the country?
-    answer: "Connecticut's unemployment rate is {value} ({date}) — the {rank_word}-highest among the {n} peers (50 states, DC and Puerto Rico)."
+    answer: "Connecticut's unemployment rate is {value} ({date}) , the {rank_word}-highest of {n} peers."
     validated: "live 2026-09-30"
 
   - id: median_home_value
@@ -33,7 +33,7 @@ stackup:
     direction: high
     keywords: [home prices, homevalues, housing market, homebuyers, affordability]
     question: Are Connecticut homes expensive by national standards?
-    answer: "The median Connecticut home is worth ${value} ({date}) — the {rank_word}-highest of the {n} peers (50 states, DC and Puerto Rico)."
+    answer: "The median Connecticut home is worth ${value} ({date}) , the {rank_word}-highest of {n} peers."
     validated: "live 2026-09-30"
 
   - id: household_income
@@ -45,7 +45,7 @@ stackup:
     direction: high
     keywords: [wages, income, pay raise, cost of living, poverty line]
     question: What do Connecticut households earn compared with the rest of the country?
-    answer: "Connecticut's median household income is ${value} ({date}) — the {rank_word}-highest among the {n} peers (50 states, DC and Puerto Rico)."
+    answer: "Connecticut's median household income is ${value} ({date}) , the {rank_word}-highest of {n} peers."
     validated: "live 2026-09-30"
 
   - id: poverty
@@ -59,7 +59,7 @@ stackup:
     direction: low
     keywords: [poverty, safety net, SNAP, food insecurity, hardship]
     question: How many Connecticut residents live below the poverty line compared with the rest of the country?
-    answer: "{value} of Connecticut residents live below the poverty line ({date}) — the {low_word}-lowest poverty rate among the {n} peers (50 states, DC and Puerto Rico)."
+    answer: "{value} of Connecticut residents live below the poverty line ({date}) , the {low_word}-lowest of {n} peers."
     validated: "live 2026-09-30"
 
   - id: violent_crime
@@ -73,7 +73,7 @@ stackup:
     superlative: safest
     keywords: [crime, homicide, violent crime, public safety, shooting]
     question: How safe is Connecticut compared with the rest of the country?
-    answer: "Connecticut reports {value} violent crimes per 100k people ({date}) — the {low_word}-safest of the {n} peers (50 states, DC and Puerto Rico)."
+    answer: "Connecticut reports {value} violent crimes per 100k people ({date}) , the {low_word}-safest of {n} peers."
     validated: "live 2026-09-30"
 
 local:
@@ -82,7 +82,7 @@ local:
     socrata_id: webp-fgt3
     question: Which Connecticut towns grew their property tax base fastest?
     keywords: [budget, mill rate, property tax, town meeting, assessment, grand list]
-    answer: "{top_town} added ${added} of net taxable property in {latest_year} (+{pct}%), the fastest of {n} towns."
+    answer: "{top_town} added ${added} of net taxable property in {latest_year} (+{pct}%), the fastest growth of {n} towns."
     validated: "row-verified 2026-09-30"
 
   - id: equalized_grand_list
@@ -97,7 +97,7 @@ local:
     question: Which Connecticut towns saw the fastest growth in equalized property assessments?
     chart_label: Equalized assessment growth
     keywords: [property tax, assessment, reassessment, revaluation]
-    answer: "{top_town} posted the fastest equalized assessment growth in {latest_year} (+{pct}%), adding ${added} of the {n} towns measured."
+    answer: "{top_town} led the {n} towns measured in equalized assessment growth in {latest_year} (+{pct}%), adding ${added}."
     validated: "row-verified 2026-09-30"
 
   - id: municipal_fiscal

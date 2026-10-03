@@ -257,7 +257,7 @@ def json_feed(cards: list[dict]) -> str:
             "id": permalink(c),
             "url": permalink(c),
             "title": c["question"],
-            "content_text": c["answer_text"] + "." + trig,
+            "content_text": c["answer_text"] + trig,
             "date_published": c["generated_at"],
             "_tags": [c["topic"]],
         }
