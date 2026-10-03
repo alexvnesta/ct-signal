@@ -117,7 +117,7 @@ def digest_header():
         scrim(img, (46, 36, 660, 224), BG, 120)
         d = ImageDraw.Draw(img)
         brand(d, 70, 66, 86)
-        d.text((72, 190), "The weekly digest  ·  every Thursday",
+        d.text((72, 190), "The weekly digest  ·  filed weekly, sent by a human",
                font=font(SANS, 24), fill=DIM)
         img.convert("RGB").save(OUT / "digest-header.png", optimize=True)
     except (OSError, ValueError):
@@ -158,7 +158,11 @@ if __name__ == "__main__":
     m = Image.new("RGB", (512, 512), BG2)
     md = ImageDraw.Draw(m)
     rounded(md, (46, 46, 466, 466), 96, PANEL)
-    brand(md, 256 - 130, 256 - 108, 260)
+    # the icon glyph (CT + bolt), not the wordmark: "Signal" overflowed the
+    # 512 safe zone and vanished, leaving a mark that matched nothing else
+    f = font(SANS, 512 * 0.34, 1)
+    md.text((512 * 0.14, 512 * 0.31), "CT", font=f, fill=INK)
+    bolt(md, 512 * 0.62, 512 * 0.25, 512 * 0.40, ACC)
     m.save(OUT / "icon-maskable-512.png", optimize=True)
     favicon_png(180, OUT / "apple-touch-icon.png")
     favicon_svg()

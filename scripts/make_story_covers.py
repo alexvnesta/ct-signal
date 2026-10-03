@@ -74,7 +74,7 @@ def cover(card: dict) -> Image.Image:
 
 
 if __name__ == "__main__":
-    feed = json.loads((ROOT / "output/feed.json").read_text())
+    feed = json.loads((ROOT / "output/cards.json").read_text())
     for c in feed["cards"]:
         path = OUT / f"story-{c['id']}.png"
         cover(c).save(path, optimize=True)

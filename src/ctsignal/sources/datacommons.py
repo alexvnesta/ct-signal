@@ -107,19 +107,35 @@ def trend(indicator: dict, months: int = 48) -> list[dict] | None:
     return rows
 
 
+MIN_PEERS = 40   # a state stackup without ~all states is a partial facet
+
+
+def _observations_full(variables: list[str]) -> dict:
+    """DC serves several facets per variable and the call may return any
+    subset; a 9-state facet once reanswered a 52-peer card with "2nd-highest
+    of 9 peers". Retry once on a thin response, and treat it as no-data
+    otherwise so the card keeps its honest full-peer answer."""
+    payload = observations(variables)
+    if not payload.get("byVariable", {}).get(variables[0], {}).get("byEntity"):
+        payload = observations(variables)
+    return payload
+
+
 def stackup(indicator: dict, fixture: pathlib.Path | None = None) -> dict | None:
     payload, cached = None, False
     try:
         variables = [indicator["dcid"]]
         if indicator.get("denominator"):
             variables.append(indicator["denominator"])
-        payload = observations(variables)
+        payload = _observations_full(variables)
     except Exception:
         if fixture and fixture.exists():
             payload, cached = json.loads(fixture.read_text()), True
         else:
             return None
     num = _latest_by_entity(payload, indicator["dcid"])
+    if not cached and len(num) < MIN_PEERS:
+        return None                  # partial facet: fresher is not truer
     den = _latest_by_entity(payload, indicator["denominator"]) if indicator.get("denominator") else None
     if den is not None and indicator.get("per"):
         num = {
