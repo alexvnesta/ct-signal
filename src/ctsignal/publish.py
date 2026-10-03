@@ -113,6 +113,15 @@ and the exact query →</a></p>
         import re as _re
         _pl = newsroom._place_line(c)
         place = (_re.sub(r"<[^>]+>", "", _pl).strip() if _pl else "")
+        if not place and c.get("stream") == "local":
+            # Local desks have no 52-peer pack; the runner-up is the fact.
+            rws = sorted((r for r in (c.get("chart") or {}).get("data", {})
+                          .get("values", []) if "value" in r),
+                         key=lambda r: r["rank"])
+            if len(rws) >= 2:
+                place = (f"{rws[1]['state']} was next at {rws[1]['value']}%, "
+                         f"{rws[0]['value'] - rws[1]['value']:.1f} points "
+                         f"behind.")
         place_html = f'<p class="meta" style="margin:0 0 .5rem">{_ESC(place)}</p>' if place else ""
         signals += f"""<li class="sig">
 <div class="kicker" style="padding:.85rem 1.1rem 0">{when}</div>{cover}<div class="sigpad">
