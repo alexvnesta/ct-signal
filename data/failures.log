@@ -2,3 +2,5 @@
 2026-10-03T12:44:20+00:00 cycle failed: InvalidURL: URL can't contain control characters. '/data/2025/acs/acs1?get=NAME,B17020_002E,B17020_001E&for=state:*&key=DC_API_KEY=tIA0MmsKcEZOGoWe0OsdkecxjIFjHbSstruIIePjuuzogS18\nGEMINI_API_KEY=AQ.Ab8RN6LILI8-L
 2026-10-03T16:45:55+00:00 cycle failed: AttributeError: 'NoneType' object has no attribute 'get'
 2026-10-03T19:39:58+00:00 cycle failed: AttributeError: 'NoneType' object has no attribute 'get'
+2026-10-03T22:21:04+00:00 cycle failed: NameError: name 'town_page' is not defined
+2026-10-03T22:21:25+00:00 cycle failed: AttributeError: module 'ctsignal.towns' has no attribute 'publish'
