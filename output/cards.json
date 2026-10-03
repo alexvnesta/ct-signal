@@ -1,7 +1,7 @@
 {
   "cards": [
     {
-      "answer_text": "Connecticut's unemployment rate is 5.1% (2026) \u2014 the 2nd-highest among the 9 peers (50 states, DC and Puerto Rico).",
+      "answer_text": "Connecticut's unemployment rate is 5.1% (2026), the 2nd-highest of 9 peers.",
       "answer_values": {
         "date": "2026-08",
         "rank": 2,
@@ -349,7 +349,7 @@
       "topic": "economy"
     },
     {
-      "answer_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest of 169 towns.",
+      "answer_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest growth of 169 towns.",
       "answer_values": {
         "date": "2025",
         "n": 169,
@@ -1897,7 +1897,7 @@
       ]
     },
     {
-      "answer_text": "9.6% of Connecticut residents live below the poverty line (2024) \u2014 the 10th-lowest poverty rate among the 52 peers (50 states, DC and Puerto Rico).",
+      "answer_text": "9.6% of Connecticut residents live below the poverty line (2024), the 10th-lowest of 52 peers.",
       "answer_values": {
         "date": "2024",
         "rank": 43,
@@ -2803,7 +2803,7 @@
       "topic": "equity"
     },
     {
-      "answer_text": "Connecticut reports 147 violent crimes per 100k people (2023) \u2014 the 3rd-safest of the 52 peers (50 states, DC and Puerto Rico).",
+      "answer_text": "Connecticut reports 147 violent crimes per 100k people (2023), the 3rd-safest of 52 peers.",
       "answer_values": {
         "date": "2023",
         "rank": 50,
@@ -3708,7 +3708,7 @@
       "topic": "justice"
     },
     {
-      "answer_text": "Connecticut's median gross rent was $1,488 in 2024 \u2014 the 17th-highest among the 52 peers (50 states, DC and Puerto Rico).",
+      "answer_text": "Connecticut's median gross rent was $1,488 in 2024, the 17th-highest of 52 peers.",
       "answer_values": {
         "date": "2024",
         "rank": 17,
