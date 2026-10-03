@@ -88,7 +88,6 @@ def _cover_path(card: dict):
     return p if p.exists() else None
 
 
-<<<<<<< HEAD
 def _place_line(card: dict) -> str:
     """One derived sentence about where the middle of the pack sits, computed
     from the chart rows the card already carries. Nothing is invented: the
