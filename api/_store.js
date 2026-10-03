@@ -4,7 +4,7 @@
  * (owner/repo), optional GH_STORE_BRANCH (default master). */
 const FILE = "data/interactions.json";
 
-async function bump(id, field) {
+async function bump(id, field) {  /* dir resolved by caller */
   const repo = process.env.GH_STORE_REPO;
   const branch = process.env.GH_STORE_BRANCH || "master";
   const H = {
@@ -43,10 +43,12 @@ async function bump(id, field) {
   return false;
 }
 
-export async function handle(req, field) {
-  let id;
-  try { id = (await req.json()).id; } catch { return new Response(null, { status: 400 }); }
+export async function handle(req, field, dirOf) {
+  let body;
+  try { body = await req.json(); } catch { return new Response(null, { status: 400 }); }
+  const id = body && body.id;
   if (!/^[0-9a-f]{12}$/.test(id || "")) return new Response(null, { status: 400 });
+  if (dirOf) field = dirOf(body);
   const ok = await bump(id, field);
   return new Response(null, { status: ok ? 204 : 502 });
 }
