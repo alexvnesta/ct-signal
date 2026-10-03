@@ -240,8 +240,6 @@ _NAV = (
     '<a href="/#signals">Latest questions</a>'
     '<a href="/methodology">Methodology</a>'
     '<a href="/about">About</a>'
-    '<a href="/masthead">Masthead</a>'
-    '<a href="/corrections">Corrections</a>'
     '<a class="rss" href="/feed.xml">RSS <span aria-hidden="true">⚡</span></a>'
 )
 
