@@ -119,10 +119,15 @@ local:
     validated: "row-verified 2026-09-30"
 
   - id: municipal_fiscal
+    # Parked: the dataset is verified, the card is not. xgef-f6jp is a
+    # long-format metric/value table with mixed report editions (a "2026"
+    # row belongs to the 2019-2023 edition), so growth needs edition+metric
+    # filters before a year-over-year answer is honest. The proposer skips
+    # entries with no question/answer templates (questions._answerable).
     topic: local-finance
     socrata_id: xgef-f6jp
     keywords: [municipal finance, town budget]
-    validated: "row-verified 2026-09-30"
+    validated: "dataset row-verified 2026-09-30; no card template yet"
 
 removed:
   - "naep_reading: no plain all-student average-scale-score statvar in DC as of 2026-09-30

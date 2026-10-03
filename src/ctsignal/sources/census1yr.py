@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import re
 import time
 import urllib.error
 import urllib.request
@@ -34,6 +35,10 @@ class CensusError(RuntimeError):
 
 
 def _get_json(url: str, tries: int = 3, pause: float = 2.0) -> list:
+    # Any transport/URL/parse fault is retried and finally becomes
+    # CensusError: a broken environment (a secret set from the whole .env
+    # once, control characters and all) must degrade to fixtures, never
+    # crash a publishing cycle. CI learned this overnight.
     last = "no attempt"
     for _ in range(tries):
         try:
@@ -47,7 +52,7 @@ def _get_json(url: str, tries: int = 3, pause: float = 2.0) -> list:
             if exc.code in (400, 404):
                 raise CensusError(f"vintage missing at {exc.code}") from None
             last = f"HTTP {exc.code}"
-        except (json.JSONDecodeError, OSError) as exc:
+        except (ValueError, OSError) as exc:        # InvalidURL is a ValueError
             last = str(exc)[:120]
         time.sleep(pause)
     raise CensusError(f"census fetch failed: {last}")
@@ -102,11 +107,14 @@ def stackup(spec: dict, fixture: pathlib.Path | None = None) -> dict | None:
     spec (catalog census1yr block): vintages [2025, 2024]; a `value` column,
     or a `num`/`den` ratio scaled by `per`; `table` for the citation link.
     """
-    if config.CENSUS_API_KEY:
+    key = config.CENSUS_API_KEY.strip()
+    if key and not re.fullmatch(r"[0-9a-f]{20,}", key):
+        key = ""       # malformed key (stray newlines from a bad secret): fixtures
+    if key:
         cols = [c for c in (spec.get("value") or spec["num"], spec.get("den")) if c]
         for vintage in spec["vintages"]:
             url = API.format(vintage=vintage, cols=",".join(cols),
-                             key=config.CENSUS_API_KEY)
+                             key=key)
             try:
                 values = _values(_get_json(url), spec)
             except CensusError:

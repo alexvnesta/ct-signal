@@ -34,12 +34,22 @@ def _keyword_hits(title: str, keywords: list[str]) -> list[str]:
     ]
 
 
+def _answerable(item: dict) -> bool:
+    """Only indicators with a question and an answer template may be asked.
+    A catalog entry can otherwise be 'row-verified' as a dataset and still
+    have no answerer wired, which turns every matching headline into a skip
+    line in the log — a half-built card that keeps promising itself."""
+    return bool(item.get("question") and item.get("answer"))
+
+
 def propose_from_catalog(
     headline: dict, catalog: dict, stream: str
 ) -> list[dict]:
     pool = catalog.get("stackup" if stream == "stackup" else "local", [])
     proposals = []
     for item in pool:
+        if not _answerable(item):
+            continue
         hits = _keyword_hits(headline["title"], item.get("keywords", []))
         if not hits:
             continue
@@ -83,6 +93,8 @@ def _catalog_brief(catalog: dict) -> list[dict]:
     items = []
     for section in ("stackup", "local"):
         for item in catalog.get(section, []):
+            if not _answerable(item):
+                continue
             items.append({
                 "id": item["id"],
                 "title": item.get("title") or item.get("question", item["id"]),
@@ -92,7 +104,8 @@ def _catalog_brief(catalog: dict) -> list[dict]:
 
 
 def validate_proposals(proposals: list[dict], catalog: dict) -> list[dict]:
-    known = {i["id"] for s in ("stackup", "local") for i in catalog.get(s, [])}
+    known = {i["id"] for s in ("stackup", "local") for i in catalog.get(s, [])
+             if _answerable(i)}
     return [p for p in proposals if p.get("indicator_id") in known]
 
 
