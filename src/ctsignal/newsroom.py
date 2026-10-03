@@ -88,6 +88,53 @@ def _cover_path(card: dict):
     return p if p.exists() else None
 
 
+<<<<<<< HEAD
+def _place_line(card: dict) -> str:
+    """One derived sentence about where the middle of the pack sits, computed
+    from the chart rows the card already carries. Nothing is invented: the
+    only number is the median of the peers being shown. Percent indicators
+    say points, because a difference of two percents is not two percent."""
+    if card.get("stream") != "stackup":
+        return ""
+    values = (card.get("chart") or {}).get("data", {}).get("values") or []
+    peers = [float(v["value"]) for v in values if "value" in v]
+    if len(peers) < 40:
+        return ""
+    ours = [float(v["value"]) for v in values if v.get("highlight") and "value" in v]
+    if not ours:
+        return ""
+    peers.sort()
+    mid = len(peers) // 2
+    median = (peers[mid] if len(peers) % 2
+              else (peers[mid - 1] + peers[mid]) / 2)
+    gap = ours[0] - median
+    money = card["answer_text"].count("$") > 0
+    if money:
+        med_txt = f"${abs(median):,.0f}"
+        gap_txt = f"${abs(gap):,.0f}"
+    elif card["answer_text"].count("%") > 0:
+        med_txt = f"{abs(median):.1f}%"
+        step = 0.1
+        gap_txt = f"{abs(gap):.1f} points"
+        if abs(gap) < step:
+            gap_txt = f"{abs(gap):.2f} points"
+    else:
+        dec = 0 if abs(median) >= 10 else 1
+        fmt = f"{{:,.{dec}f}}"
+        med_txt = fmt.format(abs(median))
+        gap_txt = fmt.format(abs(gap))
+        if "100k" in card["answer_text"]:
+            med_txt, gap_txt = f"{med_txt} crimes", f"{gap_txt} crimes"
+    if abs(gap) < 1e-9:
+        return ""
+    side = "above" if gap > 0 else "below"
+    title = card.get("chart", {}).get("title", {}).get("text", "").lower()
+    cadence = " a month" if "rent" in title else ""
+    return (f'<p class="meta" style="margin:.7rem 0 0">Half the peer group '
+            f'sits under {med_txt}{cadence}. Connecticut is {gap_txt} {side} '
+            f'the middle.</p>')
+
+
 def chart_intro(card: dict) -> tuple[str, str]:
     """(caption, aria-label) for a card's primary chart — the honest artwork
     line, shared by the story page and the home hero so the lead's picture
@@ -136,7 +183,7 @@ def story_html(card: dict) -> str:
 <h1 style="font:700 clamp(1.6rem,4vw,2.3rem)/1.2 var(--serif);margin:.4rem 0 .3rem">{q}</h1>
 <div class="meta">Published {_pretty_time(card["generated_at"])} · CT Signal
 automated data desk</div>
-<div class="answerbox">{a}</div>
+<div class="answerbox">{a}</div>{_place_line(card)}
 <div class="card"><div class="label">The data</div>{chart}{chart2}</div>
 {_trigger_html(card)}
 {_provenance_html(card)}
