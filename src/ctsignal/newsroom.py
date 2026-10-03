@@ -88,6 +88,13 @@ def _cover_path(card: dict):
     return p if p.exists() else None
 
 
+def _thumb_path(card: dict):
+    """Sentence-free board thumbnail (same generator), or None — a missing
+    PNG never yields a broken img on the board."""
+    p = config.ROOT / "assets" / f"story-{card['id']}-thumb.png"
+    return p if p.exists() else None
+
+
 def _place_line(card: dict) -> str:
     """One derived sentence about where the middle of the pack sits, computed
     from the chart rows the card already carries. Nothing is invented: the

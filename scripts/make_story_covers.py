@@ -77,9 +77,67 @@ def cover(card: dict) -> Image.Image:
     return img
 
 
+def thumb(card: dict) -> Image.Image | None:
+    """Board-card thumbnail: the shape of the answer, no sentences. The card
+    itself carries kicker/question/answer; text inside the art just repeated
+    them at unreadable size. What can't be repeated is the picture: every
+    peer as a bar, Connecticut in orange, the number as art."""
+    rows = [r for r in ((card.get("chart") or {}).get("data") or {})
+            .get("values", []) if "value" in r and "rank" in r]
+    if len(rows) < 2:
+        return None
+    rows.sort(key=lambda r: r["rank"])
+    W, H = 1200, 600
+    img = Image.new("RGB", (W, H), BG2)
+    d = ImageDraw.Draw(img)
+    ans = card["answer_text"]
+    av = card.get("answer_values") or {}
+    if card.get("stream") == "local" and isinstance(av.get("top"), dict):
+        val_txt = f"+{av['top']['pct']:.1f}%"
+    elif "$" in ans:
+        val_txt = f"${float(av.get('value', 0)):,.0f}"
+    elif "%" in ans:
+        val_txt = f"{float(av.get('value', 0)):g}%"
+    else:
+        val_txt = f"{float(av.get('value', 0)):,.0f}"
+    fsize = 150
+    while fsize > 60 and d.textlength(val_txt, font=font(SANS, fsize, 1)) > 430:
+        fsize -= 10
+    d.text((56, 210), val_txt, font=font(SANS, fsize, 1), fill=INK)
+    n = av.get("n") or len(rows)
+    d.text((58, 210 + fsize + 14), f"across {n} peers",
+           font=font(SANS, 24), fill=DIM)
+
+    # mini ranking: every peer as a bar, drawn in rank order — the same
+    # shape as the story's chart, so the picture and the data agree.
+    bar_lo, bar_hi, base, ceil_ = 520, 1140, 524, 150
+    step = (bar_hi - bar_lo) / len(rows)
+    bw = max(6, min(46, step * 0.66))
+    lo = min(r["value"] for r in rows)
+    hi = max(r["value"] for r in rows)
+    span = (hi - lo) or 1.0
+    dim_bar = (40, 52, 66)
+    for i, r in enumerate(rows):
+        h = 14 + int((base - ceil_) * 0 + (base - ceil_) * (r["value"] - lo) / span)
+        x0 = bar_lo + i * step
+        d.rectangle((x0, base - h, x0 + bw, base),
+                    fill=ACC if r.get("highlight") else dim_bar)
+    d.line((bar_lo - 16, base + 1, bar_hi, base + 1), fill=LINE, width=2)
+
+    bolt(d, 56, 540, 26, ACC)
+    d.text((92, 542), SITE.replace("https://", ""), font=font(SANS, 21, 1),
+           fill=ACC)
+    return img
+
+
 if __name__ == "__main__":
     feed = json.loads((ROOT / "output/cards.json").read_text())
     for c in feed["cards"]:
         path = OUT / f"story-{c['id']}.png"
         cover(c).save(path, optimize=True)
         print("wrote", path.name)
+        t = thumb(c)
+        if t is not None:
+            tpath = OUT / f"story-{c['id']}-thumb.png"
+            t.save(tpath, optimize=True)
+            print("wrote", tpath.name)

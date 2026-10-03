@@ -97,10 +97,10 @@ and the exact query →</a></p>
         # with the card, so the picture can never disagree with the answer
         # (an image of yesterday's number is the classic news-site lie).
         cover = ""
-        if newsroom._cover_path(c):
+        if newsroom._thumb_path(c):
             cover = (f'<a href="/story/{c["id"]}" tabindex="-1" aria-hidden="true">'
-                     f'<img class="sigart" src="/assets/story-{c["id"]}.png" '
-                     f'width="1200" height="630" loading="lazy" alt=""></a>')
+                     f'<img class="sigart" src="/assets/story-{c["id"]}-thumb.png" '
+                     f'width="1200" height="600" loading="lazy" alt=""></a>')
         signals += f"""<li class="sig">{cover}<div class="sigpad">
 <div class="kicker">{_kicker(c, ago(c["generated_at"], now))}</div>
 <h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
