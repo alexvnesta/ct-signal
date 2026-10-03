@@ -94,6 +94,36 @@ def dot_strip(rows: list[dict], *, title: str = "") -> dict:
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 
 
+def shape_strip(rows: list[dict]) -> dict:
+    """The ranking's silhouette, small: every peer as a bar in rank order,
+    true zero-based lengths, Connecticut in orange. The dot strip it replaced
+    was 52 identical pills — a loading bar, not data. This is the same shape
+    the story chart and the card thumbnail draw, so the board, the picture
+    and the page agree at a glance."""
+    ordered = sorted(rows, key=lambda r: r["rank"])
+    chart = (
+        alt.Chart(alt.Data(values=ordered))
+        .mark_bar(tooltip=False)
+        .encode(
+            x=alt.X("rank:O").sort(list(range(1, len(ordered) + 1)))
+                .axis(alt.Axis(domain=True, ticks=False, labels=False,
+                               grid=False, tickCount=0)).title(None),
+            y=alt.Y("value:Q")
+                .axis(alt.Axis(domain=False, ticks=False, labels=False,
+                               grid=False)).title(None),
+            color=cast(Any, _highlight_color()),
+            tooltip=[
+                alt.Tooltip("state:N").title("Peer"),
+                alt.Tooltip("value:Q").title("Value"),
+                alt.Tooltip("rank:Q").title("Rank"),
+            ],
+        )
+        .properties(width="container", height=68)
+    )
+    chart = _dark(chart)
+    return _pin_schema(cast(dict, chart.to_dict(validate=False)))
+
+
 def state_map(rows: list[dict], *, title: str, unit: str = "") -> dict:
     topo = alt.topo_feature(url="us.json", feature="states")
     joined = alt.Chart(topo).transform_lookup(
