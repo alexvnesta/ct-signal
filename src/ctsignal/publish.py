@@ -90,15 +90,24 @@ and the exact query →</a></p>
 <span class="chip">{_ESC(pos)} of {_ESC(str(t["n"]))} peers · data {_ESC(str(t["date"]))}</span>
 </div>"""
 
+    from . import newsroom
     signals = ""
     for c in cards[1:] if cards else []:
-        signals += f"""<li class="sig">
+        # The story's own cover art is the card's picture: it regenerates
+        # with the card, so the picture can never disagree with the answer
+        # (an image of yesterday's number is the classic news-site lie).
+        cover = ""
+        if newsroom._cover_path(c):
+            cover = (f'<a href="/story/{c["id"]}" tabindex="-1" aria-hidden="true">'
+                     f'<img class="sigart" src="/assets/story-{c["id"]}.png" '
+                     f'width="1200" height="630" loading="lazy" alt=""></a>')
+        signals += f"""<li class="sig">{cover}<div class="sigpad">
 <div class="kicker">{_kicker(c, ago(c["generated_at"], now))}</div>
 <h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
 <p class="answer">{_ESC(c["answer_text"])}</p>
 <div class="meta">{_trigger_line(c)}
 <a class="more" href="/story/{c["id"]}">the story with receipts →</a></div>
-</li>"""
+</div></li>"""
 
     fixture = any("(fixture)" in (c["headline"].get("source") or "")
                   for c in cards)
