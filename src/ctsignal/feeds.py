@@ -14,6 +14,8 @@ from . import config
 def _source_name(url: str) -> str:
     for host, name in [
         ("ctmirror.org", "CT Mirror"),
+        ("ctnewsjunkie.com", "CT News Junkie"),
+        ("ctexaminer.com", "CT Examiner"),
         ("news.google.com", "Google News (CT)"),
         ("nytimes.com", "NYT U.S."),
         ("npr.org", "NPR"),

@@ -32,8 +32,14 @@ DC_API_KEY = os.environ.get("DC_API_KEY", "")
 CENSUS_API_KEY = os.environ.get("CENSUS_API_KEY", "")
 SOCRATA_PORTAL = "https://data.ct.gov"
 
+# Four CT desks, deliberately mixed: a statewide nonprofit newsroom, a
+# Hartford policy weekly, a New Haven accountability outlet, and an
+# aggregator wire. The keyword gate keeps opinion and event listings out;
+# a question still needs a dataset that can answer it before anything runs.
 CT_FEEDS = [
     "https://ctmirror.org/feed/",
+    "https://www.ctnewsjunkie.com/feed/",
+    "https://ctexaminer.com/feed/",
     "https://news.google.com/rss/search?q=connecticut&hl=en-US&gl=US&ceid=US:en",
 ]
 NATIONAL_FEEDS = [
