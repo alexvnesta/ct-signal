@@ -67,7 +67,11 @@ def cover(card: dict) -> Image.Image:
         yy += 38
 
     d.text((60, 570), "ctsignal.org", font=font(SANS, 24, 1), fill=ACC)
-    stamp = card["generated_at"][:16].replace("T", " ") + " UTC"
+    import datetime as _dt
+    from zoneinfo import ZoneInfo
+    _d = _dt.datetime.fromisoformat(card["generated_at"]).astimezone(
+        ZoneInfo("America/New_York"))
+    stamp = f"{_d:%b %-d, %Y %-I:%M %p} ET"
     d.text((W - 60 - d.textlength(stamp, font=ft), 574), stamp, font=ft,
            fill=DIM)
     return img

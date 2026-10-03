@@ -27,8 +27,8 @@ def _rfc822(ts: str) -> str:
 
 
 def _pretty(ts: str) -> str:
-    d = _parse(ts)
-    return f"{d:%B} {d.day}, {d.year}, {d:%H:%M} UTC"
+    d = util.et(ts)
+    return f"{d:%B} {d.day}, {d.year}, {util.clock(d)}"
 
 
 def _day(ts: str) -> str:

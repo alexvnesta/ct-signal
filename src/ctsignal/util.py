@@ -23,3 +23,24 @@ def parse_ts(ts: str) -> dt.datetime:
     """Parse ISO timestamps; naive values (older card vintages) mean UTC."""
     d = dt.datetime.fromisoformat(ts)
     return d if d.tzinfo else d.replace(tzinfo=dt.timezone.utc)
+
+
+# ------------------------------------------------------------------- time ---
+# Every reader of a Connecticut paper is in one state: show them that clock,
+# never a raw UTC stamp with an assumed zone.
+try:
+    from zoneinfo import ZoneInfo
+    _ET = ZoneInfo("America/New_York")
+except Exception:                     # exotic host with no tzdata: say UTC
+    _ET = dt.timezone.utc
+
+
+def et(ts: str | dt.datetime) -> dt.datetime:
+    """Any card timestamp rendered in the newsroom's own timezone (ET)."""
+    d = ts if isinstance(ts, dt.datetime) else parse_ts(ts)
+    return d.astimezone(_ET)
+
+
+def clock(d_et: dt.datetime) -> str:
+    """Wall clock with an honest zone label: '2:29 PM EDT'."""
+    return f"{d_et:%-I:%M %p} {d_et.tzname() or 'UTC'}"

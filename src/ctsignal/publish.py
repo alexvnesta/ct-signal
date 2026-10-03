@@ -20,7 +20,7 @@ def _parse(ts: str) -> dt.datetime:
 
 def ago(iso: str, now: dt.datetime) -> str:
     s = (now - _parse(iso)).total_seconds()
-    stamp = iso[11:16] + " UTC"
+    stamp = util.clock(util.et(iso))
     if s < 90:
         return f"just now · {stamp}"
     if s < 5400:
