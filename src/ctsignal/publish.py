@@ -100,7 +100,7 @@ and the exact query →</a></p>
         if newsroom._thumb_path(c):
             cover = (f'<a href="/story/{c["id"]}" tabindex="-1" aria-hidden="true">'
                      f'<img class="sigart" src="/assets/story-{c["id"]}-thumb.png" '
-                     f'width="1200" height="600" loading="lazy" alt=""></a>')
+                     f'width="1200" height="480" loading="lazy" alt=""></a>')
         signals += f"""<li class="sig">{cover}<div class="sigpad">
 <div class="kicker">{_kicker(c, ago(c["generated_at"], now))}</div>
 <h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>

@@ -87,7 +87,7 @@ def thumb(card: dict) -> Image.Image | None:
     if len(rows) < 2:
         return None
     rows.sort(key=lambda r: r["rank"])
-    W, H = 1200, 600
+    W, H = 1200, 480
     img = Image.new("RGB", (W, H), BG2)
     d = ImageDraw.Draw(img)
     ans = card["answer_text"]
@@ -100,17 +100,18 @@ def thumb(card: dict) -> Image.Image | None:
         val_txt = f"{float(av.get('value', 0)):g}%"
     else:
         val_txt = f"{float(av.get('value', 0)):,.0f}"
-    fsize = 150
+    fsize = 170
     while fsize > 60 and d.textlength(val_txt, font=font(SANS, fsize, 1)) > 430:
         fsize -= 10
-    d.text((56, 210), val_txt, font=font(SANS, fsize, 1), fill=INK)
-    n = av.get("n") or len(rows)
-    d.text((58, 210 + fsize + 14), f"across {n} peers",
-           font=font(SANS, 24), fill=DIM)
+    sub = f"across {av.get('n') or len(rows)} peers"
+    block = fsize + 20 + 30
+    y0 = (H - block) // 2
+    d.text((56, y0), val_txt, font=font(SANS, fsize, 1), fill=INK)
+    d.text((58, y0 + fsize + 18), sub, font=font(SANS, 30), fill=DIM)
 
     # mini ranking: every peer as a bar, drawn in rank order — the same
     # shape as the story's chart, so the picture and the data agree.
-    bar_lo, bar_hi, base, ceil_ = 520, 1140, 524, 150
+    bar_lo, bar_hi, base, ceil_ = 520, 1150, H - 40, 40
     step = (bar_hi - bar_lo) / len(rows)
     bw = max(6, min(46, step * 0.66))
     lo = min(r["value"] for r in rows)
@@ -118,15 +119,14 @@ def thumb(card: dict) -> Image.Image | None:
     span = (hi - lo) or 1.0
     dim_bar = (40, 52, 66)
     for i, r in enumerate(rows):
-        h = 14 + int((base - ceil_) * 0 + (base - ceil_) * (r["value"] - lo) / span)
+        h = 14 + int((base - ceil_) * (r["value"] - lo) / span)
         x0 = bar_lo + i * step
-        d.rectangle((x0, base - h, x0 + bw, base),
+        w = bw * 1.7 if r.get("highlight") else bw  # CT must be findable
+        d.rectangle((x0, base - h, x0 + w, base),
                     fill=ACC if r.get("highlight") else dim_bar)
+    # No site mark: this art sits inside our own page; the mark belongs on
+    # the social cover, where the image travels without its context.
     d.line((bar_lo - 16, base + 1, bar_hi, base + 1), fill=LINE, width=2)
-
-    bolt(d, 56, 540, 26, ACC)
-    d.text((92, 542), SITE.replace("https://", ""), font=font(SANS, 21, 1),
-           fill=ACC)
     return img
 
 
