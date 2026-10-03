@@ -6,6 +6,7 @@ them to SVG progressively.
 from __future__ import annotations
 
 import datetime as dt
+import hashlib
 import html
 import json
 
@@ -97,9 +98,14 @@ and the exact query →</a></p>
         # with the card, so the picture can never disagree with the answer
         # (an image of yesterday's number is the classic news-site lie).
         cover = ""
-        if newsroom._thumb_path(c):
+        tpath = newsroom._thumb_path(c)
+        if tpath:
+            # Content-hash the URL: the art can then cache forever, and the
+            # day a card refreshes its picture the URL changes too — a stale
+            # picture of yesterday's number is the news-site lie we refuse.
+            v = hashlib.md5(tpath.read_bytes()).hexdigest()[:8]
             cover = (f'<a href="/story/{c["id"]}" tabindex="-1" aria-hidden="true">'
-                     f'<img class="sigart" src="/assets/story-{c["id"]}-thumb.png" '
+                     f'<img class="sigart" src="/assets/story-{c["id"]}-thumb.png?v={v}" '
                      f'width="1200" height="480" loading="lazy" alt=""></a>')
         signals += f"""<li class="sig">{cover}<div class="sigpad">
 <div class="kicker">{_kicker(c, ago(c["generated_at"], now))}</div>
