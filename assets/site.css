@@ -23,7 +23,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline;text-underline-offset:3px}
 /* in-content links carry a non-color cue (WCAG 1.4.1); brand + nav opt out */
-.meta a, .breadcrumb a, .provenance a, .footgrid a, .how a, .card a
+.meta a, .breadcrumb a, .provenance a, .footgrid a, .card a
 {text-decoration:underline;text-underline-offset:3px;
   text-decoration-color:inherit}
 ::selection{background:#f2a65a44}
@@ -144,14 +144,6 @@ li.sig .answer{font-size:1.02rem;color:var(--ink);margin:0 0 .5rem}
 li.sig .meta{font-size:.88rem}
 
 /* ------------------------------------------------------------------ how --- */
-.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.9rem}
-.step{background:var(--panel);border:1px solid var(--line);border-radius:12px;
-  padding:1rem 1.15rem}
-.step b{display:block;color:var(--acc);font-size:.76rem;letter-spacing:.16em;
-  text-transform:uppercase;margin-bottom:.35rem}
-.step p{margin:0;font-size:.9rem;color:var(--dim)}
-.step p strong{color:var(--ink)}
-
 /* ---------------------------------------------------------------- cards ---- */
 .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
   padding:1rem 1.2rem;margin:1.2rem 0}
