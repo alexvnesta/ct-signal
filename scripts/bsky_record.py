@@ -12,7 +12,7 @@ card = next(c for c in json.load(sys.stdin)["cards"]
             if c["id"] == os.environ["ID"])
 url = f"https://ctsignal.org/story/{card['id']}"
 text = (f"{card['question']}\n\n{card['answer_text']}\n\n{url}\n"
-        "Every number fetched, never typed — sources on the page.")
+        "Know where you live — sources on the page.")
 if len(text) > 300:
     text = text[:297] + "..."
 rec = {

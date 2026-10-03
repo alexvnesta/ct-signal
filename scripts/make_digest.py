@@ -66,7 +66,7 @@ style="width:100%;border-radius:8px;display:block;margin:0 0 16px">
 <p style="font:700 12px/1 -apple-system,Segoe UI,Roboto,sans-serif;letter-spacing:.14em;
 text-transform:uppercase;color:#f2a65a;margin:0">CT ⚡ SIGNAL · weekly board digest</p>
 <p style="font:13px/1.4 -apple-system,Segoe UI,Roboto,sans-serif;color:#7d91a5;margin:6px 0 0">
-Issue {issue} · every number fetched from a named public dataset, never typed by hand</p>
+Issue {issue} · know where you live — every figure from a named public dataset</p>
 <h1 style="font:700 21px/1.3 Georgia,serif;color:#e9eef4;margin:14px 0 10px">
 {E(subject)}</h1>
 <table role="presentation" width="100%" cellspacing="0" style="border-collapse:collapse;

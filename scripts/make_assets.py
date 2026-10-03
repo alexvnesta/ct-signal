@@ -82,7 +82,7 @@ def _og_flat():
     d.text((60, 336), "Public data answers it —", font=font(SERIF, 30), fill=DIM)
     d.text((60, 380), "with the receipts attached.", font=font(SERIF, 30), fill=DIM)
     rounded(d, (60, 452, 560, 500), 14, PANEL)
-    d.text((80, 462), "Every number fetched, never written.",
+    d.text((80, 462), "Know where you live.",
            font=font(SANS, 24), fill=OK)
     d.text((60, 552), "ctsignal.org", font=font(SANS, 30, 1), fill=ACC)
     img.save(OUT / "og-cover.png", optimize=True)
@@ -99,7 +99,7 @@ def og_cover():
         scrim(img, (46, 196, 830, 420), BG, 110)
         d = ImageDraw.Draw(img)
         brand(d, 70, 215, 112)
-        d.text((72, 372), "Every number fetched, never typed.  ·  ctsignal.org",
+        d.text((72, 372), "Know where you live.  ·  ctsignal.org",
                font=font(SANS, 30), fill=DIM)
         d.line((70, 588, 420, 588), fill=ACC, width=3)
         img.convert("RGB").save(OUT / "og-cover.png", optimize=True)

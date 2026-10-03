@@ -260,8 +260,7 @@ def footer() -> str:
     return f"""<footer class="site"><div class="wrap footgrid">
 <div><h2>CT&nbsp;<span style="color:var(--acc)">⚡</span>&nbsp;Signal</h2>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
-public data answers it — every number fetched from a named dataset, never typed
-by hand.</p><p><a href="mailto:{email}">{email}</a></p></div>
+public data answers it. Know where you live.</p><p><a href="mailto:{email}">{email}</a></p></div>
 <div><h2>Sections</h2><ul>
 <li><a href="/">The board</a></li>
 <li><a href="/#signals">Latest questions</a></li>
@@ -300,8 +299,7 @@ def site_json_ld() -> dict:
         {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website",
          "url": f"{config.SITE_URL}/", "name": "CT Signal",
          "description": "Connecticut data answers to the questions its news "
-                        "cycle is already asking. Every number fetched, "
-                        "never written.",
+                        "cycle is already asking. Know where you live.",
          "inLanguage": "en-US", "publisher": {"@id": f"{config.SITE_URL}/#org"}},
         {"@type": "Organization", "@id": f"{config.SITE_URL}/#org",
          "name": "CT Signal", "url": f"{config.SITE_URL}/",

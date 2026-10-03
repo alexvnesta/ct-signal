@@ -195,8 +195,8 @@ def topic_html(topic: str, cards: list[dict]) -> str:
 <div class="breadcrumb"><a href="/">← The board</a></div>
 <div class="kicker">Topic desk</div>
 <h1 style="font:700 clamp(1.6rem,4vw,2.3rem)/1.2 var(--serif);margin:.4rem 0 .3rem">{_ESC(topic).replace("-", " ").capitalize()}</h1>
-<p class="meta">Every question this desk has answered, newest first. All
-numbers fetched from named public datasets — never written by hand.</p>
+<p class="meta">Every question this desk has answered, newest first. Know
+where you live.</p>
 <ol class="signals">{items}</ol>
 </div>"""
     return theme.page(
@@ -236,7 +236,7 @@ def rss_xml(cards: list[dict]) -> str:
         f'<title>CT Signal</title><link>{config.SITE_URL}/</link>'
         f'<atom:link href="{config.SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>'
         '<description>Connecticut data answers to the questions its news cycle is '
-        'already asking. Automated data desk — every number fetched, never written.'
+        'already asking. Automated data desk — know where you live.'
         '</description><language>en-us</language>'
         '<docs>https://www.rssboard.org/rss-specification</docs>'
         '<generator>CT Signal pipeline</generator>'
@@ -379,7 +379,7 @@ def town_html(row: dict, card: dict) -> str:
 <div class="label">Connecticut town file</div>
 <h1 style="font:700 clamp(1.7rem,4vw,2.4rem)/1.15 var(--serif);margin:.4rem 0 .3rem">{esc(row["town"])}</h1>
 <p class="sub">Property tax base (net grand list), from the Connecticut Open
-Data Portal &mdash; every number fetched, never typed. This is one row of
+Data Portal. Know where you live. This is one row of
 <a href="/story/{card["id"]}">the full story</a> with the chart and the query.</p>
 <table class="towntab"><tbody>
 <tr><td>Net grand list, {esc(str(card["answer_values"].get("date", "")))}</td><td>${row["latest"]:,.0f}</td></tr>
