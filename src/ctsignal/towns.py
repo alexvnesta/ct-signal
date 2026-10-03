@@ -88,7 +88,8 @@ def ensure() -> dict | None:
         except (ValueError, KeyError):
             stored = None
     key = config.CENSUS_API_KEY
-    for year in ("2023",):
+    this = dt.date.today().year
+    for year in (str(this - 2), str(this - 3)):   # newest ACS5 first
         if not key:
             break
         geo_t = "county+subdivision:*&in=state:09"
@@ -101,7 +102,7 @@ def ensure() -> dict | None:
             _poverty(towns, det)
             st = _rows(state)[0]
             _poverty([st], sdet)
-            data = {"vintage": f"{year} ACS 5-year (2019–{year[-2:]})",
+            data = {"vintage": f"{year} ACS 5-year ({int(year) - 4}–{year})",
                     "fetched_at": dt.datetime.now(dt.timezone.utc)
                     .isoformat(timespec="seconds"),
                     "ct": st, "towns": towns}

@@ -131,7 +131,7 @@ so this link either predates or postdates the record.</p>
 
 
 def _sources_body() -> str:
-    from . import feeds, questions
+    from . import feeds, inventory as _inv, questions
 
     esc = html.escape
     try:
@@ -189,6 +189,7 @@ when a tracked dataset can answer it.</p>
 <p class="meta">The endpoint check runs from the validate script and is
 committed with the repo; a failing chip means the pipeline is answering from
 labeled cached/fallback data until it recovers.</p>
+{_inv.table()}
 </article>"""
 
 
