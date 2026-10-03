@@ -220,10 +220,16 @@ def _sources_body() -> str:
     rows = []
     for ind in questions.load_catalog().get("stackup", []):
         st = report.get(ind["id"], {}).get("status", "")
+        if ind.get("census1yr"):
+            src = (f'<a href="https://api.census.gov/data/2024/acs/acs1">'
+                   f'US Census Bureau &middot; ACS 1-Year &middot; '
+                   f'{esc(ind["census1yr"].get("table", ""))}</a>')
+        else:
+            src = (f'<a href="https://datacommons.org/data/commons/{ind["dcid"]}">'
+                   f'Data Commons &middot; {esc(ind["dcid"])}</a>')
         rows.append(
             f'<tr><td>{esc(ind["title"])}<br><span class="meta">'
-            f'<a href="https://datacommons.org/data/commons/{ind["dcid"]}">'
-            f'Data Commons &middot; {esc(ind["dcid"])}</a></span></td>'
+            f'{src}</span></td>'
             f'<td style="text-align:right">{chip(st)}</td></tr>')
     rows.append(
         '<tr><td>Grand list by town (property tax base)<br><span class="meta">'
