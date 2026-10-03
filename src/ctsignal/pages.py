@@ -64,89 +64,21 @@ at the moment they care. CTData Collaborative staffs a manual "Ask a Data Questi
 helpline; the demand is real and the bottleneck is arrival time. CT Signal answers the
 questions the news cycle is already asking, so the data shows up when the conversation does.</p>
 
+<h2>How the numbers get here</h2>
+<p>Headlines raise the question; a language model matches the moment to a
+<strong>closed catalog</strong> of validated indicators; numbers come back from executed
+queries against the US Census Bureau, Data Commons, and the Connecticut Open Data
+Portal. <strong>No number on this site was written or rounded by a language model.</strong>
+Every story page carries the dataset link and the literal query. If a fetch fails, the
+card falls back to labeled cache or does not run:
+<a href="https://github.com/alexvnesta/ct-signal">the failure log is public</a> and the
+commits are the audit trail. We fail by absence, never by invention.</p>
+
 <h2>Who runs it</h2>
 <p>Built by <strong>Alex V. Nesta</strong> at Hack for Humanity (UConn School of Business,
 Challenge 4: CTData.org, Made Conversational), and operating as an independent automated
 newsroom since. The full pipeline, failure logs, and every card ever published are
 <a href="https://github.com/alexvnesta/ct-signal">in public on GitHub</a>.</p>
-</article>""")
-
-_page(
-    "methodology",
-    "Methodology · CT Signal",
-    "How CT Signal works: listen, choose from a closed catalog, fetch numbers from "
-    "named public APIs, publish every 15 minutes — and the honesty rules in between.",
-    """<article class="wrap col">
-<h1>How CT Signal works</h1>
-<p class="sub">The whole system in four steps — and the rules that keep us honest.</p>
-
-<h2>1 · Listen</h2>
-<p>We watch Connecticut feeds (CT Mirror, Google News CT) and national feeds (NYT, NPR,
-PBS), plus a civic calendar (school year, tax deadlines, census releases). Headlines are
-deduplicated and tracked by age.</p>
-
-<h2>2 · Choose the question</h2>
-<p>A language model reads the headlines against our <strong>closed catalog</strong> of
-validated indicators and proposes only questions the catalog can actually answer.
-News arrives as language; data speaks in dataset codes — reading intent is the AI's
-entire job. An unmatched story produces nothing. If the model is unavailable, a
-keyword heuristic falls back; the catalog is the same either way.</p>
-
-<h2>3 · Fetch, never write</h2>
-<p><strong>No number on this site was written or rounded by a language model.</strong>
-Answers come from executed queries against the US Census Bureau, Data Commons, and the Connecticut Open Data
-Portal (Socrata), dry-run validated before publication. Every story page shows the
-dataset link and the literal query.</p>
-
-<h2>4 · Publish</h2>
-<p>Cards land on the board, get their own permalink story page, the RSS feed, and the
-archive — every 15 minutes, via a scheduled job whose commits are the audit trail.
-If a fetch fails, the card falls back to labeled <code>cache</code> or doesn't run.
-We fail by absence, never by invention.</p>
-
-<h2>The honesty rules</h2>
-<ul>
-<li><strong>Ranks use all 52 peers</strong> (50 states + DC + PR) and are phrased human-first:
-"3rd safest", "10th lowest poverty" — never a bare "#50 of 52".</li>
-<li><strong>Data dates are printed on every card.</strong> ACS is annual, employment is
-monthly; the card tells you which vintage you're reading. The card answers the news
-question; the date tells you how current the answer is.</li>
-<li><strong>Unflattering cards publish too</strong> — including ones with caveats printed
-on the card (e.g., revaluation-driven grand-list jumps).</li>
-<li><strong>Our failure log is public:</strong> endpoint failures, dead APIs, and portal
-quirks are documented in the repo, not hidden.</li>
-</ul>
-
-<h2>Corrections</h2>
-<p>Found something wrong? <a href="mailto:hello@ctsignal.org">Email us</a> — we annotate
-the story, re-publish, and the change is visible in the commit history. See
-<a href="/corrections">the corrections policy</a>.</p>
-</article>""")
-
-_page(
-    "masthead",
-    "Masthead · CT Signal",
-    "Who runs CT Signal: publisher, reporting desk, independence policy, and "
-    "republication terms.",
-    """<article class="wrap col">
-<h1>Masthead</h1>
-<table>
-<tr><td>Publisher &amp; editor</td><td>Alex V. Nesta — final word on corrections,
-catalog changes, and anything with a decimal point.</td></tr>
-<tr><td>Reporting desk</td><td>The pipeline. It picks questions from the news cycle and
-fetches answers from the US Census Bureau, Data Commons, and the Connecticut Open Data Portal. It has no
-access to press releases, vibes, or ad buyers.</td></tr>
-<tr><td>Contact</td><td><a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a>
-— corrections, tips, and republication requests.</td></tr>
-<tr><td>Independence</td><td>CT Signal runs on free-tier public infrastructure and takes
-no paid placement. No dataset, card, or position is influenced by sponsorship.</td></tr>
-<tr><td>Republication</td><td>Story pages and charts may be republished free with
-attribution and a link to the original permalink. Credit the underlying dataset too —
-it did the work.</td></tr>
-<tr><td>Origin</td><td>Built at Hack for Humanity (UConn School of Business),
-Challenge 4: CTData.org, Made Conversational. Code, logs, and history:
-<a href="https://github.com/alexvnesta/ct-signal">github.com/alexvnesta/ct-signal</a>.</td></tr>
-</table>
 </article>""")
 
 _page(
@@ -176,7 +108,7 @@ where a reader saw something we'd have kept serving.</p>
 
 <h2>Corrections to date</h2>
 <p>None yet. That is a small sample, not a claim of perfection —
-<a href="/methodology">our failure log is public</a> and longer than our corrections
+<a href="https://github.com/alexvnesta/ct-signal">our failure log is public</a> and longer than our corrections
 list on purpose: failures that stop a card from publishing never needed correcting.</p>
 </article>""")
 

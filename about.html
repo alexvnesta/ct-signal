@@ -34,7 +34,7 @@
 
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a><header class="site"><div class="wrap mast"><a class="brand" href="/">CT<span class="bolt" aria-hidden="true">⚡</span>Signal</a><span class="tagline">Saturday, October 3, 2026 · automated data desk</span></div><nav class="sitebar wrap" aria-label="Primary"><a href="/">The board</a><a href="/#signals">Latest questions</a><a href="/methodology">Methodology</a><a href="/about">About</a><a class="rss" href="/feed.xml">RSS <span aria-hidden="true">⚡</span></a></nav></header>
+<a class="skip" href="#main">Skip to content</a><header class="site"><div class="wrap mast"><a class="brand" href="/">CT<span class="bolt" aria-hidden="true">⚡</span>Signal</a><span class="tagline">Saturday, October 3, 2026 · automated data desk</span></div><nav class="sitebar wrap" aria-label="Primary"><a href="/">The board</a><a href="/#signals">Latest questions</a><a href="/about">About</a><a class="rss" href="/feed.xml">RSS <span aria-hidden="true">⚡</span></a></nav></header>
 <main id="main">
 
 <style>
@@ -75,6 +75,16 @@ at the moment they care. CTData Collaborative staffs a manual "Ask a Data Questi
 helpline; the demand is real and the bottleneck is arrival time. CT Signal answers the
 questions the news cycle is already asking, so the data shows up when the conversation does.</p>
 
+<h2>How the numbers get here</h2>
+<p>Headlines raise the question; a language model matches the moment to a
+<strong>closed catalog</strong> of validated indicators; numbers come back from executed
+queries against the US Census Bureau, Data Commons, and the Connecticut Open Data
+Portal. <strong>No number on this site was written or rounded by a language model.</strong>
+Every story page carries the dataset link and the literal query. If a fetch fails, the
+card falls back to labeled cache or does not run:
+<a href="https://github.com/alexvnesta/ct-signal">the failure log is public</a> and the
+commits are the audit trail. We fail by absence, never by invention.</p>
+
 <h2>Who runs it</h2>
 <p>Built by <strong>Alex V. Nesta</strong> at Hack for Humanity (UConn School of Business,
 Challenge 4: CTData.org, Made Conversational), and operating as an independent automated
@@ -94,7 +104,6 @@ public data answers it. Know where you live.</p><p><a href="mailto:hello@ctsigna
 <li><a href="/feed.xml">RSS feed</a></li></ul></div>
 <div><h2>Newsroom</h2><ul>
 <li><a href="/about">About</a></li>
-<li><a href="/methodology">How we work</a></li>
 <li><a href="/masthead">Masthead</a></li>
 <li><a href="/corrections">Corrections</a></li>
 <li><a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></li>

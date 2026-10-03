@@ -238,7 +238,6 @@ _BRAND = ('<a class="brand" href="/">CT<span class="bolt" aria-hidden="true">⚡
 _NAV = (
     '<a href="/">The board</a>'
     '<a href="/#signals">Latest questions</a>'
-    '<a href="/methodology">Methodology</a>'
     '<a href="/about">About</a>'
     '<a class="rss" href="/feed.xml">RSS <span aria-hidden="true">⚡</span></a>'
 )
@@ -292,7 +291,6 @@ public data answers it. Know where you live.</p><p><a href="mailto:{email}">{ema
 <li><a href="/feed.xml">RSS feed</a></li></ul></div>
 <div><h2>Newsroom</h2><ul>
 <li><a href="/about">About</a></li>
-<li><a href="/methodology">How we work</a></li>
 <li><a href="/masthead">Masthead</a></li>
 <li><a href="/corrections">Corrections</a></li>
 <li><a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></li>

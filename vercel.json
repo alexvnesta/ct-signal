@@ -7,12 +7,17 @@
       "permanent": true
     },
     {
-      "source": "/:page(about|corrections|masthead|methodology|sources)/",
+      "source": "/methodology",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/:page(about|corrections|masthead|sources)/",
       "destination": "/:page.html",
       "permanent": true
     },
     {
-      "source": "/:page(about|corrections|masthead|methodology|sources)",
+      "source": "/:page(about|corrections|masthead|sources)",
       "destination": "/:page.html",
       "permanent": true
     },
