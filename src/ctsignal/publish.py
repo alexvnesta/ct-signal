@@ -149,26 +149,7 @@ no ads, no cookies — public data with the receipts attached.</p>
 <p><a href="mailto:{config.CONTACT_EMAIL}?subject=Board%20sponsorship">Sponsor the board &rarr;</a></p>
 </aside></div>
 
-{signals_html}
-
-<section><div class="wrap">
-<div class="sechead"><h2>How this newsroom works</h2>
-<p class="sechelp">Four steps, every 15 minutes, in public.</p></div>
-<div class="how">
-<div class="step"><b>1 · Listen</b><p>CT and national feeds plus a civic
-calendar. <strong>Headlines pick the topic.</strong> An unmatched story
-produces nothing.</p></div>
-<div class="step"><b>2 · Choose</b><p>A language model matches the moment to a
-<strong>closed catalog</strong> of validated indicators — questions it can
-actually answer.</p></div>
-<div class="step"><b>3 · Fetch</b><p><strong>No number here was written by a
-language model.</strong> Ranks come from executed queries against Data Commons
-and data.ct.gov.</p></div>
-<div class="step"><b>4 · Publish</b><p>Board, story page, RSS, archive —
-every 15 minutes. <strong>The git history is the audit trail</strong>, and the
-failure log ships with it.</p></div>
-</div>
-</div></section>"""
+{signals_html}"""
 
     return theme.page(
         title="CT Signal — Connecticut's automated data desk",
