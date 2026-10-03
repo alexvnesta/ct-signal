@@ -127,9 +127,13 @@ details.embed textarea{width:100%;box-sizing:border-box;background:var(--bg2);
 .legend{color:var(--faint);font-size:.8rem;margin:1rem 0 0}
 
 /* ------------------------------------------------------------- signals --- */
-ol.signals{list-style:none;margin:0;padding:0}
-li.sig{border-bottom:1px solid var(--line);padding:1.3rem 0}
-li.sig:first-child{border-top:1px solid var(--line)}
+ol.signals{list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:1rem}
+li.sig{border:1px solid var(--line);background:var(--panel);border-radius:12px;
+  overflow:hidden;display:flex;flex-direction:column}
+.sigart{display:block;width:100%;height:auto;border-bottom:1px solid var(--line)}
+li.sig .sigpad{padding:.9rem 1.1rem 1.05rem;display:flex;flex-direction:column;flex:1}
+li.sig .sigpad .meta{margin-top:auto}
 li.sig h3{font:700 1.35rem/1.3 var(--serif);margin:.35rem 0 .4rem}
 li.sig h2{font:700 1.35rem/1.3 var(--serif);margin:.35rem 0 .4rem}
 li.sig h3 a{color:var(--ink)}
