@@ -183,6 +183,65 @@ def balance_by_topic(new_cards: list[dict]) -> list[dict]:
     return kept
 
 
+def _revalidate(cards_by_id: dict, by_id: dict) -> int:
+    """Re-fetch every live stackup card; replace it when upstream printed a
+    newer data date. Without this pass a fresh vintage only lands when a
+    matching headline happens to trigger the same indicator — quiet news days
+    would keep published numbers stale. Gated to one full pass every few
+    hours to stay polite to the upstream rate limits (96 cycles/day must not
+    mean 96 census probes). Local-stream cards (grand list rolls) are annual
+    and skipped; their answers name the roll year in the text itself.
+    """
+    stamp_path = config.ASKED_LOG_PATH.parent / "revalidation.json"
+    stamp = _load_json(stamp_path, {})
+    now = dt.datetime.now(dt.timezone.utc)
+    last = stamp.get("__last__")
+    if last and (now - dt.datetime.fromisoformat(last)).total_seconds() < 3 * 3600:
+        return 0
+    touched = 0
+    for cid, card in list(cards_by_id.items()):
+        ind = by_id.get(card.get("indicator"))
+        if not ind or card.get("stream") != "stackup":
+            continue
+        result = None
+        if ind.get("census1yr"):
+            result = census1yr.stackup(
+                ind["census1yr"],
+                fixture=config.FIXTURES_DIR / f"census1yr_{ind['id']}.json")
+        if result is None:
+            try:
+                result = datacommons.stackup(
+                    ind, fixture=config.FIXTURES_DIR / f"dc_{ind['id']}.json")
+            except Exception:
+                continue
+        new_date = (result.get("ct") or {}).get("date")
+        old_date = (card.get("answer_values") or {}).get("date")
+        # forward-only: upstream facets that flap backwards (DC serves several
+        # facets per variable) must not bounce a published number or re-post it
+        if not new_date or new_date <= old_date:
+            continue
+        trend_rows = None
+        if ind.get("trend"):
+            try:
+                trend_rows = datacommons.trend(ind)
+            except Exception:
+                trend_rows = None
+        proposal = {"headline": card["headline"],
+                    "question_override": card["question"],
+                    "indicator_id": ind["id"]}
+        new = cards.from_stackup(ind, proposal, result, trend_rows=trend_rows)
+        if new["id"] != cid:          # question drifted; not our business here
+            continue
+        new["generated_at"] = card["generated_at"]   # same story, newer number
+        cards_by_id[cid] = new
+        touched += 1
+        print(f"  ~ revalidated [{card['stream']}/{card['topic']}] "
+              f"{ind['id']}: {old_date} -> {new_date}")
+    stamp["__last__"] = now.isoformat(timespec="seconds")
+    stamp_path.write_text(json.dumps(stamp, indent=2, sort_keys=True))
+    return touched
+
+
 def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
     existing = _load_feed()
     cards_by_id = {c["id"]: c for c in existing.get("cards", [])}
@@ -233,6 +292,10 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
 
     config.ASKED_LOG_PATH.parent.mkdir(exist_ok=True)
     config.ASKED_LOG_PATH.write_text(json.dumps(asked, indent=2, sort_keys=True))
+    by_id = {i["id"]: i for s in ("stackup", "local") for i in catalog.get(s, [])}
+    revalidated = _revalidate(cards_by_id, by_id)
+    if revalidated:
+        print(f"  revalidation: {revalidated} card(s) now carry newer numbers")
     ordered = sorted(cards_by_id.values(), key=lambda c: c["generated_at"], reverse=True)
     from . import publish
 

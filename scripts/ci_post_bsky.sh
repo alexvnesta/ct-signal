@@ -7,16 +7,21 @@ git rev-parse HEAD~1 >/dev/null 2>&1 || exit 0
 
 NEW=$(python3 - <<'PY'
 import json, subprocess
-new = {c["id"] for c in json.load(open("output/cards.json"))["cards"]}
+cur = {c["id"]: (c.get("answer_values") or {}).get("date")
+       for c in json.load(open("output/cards.json"))["cards"]}
 old = subprocess.run(["git", "show", "HEAD~1:output/cards.json"],
                      capture_output=True, text=True).stdout
 try:
-    old_ids = {c["id"] for c in json.loads(old)["cards"]}
+    prev = {c["id"]: (c.get("answer_values") or {}).get("date")
+            for c in json.loads(old)["cards"]}
 except Exception:
     # No previous cards.json in history (first push after the file shipped):
     # post nothing rather than dumping the whole backlog at the audience.
-    old_ids = new
-print(" ".join(new - old_ids))
+    prev = cur
+# Post new cards and cards whose data date moved: a revalidated number is
+# worth telling people about ("the rent card just ticked to the 2024 print"),
+# and an updated card keeps its id, so an id-only diff would never show it.
+print(" ".join(i for i, d in cur.items() if i not in prev or prev[i] != d))
 PY
 )
 [ -z "$NEW" ] && exit 0
