@@ -7,19 +7,25 @@ import re
 import time
 
 from . import cards, charts, config, feeds, questions, util
-from .sources import datacommons, socrata
+from .sources import census1yr, datacommons, socrata
 
 
 def build_board(catalog: dict) -> dict:
     tiles = []
     for indicator in catalog.get("stackup", []):
         fixture = config.FIXTURES_DIR / f"dc_{indicator['id']}.json"
-        try:
-            result = datacommons.stackup(indicator, fixture=fixture)
-        except Exception as exc:
-            print(f"  board tile failed: {indicator['id']} "
-                  f"({type(exc).__name__}: {exc})")
-            result = None
+        result = None
+        if indicator.get("census1yr"):
+            result = census1yr.stackup(
+                indicator["census1yr"],
+                fixture=config.FIXTURES_DIR / f"census1yr_{indicator['id']}.json")
+        if result is None:
+            try:
+                result = datacommons.stackup(indicator, fixture=fixture)
+            except Exception as exc:
+                print(f"  board tile failed: {indicator['id']} "
+                      f"({type(exc).__name__}: {exc})")
+                result = None
         if not result:
             continue
         tiles.append({
@@ -32,7 +38,7 @@ def build_board(catalog: dict) -> dict:
                                            result["n"]),
             "n": result["n"],
             "date": result["ct"]["date"],
-            "strip": charts.dot_strip(result["rows"], title="rank across the 52 peers"),
+            "strip": charts.dot_strip(result["rows"], title=f"rank across the {result["n"]} peers"),
         })
     return {"tiles": tiles}
 
@@ -75,8 +81,15 @@ def _asked_key(card: dict) -> str:
 
 
 def _answer_stackup(proposal: dict, item: dict) -> dict | None:
-    fixture = config.FIXTURES_DIR / f"dc_{item['id']}.json"
-    result = datacommons.stackup(item, fixture=fixture)
+    result = None
+    if item.get("census1yr"):
+        # ACS 1-year beats Data Commons' 5-year ceiling when reachable
+        result = census1yr.stackup(
+            item["census1yr"],
+            fixture=config.FIXTURES_DIR / f"census1yr_{item['id']}.json")
+    if result is None:
+        fixture = config.FIXTURES_DIR / f"dc_{item['id']}.json"
+        result = datacommons.stackup(item, fixture=fixture)
     if result is None:
         print(f"  discard (no data): {item['id']} <- {proposal['headline']['title'][:60]}")
         return None

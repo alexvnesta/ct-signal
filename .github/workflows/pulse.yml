@@ -35,6 +35,7 @@ jobs:
         run: python run.py --once
         env:
           DC_API_KEY: ${{ secrets.DC_API_KEY }}
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           SOCRATA_TOKEN: ${{ secrets.SOCRATA_TOKEN }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}

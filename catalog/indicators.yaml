@@ -8,9 +8,13 @@ stackup:
     direction: high
     keywords: [rent, renter, landlord, eviction, shelter, housing costs]
     question: How expensive is renting in Connecticut compared to the rest of America?
-    answer: "Connecticut's median gross rent was ${value} in {date} , the {rank_word}-highest of {n} peers."
+    answer: "Connecticut's median gross rent was ${value} in {date}, the {rank_word}-highest of {n} peers."
     validated: "live 2026-09-30"
 
+    census1yr:
+      vintages: [2025, 2024]
+      value: B25113_001E
+      table: B25113
   - id: unemployment
     topic: economy
     title: Unemployment rate
@@ -21,7 +25,7 @@ stackup:
     direction: high
     keywords: [unemployment, jobs report, layoffs, hiring, jobless]
     question: Is Connecticut's job market doing better or worse than the rest of the country?
-    answer: "Connecticut's unemployment rate is {value} ({date}) , the {rank_word}-highest of {n} peers."
+    answer: "Connecticut's unemployment rate is {value} ({date}), the {rank_word}-highest of {n} peers."
     validated: "live 2026-09-30"
 
   - id: median_home_value
@@ -33,9 +37,13 @@ stackup:
     direction: high
     keywords: [home prices, homevalues, housing market, homebuyers, affordability]
     question: Are Connecticut homes expensive by national standards?
-    answer: "The median Connecticut home is worth ${value} ({date}) , the {rank_word}-highest of {n} peers."
+    answer: "The median Connecticut home is worth ${value} ({date}), the {rank_word}-highest of {n} peers."
     validated: "live 2026-09-30"
 
+    census1yr:
+      vintages: [2025, 2024]
+      value: B25077_001E
+      table: B25077
   - id: household_income
     topic: economy
     title: Median household income
@@ -45,9 +53,13 @@ stackup:
     direction: high
     keywords: [wages, income, pay raise, cost of living, poverty line]
     question: What do Connecticut households earn compared with the rest of the country?
-    answer: "Connecticut's median household income is ${value} ({date}) , the {rank_word}-highest of {n} peers."
+    answer: "Connecticut's median household income is ${value} ({date}), the {rank_word}-highest of {n} peers."
     validated: "live 2026-09-30"
 
+    census1yr:
+      vintages: [2025, 2024]
+      value: B19013_001E
+      table: B19013
   - id: poverty
     topic: equity
     title: Share below poverty line
@@ -59,9 +71,15 @@ stackup:
     direction: low
     keywords: [poverty, safety net, SNAP, food insecurity, hardship]
     question: How many Connecticut residents live below the poverty line compared with the rest of the country?
-    answer: "{value} of Connecticut residents live below the poverty line ({date}) , the {low_word}-lowest of {n} peers."
+    answer: "{value} of Connecticut residents live below the poverty line ({date}), the {low_word}-lowest of {n} peers."
     validated: "live 2026-09-30"
 
+    census1yr:
+      vintages: [2025, 2024]
+      num: B17020_002E
+      den: B17020_001E
+      per: 100
+      table: B17020
   - id: violent_crime
     topic: justice
     title: Violent crime per 100k
@@ -73,7 +91,7 @@ stackup:
     superlative: safest
     keywords: [crime, homicide, violent crime, public safety, shooting]
     question: How safe is Connecticut compared with the rest of the country?
-    answer: "Connecticut reports {value} violent crimes per 100k people ({date}) , the {low_word}-safest of {n} peers."
+    answer: "Connecticut reports {value} violent crimes per 100k people ({date}), the {low_word}-safest of {n} peers."
     validated: "live 2026-09-30"
 
 local:

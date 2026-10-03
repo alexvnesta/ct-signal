@@ -85,7 +85,8 @@ def from_stackup(indicator: dict, proposal: dict, result: dict,
                                     unit=indicator.get("unit", ""))
                    if kind == "rank_strip" else None),
         "citations": [
-            f"https://datacommons.org/data/commons/{indicator['dcid']}",
+            result.get("citation")
+            or f"https://datacommons.org/data/commons/{indicator['dcid']}",
         ],
         "query": result["query"],
         "cache": result.get("cache", False),

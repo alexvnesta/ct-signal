@@ -28,6 +28,8 @@ def _load_dotenv() -> None:
 _load_dotenv()
 
 DC_API_KEY = os.environ.get("DC_API_KEY", "")
+# ACS 1-year direct pulls (free tier: 500 queries/day; sources/census1yr.py)
+CENSUS_API_KEY = os.environ.get("CENSUS_API_KEY", "")
 SOCRATA_PORTAL = "https://data.ct.gov"
 
 CT_FEEDS = [

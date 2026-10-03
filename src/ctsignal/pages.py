@@ -94,7 +94,7 @@ keyword heuristic falls back; the catalog is the same either way.</p>
 
 <h2>3 · Fetch, never write</h2>
 <p><strong>No number on this site was written or rounded by a language model.</strong>
-Answers come from executed queries against Data Commons and the Connecticut Open Data
+Answers come from executed queries against the US Census Bureau, Data Commons, and the Connecticut Open Data
 Portal (Socrata), dry-run validated before publication. Every story page shows the
 dataset link and the literal query.</p>
 
@@ -134,7 +134,7 @@ _page(
 <tr><td>Publisher &amp; editor</td><td>Alex V. Nesta — final word on corrections,
 catalog changes, and anything with a decimal point.</td></tr>
 <tr><td>Reporting desk</td><td>The pipeline. It picks questions from the news cycle and
-fetches answers from Data Commons and the Connecticut Open Data Portal. It has no
+fetches answers from the US Census Bureau, Data Commons, and the Connecticut Open Data Portal. It has no
 access to press releases, vibes, or ad buyers.</td></tr>
 <tr><td>Contact</td><td><a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a>
 — corrections, tips, and republication requests.</td></tr>

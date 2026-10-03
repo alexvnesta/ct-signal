@@ -99,8 +99,9 @@ and the literal query →</a></p>
 <p class="sechelp">Where we stand among our peers — refreshed with every data
 vintage.</p></div>
 <div class="tiles">{tiles}</div>
-<p class="legend">“{n_peers} peers” = the 50 states, Washington DC, and Puerto
-Rico. Charts plot every peer; rank 1 is the highest value, and chips say
+<p class="legend">Peer sets are the 50 states and Washington DC (plus Puerto
+Rico where the source covers it); the count in each answer is that indicator's
+own source. Charts plot every peer; rank 1 is the highest value, and chips say
 “highest”, “lowest” or a plain-language superlative — never a bare number.
 Each tile prints the vintage of its own dataset; older vintages are the honest
 limit of annual surveys, not a lag in the pipeline.</p>
