@@ -105,15 +105,19 @@ and the exact query →</a></p>
             # day a card refreshes its picture the URL changes too — a stale
             # picture of yesterday's number is the news-site lie we refuse.
             v = hashlib.md5(tpath.read_bytes()).hexdigest()[:8]
-            cover = (f'<a class="sigartwrap" href="/story/{c["id"]}" tabindex="-1" aria-hidden="true">'
+            cover = (f'<a href="/story/{c["id"]}" tabindex="-1" aria-hidden="true">'
                      f'<img class="sigart" src="/assets/story-{c["id"]}-thumb.png?v={v}" '
-                     f'width="1200" height="480" loading="lazy" alt="">'
-                     f'<span class="kicker sigkick">{when}</span></a>')
-        else:
-            cover = f'<div class="kicker" style="margin:.2rem 0 .5rem">{when}</div>'
-        signals += f"""<li class="sig">{cover}<div class="sigpad">
+                     f'width="1200" height="480" loading="lazy" alt=""></a>')
+        # The story's placement line, text-stripped: the one derived sentence
+        # the tiles don't carry, so the card adds a fact instead of an echo.
+        import re as _re
+        _pl = newsroom._place_line(c)
+        place = (_re.sub(r"<[^>]+>", "", _pl).strip() if _pl else "")
+        place_html = f'<p class="meta" style="margin:0 0 .5rem">{_ESC(place)}</p>' if place else ""
+        signals += f"""<li class="sig">
+<div class="kicker" style="padding:.85rem 1.1rem 0">{when}</div>{cover}<div class="sigpad">
 <h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
-<p class="answer">{_ESC(c["answer_text"])}</p>
+<p class="answer">{_ESC(c["answer_text"])}</p>{place_html}
 <div class="meta">{_trigger_line(c)}
 <a class="more" href="/story/{c["id"]}">the story with receipts →</a></div>
 </div></li>"""
