@@ -99,16 +99,19 @@ and the exact query →</a></p>
         # (an image of yesterday's number is the classic news-site lie).
         cover = ""
         tpath = newsroom._thumb_path(c)
+        when = _kicker(c, ago(c["generated_at"], now))
         if tpath:
             # Content-hash the URL: the art can then cache forever, and the
             # day a card refreshes its picture the URL changes too — a stale
             # picture of yesterday's number is the news-site lie we refuse.
             v = hashlib.md5(tpath.read_bytes()).hexdigest()[:8]
-            cover = (f'<a href="/story/{c["id"]}" tabindex="-1" aria-hidden="true">'
+            cover = (f'<a class="sigartwrap" href="/story/{c["id"]}" tabindex="-1" aria-hidden="true">'
                      f'<img class="sigart" src="/assets/story-{c["id"]}-thumb.png?v={v}" '
-                     f'width="1200" height="480" loading="lazy" alt=""></a>')
+                     f'width="1200" height="480" loading="lazy" alt="">'
+                     f'<span class="kicker sigkick">{when}</span></a>')
+        else:
+            cover = f'<div class="kicker" style="margin:.2rem 0 .5rem">{when}</div>'
         signals += f"""<li class="sig">{cover}<div class="sigpad">
-<div class="kicker">{_kicker(c, ago(c["generated_at"], now))}</div>
 <h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
 <p class="answer">{_ESC(c["answer_text"])}</p>
 <div class="meta">{_trigger_line(c)}
