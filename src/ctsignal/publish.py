@@ -119,7 +119,7 @@ and the exact query →</a></p>
                           .get("values", []) if "value" in r),
                          key=lambda r: r["rank"])
             if len(rws) >= 2:
-                place = (f"{rws[1]['state']} was next at {rws[1]['value']}%, "
+                place = (f"{rws[1]['state']} was next at {rws[1]['value']:.1f}%, "
                          f"{rws[0]['value'] - rws[1]['value']:.1f} points "
                          f"behind.")
         place_html = f'<p class="meta" style="margin:0 0 .5rem">{_ESC(place)}</p>' if place else ""
