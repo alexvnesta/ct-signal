@@ -19,20 +19,28 @@ def _parse(ts: str) -> dt.datetime:
 
 
 def ago(iso: str, now: dt.datetime) -> str:
-    s = (now - _parse(iso)).total_seconds()
-    stamp = util.clock(util.et(iso))
+    """Honest freshness as machine-readable <time>: relative while fresh,
+    absolute date past a day, always the publish wall clock in ET. 'now' is
+    the publish moment, never the card's own stamp — a lead that has not
+    been replaced can never claim 'just now' hours later."""
+    d = _parse(iso)
+    s = max(0.0, (now - d).total_seconds())
+    when = util.clock(util.et(d))
     if s < 90:
-        return f"just now · {stamp}"
-    if s < 5400:
-        return f"{round(s / 60)} min ago · {stamp}"
-    if s < 86400:
-        return f"{round(s / 3600)} h ago · {stamp}"
-    return iso[:10]
+        label = when
+    elif s < 5400:
+        label = f"{round(s / 60)} min ago · {when}"
+    elif s < 86400:
+        label = f"{round(s / 3600)} h ago · {when}"
+    else:
+        label = f"{util.et(d):%b %-d} · {when}"
+    return f'<time datetime="{iso}">{label}</time>'
 
 
 def _trigger_line(card: dict) -> str:
     prefix, title = theme.trigger_parts(card)
-    return f'Triggered by {prefix}{title}'
+    return (f'<span class="trig"><span class="srclabel">Source:</span> '
+            f'{prefix}{title}</span>')
 
 
 def _kicker(card: dict, when: str) -> str:
@@ -42,8 +50,11 @@ def _kicker(card: dict, when: str) -> str:
 
 
 def home_html(cards: list[dict], board: dict) -> str:
-    now = _parse(cards[0]["generated_at"]) if cards else (
-        dt.datetime.now(dt.timezone.utc))
+    # Freshness is measured against the publish moment, never against the
+    # lead's own stamp (an unreplaced lead must not claim 'just now' later).
+    now = dt.datetime.now(dt.timezone.utc)
+    if cards:
+        now = max(now, _parse(cards[0]["generated_at"]))
 
     hero = ""
     if cards:
@@ -52,9 +63,10 @@ def home_html(cards: list[dict], board: dict) -> str:
 <div class="kicker">Today's lead · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk</div>
 <h1><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h1>
 <p class="lede">{_ESC(c["answer_text"])}</p>
-<div class="meta">{_trigger_line(c)} · {ago(c["generated_at"], now)}</div>
-<p><a class="more" href="/story/{c["id"]}">Read the full story with the chart
-and the literal query →</a></p>
+<div class="meta">{_trigger_line(c)}<span class="when">
+{ago(c["generated_at"], now)}</span></div>
+<p><a class="more" href="/story/{c["id"]}">Read the full story — with the chart
+and the exact query →</a></p>
 </div></div>"""
 
     tiles = ""
@@ -75,7 +87,7 @@ and the literal query →</a></p>
 <div class="kicker">{_kicker(c, ago(c["generated_at"], now))}</div>
 <h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
 <p class="answer">{_ESC(c["answer_text"])}</p>
-<div class="meta">{_trigger_line(c)} ·
+<div class="meta">{_trigger_line(c)}
 <a class="more" href="/story/{c["id"]}">the story with receipts →</a></div>
 </li>"""
 

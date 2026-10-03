@@ -31,6 +31,11 @@ def _pretty(ts: str) -> str:
     return f"{d:%B} {d.day}, {d.year}, {util.clock(d)}"
 
 
+def _pretty_time(ts: str) -> str:
+    """Same Eastern wall clock, machine-readable."""
+    return f'<time datetime="{ts}">{_pretty(ts)}</time>'
+
+
 def _day(ts: str) -> str:
     return ts[:10]
 
@@ -51,7 +56,7 @@ def _spec_json(obj) -> str:
 
 def _trigger_html(card: dict) -> str:
     prefix, title = theme.trigger_parts(card)
-    return (f'<div class="card"><div class="label">Triggered by</div>'
+    return (f'<div class="card"><div class="label">Source</div>'
             f'<div style="font-size:1.05rem;line-height:1.35">{prefix}{title}</div></div>')
 
 
@@ -66,7 +71,7 @@ def _provenance_html(card: dict) -> str:
     return (f'<div class="card provenance"><div class="label">'
             f'Provenance · fetched, never written</div>'
             f'<div class="meta">dataset: {cites}<br>query: <code>{_ESC(str(card["query"]))}</code>'
-            f'<br>published {_pretty(card["generated_at"])}{data_date}{cache}</div></div>')
+            f'<br>published {_pretty_time(card["generated_at"])}{data_date}{cache}</div></div>')
 
 
 def _story_og(card: dict) -> str | None:
@@ -122,7 +127,7 @@ def story_html(card: dict) -> str:
 <div class="breadcrumb"><a href="/">← The board</a></div>
 <div class="kicker">{kicker}</div>
 <h1 style="font:700 clamp(1.6rem,4vw,2.3rem)/1.2 var(--serif);margin:.4rem 0 .3rem">{q}</h1>
-<div class="meta">Published {_pretty(card["generated_at"])} · CT Signal
+<div class="meta">Published {_pretty_time(card["generated_at"])} · CT Signal
 automated data desk</div>
 <div class="answerbox">{a}</div>
 <div class="card"><div class="label">The data</div>{chart}{chart2}</div>
@@ -187,7 +192,7 @@ def topic_html(topic: str, cards: list[dict]) -> str:
     items = "".join(
         f"""<li class="sig">
 <div class="kicker"><span class="badge">{_ESC(c["stream"])} desk</span> ·
-{_pretty(c["generated_at"])}</div>
+{_pretty_time(c["generated_at"])}</div>
 <h2><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h2>
 <p class="answer">{_ESC(c["answer_text"])}</p>
 </li>""" for c in cards)
@@ -211,9 +216,7 @@ where you live.</p>
 def rss_xml(cards: list[dict]) -> str:
     items = []
     for c in cards:
-        h = c["headline"]
-        trig = (f'<a href="{_ESC(h["url"])}">{_ESC(h["title"])}</a>'
-                if h.get("url") else _ESC(h["title"]))
+        src_prefix, trig = theme.trigger_parts(c)
         story = permalink(c)
         art = ""
         png = _cover_path(c)
@@ -222,7 +225,7 @@ def rss_xml(cards: list[dict]) -> str:
                    f' length="{png.stat().st_size}" type="image/png"/>')
         desc = (f'{_ESC(c["answer_text"])}<br/><br/>'
                 f'<a href="{story}">Read the full story with the chart and '
-                f'the query</a><br/><br/>Triggered by: {trig}')
+                f'the query</a><br/><br/>Source: {src_prefix}{trig}')
         items.append(
             f'<item><title>{_ESC(c["question"])}</title>{art}'
             f'<link>{story}</link><guid isPermaLink="true">{story}</guid>'
@@ -252,7 +255,8 @@ def json_feed(cards: list[dict]) -> str:
     items = []
     for c in cards:
         h = c["headline"]
-        trig = f' Triggered by: {h["title"]}' if h.get("title") else ""
+        src = f'{h["source"]} — ' if h.get("source") else ""
+        trig = f' Source: {src}{h["title"]}' if h.get("title") else ""
         it = {
             "id": permalink(c),
             "url": permalink(c),

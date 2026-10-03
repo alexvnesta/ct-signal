@@ -138,7 +138,7 @@ class TestSprintSurfaces(unittest.TestCase):
         home = publish.home_html(cards, {})
         story = (config.STORY_DIR / f"{linked['id']}" / "index.html").read_text()
         for surface in (home, story):
-            self.assertIn("Triggered by", surface)
+            self.assertIn("Source", surface)
             self.assertIn('rel="noopener"', surface)
         self.assertEqual(1, story.count('class="skip"'),
                          "exactly one skip link per page")

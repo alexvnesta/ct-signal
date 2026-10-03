@@ -73,7 +73,8 @@ header.site{background:var(--bg2);border-bottom:1px solid var(--line);
 .brand{font:800 1.55rem/1 var(--sans);color:var(--ink);letter-spacing:-.02em;
   text-decoration:none!important}
 .brand .bolt{color:var(--acc)}
-.tagline{color:var(--dim);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+.tagline{color:var(--dim);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+  text-wrap:balance}
 nav.sitebar{display:flex;flex-wrap:wrap;gap:.15rem;border-top:1px solid var(--line);
   margin-top:.15rem}
 nav.sitebar a{color:var(--dim);font-size:.84rem;font-weight:600;padding:.55rem .8rem;
@@ -86,13 +87,19 @@ nav.sitebar a.rss{margin-left:auto;color:var(--acc)}
 /* ---------------------------------------------------------------- hero --- */
 .hero{padding:2.4rem 0 .6rem;max-width:var(--col)}
 .kicker{color:var(--acc);font-weight:800;font-size:.78rem;letter-spacing:.18em;
-  text-transform:uppercase}
+  text-transform:uppercase;text-wrap:balance}
 .hero h1{font:700 clamp(1.7rem,4.5vw,2.5rem)/1.18 var(--serif);margin:.5rem 0 .8rem;
-  letter-spacing:-.01em}
+  letter-spacing:-.01em;text-wrap:balance}
 .hero h1 a{color:var(--ink)}
 .hero h1 a:hover{color:var(--acc);text-decoration:none}
 .lede{font-size:1.25rem;line-height:1.5;color:var(--ink);margin:0 0 1rem}
-.hero .meta, .meta{color:var(--dim);font-size:.85rem;line-height:1.55}
+.hero .meta, .meta{color:var(--dim);font-size:.9rem;line-height:1.55}
+/* source attribution and publish time read as two quiet lines,
+   not one dense inline run */
+.meta .trig{display:block}
+.meta .when,.meta .more{display:block;margin-top:.2rem}
+.meta time{font-variant-numeric:tabular-nums}
+.srclabel{color:var(--faint)}
 .more{font-weight:700;font-size:.9rem;display:inline-block;padding:10px 0;min-height:44px}
 .badge{background:var(--panel2);color:#cfdcea;border-radius:4px;
   padding:.05rem .4rem;font-size:.72rem;white-space:nowrap}
@@ -103,7 +110,7 @@ section{padding:1.6rem 0}
   flex-wrap:wrap;gap:.2rem 1rem;border-bottom:2px solid var(--acc);
   padding-bottom:.45rem;margin-bottom:1.2rem}
 .sechead h2{font:800 1.15rem/1.2 var(--sans);margin:0;text-transform:uppercase;
-  letter-spacing:.1em}
+  letter-spacing:.1em;text-wrap:balance}
 .sechelp{color:var(--dim);font-size:.84rem;margin:0}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:.9rem}
@@ -151,7 +158,7 @@ li.sig h2{font:700 1.35rem/1.3 var(--serif);margin:.35rem 0 .4rem}
 li.sig h3 a{color:var(--ink)}
 li.sig h3 a:hover{color:var(--acc);text-decoration:none}
 li.sig .answer{font-size:1.02rem;color:var(--ink);margin:0 0 .5rem}
-li.sig .meta{font-size:.82rem}
+li.sig .meta{font-size:.88rem}
 
 /* ------------------------------------------------------------------ how --- */
 .how{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.9rem}
@@ -205,12 +212,27 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
 .breadcrumb{margin:1.4rem 0 .2rem;font-size:.82rem}
 .breadcrumb a{color:var(--faint)}
 @media (max-width:720px){.footgrid{grid-template-columns:1fr}
-  .val{font-size:1.7rem}.hero .lede{font-size:1.1rem}}
+  .val{font-size:1.7rem}.hero .lede{font-size:1.1rem}
+  /* the lead, not the menu, owns the fold: slim masthead, one scrollable
+     nav row instead of a four-line grid with a dead zone */
+  .mast{padding-top:.7rem;padding-bottom:.5rem}
+  .tagline{font-size:.72rem;letter-spacing:.1em}
+  nav.sitebar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    overscroll-behavior-x:contain}
+  nav.sitebar::-webkit-scrollbar{display:none}
+  nav.sitebar a{white-space:nowrap;padding:.5rem .65rem;font-size:.78rem}
+  nav.sitebar a.rss{margin-left:0}
+  .kicker{letter-spacing:.1em;font-size:.74rem}
+  .sechead h2{letter-spacing:.06em}
+  /* Safari's floating toolbar must never sit over content at page bottom */
+  footer.site{padding-bottom:calc(2.2rem + 4.5rem +
+    env(safe-area-inset-bottom,0px))}}
 """
 
 # ------------------------------------------------------------- components ---
 
-_BRAND = ('<a class="brand" href="/">CT<span class="bolt">⚡</span>Signal</a>')
+_BRAND = ('<a class="brand" href="/">CT<span class="bolt" aria-hidden="true">⚡'
+          '</span>Signal</a>')
 
 _NAV = (
     '<a href="/">The board</a>'
@@ -219,13 +241,15 @@ _NAV = (
     '<a href="/about">About</a>'
     '<a href="/masthead">Masthead</a>'
     '<a href="/corrections">Corrections</a>'
-    '<a class="rss" href="/feed.xml">RSS ⚡</a>'
+    '<a class="rss" href="/feed.xml">RSS <span aria-hidden="true">⚡</span></a>'
 )
 
 
 def dateline(now: dt.datetime | None = None) -> str:
     now = now or dt.datetime.now(dt.timezone.utc)
-    return now.strftime("%A, %B %-d, %Y") + " · automated data desk"
+    # nbsp glues the separator to the date: balanced wraps must never leave
+    # a leading "·" on the tagline's second line.
+    return now.strftime("%A, %B %-d, %Y") + "\u00a0\u00b7 automated data desk"
 
 
 def header() -> str:
@@ -239,7 +263,7 @@ def header() -> str:
 
 
 def trigger_parts(card: dict) -> tuple[str, str]:
-    """The 'Triggered by' attribution, rendered once for home and stories.
+    """The 'Source' attribution, rendered once for home and stories.
     Returns (source-prefix, title-html); both already HTML-escaped."""
     h = card["headline"]
     title = _ESC(h["title"])
@@ -250,7 +274,7 @@ def trigger_parts(card: dict) -> tuple[str, str]:
         title = title[len(f"[{_ESC(src)}]") + 1:].lstrip()
     if h.get("url"):
         title = f'<a href="{_ESC(h["url"])}" rel="noopener">{title}</a>'
-    prefix = f'{_ESC(src)} \u00b7 ' if src else ""
+    prefix = f'{_ESC(src)} \u2014 ' if src else ""
     return prefix, title
 
 
@@ -258,7 +282,7 @@ def footer() -> str:
     email = config.CONTACT_EMAIL
     year = dt.date.today().year
     return f"""<footer class="site"><div class="wrap footgrid">
-<div><h2>CT&nbsp;<span style="color:var(--acc)">⚡</span>&nbsp;Signal</h2>
+<div><h2>CT&nbsp;<span style="color:var(--acc)" aria-hidden="true">⚡</span>&nbsp;Signal</h2>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
 public data answers it. Know where you live.</p><p><a href="mailto:{email}">{email}</a></p></div>
 <div><h2>Sections</h2><ul>
@@ -343,7 +367,7 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website",
         ld = (f'<script type="application/ld+json">'
               f'{blob.replace("</", "<\\/").replace("<!--", "<\\u0021--")}</script>')
     return f"""<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{_ESC(title)}</title>
 <meta name="description" content="{_ESC(desc)}">
 <link rel="canonical" href="{url}">
