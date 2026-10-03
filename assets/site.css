@@ -102,6 +102,14 @@ section{padding:1.6rem 0}
    stylesheet makes inline-block; inside a flex tile that shrinks to the
    (0-wide) svg and collapses. Force the measure chain to fill the tile. */
 .tile .viz,.tile .viz .vega-embed,.tile .viz .chart-wrapper{display:block;width:100%}
+.vote{display:flex;align-items:center;gap:.6rem;margin-top:.85rem;
+  color:var(--dim);font-size:.9rem}
+.vote button{background:var(--panel2);color:var(--dim);border:1px solid var(--line);
+  border-radius:99px;padding:.25rem .85rem;font:inherit;font-size:.85rem;cursor:pointer}
+.vote button:hover{color:var(--ink);border-color:var(--acc)}
+.vote button[data-chosen]{color:#10161d;background:var(--acc);border-color:var(--acc)}
+.vote button:disabled{cursor:default}
+.badge.trend{background:var(--acc);color:#10161d;border:0}
 .chip{align-self:flex-start;background:var(--panel2);color:#cfdcea;border-radius:99px;
   padding:.1rem .65rem;font-size:.74rem}
 
