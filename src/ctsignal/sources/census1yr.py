@@ -33,7 +33,7 @@ class CensusError(RuntimeError):
     pass
 
 
-def _get_json(url: str, tries: int = 6, pause: float = 2.0) -> list:
+def _get_json(url: str, tries: int = 3, pause: float = 2.0) -> list:
     last = "no attempt"
     for _ in range(tries):
         try:
