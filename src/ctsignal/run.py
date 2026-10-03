@@ -334,6 +334,8 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
     ordered = sorted(cards_by_id.values(), key=lambda c: c["generated_at"], reverse=True)
     from . import publish
 
+    from . import towns as _towns
+    _towns.publish()          # ACS town snapshot + the town table page
     board = build_board(catalog)
     board["trend"] = _trend()
     publish.publish(ordered, board)

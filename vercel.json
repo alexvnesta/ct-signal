@@ -12,12 +12,12 @@
       "permanent": true
     },
     {
-      "source": "/:page(about|corrections|masthead|sources)/",
+      "source": "/:page(about|corrections|masthead|sources|towns)/",
       "destination": "/:page.html",
       "permanent": true
     },
     {
-      "source": "/:page(about|corrections|masthead|sources)",
+      "source": "/:page(about|corrections|masthead|sources|towns)",
       "destination": "/:page.html",
       "permanent": true
     },

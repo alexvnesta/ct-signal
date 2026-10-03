@@ -245,6 +245,7 @@ _BRAND = ('<a class="brand" href="/">CT<span class="bolt" aria-hidden="true">⚡
 _NAV = (
     '<a href="/">The board</a>'
     '<a href="/#signals">Latest questions</a>'
+    '<a href="/towns">Towns</a>'
     '<a href="/about">About</a>'
     '<a class="rss" href="/feed.xml">RSS <span aria-hidden="true">⚡</span></a>'
 )
@@ -294,6 +295,7 @@ public data answers it. Know where you live.</p><p><a href="mailto:{email}">{ema
 <li><a href="/">The board</a></li>
 <li><a href="/#signals">Latest questions</a></li>
 <li><a href="/archive">Card archive</a></li>
+<li><a href="/towns">Towns</a></li>
 <li><a href="/sources">Data sources</a></li>
 <li><a href="/feed.xml">RSS feed</a></li></ul></div>
 <div><h2>Newsroom</h2><ul>

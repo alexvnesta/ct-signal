@@ -390,6 +390,8 @@ def sitemap_xml(cards: list[dict]) -> str:
     for p in sorted(pages._PAGES):
         parts.append(f'<url><loc>{config.SITE_URL}/{p}</loc>'
                      f'<lastmod>{now}</lastmod></url>')
+    parts.append(f'<url><loc>{config.SITE_URL}/towns</loc>'
+                 f'<lastmod>{now}</lastmod></url>')
     parts.append(f'<url><loc>{config.SITE_URL}/archive</loc>'
                  f'<lastmod>{now}</lastmod></url>')
     for c in cards:
@@ -463,12 +465,17 @@ def _freshness_html(card: dict) -> str:
 
 def town_html(row: dict, card: dict) -> str:
     esc = html.escape
+    from . import towns as _towns
+    snap = _towns.snapshot()
+    rec = _towns.lookup(snap, row["town"]) if snap else None
+    acs = _towns.table_for(rec, snap, esc) if rec else ""
+    acs_css = _towns._PAGE_CSS if rec else ""
     n = card.get("answer_values", {}).get("n") or len(card.get("towns") or [])
     b = card.get("answer_values", {}).get("top") or {}
     med = sorted(r["pct"] for r in card.get("towns") or [])
     median = med[len(med) // 2] if med else 0.0
-    body = f"""<article class="wrap col">
-<div class="label">Connecticut town file</div>
+    body = f"""{acs_css}<article class="wrap col">
+<div class="label">Connecticut town file · <a href="/towns">all towns</a></div>
 <h1 style="font:700 clamp(1.7rem,4vw,2.4rem)/1.15 var(--serif);margin:.4rem 0 .3rem">{esc(row["town"])}</h1>
 <p class="sub">Property tax base (net grand list), from the Connecticut Open
 Data Portal. Know where you live. This is one row of
@@ -480,6 +487,7 @@ Data Portal. Know where you live. This is one row of
 <tr><td>Rank among {n} Connecticut places</td><td>{row["rank"]} of {n}</td></tr>
 <tr><td>Statewide median change (for context)</td><td>{median:+.1f}%</td></tr>
 </tbody></table>
+{acs}
 <p class="meta">Fastest-growing place this vintage: {esc(b.get("town", ""))}.
 Dataset citation and the literal query live on
 <a href="/story/{card["id"]}">the source story</a>; errors are corrected publicly.</p>
