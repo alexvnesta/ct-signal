@@ -183,6 +183,41 @@ def balance_by_topic(new_cards: list[dict]) -> list[dict]:
     return kept
 
 
+def _trend() -> list[dict]:
+    """Attention with a week-long memory: per day, votes count twice the
+    weight of views, downvotes subtract; a week of age halves the influence.
+    Deterministic from a committed file — the trend table ships as an
+    artifact like everything else here."""
+    import json as _json
+    import math
+    import datetime as _dtd
+    try:
+        data = _json.loads((config.ROOT / "data" / "interactions.json")
+                           .read_text())
+    except (OSError, ValueError):
+        return []
+    today = _dtd.date.today()
+    out = []
+    for cid, days in (data or {}).items():
+        if not isinstance(days, dict):
+            continue
+        score = votes = sees = 0
+        for dk, e in days.items():
+            try:
+                age = (today - _dtd.date.fromisoformat(dk)).days
+            except ValueError:
+                continue
+            u, dn, s = e.get("u", 0), e.get("d", 0), e.get("s", 0)
+            votes += u + dn
+            sees += s
+            score += (u * 2 - dn * 1.5 + min(s, 50) * 0.1) * math.exp(-age / 7)
+        if votes or sees:
+            out.append({"id": cid, "score": round(score, 2),
+                        "votes": votes, "sees": sees})
+    out.sort(key=lambda t: -t["score"])
+    return out
+
+
 def _revalidate(cards_by_id: dict, by_id: dict) -> int:
     """Re-fetch every live stackup card; replace it when upstream printed a
     newer data date. Without this pass a fresh vintage only lands when a
@@ -299,7 +334,9 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
     ordered = sorted(cards_by_id.values(), key=lambda c: c["generated_at"], reverse=True)
     from . import publish
 
-    publish.publish(ordered, build_board(catalog))
+    board = build_board(catalog)
+    board["trend"] = _trend()
+    publish.publish(ordered, board)
     print(f"  feed: {len(ordered)} cards (+{added} new)")
     return added
 

@@ -164,6 +164,34 @@ def chart_intro(card: dict) -> tuple[str, str]:
     return desc, label
 
 
+def _vote_widget(card: dict) -> str:
+    """First-party attention, no cookies: one beacon per page view, one vote
+    per browser (localStorage). Counts are stored, never displayed — a young
+    paper should not print its small numbers in public."""
+    vid = card["id"]
+    return f"""<div class="vote"><span>Useful?</span>
+<button data-v="u" aria-label="Mark useful">&#9889; yes</button>
+<button data-v="d" aria-label="Mark not useful">&#9661; no</button></div>
+<script>
+(() => {{
+  const k = "ctv:{vid}", id = "{vid}";
+  fetch("/api/see", {{ method: "POST", body: JSON.stringify({{ id }}) }})
+    .catch(() => {{}});
+  const bs = document.querySelectorAll(".vote button");
+  const lock = (d) => bs.forEach((b) => {{ b.disabled = true;
+    if (b.dataset.v === d) b.setAttribute("data-chosen", ""); }});
+  const done = localStorage.getItem(k);
+  if (done) lock(done);
+  else bs.forEach((b) => b.onclick = () => {{
+    localStorage.setItem(k, b.dataset.v); lock(b.dataset.v);
+    fetch("/api/vote", {{ method: "POST",
+      body: JSON.stringify({{ id, dir: b.dataset.v === "u" ? "up" : "down" }}) }})
+      .catch(() => {{}});
+  }});
+}})();
+</script>"""
+
+
 def story_html(card: dict) -> str:
     q = _ESC(card["question"])
     a = _ESC(card["answer_text"])
@@ -189,7 +217,7 @@ def story_html(card: dict) -> str:
 <h1 style="font:700 clamp(1.6rem,4vw,2.3rem)/1.2 var(--serif);margin:.4rem 0 .3rem">{q}</h1>
 <div class="meta">Published {_pretty_time(card["generated_at"])} · CT Signal
 automated data desk</div>
-<div class="answerbox">{a}</div>{_place_line(card)}
+<div class="answerbox">{a}</div>{_place_line(card)}{_vote_widget(card)}
 <div class="card"><div class="label">The data</div>{chart}{chart2}</div>
 {_trigger_html(card)}
 {_provenance_html(card)}

@@ -92,6 +92,13 @@ and the exact query →</a></p>
 </div>"""
 
     from . import newsroom
+    # Trending only speaks when it has something to say: at least 3 votes
+    # overall, a per-card score of its own. Until then, silence — a lone
+    # badge on one card would advertise emptiness, not heat.
+    _trend = board.get("trend") or []
+    _votes = sum(t.get("votes", 0) for t in _trend)
+    qual = {t["id"] for t in _trend} if _votes >= 3 else set()
+    chip = '<span class="badge trend">trending</span> '
     signals = ""
     for c in cards[1:] if cards else []:
         # The story's own cover art is the card's picture: it regenerates
@@ -123,8 +130,9 @@ and the exact query →</a></p>
                          f"{rws[0]['value'] - rws[1]['value']:.1f} points "
                          f"behind.")
         place_html = f'<p class="meta" style="margin:0 0 .5rem">{_ESC(place)}</p>' if place else ""
+        badge = chip if c["id"] in qual else ""
         signals += f"""<li class="sig">
-<div class="kicker" style="padding:.85rem 1.1rem 0">{when}</div>{cover}<div class="sigpad">
+<div class="kicker" style="padding:.85rem 1.1rem 0">{badge}{when}</div>{cover}<div class="sigpad">
 <h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
 <p class="answer">{_ESC(c["answer_text"])}</p>{place_html}
 <div class="meta">{_trigger_line(c)}
