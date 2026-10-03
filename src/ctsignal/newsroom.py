@@ -88,13 +88,12 @@ def _cover_path(card: dict):
     return p if p.exists() else None
 
 
-def story_html(card: dict) -> str:
-    q = _ESC(card["question"])
-    a = _ESC(card["answer_text"])
-    url = permalink(card)
+def chart_intro(card: dict) -> tuple[str, str]:
+    """(caption, aria-label) for a card's primary chart — the honest artwork
+    line, shared by the story page and the home hero so the lead's picture
+    is never a different sentence from the story's picture."""
     kind = card.get("chart_kind", "rank_strip")
-    local = card.get("stream") == "local"
-    if local:
+    if card.get("stream") == "local":
         desc = ("Top 10 Connecticut towns by net grand list growth; the "
                 "fastest town highlighted in orange. Source and query below.")
         label = (f'Town ranking chart for “{card["question"]}”. '
@@ -109,6 +108,14 @@ def story_html(card: dict) -> str:
                 "Source and query below.")
         label = (f'Peer ranking chart for “{card["question"]}”. '
                  f'{card["answer_text"]}')
+    return desc, label
+
+
+def story_html(card: dict) -> str:
+    q = _ESC(card["question"])
+    a = _ESC(card["answer_text"])
+    url = permalink(card)
+    desc, label = chart_intro(card)
     chart = theme.viz(_spec_json(card["chart"]), "chart", label=label,
                       caption=desc)
     chart2 = ""

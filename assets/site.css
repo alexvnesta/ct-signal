@@ -67,6 +67,9 @@ nav.sitebar a.rss{margin-left:auto;color:var(--acc)}
 .hero h1 a{color:var(--ink)}
 .hero h1 a:hover{color:var(--acc);text-decoration:none}
 .lede{font-size:1.25rem;line-height:1.5;color:var(--ink);margin:0 0 1rem}
+/* the hero chart is the lead's artwork: give it breathing room, keep its
+   reserved min-height so vega injection never shifts the fold */
+.hero .vizwrap{margin:1.2rem 0 .3rem}
 .hero .meta, .meta{color:var(--dim);font-size:.9rem;line-height:1.55}
 /* source attribution and publish time read as two quiet lines,
    not one dense inline run */

@@ -59,10 +59,19 @@ def home_html(cards: list[dict], board: dict) -> str:
     hero = ""
     if cards:
         c = cards[0]
+        # The lead's artwork is its own chart — receipts as art, one shared
+        # caption with the story page. Cards without a chart keep a text hero.
+        heroviz = ""
+        if c.get("chart"):
+            from . import newsroom
+            vdesc, vlabel = newsroom.chart_intro(c)
+            heroviz = theme.viz(newsroom._spec_json(c["chart"]), "heroviz",
+                                label=vlabel, caption=vdesc)
         hero = f"""<div class="wrap"><div class="hero">
 <div class="kicker">Today's lead · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk</div>
 <h1><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h1>
 <p class="lede">{_ESC(c["answer_text"])}</p>
+{heroviz}
 <div class="meta">{_trigger_line(c)}<span class="when">
 {ago(c["generated_at"], now)}</span></div>
 <p><a class="more" href="/story/{c["id"]}">Read the full story — with the chart
