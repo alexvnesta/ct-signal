@@ -5,3 +5,4 @@
 2026-10-03T22:21:04+00:00 cycle failed: NameError: name 'town_page' is not defined
 2026-10-03T22:21:25+00:00 cycle failed: AttributeError: module 'ctsignal.towns' has no attribute 'publish'
 2026-10-04T01:49:12+00:00 cycle failed: AttributeError: 'NoneType' object has no attribute 'get'
+2026-10-04T07:44:15+00:00 cycle failed: AttributeError: 'NoneType' object has no attribute 'get'
