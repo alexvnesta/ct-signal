@@ -187,7 +187,7 @@ def _vote_widget(card: dict) -> str:
     paper should not print its small numbers in public."""
     vid = card["id"]
     return f"""<div class="vote"><span>Useful?</span>
-<button data-v="u" aria-label="Mark useful">&#9889; yes</button>
+<button data-v="u" aria-label="Mark useful"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true" style="width:.72em;height:1em;vertical-align:-.1em"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg> yes</button>
 <button data-v="d" aria-label="Mark not useful">&#9661; no</button></div>
 <script>
 (() => {{

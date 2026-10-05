@@ -69,17 +69,21 @@ main{display:block}
    rules above and below the folio line, sections on a double-ruled line.
    The drawn skyline lives where a paper puts its tailpiece: page bottom. */
 header.site{background:var(--bg)}
-.utilrow{display:flex;justify-content:space-between;align-items:baseline;
-  padding:.7rem 1.2rem .5rem;font-size:.74rem;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--faint)}
-.utilrow a{color:var(--dim)}
-.utilrow a.sub{background:var(--acc);color:#fff;padding:.3rem .8rem;font-weight:700;
-  letter-spacing:.08em}
-.utilrow a.sub:hover{text-decoration:none;background:#8f4706}
-.nameplate{text-align:center;padding:.4rem 0 .5rem}
-.brand{font:700 clamp(2.1rem,6vw,3.3rem)/1.05 var(--serif);color:var(--ink);
-  letter-spacing:.01em;text-decoration:none!important}
-.brand .bolt{color:var(--acc)}
+/* The nameplate carries the house drawing itself: the light skyline sits
+   behind the wordmark like a printer's ornament, at quarter strength — a
+   background, not a banner; it never steals clicks from the brand. */
+.nameplate{position:relative;text-align:center;padding:1.5rem 1.2rem 0;
+  overflow:hidden}
+.plate-art{position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);
+  height:clamp(84px,13vw,148px);width:auto;max-width:96%;opacity:.4;
+  pointer-events:none}
+.brand{position:relative;display:inline-block;padding-bottom:2.4rem;
+  font:700 clamp(2.1rem,6vw,3.3rem)/1.05 var(--serif);color:var(--ink);
+  letter-spacing:.05em;text-decoration:none!important}
+.boltwrap{display:inline-block;font-style:normal}
+.boltwrap svg{display:inline-block;width:.6em;height:.92em;vertical-align:-.06em;
+  margin:0 .08em;color:var(--acc2)}
+.brand .boltwrap svg{width:.66em;height:1em}
 .dateline{text-align:center;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
   border-width:3px 0 1px;padding:.4rem 1.2rem;color:var(--dim);font-size:.78rem;
   letter-spacing:.14em;text-transform:uppercase}
@@ -106,8 +110,8 @@ nav.sitebar a.rss{color:var(--acc)}
   padding:.6rem .5rem .3rem}
 .sec2 .item,.rail .item{border-top:1px solid var(--rule);padding:.85rem 0}
 .sec2 .item:first-child,.rail .item:first-child{border-top:3px solid var(--ink)}
-.item-fig{flex:0 0 128px}
-.item-fig img{width:128px;height:auto;display:block;border:1px solid var(--rule)}
+.item-fig{flex:0 0 216px}
+.item-fig img{width:216px;height:auto;display:block;border:1px solid var(--rule)}
 .item-body{min-width:0}
 .sec2 h3,.rail h3{font:700 1.08rem/1.3 var(--serif);margin:.1rem 0 .3rem}
 .sec2 h3 a,.rail h3 a{color:var(--ink)}
@@ -270,29 +274,34 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
 @media (max-width:999px){.latest-grid{grid-template-columns:1fr}}
 @media (max-width:720px){.footgrid{grid-template-columns:1fr}
   .val{font-size:1.7rem}.hero .lede{font-size:1.1rem}
-  .utilrow{font-size:.68rem;letter-spacing:.06em}
   nav.sitebar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
     overscroll-behavior-x:contain;justify-content:flex-start}
   nav.sitebar::-webkit-scrollbar{display:none}
   nav.sitebar a{white-space:nowrap;padding:.5rem .65rem;font-size:.74rem}
   .kicker{letter-spacing:.1em;font-size:.74rem}
   .sechead h2{letter-spacing:.06em}
-  .item-fig{flex:0 0 96px}.item-fig img{width:96px}
+  .item-fig{flex:0 0 132px}.item-fig img{width:132px}
   footer.site{padding-bottom:calc(2.2rem + 4.5rem +
     env(safe-area-inset-bottom,0px))}}
 """
 
 # ------------------------------------------------------------- components ---
 
-_BRAND = ('<a class="brand" href="/">CT<span class="bolt" aria-hidden="true">⚡'
-          '</span>Signal</a>')
+_BOLT_SVG = ('<svg class="bolt" viewBox="0 0 12 18" aria-hidden="true">'
+             '<path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9'
+             'L8.9 0z"/></svg>')
+# The bolt is our mark — so it is drawn, not typed: one path, currentColor,
+# sized in em. The ⚡ text emoji rendered as clip art; this renders as type.
+_BOLT = ('<i class="boltwrap" aria-hidden="true">' + _BOLT_SVG + '</i>')
+_BRAND = f'<a class="brand" href="/">CT{_BOLT}Signal</a>'
+_RSS_BOLT = _BOLT_SVG
 
 _NAV = (
     '<a href="/">The board</a>'
     '<a href="/#signals">Latest questions</a>'
     '<a href="/towns">Towns</a>'
     '<a href="/about">About</a>'
-    '<a class="rss" href="/feed.xml">RSS <span aria-hidden="true">⚡</span></a>'
+    f'<a class="rss" href="/feed.xml">RSS {_RSS_BOLT}</a>'
 )
 
 
@@ -304,12 +313,16 @@ def dateline(now: dt.datetime | None = None) -> str:
 
 
 def header() -> str:
+    # The nameplate carries the house drawing itself: the light skyline sits
+    # behind the wordmark like a printer's ornament, at quarter strength.
+    # (The full-strength copy stays as the page's tailpiece at the bottom.)
     return (
         '<a class="skip" href="#main">Skip to content</a>'
         '<header class="site">'
-        '<div class="utilrow"><span>Independent \u00b7 automated \u00b7 reader-supported</span>'
-        '<span><a href="/feed.xml">RSS</a></span></div>'
-        '<div class="wrap nameplate">' + _BRAND + '</div>'
+        '<div class="wrap nameplate">'
+        '<img class="plate-art" src="/assets/skyline-light.png" '
+        'width="2340" height="875" alt="" aria-hidden="true">'
+        + _BRAND + '</div>'
         f'<div class="dateline">{dateline()}</div>'
         f'<nav class="sitebar" aria-label="Primary">{_NAV}</nav></header>'
     )
@@ -335,7 +348,7 @@ def footer() -> str:
     email = config.CONTACT_EMAIL
     year = dt.date.today().year
     return f"""<footer class="site"><div class="wrap footgrid">
-<div><h2>CT&nbsp;<span style="color:var(--acc)" aria-hidden="true">⚡</span>&nbsp;Signal</h2>
+<div><h2>CT&nbsp;<span class="boltwrap" aria-hidden="true"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg></span>&nbsp;Signal</h2>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
 public data answers it. Know where you live.</p><p><a href="mailto:{email}">{email}</a></p></div>
 <div><h2>Sections</h2><ul>
