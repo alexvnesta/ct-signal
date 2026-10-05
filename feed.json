@@ -6,6 +6,24 @@
   "items": [
     {
       "_tags": [
+        "justice"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 141539,
+          "url": "https://ctsignal.org/assets/story-ed851796295a.png"
+        }
+      ],
+      "content_text": "Connecticut reports 147 violent crimes per 100k people (2023), the 3rd-safest of 52 peers. Source: PBS NewsHour \u2014 No arrests after Georgia block party shooting as police pursue who killed 2 and injured dozens",
+      "date_published": "2026-10-05T23:54:01+00:00",
+      "id": "https://ctsignal.org/story/ed851796295a",
+      "image": "https://ctsignal.org/assets/story-ed851796295a.png",
+      "title": "How safe is Connecticut compared with the rest of the country?",
+      "url": "https://ctsignal.org/story/ed851796295a"
+    },
+    {
+      "_tags": [
         "economy"
       ],
       "attachments": [
@@ -111,24 +129,6 @@
       "image": "https://ctsignal.org/assets/story-517fafa716bc.png",
       "title": "Are Connecticut homes expensive by national standards?",
       "url": "https://ctsignal.org/story/517fafa716bc"
-    },
-    {
-      "_tags": [
-        "justice"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 141539,
-          "url": "https://ctsignal.org/assets/story-ed851796295a.png"
-        }
-      ],
-      "content_text": "Connecticut reports 147 violent crimes per 100k people (2023), the 3rd-safest of 52 peers. Source: CT Examiner \u2014 Another Gun Control Law Won\u2019t Get Tough on Crime",
-      "date_published": "2026-10-05T18:51:03+00:00",
-      "id": "https://ctsignal.org/story/ed851796295a",
-      "image": "https://ctsignal.org/assets/story-ed851796295a.png",
-      "title": "How safe is Connecticut compared with the rest of the country?",
-      "url": "https://ctsignal.org/story/ed851796295a"
     },
     {
       "_tags": [

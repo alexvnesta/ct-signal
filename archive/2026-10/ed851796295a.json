@@ -11,20 +11,20 @@
     "background": "transparent",
     "config": {
       "axis": {
-        "domainColor": "#26313d",
-        "gridColor": "#26313d",
-        "labelColor": "#9fb0bf",
-        "tickColor": "#26313d",
-        "titleColor": "#9fb0bf"
+        "domainColor": "#b8b2a6",
+        "gridColor": "#e4dfd3",
+        "labelColor": "#4c5a68",
+        "tickColor": "#b8b2a6",
+        "titleColor": "#4c5a68"
       },
       "legend": {
-        "labelColor": "#9fb0bf",
+        "labelColor": "#4c5a68",
         "symbolStrokeWidth": 0,
-        "titleColor": "#9fb0bf"
+        "titleColor": "#4c5a68"
       },
       "title": {
-        "color": "#eef2f5",
-        "subtitleColor": "#9fb0bf"
+        "color": "#1c2733",
+        "subtitleColor": "#66717e"
       },
       "view": {
         "continuousHeight": 300,
@@ -358,8 +358,8 @@
             false
           ],
           "range": [
-            "#f2a65a",
-            "#9aa5b1"
+            "#d9772b",
+            "#b9b3a6"
           ]
         },
         "type": "nominal"
@@ -465,20 +465,20 @@
     "background": "transparent",
     "config": {
       "axis": {
-        "domainColor": "#26313d",
-        "gridColor": "#26313d",
-        "labelColor": "#9fb0bf",
-        "tickColor": "#26313d",
-        "titleColor": "#9fb0bf"
+        "domainColor": "#b8b2a6",
+        "gridColor": "#e4dfd3",
+        "labelColor": "#4c5a68",
+        "tickColor": "#b8b2a6",
+        "titleColor": "#4c5a68"
       },
       "legend": {
-        "labelColor": "#9fb0bf",
+        "labelColor": "#4c5a68",
         "symbolStrokeWidth": 0,
-        "titleColor": "#9fb0bf"
+        "titleColor": "#4c5a68"
       },
       "title": {
-        "color": "#eef2f5",
-        "subtitleColor": "#9fb0bf"
+        "color": "#1c2733",
+        "subtitleColor": "#66717e"
       },
       "view": {
         "continuousHeight": 300,
@@ -526,7 +526,7 @@
           ]
         },
         "mark": {
-          "stroke": "#22303c",
+          "stroke": "#b8b2a6",
           "strokeWidth": 0.4,
           "type": "geoshape"
         },
@@ -862,7 +862,7 @@
       {
         "mark": {
           "fill": null,
-          "stroke": "#f2a65a",
+          "stroke": "#d9772b",
           "strokeWidth": 2,
           "type": "geoshape"
         },
@@ -888,15 +888,15 @@
   "citations": [
     "https://datacommons.org/data/commons/Count_CriminalActivities_ViolentCrime"
   ],
-  "generated_at": "2026-10-05T18:51:03+00:00",
+  "generated_at": "2026-10-05T23:54:01+00:00",
   "headline": {
-    "id": "55bf0803b9de",
-    "published": "Mon, 05 Oct 2026 13:53:15 +0000",
-    "published_sort": 1791208395,
-    "source": "CT Examiner",
-    "stream": "ct",
-    "title": "Another Gun Control Law Won\u2019t Get Tough on Crime",
-    "url": "https://ctexaminer.com/2026/10/05/another-gun-control-law-wont-get-tough-on-crime/"
+    "id": "ba72131efbc3",
+    "published": "Mon, 05 Oct 2026 19:43:11 -0400",
+    "published_sort": 1791243791,
+    "source": "PBS NewsHour",
+    "stream": "national",
+    "title": "No arrests after Georgia block party shooting as police pursue who killed 2 and injured dozens",
+    "url": "https://www.pbs.org/newshour/nation/no-arrests-after-georgia-block-party-shooting-as-police-pursue-who-killed-2-and-injured-dozens"
   },
   "id": "ed851796295a",
   "indicator": "violent_crime",
