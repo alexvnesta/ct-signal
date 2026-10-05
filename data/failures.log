@@ -36,3 +36,4 @@ linkcheck: /towns.html -> /town/county-subdivisions-not-defined-south-central-co
 linkcheck: /towns.html -> /town/county-subdivisions-not-defined-southeastern-connecticut-planning-region-connecticut
 linkcheck: /towns.html -> /town/county-subdivisions-not-defined-western-connecticut-planning-region-connecticut
 2026-10-05T18:21:52+00:00 cycle failed: KeyError: 'pct'
+2026-10-05T20:35:14+00:00 cycle failed: NameError: name 'bolt_svg' is not defined
