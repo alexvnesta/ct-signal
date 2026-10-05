@@ -126,7 +126,7 @@
         },
         {
           "field": "value",
-          "title": "Property tax rate (mills per $1,000), FY2027 (top 10 towns)",
+          "title": "Property tax rate, FY2027 (top 10 towns)",
           "type": "quantitative"
         },
         {
@@ -140,7 +140,7 @@
           "format": ",.0f"
         },
         "field": "value",
-        "title": "Property tax rate (mills per $1,000), FY2027 (top 10 towns) (mills per $1,000)",
+        "title": "Property tax rate, FY2027 (top 10 towns) (mills per $1,000)",
         "type": "quantitative"
       },
       "y": {
@@ -167,8 +167,8 @@
       "type": "bar"
     },
     "title": {
-      "subtitle": "Connecticut highlighted",
-      "text": "Property tax rate (mills per $1,000), FY2027 (top 10 towns)"
+      "subtitle": "Hartford highlighted",
+      "text": "Property tax rate, FY2027 (top 10 towns)"
     },
     "width": "container"
   },
@@ -176,7 +176,7 @@
   "citations": [
     "https://data.ct.gov/d/emyx-j53e"
   ],
-  "generated_at": "2026-10-05T18:27:21+00:00",
+  "generated_at": "2026-10-05T18:51:09+00:00",
   "headline": {
     "id": "seed-2026-10-01",
     "published": "2026-10-01",

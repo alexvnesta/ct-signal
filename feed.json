@@ -6,11 +6,37 @@
   "items": [
     {
       "_tags": [
+        "housing"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 46506,
+          "url": "https://ctsignal.org/assets/story-0125297ea839.png"
+        }
+      ],
+      "content_text": "Connecticut's median gross rent was $1,550 in 2024, the 17th-highest of 52 peers. Source: CT Mirror \u2014 Your next car will be a luxury",
+      "date_published": "2026-10-05T18:51:45+00:00",
+      "id": "https://ctsignal.org/story/0125297ea839",
+      "image": "https://ctsignal.org/assets/story-0125297ea839.png",
+      "title": "How expensive is renting in Connecticut compared to the rest of America?",
+      "url": "https://ctsignal.org/story/0125297ea839"
+    },
+    {
+      "_tags": [
         "local-finance"
       ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 47379,
+          "url": "https://ctsignal.org/assets/story-a3514b53fb39.png"
+        }
+      ],
       "content_text": "In fiscal year 2027, Hartford taxes real property at 69.95 mills, 2.6 times the 26.66-mill rate that property pays statewide across 168 towns. Source: civic calendar \u2014 [civic calendar] municipal budgets adopted for fiscal 2027 (July 1) make the new mill rates the operative tax facts; budget-adopt coverage is seasonal and may not mention rates at all",
-      "date_published": "2026-10-05T18:27:21+00:00",
+      "date_published": "2026-10-05T18:51:09+00:00",
       "id": "https://ctsignal.org/story/a3514b53fb39",
+      "image": "https://ctsignal.org/assets/story-a3514b53fb39.png",
       "title": "Which Connecticut town has the highest property tax rate?",
       "url": "https://ctsignal.org/story/a3514b53fb39"
     },
@@ -21,16 +47,34 @@
       "attachments": [
         {
           "mime_type": "image/png",
-          "size_in_bytes": 45999,
+          "size_in_bytes": 48737,
           "url": "https://ctsignal.org/assets/story-b37766e764aa.png"
         }
       ],
       "content_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest growth of 169 towns. Source: civic calendar \u2014 [civic calendar] 2026 general election (governor's race)",
-      "date_published": "2026-10-05T18:27:20+00:00",
+      "date_published": "2026-10-05T18:51:05+00:00",
       "id": "https://ctsignal.org/story/b37766e764aa",
       "image": "https://ctsignal.org/assets/story-b37766e764aa.png",
       "title": "Which Connecticut towns grew their property tax base fastest?",
       "url": "https://ctsignal.org/story/b37766e764aa"
+    },
+    {
+      "_tags": [
+        "justice"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 44058,
+          "url": "https://ctsignal.org/assets/story-ed851796295a.png"
+        }
+      ],
+      "content_text": "Connecticut reports 147 violent crimes per 100k people (2023), the 3rd-safest of 52 peers. Source: CT Examiner \u2014 Another Gun Control Law Won\u2019t Get Tough on Crime",
+      "date_published": "2026-10-05T18:51:03+00:00",
+      "id": "https://ctsignal.org/story/ed851796295a",
+      "image": "https://ctsignal.org/assets/story-ed851796295a.png",
+      "title": "How safe is Connecticut compared with the rest of the country?",
+      "url": "https://ctsignal.org/story/ed851796295a"
     },
     {
       "_tags": [
@@ -39,24 +83,14 @@
       "attachments": [
         {
           "mime_type": "image/png",
-          "size_in_bytes": 45621,
-          "url": "https://ctsignal.org/assets/story-0125297ea839.png"
+          "size_in_bytes": 44393,
+          "url": "https://ctsignal.org/assets/story-517fafa716bc.png"
         }
       ],
-      "content_text": "Connecticut's median gross rent was $1,550 in 2024, the 17th-highest of 52 peers. Source: CT Mirror \u2014 Your next car will be a luxury",
-      "date_published": "2026-10-05T18:26:59+00:00",
-      "id": "https://ctsignal.org/story/0125297ea839",
-      "image": "https://ctsignal.org/assets/story-0125297ea839.png",
-      "title": "How expensive is renting in Connecticut compared to the rest of America?",
-      "url": "https://ctsignal.org/story/0125297ea839"
-    },
-    {
-      "_tags": [
-        "housing"
-      ],
       "content_text": "The median Connecticut home is worth $396,900 (2024), the 19th-highest of 52 peers. Source: CT Mirror \u2014 Your next car will be a luxury",
-      "date_published": "2026-10-05T18:26:59+00:00",
+      "date_published": "2026-10-05T18:51:03+00:00",
       "id": "https://ctsignal.org/story/517fafa716bc",
+      "image": "https://ctsignal.org/assets/story-517fafa716bc.png",
       "title": "Are Connecticut homes expensive by national standards?",
       "url": "https://ctsignal.org/story/517fafa716bc"
     },
@@ -67,12 +101,12 @@
       "attachments": [
         {
           "mime_type": "image/png",
-          "size_in_bytes": 53019,
+          "size_in_bytes": 53065,
           "url": "https://ctsignal.org/assets/story-797faed5a836.png"
         }
       ],
       "content_text": "10.2% of Connecticut residents live below the poverty line (2024), the 15th-lowest of 52 peers. Source: CT Mirror \u2014 A renewed plea to safeguard SNAP in the Farm Bill",
-      "date_published": "2026-10-05T18:26:58+00:00",
+      "date_published": "2026-10-05T18:51:01+00:00",
       "id": "https://ctsignal.org/story/797faed5a836",
       "image": "https://ctsignal.org/assets/story-797faed5a836.png",
       "title": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
@@ -80,29 +114,19 @@
     },
     {
       "_tags": [
-        "justice"
+        "economy"
       ],
       "attachments": [
         {
           "mime_type": "image/png",
-          "size_in_bytes": 43445,
-          "url": "https://ctsignal.org/assets/story-ed851796295a.png"
+          "size_in_bytes": 44599,
+          "url": "https://ctsignal.org/assets/story-615030e77f4c.png"
         }
-      ],
-      "content_text": "Connecticut reports 147 violent crimes per 100k people (2023), the 3rd-safest of 52 peers. Source: CT Examiner \u2014 Another Gun Control Law Won\u2019t Get Tough on Crime",
-      "date_published": "2026-10-05T18:24:24+00:00",
-      "id": "https://ctsignal.org/story/ed851796295a",
-      "image": "https://ctsignal.org/assets/story-ed851796295a.png",
-      "title": "How safe is Connecticut compared with the rest of the country?",
-      "url": "https://ctsignal.org/story/ed851796295a"
-    },
-    {
-      "_tags": [
-        "economy"
       ],
       "content_text": "The median unemployed US worker has been out of work 11.5 weeks (2026-09) \u2014 highest since May 2026. Source: PBS NewsHour (fixture) \u2014 Job growth cools as unemployment edges up in several states",
       "date_published": "2026-10-05T14:54:08+00:00",
       "id": "https://ctsignal.org/story/615030e77f4c",
+      "image": "https://ctsignal.org/assets/story-615030e77f4c.png",
       "title": "When Americans lose a job, how long are they out?",
       "url": "https://ctsignal.org/story/615030e77f4c"
     },
@@ -110,9 +134,17 @@
       "_tags": [
         "economy"
       ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 43130,
+          "url": "https://ctsignal.org/assets/story-5c5c307e3f19.png"
+        }
+      ],
       "content_text": "Employers hired 3.3% of America's workforce into new jobs in 2026-08 \u2014 lowest since July 2026. Source: jobs-report fixture \u2014 Hiring slowed, layoffs are rare and hardly anyone is quitting: the labor market has frozen over",
       "date_published": "2026-10-05T14:54:08+00:00",
       "id": "https://ctsignal.org/story/5c5c307e3f19",
+      "image": "https://ctsignal.org/assets/story-5c5c307e3f19.png",
       "title": "Is America still hiring people into new jobs?",
       "url": "https://ctsignal.org/story/5c5c307e3f19"
     },
@@ -120,9 +152,17 @@
       "_tags": [
         "economy"
       ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 38426,
+          "url": "https://ctsignal.org/assets/story-d5873d2851dd.png"
+        }
+      ],
       "content_text": "Only 1.9% of US workers quit their jobs in 2026-08 \u2014 lowest since July 2026. Source: jobs-report fixture \u2014 Hiring slowed, layoffs are rare and hardly anyone is quitting: the labor market has frozen over",
       "date_published": "2026-10-05T14:54:08+00:00",
       "id": "https://ctsignal.org/story/d5873d2851dd",
+      "image": "https://ctsignal.org/assets/story-d5873d2851dd.png",
       "title": "Are workers still confident enough to quit?",
       "url": "https://ctsignal.org/story/d5873d2851dd"
     },
@@ -130,9 +170,17 @@
       "_tags": [
         "economy"
       ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 43484,
+          "url": "https://ctsignal.org/assets/story-138bf32c8350.png"
+        }
+      ],
       "content_text": "US layoffs and discharges ran at 1.0% in 2026-08 \u2014 lowest since April 2026 for this series, which began in 2000. Source: jobs-report fixture \u2014 Hiring slowed, layoffs are rare and hardly anyone is quitting: the labor market has frozen over",
       "date_published": "2026-10-05T14:54:08+00:00",
       "id": "https://ctsignal.org/story/138bf32c8350",
+      "image": "https://ctsignal.org/assets/story-138bf32c8350.png",
       "title": "Are employers laying everyone off, really?",
       "url": "https://ctsignal.org/story/138bf32c8350"
     },
@@ -140,9 +188,17 @@
       "_tags": [
         "equity"
       ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 47925,
+          "url": "https://ctsignal.org/assets/story-fc46f3ad624e.png"
+        }
+      ],
       "content_text": "Labor's share of US nonfarm output sits at 93.4 on the 2017=100 index (2026-04) \u2014 lowest on record since the series began in 1947. Source: jobs-report fixture \u2014 Productivity gains keep rolling along while workers' paychecks fall behind",
       "date_published": "2026-10-05T14:54:08+00:00",
       "id": "https://ctsignal.org/story/fc46f3ad624e",
+      "image": "https://ctsignal.org/assets/story-fc46f3ad624e.png",
       "title": "Are workers keeping their share of what they produce?",
       "url": "https://ctsignal.org/story/fc46f3ad624e"
     },
@@ -153,7 +209,7 @@
       "attachments": [
         {
           "mime_type": "image/png",
-          "size_in_bytes": 46214,
+          "size_in_bytes": 47319,
           "url": "https://ctsignal.org/assets/story-0b26178760d4.png"
         }
       ],
