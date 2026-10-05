@@ -14,6 +14,20 @@
     "stream": "national"
   },
   {
+    "id": "fixjobs02",
+    "title": "Hiring slowed, layoffs are rare and hardly anyone is quitting: the labor market has frozen over",
+    "source": "jobs-report fixture",
+    "published": "2026-10-02",
+    "stream": "national"
+  },
+  {
+    "id": "fixjobs03",
+    "title": "Productivity gains keep rolling along while workers' paychecks fall behind",
+    "source": "jobs-report fixture",
+    "published": "2026-10-02",
+    "stream": "national"
+  },
+  {
     "id": "fixctgl01",
     "title": "Mill-rate fights loom as town grand lists stall in some suburbs",
     "source": "CT Mirror (fixture)",

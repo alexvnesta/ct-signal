@@ -144,5 +144,78 @@ class TestSprintSurfaces(unittest.TestCase):
                          "exactly one skip link per page")
 
 
+class TestNationalDeck(unittest.TestCase):
+    """The FRED context layer: honest national cards, computed superlatives,
+    and a balance rule that lets one headline publish the whole deck."""
+
+    ITEM = {
+        "id": "hires_rate", "topic": "economy", "title": "JOLTS hiring rate",
+        "agency": "US Bureau of Labor Statistics",
+        "fred": {"series": "JTSHIR"}, "unit": "percent", "suffix": "%",
+        "extreme": "min",
+        "question": "Is America still hiring people into new jobs?",
+        "answer": "Employers hired {value}% of America's workforce into "
+                  "new jobs in {date} — {extreme}.",
+    }
+
+    def test_fred_parse_and_computed_extremes(self):
+        from ctsignal.sources import fred
+        rows = fred._parse(
+            "observation_date,JTSHIR\n2000-12-01,4.0\n2009-06-01,2.9\n"
+            "2026-07-01,3.4\n2026-08-01,3.3\n")
+        self.assertEqual(rows[0]["date"], "2000-12")
+        # 2009 printed lower: honest phrase names when it was last this bad
+        self.assertEqual(fred.extreme_phrase(rows, "min"),
+                         "lowest since June 2009")
+        # nothing ever lower: 'on record', and the record is the whole series
+        rows.append({"date": "2026-09", "value": 2.0})
+        self.assertEqual(fred.extreme_phrase(rows, "min"),
+                         "lowest on record")
+
+    def test_national_card_shape(self):
+        result = {
+            "value": 3.3, "date": "2026-08",
+            "rows": [{"date": d, "series": "United States", "value": v}
+                     for d, v in [("2020-01", 4.1), ("2026-08", 3.3)]],
+            "extreme": "lowest on record",
+            "citation": "https://fred.stlouisfed.org/series/JTSHIR",
+            "query": "FRED fredgraph.csv id=JTSHIR", "cache": False,
+        }
+        card = cards.from_national(
+            self.ITEM, {"headline": {"id": "h", "title": "t", "url": "u"}},
+            result)
+        self.assertEqual(card["stream"], "national")
+        self.assertEqual(card["chart_kind"], "trend")
+        self.assertNotIn("peer", card["answer_text"])
+        self.assertIn("lowest on record", card["answer_text"])
+        import json as _json
+        self.assertIn("United States", _json.dumps(card["chart"]))
+
+    def test_balance_allows_one_deck_per_headline(self):
+        def c(iid, score):
+            return {"id": iid, "topic": "economy", "indicator": iid,
+                    "headline": {"published_sort": score}}
+        kept = run.balance_by_topic([c("hires_rate", 5), c("quits_rate", 5),
+                                     c("hires_rate", 9)])
+        self.assertEqual(sorted(k["indicator"] for k in kept),
+                         ["hires_rate", "quits_rate"])
+        self.assertEqual(kept[0]["headline"]["published_sort"], 9)
+
+    def test_siblings_link_when_trigger_has_url(self):
+        trig = {"id": "h", "title": "Jobs report", "url": "https://x.org/j",
+                "source": "s"}
+        a = dict(self.ITEM, id="aa", stream="national", headline=trig,
+                 answer_text="A", chart_kind="trend", series_freq="monthly",
+                 chart={"marks": []}, chart2=None, citations=["https://f"],
+                 query="q", cache=False,
+                 generated_at="2026-10-05T00:00:00+00:00")
+        b = dict(a, id="bb", question="Other honest question?")
+        page = newsroom.story_html(a, [a, b])
+        self.assertIn("Same headline", page)
+        self.assertIn('/story/bb', page)
+        # a lone card on its trigger gets no empty block
+        self.assertNotIn("Same headline", newsroom.story_html(a, [a]))
+
+
 if __name__ == "__main__":
     unittest.main()

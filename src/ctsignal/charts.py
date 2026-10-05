@@ -160,9 +160,18 @@ def state_map(rows: list[dict], *, title: str, unit: str = "") -> dict:
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 
 
-def trend(rows: list[dict], *, title: str, unit: str = "") -> dict:
+def trend(rows: list[dict], *, title: str, unit: str = "",
+          highlight_series: str = "Connecticut") -> dict:
+    """Two-line CT-vs-US by default; national cards pass
+    highlight_series="United States" so the one line on the chart is the
+    one the answer is talking about — orange means 'the subject', not
+    'Connecticut'."""
+    names = sorted({r["series"] for r in rows})
+    domain = ([highlight_series]
+              + [n for n in names if n != highlight_series])
+    range_ = ([_HIGHLIGHT_COLOR] + [_MUTED_COLOR] * (len(domain) - 1))
     series = alt.Color("series:N").legend(None).scale(
-        domain=["Connecticut", "United States"], range=[_HIGHLIGHT_COLOR, _MUTED_COLOR]
+        domain=domain, range=range_
     )
     line = (
         alt.Chart(alt.Data(values=rows))
@@ -184,20 +193,19 @@ def trend(rows: list[dict], *, title: str, unit: str = "") -> dict:
     # FT-style direct labelling: name each series at its own endpoint —
     # no legend to decode, no colour-only signal.
     ends = []
-    for name, short in (("Connecticut", "CT"), ("United States", "US")):
+    shorts = {"Connecticut": "CT", "United States": "US"}
+    for name in domain:
         pts = [r for r in rows if r["series"] == name]
         if pts:
             e = max(pts, key=lambda r: str(r["date"]))
-            ends.append({**e, "short": short})
+            ends.append({**e, "short": shorts.get(name, name[:2].upper())})
     labels = (
         alt.Chart(alt.Data(values=ends))
         .mark_text(align="left", dx=8, dy=-8, fontSize=12, fontWeight=700)
         .encode(x=alt.X("date:T"), y=alt.Y("value:Q"),
                 text=alt.Text("short:N"),
                 color=alt.Color("series:N", legend=None,
-                                scale=alt.Scale(
-                                    domain=["Connecticut", "United States"],
-                                    range=[_HIGHLIGHT_COLOR, _MUTED_COLOR])))
+                                scale=alt.Scale(domain=domain, range=range_)))
     )
     chart = (line + labels).properties(
         width="container", height=200, title=alt.TitleParams(text=title),

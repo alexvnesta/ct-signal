@@ -46,21 +46,25 @@ def propose_from_catalog(
     headline: dict, catalog: dict, stream: str
 ) -> list[dict]:
     pool = catalog.get("stackup" if stream == "stackup" else "local", [])
+    # national-series context cards answer national headlines too: one
+    # jobs-report day may open several honest questions at once
+    extra = catalog.get("national", []) if stream == "stackup" else []
     proposals = []
-    for item in pool:
-        if not _answerable(item):
-            continue
-        hits = _keyword_hits(headline["title"], item.get("keywords", []))
-        if not hits:
-            continue
-        proposals.append(
-            {
-                "indicator_id": item["id"],
-                "stream": stream,
-                "headline": headline,
-                "matched_keywords": hits,
-            }
-        )
+    for pstream, items in ((stream, pool), ("national", extra)):
+        for item in items:
+            if not _answerable(item):
+                continue
+            hits = _keyword_hits(headline["title"], item.get("keywords", []))
+            if not hits:
+                continue
+            proposals.append(
+                {
+                    "indicator_id": item["id"],
+                    "stream": pstream,
+                    "headline": headline,
+                    "matched_keywords": hits,
+                }
+            )
     return proposals
 
 
@@ -91,7 +95,7 @@ def propose(headlines: list[dict], catalog: dict) -> list[dict]:
 
 def _catalog_brief(catalog: dict) -> list[dict]:
     items = []
-    for section in ("stackup", "local"):
+    for section in ("stackup", "local", "national"):
         for item in catalog.get(section, []):
             if not _answerable(item):
                 continue
@@ -104,8 +108,8 @@ def _catalog_brief(catalog: dict) -> list[dict]:
 
 
 def validate_proposals(proposals: list[dict], catalog: dict) -> list[dict]:
-    known = {i["id"] for s in ("stackup", "local") for i in catalog.get(s, [])
-             if _answerable(i)}
+    known = {i["id"] for s in ("stackup", "local", "national")
+             for i in catalog.get(s, []) if _answerable(i)}
     return [p for p in proposals if p.get("indicator_id") in known]
 
 
@@ -172,6 +176,7 @@ def propose_with_llm(headlines: list[dict], catalog: dict) -> list[dict]:
     pairs = _llm_json(prompt)
     stackup_ids = {i["id"] for i in catalog.get("stackup", [])}
     local_ids = {i["id"] for i in catalog.get("local", [])}
+    national_ids = {i["id"] for i in catalog.get("national", [])}
     by_hid = {h["id"]: h for h in headlines}
     proposals = []
     for pair in pairs:
@@ -183,6 +188,8 @@ def propose_with_llm(headlines: list[dict], catalog: dict) -> list[dict]:
             stream = "stackup"
         elif iid in local_ids:
             stream = "local"
+        elif iid in national_ids:
+            stream = "national"
         else:
             continue
         proposals.append({

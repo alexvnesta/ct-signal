@@ -5,6 +5,18 @@ seeds:
     indicator: unemployment
     reason: October jobs report cycle
 
+  - date: 2026-10-30
+    days_window: 14
+    stream: stackup
+    indicator: hires_rate
+    reason: October jobs report cycle (national churn context)
+
+  - date: 2026-10-30
+    days_window: 14
+    stream: stackup
+    indicator: unemployment_duration
+    reason: October jobs report cycle (national duration context)
+
   - date: 2026-10-14
     days_window: 21
     stream: stackup

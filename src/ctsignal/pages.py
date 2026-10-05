@@ -169,6 +169,15 @@ def _sources_body() -> str:
         '&middot; webp-fgt3</a></span></td>'
         '<td style="text-align:right">'
         '<span style="color:var(--dim)">&#9679; live every cycle</span></td></tr>')
+    rows.append(
+        '<tr><td>The national weather Connecticut lives in &mdash; hiring, '
+        'quitting, layoffs, jobless duration, participation, labor’s share'
+        '<br><span class="meta"><a href="https://fred.stlouisfed.org/series/JTSHIR">'
+        'US Bureau of Labor Statistics, redistributed as FRED</a> '
+        '&middot; keyless CSV, no account</span></td>'
+        '<td style="text-align:right">'
+        '<span style="color:var(--dim)">&#9679; fetched whenever a national '
+        'card asks</span></td></tr>')
 
     trig = "".join(
         f'<li style="padding:.3rem 0">{esc(feeds._source_name(u))} &middot; '

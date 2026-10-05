@@ -146,6 +146,14 @@ def chart_intro(card: dict) -> tuple[str, str]:
     line, shared by the story page and the home hero so the lead's picture
     is never a different sentence from the story's picture."""
     kind = card.get("chart_kind", "rank_strip")
+    if card.get("stream") == "national":
+        cadence = ("Quarterly" if card.get("series_freq") == "quarterly"
+                   else "Monthly")
+        desc = (f"{cadence} US series since the early 2000s; the latest "
+                "print is labelled on the chart. Source and query below.")
+        label = (f'US trend chart for “{card["question"]}”. '
+                 f'{card["answer_text"]}')
+        return desc, label
     if card.get("stream") == "local":
         desc = ("Top 10 Connecticut towns by net grand list growth; the "
                 "fastest town highlighted in orange. Source and query below.")
@@ -192,7 +200,27 @@ def _vote_widget(card: dict) -> str:
 </script>"""
 
 
-def story_html(card: dict) -> str:
+def _siblings_html(card: dict, cards: list[dict]) -> str:
+    """Trigger-grouping: one headline can open several honest questions;
+    the story pages point at each other instead of pretending to be alone."""
+    url = (card.get("headline") or {}).get("url")
+    if not url:
+        return ""
+    sibs = [c for c in (cards or [])
+            if c.get("id") != card["id"]
+            and (c.get("headline") or {}).get("url") == url]
+    if not sibs:
+        return ""
+    lis = "".join(f'<li style="padding:.2rem 0">'
+                  f'<a href="/story/{c["id"]}">{_ESC(c["question"])}</a></li>'
+                  for c in sibs)
+    return (f'<div class="card"><div class="label">Same headline, '
+            f'more honest questions</div>'
+            f'<ul style="list-style:none;margin:.2rem 0 0;padding:0">{lis}'
+            f'</ul></div>')
+
+
+def story_html(card: dict, siblings: list[dict] | None = None) -> str:
     q = _ESC(card["question"])
     a = _ESC(card["answer_text"])
     url = permalink(card)
@@ -220,6 +248,7 @@ automated data desk</div>
 <div class="answerbox">{a}</div>{_place_line(card)}{_vote_widget(card)}
 <div class="card"><div class="label">The data</div>{chart}{chart2}</div>
 {_trigger_html(card)}
+{_siblings_html(card, siblings)}
 {_provenance_html(card)}
 {_freshness_html(card)}
 <details class="embed"><summary>Embed this story</summary>
@@ -419,7 +448,7 @@ def write_all(cards: list[dict]) -> None:
             json.dumps(card, indent=2, sort_keys=True, default=str))
         story = config.STORY_DIR / card["id"]
         story.mkdir(parents=True, exist_ok=True)
-        util.atomic_write_text(story / "index.html", story_html(card))
+        util.atomic_write_text(story / "index.html", story_html(card, cards))
         emb = story / "embed"
         emb.mkdir(exist_ok=True)
         util.atomic_write_text(emb / "index.html", embed_html(card))

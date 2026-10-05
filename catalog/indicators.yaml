@@ -129,6 +129,94 @@ local:
     keywords: [municipal finance, town budget]
     validated: "dataset row-verified 2026-09-30; no card template yet"
 
+# The national weather Connecticut lives in. These series have no state
+# breakdown, so the cards say "US" in the answer instead of faking a
+# Connecticut angle; the trend chart is the picture and the superlative is
+# computed against every print, never written by hand. One jobs-report day
+# may open several of these questions at once — balance_by_topic lets the
+# whole set publish together, because a single honest number on a single
+# honest day is exactly what the desk is for.
+national:
+  - id: hires_rate
+    topic: economy
+    title: JOLTS hiring rate
+    agency: "US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey"
+    fred: {series: JTSHIR}
+    unit: percent
+    suffix: "%"
+    extreme: min
+    keywords: [hiring, hires, job openings, labor market, jobs report, employment report]
+    question: Is America still hiring people into new jobs?
+    answer: "Employers hired {value} of America's workforce into new jobs in {date} — {extreme}."
+    validated: "live series probe 2026-10-05"
+
+  - id: quits_rate
+    topic: economy
+    title: JOLTS quits rate
+    agency: "US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey"
+    fred: {series: JTSQUR}
+    unit: percent
+    suffix: "%"
+    extreme: min
+    keywords: [quitting, quits, walkaway, job switching, labor market, resignation]
+    question: Are workers still confident enough to quit?
+    answer: "Only {value} of US workers quit their jobs in {date} — {extreme}."
+    validated: "live series probe 2026-10-05"
+
+  - id: layoffs_rate
+    topic: economy
+    title: JOLTS layoffs and discharges rate
+    agency: "US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey"
+    fred: {series: JTSLDR}
+    unit: percent
+    suffix: "%"
+    extreme: min
+    keywords: [layoff, layoffs, job cuts, workforce reduction, restructuring]
+    question: Are employers laying everyone off, really?
+    answer: "US layoffs and discharges ran at {value} in {date} — {extreme} for this series, which began in 2000."
+    validated: "live series probe 2026-10-05"
+
+  - id: unemployment_duration
+    topic: economy
+    title: Median weeks unemployed
+    agency: "US Bureau of Labor Statistics, Current Population Survey"
+    fred: {series: UEMPMED}
+    unit: weeks
+    precision: 1
+    suffix: ""
+    extreme: max
+    keywords: [unemployment, jobless, long-term unemployed, out of work]
+    question: When Americans lose a job, how long are they out?
+    answer: "The median unemployed US worker has been out of work {value} weeks ({date}) — {extreme}."
+    validated: "live series probe 2026-10-05"
+
+  - id: prime_age_participation
+    topic: economy
+    title: Prime-age labor force participation
+    agency: "US Bureau of Labor Statistics, Current Population Survey"
+    fred: {series: LNS11300060}
+    unit: percent
+    suffix: "%"
+    extreme: max
+    keywords: [labor force, participation rate, workforce, jobs report, labor supply]
+    question: Are working-age Americans in the labor force?
+    answer: "{value} of Americans aged 25 to 54 were working or looking for work in {date} — {extreme}."
+    validated: "live series probe 2026-10-05"
+
+  - id: labor_share
+    topic: equity
+    title: Labor share of output (index, 2017=100)
+    agency: "US Bureau of Labor Statistics, Productivity and Costs"
+    fred: {series: PRS85006173, freq: quarterly}
+    unit: index
+    precision: 1
+    suffix: ""
+    extreme: min
+    keywords: [productivity, wage share, labor share, paychecks, workers pay, profit margins, corporate profits]
+    question: Are workers keeping their share of what they produce?
+    answer: "Labor's share of US nonfarm output sits at {value} on the 2017=100 index ({date}) — {extreme} since the series began in 1947."
+    validated: "live series probe 2026-10-05"
+
 removed:
   - "naep_reading: no plain all-student average-scale-score statvar in DC as of 2026-09-30
     (only demographic slices + CumulativeAtAdvanced); education stack-up to come from CT

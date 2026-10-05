@@ -7,7 +7,7 @@ import re
 import time
 
 from . import cards, charts, config, feeds, questions, util
-from .sources import census1yr, datacommons, socrata
+from .sources import census1yr, datacommons, fred, socrata
 
 
 def build_board(catalog: dict) -> dict:
@@ -102,6 +102,16 @@ def _answer_stackup(proposal: dict, item: dict) -> dict | None:
     return cards.from_stackup(item, proposal, result, trend_rows=trend_rows)
 
 
+def _answer_national(proposal: dict, item: dict) -> dict | None:
+    fixture = config.FIXTURES_DIR / f"fred_{item['id']}.csv"
+    result = fred.observations(item, fixture=fixture if fixture.exists()
+                               else None)
+    if result is None:
+        print(f"  discard (no data): {item['id']} <- {proposal['headline']['title'][:60]}")
+        return None
+    return cards.from_national(item, proposal, result)
+
+
 def _answer_local(proposal: dict, item: dict | None, demo: bool) -> dict | None:
     if (item is None
             or not (item.get("columns")
@@ -142,11 +152,16 @@ def _record_redirect(old_id: str, new_id: str) -> None:
 def answer_proposals(proposals: list[dict], catalog: dict, demo: bool) -> list[dict]:
     stackup_by_id = {i["id"]: i for i in catalog.get("stackup", [])}
     local_by_id = {i["id"]: i for i in catalog.get("local", [])}
+    national_by_id = {i["id"]: i for i in catalog.get("national", [])}
     built = []
     for proposal in proposals:
         indicator_id = proposal.get("indicator_id")
         try:
-            if proposal["stream"] == "stackup" and indicator_id in stackup_by_id:
+            if indicator_id in national_by_id:
+                # routing follows the catalog section, not the proposal's
+                # label: a seed or LLM may call a national card "stackup"
+                card = _answer_national(proposal, national_by_id[indicator_id])
+            elif proposal["stream"] == "stackup" and indicator_id in stackup_by_id:
                 card = _answer_stackup(proposal, stackup_by_id[indicator_id])
             elif proposal["stream"] == "local":
                 card = _answer_local(proposal,
@@ -168,18 +183,22 @@ def load_fixture_headlines() -> list[dict]:
 
 
 def balance_by_topic(new_cards: list[dict]) -> list[dict]:
-    best: dict[str, dict] = {}
+    """One fresh card per (topic, indicator) per cycle. The cap used to be
+    per topic, which meant one jobs-report headline could only ever publish
+    one labor question — the deck effect needs every honest angle on the
+    same day, while never two vintages of the same indicator."""
+    best: dict[tuple, dict] = {}
     for card in new_cards:
-        topic = card["topic"]
+        key = (card["topic"], card.get("indicator"))
         score = card["headline"].get("published_sort") or 0
-        current = best.get(topic)
+        current = best.get(key)
         if current is None or score > (current["headline"].get("published_sort") or 0):
-            best[topic] = card
+            best[key] = card
     kept = list(best.values())
     kept_ids = {c["id"] for c in kept}
     for card in new_cards:
         if card["id"] not in kept_ids:
-            print(f"  balanced out (topic cap): {card['topic']} / {card['indicator']}")
+            print(f"  balanced out (one per topic+indicator): {card['topic']} / {card['indicator']}")
     return kept
 
 
@@ -236,7 +255,26 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
     touched = 0
     for cid, card in list(cards_by_id.items()):
         ind = by_id.get(card.get("indicator"))
-        if not ind or card.get("stream") != "stackup":
+        if not ind or card.get("stream") not in ("stackup", "national"):
+            continue
+        if ind.get("fred"):
+            res = fred.observations(
+                ind, fixture=config.FIXTURES_DIR / f"fred_{ind['id']}.csv")
+            new_date = (res or {}).get("date")
+            old_date = (card.get("answer_values") or {}).get("date")
+            if not new_date or new_date <= old_date:
+                continue
+            proposal = {"headline": card["headline"],
+                        "question_override": card["question"],
+                        "indicator_id": ind["id"]}
+            new = cards.from_national(ind, proposal, res)
+            if new["id"] != cid:
+                continue
+            new["generated_at"] = card["generated_at"]
+            cards_by_id[cid] = new
+            touched += 1
+            print(f"  ~ revalidated [national/{card['topic']}] "
+                  f"{ind['id']}: {old_date} -> {new_date}")
             continue
         result = None
         if ind.get("census1yr"):
@@ -327,7 +365,8 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
 
     config.ASKED_LOG_PATH.parent.mkdir(exist_ok=True)
     config.ASKED_LOG_PATH.write_text(json.dumps(asked, indent=2, sort_keys=True))
-    by_id = {i["id"]: i for s in ("stackup", "local") for i in catalog.get(s, [])}
+    by_id = {i["id"]: i for s in ("stackup", "local", "national")
+             for i in catalog.get(s, [])}
     revalidated = _revalidate(cards_by_id, by_id)
     if revalidated:
         print(f"  revalidation: {revalidated} card(s) now carry newer numbers")

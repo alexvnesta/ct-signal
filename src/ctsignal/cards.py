@@ -13,7 +13,10 @@ def _now() -> str:
 def display(indicator: dict, value: float) -> str:
     prefix = indicator.get("prefix", "")
     suffix = indicator.get("suffix", "")
-    precision = ".1f" if indicator.get("unit") == "percent" else ",.0f"
+    if "precision" in indicator:      # explicit decimals (weeks, indices)
+        precision = f".{indicator['precision']}f"
+    else:
+        precision = ".1f" if indicator.get("unit") == "percent" else ",.0f"
     return f"{prefix}{value:{precision}}{suffix}"
 
 
@@ -88,6 +91,40 @@ def from_stackup(indicator: dict, proposal: dict, result: dict,
             result.get("citation")
             or f"https://datacommons.org/data/commons/{indicator['dcid']}",
         ],
+        "query": result["query"],
+        "cache": result.get("cache", False),
+    }
+
+
+def from_national(item: dict, proposal: dict, result: dict) -> dict:
+    """A card about the national context, from a series with no state
+    breakdown. No fake Connecticut angle, no invented peers: the answer
+    says US, the trend chart is the picture, and the extreme phrase is
+    computed, not written."""
+    question = proposal.get("question_override") or item["question"]
+    disp = _display(item, result["value"])
+    answer = item["answer"].format(
+        value=disp.strip("$") if item.get("prefix") else disp,
+        date=result["date"],
+        extreme=result["extreme"],
+    )
+    return {
+        "id": _card_id(item["id"], question),
+        "generated_at": _now(),
+        "stream": "national",
+        "topic": item["topic"],
+        "indicator": item["id"],
+        "headline": proposal["headline"],
+        "question": question,
+        "answer_text": answer,
+        "answer_values": {"value": result["value"], "date": result["date"]},
+        "series_freq": item.get("fred", {}).get("freq", "monthly"),
+        "chart_kind": "trend",
+        "chart": charts.trend(result["rows"], title=item["title"],
+                              unit=item.get("unit", ""),
+                              highlight_series="United States"),
+        "chart2": None,
+        "citations": [result["citation"]],
         "query": result["query"],
         "cache": result.get("cache", False),
     }
