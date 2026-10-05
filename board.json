@@ -11,20 +11,20 @@
         "background": "transparent",
         "config": {
           "axis": {
-            "domainColor": "#26313d",
-            "gridColor": "#26313d",
-            "labelColor": "#9fb0bf",
-            "tickColor": "#26313d",
-            "titleColor": "#9fb0bf"
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68"
           },
           "legend": {
-            "labelColor": "#9fb0bf",
+            "labelColor": "#4c5a68",
             "symbolStrokeWidth": 0,
-            "titleColor": "#9fb0bf"
+            "titleColor": "#4c5a68"
           },
           "title": {
-            "color": "#eef2f5",
-            "subtitleColor": "#9fb0bf"
+            "color": "#1c2733",
+            "subtitleColor": "#66717e"
           },
           "view": {
             "continuousHeight": 300,
@@ -358,8 +358,8 @@
                 false
               ],
               "range": [
-                "#f2a65a",
-                "#9aa5b1"
+                "#d9772b",
+                "#b9b3a6"
               ]
             },
             "type": "nominal"
@@ -481,20 +481,20 @@
         "background": "transparent",
         "config": {
           "axis": {
-            "domainColor": "#26313d",
-            "gridColor": "#26313d",
-            "labelColor": "#9fb0bf",
-            "tickColor": "#26313d",
-            "titleColor": "#9fb0bf"
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68"
           },
           "legend": {
-            "labelColor": "#9fb0bf",
+            "labelColor": "#4c5a68",
             "symbolStrokeWidth": 0,
-            "titleColor": "#9fb0bf"
+            "titleColor": "#4c5a68"
           },
           "title": {
-            "color": "#eef2f5",
-            "subtitleColor": "#9fb0bf"
+            "color": "#1c2733",
+            "subtitleColor": "#66717e"
           },
           "view": {
             "continuousHeight": 300,
@@ -555,25 +555,25 @@
             {
               "highlight": false,
               "rank": 9,
-              "state": "Nevada",
-              "value": 5.1
-            },
-            {
-              "highlight": false,
-              "rank": 10,
               "state": "Kentucky",
               "value": 5.1
             },
             {
               "highlight": false,
+              "rank": 10,
+              "state": "Nevada",
+              "value": 5.1
+            },
+            {
+              "highlight": false,
               "rank": 11,
-              "state": "Delaware",
+              "state": "Texas",
               "value": 4.8
             },
             {
               "highlight": false,
               "rank": 12,
-              "state": "Texas",
+              "state": "Delaware",
               "value": 4.8
             },
             {
@@ -585,13 +585,13 @@
             {
               "highlight": false,
               "rank": 14,
-              "state": "Florida",
+              "state": "Illinois",
               "value": 4.6
             },
             {
               "highlight": false,
               "rank": 15,
-              "state": "Illinois",
+              "state": "Minnesota",
               "value": 4.6
             },
             {
@@ -603,13 +603,13 @@
             {
               "highlight": false,
               "rank": 17,
-              "state": "Oklahoma",
+              "state": "Florida",
               "value": 4.6
             },
             {
               "highlight": false,
               "rank": 18,
-              "state": "Minnesota",
+              "state": "Oklahoma",
               "value": 4.6
             },
             {
@@ -633,13 +633,13 @@
             {
               "highlight": false,
               "rank": 22,
-              "state": "Maryland",
+              "state": "Kansas",
               "value": 4.2
             },
             {
               "highlight": false,
               "rank": 23,
-              "state": "Kansas",
+              "state": "Maryland",
               "value": 4.2
             },
             {
@@ -651,13 +651,13 @@
             {
               "highlight": false,
               "rank": 25,
-              "state": "South Carolina",
+              "state": "Colorado",
               "value": 4.1
             },
             {
               "highlight": false,
               "rank": 26,
-              "state": "Colorado",
+              "state": "South Carolina",
               "value": 4.1
             },
             {
@@ -669,13 +669,13 @@
             {
               "highlight": false,
               "rank": 28,
-              "state": "Missouri",
+              "state": "Mississippi",
               "value": 3.9
             },
             {
               "highlight": false,
               "rank": 29,
-              "state": "Mississippi",
+              "state": "Missouri",
               "value": 3.9
             },
             {
@@ -687,31 +687,31 @@
             {
               "highlight": false,
               "rank": 31,
-              "state": "Alaska",
-              "value": 3.7
-            },
-            {
-              "highlight": false,
-              "rank": 32,
               "state": "Alabama",
               "value": 3.7
             },
             {
               "highlight": false,
-              "rank": 33,
+              "rank": 32,
               "state": "North Carolina",
               "value": 3.7
             },
             {
               "highlight": false,
-              "rank": 34,
+              "rank": 33,
               "state": "Virginia",
               "value": 3.7
             },
             {
               "highlight": false,
+              "rank": 34,
+              "state": "Alaska",
+              "value": 3.7
+            },
+            {
+              "highlight": false,
               "rank": 35,
-              "state": "Indiana",
+              "state": "Rhode Island",
               "value": 3.6
             },
             {
@@ -723,37 +723,37 @@
             {
               "highlight": false,
               "rank": 37,
-              "state": "Utah",
+              "state": "Indiana",
               "value": 3.6
             },
             {
               "highlight": false,
               "rank": 38,
-              "state": "Rhode Island",
+              "state": "Utah",
               "value": 3.6
             },
             {
               "highlight": false,
               "rank": 39,
-              "state": "Iowa",
-              "value": 3.4
-            },
-            {
-              "highlight": false,
-              "rank": 40,
-              "state": "Idaho",
-              "value": 3.4
-            },
-            {
-              "highlight": false,
-              "rank": 41,
               "state": "Ohio",
               "value": 3.4
             },
             {
               "highlight": false,
-              "rank": 42,
+              "rank": 40,
+              "state": "Iowa",
+              "value": 3.4
+            },
+            {
+              "highlight": false,
+              "rank": 41,
               "state": "Wisconsin",
+              "value": 3.4
+            },
+            {
+              "highlight": false,
+              "rank": 42,
+              "state": "Idaho",
               "value": 3.4
             },
             {
@@ -828,8 +828,8 @@
                 false
               ],
               "range": [
-                "#f2a65a",
-                "#9aa5b1"
+                "#d9772b",
+                "#b9b3a6"
               ]
             },
             "type": "nominal"
@@ -951,20 +951,20 @@
         "background": "transparent",
         "config": {
           "axis": {
-            "domainColor": "#26313d",
-            "gridColor": "#26313d",
-            "labelColor": "#9fb0bf",
-            "tickColor": "#26313d",
-            "titleColor": "#9fb0bf"
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68"
           },
           "legend": {
-            "labelColor": "#9fb0bf",
+            "labelColor": "#4c5a68",
             "symbolStrokeWidth": 0,
-            "titleColor": "#9fb0bf"
+            "titleColor": "#4c5a68"
           },
           "title": {
-            "color": "#eef2f5",
-            "subtitleColor": "#9fb0bf"
+            "color": "#1c2733",
+            "subtitleColor": "#66717e"
           },
           "view": {
             "continuousHeight": 300,
@@ -1298,8 +1298,8 @@
                 false
               ],
               "range": [
-                "#f2a65a",
-                "#9aa5b1"
+                "#d9772b",
+                "#b9b3a6"
               ]
             },
             "type": "nominal"
@@ -1421,20 +1421,20 @@
         "background": "transparent",
         "config": {
           "axis": {
-            "domainColor": "#26313d",
-            "gridColor": "#26313d",
-            "labelColor": "#9fb0bf",
-            "tickColor": "#26313d",
-            "titleColor": "#9fb0bf"
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68"
           },
           "legend": {
-            "labelColor": "#9fb0bf",
+            "labelColor": "#4c5a68",
             "symbolStrokeWidth": 0,
-            "titleColor": "#9fb0bf"
+            "titleColor": "#4c5a68"
           },
           "title": {
-            "color": "#eef2f5",
-            "subtitleColor": "#9fb0bf"
+            "color": "#1c2733",
+            "subtitleColor": "#66717e"
           },
           "view": {
             "continuousHeight": 300,
@@ -1768,8 +1768,8 @@
                 false
               ],
               "range": [
-                "#f2a65a",
-                "#9aa5b1"
+                "#d9772b",
+                "#b9b3a6"
               ]
             },
             "type": "nominal"
@@ -1891,20 +1891,20 @@
         "background": "transparent",
         "config": {
           "axis": {
-            "domainColor": "#26313d",
-            "gridColor": "#26313d",
-            "labelColor": "#9fb0bf",
-            "tickColor": "#26313d",
-            "titleColor": "#9fb0bf"
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68"
           },
           "legend": {
-            "labelColor": "#9fb0bf",
+            "labelColor": "#4c5a68",
             "symbolStrokeWidth": 0,
-            "titleColor": "#9fb0bf"
+            "titleColor": "#4c5a68"
           },
           "title": {
-            "color": "#eef2f5",
-            "subtitleColor": "#9fb0bf"
+            "color": "#1c2733",
+            "subtitleColor": "#66717e"
           },
           "view": {
             "continuousHeight": 300,
@@ -2238,8 +2238,8 @@
                 false
               ],
               "range": [
-                "#f2a65a",
-                "#9aa5b1"
+                "#d9772b",
+                "#b9b3a6"
               ]
             },
             "type": "nominal"
@@ -2361,20 +2361,20 @@
         "background": "transparent",
         "config": {
           "axis": {
-            "domainColor": "#26313d",
-            "gridColor": "#26313d",
-            "labelColor": "#9fb0bf",
-            "tickColor": "#26313d",
-            "titleColor": "#9fb0bf"
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68"
           },
           "legend": {
-            "labelColor": "#9fb0bf",
+            "labelColor": "#4c5a68",
             "symbolStrokeWidth": 0,
-            "titleColor": "#9fb0bf"
+            "titleColor": "#4c5a68"
           },
           "title": {
-            "color": "#eef2f5",
-            "subtitleColor": "#9fb0bf"
+            "color": "#1c2733",
+            "subtitleColor": "#66717e"
           },
           "view": {
             "continuousHeight": 300,
@@ -2708,8 +2708,8 @@
                 false
               ],
               "range": [
-                "#f2a65a",
-                "#9aa5b1"
+                "#d9772b",
+                "#b9b3a6"
               ]
             },
             "type": "nominal"

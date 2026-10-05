@@ -6,24 +6,6 @@
   "items": [
     {
       "_tags": [
-        "housing"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 155304,
-          "url": "https://ctsignal.org/assets/story-0125297ea839.png"
-        }
-      ],
-      "content_text": "Connecticut's median gross rent was $1,550 in 2024, the 17th-highest of 52 peers. Source: CT Mirror \u2014 Your next car will be a luxury",
-      "date_published": "2026-10-05T18:51:45+00:00",
-      "id": "https://ctsignal.org/story/0125297ea839",
-      "image": "https://ctsignal.org/assets/story-0125297ea839.png",
-      "title": "How expensive is renting in Connecticut compared to the rest of America?",
-      "url": "https://ctsignal.org/story/0125297ea839"
-    },
-    {
-      "_tags": [
         "local-finance"
       ],
       "attachments": [
@@ -34,7 +16,7 @@
         }
       ],
       "content_text": "In fiscal year 2027, Hartford taxes real property at 69.95 mills, 2.6 times the 26.66-mill rate that property pays statewide across 168 towns. Source: civic calendar \u2014 [civic calendar] municipal budgets adopted for fiscal 2027 (July 1) make the new mill rates the operative tax facts; budget-adopt coverage is seasonal and may not mention rates at all",
-      "date_published": "2026-10-05T18:51:09+00:00",
+      "date_published": "2026-10-05T20:28:08+00:00",
       "id": "https://ctsignal.org/story/a3514b53fb39",
       "image": "https://ctsignal.org/assets/story-a3514b53fb39.png",
       "title": "Which Connecticut town has the highest property tax rate?",
@@ -52,11 +34,65 @@
         }
       ],
       "content_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest growth of 169 towns. Source: civic calendar \u2014 [civic calendar] 2026 general election (governor's race)",
-      "date_published": "2026-10-05T18:51:05+00:00",
+      "date_published": "2026-10-05T20:28:08+00:00",
       "id": "https://ctsignal.org/story/b37766e764aa",
       "image": "https://ctsignal.org/assets/story-b37766e764aa.png",
       "title": "Which Connecticut towns grew their property tax base fastest?",
       "url": "https://ctsignal.org/story/b37766e764aa"
+    },
+    {
+      "_tags": [
+        "equity"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 154980,
+          "url": "https://ctsignal.org/assets/story-797faed5a836.png"
+        }
+      ],
+      "content_text": "10.2% of Connecticut residents live below the poverty line (2024), the 15th-lowest of 52 peers. Source: civic calendar \u2014 [civic calendar] Fall safety-net and benefits enrollment coverage",
+      "date_published": "2026-10-05T20:28:07+00:00",
+      "id": "https://ctsignal.org/story/797faed5a836",
+      "image": "https://ctsignal.org/assets/story-797faed5a836.png",
+      "title": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
+      "url": "https://ctsignal.org/story/797faed5a836"
+    },
+    {
+      "_tags": [
+        "housing"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 155304,
+          "url": "https://ctsignal.org/assets/story-0125297ea839.png"
+        }
+      ],
+      "content_text": "Connecticut's median gross rent was $1,550 in 2024, the 17th-highest of 52 peers. Source: CT Examiner \u2014 Fazio Pitches \u2018Grand Bargain\u2019 to Lower Housing Costs, Preserve Local Control",
+      "date_published": "2026-10-05T20:28:06+00:00",
+      "id": "https://ctsignal.org/story/0125297ea839",
+      "image": "https://ctsignal.org/assets/story-0125297ea839.png",
+      "title": "How expensive is renting in Connecticut compared to the rest of America?",
+      "url": "https://ctsignal.org/story/0125297ea839"
+    },
+    {
+      "_tags": [
+        "housing"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 153326,
+          "url": "https://ctsignal.org/assets/story-517fafa716bc.png"
+        }
+      ],
+      "content_text": "The median Connecticut home is worth $396,900 (2024), the 19th-highest of 52 peers. Source: CT Examiner \u2014 Fazio Pitches \u2018Grand Bargain\u2019 to Lower Housing Costs, Preserve Local Control",
+      "date_published": "2026-10-05T20:28:06+00:00",
+      "id": "https://ctsignal.org/story/517fafa716bc",
+      "image": "https://ctsignal.org/assets/story-517fafa716bc.png",
+      "title": "Are Connecticut homes expensive by national standards?",
+      "url": "https://ctsignal.org/story/517fafa716bc"
     },
     {
       "_tags": [
@@ -75,42 +111,6 @@
       "image": "https://ctsignal.org/assets/story-ed851796295a.png",
       "title": "How safe is Connecticut compared with the rest of the country?",
       "url": "https://ctsignal.org/story/ed851796295a"
-    },
-    {
-      "_tags": [
-        "housing"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 153326,
-          "url": "https://ctsignal.org/assets/story-517fafa716bc.png"
-        }
-      ],
-      "content_text": "The median Connecticut home is worth $396,900 (2024), the 19th-highest of 52 peers. Source: CT Mirror \u2014 Your next car will be a luxury",
-      "date_published": "2026-10-05T18:51:03+00:00",
-      "id": "https://ctsignal.org/story/517fafa716bc",
-      "image": "https://ctsignal.org/assets/story-517fafa716bc.png",
-      "title": "Are Connecticut homes expensive by national standards?",
-      "url": "https://ctsignal.org/story/517fafa716bc"
-    },
-    {
-      "_tags": [
-        "equity"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 154980,
-          "url": "https://ctsignal.org/assets/story-797faed5a836.png"
-        }
-      ],
-      "content_text": "10.2% of Connecticut residents live below the poverty line (2024), the 15th-lowest of 52 peers. Source: CT Mirror \u2014 A renewed plea to safeguard SNAP in the Farm Bill",
-      "date_published": "2026-10-05T18:51:01+00:00",
-      "id": "https://ctsignal.org/story/797faed5a836",
-      "image": "https://ctsignal.org/assets/story-797faed5a836.png",
-      "title": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "url": "https://ctsignal.org/story/797faed5a836"
     },
     {
       "_tags": [
