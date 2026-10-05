@@ -30,3 +30,8 @@ linkcheck: /towns.html -> /town/county-subdivisions-not-defined-lower-connecticu
 linkcheck: /towns.html -> /town/county-subdivisions-not-defined-south-central-connecticut-planning-region-connecticut
 linkcheck: /towns.html -> /town/county-subdivisions-not-defined-southeastern-connecticut-planning-region-connecticut
 linkcheck: /towns.html -> /town/county-subdivisions-not-defined-western-connecticut-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-greater-bridgeport-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-lower-connecticut-river-valley-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-south-central-connecticut-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-southeastern-connecticut-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-western-connecticut-planning-region-connecticut
