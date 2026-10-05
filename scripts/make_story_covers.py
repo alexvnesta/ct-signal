@@ -136,21 +136,15 @@ def thumb(card: dict) -> Image.Image | None:
         val_txt = f"{float(av.get('value', 0)):g}%"
     else:
         val_txt = f"{float(av.get('value', 0)):,.0f}"
-    fsize = 170
-    while fsize > 60 and d.textlength(val_txt, font=font(SANS, fsize, 1)) > 430:
+    # No caption line: at the size a board thumb actually displays (~216px
+    # wide) a 30px subtitle scales to ~5px — decoration, not text. The card
+    # itself spells out "across 52 peers"; the figure needs no help. So the
+    # number IS the art: as large as the left half allows, vertically centered.
+    fsize = 212
+    while fsize > 70 and d.textlength(val_txt, font=font(SANS, fsize, 1)) > 440:
         fsize -= 10
-    if is_trend:
-        cadence = ("Quarterly" if card.get("series_freq") == "quarterly"
-                   else "Monthly")
-        sub = f"US {cadence.lower()} series · {len(trows)} points"
-    else:
-        sub = (f"mills per $1,000 across {av.get('n') or len(rows)} towns"
-               if unit else
-               f"across {av.get('n') or len(rows)} peers")
-    block = fsize + 20 + 30
-    y0 = (H - block) // 2
+    y0 = (H - fsize) // 2
     d.text((56, y0), val_txt, font=font(SANS, fsize, 1), fill=INK)
-    d.text((58, y0 + fsize + 18), sub, font=font(SANS, 30), fill=DIM)
 
     # mini ranking: every peer as a bar, drawn in rank order — the same
     # shape as the story's chart, so the picture and the data agree.
@@ -174,7 +168,7 @@ def thumb(card: dict) -> Image.Image | None:
         pts = [(bar_lo + i * step,
                 base - 14 - (base - ceil_ - 14) * (r["value"] - lo) / span)
                for i, r in enumerate(trows)]
-        d.line(pts, fill=(140, 132, 116), width=4, joint="curve")
+        d.line(pts, fill=(118, 110, 94), width=5, joint="curve")
         d.ellipse((pts[-1][0] - 9, pts[-1][1] - 9,
                    pts[-1][0] + 9, pts[-1][1] + 9), fill=ACC)
     else:
