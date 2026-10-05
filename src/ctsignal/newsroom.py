@@ -155,8 +155,17 @@ def chart_intro(card: dict) -> tuple[str, str]:
                  f'{card["answer_text"]}')
         return desc, label
     if card.get("stream") == "local":
-        desc = ("Top 10 Connecticut towns by net grand list growth; the "
-                "fastest town highlighted in orange. Source and query below.")
+        # Derived from the chart's own data: a memorized sentence fitted
+        # one dataset and lied about the next (it claimed grand-list
+        # growth under a mill-rate chart for exactly one commit).
+        chart = card.get("chart") or {}
+        ct = chart.get("title") or {}
+        what = ct.get("text") if isinstance(ct, dict) else str(ct)
+        cd = (chart.get("data") or {}).get("values", [])
+        hl = next((r.get("state") for r in cd if r.get("highlight")), None)
+        desc = (f'{what or "Connecticut towns ranked"}; '
+                f'{f"{hl} highlighted in orange" if hl else "ranked first to last"}'
+                ". Source and query below.")
         label = (f'Town ranking chart for “{card["question"]}”. '
                  f'{card["answer_text"]}')
     elif kind == "trend":
@@ -246,13 +255,26 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
               f'{_ESC(card["topic"])}</a> · {_ESC(card["stream"])} desk'
               f'{cache_badge}')
     og = _story_og(card)
+    # On a story page the social cover IS the headline treatment: same words,
+    # one voice, so the page matches its own preview instead of printing the
+    # question twice. The real h1 stays in the document — behind the art, not
+    # deleted from it — for assistive tech and for readers with images off.
+    hero_art, h1 = "", f'<h1 class="vh">{q}</h1>'
+    cover = config.ROOT / "assets" / f"story-{card['id']}.png"
+    if cover.exists():
+        hero_art = (f'<img class="storyhero" src="/assets/story-{card["id"]}.png"'
+                    f' width="1200" height="630" alt="{q} {a}">')
+    else:
+        h1 = ('<h1 style="font:700 clamp(1.6rem,4vw,2.3rem)/1.2 '
+              'var(--serif);margin:.4rem 0 .3rem">' + q + '</h1>')
+    lede = f'<div class="answerbox">{a}</div>' if not hero_art else ""
     body = f"""<div class="wrap col">
 <div class="breadcrumb"><a href="/">← The board</a></div>
 <div class="kicker">{kicker}</div>
-<h1 style="font:700 clamp(1.6rem,4vw,2.3rem)/1.2 var(--serif);margin:.4rem 0 .3rem">{q}</h1>
+{hero_art}{h1}
 <div class="meta">Published {_pretty_time(card["generated_at"])} · CT Signal
 automated data desk</div>
-<div class="answerbox">{a}</div>{_place_line(card)}{_vote_widget(card)}
+{lede}{_place_line(card)}{_vote_widget(card)}
 <div class="card"><div class="label">The data</div>{chart}{chart2}{shareline}</div>
 {_trigger_html(card)}
 {_siblings_html(card, siblings)}

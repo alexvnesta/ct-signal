@@ -107,6 +107,24 @@ def og_cover():
         _og_flat()
 
 
+def masthead():
+    # Site nameplate band: the digest art with the SITE tagline, so the
+    # board opens like a paper. Same recipe, different line under the mark.
+    src = os.path.join(SRC, "hero-contours.webp")
+    try:
+        img = duotone(src, 1200, 200, BG, ACC, gamma=0.9, invert=True).convert("RGBA")
+        mark = dot_map(170, None, ACC, grid=None)
+        img.paste(mark, (1200 - mark.width - 60, (200 - mark.height) // 2), mark)
+        scrim(img, (46, 28, 660, 172), BG, 120)
+        d = ImageDraw.Draw(img)
+        brand(d, 70, 40, 72)
+        d.text((72, 146), "Know where you live.  ·  public data, receipts attached",
+               font=font(SANS, 22), fill=DIM)
+        img.convert("RGB").save(OUT / "masthead.png", optimize=True)
+    except (OSError, ValueError):
+        pass  # board simply renders without the band
+
+
 def digest_header():
     # Header band for the weekly email: contour weave, inverted to brand colours.
     src = os.path.join(SRC, "hero-contours.webp")
@@ -151,6 +169,7 @@ font-size="28" fill="#e9eef4">CT</text>
 if __name__ == "__main__":
     og_cover()
     digest_header()
+    masthead()
     favicon_png(32, OUT / "favicon-32.png")
     favicon_png(192, OUT / "icon-192.png")
     favicon_png(512, OUT / "icon-512.png")

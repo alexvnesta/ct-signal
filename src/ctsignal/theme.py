@@ -86,6 +86,12 @@ nav.sitebar a.rss{margin-left:auto;color:var(--acc)}
 
 /* ---------------------------------------------------------------- hero --- */
 .hero{padding:2.4rem 0 .6rem;max-width:var(--col)}
+.masthead{display:block;width:100%;height:auto;border-radius:12px;
+margin:1rem 0 -.6rem;aspect-ratio:6/1;object-fit:cover}
+.storyhero{display:block;width:100%;height:auto;border-radius:12px;
+margin:.6rem 0 0;border:1px solid var(--line)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+white-space:nowrap;border:0;padding:0;margin:-1px;clip-path:inset(50%)}
 .kicker{color:var(--acc);font-weight:800;font-size:.78rem;letter-spacing:.18em;
   text-transform:uppercase;text-wrap:balance}
 .hero h1{font:700 clamp(1.7rem,4.5vw,2.5rem)/1.18 var(--serif);margin:.5rem 0 .8rem;

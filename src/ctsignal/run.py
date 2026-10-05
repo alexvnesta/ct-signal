@@ -82,7 +82,8 @@ def _asked_key(card: dict) -> str:
     import hashlib
     vals = card.get("answer_values") or {}
     when = vals.get("date") or ""
-    shape = json.dumps({"t": card.get("answer_text", ""), "v": vals},
+    shape = json.dumps({"t": card.get("answer_text", ""), "v": vals,
+                        "c": card.get("chart")},
                        sort_keys=True, default=str)
     sig = hashlib.sha1(shape.encode()).hexdigest()[:10]
     return f"{card['indicator']}:{card['question'][:80]}:{when}:{sig}"

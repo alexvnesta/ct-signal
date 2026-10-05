@@ -153,7 +153,14 @@ and the exact query →</a></p>
 </div></section>"""
 
     n_peers = (board.get("tiles") or [{}])[0].get("n", "52")
-    body = f"""{hero}
+    mast = ""
+    masthead = config.ROOT / "assets" / "masthead.png"
+    if masthead.exists():
+        mast = ('<div class="wrap"><img class="masthead" '
+                'src="/assets/masthead.png" width="1200" height="200" '
+                'alt="CT Signal — public data, receipts attached"></div>')
+    body = f"""{mast}
+{hero}
 <section><div class="wrap">
 <div class="sechead"><h2>The Connecticut board</h2>
 <p class="sechelp">Where we stand among our peers — refreshed with every data

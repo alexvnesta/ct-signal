@@ -92,8 +92,14 @@ def thumb(card: dict) -> Image.Image | None:
     d = ImageDraw.Draw(img)
     ans = card["answer_text"]
     av = card.get("answer_values") or {}
+    unit = ""
     if card.get("stream") == "local" and isinstance(av.get("top"), dict):
-        val_txt = f"+{av['top']['pct']:.1f}%"
+        top = av["top"]
+        if "pct" in top:
+            val_txt = f"+{top['pct']:.1f}%"
+        elif "rate" in top:  # mill-rate grammar: the rate is the figure
+            val_txt = f"{top['rate']:.2f}"
+            unit = " mills per $1,000"
     elif "$" in ans:
         val_txt = f"${float(av.get('value', 0)):,.0f}"
     elif "%" in ans:
@@ -103,7 +109,7 @@ def thumb(card: dict) -> Image.Image | None:
     fsize = 170
     while fsize > 60 and d.textlength(val_txt, font=font(SANS, fsize, 1)) > 430:
         fsize -= 10
-    sub = f"across {av.get('n') or len(rows)} peers"
+    sub = f"across {av.get('n') or len(rows)} peers" + unit
     block = fsize + 20 + 30
     y0 = (H - block) // 2
     d.text((56, y0), val_txt, font=font(SANS, fsize, 1), fill=INK)

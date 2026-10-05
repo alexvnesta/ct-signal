@@ -130,7 +130,7 @@ local:
       grand_list_id: webp-fgt3
       grand_list_year: 2025
     question: Which Connecticut town has the highest property tax rate?
-    chart_label: Property tax rate (mills per $1,000)
+    chart_label: Property tax rate
     keywords: [mill rate, property tax, tax bill, budget, town council, assessment]
     answer: "In fiscal year {fiscal_year}, {top_town} taxes real property at
       {rate} mills, {multiple} times the {state}-mill rate that property pays

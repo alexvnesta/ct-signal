@@ -46,11 +46,16 @@ def _highlight_color() -> dict:
 def rank_strip(rows: list[dict], *, title: str, unit: str = "",
              peer_word: str = "Peer") -> dict:
     order = [r["state"] for r in sorted(rows, key=lambda r: -r["rank"])]
+    hl = next((r["state"] for r in rows if r.get("highlight")), None)
+    sub = (f'{hl} highlighted' if hl else
+           'orange marks the peer the story is about')
+    axis = (f'{title} ({unit})' if unit and unit not in title
+            else f'{title}{f" ({unit})" if unit else ""}')
     chart = (
         alt.Chart(alt.Data(values=rows))
         .mark_bar(tooltip=False)
         .encode(
-            x=alt.X("value:Q").title(f"{title}{f' ({unit})' if unit else ''}")
+            x=alt.X("value:Q").title(axis)
                 .axis(alt.Axis(format=_tick_fmt(unit))),
             y=alt.Y("state:N").sort(order).title(None),
             color=cast(Any, _highlight_color()),
@@ -61,7 +66,7 @@ def rank_strip(rows: list[dict], *, title: str, unit: str = "",
             ],
         )
         .properties(width="container", height=max(140, 14 * len(rows)),
-                    title=alt.TitleParams(text=title, subtitle="Connecticut highlighted"))
+                    title=alt.TitleParams(text=title, subtitle=sub))
     )
     chart = _dark(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
