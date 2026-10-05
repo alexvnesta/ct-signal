@@ -235,6 +235,13 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
                            caption="Peer map; Connecticut outlined. "
                                    "AlbersUSA omits DC and Puerto Rico.")
     cache_badge = ' <span class="badge">cache</span>' if card.get("cache") else ""
+    shareline = ""
+    if (config.ROOT / "assets" / f"share-{card['id']}.png").exists():
+        shareline = ('<p class="meta" style="margin:.5rem 0 0">'
+                     f'<a href="/assets/share-{card["id"]}.png">'
+                     "Download this chart (PNG, 2×)</a>"
+                     " &middot; rendered server-side from the same spec "
+                     "you see above.</p>")
     kicker = (f'<a class="klink" href="/topic/{_ESC(card["topic"])}">'
               f'{_ESC(card["topic"])}</a> · {_ESC(card["stream"])} desk'
               f'{cache_badge}')
@@ -246,7 +253,7 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
 <div class="meta">Published {_pretty_time(card["generated_at"])} · CT Signal
 automated data desk</div>
 <div class="answerbox">{a}</div>{_place_line(card)}{_vote_widget(card)}
-<div class="card"><div class="label">The data</div>{chart}{chart2}</div>
+<div class="card"><div class="label">The data</div>{chart}{chart2}{shareline}</div>
 {_trigger_html(card)}
 {_siblings_html(card, siblings)}
 {_provenance_html(card)}
@@ -435,13 +442,14 @@ def sitemap_xml(cards: list[dict]) -> str:
 
 def write_all(cards: list[dict]) -> None:
     """Idempotent: rebuilds every story page, archive copy, feeds, sitemap."""
-    from . import pages
+    from . import pages, share
 
     pages.write_pages()
     assets = config.ROOT / "assets"
     assets.mkdir(exist_ok=True)
     util.atomic_write_text(assets / "site.css", theme.CSS)
     for card in cards:
+        share.export(card, assets)   # before the story renders its link
         arch = config.ARCHIVE_DIR / card["generated_at"][:7]
         arch.mkdir(parents=True, exist_ok=True)
         (arch / f"{card['id']}.json").write_text(

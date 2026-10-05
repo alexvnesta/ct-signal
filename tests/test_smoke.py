@@ -217,5 +217,64 @@ class TestNationalDeck(unittest.TestCase):
         self.assertNotIn("Same headline", newsroom.story_html(a, [a]))
 
 
+class TestShareExport(unittest.TestCase):
+    """The share PNG is the page's chart, frozen: same engine, same spec,
+    and its absence must degrade a page, never break a cycle."""
+
+    def _card(self):
+        result = {
+            "value": 3.3, "date": "2026-08",
+            "rows": [{"date": d, "series": "United States", "value": v}
+                     for d, v in [("2020-01", 4.1), ("2021-05", 4.4),
+                                  ("2026-08", 3.3)]],
+            "extreme": "lowest on record",
+            "citation": "https://fred.stlouisfed.org/series/JTSHIR",
+            "query": "FRED fredgraph.csv id=JTSHIR", "cache": False,
+        }
+        return cards.from_national(
+            TestNationalDeck.ITEM,
+            {"headline": {"id": "h", "title": "t", "url": "u"}}, result)
+
+    def test_export_writes_png_and_skips_unchanged(self):
+        import tempfile
+        from ctsignal import share
+        card = self._card()
+        with tempfile.TemporaryDirectory() as td:
+            path = share.export(card, pathlib.Path(td))
+            if path is None:
+                self.skipTest("vl-convert unavailable in this interpreter")
+            self.assertEqual(path.read_bytes()[:4], b"\x89PNG")
+            mtime = path.stat().st_mtime_ns
+            again = share.export(card, pathlib.Path(td))
+            self.assertEqual(again, path)
+            self.assertEqual(path.stat().st_mtime_ns, mtime,
+                             "unchanged spec must not re-render")
+
+    def test_export_never_raises(self):
+        import tempfile
+        from ctsignal import share
+        with tempfile.TemporaryDirectory() as td:
+            self.assertIsNone(share.export({"id": "x"}, pathlib.Path(td)))
+            self.assertIsNone(share.export(
+                {"id": "z", "chart": {"marks": "not-a-list"}},
+                pathlib.Path(td)))
+
+    def test_story_links_download_when_file_exists(self):
+        trig = {"id": "h", "title": "t", "url": "u", "source": "s"}
+        card = dict(TestNationalDeck.ITEM, id="aa", stream="national",
+                    headline=trig, answer_text="A", chart_kind="trend",
+                    series_freq="monthly", chart={"marks": []}, chart2=None,
+                    citations=["https://f"], query="q", cache=False,
+                    generated_at="2026-10-05T00:00:00+00:00")
+        f = config.ROOT / "assets" / "share-aa.png"
+        try:
+            f.write_bytes(b"\x89PNG fake")
+            page = newsroom.story_html(card, [card])
+            self.assertIn("Download this chart", page)
+            self.assertIn("/assets/share-aa.png", page)
+        finally:
+            f.unlink(missing_ok=True)
+
+
 if __name__ == "__main__":
     unittest.main()
