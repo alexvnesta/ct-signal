@@ -236,6 +236,40 @@ national:
     answer: "Labor's share of US nonfarm output sits at {value} on the 2017=100 index ({date}) — {extreme} since the series began in 1947."
     validated: "live series probe 2026-10-05"
 
+  - id: jobless_claims
+    topic: economy
+    title: Initial jobless claims (weekly)
+    agency: "US Department of Labor, Weekly Unemployment Insurance Claims"
+    geo: United States
+    fred: {series: ICSA, freq: weekly}
+    unit: claims
+    suffix: ""
+    extreme: max
+    keywords: [jobless claim, jobless claims, unemployment claim, pink slip,
+               walking papers, restructuring, workforce reduction, downsizing]
+    question: How many Americans just lost their jobs?
+    answer: "{value} Americans filed first-time unemployment claims in the
+      week ending {date} — {extreme} for a series that has printed every week
+      since 1967."
+    validated: "live series probe 2026-10-05 (raw counts, first row 1967-01-07)"
+
+  - id: ct_unemployment
+    topic: economy
+    title: Connecticut unemployment rate
+    agency: "US Bureau of Labor Statistics, Local Area Unemployment Statistics"
+    geo: Connecticut
+    fred: {series: CTUR}
+    unit: percent
+    suffix: "%"
+    extreme: max
+    keywords: [connecticut unemployment, connecticut jobless, connecticut
+               labor market, connecticut jobs, connecticut economy]
+    question: Is Connecticut's job market loosening?
+    answer: "{value} of Connecticut's workforce was unemployed in {date} —
+      {extreme} for a series that has run monthly since 1976."
+    validated: "live series probe 2026-10-05 (first row 1976-01-01)"
+
+
 removed:
   - "naep_reading: no plain all-student average-scale-score statvar in DC as of 2026-09-30
     (only demographic slices + CumulativeAtAdvanced); education stack-up to come from CT
