@@ -82,10 +82,18 @@ def thumb(card: dict) -> Image.Image | None:
     itself carries kicker/question/answer; text inside the art just repeated
     them at unreadable size. What can't be repeated is the picture: every
     peer as a bar, Connecticut in orange, the number as art."""
-    rows = [r for r in ((card.get("chart") or {}).get("data") or {})
-            .get("values", []) if "value" in r and "rank" in r]
-    if len(rows) < 2:
-        return None
+    chart = card.get("chart") or {}
+    vals = (chart.get("data") or {}).get("values", [])
+    rows = [r for r in vals if "value" in r and "rank" in r]
+    trows = [r for r in vals if "date" in r and "value" in r
+             and "rank" not in r]
+    if not trows:  # time-series specs nest their data in the line layer
+        layer0 = (chart.get("layer") or [{}])[0]
+        trows = [r for r in (layer0.get("data") or {}).get("values", [])
+                 if "date" in r and "value" in r]
+    is_trend = len(rows) < 2 and len(trows) >= 12
+    if not is_trend:
+        return None  # nothing rankable and nothing to silhouette
     rows.sort(key=lambda r: r["rank"])
     W, H = 1200, 480
     img = Image.new("RGB", (W, H), BG2)
@@ -109,7 +117,14 @@ def thumb(card: dict) -> Image.Image | None:
     fsize = 170
     while fsize > 60 and d.textlength(val_txt, font=font(SANS, fsize, 1)) > 430:
         fsize -= 10
-    sub = f"across {av.get('n') or len(rows)} peers" + unit
+    if is_trend:
+        cadence = ("Quarterly" if card.get("series_freq") == "quarterly"
+                   else "Monthly")
+        sub = f"US {cadence.lower()} series · {len(trows)} points"
+    else:
+        sub = (f"mills per $1,000 across {av.get('n') or len(rows)} towns"
+               if unit else
+               f"across {av.get('n') or len(rows)} peers")
     block = fsize + 20 + 30
     y0 = (H - block) // 2
     d.text((56, y0), val_txt, font=font(SANS, fsize, 1), fill=INK)
@@ -118,18 +133,35 @@ def thumb(card: dict) -> Image.Image | None:
     # mini ranking: every peer as a bar, drawn in rank order — the same
     # shape as the story's chart, so the picture and the data agree.
     bar_lo, bar_hi, base, ceil_ = 520, 1150, H - 40, 40
-    step = (bar_hi - bar_lo) / len(rows)
-    bw = max(6, min(46, step * 0.66))
-    lo = min(r["value"] for r in rows)
-    hi = max(r["value"] for r in rows)
-    span = (hi - lo) or 1.0
+    if not is_trend:
+        step = (bar_hi - bar_lo) / len(rows)
+        bw = max(6, min(46, step * 0.66))
+        lo = min(r["value"] for r in rows)
+        hi = max(r["value"] for r in rows)
+        span = (hi - lo) or 1.0
     dim_bar = (40, 52, 66)
-    for i, r in enumerate(rows):
-        h = 14 + int((base - ceil_) * (r["value"] - lo) / span)
-        x0 = bar_lo + i * step
-        w = bw * 1.7 if r.get("highlight") else bw  # CT must be findable
-        d.rectangle((x0, base - h, x0 + w, base),
-                    fill=ACC if r.get("highlight") else dim_bar)
+    if is_trend:
+        # The series silhouette in time order: the shape IS the story
+        # (a collapse reads as a collapse). Orange dot = latest print,
+        # the one the answer quotes.
+        trows.sort(key=lambda r: str(r["date"]))
+        lo = min(r["value"] for r in trows)
+        hi = max(r["value"] for r in trows)
+        span = (hi - lo) or 1.0
+        step = (bar_hi - bar_lo) / (len(trows) - 1)
+        pts = [(bar_lo + i * step,
+                base - 14 - (base - ceil_ - 14) * (r["value"] - lo) / span)
+               for i, r in enumerate(trows)]
+        d.line(pts, fill=(96, 116, 140), width=4, joint="curve")
+        d.ellipse((pts[-1][0] - 9, pts[-1][1] - 9,
+                   pts[-1][0] + 9, pts[-1][1] + 9), fill=ACC)
+    else:
+        for i, r in enumerate(rows):
+            h = 14 + int((base - ceil_) * (r["value"] - lo) / span)
+            x0 = bar_lo + i * step
+            w = bw * 1.7 if r.get("highlight") else bw  # CT must be findable
+            d.rectangle((x0, base - h, x0 + w, base),
+                        fill=ACC if r.get("highlight") else dim_bar)
     # No site mark: this art sits inside our own page; the mark belongs on
     # the social cover, where the image travels without its context.
     d.line((bar_lo - 16, base + 1, bar_hi, base + 1), fill=LINE, width=2)
