@@ -1,11 +1,11 @@
 {
-  "answer_text": "Connecticut's unemployment rate is 5.8% (2026), the 3rd-highest of 52 peers.",
+  "answer_text": "Connecticut's unemployment rate is 5.1% (2026), the 2nd-highest of 9 peers.",
   "answer_values": {
-    "date": "2026-07",
-    "rank": 3,
-    "value": 5.8
+    "date": "2026-08",
+    "rank": 2,
+    "value": 5.1
   },
-  "cache": false,
+  "cache": true,
   "chart": {
     "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
     "autosize": {
@@ -14,20 +14,20 @@
     "background": "transparent",
     "config": {
       "axis": {
-        "domainColor": "#26313d",
-        "gridColor": "#26313d",
-        "labelColor": "#9fb0bf",
-        "tickColor": "#26313d",
-        "titleColor": "#9fb0bf"
+        "domainColor": "#b8b2a6",
+        "gridColor": "#e4dfd3",
+        "labelColor": "#4c5a68",
+        "tickColor": "#b8b2a6",
+        "titleColor": "#4c5a68"
       },
       "legend": {
-        "labelColor": "#9fb0bf",
+        "labelColor": "#4c5a68",
         "symbolStrokeWidth": 0,
-        "titleColor": "#9fb0bf"
+        "titleColor": "#4c5a68"
       },
       "title": {
-        "color": "#eef2f5",
-        "subtitleColor": "#9fb0bf"
+        "color": "#1c2733",
+        "subtitleColor": "#66717e"
       },
       "view": {
         "continuousHeight": 300,
@@ -532,8 +532,8 @@
                 "United States"
               ],
               "range": [
-                "#f2a65a",
-                "#9aa5b1"
+                "#d9772b",
+                "#b9b3a6"
               ]
             },
             "type": "nominal"
@@ -557,7 +557,7 @@
           ],
           "x": {
             "axis": {
-              "domainColor": "#28394a",
+              "domainColor": "#c9c3b6",
               "format": "%Y",
               "grid": false,
               "tickCount": 6
@@ -607,8 +607,8 @@
                 "United States"
               ],
               "range": [
-                "#f2a65a",
-                "#9aa5b1"
+                "#d9772b",
+                "#b9b3a6"
               ]
             },
             "type": "nominal"
