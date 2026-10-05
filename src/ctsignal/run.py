@@ -334,8 +334,14 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
     ordered = sorted(cards_by_id.values(), key=lambda c: c["generated_at"], reverse=True)
     from . import publish
 
-    from . import inventory as _inv, towns as _towns
+    from . import audit as _audit, inventory as _inv, towns as _towns
     _inv.check()              # portal stamps + ACS release probes
+    broken = _audit.internal_links()
+    if broken:                # visible where failure logs live
+        with open(config.ROOT / "data" / "failures.log", "a") as fh:
+            for b in broken[:10]:
+                fh.write(f"linkcheck: {b}\n")
+        print(f"  linkcheck: {len(broken)} broken internal link(s)")
     _towns.publish()          # ACS town snapshot + the town table page
     board = build_board(catalog)
     board["trend"] = _trend()

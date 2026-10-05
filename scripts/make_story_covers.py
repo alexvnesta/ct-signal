@@ -131,8 +131,20 @@ def thumb(card: dict) -> Image.Image | None:
 
 
 if __name__ == "__main__":
+    # A render manifest, not a byte comparison: the art is a pure function of
+    # the card, so if the card has not changed we do not re-render at all.
+    # (Different Pillow builds on CI vs workstation produce different bytes
+    # for identical pixels — without this guard every cycle committed four
+    # binary diffs of art nobody changed.)
+    import hashlib
     feed = json.loads((ROOT / "output/cards.json").read_text())
+    mpath = OUT / "_art_manifest.json"
+    manifest = json.loads(mpath.read_text()) if mpath.exists() else {}
     for c in feed["cards"]:
+        key = hashlib.sha256(json.dumps(c, sort_keys=True).encode()
+                             ).hexdigest()[:16]
+        if manifest.get(c["id"]) == key:
+            continue
         path = OUT / f"story-{c['id']}.png"
         cover(c).save(path, optimize=True)
         print("wrote", path.name)
@@ -141,3 +153,5 @@ if __name__ == "__main__":
             tpath = OUT / f"story-{c['id']}-thumb.png"
             t.save(tpath, optimize=True)
             print("wrote", tpath.name)
+        manifest[c["id"]] = key
+    mpath.write_text(json.dumps(manifest, indent=1))

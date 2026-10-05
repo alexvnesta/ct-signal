@@ -1,0 +1,29 @@
+name: watchdog
+# Separate trigger from the pulse on purpose: if the pulse dies, only a
+# differently-scheduled job can notice. Fails loudly -> GitHub email.
+on:
+  schedule:
+    - cron: "17 13,1 * * *"   # daily 13:17 UTC, mid-day ET
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 30
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: audit site, heartbeat, and live URLs
+        run: PYTHONPATH=src python -m ctsignal.audit --live
+      - name: commit the report artifact
+        run: |
+          git config user.name "ct-signal-bot"
+          git config user.email "bot@ctsignal.org"
+          git add data/watchdog.json
+          git diff --cached --quiet || git commit -m "watchdog: site self-audit report"
+          git pull --rebase --autostash origin master
+          git push origin master

@@ -64,6 +64,8 @@ def _rows(payload: list[list[str]]) -> list[dict]:
     out = []
     for row in payload[1:]:
         d = dict(zip(head, row))
+        if d["NAME"].startswith("County subdivisions not defined"):
+            continue        # Census pseudo-places for unorganized land
         name = re.sub(r"\s+(town|city)\s*,.*Connecticut\s*$", "", d["NAME"])
         rec = {"name": name,
                "slug": re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-"),
