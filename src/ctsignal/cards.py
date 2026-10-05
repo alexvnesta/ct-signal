@@ -165,3 +165,37 @@ def from_local(item: dict, proposal: dict, result: dict) -> dict:
         "towns": result.get("all"),
         "cache": False,
     }
+
+
+def from_mill_rates(item: dict, proposal: dict, result: dict) -> dict:
+    question = proposal.get("question_override") or item["question"]
+    t = result["top"]
+    answer = item["answer"].format(
+        top_town=t["town"], rate=f"{t['rate']:.2f}",
+        state=result["state_rate"], multiple=f"{t['multiple']:.1f}",
+        n=result["n"], fiscal_year=result["fiscal_year"])
+    spec = charts.rank_strip(
+        result["rows"],
+        title=f"{item.get('chart_label', 'Property tax rate')}, FY{result['fiscal_year']} (top 10 towns)",
+        unit="mills per $1,000", peer_word="Town",
+    )
+    return {
+        "id": _card_id(item["id"], question),
+        "generated_at": _now(),
+        "stream": "local",
+        "topic": item["topic"],
+        "indicator": item["id"],
+        "headline": proposal["headline"],
+        "question": question,
+        "answer_text": answer,
+        "answer_values": {"top": t, "n": result["n"],
+                          "state": result["state_rate"],
+                          "assess_ratio": result.get("assess_ratio"),
+                          "date": f"FY{result['fiscal_year']}"},
+        "chart_kind": "rank_strip",
+        "chart": spec,
+        "citations": [f"https://data.ct.gov/d/{item['socrata_id']}"],
+        "query": result["query"],
+        "towns": result.get("all"),
+        "cache": False,
+    }

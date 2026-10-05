@@ -490,11 +490,17 @@ def write_all(cards: list[dict]) -> None:
         hd.mkdir(exist_ok=True)
         (hd / "index.html").write_text(topic_html(topic, tcards))
     troot = config.ROOT / "town"
+    # One page per town, every local fact that town has: two cards may
+    # measure the same place (grand-list growth and the current tax rate),
+    # and last-writer-wins would silently drop one of them.
+    by_town: dict[str, dict[str, tuple[dict, dict]]] = {}
     for c in cards:
         for row in (c.get("towns") or []):
-            hd = troot / _slug(row["town"])
-            hd.mkdir(parents=True, exist_ok=True)
-            util.atomic_write_text(hd / "index.html", town_html(row, c))
+            by_town.setdefault(row["town"], {})[c["indicator"]] = (row, c)
+    for town, pieces in by_town.items():
+        hd = troot / _slug(town)
+        hd.mkdir(parents=True, exist_ok=True)
+        util.atomic_write_text(hd / "index.html", town_html(town, pieces))
     if troot.exists():
         live = {_slug(r["town"]) for c in cards for r in (c.get("towns") or [])}
         for stale in troot.iterdir():
@@ -523,39 +529,90 @@ def _freshness_html(card: dict) -> str:
             f'<a href="/archive">the public archive</a>.</p>')
 
 
-def town_html(row: dict, card: dict) -> str:
+def town_html(town: str, pieces: dict) -> str:
+    """A town file is assembled from every local card that measures it.
+
+    Each section names its own dataset and links its own story, so the page
+    can hold two numbers from two files without implying they came from one.
+    """
     esc = html.escape
     from . import towns as _towns
     snap = _towns.snapshot()
-    rec = _towns.lookup(snap, row["town"]) if snap else None
+    rec = _towns.lookup(snap, town) if snap else None
     acs = _towns.table_for(rec, snap, esc) if rec else ""
     acs_css = _towns._PAGE_CSS if rec else ""
-    n = card.get("answer_values", {}).get("n") or len(card.get("towns") or [])
-    b = card.get("answer_values", {}).get("top") or {}
-    med = sorted(r["pct"] for r in card.get("towns") or [])
-    median = med[len(med) // 2] if med else 0.0
+
+    sections, facts = [], []
+    gl = pieces.get("grand_list_growth") or pieces.get("equalized_grand_list")
+    if gl:
+        row, card = gl
+        n = card.get("answer_values", {}).get("n") or len(card.get("towns") or [])
+        med = sorted(r["pct"] for r in card.get("towns") or [])
+        median = med[len(med) // 2] if med else 0.0
+        sections.append(
+            f'<h2>Property tax base</h2>'
+            f'<p class="sub">Net grand list from the CT Open Data Portal, via '
+            f'<a href="/story/{card["id"]}">this story</a>.</p>'
+            f'<table class="towntab"><tbody>'
+            f'<tr><td>Net grand list, {esc(str(card["answer_values"].get("date", "")))}</td>'
+            f'<td>${row["latest"]:,.0f}</td></tr>'
+            f'<tr><td>Net grand list, prior vintage</td><td>${row["prior"]:,.0f}</td></tr>'
+            f'<tr><td>Change in two years</td>'
+            f'<td>${row["added"]:,.0f} ({row["pct"]:+.1f}%)</td></tr>'
+            f'<tr><td>Rank among {n} Connecticut places</td>'
+            f'<td>{row["rank"]} of {n}</td></tr>'
+            f'<tr><td>Statewide median change (for context)</td>'
+            f'<td>{median:+.1f}%</td></tr>'
+            f'</tbody></table>')
+        facts.append(f'grand list ${row["latest"]:,.0f} ({row["pct"]:+.1f}%)')
+    mr = pieces.get("mill_rates")
+    if mr:
+        row, card = mr
+        av = card.get("answer_values", {})
+        n = av.get("n") or len(card.get("towns") or [])
+        fy = str(av.get("date", "")).replace("FY", "")
+        rows = [
+            f'<tr><td>Mill rate, FY{esc(fy)}</td>'
+            f'<td>{row["rate"]:.2f} mills per $1,000</td></tr>',
+            f'<tr><td>Rank among {n} Connecticut places</td>'
+            f'<td>{row["rank"]} of {n}</td></tr>',
+            f'<tr><td>Compared with the statewide rate</td>'
+            f'<td>{row["vs_state"]:.2f}× the statewide average</td></tr>']
+        if av.get("state"):
+            rows.append('<tr><td>Statewide rate, weighted by taxable value'
+                        f'</td><td>{av["state"]:.2f} mills</td></tr>')
+        # mill rates are levied on ASSESSMENT, not market value; the card's
+        # assess_ratio (from ODP's ten-mill land share) converts ACS value
+        # into an honest estimate, labeled as one.
+        if av.get("state") and rec and rec.get("value") and av.get("assess_ratio"):
+            est = rec["value"] * av["assess_ratio"] * row["rate"] / 1000
+            rows.append('<tr><td>Estimated tax on a median-value home'
+                        f' (assessment {av["assess_ratio"] * 100:.0f}% of market '
+                        f'per state law)</td>'
+                        f'<td>${est:,.0f} a year</td></tr>')
+        sections.append(
+            '<h2>Property tax rate</h2>'
+            '<p class="sub">Municipal mill rate for real property, fiscal year '
+            f'{esc(fy)}, from the CT Open Data Portal via '
+            '<a href="/story/' + card["id"] + '">this story</a>. '
+            'Service-district rates are separate and not shown here.</p>'
+            '<table class="towntab"><tbody>' + ''.join(rows) + '</tbody></table>')
+        facts.append(f'mill rate {row["rate"]:.2f} ({row["vs_state"]:.2f}× state)')
+    if not sections:
+        return ""
     body = f"""{acs_css}<article class="wrap col">
 <div class="label">Connecticut town file · <a href="/towns">all towns</a></div>
-<h1 style="font:700 clamp(1.7rem,4vw,2.4rem)/1.15 var(--serif);margin:.4rem 0 .3rem">{esc(row["town"])}</h1>
-<p class="sub">Property tax base (net grand list), from the Connecticut Open
-Data Portal. Know where you live. This is one row of
-<a href="/story/{card["id"]}">the full story</a> with the chart and the query.</p>
-<table class="towntab"><tbody>
-<tr><td>Net grand list, {esc(str(card["answer_values"].get("date", "")))}</td><td>${row["latest"]:,.0f}</td></tr>
-<tr><td>Net grand list, prior vintage</td><td>${row["prior"]:,.0f}</td></tr>
-<tr><td>Change in two years</td><td>${row["added"]:,.0f} ({row["pct"]:+.1f}%)</td></tr>
-<tr><td>Rank among {n} Connecticut places</td><td>{row["rank"]} of {n}</td></tr>
-<tr><td>Statewide median change (for context)</td><td>{median:+.1f}%</td></tr>
-</tbody></table>
+<h1 style="font:700 clamp(1.7rem,4vw,2.4rem)/1.15 var(--serif);margin:.4rem 0 .3rem">{esc(town)}</h1>
+<p class="sub">Every local number the desk holds for this town, each naming its
+own source. Know where you live.</p>
+{''.join(sections)}
 {acs}
-<p class="meta">Fastest-growing place this vintage: {esc(b.get("town", ""))}.
-Dataset citation and the literal query live on
-<a href="/story/{card["id"]}">the source story</a>; errors are corrected publicly.</p>
+<p class="meta">Dataset citations and the literal queries live on the linked
+stories; errors are corrected publicly.</p>
 </article>"""
-    title = f'{row["town"]} property tax base · CT Signal town file'
-    desc = (f'{row["town"]}\'s net taxable property: ${row["latest"]:,.0f}, '
-            f'{row["pct"]:+.1f}% over two years, rank {row["rank"]} of {n}.')
-    return theme.page(title=title, desc=esc(desc), path=f'/town/{_slug(row["town"])}',
+    title = f"{town} town file · CT Signal"
+    desc = f"{town}: " + "; ".join(facts) + "."
+    return theme.page(title=title, desc=esc(desc), path=f'/town/{_slug(town)}',
                       body=body)
 
 

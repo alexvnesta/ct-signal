@@ -118,6 +118,25 @@ local:
     answer: "{top_town} led the {n} towns measured in equalized assessment growth in {latest_year} (+{pct}%), adding ${added}."
     validated: "row-verified 2026-09-30"
 
+  - id: mill_rates
+    topic: local-finance
+    socrata_id: emyx-j53e
+    answerer: mill_rates
+    columns:
+      socrata_id: emyx-j53e
+      year: fiscal_year
+      fiscal_year: 2027
+      town: municipality
+      grand_list_id: webp-fgt3
+      grand_list_year: 2025
+    question: Which Connecticut town has the highest property tax rate?
+    chart_label: Property tax rate (mills per $1,000)
+    keywords: [mill rate, property tax, tax bill, budget, town council, assessment]
+    answer: "In fiscal year {fiscal_year}, {top_town} taxes real property at
+      {rate} mills, {multiple} times the {state}-mill rate that property pays
+      statewide across {n} towns."
+    validated: "row-verified 2026-10-05; weighted state figure documented in adapter"
+
   - id: municipal_fiscal
     # Parked: the dataset is verified, the card is not. xgef-f6jp is a
     # long-format metric/value table with mixed report editions (a "2026"

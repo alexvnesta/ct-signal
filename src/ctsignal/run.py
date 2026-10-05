@@ -73,11 +73,19 @@ def _load_feed() -> dict:
 
 
 def _asked_key(card: dict) -> str:
-    # Key on the DATA date so a new vintage (ACS year roll, monthly BLS print)
-    # refreshes the card, while re-proposals of the same vintage stay silent.
+    # Key on the data date plus the answer's content and field set: a new
+    # vintage (ACS year roll, monthly BLS print) must refresh the card, a
+    # re-proposal of the same vintage must stay silent, and a card whose
+    # SHAPE changed (template edit, new provenance field) must refresh too
+    # — otherwise the town pages render the old fields forever and quietly
+    # contradict the card's own story.
+    import hashlib
     vals = card.get("answer_values") or {}
     when = vals.get("date") or ""
-    return f"{card['indicator']}:{card['question'][:80]}:{when}"
+    shape = json.dumps({"t": card.get("answer_text", ""), "v": vals},
+                       sort_keys=True, default=str)
+    sig = hashlib.sha1(shape.encode()).hexdigest()[:10]
+    return f"{card['indicator']}:{card['question'][:80]}:{when}:{sig}"
 
 
 def _answer_stackup(proposal: dict, item: dict) -> dict | None:
@@ -119,20 +127,29 @@ def _answer_local(proposal: dict, item: dict | None, demo: bool) -> dict | None:
         print(f"  skip (no answerer yet): {proposal.get('indicator_id')} <- {proposal['headline']['title'][:60]}")
         return None
     cfg = item.get("columns") or socrata.GRAND_LIST_CFG
-    fixture = None
-    fx_path = config.FIXTURES_DIR / "grand_list.json"
-    if demo and item["id"] == "grand_list_growth" and fx_path.exists():
-        fixture = json.loads(fx_path.read_text())
-    try:
-        result = socrata.town_metric_growth(cfg)
-    except Exception:
-        result = socrata.town_metric_growth(cfg, fixture=fixture) if fixture else None
+    answerer = item.get("answerer", "town_metric_growth")
+    if answerer == "mill_rates":
+        # Fiscal years advance every July; a hardcoded year would quietly
+        # freeze the card on last year's tax rate.
+        cfg = {**cfg, "fiscal_year": max(dt.date.today().year, cfg["fiscal_year"])}
+        result = socrata.mill_rates(cfg)
+        build = cards.from_mill_rates
+    else:
+        fixture = None
+        fx_path = config.FIXTURES_DIR / "grand_list.json"
+        if demo and item["id"] == "grand_list_growth" and fx_path.exists():
+            fixture = json.loads(fx_path.read_text())
+        try:
+            result = socrata.town_metric_growth(cfg)
+        except Exception:
+            result = socrata.town_metric_growth(cfg, fixture=fixture) if fixture else None
+        build = cards.from_local
     if result is None:
         print(f"  discard (no data): {item['id']}")
         return None
     if proposal.get("indicator_id") is None:
         proposal = {**proposal, "question_override": None}
-    return cards.from_local(item, proposal, result)
+    return build(item, proposal, result)
 
 
 def _record_redirect(old_id: str, new_id: str) -> None:

@@ -28,3 +28,16 @@ seeds:
     stream: local
     question: How does Connecticut's voter turnout in gubernatorial years compare with recent presidential years?
     reason: 2026 general election (governor's race)
+
+  - date: 2026-10-01
+    days_window: 120
+    stream: local
+    indicator: mill_rates
+    reason: municipal budgets adopted for fiscal 2027 (July 1) make the new
+      mill rates the operative tax facts; budget-adopt coverage is seasonal
+      and may not mention rates at all
+    headline:
+      title: Connecticut towns set their fiscal 2027 property tax rates
+      url: https://ctsignal.org/sources
+      source: CT Signal
+      date: 2026-10-01

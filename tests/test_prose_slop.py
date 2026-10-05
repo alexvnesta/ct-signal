@@ -57,7 +57,9 @@ class TestAnswerTemplates(unittest.TestCase):
     def test_templates_format_clean(self):
         # every {placeholder} must be satisfiable by the documented field set
         fields = {"value", "date", "rank", "n", "rank_word", "low_word",
-                  "top_town", "added", "pct", "latest_year"}
+                  "top_town", "added", "pct", "latest_year",
+                  # mill-rate grammar (from_mill_rates)
+                  "rate", "multiple", "state", "fiscal_year"}
         for item in self.items:
             used = set(re.findall(r"\{(\w+)\}", item["answer"]))
             self.assertTrue(used <= fields, f"{item['id']}: {used - fields}")
