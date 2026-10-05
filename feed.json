@@ -6,6 +6,98 @@
   "items": [
     {
       "_tags": [
+        "local-finance"
+      ],
+      "content_text": "In fiscal year 2027, Hartford taxes real property at 69.95 mills, 2.6 times the 26.66-mill rate that property pays statewide across 168 towns. Source: civic calendar \u2014 [civic calendar] municipal budgets adopted for fiscal 2027 (July 1) make the new mill rates the operative tax facts; budget-adopt coverage is seasonal and may not mention rates at all",
+      "date_published": "2026-10-05T18:27:21+00:00",
+      "id": "https://ctsignal.org/story/a3514b53fb39",
+      "title": "Which Connecticut town has the highest property tax rate?",
+      "url": "https://ctsignal.org/story/a3514b53fb39"
+    },
+    {
+      "_tags": [
+        "local-finance"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 45999,
+          "url": "https://ctsignal.org/assets/story-b37766e764aa.png"
+        }
+      ],
+      "content_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest growth of 169 towns. Source: civic calendar \u2014 [civic calendar] 2026 general election (governor's race)",
+      "date_published": "2026-10-05T18:27:20+00:00",
+      "id": "https://ctsignal.org/story/b37766e764aa",
+      "image": "https://ctsignal.org/assets/story-b37766e764aa.png",
+      "title": "Which Connecticut towns grew their property tax base fastest?",
+      "url": "https://ctsignal.org/story/b37766e764aa"
+    },
+    {
+      "_tags": [
+        "housing"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 45621,
+          "url": "https://ctsignal.org/assets/story-0125297ea839.png"
+        }
+      ],
+      "content_text": "Connecticut's median gross rent was $1,550 in 2024, the 17th-highest of 52 peers. Source: CT Mirror \u2014 Your next car will be a luxury",
+      "date_published": "2026-10-05T18:26:59+00:00",
+      "id": "https://ctsignal.org/story/0125297ea839",
+      "image": "https://ctsignal.org/assets/story-0125297ea839.png",
+      "title": "How expensive is renting in Connecticut compared to the rest of America?",
+      "url": "https://ctsignal.org/story/0125297ea839"
+    },
+    {
+      "_tags": [
+        "housing"
+      ],
+      "content_text": "The median Connecticut home is worth $396,900 (2024), the 19th-highest of 52 peers. Source: CT Mirror \u2014 Your next car will be a luxury",
+      "date_published": "2026-10-05T18:26:59+00:00",
+      "id": "https://ctsignal.org/story/517fafa716bc",
+      "title": "Are Connecticut homes expensive by national standards?",
+      "url": "https://ctsignal.org/story/517fafa716bc"
+    },
+    {
+      "_tags": [
+        "equity"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 53019,
+          "url": "https://ctsignal.org/assets/story-797faed5a836.png"
+        }
+      ],
+      "content_text": "10.2% of Connecticut residents live below the poverty line (2024), the 15th-lowest of 52 peers. Source: CT Mirror \u2014 A renewed plea to safeguard SNAP in the Farm Bill",
+      "date_published": "2026-10-05T18:26:58+00:00",
+      "id": "https://ctsignal.org/story/797faed5a836",
+      "image": "https://ctsignal.org/assets/story-797faed5a836.png",
+      "title": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
+      "url": "https://ctsignal.org/story/797faed5a836"
+    },
+    {
+      "_tags": [
+        "justice"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 43445,
+          "url": "https://ctsignal.org/assets/story-ed851796295a.png"
+        }
+      ],
+      "content_text": "Connecticut reports 147 violent crimes per 100k people (2023), the 3rd-safest of 52 peers. Source: CT Examiner \u2014 Another Gun Control Law Won\u2019t Get Tough on Crime",
+      "date_published": "2026-10-05T18:24:24+00:00",
+      "id": "https://ctsignal.org/story/ed851796295a",
+      "image": "https://ctsignal.org/assets/story-ed851796295a.png",
+      "title": "How safe is Connecticut compared with the rest of the country?",
+      "url": "https://ctsignal.org/story/ed851796295a"
+    },
+    {
+      "_tags": [
         "economy"
       ],
       "content_text": "The median unemployed US worker has been out of work 11.5 weeks (2026-09) \u2014 highest since May 2026. Source: PBS NewsHour (fixture) \u2014 Job growth cools as unemployment edges up in several states",
@@ -71,78 +163,6 @@
       "image": "https://ctsignal.org/assets/story-0b26178760d4.png",
       "title": "Is Connecticut's job market doing better or worse than the rest of the country?",
       "url": "https://ctsignal.org/story/0b26178760d4"
-    },
-    {
-      "_tags": [
-        "local-finance"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 45999,
-          "url": "https://ctsignal.org/assets/story-b37766e764aa.png"
-        }
-      ],
-      "content_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest growth of 169 towns. Source: civic calendar \u2014 [civic calendar] 2026 general election (governor's race)",
-      "date_published": "2026-10-02T04:23:22+00:00",
-      "id": "https://ctsignal.org/story/b37766e764aa",
-      "image": "https://ctsignal.org/assets/story-b37766e764aa.png",
-      "title": "Which Connecticut towns grew their property tax base fastest?",
-      "url": "https://ctsignal.org/story/b37766e764aa"
-    },
-    {
-      "_tags": [
-        "equity"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 53019,
-          "url": "https://ctsignal.org/assets/story-797faed5a836.png"
-        }
-      ],
-      "content_text": "10.2% of Connecticut residents live below the poverty line (2024), the 15th-lowest of 52 peers. Source: civic calendar \u2014 [civic calendar] Fall safety-net and benefits enrollment coverage",
-      "date_published": "2026-10-02T04:23:22+00:00",
-      "id": "https://ctsignal.org/story/797faed5a836",
-      "image": "https://ctsignal.org/assets/story-797faed5a836.png",
-      "title": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "url": "https://ctsignal.org/story/797faed5a836"
-    },
-    {
-      "_tags": [
-        "justice"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 43445,
-          "url": "https://ctsignal.org/assets/story-ed851796295a.png"
-        }
-      ],
-      "content_text": "Connecticut reports 147 violent crimes per 100k people (2023), the 3rd-safest of 52 peers. Source: NYT U.S. (fixture) \u2014 California Couple Charged With Murder in Shooting of Son-in-Law",
-      "date_published": "2026-10-02T01:39:13+00:00",
-      "id": "https://ctsignal.org/story/ed851796295a",
-      "image": "https://ctsignal.org/assets/story-ed851796295a.png",
-      "title": "How safe is Connecticut compared with the rest of the country?",
-      "url": "https://ctsignal.org/story/ed851796295a"
-    },
-    {
-      "_tags": [
-        "housing"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 45621,
-          "url": "https://ctsignal.org/assets/story-0125297ea839.png"
-        }
-      ],
-      "content_text": "Connecticut's median gross rent was $1,550 in 2024, the 17th-highest of 52 peers. Source: NYT U.S. (fixture) \u2014 Renters battered by record shelter costs, national report finds",
-      "date_published": "2026-10-02T01:38:36+00:00",
-      "id": "https://ctsignal.org/story/0125297ea839",
-      "image": "https://ctsignal.org/assets/story-0125297ea839.png",
-      "title": "How expensive is renting in Connecticut compared to the rest of America?",
-      "url": "https://ctsignal.org/story/0125297ea839"
     }
   ],
   "title": "CT Signal",

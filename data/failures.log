@@ -35,3 +35,4 @@ linkcheck: /towns.html -> /town/county-subdivisions-not-defined-lower-connecticu
 linkcheck: /towns.html -> /town/county-subdivisions-not-defined-south-central-connecticut-planning-region-connecticut
 linkcheck: /towns.html -> /town/county-subdivisions-not-defined-southeastern-connecticut-planning-region-connecticut
 linkcheck: /towns.html -> /town/county-subdivisions-not-defined-western-connecticut-planning-region-connecticut
+2026-10-05T18:21:52+00:00 cycle failed: KeyError: 'pct'

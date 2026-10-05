@@ -888,14 +888,15 @@
   "citations": [
     "https://data.census.gov/table/ACSDT1Y2024.B25113?g=040XX00US$0400000"
   ],
-  "generated_at": "2026-10-02T01:38:36+00:00",
+  "generated_at": "2026-10-05T18:26:59+00:00",
   "headline": {
-    "id": "fixrent01",
-    "published": "2026-09-30",
-    "source": "NYT U.S. (fixture)",
-    "stream": "national",
-    "title": "Renters battered by record shelter costs, national report finds",
-    "url": "https://www.nytimes.com/section/us"
+    "id": "db277052adb2",
+    "published": "Sun, 04 Oct 2026 08:30:00 +0000",
+    "published_sort": 1791102600,
+    "source": "CT Mirror",
+    "stream": "ct",
+    "title": "Your next car will be a luxury",
+    "url": "https://ctmirror.org/2026/10/04/your-next-car-will-be-a-luxury/"
   },
   "id": "0125297ea839",
   "indicator": "median_rent",

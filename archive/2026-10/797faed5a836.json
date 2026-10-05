@@ -888,14 +888,15 @@
   "citations": [
     "https://data.census.gov/table/ACSDT1Y2024.B17020?g=040XX00US$0400000"
   ],
-  "generated_at": "2026-10-02T04:23:22+00:00",
+  "generated_at": "2026-10-05T18:26:58+00:00",
   "headline": {
-    "id": "seed-2026-10-14",
-    "published": "2026-10-14",
-    "published_sort": 0,
-    "source": "civic calendar",
-    "title": "[civic calendar] Fall safety-net and benefits enrollment coverage",
-    "url": ""
+    "id": "da53d94de349",
+    "published": "Mon, 05 Oct 2026 04:01:00 +0000",
+    "published_sort": 1791172860,
+    "source": "CT Mirror",
+    "stream": "ct",
+    "title": "A renewed plea to safeguard SNAP in the Farm Bill",
+    "url": "https://ctmirror.org/2026/10/05/a-renewed-plea-to-safeguard-snap-in-the-farm-bill/"
   },
   "id": "797faed5a836",
   "indicator": "poverty",

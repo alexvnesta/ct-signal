@@ -462,6 +462,7 @@
   },
   "chart2": {
     "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "background": "transparent",
     "config": {
       "axis": {
         "domainColor": "#26313d",
@@ -887,14 +888,15 @@
   "citations": [
     "https://datacommons.org/data/commons/Count_CriminalActivities_ViolentCrime"
   ],
-  "generated_at": "2026-10-02T01:39:13+00:00",
+  "generated_at": "2026-10-05T18:24:24+00:00",
   "headline": {
-    "id": "fixcrime01",
-    "published": "2026-09-30",
-    "source": "NYT U.S. (fixture)",
-    "stream": "national",
-    "title": "California Couple Charged With Murder in Shooting of Son-in-Law",
-    "url": ""
+    "id": "55bf0803b9de",
+    "published": "Mon, 05 Oct 2026 13:53:15 +0000",
+    "published_sort": 1791208395,
+    "source": "CT Examiner",
+    "stream": "ct",
+    "title": "Another Gun Control Law Won\u2019t Get Tough on Crime",
+    "url": "https://ctexaminer.com/2026/10/05/another-gun-control-law-wont-get-tough-on-crime/"
   },
   "id": "ed851796295a",
   "indicator": "violent_crime",
