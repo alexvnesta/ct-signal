@@ -4,6 +4,7 @@
 2026-10-03T19:39:58+00:00 cycle failed: AttributeError: 'NoneType' object has no attribute 'get'
 2026-10-03T22:21:04+00:00 cycle failed: NameError: name 'town_page' is not defined
 2026-10-03T22:21:25+00:00 cycle failed: AttributeError: module 'ctsignal.towns' has no attribute 'publish'
+<<<<<<< Updated upstream
 2026-10-04T01:49:12+00:00 cycle failed: AttributeError: 'NoneType' object has no attribute 'get'
 2026-10-04T07:44:15+00:00 cycle failed: AttributeError: 'NoneType' object has no attribute 'get'
 2026-10-04T13:30:58+00:00 cycle failed: AttributeError: 'NoneType' object has no attribute 'get'
@@ -12,3 +13,20 @@
 2026-10-04T23:48:46+00:00 cycle failed: AttributeError: 'NoneType' object has no attribute 'get'
 2026-10-05T03:55:36+00:00 cycle failed: AttributeError: 'NoneType' object has no attribute 'get'
 2026-10-05T11:10:27+00:00 cycle failed: AttributeError: 'NoneType' object has no attribute 'get'
+=======
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-greater-bridgeport-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-lower-connecticut-river-valley-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-south-central-connecticut-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-southeastern-connecticut-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-western-connecticut-planning-region-connecticut
+>>>>>>> Stashed changes
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-greater-bridgeport-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-lower-connecticut-river-valley-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-south-central-connecticut-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-southeastern-connecticut-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-western-connecticut-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-greater-bridgeport-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-lower-connecticut-river-valley-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-south-central-connecticut-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-southeastern-connecticut-planning-region-connecticut
+linkcheck: /towns.html -> /town/county-subdivisions-not-defined-western-connecticut-planning-region-connecticut
