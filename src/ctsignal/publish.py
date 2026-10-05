@@ -152,12 +152,6 @@ Each tile prints the vintage of its own dataset; older vintages are the honest
 limit of annual surveys, not a lag in the pipeline.</p>
 </div></section>
 
-<div class="wrap"><aside class="sponsor">
-<p><strong>Independent · automated · reader-supported.</strong> No trackers,
-no ads, no cookies — public data with the receipts attached.</p>
-<p><a href="mailto:{config.CONTACT_EMAIL}?subject=Board%20sponsorship">Sponsor the board &rarr;</a></p>
-</aside></div>
-
 <div class="wrap"><img class="tailpiece" src="/assets/skyline-light.png"
 width="2340" height="875" loading="lazy" alt="Hartford skyline: the Soldiers
 and Sailors arch, the stone-arch bridge, the State Capitol with its gilded

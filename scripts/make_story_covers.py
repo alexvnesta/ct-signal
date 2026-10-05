@@ -100,6 +100,10 @@ def thumb(card: dict) -> Image.Image | None:
     itself carries kicker/question/answer; text inside the art just repeated
     them at unreadable size. What can't be repeated is the picture: every
     peer as a bar, Connecticut in orange, the number as art."""
+    # Paper palette: the thumb lives inside the page, so it wears the
+    # page's clothes — the dark cover is for the social web, not the board.
+    BG2 = (250, 248, 243); INK = (28, 39, 51); DIM = (102, 113, 126)
+    LINE = (217, 211, 198); ACC = (201, 111, 31)
     chart = card.get("chart") or {}
     vals = (chart.get("data") or {}).get("values", [])
     rows = [r for r in vals if "value" in r and "rank" in r]
@@ -110,7 +114,7 @@ def thumb(card: dict) -> Image.Image | None:
         trows = [r for r in (layer0.get("data") or {}).get("values", [])
                  if "date" in r and "value" in r]
     is_trend = len(rows) < 2 and len(trows) >= 12
-    if not is_trend:
+    if len(rows) < 2 and not is_trend:
         return None  # nothing rankable and nothing to silhouette
     rows.sort(key=lambda r: r["rank"])
     W, H = 1200, 480
@@ -157,7 +161,7 @@ def thumb(card: dict) -> Image.Image | None:
         lo = min(r["value"] for r in rows)
         hi = max(r["value"] for r in rows)
         span = (hi - lo) or 1.0
-    dim_bar = (40, 52, 66)
+    dim_bar = (185, 179, 166)
     if is_trend:
         # The series silhouette in time order: the shape IS the story
         # (a collapse reads as a collapse). Orange dot = latest print,
@@ -170,7 +174,7 @@ def thumb(card: dict) -> Image.Image | None:
         pts = [(bar_lo + i * step,
                 base - 14 - (base - ceil_ - 14) * (r["value"] - lo) / span)
                for i, r in enumerate(trows)]
-        d.line(pts, fill=(96, 116, 140), width=4, joint="curve")
+        d.line(pts, fill=(140, 132, 116), width=4, joint="curve")
         d.ellipse((pts[-1][0] - 9, pts[-1][1] - 9,
                    pts[-1][0] + 9, pts[-1][1] + 9), fill=ACC)
     else:

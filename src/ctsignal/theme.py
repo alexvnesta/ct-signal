@@ -44,8 +44,11 @@ CSS = """
 }
 *{box-sizing:border-box}
 html{color-scheme:light}
+html{background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  min-height:100vh;display:flex;flex-direction:column;
+  -webkit-smoothing:antialiased;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility}
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline;text-underline-offset:3px}
 /* in-content links carry a non-color cue (WCAG 1.4.1); brand + nav opt out */
@@ -62,7 +65,7 @@ a:hover{text-decoration:underline;text-underline-offset:3px}
   none!important;scroll-behavior:auto!important}}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 1.2rem}
 .col{max-width:var(--col)}
-main{display:block}
+main{display:block;flex:1 0 auto}
 
 /* ------------------------------------------------- masthead (broadsheet) --- */
 /* The nameplate is typographic and centered — the broadsheet convention:
@@ -162,11 +165,9 @@ section{padding:1.6rem 0}
 .towntab td{padding:.45rem .6rem;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
 .towntab td:first-child{color:var(--dim)}
 .towntab td:last-child{text-align:right;font-weight:700}
-.sponsor{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center;
-  justify-content:space-between;border:1px dashed var(--line);border-radius:6px;
-  padding:.7rem 1rem;margin-top:1rem;background:var(--panel)}
-.sponsor p{margin:0;color:var(--dim);font-size:.9rem}
-.sponsor a{color:var(--acc);font-weight:700;font-size:.9rem}
+.subbtn{display:inline-block;background:var(--acc);color:#fff;padding:.4rem .9rem;
+  font-size:.84rem;font-weight:700;letter-spacing:.04em}
+.subbtn:hover{background:#8f4706;text-decoration:none}
 details.embed{border:1px solid var(--rule);border-radius:6px;background:var(--panel);
   padding:.6rem 1rem;margin:1rem 0}
 details.embed summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--dim)}
@@ -350,7 +351,9 @@ def footer() -> str:
     return f"""<footer class="site"><div class="wrap footgrid">
 <div><h2>CT&nbsp;<span class="boltwrap" aria-hidden="true"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg></span>&nbsp;Signal</h2>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
-public data answers it. Know where you live.</p><p><a href="mailto:{email}">{email}</a></p></div>
+public data answers it. Know where you live.</p>
+<p><a class="subbtn" href="mailto:{email}?subject=Board%20sponsorship">Sponsor the board</a></p>
+<p><a href="mailto:{email}">{email}</a></p></div>
 <div><h2>Sections</h2><ul>
 <li><a href="/">The board</a></li>
 <li><a href="/#signals">Latest questions</a></li>
@@ -360,9 +363,8 @@ public data answers it. Know where you live.</p><p><a href="mailto:{email}">{ema
 <li><a href="/feed.xml">RSS feed</a></li></ul></div>
 <div><h2>Newsroom</h2><ul>
 <li><a href="/about">About</a></li>
-<li><a href="/masthead">Masthead</a></li>
+<li><a href="/masthead">Who runs this</a></li>
 <li><a href="/corrections">Corrections</a></li>
-<li><a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></li>
 </ul></div>
 <div><h2>Weekly digest</h2>
 <p>The strongest signal of the week, one email, filed weekly and sent by a human.
@@ -372,7 +374,8 @@ method="post" target="_blank" rel="noopener">
 <label class="sr-only" for="foot-sub-email">Email address</label>
 <input id="foot-sub-email" type="email" name="email" placeholder="you@example.com" required>
 <button type="submit">Subscribe</button></form></div></div>
-<div class="wrap colophon"><span>© {year} CT Signal · Independent automated newsroom</span>
+<div class="wrap colophon"><span>© {year} CT Signal · Independent automated newsroom ·
+<a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></span>
 <span>Built at Hack for Humanity · Runs on free-tier public infrastructure</span></div>
 </footer>"""
 
