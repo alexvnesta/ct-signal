@@ -26,6 +26,70 @@ def load_seeds(today: dt.date | None = None) -> list[dict]:
     return out
 
 
+LEDGER_PATH = config.ROOT / "data" / "ledger.json"
+LEDGER_TTL_DAYS = 90
+
+
+def update_ledger(headlines: list[dict], catalog: dict) -> dict:
+    """The inverted model, made concrete: every headline we ingest is kept,
+    tagged with the indicators that could answer it. The wire is the primary
+    stream; our datasets are the answering layer; and the ledger of what the
+    cycle actually talked about is the desk's popularity metric — news-cycle
+    salience, measured, not vibes, and never confused with reader votes."""
+    from . import util
+    now = dt.datetime.now(dt.timezone.utc)
+    data = {"entries": {}}
+    if LEDGER_PATH.exists():
+        try:
+            data = json.loads(LEDGER_PATH.read_text())
+        except (ValueError, OSError):
+            pass
+    ent = data.setdefault("entries", {})
+    pool = [(it["id"], it.get("keywords") or [])
+            for sec in ("stackup", "local", "national")
+            for it in catalog.get(sec, [])]
+    for h in headlines:
+        if h["id"] in ent:
+            continue
+        hits = [iid for iid, kws in pool if _keyword_hits(h["title"], kws)]
+        ent[h["id"]] = {"ts": now.isoformat(timespec="seconds"),
+                        "src": h.get("source", ""),
+                        "title": h.get("title", "")[:140],
+                        "hits": hits}
+    cutoff = (now - dt.timedelta(days=LEDGER_TTL_DAYS)
+              ).isoformat(timespec="seconds")
+    ent = {k: v for k, v in ent.items() if v.get("ts", "") >= cutoff}
+    data["entries"] = ent
+    LEDGER_PATH.parent.mkdir(exist_ok=True)
+    util.atomic_write_text(LEDGER_PATH, json.dumps(data))
+    return data
+
+
+def attention(days: int = 7) -> dict:
+    """Roll the ledger into heat: per-indicator headline counts over a
+    window. Deterministic; a card earns its 'the cycle asked' note from
+    these counts alone."""
+    if not LEDGER_PATH.exists():
+        return {}
+    try:
+        ent = json.loads(LEDGER_PATH.read_text()).get("entries", {})
+    except (ValueError, OSError):
+        return {}
+    cutoff = (dt.datetime.now(dt.timezone.utc)
+              - dt.timedelta(days=days)).isoformat(timespec="seconds")
+    seen: dict[str, dict] = {}
+    total = 0
+    for v in ent.values():
+        if v.get("ts", "") < cutoff:
+            continue
+        total += 1
+        for iid in v.get("hits", []):
+            cell = seen.setdefault(iid, {"hits": 0, "last": ""})
+            cell["hits"] += 1
+            cell["last"] = max(cell["last"], v["ts"])
+    return {"window_days": days, "headlines": total, "indicators": seen}
+
+
 def _keyword_hits(title: str, keywords: list[str]) -> list[str]:
     lowered = title.lower()
     return [

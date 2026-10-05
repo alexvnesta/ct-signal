@@ -346,6 +346,7 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
     asked = _load_json(config.ASKED_LOG_PATH, {})
 
     headlines = feeds.gather()
+    questions.update_ledger(headlines, catalog)
     if demo:
         seen = {h["id"] for h in headlines}
         headlines += [h for h in load_fixture_headlines() if h["id"] not in seen]

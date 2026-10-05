@@ -181,6 +181,9 @@ details.embed textarea{width:100%;box-sizing:border-box;background:var(--bg2);
   color:var(--ok);border:1px solid var(--line);border-radius:4px;padding:.5rem;
   font:.8rem/1.5 var(--mono);margin-top:.6rem}
 .legend{color:var(--faint);font-size:.8rem;margin:1rem 0 0}
+.wire{color:var(--faint);font-size:.8rem;margin:.2rem 0 .9rem}
+.wire-n{background:#eee9df;color:var(--dim);padding:.02rem .35rem;
+  border-radius:3px;font:700 .72rem var(--mono)}
 
 /* ------------------------------------------------------------- signals ---- */
 /* kept: town/story index lists reuse .sig on paper */

@@ -123,6 +123,27 @@ and the exact query →</a></div></article>"""
     chip = '<span class="badge trend">trending</span> ' if _votes >= 3 else ""
     del chip  # trend badge stays available to story pages this cycle
 
+    # The week's wire, mapped: which questions the news cycle itself pushed
+    # at us, counted from the headline ledger — salience measured, not said.
+    from . import questions as _q
+    att = _q.attention(7)
+    wire = ""
+    if att.get("indicators"):
+        _cat = _q.load_catalog()
+        _titles = {it["id"]: it.get("title") or it["id"]
+                   for sec in ("stackup", "local", "national")
+                   for it in _cat.get(sec, [])}
+        top = sorted(att["indicators"].items(),
+                     key=lambda kv: (-kv[1]["hits"], kv[0]))[:3]
+        parts = [f'{_ESC(_titles.get(iid, iid))} '
+                 f'<span class="wire-n">\u00d7{n["hits"]}</span>'
+                 for iid, n in top if n.get("hits")]
+        if parts:
+            wire = (f'<p class="wire">This week\u2019s wire, mapped: '
+                    + " \u00b7 ".join(parts)
+                    + f' \u2014 from {_ESC(str(att["headlines"]))} headlines '
+                    + 'ingested across the tracked newsrooms.</p>')
+
     fixture = any("(fixture)" in (c["headline"].get("source") or "")
                   for c in cards)
     help_ = ("Every question here is raised by a headline first. These cards "
@@ -131,7 +152,8 @@ and the exact query →</a></div></article>"""
              if fixture else
              "Every question on this page was raised by a real headline first.")
     latest = f"""<section class="latest" id="signals"><div class="wrap">
-<p class="sechelp" style="text-align:left;margin:0 0 .8rem">{help_}</p>
+<p class="sechelp" style="text-align:left;margin:0 0 .2rem">{help_}</p>
+{wire}
 <div class="latest-grid">
 {lead}
 <div class="sec2"><h2 class="sec2-head">Also on the board</h2>{sec2}</div>
