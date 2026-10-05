@@ -255,6 +255,47 @@ def _trend() -> list[dict]:
     return out
 
 
+def _migrate_fixtures(cards_by_id: dict, by_id: dict,
+                      headlines: list[dict],
+                      proposals: list[dict]) -> int:
+    """Demo triggers retire themselves. A fixture-triggered card stays on
+    the board with live numbers (the disclaimer says exactly that), but
+    every cycle we check the wire for a real headline that would raise the
+    same question. When one exists the card is rebuilt on that trigger —
+    same question, same URL, real receipt. The fixture disclaimer deletes
+    itself when the last demo trigger migrates; nothing else needed."""
+    touched = 0
+    for cid, card in list(cards_by_id.items()):
+        if "(fixture)" not in (card["headline"].get("source") or ""):
+            continue
+        ind = by_id.get(card.get("indicator"))
+        if not ind or not ind.get("fred"):
+            continue          # the current demo set is all national series
+        # A live proposal for this indicator is the strongest candidate:
+        # it may have come from the LLM proposer and would otherwise be
+        # swallowed by the asked-log dedup gate, since the numbers it
+        # answers with are already on record.
+        cands = [p["headline"] for p in proposals
+                 if p.get("indicator_id") == ind["id"]
+                 and "(fixture)" not in (p["headline"].get("source") or "")]
+        cands += [h for h in headlines if questions._keyword_hits(
+            h["title"], ind.get("keywords") or [])]
+        for h in cands:
+            res = fred.observations(
+                ind, fixture=config.FIXTURES_DIR / f"fred_{ind['id']}.csv")
+            if not res:
+                break
+            new = cards.from_national(ind, {"headline": h}, res)
+            if new["id"] != cid:
+                break         # reworded question: leave the demo in place
+            cards_by_id[cid] = new
+            touched += 1
+            print(f"  \u2192 de-fixturized [{card['stream']}/{card['topic']}] "
+                  f"{ind['id']} <- {h['title'][:64]}")
+            break
+    return touched
+
+
 def _revalidate(cards_by_id: dict, by_id: dict) -> int:
     """Re-fetch every live stackup card; replace it when upstream printed a
     newer data date. Without this pass a fresh vintage only lands when a
@@ -396,6 +437,10 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
     revalidated = _revalidate(cards_by_id, by_id)
     if revalidated:
         print(f"  revalidation: {revalidated} card(s) now carry newer numbers")
+    migrated = _migrate_fixtures(cards_by_id, by_id, headlines, proposals)
+    if migrated:
+        print(f"  fixtures: {migrated} card(s) now triggered by real "
+              "headlines")
     ordered = sorted(cards_by_id.values(), key=lambda c: c["generated_at"], reverse=True)
     from . import publish
 
