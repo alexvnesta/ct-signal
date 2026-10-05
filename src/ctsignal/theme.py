@@ -165,9 +165,14 @@ section{padding:1.6rem 0}
 .towntab td{padding:.45rem .6rem;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
 .towntab td:first-child{color:var(--dim)}
 .towntab td:last-child{text-align:right;font-weight:700}
-.subbtn{display:inline-block;background:var(--acc);color:#fff;padding:.4rem .9rem;
+/* .footgrid a out-ranks .subbtn for the color property — the button needs
+   the footer-scoped rule or it renders gray-on-rust, which reads as broken */
+a.subbtn{display:inline-block;background:var(--acc);color:#fff;padding:.4rem .9rem;
   font-size:.84rem;font-weight:700;letter-spacing:.04em}
-.subbtn:hover{background:#8f4706;text-decoration:none}
+a.subbtn:hover,a.subbtn:focus-visible{background:#8f4706;color:#fff;
+  text-decoration:none}
+.footgrid a.subbtn{color:#fff}
+.footgrid a.subbtn:hover{color:#fff}
 details.embed{border:1px solid var(--rule);border-radius:6px;background:var(--panel);
   padding:.6rem 1rem;margin:1rem 0}
 details.embed summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--dim)}
