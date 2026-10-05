@@ -14,7 +14,10 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from _brand import SITE  # noqa: E402  (shared brand recipe)
+try:
+    from _brand import SITE  # noqa: E402  (shared brand recipe)
+except ModuleNotFoundError:      # html-only runs (CI) need no Pillow
+    SITE = "https://ctsignal.org"
 E = html.escape
 
 
@@ -84,6 +87,9 @@ You get this because you subscribed to the board digest — no trackers in this 
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / f"{issue}.html"
     path.write_text(doc)
+    # sidecars the send workflow reads: subject line and the newest-issue pointer
+    (out_dir / "subject.txt").write_text(subject)
+    (out_dir / "latest.txt").write_text(f"{issue}.html")
     print(f"digest issue {issue} -> {path.relative_to(ROOT)} ({len(doc)} bytes)")
 
 

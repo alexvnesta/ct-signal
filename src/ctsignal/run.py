@@ -245,6 +245,11 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
     hours to stay polite to the upstream rate limits (96 cycles/day must not
     mean 96 census probes). Local-stream cards (grand list rolls) are annual
     and skipped; their answers name the roll year in the text itself.
+
+    Cards that readers are actually reading get probed first: attention
+    scores (the same trend the board publishes) order the loop, so if an
+    upstream rate limit truncates a pass it truncates the cards nobody
+    opened, not the ones people came back to.
     """
     stamp_path = config.ASKED_LOG_PATH.parent / "revalidation.json"
     stamp = _load_json(stamp_path, {})
@@ -253,7 +258,9 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
     if last and (now - dt.datetime.fromisoformat(last)).total_seconds() < 3 * 3600:
         return 0
     touched = 0
-    for cid, card in list(cards_by_id.items()):
+    order = {t["id"]: t["score"] for t in _trend()}
+    for cid, card in sorted(list(cards_by_id.items()),
+                            key=lambda kv: -order.get(kv[0], 0)):
         ind = by_id.get(card.get("indicator"))
         if not ind or card.get("stream") not in ("stackup", "national"):
             continue

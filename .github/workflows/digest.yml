@@ -1,0 +1,48 @@
+name: digest
+# Renders this week's issue from the committed board and posts it to
+# Buttondown as a DRAFT. The pipeline writes; a human still sends.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "3 14 * * 0"   # Sundays 14:03 UTC, before anyone reads Sunday papers
+permissions:
+  contents: read
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: render issue
+        run: |
+          pip install --quiet pillow
+          python scripts/make_digest.py
+      - name: post draft to Buttondown
+        env:
+          BUTTONDOWN_KEY: ${{ secrets.BUTTONDOWN_KEY }}
+        run: |
+          python - <<'PY'
+          import json, os, pathlib, urllib.request
+          out = pathlib.Path("output/digest")
+          issue = (out / "latest.txt").read_text().strip()
+          payload = {
+              "subject": (out / "subject.txt").read_text(),
+              "body": (out / issue).read_text(),
+              "status": "draft",
+          }
+          req = urllib.request.Request(
+              "https://api.buttondown.com/v1/emails",
+              data=json.dumps(payload).encode(),
+              headers={"Authorization": f"Token {os.environ['BUTTONDOWN_KEY']}",
+                       "Content-Type": "application/json"})
+          try:
+              with urllib.request.urlopen(req, timeout=30) as r:
+                  d = json.loads(r.read())
+                  print("draft created:", d.get("id"), "->",
+                        "https://buttondown.com/emails/%s" % d.get("id"))
+          except urllib.error.HTTPError as e:
+              print("Buttondown said:", e.code, e.read().decode()[:400])
+              raise SystemExit(1)
+          PY
