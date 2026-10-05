@@ -31,13 +31,26 @@ def bolt(draw, x, y, s, color):
 
 def cover(card: dict) -> Image.Image:
     W, H = 1200, 630
-    img = Image.new("RGB", (W, H), BG2)
+    img = Image.new("RGBA", (W, H), BG2 + (255,))
     d = ImageDraw.Draw(img)
 
-    # Hartford at the foot of the card: real heights, brand horizon
-    # (see _skyline.py for the data and its citation)
-    import _skyline as _sky
-    _sky.draw(d, 0, W, H, 118 / _sky.HEIGHT_FT_MAX, ACC)
+    # Hartford at the foot of the card, our own drawing, mirrored in
+    # the river band (assets-src/hartford-skyline.py is the source)
+    art = Image.open(ROOT / "assets-src" / "hartford-skyline-dark.png").convert("RGBA")
+    aw = 1300
+    ah = int(art.height * aw / art.width)
+    art = art.resize((aw, ah), Image.LANCZOS)
+    img.alpha_composite(art, ((W - aw) // 2, H - 24 - ah))
+    mir = art.transpose(Image.Transpose.FLIP_TOP_BOTTOM).crop((0, 0, aw, min(ah, 22)))
+    fade = Image.new("L", mir.size, 0)
+    ImageDraw.Draw(fade).line((0, 0, aw, 0), fill=60)
+    for yy in range(mir.height):
+        fade.paste(int(60 * (1 - yy / mir.height) ** 1.6), (0, yy, aw, yy + 1))
+    mir.putalpha(fade)
+    img.alpha_composite(mir, ((W - aw) // 2, H - 24))
+    d.line((0, H - 24, W, H - 24), fill=ACC, width=2)
+    img = img.convert("RGB")
+    d = ImageDraw.Draw(img)
 
     # mini masthead
     f = font(SANS, 34, 1)

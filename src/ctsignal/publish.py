@@ -157,7 +157,7 @@ and the exact query →</a></p>
     masthead = config.ROOT / "assets" / "masthead.png"
     if masthead.exists():
         mast = ('<div class="wrap"><img class="masthead" '
-                'src="/assets/masthead.png" width="1200" height="200" '
+                'src="/assets/masthead.png" width="1200" height="460" '
                 'alt="CT Signal — public data, receipts attached"></div>')
     body = f"""{mast}
 {hero}

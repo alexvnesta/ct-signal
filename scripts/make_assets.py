@@ -20,7 +20,6 @@ import os
 
 from _brand import BG2, PANEL, LINE, INK, DIM, ACC, OK, SANS, SERIF, font
 from _kit import dot_map, duotone, scrim, SRC
-import _skyline as SKY
 
 BG = (14, 20, 27)          # --bg (icon field only; see _brand for the rest)
 
@@ -89,43 +88,67 @@ def _og_flat():
     img.save(OUT / "og-cover.png", optimize=True)
 
 
-def og_cover():
-    # Social card: the Hartford skyline, drawn to scale (see _skyline.py).
-    # Replaced the diffusion hero on purpose — the old one was a generic
-    # city with an unreadable signature; this one is our city, and its
-    # heights are real data with a citation.
-    img = Image.new("RGB", (1200, 630), BG2)
-    d = ImageDraw.Draw(img)
-    SKY.draw(d, 0, 1200, 630, 260 / SKY.HEIGHT_FT_MAX, ACC)
-    brand(d, 70, 70, 96)
-    d.line((70, 210, 420, 210), fill=LINE, width=2)
-    d.text((72, 240), "Know where you live.  ·  ctsignal.org",
-           font=font(SANS, 30), fill=DIM)
-    d.text((72, 292), "An automated newsroom. Every answer names its source.",
-           font=font(SANS, 22), fill=OK)
-    img.save(OUT / "og-cover.png", optimize=True)
+def skyline_band(w, h, y_sky, scale_w=None, reflect_h=0, horizon=True):
+    """Composite the house skyline onto a BG2 canvas: art anchored at
+    y_sky (its baseline), optional mirrored reflection beneath.
+    The art is our own drawing (assets-src/hartford_skyline.py); this
+    compositing is the only processing it gets."""
+    src = Image.open(OUT / ".." / "assets-src" / "hartford-skyline-dark.png").convert("RGBA")
+    art_w = int(scale_w or w)
+    art_h = int(src.height * art_w / src.width)
+    art = src.resize((art_w, art_h), Image.LANCZOS)
+    img = Image.new("RGBA", (w, h), BG2 + (255,))
+    x = (w - art_w) // 2
+    img.alpha_composite(art, (x, y_sky - art_h))
+    if reflect_h:
+        mir = art.transpose(Image.Transpose.FLIP_TOP_BOTTOM).crop(
+            (0, 0, art_w, min(art_h, reflect_h)))
+        fade = Image.new("L", mir.size, 0)
+        fd = ImageDraw.Draw(fade)
+        for row in range(mir.height):
+            fd.line((0, row, mir.width, row),
+                    fill=int(70 * (1 - row / mir.height) ** 1.6))
+        mir.putalpha(Image.composite(mir.split()[3], fade, fade))
+        img.alpha_composite(mir, (x, y_sky))
+    if horizon:
+        ImageDraw.Draw(img).line((0, y_sky, w, y_sky), fill=ACC, width=2)
+    return img
 
 
 def masthead():
-    # Site nameplate band: Hartford at scale, the tallest building in
-    # Connecticut clearing the brand panel. The board opens like a paper.
-    img = Image.new("RGBA", (1200, 200), BG2)
+    # Site nameplate: the real skyline drawn by our own script, sized so
+    # City Place clears the brand panel, mirrored in the river band below.
+    W, H, BASE = 1200, 460, 438
+    img = skyline_band(W, H, BASE, scale_w=1160, reflect_h=20)
+    scrim(img, (34, 26, 660, 190), BG2, 185)
     d = ImageDraw.Draw(img)
-    SKY.draw(d, 0, 1200, 200, 150 / SKY.HEIGHT_FT_MAX, ACC)
-    scrim(img, (30, 22, 640, 178), (10, 15, 20), 150)
-    d = ImageDraw.Draw(img)
-    brand(d, 56, 36, 68)
-    d.text((58, 138), "Know where you live.  ·  public data, receipts attached",
-           font=font(SANS, 22), fill=DIM)
+    brand(d, 62, 44, 74)
+    d.text((64, 152), "Know where you live.  ·  public data, receipts attached",
+           font=font(SANS, 23), fill=DIM)
     img.convert("RGB").save(OUT / "masthead.png", optimize=True)
 
 
-def digest_header():
-    # Email band: same skyline, taller frame, the digest's own line.
-    img = Image.new("RGBA", (1200, 260), BG2)
+def og_cover():
+    # Social card: skyline as the footer of a full frame — the city is the
+    # brand now, and the tagline sits in the sky like a headline.
+    W, H, BASE = 1200, 630, 610
+    img = skyline_band(W, H, BASE, scale_w=1560, reflect_h=18)
     d = ImageDraw.Draw(img)
-    SKY.draw(d, 0, 1200, 260, 190 / SKY.HEIGHT_FT_MAX, ACC)
-    scrim(img, (30, 26, 640, 234), (10, 15, 20), 150)
+    brand(d, 70, 64, 96)
+    d.line((70, 204, 420, 204), fill=LINE, width=2)
+    d.text((72, 234), "Know where you live.  ·  ctsignal.org",
+           font=font(SANS, 30), fill=DIM)
+    d.text((72, 286), "An automated newsroom. Every answer names its source.",
+           font=font(SANS, 22), fill=OK)
+    img.convert("RGB").save(OUT / "og-cover.png", optimize=True)
+
+
+def digest_header():
+    # Email band: taller frame, the skyline at near-full width, its own
+    # river. The digest is the most editorial surface; it gets the best art.
+    W, H, BASE = 1200, 360, 292
+    img = skyline_band(W, H, BASE, scale_w=1420, reflect_h=64)
+    scrim(img, (30, 26, 640, 234), BG2, 160)
     d = ImageDraw.Draw(img)
     brand(d, 56, 52, 82)
     d.text((58, 182), "The weekly digest  ·  filed weekly, sent by a human",
