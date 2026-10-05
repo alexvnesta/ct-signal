@@ -20,6 +20,7 @@ import os
 
 from _brand import BG2, PANEL, LINE, INK, DIM, ACC, OK, SANS, SERIF, font
 from _kit import dot_map, duotone, scrim, SRC
+import _skyline as SKY
 
 BG = (14, 20, 27)          # --bg (icon field only; see _brand for the rest)
 
@@ -89,58 +90,47 @@ def _og_flat():
 
 
 def og_cover():
-    # Social card: generated hero, duotoned; CT dot-map from real geometry.
-    # Falls back to the flat vector build when the art sources are absent.
-    hero = os.path.join(SRC, "hero-waveform.webp")
-    try:
-        img = duotone(hero, 1200, 630, BG2, ACC).convert("RGBA")
-        mark = dot_map(500, None, ACC, grid=LINE)
-        img.paste(mark, (1200 - mark.width - 56, (630 - mark.height) // 2 + 30), mark)
-        scrim(img, (46, 196, 830, 420), BG, 110)
-        d = ImageDraw.Draw(img)
-        brand(d, 70, 215, 112)
-        d.text((72, 372), "Know where you live.  ·  ctsignal.org",
-               font=font(SANS, 30), fill=DIM)
-        d.line((70, 588, 420, 588), fill=ACC, width=3)
-        img.convert("RGB").save(OUT / "og-cover.png", optimize=True)
-    except (OSError, ValueError):
-        _og_flat()
+    # Social card: the Hartford skyline, drawn to scale (see _skyline.py).
+    # Replaced the diffusion hero on purpose — the old one was a generic
+    # city with an unreadable signature; this one is our city, and its
+    # heights are real data with a citation.
+    img = Image.new("RGB", (1200, 630), BG2)
+    d = ImageDraw.Draw(img)
+    SKY.draw(d, 0, 1200, 630, 260 / SKY.HEIGHT_FT_MAX, ACC)
+    brand(d, 70, 70, 96)
+    d.line((70, 210, 420, 210), fill=LINE, width=2)
+    d.text((72, 240), "Know where you live.  ·  ctsignal.org",
+           font=font(SANS, 30), fill=DIM)
+    d.text((72, 292), "An automated newsroom. Every answer names its source.",
+           font=font(SANS, 22), fill=OK)
+    img.save(OUT / "og-cover.png", optimize=True)
 
 
 def masthead():
-    # Site nameplate band: the digest art with the SITE tagline, so the
-    # board opens like a paper. Same recipe, different line under the mark.
-    src = os.path.join(SRC, "hero-contours.webp")
-    try:
-        img = duotone(src, 1200, 200, BG, ACC, gamma=0.9, invert=True).convert("RGBA")
-        mark = dot_map(170, None, ACC, grid=None)
-        img.paste(mark, (1200 - mark.width - 60, (200 - mark.height) // 2), mark)
-        scrim(img, (46, 28, 660, 172), BG, 120)
-        d = ImageDraw.Draw(img)
-        brand(d, 70, 40, 72)
-        d.text((72, 146), "Know where you live.  ·  public data, receipts attached",
-               font=font(SANS, 22), fill=DIM)
-        img.convert("RGB").save(OUT / "masthead.png", optimize=True)
-    except (OSError, ValueError):
-        pass  # board simply renders without the band
+    # Site nameplate band: Hartford at scale, the tallest building in
+    # Connecticut clearing the brand panel. The board opens like a paper.
+    img = Image.new("RGBA", (1200, 200), BG2)
+    d = ImageDraw.Draw(img)
+    SKY.draw(d, 0, 1200, 200, 150 / SKY.HEIGHT_FT_MAX, ACC)
+    scrim(img, (30, 22, 640, 178), (10, 15, 20), 150)
+    d = ImageDraw.Draw(img)
+    brand(d, 56, 36, 68)
+    d.text((58, 138), "Know where you live.  ·  public data, receipts attached",
+           font=font(SANS, 22), fill=DIM)
+    img.convert("RGB").save(OUT / "masthead.png", optimize=True)
 
 
 def digest_header():
-    # Header band for the weekly email: contour weave, inverted to brand colours.
-    src = os.path.join(SRC, "hero-contours.webp")
-    try:
-        img = duotone(src, 1200, 260, BG, ACC, gamma=0.9, invert=True).convert("RGBA")
-        mark = dot_map(230, None, ACC, grid=None)
-        img.paste(mark, (1200 - mark.width - 60, (260 - mark.height) // 2), mark)
-        scrim(img, (46, 36, 660, 224), BG, 120)
-        d = ImageDraw.Draw(img)
-        brand(d, 70, 66, 86)
-        d.text((72, 190), "The weekly digest  ·  filed weekly, sent by a human",
-               font=font(SANS, 24), fill=DIM)
-        img.convert("RGB").save(OUT / "digest-header.png", optimize=True)
-    except (OSError, ValueError):
-        pass  # emails simply render without the band
-
+    # Email band: same skyline, taller frame, the digest's own line.
+    img = Image.new("RGBA", (1200, 260), BG2)
+    d = ImageDraw.Draw(img)
+    SKY.draw(d, 0, 1200, 260, 190 / SKY.HEIGHT_FT_MAX, ACC)
+    scrim(img, (30, 26, 640, 234), (10, 15, 20), 150)
+    d = ImageDraw.Draw(img)
+    brand(d, 56, 52, 82)
+    d.text((58, 182), "The weekly digest  ·  filed weekly, sent by a human",
+           font=font(SANS, 24), fill=DIM)
+    img.convert("RGB").save(OUT / "digest-header.png", optimize=True)
 
 
 def favicon_png(size, path):

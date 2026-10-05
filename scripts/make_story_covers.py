@@ -34,6 +34,11 @@ def cover(card: dict) -> Image.Image:
     img = Image.new("RGB", (W, H), BG2)
     d = ImageDraw.Draw(img)
 
+    # Hartford at the foot of the card: real heights, brand horizon
+    # (see _skyline.py for the data and its citation)
+    import _skyline as _sky
+    _sky.draw(d, 0, W, H, 118 / _sky.HEIGHT_FT_MAX, ACC)
+
     # mini masthead
     f = font(SANS, 34, 1)
     d.text((60, 48), "CT", font=f, fill=INK)
