@@ -57,26 +57,50 @@ def home_html(cards: list[dict], board: dict) -> str:
     if cards:
         now = max(now, _parse(cards[0]["generated_at"]))
 
-    hero = ""
+    # Broadsheet front: lead story with its chart as the artwork, a column
+    # of second stories, a dated rail of the rest. The grid is populated
+    # top-down from the feed, so the layout can never disagree with it.
+    lead = ""
+    sec2 = ""
+    rail = ""
     if cards:
+        from . import newsroom
         c = cards[0]
-        # The lead's artwork is its own chart — receipts as art, one shared
-        # caption with the story page. Cards without a chart keep a text hero.
         heroviz = ""
         if c.get("chart"):
-            from . import newsroom
             vdesc, vlabel = newsroom.chart_intro(c)
             heroviz = theme.viz(newsroom._spec_json(c["chart"]), "heroviz",
                                 label=vlabel, caption=vdesc)
-        hero = f"""<div class="wrap"><div class="hero">
-<div class="kicker">Today's lead · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk</div>
-<h1><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h1>
+        lead = f"""<article class="lead">
+<span class="kicker">Today's lead · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk</span>
+<h2><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h2>
 <p class="lede">{_ESC(c["answer_text"])}</p>
 {heroviz}
 <div class="meta">{_trigger_line(c)}<span class="when">
-{ago(c["generated_at"], now)}</span></div>
-<p><a class="more" href="/story/{c["id"]}">Read the full story — with the chart
-and the exact query →</a></p>
+{ago(c["generated_at"], now)}</span>
+<a class="more" href="/story/{c["id"]}">Read the full story — with the chart
+and the exact query →</a></div></article>"""
+
+        for c in cards[1:5]:
+            fig = ""
+            tpath = newsroom._thumb_path(c)
+            if tpath:
+                v = hashlib.md5(tpath.read_bytes()).hexdigest()[:8]
+                fig = (f'<a class="item-fig" href="/story/{c["id"]}" tabindex="-1" '
+                       f'aria-hidden="true"><img class="item-thumb" '
+                       f'src="/assets/story-{c["id"]}-thumb.png?v={v}" '
+                       f'width="1200" height="480" loading="lazy" alt=""></a>')
+            sec2 += f"""<div class="item">{fig}<div class="item-body">
+<span class="kicker">{_ESC(c["topic"])}</span>
+<h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
+<div class="meta">{ago(c["generated_at"], now)}</div>
+</div></div>"""
+
+        for c in cards[5:10]:
+            rail += f"""<div class="item"><div class="item-body">
+<span class="kicker">{_ESC(c["topic"])} · {_ESC(c["stream"])}</span>
+<h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
+<div class="meta">{ago(c["generated_at"], now)}</div>
 </div></div>"""
 
     tiles = ""
@@ -91,53 +115,13 @@ and the exact query →</a></p>
 <span class="chip">{_ESC(pos)} of {_ESC(str(t["n"]))} peers · data {_ESC(str(t["date"]))}</span>
 </div>"""
 
-    from . import newsroom
     # Trending only speaks when it has something to say: at least 3 votes
     # overall, a per-card score of its own. Until then, silence — a lone
     # badge on one card would advertise emptiness, not heat.
     _trend = board.get("trend") or []
     _votes = sum(t.get("votes", 0) for t in _trend)
-    qual = {t["id"] for t in _trend} if _votes >= 3 else set()
-    chip = '<span class="badge trend">trending</span> '
-    signals = ""
-    for c in cards[1:] if cards else []:
-        # The story's own cover art is the card's picture: it regenerates
-        # with the card, so the picture can never disagree with the answer
-        # (an image of yesterday's number is the classic news-site lie).
-        cover = ""
-        tpath = newsroom._thumb_path(c)
-        when = _kicker(c, ago(c["generated_at"], now))
-        if tpath:
-            # Content-hash the URL: the art can then cache forever, and the
-            # day a card refreshes its picture the URL changes too — a stale
-            # picture of yesterday's number is the news-site lie we refuse.
-            v = hashlib.md5(tpath.read_bytes()).hexdigest()[:8]
-            cover = (f'<a href="/story/{c["id"]}" tabindex="-1" aria-hidden="true">'
-                     f'<img class="sigart" src="/assets/story-{c["id"]}-thumb.png?v={v}" '
-                     f'width="1200" height="480" loading="lazy" alt=""></a>')
-        # The story's placement line, text-stripped: the one derived sentence
-        # the tiles don't carry, so the card adds a fact instead of an echo.
-        import re as _re
-        _pl = newsroom._place_line(c)
-        place = (_re.sub(r"<[^>]+>", "", _pl).strip() if _pl else "")
-        if not place and c.get("stream") == "local":
-            # Local desks have no 52-peer pack; the runner-up is the fact.
-            rws = sorted((r for r in (c.get("chart") or {}).get("data", {})
-                          .get("values", []) if "value" in r),
-                         key=lambda r: r["rank"])
-            if len(rws) >= 2:
-                place = (f"{rws[1]['state']} was next at {rws[1]['value']:.1f}%, "
-                         f"{rws[0]['value'] - rws[1]['value']:.1f} points "
-                         f"behind.")
-        place_html = f'<p class="meta" style="margin:0 0 .5rem">{_ESC(place)}</p>' if place else ""
-        badge = chip if c["id"] in qual else ""
-        signals += f"""<li class="sig">
-<div class="kicker" style="padding:.85rem 1.1rem 0">{badge}{when}</div>{cover}<div class="sigpad">
-<h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
-<p class="answer">{_ESC(c["answer_text"])}</p>{place_html}
-<div class="meta">{_trigger_line(c)}
-<a class="more" href="/story/{c["id"]}">the story with receipts →</a></div>
-</div></li>"""
+    chip = '<span class="badge trend">trending</span> ' if _votes >= 3 else ""
+    del chip  # trend badge stays available to story pages this cycle
 
     fixture = any("(fixture)" in (c["headline"].get("source") or "")
                   for c in cards)
@@ -145,22 +129,16 @@ and the exact query →</a></p>
              "run on labeled demo fixtures; each fresh cycle replaces them "
              "with live receipts."
              if fixture else
-             "Every question below was raised by a real headline first.")
-    signals_html = f"""<section id="signals"><div class="wrap col">
-<div class="sechead"><h2>Latest questions</h2>
-<p class="sechelp">{help_}</p></div>
-<ol class="signals">{signals}</ol>
-</div></section>"""
+             "Every question on this page was raised by a real headline first.")
+    latest = f"""<section class="latest" id="signals"><div class="wrap">
+<p class="sechelp" style="text-align:left;margin:0 0 .8rem">{help_}</p>
+<div class="latest-grid">
+{lead}
+<div class="sec2"><h2 class="sec2-head">Also on the board</h2>{sec2}</div>
+<aside class="rail"><h2 class="railhead">Latest questions</h2>{rail}</aside>
+</div></div></section>"""
 
-    n_peers = (board.get("tiles") or [{}])[0].get("n", "52")
-    mast = ""
-    masthead = config.ROOT / "assets" / "masthead.png"
-    if masthead.exists():
-        mast = ('<div class="wrap"><img class="masthead" '
-                'src="/assets/masthead.png" width="1200" height="460" '
-                'alt="CT Signal — public data, receipts attached"></div>')
-    body = f"""{mast}
-{hero}
+    body = f"""{latest}
 <section><div class="wrap">
 <div class="sechead"><h2>The Connecticut board</h2>
 <p class="sechelp">Where we stand among our peers — refreshed with every data
@@ -180,7 +158,10 @@ no ads, no cookies — public data with the receipts attached.</p>
 <p><a href="mailto:{config.CONTACT_EMAIL}?subject=Board%20sponsorship">Sponsor the board &rarr;</a></p>
 </aside></div>
 
-{signals_html}"""
+<div class="wrap"><img class="tailpiece" src="/assets/skyline-light.png"
+width="2340" height="875" loading="lazy" alt="Hartford skyline: the Soldiers
+and Sailors arch, the stone-arch bridge, the State Capitol with its gilded
+dome, City Place and the downtown towers"></div>"""
 
     return theme.page(
         title="CT Signal — Connecticut's automated data desk",

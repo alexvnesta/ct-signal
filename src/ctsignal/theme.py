@@ -25,38 +25,37 @@ _ESC = html.escape
 # blue links. Verified AA+ on every surface (see CONTRAST note in CSS header).
 
 CSS = """
-/* Contrast (WCAG 2.2 AA, verified): ink #e9eef4/bg 15.9 · dim #93a7b9/bg 7.5
-   faint #7d91a5/bg 5.7 on panel 5.2 · acc #f2a65a/bg 9.2 · blue #7fb4ff/bg 8.7
-   ok #8fd6a9/panel 10.0 · badge #cfdcea/panel2 11.2 — all >= 4.5:1 normal text */
+/* Contrast (WCAG 2.2 AA, verified on paper #faf8f3): ink #1c2733 13.8 ·
+   dim #4c5a68 6.6 · faint #66717e 4.6 · acc #a85408 4.9 · blue #2b62b8 5.2
+   ok #1a6e41 5.3 · badge #4c5a68/#eee9df 6.0 — all >= 4.5:1 normal text */
 @font-face{font-family:"Newsreader";font-style:normal;font-weight:700;
   font-display:swap;src:url("/assets/fonts/newsreader-700-latin.woff2")
   format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,
   U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,
   U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{
-  --bg:#0e141b; --bg2:#0a0f14; --panel:#151d27; --panel2:#1a2531; --line:#28394a;
-  --ink:#e9eef4; --dim:#93a7b9; --faint:#7d91a5;
-  --acc:#f2a65a; --blue:#7fb4ff; --ok:#8fd6a9; --warn:#e5c07b;
+  --bg:#faf8f3; --bg2:#f4f1e9; --panel:#ffffff; --panel2:#efece3; --line:#d9d3c6;
+  --rule:#e4dfd3; --ink:#1c2733; --dim:#4c5a68; --faint:#66717e;
+  --acc:#a85408; --acc2:#d9772b; --blue:#2b62b8; --ok:#1a6e41; --warn:#8a6d1f;
   --serif:"Newsreader","Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
-  --wrap:1080px; --col:760px;
+  --wrap:1140px; --col:760px;
 }
 *{box-sizing:border-box}
-html{color-scheme:dark}
+html{color-scheme:light}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline;text-underline-offset:3px}
 /* in-content links carry a non-color cue (WCAG 1.4.1); brand + nav opt out */
-.meta a, .breadcrumb a, .provenance a, .footgrid a, .card a
-{text-decoration:underline;text-underline-offset:3px;
-  text-decoration-color:inherit}
-::selection{background:#f2a65a44}
-:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:3px}
-.skip{position:absolute;left:-9999px}
-.skip:focus{left:1rem;top:.6rem;z-index:20;background:var(--acc);color:#0a0f14;
-  padding:.5rem .9rem;border-radius:8px;font-weight:700;text-decoration:none}
+.meta a, .breadcrumb a, .provenance a, .footgrid a, .card a, .item a.r
+{text-decoration:underline;text-underline-offset:3px}
+::selection{background:#d9772b33}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:0;z-index:20;background:var(--acc);color:#fff;
+  padding:8px 14px;font-weight:700}
+.skip:focus{left:0}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:
   hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:
@@ -65,152 +64,195 @@ a:hover{text-decoration:underline;text-underline-offset:3px}
 .col{max-width:var(--col)}
 main{display:block}
 
-/* ------------------------------------------------------------ masthead --- */
-header.site{background:var(--bg2);border-bottom:1px solid var(--line);
-  box-shadow:0 1px 0 #f2a65a22}
-.mast{display:flex;align-items:baseline;justify-content:space-between;
-  flex-wrap:wrap;gap:.4rem 1rem;padding-top:1.1rem;padding-bottom:.7rem}
-.brand{font:800 1.55rem/1 var(--sans);color:var(--ink);letter-spacing:-.02em;
-  text-decoration:none!important}
+/* ------------------------------------------------- masthead (broadsheet) --- */
+/* The nameplate is typographic and centered — the broadsheet convention:
+   rules above and below the folio line, sections on a double-ruled line.
+   The drawn skyline lives where a paper puts its tailpiece: page bottom. */
+header.site{background:var(--bg)}
+.utilrow{display:flex;justify-content:space-between;align-items:baseline;
+  padding:.7rem 1.2rem .5rem;font-size:.74rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--faint)}
+.utilrow a{color:var(--dim)}
+.utilrow a.sub{background:var(--acc);color:#fff;padding:.3rem .8rem;font-weight:700;
+  letter-spacing:.08em}
+.utilrow a.sub:hover{text-decoration:none;background:#8f4706}
+.nameplate{text-align:center;padding:.4rem 0 .5rem}
+.brand{font:700 clamp(2.1rem,6vw,3.3rem)/1.05 var(--serif);color:var(--ink);
+  letter-spacing:.01em;text-decoration:none!important}
 .brand .bolt{color:var(--acc)}
-.tagline{color:var(--dim);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+.dateline{text-align:center;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  border-width:3px 0 1px;padding:.4rem 1.2rem;color:var(--dim);font-size:.78rem;
+  letter-spacing:.14em;text-transform:uppercase}
+nav.sitebar{display:flex;flex-wrap:wrap;justify-content:center;gap:.1rem;
+  border-bottom:3px double var(--ink);margin-bottom:.2rem}
+nav.sitebar a{color:var(--dim);font:600 .8rem/1 var(--sans);padding:.65rem .85rem;
+  min-height:44px;display:inline-flex;align-items:center;text-transform:uppercase;
+  letter-spacing:.09em;text-decoration:none!important;border-bottom:2px solid transparent}
+nav.sitebar a:hover{color:var(--acc)}
+nav.sitebar a.rss{color:var(--acc)}
+
+/* ------------------------------------------------------ Latest (broadsheet) */
+.latest{padding:1.4rem 0 .6rem}
+.latest-grid{display:grid;grid-template-columns:minmax(0,6.5fr) minmax(0,4.5fr);
+  gap:0 2rem}
+.lead .kicker{color:var(--acc);font-weight:800;font-size:.76rem;letter-spacing:.16em;
+  text-transform:uppercase}
+.lead h2{font:700 clamp(1.6rem,3.4vw,2.3rem)/1.15 var(--serif);margin:.45rem 0 .55rem;
   text-wrap:balance}
-nav.sitebar{display:flex;flex-wrap:wrap;gap:.15rem;border-top:1px solid var(--line);
-  margin-top:.15rem}
-nav.sitebar a{color:var(--dim);font-size:.84rem;font-weight:600;padding:.55rem .8rem;
-  min-height:44px;display:inline-flex;align-items:center;
-  border-bottom:2px solid transparent;text-transform:uppercase;letter-spacing:.06em;
-  text-decoration:none!important}
-nav.sitebar a:hover{color:var(--ink);border-bottom-color:var(--acc)}
-nav.sitebar a.rss{margin-left:auto;color:var(--acc)}
+.lead h2 a{color:var(--ink)}
+.lead h2 a:hover{color:var(--acc);text-decoration:none}
+.lead .lede{font:400 1.12rem/1.55 var(--serif);color:var(--dim);margin:0 0 .8rem}
+.lead .vizwrap{margin:.2rem 0 .6rem;background:var(--panel);border:1px solid var(--rule);
+  padding:.6rem .5rem .3rem}
+.sec2 .item,.rail .item{border-top:1px solid var(--rule);padding:.85rem 0}
+.sec2 .item:first-child,.rail .item:first-child{border-top:3px solid var(--ink)}
+.item-fig{flex:0 0 128px}
+.item-fig img{width:128px;height:auto;display:block;border:1px solid var(--rule)}
+.item-body{min-width:0}
+.sec2 h3,.rail h3{font:700 1.08rem/1.3 var(--serif);margin:.1rem 0 .3rem}
+.sec2 h3 a,.rail h3 a{color:var(--ink)}
+.sec2 h3 a:hover,.rail h3 a:hover{color:var(--acc);text-decoration:none}
+.item .meta{color:var(--faint);font-size:.8rem;line-height:1.5}
+.item .kicker{display:block;color:var(--acc);font-weight:700;font-size:.68rem;
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:.15rem}
+.sec2{align-self:start}
+.rail{margin-top:1.6rem;border-top:0}
+.railhead,.lead-head,.sec2-head{font:800 .8rem/1 var(--sans);letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink);border-bottom:3px solid var(--ink);
+  padding-bottom:.5rem;margin:0 0 .2rem}
+@media(min-width:1000px){.latest-grid{grid-template-columns:minmax(0,6fr) minmax(0,3.6fr) minmax(0,3fr)}}
 
-/* ---------------------------------------------------------------- hero --- */
-.hero{padding:2.4rem 0 .6rem;max-width:var(--col)}
-.masthead{display:block;width:100%;height:auto;border-radius:12px;
-margin:1rem 0 -.6rem;aspect-ratio:30/11.5;object-fit:cover}
-.storyhero{display:block;width:100%;height:auto;border-radius:12px;
-margin:.6rem 0 0;border:1px solid var(--line)}
-.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
-white-space:nowrap;border:0;padding:0;margin:-1px;clip-path:inset(50%)}
-.kicker{color:var(--acc);font-weight:800;font-size:.78rem;letter-spacing:.18em;
-  text-transform:uppercase;text-wrap:balance}
-.hero h1{font:700 clamp(1.7rem,4.5vw,2.5rem)/1.18 var(--serif);margin:.5rem 0 .8rem;
-  letter-spacing:-.01em;text-wrap:balance}
-.hero h1 a{color:var(--ink)}
-.hero h1 a:hover{color:var(--acc);text-decoration:none}
-.lede{font-size:1.25rem;line-height:1.5;color:var(--ink);margin:0 0 1rem}
-/* the hero chart is the lead's artwork: give it breathing room, keep its
-   reserved min-height so vega injection never shifts the fold */
-.hero .vizwrap{margin:1.2rem 0 .3rem}
-.hero .meta, .meta{color:var(--dim);font-size:.9rem;line-height:1.55}
-/* source attribution and publish time read as two quiet lines,
-   not one dense inline run */
-.meta .trig{display:block}
-.meta .when,.meta .more{display:block;margin-top:.2rem}
-.meta time{font-variant-numeric:tabular-nums}
-.srclabel{color:var(--faint)}
-.more{font-weight:700;font-size:.9rem;display:inline-block;padding:10px 0;min-height:44px}
-.badge{background:var(--panel2);color:#cfdcea;border-radius:4px;
-  padding:.05rem .4rem;font-size:.72rem;white-space:nowrap}
-
-/* --------------------------------------------------------------- board --- */
+/* --------------------------------------------------------------- board ---- */
 section{padding:1.6rem 0}
 .sechead{display:flex;align-items:baseline;justify-content:space-between;
-  flex-wrap:wrap;gap:.2rem 1rem;border-bottom:2px solid var(--acc);
+  flex-wrap:wrap;gap:.2rem 1rem;border-bottom:3px solid var(--ink);
   padding-bottom:.45rem;margin-bottom:1.2rem}
 .sechead h2{font:800 1.15rem/1.2 var(--sans);margin:0;text-transform:uppercase;
   letter-spacing:.1em;text-wrap:balance}
-.sechelp{color:var(--dim);font-size:.84rem;margin:0}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:.9rem}
-.tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;
-  padding:1rem 1.15rem;display:flex;flex-direction:column;gap:.15rem;
-  transition:border-color .15s}
-.tile:hover{border-color:var(--acc)}
+.sechelp{color:var(--faint);font-size:.84rem;margin:0;text-align:right}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.tile{background:var(--panel);border:1px solid var(--rule);border-top:3px solid var(--acc2);
+  padding:1rem 1.15rem;display:flex;flex-direction:column;gap:.15rem}
+.tile:hover{border-color:var(--acc2)}
 .tname{color:var(--dim);font-size:.82rem;font-weight:600}
 .val{font:800 2rem/1.15 var(--sans);color:var(--ok);letter-spacing:-.01em}
 .tile .viz{min-height:58px;margin:.15rem 0 .2rem}
-/* width:"container" measures the .vega-embed node, which vega-embed's own
-   stylesheet makes inline-block; inside a flex tile that shrinks to the
-   (0-wide) svg and collapses. Force the measure chain to fill the tile. */
 .tile .viz,.tile .viz .vega-embed,.tile .viz .chart-wrapper{display:block;width:100%}
 .vote{display:flex;align-items:center;gap:.6rem;margin-top:.85rem;
   color:var(--dim);font-size:.9rem}
 .vote button{background:var(--panel2);color:var(--dim);border:1px solid var(--line);
   border-radius:99px;padding:.25rem .85rem;font:inherit;font-size:.85rem;cursor:pointer}
 .vote button:hover{color:var(--ink);border-color:var(--acc)}
-.vote button[data-chosen]{color:#10161d;background:var(--acc);border-color:var(--acc)}
+.vote button[data-chosen]{color:#fff;background:var(--acc);border-color:var(--acc)}
 .vote button:disabled{cursor:default}
-.badge.trend{background:var(--acc);color:#10161d;border:0}
-.chip{align-self:flex-start;background:var(--panel2);color:#cfdcea;border-radius:99px;
+.badge{background:#eee9df;color:var(--dim);border-radius:3px;
+  padding:.05rem .4rem;font-size:.72rem;white-space:nowrap}
+.badge.trend{background:var(--acc);color:#fff;border:0}
+.chip{align-self:flex-start;background:var(--panel2);color:var(--dim);border-radius:99px;
   padding:.1rem .65rem;font-size:.74rem}
 
 .sub a,.meta a{text-decoration:underline}
 .klink{color:inherit;text-decoration:none;border-bottom:1px dotted currentColor}
 .klink:hover{border-bottom-style:solid}
-.skip{position:absolute;left:-9999px;top:0;z-index:20;background:var(--acc);color:#10161d;padding:8px 14px;border-radius:0 0 10px 0;font-weight:700}
-.skip:focus{left:0}
 .towntab{width:100%;border-collapse:collapse;margin:.8rem 0}
-.towntab td{padding:.45rem .6rem;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.towntab td{padding:.45rem .6rem;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
 .towntab td:first-child{color:var(--dim)}
 .towntab td:last-child{text-align:right;font-weight:700}
 .sponsor{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center;
-  justify-content:space-between;border:1px dashed var(--line);border-radius:10px;
+  justify-content:space-between;border:1px dashed var(--line);border-radius:6px;
   padding:.7rem 1rem;margin-top:1rem;background:var(--panel)}
 .sponsor p{margin:0;color:var(--dim);font-size:.9rem}
 .sponsor a{color:var(--acc);font-weight:700;font-size:.9rem}
-details.embed{border:1px solid var(--line);border-radius:10px;background:var(--panel);
+details.embed{border:1px solid var(--rule);border-radius:6px;background:var(--panel);
   padding:.6rem 1rem;margin:1rem 0}
 details.embed summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--dim)}
 details.embed summary:hover{color:var(--ink)}
 details.embed textarea{width:100%;box-sizing:border-box;background:var(--bg2);
-  color:var(--ok);border:1px solid var(--line);border-radius:6px;padding:.5rem;
+  color:var(--ok);border:1px solid var(--line);border-radius:4px;padding:.5rem;
   font:.8rem/1.5 var(--mono);margin-top:.6rem}
 .legend{color:var(--faint);font-size:.8rem;margin:1rem 0 0}
 
-/* ------------------------------------------------------------- signals --- */
+/* ------------------------------------------------------------- signals ---- */
+/* kept: town/story index lists reuse .sig on paper */
 ol.signals{list-style:none;margin:0;padding:0;
   display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:1rem}
-li.sig{border:1px solid var(--line);background:var(--panel);border-radius:12px;
+li.sig{border:1px solid var(--rule);background:var(--panel);
   overflow:hidden;display:flex;flex-direction:column}
-.sigart{display:block;width:100%;height:auto;border-bottom:1px solid var(--line)}
+.sigart{display:block;width:100%;height:auto;border-bottom:1px solid var(--rule)}
 li.sig .sigpad{padding:.9rem 1.1rem 1.05rem;display:flex;flex-direction:column}
 li.sig h3{font:700 1.35rem/1.3 var(--serif);margin:.35rem 0 .4rem}
 li.sig h2{font:700 1.35rem/1.3 var(--serif);margin:.35rem 0 .4rem}
 li.sig h3 a{color:var(--ink)}
 li.sig h3 a:hover{color:var(--acc);text-decoration:none}
-li.sig .answer{font-size:1.02rem;color:var(--ink);margin:0 0 .5rem}
+li.sig .answer{font-size:1.02rem;color:var(--dim);margin:0 0 .5rem}
 li.sig .meta{font-size:.88rem}
 
-/* ------------------------------------------------------------------ how --- */
-/* ---------------------------------------------------------------- cards ---- */
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+/* ---------------------------------------------------------------- cards --- */
+.card{background:var(--panel);border:1px solid var(--rule);
   padding:1rem 1.2rem;margin:1.2rem 0}
 .card .label{color:var(--dim);font-weight:700;font-size:.72rem;letter-spacing:.16em;
   text-transform:uppercase;margin-bottom:.5rem}
-.answerbox{background:var(--panel);border:1px solid var(--line);
-  border-left:4px solid var(--ok);border-radius:10px;padding:1rem 1.2rem;
+.answerbox{background:var(--bg2);border:1px solid var(--rule);
+  border-left:4px solid var(--ok);padding:1rem 1.2rem;
   font:600 1.3rem/1.4 var(--sans);margin:.9rem 0 1.2rem}
 figure.vizwrap{margin:0}
 figure.vizwrap figcaption{color:var(--faint);font-size:.8rem;margin-top:.4rem;
   line-height:1.45}
 .viz{overflow-x:auto}
-.viz:focus-visible{outline:2px solid var(--acc);outline-offset:4px;border-radius:6px}
+.viz:focus-visible{outline:2px solid var(--acc);outline-offset:4px}
 .viz .vega-embed .chart-wrapper{margin:0}
 .viz .vega-embed details summary{color:var(--dim)}
-code{background:var(--panel2);color:#cfdcea;padding:.1rem .35rem;border-radius:4px;
+/* charts carry baked dark-palette config from altair; vega paints text and
+   rules with presentation attributes, which any CSS rule outranks — one
+   override keeps every chart on the paper without regenerating specs */
+.viz text{fill:#4c5a68}
+.viz .role-axis path,.viz .role-axis line,
+.viz .role-legend path,.viz .role-legend line{stroke:#b8b2a6}
+.viz .role-grid path,.viz .role-grid line{stroke:#e4dfd3}
+.viz .role-title text{fill:#1c2733}
+.viz .role-legend-label text{fill:#4c5a68}
+code{background:var(--panel2);color:var(--ink);padding:.1rem .35rem;
   font:.85em/1.5 var(--mono);word-break:break-all}
 .provenance a{color:var(--blue)}
 
-/* --------------------------------------------------------------- footer --- */
-footer.site{border-top:1px solid var(--line);background:var(--bg2);margin-top:2.5rem;
+/* --------------------------------------------------------- story / hero --- */
+.hero{padding:2.2rem 0 .6rem;max-width:var(--col)}
+.storyhero{display:block;width:100%;height:auto;border:1px solid var(--rule);
+  margin:.6rem 0 0}
+.kicker{color:var(--acc);font-weight:800;font-size:.78rem;letter-spacing:.18em;
+  text-transform:uppercase;text-wrap:balance}
+.hero h1{font:700 clamp(1.7rem,4.5vw,2.5rem)/1.18 var(--serif);margin:.5rem 0 .8rem;
+  letter-spacing:-.01em;text-wrap:balance}
+.hero h1 a{color:var(--ink)}
+.hero h1 a:hover{color:var(--acc);text-decoration:none}
+.lede{font-size:1.25rem;line-height:1.5;color:var(--dim);margin:0 0 1rem}
+.hero .vizwrap{margin:1.2rem 0 .3rem;background:var(--panel);
+  border:1px solid var(--rule);padding:.6rem .5rem .3rem}
+.hero .meta, .meta{color:var(--dim);font-size:.9rem;line-height:1.55}
+.meta .trig{display:block}
+.meta .when,.meta .more{display:block;margin-top:.2rem}
+.meta time{font-variant-numeric:tabular-nums}
+.srclabel{color:var(--faint)}
+.more{color:var(--acc);font-weight:700;font-size:.9rem;display:inline-block;
+  padding:10px 0;min-height:44px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+white-space:nowrap;border:0;padding:0;margin:-1px;clip-path:inset(50%)}
+
+/* ------------------------------------------------------------ tailpiece --- */
+/* our Hartford skyline as a printer's tailpiece — the drawing that matches
+   the paper, at the foot of the board (see assets-src/README.md) */
+.tailwrap{padding:1.2rem 1.2rem 0}
+.tailpiece{display:block;width:100%;height:auto;max-width:1140px;margin:0 auto}
+
+/* ---------------------------------------------------------------- footer -- */
+footer.site{border-top:3px double var(--ink);background:var(--bg2);margin-top:2.5rem;
   padding:1.8rem 0 2.2rem}
 .footgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1.3fr;gap:1.5rem}
 .footgrid form{display:flex;gap:.4rem;margin-top:.4rem}
-.footgrid input{flex:1;min-width:0;background:var(--bg2);border:1px solid var(--line);
+.footgrid input{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);
 color:var(--ink);padding:.45rem .6rem;font:inherit;font-size:.87rem}
 .footgrid input:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
-.footgrid form button{background:var(--acc);color:#14181c;border:0;padding:.45rem .8rem;
+.footgrid form button{background:var(--acc);color:#fff;border:0;padding:.45rem .8rem;
 font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
 @media(max-width:880px){.footgrid{grid-template-columns:1fr 1fr}}
 .footgrid h2{margin:.2rem 0 .6rem;color:var(--dim);font-size:.74rem;
@@ -220,25 +262,22 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
 .footgrid li{margin:.3rem 0}
 .footgrid a{color:var(--dim);font-size:.87rem}
 .footgrid a:hover{color:var(--ink)}
-.colophon{border-top:1px solid var(--line);margin-top:1.6rem;padding-top:1rem;
+.colophon{border-top:1px solid var(--rule);margin-top:1.6rem;padding-top:1rem;
   color:var(--faint);font-size:.78rem;display:flex;justify-content:space-between;
   flex-wrap:wrap;gap:.4rem}
 .breadcrumb{margin:1.4rem 0 .2rem;font-size:.82rem}
 .breadcrumb a{color:var(--faint)}
+@media (max-width:999px){.latest-grid{grid-template-columns:1fr}}
 @media (max-width:720px){.footgrid{grid-template-columns:1fr}
   .val{font-size:1.7rem}.hero .lede{font-size:1.1rem}
-  /* the lead, not the menu, owns the fold: slim masthead, one scrollable
-     nav row instead of a four-line grid with a dead zone */
-  .mast{padding-top:.7rem;padding-bottom:.5rem}
-  .tagline{font-size:.72rem;letter-spacing:.1em}
+  .utilrow{font-size:.68rem;letter-spacing:.06em}
   nav.sitebar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
-    overscroll-behavior-x:contain}
+    overscroll-behavior-x:contain;justify-content:flex-start}
   nav.sitebar::-webkit-scrollbar{display:none}
-  nav.sitebar a{white-space:nowrap;padding:.5rem .65rem;font-size:.78rem}
-  nav.sitebar a.rss{margin-left:0}
+  nav.sitebar a{white-space:nowrap;padding:.5rem .65rem;font-size:.74rem}
   .kicker{letter-spacing:.1em;font-size:.74rem}
   .sechead h2{letter-spacing:.06em}
-  /* Safari's floating toolbar must never sit over content at page bottom */
+  .item-fig{flex:0 0 96px}.item-fig img{width:96px}
   footer.site{padding-bottom:calc(2.2rem + 4.5rem +
     env(safe-area-inset-bottom,0px))}}
 """
@@ -267,10 +306,12 @@ def dateline(now: dt.datetime | None = None) -> str:
 def header() -> str:
     return (
         '<a class="skip" href="#main">Skip to content</a>'
-        '<header class="site"><div class="wrap mast">'
-        + _BRAND
-        + f'<span class="tagline">{dateline()}</span>'
-        + f'</div><nav class="sitebar wrap" aria-label="Primary">{_NAV}</nav></header>'
+        '<header class="site">'
+        '<div class="utilrow"><span>Independent \u00b7 automated \u00b7 reader-supported</span>'
+        '<span><a href="/feed.xml">RSS</a></span></div>'
+        '<div class="wrap nameplate">' + _BRAND + '</div>'
+        f'<div class="dateline">{dateline()}</div>'
+        f'<nav class="sitebar" aria-label="Primary">{_NAV}</nav></header>'
     )
 
 
@@ -398,7 +439,7 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website",
 <meta name="twitter:description" content="{_ESC(og_desc or desc)}">
 <meta name="twitter:image" content="{img}">
 <meta name="twitter:image:alt" content="{_ESC(img_alt)}">
-{art}<meta name="theme-color" content="#0e141b">
+{art}<meta name="theme-color" content="#faf8f3">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="/assets/favicon-32.png" type="image/png">
 <link rel="manifest" href="/manifest.webmanifest">

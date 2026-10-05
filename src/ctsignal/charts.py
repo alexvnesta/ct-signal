@@ -11,8 +11,8 @@ def _tick_fmt(unit: str) -> str:
     return {"USD": "$,.0f", "percent": ".1f", "per 100k": ",.0f"}.get(unit, ",.0f")
 
 
-_HIGHLIGHT_COLOR = "#f2a65a"
-_MUTED_COLOR = "#9aa5b1"
+_HIGHLIGHT_COLOR = "#d9772b"
+_MUTED_COLOR = "#b9b3a6"
 
 
 def _pin_schema(spec: dict) -> dict:
@@ -21,15 +21,16 @@ def _pin_schema(spec: dict) -> dict:
     return spec
 
 
-def _dark(chart):
+def _paper(chart):
+    """Paper palette: ink text, taupe rules, one amber highlight."""
     return (
         chart
-        .configure_axis(labelColor="#9fb0bf", titleColor="#9fb0bf",
-                        gridColor="#26313d", domainColor="#26313d",
-                        tickColor="#26313d")
-        .configure_legend(labelColor="#9fb0bf", titleColor="#9fb0bf",
+        .configure_axis(labelColor="#4c5a68", titleColor="#4c5a68",
+                        gridColor="#e4dfd3", domainColor="#b8b2a6",
+                        tickColor="#b8b2a6")
+        .configure_legend(labelColor="#4c5a68", titleColor="#4c5a68",
                           symbolStrokeWidth=0)
-        .configure_title(color="#eef2f5", subtitleColor="#9fb0bf")
+        .configure_title(color="#1c2733", subtitleColor="#66717e")
         .configure_view(strokeWidth=0)
     )
 
@@ -68,7 +69,7 @@ def rank_strip(rows: list[dict], *, title: str, unit: str = "",
         .properties(width="container", height=max(140, 14 * len(rows)),
                     title=alt.TitleParams(text=title, subtitle=sub))
     )
-    chart = _dark(chart)
+    chart = _paper(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 
 
@@ -90,12 +91,12 @@ def dot_strip(rows: list[dict], *, title: str = "") -> dict:
             ],
         )
         .properties(width="container", height=46,
-                    title=alt.TitleParams(text=title, fontSize=11, color="#7d91a5"))
+                    title=alt.TitleParams(text=title, fontSize=11, color="#66717e"))
     )
     # No CT text tag here: layering breaks width:"container" resolution
     # (svg renders 0-wide). The orange dot + tooltip + board legend already
     # identify Connecticut; visual review over decoration.
-    chart = _dark(chart)
+    chart = _paper(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 
 
@@ -125,7 +126,7 @@ def shape_strip(rows: list[dict]) -> dict:
         )
         .properties(width="container", height=68)
     )
-    chart = _dark(chart)
+    chart = _paper(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 
 
@@ -137,7 +138,7 @@ def state_map(rows: list[dict], *, title: str, unit: str = "") -> dict:
                              fields=["value", "rank"]),
     )
     base = (
-        joined.mark_geoshape(stroke="#22303c", strokeWidth=0.4)
+        joined.mark_geoshape(stroke="#b8b2a6", strokeWidth=0.4)
         .encode(
             color=alt.Color("value:Q")
             .title(f"{title}{f' ({unit})' if unit else ''}")
@@ -161,7 +162,7 @@ def state_map(rows: list[dict], *, title: str, unit: str = "") -> dict:
         .project(type="albersUsa")
         .properties(width=460, height=280, title=alt.TitleParams(text=title))
     )
-    chart = _dark(chart)
+    chart = _paper(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 
 
@@ -184,7 +185,7 @@ def trend(rows: list[dict], *, title: str, unit: str = "",
         .encode(
             x=alt.X("date:T").title(None).axis(
                 alt.Axis(format="%Y", tickCount=6, grid=False,
-                           domainColor="#28394a")),
+                           domainColor="#c9c3b6")),
             y=alt.Y("value:Q").title(f"{title}{f' ({unit})' if unit else ''}")
                 .axis(alt.Axis(format=_tick_fmt(unit))),
             color=series,
@@ -216,5 +217,5 @@ def trend(rows: list[dict], *, title: str, unit: str = "",
         width="container", height=200, title=alt.TitleParams(text=title),
         autosize=alt.AutoSizeParams(contains="padding"),
         padding=alt.Padding(right=64))
-    chart = _dark(chart)
+    chart = _paper(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
