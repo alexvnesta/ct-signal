@@ -31,6 +31,8 @@ LABELS = [("pop", "Population", "DP05_0001E", "int"),
           ("rent", "Median gross rent", "DP04_0134E", "usd"),
           ("value", "Median home value", "DP04_0089E", "usd")]
 STORED = config.ROOT / "data" / "towns.json"
+SCHEMA = 2   # bump when parsing/cleaning rules change; older
+             # stored snapshots are refetched regardless of age
 STORY_FOR = {"income": None, "poverty": "797faed5a836", "rent": "0125297ea839"}
 
 
@@ -83,6 +85,8 @@ def ensure() -> dict | None:
     if STORED.exists():
         try:
             stored = json.loads(STORED.read_text())
+            if int(stored.get("schema", 1)) < SCHEMA:
+                raise ValueError("schema")
             age_days = (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(
                 stored["fetched_at"])).days
             if age_days < 300:
@@ -104,7 +108,7 @@ def ensure() -> dict | None:
             _poverty(towns, det)
             st = _rows(state)[0]
             _poverty([st], sdet)
-            data = {"vintage": f"{year} ACS 5-year ({int(year) - 4}–{year})",
+            data = {"schema": SCHEMA, "vintage": f"{year} ACS 5-year ({int(year) - 4}–{year})",
                     "fetched_at": dt.datetime.now(dt.timezone.utc)
                     .isoformat(timespec="seconds"),
                     "ct": st, "towns": towns}

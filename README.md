@@ -55,8 +55,9 @@ to-dos in `docs/plan-6h.md`.
 - `src/ctsignal/` — feeds → questions → sources → cards → publish
 - `output/feed.json`, `output/index.html` — deterministic published feed
 - `story/<id>/` — permalink story pages; `archive/<YYYY-MM>/` — every card
-  ever, as JSON; `feed.xml` + `sitemap.xml`; `/about` `/methodology`
-  `/masthead` `/corrections` — the news site layer (`src/ctsignal/newsroom.py`)
+  ever, as JSON; `feed.xml` + `sitemap.xml`; `/towns` + `/town/<slug>`
+  desk; `/about` `/masthead` `/corrections` `/sources` — the news site
+  layer (`src/ctsignal/newsroom.py`, `towns.py`, `pages.py`)
 
 ## Deploy
 

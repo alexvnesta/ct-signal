@@ -67,6 +67,26 @@ def internal_links() -> list[str]:
     return sorted(set(broken))[:50]
 
 
+def sitemap_gaps() -> list[str]:
+    """Every built page must appear in sitemap.xml. A page the sitemap
+    forgot is a page search never meets; this drifts silently."""
+    sm = config.ROOT / "sitemap.xml"
+    if not sm.exists():
+        return ["sitemap.xml missing"]
+    urls = set(re.findall(r"<loc>([^<]+)</loc>", sm.read_text()))
+    base = config.SITE_URL.rstrip("/")
+    gaps = []
+    for sub in ("story", "town", "topic"):
+        base_dir = config.ROOT / sub
+        if not base_dir.exists():
+            continue
+        for d in base_dir.iterdir():
+            if d.is_dir() and (d / "index.html").exists():
+                if f"{base}/{sub}/{d.name}" not in urls:
+                    gaps.append(f"{sub}/{d.name} missing from sitemap")
+    return gaps[:25]
+
+
 def heartbeat_age_hours() -> float | None:
     """Hours since the newest machine commit (feed/attention/pulse)."""
     try:
@@ -99,6 +119,7 @@ def run(live: bool = True) -> dict:
     report = {"checked_at": dt.datetime.now(dt.timezone.utc)
               .isoformat(timespec="seconds"),
               "broken_links": internal_links(),
+              "sitemap_gaps": sitemap_gaps(),
               "heartbeat_age_hours": heartbeat_age_hours()}
     if live:
         report["probes"] = live_probes()
@@ -107,10 +128,13 @@ def run(live: bool = True) -> dict:
 
 
 def healthy(report: dict) -> bool:
-    if report["broken_links"]:
+    if report["broken_links"] or report.get("sitemap_gaps"):
         return False
+    # 26h, not 6h: commits happen when data changes, and a healthy desk
+    # can go a quiet day without one. Silence beyond a full day-plus is
+    # the only honest death signal from out here.
     if report.get("heartbeat_age_hours") is None or \
-            report["heartbeat_age_hours"] > 6:
+            report["heartbeat_age_hours"] > 26:
         return False
     return all(str(v) == "200" for v in report.get("probes", {}).values())
 

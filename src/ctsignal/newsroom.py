@@ -419,6 +419,16 @@ def sitemap_xml(cards: list[dict]) -> str:
     for c in cards:
         parts.append(f'<url><loc>{permalink(c)}</loc>'
                      f'<lastmod>{_day(c["generated_at"])}</lastmod></url>')
+    archive = []
+    story_dir = config.ROOT / "story"
+    live_ids = {c["id"] for c in cards}
+    if story_dir.exists():
+        for d in story_dir.iterdir():
+            if d.is_dir() and (d / "index.html").exists() \
+                    and d.name not in live_ids:
+                archive.append(f'<url><loc>{config.SITE_URL}/story/{d.name}'
+                               f'</loc><lastmod>{now}</lastmod></url>')
+    parts.extend(archive)
     for topic, tcards in _topics(cards).items():
         newest = max(_day(c["generated_at"]) for c in tcards)
         parts.append(f'<url><loc>{config.SITE_URL}/topic/{topic}</loc>'
@@ -430,11 +440,24 @@ def sitemap_xml(cards: list[dict]) -> str:
                  f'<lastmod>{now}</lastmod></url>')
     parts.append(f'<url><loc>{config.SITE_URL}/archive</loc>'
                  f'<lastmod>{now}</lastmod></url>')
+    # Town pages come from the desk's own snapshot, not from which cards
+    # happen to name towns today: every built town page is a real page, and
+    # the desk is the site's largest section. Cards may cite towns too —
+    # those lastmods follow the card that cited them.
+    built_towns = {d.name for d in (config.ROOT / "town").iterdir()
+                   if d.is_dir() and (d / "index.html").exists()} \
+        if (config.ROOT / "town").exists() else set()
+    cited, card_day = set(), {}
     for c in cards:
         for row in (c.get("towns") or [])[:200]:
-            parts.append(
-                f'<url><loc>{config.SITE_URL}/town/{_slug(row["town"])}</loc>'
-                f'<lastmod>{_day(c["generated_at"])}</lastmod></url>')
+            slug = _slug(row["town"])
+            cited.add(slug)
+            card_day[slug] = max(card_day.get(slug, ""),
+                                 _day(c["generated_at"]))
+    for slug in sorted(built_towns):
+        when = card_day.get(slug, now)
+        parts.append(f'<url><loc>{config.SITE_URL}/town/{slug}</loc>'
+                     f'<lastmod>{when}</lastmod></url>')
     return ('<?xml version="1.0" encoding="UTF-8"?>\n'
             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
             + "".join(parts) + '</urlset>\n')

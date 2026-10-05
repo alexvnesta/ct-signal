@@ -14,6 +14,8 @@ import urllib.request
 from . import config, util
 
 STORED = config.ROOT / "data" / "inventory.json"
+SCHEMA = 2   # bump when probe/field shape changes
+SCHEMA = 2   # bump when probe/field shape changes
 MAX_AGE_DAYS = 7
 
 # Pinned by id. Roles: "consumed" (a card publishes from it) or "candidate"
@@ -49,6 +51,8 @@ def check(force: bool = False) -> dict | None:
     if STORED.exists() and not force:
         try:
             stored = json.loads(STORED.read_text())
+            if int(stored.get("schema", 1)) < SCHEMA:
+                return check(force=True)
             age = (dt.datetime.now(dt.timezone.utc) - dt.datetime.fromisoformat(
                 stored["checked_at"])).days
             if age < MAX_AGE_DAYS:
@@ -72,8 +76,8 @@ def check(force: bool = False) -> dict | None:
             "updated": (dt.datetime.fromtimestamp(
                 ru, dt.timezone.utc).isoformat(timespec="seconds")
                 if ru else None)})
-    out = {"checked_at": dt.datetime.now(dt.timezone.utc)
-           .isoformat(timespec="seconds"),
+    out = {"schema": SCHEMA, "checked_at": dt.timezone and dt.datetime.now(
+           dt.timezone.utc).isoformat(timespec="seconds"),
            "acs": acs, "datasets": datasets}
     util.atomic_write_text(STORED, json.dumps(out))
     return out
