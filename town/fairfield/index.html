@@ -30,7 +30,7 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v=db3ecbe9">
 
 </head>
 <body>
@@ -46,6 +46,28 @@
 .townstats .dim{color:var(--dim)}
 .filter{margin:1rem 0;background:var(--panel);border:1px solid var(--line);
   border-radius:8px;color:var(--ink);padding:.55rem .8rem;font:inherit;width:min(280px,100%)}
+.mapblock{margin:1.2rem 0 .4rem}
+.mapchips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.7rem}
+.mapchips button{background:var(--panel);border:1px solid var(--line);
+  border-radius:999px;padding:.32rem .8rem;font:.72rem/1.1 var(--mono);
+  color:var(--dim);cursor:pointer;letter-spacing:.04em}
+.mapchips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mapchips button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.mapflex{display:flex;gap:1.2rem;align-items:flex-start;flex-wrap:wrap}
+svg.townsmap{width:min(100%,560px);height:auto;background:var(--panel);
+  border:1px solid var(--line);border-radius:8px;padding:6px}
+svg.townsmap path{stroke:#fff;stroke-width:.5;transition:fill .3s;
+  cursor:pointer}
+svg.townsmap path:hover{stroke:var(--ink);stroke-width:1.2}
+.maplegend{display:flex;flex-direction:column;gap:.3rem;
+  font:.74rem/1.2 var(--sans);color:var(--dim);min-width:150px}
+.maplegend .sw{display:inline-block;width:.9rem;height:.9rem;
+  border:1px solid var(--line);margin-right:.45rem;vertical-align:-1px}
+.mtip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;
+  padding:.45rem .7rem;border-radius:6px;font-size:.8rem;z-index:5;
+  box-shadow:0 4px 14px rgba(20,30,40,.25);max-width:240px}
+.mtip b{display:block;font-size:.86rem;margin-bottom:.15rem}
+.mapnote{color:var(--faint);font-size:.76rem;margin:.5rem 0 1.1rem}
 </style><article class="wrap col">
 <div class="label">Connecticut town file · <a href="/towns">all towns</a></div>
 <h1 style="font:700 clamp(1.7rem,4vw,2.4rem)/1.15 var(--serif);margin:.4rem 0 .3rem">Fairfield</h1>
