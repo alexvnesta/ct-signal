@@ -163,7 +163,6 @@ and the exact query →</a></div></article>"""
     from . import questions as _q2
     by_ind = {c.get("indicator"): c["id"] for c in cards if c.get("indicator")}
     wire_items = ""
-    n_ans = 0
     seen_titles: set[str] = set()
     for e in _q2.recent_wire(hours=30, limit=30):
         # Google News syndicates one story under five " - Outlet" titles;
@@ -183,8 +182,6 @@ and the exact query →</a></div></article>"""
         ans = next((f' <a class="wireans" href="/story/{by_ind[i]}">'
                     f'related data</a>' for i in e.get("hits", [])
                     if i in by_ind), "")
-        if ans:
-            n_ans += 1
         wire_items += (
             f'<li><a href="{_ESC(e["url"])}" rel="noopener">'
             f'{_ESC(e["title"])}</a>'
@@ -193,29 +190,11 @@ and the exact query →</a></div></article>"""
     wire_section = (f"""
 <section class="wireblock"><div class="wrap">
 <div class="sechead"><h2>On the wire</h2>
-<p class="sechelp">Headlines from the tracked newsrooms in the last 30
-hours — Connecticut first, national wires only where the state's newsrooms
-fell short. "Related data" links a headline to the indicator it touches —
-a pointer to our numbers, not a claim that we answered that story.
-Everything else is news we read but cannot yet answer with a number of
-our own. Links go to the
-newsrooms, not to us. "New to the desk" means the feed gave no publish
-time, not that the story is.</p></div>
+</div>
 <ul class="wirelist">{wire_items}</ul>
 </div></section>""" if wire_items else "")
 
-    fixture = any(_cards.is_demo_trigger(c) for c in cards)
-    help_ = ("Every question here was raised by a real headline or a "
-             "disclosed civic-calendar date — the trigger prints on each "
-             "card. These cards run on demo triggers: the data is live, "
-             "the headline that opened the question is not. Each such "
-             "card carries a DEMO label; the first real headline "
-             "replaces it."
-             if fixture else
-             "Every question on this page was raised by a real headline "
-             "or a disclosed civic-calendar date.")
     latest = f"""<section class="latest" id="signals"><div class="wrap">
-<p class="sechelp" style="text-align:left;margin:0 0 .2rem">{help_}</p>
 {wire}
 <div class="latest-grid">
 {lead}
