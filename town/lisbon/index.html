@@ -59,6 +59,8 @@ svg.townsmap{width:min(100%,560px);height:auto;background:var(--panel);
 svg.townsmap path{stroke:#fff;stroke-width:.5;transition:fill .3s;
   cursor:pointer}
 svg.townsmap path:hover{stroke:var(--ink);stroke-width:1.2}
+svg.townsmap path:focus-visible{stroke:var(--acc);stroke-width:2;
+  outline:none}
 .maplegend{display:flex;flex-direction:column;gap:.3rem;
   font:.74rem/1.2 var(--sans);color:var(--dim);min-width:150px}
 .maplegend .sw{display:inline-block;width:.9rem;height:.9rem;
@@ -73,7 +75,7 @@ svg.townsmap path:hover{stroke:var(--ink);stroke-width:1.2}
 <h1 style="font:700 clamp(1.7rem,4vw,2.4rem)/1.15 var(--serif);margin:.4rem 0 .3rem">Lisbon</h1>
 <p class="sub">Every local number the desk holds for this town, each naming its
 own source. Know where you live.</p>
-<h2>Property tax base</h2><p class="sub">Net grand list from the CT Open Data Portal, via <a href="/story/b37766e764aa">this story</a>.</p><table class="towntab"><tbody><tr><td>Net grand list, 2025</td><td>$474,085,797</td></tr><tr><td>Net grand list, prior vintage</td><td>$471,244,400</td></tr><tr><td>Change in two years</td><td>$2,841,397 (+0.6%)</td></tr><tr><td>Rank among 169 Connecticut places</td><td>140 of 169</td></tr><tr><td>Statewide median change (for context)</td><td>+1.2%</td></tr></tbody></table><h2>Property tax rate</h2><p class="sub">Municipal mill rate for real property, fiscal year 2027, from the CT Open Data Portal via <a href="/story/a3514b53fb39">this story</a>. Service-district rates are separate and not shown here.</p><table class="towntab"><tbody><tr><td>Mill rate, FY2027</td><td>27.70 mills per $1,000</td></tr><tr><td>Rank among 168 Connecticut places</td><td>82 of 168</td></tr><tr><td>Compared with the statewide rate</td><td>1.04× the statewide average</td></tr><tr><td>Statewide rate, weighted by taxable value</td><td>26.66 mills</td></tr><tr><td>Estimated tax on a median-value home (assessment 70% of market per state law)</td><td>$6,121 a year</td></tr></tbody></table>
+<h2>Property tax base</h2><p class="sub">Net grand list from the CT Open Data Portal, via <a href="/story/b37766e764aa">this story</a>.</p><table class="towntab"><tbody><tr><td>Net grand list, 2025</td><td>$474,085,797</td></tr><tr><td>Net grand list, prior vintage</td><td>$471,244,400</td></tr><tr><td>Change between the latest two assessment rolls</td><td>$2,841,397 (+0.6%)</td></tr><tr><td>Rank among 169 Connecticut places</td><td>140 of 169</td></tr><tr><td>Statewide median change (for context)</td><td>+1.2%</td></tr></tbody></table><h2>Property tax rate</h2><p class="sub">Municipal mill rate for real property, fiscal year 2027, from the CT Open Data Portal via <a href="/story/a3514b53fb39">this story</a>. Service-district rates are separate and not shown here.</p><table class="towntab"><tbody><tr><td>Mill rate, FY2027</td><td>27.70 mills per $1,000</td></tr><tr><td>Rank among 168 Connecticut places</td><td>82 of 168</td></tr><tr><td>Compared with the statewide rate</td><td>1.04× the statewide average</td></tr><tr><td>Statewide rate, weighted by taxable value</td><td>26.66 mills</td></tr><tr><td>Estimated tax on a median-value home (assessment 70% of market per state law)</td><td>$6,121 a year</td></tr></tbody></table>
 <h2>Where Lisbon sits</h2><table class="townstats"><thead><tr><th>Measure</th><th>Lisbon</th><th>Connecticut</th><th>Difference</th><th>Rank among towns</th></tr></thead><tbody><tr><td>Median age</td><td>44.5</td><td class="dim">41.1</td><td>8% above CT</td><td class="dim">91st of 169</td></tr><tr><td>Median household income</td><td>$92,708</td><td class="dim">$95,781</td><td>3% below CT</td><td class="dim">133rd of 169</td></tr><tr><td>Below poverty line <a href="/story/797faed5a836">the state answer &rarr;</a></td><td>6.6%</td><td class="dim">10.0%</td><td>3.4 points below CT</td><td class="dim">69th of 169</td></tr><tr><td>Median gross rent <a href="/story/0125297ea839">the state answer &rarr;</a></td><td>—</td><td class="dim">$1,488</td><td>—</td><td class="dim">not published</td></tr><tr><td>Median home value</td><td>$315,700</td><td class="dim">$366,900</td><td>14% below CT</td><td class="dim">122nd of 169</td></tr></tbody></table><p class="provenance">US Census Bureau, 2024 ACS 5-year (2020–2024), county-subdivision level — the estimates built for places this size. Ranks run across the 169 places with published values. Suppressed cells are dashes, not zeros. Poverty is the same table the state story uses, so the two pages cannot tell different stories.</p>
 <p class="meta">Dataset citations and the literal queries live on the linked
 stories; errors are corrected publicly.</p>
@@ -109,9 +111,9 @@ method="post" target="_blank" rel="noopener">
 <a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></span>
 <span>Built at Hack for Humanity · Runs on free-tier public infrastructure</span></div>
 </footer>
-<script defer src="https://cdn.jsdelivr.net/npm/vega@6"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+<script defer src="/assets/vendor/vega.min.js?v=6-6-7"></script>
+<script defer src="/assets/vendor/vega-lite.min.js?v=6-6-7"></script>
+<script defer src="/assets/vendor/vega-embed.min.js?v=6-6-7"></script>
 <script>window.addEventListener("DOMContentLoaded",()=>{
 // vega-embed replaces the target div, so re-assert the accessible wrapper
 // (role=img + label + tabindex) on the node that ends up in the DOM, and make
