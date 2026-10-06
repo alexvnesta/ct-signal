@@ -287,7 +287,7 @@ and the exact query →</a></div></article>"""
 {wire}
 <div class="latest-grid">
 {lead}
-<div class="sec2"><h2 class="sec2-head">Also on the board</h2>{sec2}</div>
+<div class="sec2"><h2 class="sec2-head">More from Connecticut data</h2>{sec2}</div>
 <aside class="rail"><h2 class="railhead">Latest questions</h2>{rail}<p class="allq"><a href="/archive">All published questions \u2192</a></p></aside>
 </div></div></section>"""
 

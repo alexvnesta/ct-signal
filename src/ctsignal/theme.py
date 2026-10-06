@@ -324,6 +324,7 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   .brand{font-size:1.85rem;padding-bottom:1.7rem}
   .plate-art{height:70px}
   .dateline{font-size:.62rem;letter-spacing:.08em;padding:.3rem .8rem}
+  .yourtown{min-height:9rem}
   .vizwrap .viz{min-height:0!important;max-height:340px;overflow-y:auto;
     scrollbar-width:none;overscroll-behavior-x:contain}
   .vizwrap .viz::-webkit-scrollbar{display:none}

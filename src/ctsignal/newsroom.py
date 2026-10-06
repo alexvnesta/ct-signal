@@ -610,8 +610,8 @@ def _freshness_html(card: dict) -> str:
 
 
 def town_feed(town: str, slug: str, cards: list[dict]) -> str:
-    """A per-town RSS file: the return channel a remembered town still
-    lacks. Static, honest items only — the stories that measure this town
+    """A per-town Atom feed: the return channel a remembered town still
+    lacks. Static, honest entries only — the stories that measure this town
     and the vintage of its data file. No database, no new service."""
     from . import towns as _tw
     snap = _tw.snapshot()
@@ -619,34 +619,44 @@ def town_feed(town: str, slug: str, cards: list[dict]) -> str:
     esc = html.escape
     base = f"{config.SITE_URL}/town/{slug}"
     bridge = set(_tw.STORY_FOR.values())          # stories every town file leans on
-    items = []
+    entries, stamps = [], []
+    def _rfc3339(iso: str) -> str:
+        try:
+            return util.parse_ts(iso).isoformat()
+        except Exception:
+            return ""
     for c in (cards or []):
         local = any((r.get("town") or "").lower() == town.lower()
                     for r in (c.get("towns") or []))
         if local or c["id"] in bridge:
-            items.append(
-                f"<item><title>{esc(c['question'])}</title>"
-                f"<link>{config.SITE_URL}/story/{c['id']}</link>"
-                f"<guid>{config.SITE_URL}/story/{c['id']}</guid>"
-                f"<pubDate>{_rfc822(c['generated_at'])}</pubDate>"
-                f"<description>{esc(c['answer_text'][:160])}</description>"
-                f"</item>")
+            stamp = _rfc3339(c["generated_at"])
+            stamps.append(stamp)
+            href = f"{config.SITE_URL}/story/{c['id']}"
+            entries.append(
+                f"<entry><title>{esc(c['question'])}</title>"
+                f'<link href="{href}"/><id>{href}</id>'
+                f"<updated>{stamp}</updated>"
+                f"<summary>{esc(c['answer_text'][:160])}</summary></entry>")
     if fetched:
-        items.append(
-            f"<item><title>{esc(town)} data file current through "
-            f"""{esc((snap or {}).get('vintage', ''))}</title>"""
-            f"<link>{base}</link><guid>{base}?v={esc(fetched[:10])}</guid>"
-            f"<pubDate>{_rfc822(fetched)}</pubDate>"
-            "<description>Every number on the town file, with its source "
-            "and vintage.</description></item>")
-    updated = _rfc822(fetched or dt.datetime.now(dt.timezone.utc).isoformat())
+        stamps.append(_rfc3339(fetched))
+        entries.append(
+            f"<entry><title>{esc(town)} data file current through "
+            f"{esc((snap or {}).get('vintage', ''))}</title>"
+            f'<link href="{base}"/>'
+            f"<id>{base}?v={esc(fetched[:10])}</id>"
+            f"<updated>{_rfc3339(fetched)}</updated>"
+            "<summary>Every number on the town file, with its source "
+            "and vintage.</summary></entry>")
+    # <updated> must reflect the newest entry, not the snapshot date.
+    updated = max((t for t in stamps if t), default=_rfc3339(
+        dt.datetime.now(dt.timezone.utc).isoformat()))
     return ('<?xml version="1.0" encoding="UTF-8"?>'
             '<feed xmlns="http://www.w3.org/2005/Atom">'
             f'<title>CT Signal \u2014 {esc(town)}</title>'
             f'<link href="{base}"/><link rel="self" '
             f'href="{base}/feed.xml"/>'
             f'<updated>{updated}</updated>'
-            f'<id>{base}/feed.xml</id>{"".join(items)}</feed>')
+            f'<id>{base}/feed.xml</id>{"".join(entries)}</feed>')
 
 
 def town_html(town: str, pieces: dict) -> str:
@@ -768,10 +778,15 @@ stories; errors are corrected publicly.</p>
         desc += f"{config.SITE_URL}/town/{_slug(town)}"
     else:
         desc = f"{town}: " + "; ".join(facts) + "."
-    return theme.page(title=title, desc=esc(desc), path=f'/town/{_slug(town)}',
-                      body=body,
+    page = theme.page(title=title, desc=esc(desc),
+                      path=f'/town/{_slug(town)}', body=body,
                       image=(timg if (config.ROOT / 'assets' /
                                f'town-{tslug}.png').exists() else None))
+    # Feed readers should find the town feed without a human clicking first.
+    alt = (f'<link rel="alternate" type="application/atom+xml" '
+           f'title="CT Signal \u2014 {esc(town)} (Atom)" '
+           f'href="/town/{tslug}/feed.xml">')
+    return page.replace("</head>", alt + "</head>", 1)
 
 
 def archive_html(cards: list[dict]) -> str:

@@ -101,6 +101,30 @@ class TestAuditLocal(unittest.TestCase):
             self.assertIn(f'fmt("{metric}"', page.replace("'", '"'),
                           f"town brief must render {metric}")
 
+    def test_town_feed_is_valid_atom(self):
+        """A feed is a promise to machines: wrong vocabulary parses but
+        starves readers. The advertised (Atom) format must be the one in
+        the file: namespaced entries, RFC-3339 stamps, no RSS fossils."""
+        import re as _re
+        import xml.etree.ElementTree as ET
+        raw = (config.ROOT / "town" / "greenwich" / "feed.xml").read_text()
+        self.assertNotIn("<item>", raw)
+        root = ET.fromstring(raw)
+        ns = {"a": "http://www.w3.org/2005/Atom"}
+        entries = root.findall("a:entry", ns)
+        self.assertGreaterEqual(len(entries), 1)
+        for e in entries:
+            self.assertTrue(e.findtext("a:id", namespaces=ns))
+            self.assertEqual(
+                _re.match(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}",
+                          e.findtext("a:updated", namespaces=ns) or "")
+                is not None, True,
+                "Atom updated must be RFC-3339")
+        feed_updated = root.findtext("a:updated", namespaces=ns)
+        newest = max(e.findtext("a:updated", namespaces=ns)
+                     for e in entries)
+        self.assertEqual(feed_updated, newest)
+
 
 class TestInventoryArtifact(unittest.TestCase):
     def test_table_renders_without_network(self):
