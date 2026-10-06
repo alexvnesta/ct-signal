@@ -33,7 +33,8 @@ LABELS = [("pop", "Population", "DP05_0001E", "int"),
 STORED = config.ROOT / "data" / "towns.json"
 SCHEMA = 2   # bump when parsing/cleaning rules change; older
              # stored snapshots are refetched regardless of age
-STORY_FOR = {"income": None, "poverty": "797faed5a836", "rent": "0125297ea839"}
+STORY_FOR = {"income": "916a9da3173f", "poverty": "797faed5a836",
+             "rent": "0125297ea839", "value": "517fafa716bc"}
 
 
 def _clean(raw: str, kind: str, field: str = "") -> float | int | None:
@@ -312,11 +313,20 @@ function paint(){
 }
 paths.forEach(p=>{
   p.setAttribute("aria-label", p.dataset.n);
-  p.setAttribute("tabindex", "0");
+  p.setAttribute("tabindex", "-1");
   p.setAttribute("role", "link");
   p.addEventListener("keydown",e=>{
     if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault(); location.href = p.dataset.h; }});
+      e.preventDefault(); location.href = p.dataset.h; return; }
+    const i = paths.indexOf(p);
+    let j = null;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") j = (i+1) % paths.length;
+    if (e.key === "ArrowLeft" || e.key === "ArrowUp") j = (i-1+paths.length) % paths.length;
+    if (e.key === "Home") j = 0;
+    if (e.key === "End") j = paths.length - 1;
+    if (j !== null) { e.preventDefault();
+      paths.forEach(x => x.setAttribute("tabindex", "-1"));
+      paths[j].setAttribute("tabindex", "0"); paths[j].focus(); }});
   p.addEventListener("mousemove",e=>{
     const d=MT[p.dataset.n]||{}, v=d[metric];
     const r=(v!==null&&v!==undefined)?d[metric+"_r"]:null;
@@ -335,6 +345,8 @@ paths.forEach(p=>{
   p.addEventListener("blur",()=>{tip.style.display="none";});
   p.addEventListener("click",()=>{location.href=p.dataset.h;});
 });
+// Roving focus: the map is one tab stop; arrows move between towns.
+if (paths.length) paths[0].setAttribute("tabindex", "0");
 document.querySelectorAll(".mapchips button").forEach(b=>{
   b.addEventListener("click",()=>{
     metric=b.dataset.m;
@@ -385,7 +397,7 @@ def _map_html(data: dict) -> str:
             'aria-label="Color the map by">\n' + chips + '</div>\n'
             '<div class="mapflex">\n<svg class="townsmap" viewBox="0 0 '
             + str(geo["width"]) + " " + str(geo["height"]) +
-            '" role="img" aria-label="Map of Connecticut towns shaded by '
+            '" role="group" aria-label="Map of Connecticut towns shaded by '
             'the chosen measure">' + paths + '</svg>\n'
             '<div class="maplegend" id="ml"></div>\n</div>\n'
             '<p class="mapnote">Click a town for its full page. Shading '
@@ -403,12 +415,12 @@ def index_page(data: dict) -> str:
         rows += (f'<tr><td><a href="/town/{t["slug"]}">{_ESC(t["name"])}</a></td>'
                  f"{cells}</tr>")
     body = f"""<div class="wrap col">
-<div class="sechead"><h2>Every Connecticut town, one table</h2>
+<div class="sechead"><h1>Every Connecticut town, one table</h1>
 <p class="sechelp">{data["vintage"]} — five-year estimates, because that is what
 makes a town of 800 readable. Sort is by population; type to find your town.</p></div>
-{map_html}
 <input class="filter" id="q" placeholder="Filter towns…" aria-label="Filter towns"
  autocomplete="off">
+{map_html}
 <table class="townstats" id="tt"><thead><tr><th>Town</th>
 {''.join(f"<th>{lab}</th>" for _, lab, _, _ in LABELS)}</tr></thead>
 <tbody>{rows}</tbody></table>

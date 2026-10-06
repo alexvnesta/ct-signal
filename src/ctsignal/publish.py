@@ -92,7 +92,22 @@ def home_html(cards: list[dict], board: dict) -> str:
 <a class="more" href="/story/{c["id"]}">Read the full story — with the chart
 and the exact query →</a></div></article>"""
 
-        for c in cards[1:5]:
+        # One jobs release must not become five of nine visible cards:
+        # max two cards per triggering headline, max three per topic.
+        def _trig(x):
+            return (x.get("headline") or {}).get("url") or x["id"]
+        trig = {_trig(cards[0]): 1}
+        topic = {cards[0]["topic"]: 1}
+        sel = []
+        for c in cards[1:]:
+            if len(sel) >= 9:
+                break
+            if trig.get(_trig(c), 0) >= 2 or topic.get(c["topic"], 0) >= 3:
+                continue
+            trig[_trig(c)] = trig.get(_trig(c), 0) + 1
+            topic[c["topic"]] = topic.get(c["topic"], 0) + 1
+            sel.append(c)
+        for c in sel[:4]:
             fig = ""
             tpath = newsroom._thumb_path(c)
             if tpath:
@@ -109,7 +124,7 @@ and the exact query →</a></div></article>"""
 <div class="meta">{ago(c["generated_at"], now)}</div>
 </div></div>"""
 
-        for c in cards[5:10]:
+        for c in sel[4:9]:
             rail += f"""<div class="item"><div class="item-body">
 <span class="kicker">{_ESC(c["topic"])} · {_ESC(c["stream"])}{' · <span class="badge">DEMO TRIGGER</span>' if _cards.is_demo_trigger(c) else ""}</span>
 <h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
@@ -152,7 +167,7 @@ and the exact query →</a></div></article>"""
                  f'<span class="wire-n">\u00d7{n["hits"]}</span>'
                  for iid, n in top if n.get("hits")]
         if parts:
-            wire = (f'<p class="wire">This week\u2019s wire, mapped: '
+            wire = (f'<p class="wire">What Connecticut news is asking this week: '
                     + " \u00b7 ".join(parts)
                     + f' \u2014 from {_ESC(str(att["headlines"]))} headlines '
                     + 'ingested across the tracked newsrooms.</p>')
@@ -163,6 +178,7 @@ and the exact query →</a></div></article>"""
     from . import questions as _q2
     by_ind = {c.get("indicator"): c["id"] for c in cards if c.get("indicator")}
     wire_items = ""
+    wire_rows: list[tuple] = []
     seen_titles: set[str] = set()
     for e in _q2.recent_wire(hours=30, limit=30):
         # Google News syndicates one story under five " - Outlet" titles;
@@ -187,6 +203,15 @@ and the exact query →</a></div></article>"""
             f'{_ESC(e["title"])}</a>'
             f'<span class="wiresrc"> &nbsp;{_ESC(e["src"])} · {age}'
             f'</span>{ans}</li>')
+        wire_rows.append((bool(ans), e.get("stream") == "ct", age, e["title"],
+                          f'<li><a href="{_ESC(e["url"])}" rel="noopener">'
+                          f'{_ESC(e["title"])}</a>'
+                          f'<span class="wiresrc"> &nbsp;{_ESC(e["src"])} · {age}'
+                          f'</span>{ans}</li>'))
+    any_ans = any(r[0] for r in wire_rows)
+    rows = [r for r in wire_rows if r[0] or r[1]] if not any_ans else wire_rows
+    rows.sort(key=lambda r: (not r[0],))
+    wire_items = "".join(r[4] for r in rows[:10 if any_ans else 6])
     wire_section = (f"""
 <section class="wireblock"><div class="wrap">
 <div class="sechead"><h2>On the wire</h2>
@@ -195,11 +220,12 @@ and the exact query →</a></div></article>"""
 </div></section>""" if wire_items else "")
 
     latest = f"""<section class="latest" id="signals"><div class="wrap">
+<h1 class="vh">Today\u2019s Connecticut data board</h1>
 {wire}
 <div class="latest-grid">
 {lead}
 <div class="sec2"><h2 class="sec2-head">Also on the board</h2>{sec2}</div>
-<aside class="rail"><h2 class="railhead">Latest questions</h2>{rail}</aside>
+<aside class="rail"><h2 class="railhead">Latest questions</h2>{rail}<p class="allq"><a href="/archive">All published questions \u2192</a></p></aside>
 </div></div></section>"""
 
     body = f"""{latest}

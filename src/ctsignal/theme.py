@@ -140,6 +140,10 @@ section{padding:1.6rem 0}
 .sechead h2{font:800 1.15rem/1.2 var(--sans);margin:0;text-transform:uppercase;
   letter-spacing:.1em;text-wrap:balance}
 .sechelp{color:var(--faint);font-size:.84rem;margin:0;text-align:right}
+.storyh1{font:700 clamp(1.6rem,4vw,2.3rem)/1.2 var(--serif);
+  margin:.9rem 0 .3rem}
+.allq{margin:.8rem 0 0;font-size:.84rem}
+.allq a{color:var(--dim);text-decoration:underline}
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
 .tile{background:var(--panel);border:1px solid var(--rule);border-top:3px solid var(--acc2);
   padding:1rem 1.15rem;display:flex;flex-direction:column;gap:.15rem}
@@ -292,8 +296,10 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
 .footgrid a{color:var(--dim);font-size:.87rem}
 .footgrid a:hover{color:var(--ink)}
 .colophon{border-top:1px solid var(--rule);margin-top:1.6rem;padding-top:1rem;
-  color:var(--faint);font-size:.78rem;display:flex;justify-content:space-between;
+  color:var(--dim);font-size:.78rem;
+  display:flex;justify-content:space-between;
   flex-wrap:wrap;gap:.4rem}
+.colophon a{text-decoration:underline}
 .breadcrumb{margin:1.4rem 0 .2rem;font-size:.82rem}
 .breadcrumb a{color:var(--faint)}
 @media (max-width:999px){.latest-grid{grid-template-columns:1fr}}
@@ -304,6 +310,12 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   nav.sitebar::-webkit-scrollbar{display:none}
   nav.sitebar a{white-space:nowrap;padding:.5rem .65rem;font-size:.74rem}
   .kicker{letter-spacing:.1em;font-size:.74rem}
+  nav.sitebar a.rss{display:none}
+  .nameplate{padding:.9rem .8rem 0}
+  .brand{font-size:1.85rem;padding-bottom:1.7rem}
+  .plate-art{height:70px}
+  .dateline{font-size:.62rem;letter-spacing:.08em;padding:.3rem .8rem}
+  .vizwrap .viz{min-height:0!important;max-height:340px;overflow-y:auto}
   .sechead h2{letter-spacing:.06em}
   .item-fig{flex:0 0 132px}.item-fig img{width:132px}
   footer.site{padding-bottom:calc(2.2rem + 4.5rem +
@@ -505,9 +517,12 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website",
 
 def page(*, title: str, desc: str, path: str, body: str, **kw) -> str:
     h = head(title=title, desc=desc, path=path, **kw)
+    # The vendored Vega stack is ~280 KB compressed: it loads only on pages
+    # that actually contain a chart island (class="vs"), not on prose.
+    vega = VEGA_LOAD if 'class="vs"' in body else ""
     return (f'<!doctype html>\n<html lang="en"><head>\n{h}\n</head>\n<body>\n'
             f'{header()}\n<main id="main">\n{body}\n</main>\n{footer()}\n'
-            f'{VEGA_LOAD}\n</body></html>\n')
+            f'{vega}\n</body></html>\n')
 
 
 # Inline JSON spec islands + one loader keep charts dependency-light and work

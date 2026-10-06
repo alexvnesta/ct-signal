@@ -259,18 +259,20 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
     og = _story_og(card)
     # On a story page the social cover IS the headline treatment: same words,
     # one voice, so the page matches its own preview instead of printing the
-    # question twice. The real h1 stays in the document — behind the art, not
-    # deleted from it — for assistive tech and for readers with images off.
-    hero_art, h1 = "", f'<h1 class="vh">{q}</h1>'
+    # question twice.
+    # The cover art repeats the question and answer inside pixels; the
+    # real h1 and lede sit under it, visible, so text scales, selects
+    # and survives reader modes. The art is decoration on top.
+    hero_art, h1 = "", f'<h1 class="storyh1">{q}</h1>'
     cover = config.ROOT / "assets" / f"story-{card['id']}.png"
     if cover.exists():
         cv = hashlib.md5(cover.read_bytes()).hexdigest()[:8]
         hero_art = (f'<img class="storyhero" src="/assets/story-{card["id"]}.png?v={cv}"'
-                    f' width="1200" height="630" alt="{q} {a}">')
+                    f' width="1200" height="630" alt="" role="presentation">')
     else:
         h1 = ('<h1 style="font:700 clamp(1.6rem,4vw,2.3rem)/1.2 '
               'var(--serif);margin:.4rem 0 .3rem">' + q + '</h1>')
-    lede = f'<div class="answerbox">{a}</div>' if not hero_art else ""
+    lede = f'<div class="answerbox">{a}</div>'
     body = f"""<div class="wrap col">
 <div class="breadcrumb"><a href="/">← The board</a></div>
 <div class="kicker">{kicker}</div>

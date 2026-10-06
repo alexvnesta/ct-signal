@@ -30,7 +30,7 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css?v=db3ecbe9">
+<link rel="stylesheet" href="/assets/site.css?v=1906a02a">
 
 </head>
 <body>
@@ -76,7 +76,7 @@ svg.townsmap path:focus-visible{stroke:var(--acc);stroke-width:2;
 <p class="sub">Every local number the desk holds for this town, each naming its
 own source. Know where you live.</p>
 <h2>Property tax base</h2><p class="sub">Net grand list from the CT Open Data Portal, via <a href="/story/b37766e764aa">this story</a>.</p><table class="towntab"><tbody><tr><td>Net grand list, 2025</td><td>$5,366,644,113</td></tr><tr><td>Net grand list, prior vintage</td><td>$5,319,586,116</td></tr><tr><td>Change between the latest two assessment rolls</td><td>$47,057,997 (+0.9%)</td></tr><tr><td>Rank among 169 Connecticut places</td><td>116 of 169</td></tr><tr><td>Statewide median change (for context)</td><td>+1.2%</td></tr></tbody></table><h2>Property tax rate</h2><p class="sub">Municipal mill rate for real property, fiscal year 2027, from the CT Open Data Portal via <a href="/story/a3514b53fb39">this story</a>. Service-district rates are separate and not shown here.</p><table class="towntab"><tbody><tr><td>Mill rate, FY2027</td><td>37.42 mills per $1,000</td></tr><tr><td>Rank among 168 Connecticut places</td><td>13 of 168</td></tr><tr><td>Compared with the statewide rate</td><td>1.40× the statewide average</td></tr><tr><td>Statewide rate, weighted by taxable value</td><td>26.66 mills</td></tr><tr><td>Estimated tax on a median-value home (assessment 70% of market per state law)</td><td>$14,336 a year</td></tr></tbody></table>
-<h2>Where Trumbull sits</h2><table class="townstats"><thead><tr><th>Measure</th><th>Trumbull</th><th>Connecticut</th><th>Difference</th><th>Rank among towns</th></tr></thead><tbody><tr><td>Median age</td><td>41.7</td><td class="dim">41.1</td><td>1% above CT</td><td class="dim">125th of 169</td></tr><tr><td>Median household income</td><td>$163,073</td><td class="dim">$95,781</td><td>70% above CT</td><td class="dim">15th of 169</td></tr><tr><td>Below poverty line <a href="/story/797faed5a836">the state answer &rarr;</a></td><td>5.3%</td><td class="dim">10.0%</td><td>4.7 points below CT</td><td class="dim">94th of 169</td></tr><tr><td>Median gross rent <a href="/story/0125297ea839">the state answer &rarr;</a></td><td>$2,266</td><td class="dim">$1,488</td><td>52% above CT</td><td class="dim">10th of 169</td></tr><tr><td>Median home value</td><td>$547,300</td><td class="dim">$366,900</td><td>49% above CT</td><td class="dim">23rd of 169</td></tr></tbody></table><p class="provenance">US Census Bureau, 2024 ACS 5-year (2020–2024), county-subdivision level — the estimates built for places this size. Ranks run across the 169 places with published values. Suppressed cells are dashes, not zeros. Poverty is the same table the state story uses, so the two pages cannot tell different stories.</p>
+<h2>Where Trumbull sits</h2><table class="townstats"><thead><tr><th>Measure</th><th>Trumbull</th><th>Connecticut</th><th>Difference</th><th>Rank among towns</th></tr></thead><tbody><tr><td>Median age</td><td>41.7</td><td class="dim">41.1</td><td>1% above CT</td><td class="dim">125th of 169</td></tr><tr><td>Median household income <a href="/story/916a9da3173f">the state answer &rarr;</a></td><td>$163,073</td><td class="dim">$95,781</td><td>70% above CT</td><td class="dim">15th of 169</td></tr><tr><td>Below poverty line <a href="/story/797faed5a836">the state answer &rarr;</a></td><td>5.3%</td><td class="dim">10.0%</td><td>4.7 points below CT</td><td class="dim">94th of 169</td></tr><tr><td>Median gross rent <a href="/story/0125297ea839">the state answer &rarr;</a></td><td>$2,266</td><td class="dim">$1,488</td><td>52% above CT</td><td class="dim">10th of 169</td></tr><tr><td>Median home value <a href="/story/517fafa716bc">the state answer &rarr;</a></td><td>$547,300</td><td class="dim">$366,900</td><td>49% above CT</td><td class="dim">23rd of 169</td></tr></tbody></table><p class="provenance">US Census Bureau, 2024 ACS 5-year (2020–2024), county-subdivision level — the estimates built for places this size. Ranks run across the 169 places with published values. Suppressed cells are dashes, not zeros. Poverty is the same table the state story uses, so the two pages cannot tell different stories.</p>
 <p class="meta">Dataset citations and the literal queries live on the linked
 stories; errors are corrected publicly.</p>
 </article>
@@ -111,31 +111,5 @@ method="post" target="_blank" rel="noopener">
 <a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></span>
 <span>Built at Hack for Humanity · Runs on free-tier public infrastructure</span></div>
 </footer>
-<script defer src="/assets/vendor/vega.min.js?v=6-6-7"></script>
-<script defer src="/assets/vendor/vega-lite.min.js?v=6-6-7"></script>
-<script defer src="/assets/vendor/vega-embed.min.js?v=6-6-7"></script>
-<script>window.addEventListener("DOMContentLoaded",()=>{
-// vega-embed replaces the target div, so re-assert the accessible wrapper
-// (role=img + label + tabindex) on the node that ends up in the DOM, and make
-// the injected SVG presentational — its nested graphics-symbol roles would
-// otherwise be flagged as img-role nodes without alt text.
-const tidy=root=>{const svg=root&&root.querySelector("svg");if(!svg)return;
-  svg.setAttribute("aria-hidden","true");svg.setAttribute("focusable","false");
-  svg.querySelectorAll("[role],[aria-roledescription]").forEach(n=>{
-    n.removeAttribute("role");n.removeAttribute("aria-roledescription");});};
-const views=[];let rt;
-window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{
-  views.forEach(v=>{try{v.resize().run()}catch(e){}});},150);});
-const go=()=>{
-document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementById(
-  s.dataset.target); if(!el) return; const holder=el.parentElement,
-  label=el.getAttribute("aria-label"); try{ vegaEmbed(el, JSON.parse(
-  s.textContent), {actions:false,renderer:"svg",
-  config:{background:"transparent"}}).then(r=>{ views.push(r.view);
-    const node=holder.querySelector(".vega-embed")||holder;
-    node.setAttribute("role","img");node.setAttribute("aria-label",label);
-    node.setAttribute("tabindex","0");tidy(node);})
-  .catch(e=>console.warn("chart:",e));
-  }catch(e){console.warn("spec:",e);}});};
-  if(window.vegaEmbed) go(); else window.addEventListener("load",go);});</script>
+
 </body></html>
