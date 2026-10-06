@@ -303,6 +303,15 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
 .breadcrumb{margin:1.4rem 0 .2rem;font-size:.82rem}
 .breadcrumb a{color:var(--faint)}
 @media (max-width:999px){.latest-grid{grid-template-columns:1fr}}
+.peersum,.peershow,.peersum-t{display:none}
+.peersum{list-style:none;margin:.4rem 0 0;padding:0}
+.peersum li{display:flex;align-items:center;gap:.45rem;margin:.18rem 0;font-size:.8rem}
+.peersum .pl{flex:0 0 7.2rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dim)}
+.peersum .pb{height:.68rem;background:#b8b2a6;min-width:2px}
+.peersum li.ct .pl{color:var(--ink);font-weight:700}
+.peersum li.ct .pb{background:var(--acc)}
+.peersum .pv{font:600 .78rem var(--sans);color:var(--ink)}
+.peersum-t{font-size:.78rem;color:var(--dim);text-decoration:underline;cursor:pointer;margin-top:.3rem}
 .yourtown{min-height:3.6rem;background:var(--panel);padding:.55rem .7rem;
   border-left:3px solid var(--acc)}
 .yt-line1{display:block;font:700 1.05rem/1.25 var(--serif);color:var(--ink)}
@@ -325,9 +334,16 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   .plate-art{height:70px}
   .dateline{font-size:.62rem;letter-spacing:.08em;padding:.3rem .8rem}
   .yourtown{min-height:9rem}
-  .vizwrap .viz{min-height:0!important;max-height:340px;overflow-y:auto;
-    scrollbar-width:none;overscroll-behavior-x:contain}
+  .vizwrap .viz{min-height:0!important;max-height:340px;
+    overflow-y:auto;scrollbar-width:none;overscroll-behavior-x:contain}
   .vizwrap .viz::-webkit-scrollbar{display:none}
+  .peershow~.viz,.peershow~.viz.vega-embed{display:none}
+  .peershow:checked~.viz,.peershow:checked~.viz.vega-embed{display:block}
+  .peershow:checked~.peersum{display:none}
+  .peershow~figcaption{display:none}
+  .peershow:checked~figcaption{display:block}
+  .peersum{display:block}
+  .peersum-t{display:inline-block}
 
   .sechead h2{letter-spacing:.06em}
   .item-fig{flex:0 0 132px}.item-fig img{width:132px}
@@ -575,6 +591,50 @@ document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementB
   if(window.vegaEmbed) go(); else window.addEventListener("load",go);});</script>"""
 
 
+def _peer_summary(spec: dict) -> tuple[str, int] | None:
+    """A chart form designed for the phone: the ranked peers a reader can
+    actually hold in mind — Connecticut, its immediate neighbours, and the
+    extremes — with an explicit route to the full field. Returns (html,
+    count) when the spec is a ranked peer chart; None for anything else
+    (those keep the scroll-cropped desktop chart)."""
+    try:
+        rows = spec["data"]["values"]
+    except (KeyError, TypeError):
+        return None
+    if (not isinstance(rows, list) or len(rows) < 12
+            or not all(isinstance(r, dict) and isinstance(r.get("value"),
+                        (int, float)) and isinstance(r.get("rank"), int)
+                       for r in rows)):
+        return None
+    hi = [r for r in rows if r.get("highlight")]
+    if len(hi) != 1 or min(r["value"] for r in rows) < 0:
+        return None
+    label_key = next((k for k in rows[0]
+                      if k not in ("value", "rank", "highlight", "color")
+                      and isinstance(rows[0][k], str)), None)
+    if not label_key:
+        return None
+    rows = sorted(rows, key=lambda r: r["rank"])
+    n = len(rows)
+    ct = hi[0]["rank"]
+    keep = sorted({1, n, ct} | {ct - 2, ct - 1, ct + 1, ct + 2})
+    keep = [k for k in keep if 1 <= k <= n]
+    biggest = max(r["value"] for r in rows)
+    def _fmt(v: float) -> str:
+        return f"{v:,.0f}" if abs(v) >= 1000 else f"{round(v, 1):g}"
+    lis = []
+    for r in rows:
+        if r["rank"] not in keep:
+            continue
+        w = max(2, round(r["value"] / biggest * 100))
+        cls = ' class="ct"' if r.get("highlight") else ""
+        lis.append(
+            f'<li{cls}><span class="pl">{_ESC(str(r[label_key]))}</span>'
+            f'<span class="pb" style="width:{w}%"></span>'
+            f'<span class="pv">{_fmt(r["value"])}</span></li>')
+    return ('<ul class="peersum">' + "".join(lis) + '</ul>'), n
+
+
 def viz(spec_json: str, el_id: str, *, label: str,
         caption: str | None = None) -> str:
     """Chart island with a text alternative (WCAG 1.1.1): the container carries
@@ -600,8 +660,19 @@ def viz(spec_json: str, el_id: str, *, label: str,
     safe = (spec_json.replace("</", "<\\/")
             .replace("<!--", "<\\u0021--"))
     cap = f'<figcaption>{_ESC(caption)}</figcaption>' if caption else ''
-    return (f'<figure class="vizwrap"><div class="viz" id="{el_id}" role="img" '
-            f'tabindex="0" aria-label="{_ESC(label)}"{reserve}></div>{cap}</figure>'
+    summary, n = (None, 0)
+    if spec:
+        built = _peer_summary(spec)
+        if built:
+            summary, n = built
+    ctl = ""
+    if summary:
+        ctl = (f'<input type="checkbox" id="{el_id}-pp" class="peershow">'
+               f'<label class="peersum-t" for="{el_id}-pp">'
+               f'Show all {n} peers</label>')
+    return (f'<figure class="vizwrap">{ctl}<div class="viz" id="{el_id}" role="img" '
+            f'tabindex="0" aria-label="{_ESC(label)}"{reserve}></div>'
+            f'{summary or ""}{cap}</figure>'
             f'<script type="application/json" class="vs" '
             f'data-target="{el_id}">{safe}</script>')
 
