@@ -38,3 +38,5 @@ linkcheck: /towns.html -> /town/county-subdivisions-not-defined-western-connecti
 2026-10-06T12:51:05+00:00 cycle failed: NameError: name 'card' is not defined
 linkcheck: / -> /story/90255dce8175
 2026-10-06T13:02:22+00:00 cycle failed: NameError: name 'hashlib' is not defined
+linkcheck: / -> /town/'+s+'
+linkcheck: / -> /town/'+s+'

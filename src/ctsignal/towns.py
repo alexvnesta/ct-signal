@@ -347,14 +347,14 @@ paths.forEach(p=>{
 });
 // Roving focus: the map is one tab stop; arrows move between towns.
 if (paths.length) paths[0].setAttribute("tabindex", "0");
-document.querySelectorAll(".mapchips button").forEach(b=>{
-  b.addEventListener("click",()=>{
-    metric=b.dataset.m;
+function setMetric(b){
     document.querySelectorAll(".mapchips button").forEach(x=>{
       x.classList.toggle("on",x===b);
       x.setAttribute("aria-pressed",x===b);});
-    paint();
-  });
+    metric=b.dataset.m; paint(); }
+window._setMetric = k => { const b=document.querySelector(`.mapchips button[data-m="${k}"]`); if (b) setMetric(b); };
+document.querySelectorAll(".mapchips button").forEach(b=>{
+  b.addEventListener("click",()=>{ setMetric(b); });
 });
 paint();
 </script>"""
@@ -406,6 +406,23 @@ def _map_html(data: dict) -> str:
             + _ESC(geo["source"]) + '.</p>\n</div>\n' + js)
 
 
+def briefs() -> dict:
+    """Slug -> the five numbers a reader would share about their town, plus
+    the rank denominators. Feeds the board's your-town strip and the per-town
+    share cards; one source of truth for both."""
+    data = snapshot()
+    if not data:
+        return {}
+    counts = {k: sum(1 for t in data["towns"] if isinstance(t.get(f"{k}_rank"), int))
+              for k, *_ in LABELS}
+    out = {}
+    for t in data["towns"]:
+        row = [[t.get(k), t.get(f"{k}_rank")]
+               for k, *_ in LABELS]
+        out[t["slug"]] = {"n": t["name"], "v": row}
+    return {"towns": out, "n": counts, "vintage": data["vintage"]}
+
+
 def index_page(data: dict) -> str:
     map_html = _map_html(data)
     rows = ""
@@ -421,16 +438,19 @@ makes a town of 800 readable. Sort is by population; type to find your town.</p>
 <input class="filter" id="q" placeholder="Filter towns…" aria-label="Filter towns"
  autocomplete="off">
 {map_html}
+<div class="tscroll" role="region" aria-label="Town statistics table, scrolls sideways on phones" tabindex="0">
 <table class="townstats" id="tt"><thead><tr><th>Town</th>
 {''.join(f"<th>{lab}</th>" for _, lab, _, _ in LABELS)}</tr></thead>
-<tbody>{rows}</tbody></table>
+<tbody>{rows}</tbody></table></div>
 <p class="provenance">US Census Bureau, {data["vintage"]}, county-subdivision
 level. Ranks run across the {data["n"]} places the Census publishes for
 Connecticut. Dashes are Census-suppressed cells, not zeros — the same honesty
 rule as the board. <a href="/sources">Sources &amp; failure logs</a>.</p>
 </div>
 <script>
-document.getElementById("q").addEventListener("input", function () {{
+const _m0 = (location.hash.match(/^#m=(\\w+)/) || [])[1];
+  if (_m0 && window._setMetric) window._setMetric(_m0);
+  document.getElementById("q").addEventListener("input", function () {{
   const v = this.value.toLowerCase();
   document.querySelectorAll("#tt tbody tr").forEach(r => {{
     r.hidden = !r.textContent.toLowerCase().includes(v); }});

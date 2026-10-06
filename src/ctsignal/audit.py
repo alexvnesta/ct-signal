@@ -61,7 +61,11 @@ def internal_links() -> list[str]:
             broken.append(f"missing page: {f.relative_to(root)}")
             continue
         rel = "/" + str(f.relative_to(root)).replace("index.html", "").rstrip("/")
-        for href in pat.findall(f.read_text()):
+        # hrefs assembled at runtime inside script blocks are not
+        # static links; scanning them invents corpses that never were.
+        src = re.sub(r"<script[^>]*>.*?</script>", "",
+                     f.read_text(), flags=re.S)
+        for href in pat.findall(src):
             if not resolve(href, rel):
                 broken.append(f"{rel} -> {href}")
     return sorted(set(broken))[:50]

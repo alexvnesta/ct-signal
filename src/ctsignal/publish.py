@@ -14,6 +14,38 @@ import json
 from . import cards as _cards
 from . import config, theme, util
 
+_YOUR_TOWN_JS = r"""
+<script>
+(function(){var b=window.__TB__,slugs=Object.keys(b.towns).sort();
+function fmt(i,p){var v=p[0],r=p[1],n=b.n[i];
+ var s=v===null?"\u2014":i==="poverty"?v.toFixed(1)+"%":
+  i==="age"?String(Math.round(v)):
+  i==="pop"?Math.round(v).toLocaleString("en-US"):
+  "$"+Math.round(v).toLocaleString("en-US");
+ return i==="pop"?s:(r?s+" (#"+r+" of "+n+")":s);}
+function render(){var s=null;try{s=localStorage.getItem("ct-town");}catch(e){}
+ if(!s||!b.towns[s]){pick();return;}
+ var t=b.towns[s],v=t.v;
+ document.getElementById("yourtown").innerHTML=
+  "Your town \u00b7 <b>"+t.n+"</b> \u2014 "
+  +"income "+fmt("income",v[2])+" \u00b7 poverty "+fmt("poverty",v[3])
+  +" \u00b7 rent "+fmt("rent",v[4])+" \u00b7 home value "+fmt("value",v[5])
+  +' \u00b7 <a href="/town/'+s+'">town file \u2192</a> '
+  +'<button id="yt-chg" class="ytbtn">change</button>';
+ var c=document.getElementById("yt-chg"); if(c)c.onclick=function(){
+  try{localStorage.removeItem("ct-town");}catch(e){} render();};}
+function pick(){var e=document.getElementById("yourtown");
+ e.innerHTML="Your town? <select id=\"yt-sel\" aria-label=\"Choose your town\">"
+  +slugs.map(function(s){return '<option value="'+s+'">'+b.towns[s].n+
+    '</option>';}).join("")
+  +'</select> <button id="yt-set" class="ytbtn">Remember it</button>';
+ document.getElementById("yt-set").onclick=function(){
+  try{localStorage.setItem("ct-town",
+    document.getElementById("yt-sel").value);}catch(e){} render();};}
+render();})();
+</script>"""
+
+
 _ESC = html.escape
 
 
@@ -219,8 +251,17 @@ and the exact query →</a></div></article>"""
 <ul class="wirelist">{wire_items}</ul>
 </div></section>""" if wire_items else "")
 
+    from . import towns as _towns
+    tb = _towns.briefs()
+    yt = ""
+    if tb:
+        yt = (f'<p class="yourtown" id="yourtown" aria-live="polite"></p>'
+              '<script>window.__TB__='
+              f'{json.dumps(tb, separators=(",", ":"))};</script>'
+              + _YOUR_TOWN_JS)
     latest = f"""<section class="latest" id="signals"><div class="wrap">
 <h1 class="vh">Today\u2019s Connecticut data board</h1>
+{yt}
 {wire}
 <div class="latest-grid">
 {lead}

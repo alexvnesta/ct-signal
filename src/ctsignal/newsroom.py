@@ -231,6 +231,48 @@ def _siblings_html(card: dict, cards: list[dict]) -> str:
             f'</ul></div>')
 
 
+_TOWN_METRIC = {"household_income": ("income", "income"),
+                "poverty": ("poverty", "poverty"),
+                "median_rent": ("rent", "gross rent"),
+                "median_home_value": ("value", "home value")}
+
+
+def _related_html(card: dict, cards: list[dict]) -> str:
+    """Recirculation the desk can do honestly: same-desk links that exist,
+    the town bridge that serves the tagline, and the board's own order for
+    prev/next — no fabricated "related" guesses."""
+    esc = html.escape
+    lis = []
+    for c in (cards or []):
+        if c.get("id") != card["id"] and c.get("topic") == card.get("topic"):
+            lis.append(f'<li style="padding:.15rem 0"><a href="/story/{c["id"]}">'
+                       f'{esc(c["question"])}</a></li>')
+            if len(lis) == 3:
+                break
+    town = _TOWN_METRIC.get(card.get("indicator"))
+    if town:
+        lis.append(f'<li style="padding:.15rem 0"><a href="/towns#m={town[0]}">'
+                   f'Compare all 169 Connecticut towns by {town[1]} →</a></li>')
+    else:
+        lis.append('<li style="padding:.15rem 0"><a href="/towns">'
+                   'See these measures for every Connecticut town →</a></li>')
+    order = sorted((c for c in (cards or []) if c.get("generated_at")),
+                   key=lambda c: c["generated_at"], reverse=True)
+    ids = [c["id"] for c in order]
+    pn = ""
+    if card["id"] in ids:
+        i = ids.index(card["id"])
+        older = (f'<a href="/story/{ids[i + 1]}">Previous story →</a>'
+                 if i + 1 < len(ids) else "")
+        newer = (f'<a href="/story/{ids[i - 1]}">← Newer story</a>'
+                 if i > 0 else "")
+        pn = (f'<p class="meta" style="display:flex;justify-content:space-between;'
+              f'gap:1rem;margin:.5rem 0 0">{newer}{older}</p>')
+    return (f'<div class="card"><div class="label">Keep reading</div>'
+            f'<ul style="margin:.2rem 0 0;padding-left:1.1rem">{"".join(lis)}</ul>'
+            f'{pn}</div>')
+
+
 def story_html(card: dict, siblings: list[dict] | None = None) -> str:
     q = _ESC(card["question"])
     a = _ESC(card["answer_text"])
@@ -283,6 +325,7 @@ automated data desk</div>
 <div class="card"><div class="label">The data</div>{chart}{chart2}{shareline}</div>
 {_trigger_html(card)}
 {_siblings_html(card, siblings)}
+{_related_html(card, siblings)}
 {_provenance_html(card)}
 {_freshness_html(card)}
 <details class="embed"><summary>Embed this story</summary>
@@ -645,10 +688,21 @@ own source. Know where you live.</p>
 <p class="meta">Dataset citations and the literal queries live on the linked
 stories; errors are corrected publicly.</p>
 </article>"""
+    tslug = _slug(town)
+    timg = f"{config.SITE_URL}/assets/town-{tslug}.png"
+    if (config.ROOT / "assets" / f"town-{tslug}.png").exists():
+        body = body.replace(
+            '<p class="meta">Dataset citations',
+            f'<p class="meta" style="margin:.5rem 0 0"><a href="{timg}">'
+            'Share card for ' + esc(town) + ' (PNG, 1200×630)</a>'
+            ' — generated from the numbers on this page.</p>'
+            '<p class="meta">Dataset citations')
     title = f"{town} town file · CT Signal"
     desc = f"{town}: " + "; ".join(facts) + "."
     return theme.page(title=title, desc=esc(desc), path=f'/town/{_slug(town)}',
-                      body=body)
+                      body=body,
+                      image=(timg if (config.ROOT / 'assets' /
+                               f'town-{tslug}.png').exists() else None))
 
 
 def archive_html(cards: list[dict]) -> str:
