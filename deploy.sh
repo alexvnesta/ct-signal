@@ -51,7 +51,13 @@ publish() {
   for f in "${GEN[@]}"; do [[ -e "$f" ]] && EXIST+=("$f"); done
   bot add -A -- "${EXIST[@]}" || { log "ADD FAILED — not publishing blind"; return 1; }
   if bot diff --cached --quiet --exit-code; then
-    log "no changes, nothing to push $(date +%H:%M:%S)"
+    # No new artifacts, but a human commit may already sit here unpushed;
+    # publishing means pushing the branch, not only pushing our own commit.
+    if ! git diff --quiet HEAD origin/master 2>/dev/null ||        [ -n "$(git log --oneline origin/master..HEAD 2>/dev/null)" ]; then
+      sync_push && log "pushed pending commits $(date +%H:%M:%S)"
+    else
+      log "no changes, nothing to push $(date +%H:%M:%S)"
+    fi
     return 0
   fi
   bot commit -q -m "feed: $(date +%H:%M) card refresh"
