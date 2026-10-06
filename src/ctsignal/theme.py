@@ -303,6 +303,14 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
 .breadcrumb{margin:1.4rem 0 .2rem;font-size:.82rem}
 .breadcrumb a{color:var(--faint)}
 @media (max-width:999px){.latest-grid{grid-template-columns:1fr}}
+.yourtown{min-height:3.6rem;background:var(--panel);padding:.55rem .7rem;
+  border-left:3px solid var(--acc)}
+.yt-line1{display:block;font:700 1.05rem/1.25 var(--serif);color:var(--ink)}
+.yt-facts{display:block;margin-top:.25rem;color:var(--ink)}
+.yt-change{background:none;border:0;color:var(--dim);font-size:.78rem;
+  text-decoration:underline;cursor:pointer;padding:0;vertical-align:baseline}
+.ytbtn{background:var(--acc);color:#fff;border:0;padding:.3rem .6rem;
+  font:600 .8rem var(--sans);cursor:pointer}
 @media (max-width:720px){.footgrid{grid-template-columns:1fr}
   .val{font-size:1.7rem}.hero .lede{font-size:1.1rem}
   nav.sitebar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
@@ -318,12 +326,7 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   .vizwrap .viz{min-height:0!important;max-height:340px;overflow-y:auto;
     scrollbar-width:none;overscroll-behavior-x:contain}
   .vizwrap .viz::-webkit-scrollbar{display:none}
-  .yourtown{display:block}
-  .yt-line1{font:700 1.05rem/1.25 var(--serif);color:var(--ink)}
-  .yt-facts{margin-top:.25rem}
-  .yt-facts b{color:var(--ink)}
-  .yt-change{background:none;border:0;color:var(--dim);font-size:.78rem;
-    text-decoration:underline;cursor:pointer;padding:0;vertical-align:baseline}
+
   .sechead h2{letter-spacing:.06em}
   .item-fig{flex:0 0 132px}.item-fig img{width:132px}
   footer.site{padding-bottom:calc(2.2rem + 4.5rem +
