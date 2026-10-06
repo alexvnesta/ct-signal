@@ -22,7 +22,7 @@ LOG=.pulse.log
 GEN=(index.html board.json feed.json feed.xml sitemap.xml llms.txt us.json
      sources.html towns.html data/towns.json data/inventory.json data/watchdog.json
      assets story topic town archive output/cards.json output/index.html
-     output/board.json output/us.json output/digest data/asked_log.json data/revalidation.json data/ledger.json
+     output/board.json output/us.json output/digest data/asked_log.json data/revalidation.json data/ledger.json data/towns.json assets/ct-towns.json
      data/failures.log data/validation_report.json)
 
 log() { echo "$(date -u '+%Y-%m-%dT%H:%M:%SZ') $*" | tee -a "$LOG"; }

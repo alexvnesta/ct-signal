@@ -230,10 +230,160 @@ _PAGE_CSS = """<style>
 .townstats .dim{color:var(--dim)}
 .filter{margin:1rem 0;background:var(--panel);border:1px solid var(--line);
   border-radius:8px;color:var(--ink);padding:.55rem .8rem;font:inherit;width:min(280px,100%)}
+.mapblock{margin:1.2rem 0 .4rem}
+.mapchips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.7rem}
+.mapchips button{background:var(--panel);border:1px solid var(--line);
+  border-radius:999px;padding:.32rem .8rem;font:.72rem/1.1 var(--mono);
+  color:var(--dim);cursor:pointer;letter-spacing:.04em}
+.mapchips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mapchips button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.mapflex{display:flex;gap:1.2rem;align-items:flex-start;flex-wrap:wrap}
+svg.townsmap{width:min(100%,560px);height:auto;background:var(--panel);
+  border:1px solid var(--line);border-radius:8px;padding:6px}
+svg.townsmap path{stroke:#fff;stroke-width:.5;transition:fill .3s;
+  cursor:pointer}
+svg.townsmap path:hover{stroke:var(--ink);stroke-width:1.2}
+.maplegend{display:flex;flex-direction:column;gap:.3rem;
+  font:.74rem/1.2 var(--sans);color:var(--dim);min-width:150px}
+.maplegend .sw{display:inline-block;width:.9rem;height:.9rem;
+  border:1px solid var(--line);margin-right:.45rem;vertical-align:-1px}
+.mtip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;
+  padding:.45rem .7rem;border-radius:6px;font-size:.8rem;z-index:5;
+  box-shadow:0 4px 14px rgba(20,30,40,.25);max-width:240px}
+.mtip b{display:block;font-size:.86rem;margin-bottom:.15rem}
+.mapnote{color:var(--faint);font-size:.76rem;margin:.5rem 0 1.1rem}
 </style>"""
 
 
+_MAP_JSON = config.ROOT / "assets" / "ct-towns.json"
+
+_MAP_JS = """
+<script>
+const MT = __MT__;
+const MMETA = __MMETA__;
+window._n = __N__;
+const RAMP = ["#f6f0e3","#ecd9bd","#dfb183","#c9722f","#a85408"];
+const NOVAL = "#eae5da";
+let metric = "income";
+function fmtV(kind, v){ if (v===null||v===undefined) return "\\u2014";
+  if (kind==="usd") return "$"+Math.round(v).toLocaleString("en-US");
+  if (kind==="pct") return v.toFixed(1)+"%";
+  if (kind==="int") return Math.round(v).toLocaleString("en-US");
+  return v.toLocaleString("en-US"); }
+function ord(n){ if(!n) return null; const s=["th","st","nd","rd"],
+  v=n%100; return n+(s[v-20]||s[v]||s[0]); }
+function quantiles(vals){ const v=vals.slice().sort((a,b)=>a-b), q=[];
+  for (let i=1;i<5;i++) q.push(v[Math.floor(v.length*i/5)]); return q; }
+function bucket(v, qs){ for (let i=0;i<4;i++) if (v<=qs[i]) return i;
+  return 4; }
+const tip = document.createElement("div"); tip.className="mtip";
+tip.style.display="none"; document.body.appendChild(tip);
+const paths = Array.from(
+  document.querySelectorAll("svg.townsmap path"));
+function paint(){
+  const meta = MMETA[metric];
+  const vals = paths.map(p=>((MT[p.dataset.n]||{})[metric])).filter(
+    v=>v!==null&&v!==undefined);
+  const qs = quantiles(vals);
+  paths.forEach(p=>{
+    const v=(MT[p.dataset.n]||{})[metric];
+    p.style.fill = (v===null||v===undefined) ? NOVAL : RAMP[bucket(v,qs)];
+    const r=(MT[p.dataset.n]||{})[metric+"_r"];
+    p.firstChild.textContent = p.dataset.n+": "+fmtV(meta.kind,v)+
+      (r? " \\u2014 "+ord(r)+" of "+window._n[metric] : "");
+  });
+  let h = '<span class="dim" style="font-weight:700">shade = '+
+    meta.label+' (quintiles)</span>';
+  const edges=[null,...qs,null];
+  for (let i=0;i<5;i++){
+    const lo=edges[i], hi=edges[i+1];
+    const rng = lo===null ? "under "+fmtV(meta.kind,hi) :
+      hi===null ? fmtV(meta.kind,lo)+" and up" :
+      fmtV(meta.kind,lo)+" \\u2013 "+fmtV(meta.kind,hi);
+    h += '<span><i class="sw" style="background:'+RAMP[i]+'"></i>'+rng+
+      '</span>';
+  }
+  h += '<span><i class="sw" style="background:'+NOVAL+
+    '"></i>Census-suppressed</span>';
+  document.getElementById("ml").innerHTML=h;
+  document.getElementById("mlab").textContent=meta.label.toLowerCase();
+}
+paths.forEach(p=>{
+  p.insertBefore(document.createTextNode(""), p.firstChild);
+  p.insertBefore(
+    document.createElementNS("http://www.w3.org/2000/svg","title"),
+    p.firstChild);
+  p.firstChild.textContent = p.dataset.n;
+  p.addEventListener("mousemove",e=>{
+    const d=MT[p.dataset.n]||{}, v=d[metric];
+    const r=(v!==null&&v!==undefined)?d[metric+"_r"]:null;
+    tip.innerHTML = "<b>"+p.dataset.n+"</b>"+MMETA[metric].label+": "+
+      fmtV(MMETA[metric].kind,v)+(r? " \\u00b7 "+ord(r)+" of "+
+      window._n[metric] : " \\u00b7 not published");
+    tip.style.display="block";
+    tip.style.left=Math.min(e.clientX+14, innerWidth-260)+"px";
+    tip.style.top=(e.clientY+16)+"px";
+  });
+  p.addEventListener("mouseleave",()=>{tip.style.display="none";});
+  p.addEventListener("click",()=>{location.href=p.dataset.h;});
+});
+document.querySelectorAll(".mapchips button").forEach(b=>{
+  b.addEventListener("click",()=>{
+    metric=b.dataset.m;
+    document.querySelectorAll(".mapchips button").forEach(x=>{
+      x.classList.toggle("on",x===b);
+      x.setAttribute("aria-pressed",x===b);});
+    paint();
+  });
+});
+paint();
+</script>"""
+
+
+def _map_html(data: dict) -> str:
+    """The choropleth, baked: Census boundaries as inline SVG paths, town
+    values embedded, five lines of vanilla JS doing quintile coloring. No
+    tile provider, no scripts phoning home — the map is the data."""
+    if not _MAP_JSON.exists():
+        return ""
+    try:
+        geo = json.loads(_MAP_JSON.read_text())
+    except ValueError:
+        return ""
+    slug = {t["name"]: t["slug"] for t in data["towns"]}
+    mt = {t["name"]: {**{k: t.get(k) for k, _, _, _ in LABELS},
+                      **{f"{k}_r": t.get(f"{k}_rank")
+                         for k, _, _, _ in LABELS}}
+          for t in data["towns"] if t["name"] in slug}
+    paths = "".join(
+        f'<path d="{g["d"]}" data-n="{_ESC(g["name"])}" '
+        f'data-h="/town/{slug[g["name"]]}"></path>'
+        for g in geo["towns"] if g["name"] in slug)
+    chips = "".join(
+        f'<button type="button" data-m="{k}"'
+        f' aria-pressed="{("true" if k == "income" else "false")}"'
+        f' class="{("on" if k == "income" else "")}">{_ESC(lab)}</button>'
+        for k, lab, _, _ in LABELS[1:])
+    mm = {k: {"label": lab, "kind": kind} for k, lab, _, kind in LABELS}
+    n = {k: data["n"] for k, _, _, _ in LABELS}
+    js = (_MAP_JS.replace("__MT__", json.dumps(mt, separators=(",", ":")))
+          .replace("__MMETA__", json.dumps(mm))
+          .replace("__N__", json.dumps(n)))
+    return ('<div class="mapblock">\n<div class="mapchips" role="group" '
+            'aria-label="Color the map by">\n' + chips + '</div>\n'
+            '<div class="mapflex">\n<svg class="townsmap" viewBox="0 0 '
+            + str(geo["width"]) + " " + str(geo["height"]) +
+            '" role="img" aria-label="Map of Connecticut towns shaded by '
+            'the chosen measure">' + paths + '</svg>\n'
+            '<div class="maplegend" id="ml"></div>\n</div>\n'
+            '<p class="mapnote">Click a town for its full page. Shading '
+            'is a quintile split of <span id="mlab">median household '
+            'income</span> among towns with published values; boundaries: '
+            + _ESC(geo["source"]) + '.</p>\n</div>\n' + js)
+
+
 def index_page(data: dict) -> str:
+    map_html = _map_html(data)
     rows = ""
     for t in data["towns"]:
         cells = "".join(f"<td>{_fmt(t, k, kind)}</td>"
@@ -244,6 +394,7 @@ def index_page(data: dict) -> str:
 <div class="sechead"><h2>Every Connecticut town, one table</h2>
 <p class="sechelp">{data["vintage"]} — five-year estimates, because that is what
 makes a town of 800 readable. Sort is by population; type to find your town.</p></div>
+{map_html}
 <input class="filter" id="q" placeholder="Filter towns…" aria-label="Filter towns"
  autocomplete="off">
 <table class="townstats" id="tt"><thead><tr><th>Town</th>
