@@ -277,6 +277,7 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
 .yourtown{min-height:3.6rem;background:var(--panel);padding:.55rem .7rem;
   border-left:3px solid var(--acc)}
 .yt-line1{display:block;font:700 1.05rem/1.25 var(--serif);color:var(--ink)}
+.yourtown a{text-decoration:underline}
 .yt-facts{display:block;margin-top:.25rem;color:var(--ink)}
 .yt-change{background:none;border:0;color:var(--dim);font-size:.78rem;
   text-decoration:underline;cursor:pointer;padding:0;vertical-align:baseline}
