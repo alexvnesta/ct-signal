@@ -2,7 +2,7 @@
  * requester's IP and injects x-vercel-ip-city; we echo the city (and
  * region) and nothing else — no logging, no store, cache-bypassed.
  * The page maps city to town slug or stays quiet. */
-export default function handler(req) {
+export default { GET: (req) => {
   const h = req.headers;
   return new Response(JSON.stringify({
     city: h.get("x-vercel-ip-city") || null,
@@ -13,4 +13,4 @@ export default function handler(req) {
       "cache-control": "no-store",
     },
   });
-}
+} };
