@@ -272,7 +272,7 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   flex-wrap:wrap;gap:.4rem}
 .colophon a{text-decoration:underline}
 .breadcrumb{margin:1.4rem 0 .2rem;font-size:.82rem}
-.breadcrumb a{color:var(--faint)}
+.breadcrumb a{color:var(--faint);display:inline-block;padding:.35rem .15em}
 @media (max-width:999px){.latest-grid{grid-template-columns:1fr}}
 .peersum,.peershow,.peersum-t{display:none}
 .peersum{list-style:none;margin:.4rem 0 0;padding:0}
