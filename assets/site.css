@@ -217,7 +217,7 @@ figure.vizwrap figcaption{color:var(--faint);font-size:.8rem;margin-top:.4rem;
 .viz .role-legend-label text{fill:#4c5a68}
 code{background:var(--panel2);color:var(--ink);padding:.1rem .35rem;
   font:.85em/1.5 var(--mono);word-break:break-all}
-.provenance a{color:var(--blue)}
+.provenance a{color:var(--blue);overflow-wrap:anywhere}
 
 /* --------------------------------------------------------- story / hero --- */
 .hero{padding:2.2rem 0 .6rem;max-width:var(--col)}
@@ -286,7 +286,15 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   .brand{font-size:1.85rem;padding-bottom:1.7rem}
   .plate-art{height:70px}
   .dateline{font-size:.62rem;letter-spacing:.08em;padding:.3rem .8rem}
-  .vizwrap .viz{min-height:0!important;max-height:340px;overflow-y:auto}
+  .vizwrap .viz{min-height:0!important;max-height:340px;overflow-y:auto;
+    scrollbar-width:none;overscroll-behavior-x:contain}
+  .vizwrap .viz::-webkit-scrollbar{display:none}
+  .yourtown{display:block}
+  .yt-line1{font:700 1.05rem/1.25 var(--serif);color:var(--ink)}
+  .yt-facts{margin-top:.25rem}
+  .yt-facts b{color:var(--ink)}
+  .yt-change{background:none;border:0;color:var(--dim);font-size:.78rem;
+    text-decoration:underline;cursor:pointer;padding:0;vertical-align:baseline}
   .sechead h2{letter-spacing:.06em}
   .item-fig{flex:0 0 132px}.item-fig img{width:132px}
   footer.site{padding-bottom:calc(2.2rem + 4.5rem +

@@ -578,6 +578,8 @@ def write_all(cards: list[dict]) -> None:
         hd = troot / _slug(town)
         hd.mkdir(parents=True, exist_ok=True)
         util.atomic_write_text(hd / "index.html", town_html(town, pieces))
+        util.atomic_write_text(hd / "feed.xml",
+                               town_feed(town, _slug(town), cards))
     if troot.exists():
         live = {_slug(r["town"]) for c in cards for r in (c.get("towns") or [])}
         for stale in troot.iterdir():
@@ -605,6 +607,46 @@ def _freshness_html(card: dict) -> str:
     return (f'<p class="meta">This story refreshes automatically with its '
             f'dataset &mdash; {len(vers)} archived vintages on record in '
             f'<a href="/archive">the public archive</a>.</p>')
+
+
+def town_feed(town: str, slug: str, cards: list[dict]) -> str:
+    """A per-town RSS file: the return channel a remembered town still
+    lacks. Static, honest items only — the stories that measure this town
+    and the vintage of its data file. No database, no new service."""
+    from . import towns as _tw
+    snap = _tw.snapshot()
+    fetched = (snap or {}).get("fetched_at", "")
+    esc = html.escape
+    base = f"{config.SITE_URL}/town/{slug}"
+    bridge = set(_tw.STORY_FOR.values())          # stories every town file leans on
+    items = []
+    for c in (cards or []):
+        local = any((r.get("town") or "").lower() == town.lower()
+                    for r in (c.get("towns") or []))
+        if local or c["id"] in bridge:
+            items.append(
+                f"<item><title>{esc(c['question'])}</title>"
+                f"<link>{config.SITE_URL}/story/{c['id']}</link>"
+                f"<guid>{config.SITE_URL}/story/{c['id']}</guid>"
+                f"<pubDate>{_rfc822(c['generated_at'])}</pubDate>"
+                f"<description>{esc(c['answer_text'][:160])}</description>"
+                f"</item>")
+    if fetched:
+        items.append(
+            f"<item><title>{esc(town)} data file current through "
+            f"""{esc((snap or {}).get('vintage', ''))}</title>"""
+            f"<link>{base}</link><guid>{base}?v={esc(fetched[:10])}</guid>"
+            f"<pubDate>{_rfc822(fetched)}</pubDate>"
+            "<description>Every number on the town file, with its source "
+            "and vintage.</description></item>")
+    updated = _rfc822(fetched or dt.datetime.now(dt.timezone.utc).isoformat())
+    return ('<?xml version="1.0" encoding="UTF-8"?>'
+            '<feed xmlns="http://www.w3.org/2005/Atom">'
+            f'<title>CT Signal \u2014 {esc(town)}</title>'
+            f'<link href="{base}"/><link rel="self" '
+            f'href="{base}/feed.xml"/>'
+            f'<updated>{updated}</updated>'
+            f'<id>{base}/feed.xml</id>{"".join(items)}</feed>')
 
 
 def town_html(town: str, pieces: dict) -> str:
@@ -695,10 +737,37 @@ stories; errors are corrected publicly.</p>
             '<p class="meta">Dataset citations',
             f'<p class="meta" style="margin:.5rem 0 0"><a href="{timg}">'
             'Share card for ' + esc(town) + ' (PNG, 1200×630)</a>'
-            ' — generated from the numbers on this page.</p>'
+            ' — generated from the numbers on this page. '
+            f'<a href="/town/{tslug}/feed.xml">Subscribe</a>'
+            ' to updates for this town (Atom).</p>'
             '<p class="meta">Dataset citations')
     title = f"{town} town file · CT Signal"
-    desc = f"{town}: " + "; ".join(facts) + "."
+    # The og:description must match the share card the preview shows:
+    # the same five numbers, the same vintage, no mill-rate surprise.
+    from . import towns as _tw
+    _b = _tw.briefs()
+    _r = _b.get("towns", {}).get(_slug(town))
+    if _r:
+        _v = _r["v"]
+        def _f(i, k):
+            v = _v[i][0]
+            if v is None:
+                return "not published"
+            if k == "poverty":
+                return f"{v:.1f}%"
+            if k == "age":
+                return str(round(v))
+            return (f"${v/1e6:.2f}M" if v >= 1_000_000
+                    else f"${v:,.0f}")
+        desc = (f"{town}, {_b['vintage']}: median household "
+                f"income {_f(2, 'income')}, {_f(3, 'poverty')} "
+                f"below poverty, median rent {_f(4, 'rent')}, "
+                f"median home value {_f(5, 'value')}, median age "
+                f"{_f(1, 'age')}.")
+        desc = desc + " Ranks, sources and the town file: "
+        desc += f"{config.SITE_URL}/town/{_slug(town)}"
+    else:
+        desc = f"{town}: " + "; ".join(facts) + "."
     return theme.page(title=title, desc=esc(desc), path=f'/town/{_slug(town)}',
                       body=body,
                       image=(timg if (config.ROOT / 'assets' /

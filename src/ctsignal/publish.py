@@ -22,16 +22,22 @@ function fmt(i,p){var v=p[0],r=p[1],n=b.n[i];
   i==="age"?String(Math.round(v)):
   i==="pop"?Math.round(v).toLocaleString("en-US"):
   "$"+Math.round(v).toLocaleString("en-US");
- return i==="pop"?s:(r?s+" (#"+r+" of "+n+")":s);}
+ if(i==="pop"||r===null)return s;
+ var o=r%10===1&&r%100!==11?"st":r%10===2&&r%100!==12?"nd":
+       r%10===3&&r%100!==13?"rd":"th";
+ return s+" ("+r+o+"-highest of "+n+")";}
 function render(){var s=null;try{s=localStorage.getItem("ct-town");}catch(e){}
  if(!s||!b.towns[s]){pick();return;}
  var t=b.towns[s],v=t.v;
  document.getElementById("yourtown").innerHTML=
-  "Your town \u00b7 <b>"+t.n+"</b> \u2014 "
-  +"income "+fmt("income",v[2])+" \u00b7 poverty "+fmt("poverty",v[3])
-  +" \u00b7 rent "+fmt("rent",v[4])+" \u00b7 home value "+fmt("value",v[5])
-  +' \u00b7 <a href="/town/'+s+'">town file \u2192</a> '
-  +'<button id="yt-chg" class="ytbtn">change</button>';
+  '<span class="yt-line1">Your town \u00b7 '+t.n+
+  ' \u00b7 <a href="/town/'+s+'">town file \u2192</a></span>'
+  +'<span class="yt-facts">income '+fmt("income",v[2])
+  +" \u00b7 poverty "+fmt("poverty",v[3])
+  +" \u00b7 rent "+fmt("rent",v[4])
+  +" \u00b7 home value "+fmt("value",v[5])
+  +" \u00b7 median age "+fmt("age",v[1])
+  +' \u00b7 <button id="yt-chg" class="yt-change">change town</button></span>';
  var c=document.getElementById("yt-chg"); if(c)c.onclick=function(){
   try{localStorage.removeItem("ct-town");}catch(e){} render();};}
 function pick(){var e=document.getElementById("yourtown");
@@ -97,9 +103,22 @@ def home_html(cards: list[dict], board: dict) -> str:
     lead = ""
     sec2 = ""
     rail = ""
+    # The lead is the paper's opinion. A national headline alone does not
+    # get to form one about Connecticut: the Connecticut stream must be in
+    # on the trigger, or several independent CT newsrooms must be.
+    def _ct_trigger(x):
+        h = x.get("headline") or {}
+        return (x.get("stream") == "ct" or h.get("stream") == "ct"
+                or int(h.get("ct_hits") or 0) >= 2)
+    if cards and not _ct_trigger(cards[0]):
+        _i = next((i for i, x in enumerate(cards) if _ct_trigger(x)), None)
+        if _i:
+            cards = [cards[_i]] + cards[:_i] + cards[_i + 1:]
     if cards:
         from . import newsroom
         c = cards[0]
+        lead_kick = ("Today's lead" if _ct_trigger(c)
+                     else "From the data desk")
         heroviz = ""
         if c.get("chart"):
             vdesc, vlabel = newsroom.chart_intro(c)
@@ -115,7 +134,7 @@ def home_html(cards: list[dict], board: dict) -> str:
         _vint = (f" · data through {_m.group()}"
                  if _m and int(_m.group()) < dt.datetime.now().year else "")
         lead = f"""<article class="lead">
-<span class="kicker">Today's lead · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk{_vint}</span>
+<span class="kicker">{lead_kick} · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk{_vint}</span>
 <h2><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h2>
 <p class="lede">{_ESC(c["answer_text"])}</p>
 {heroviz}
@@ -241,9 +260,12 @@ and the exact query →</a></div></article>"""
                           f'<span class="wiresrc"> &nbsp;{_ESC(e["src"])} · {age}'
                           f'</span>{ans}</li>'))
     any_ans = any(r[0] for r in wire_rows)
-    rows = [r for r in wire_rows if r[0] or r[1]] if not any_ans else wire_rows
-    rows.sort(key=lambda r: (not r[0],))
-    wire_items = "".join(r[4] for r in rows[:10 if any_ans else 6])
+    # The wire block earns its place by connecting news to our numbers.
+    # An unmapped block is someone else's news ticker; suppressed whole.
+    wire_items = ""
+    if any_ans:
+        rows = sorted(wire_rows, key=lambda r: (not r[0],))
+        wire_items = "".join(r[4] for r in rows[:10])
     wire_section = (f"""
 <section class="wireblock"><div class="wrap">
 <div class="sechead"><h2>On the wire</h2>

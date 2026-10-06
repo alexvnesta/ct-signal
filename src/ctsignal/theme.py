@@ -246,7 +246,7 @@ figure.vizwrap figcaption{color:var(--faint);font-size:.8rem;margin-top:.4rem;
 .viz .role-legend-label text{fill:#4c5a68}
 code{background:var(--panel2);color:var(--ink);padding:.1rem .35rem;
   font:.85em/1.5 var(--mono);word-break:break-all}
-.provenance a{color:var(--blue)}
+.provenance a{color:var(--blue);overflow-wrap:anywhere}
 
 /* --------------------------------------------------------- story / hero --- */
 .hero{padding:2.2rem 0 .6rem;max-width:var(--col)}
@@ -315,7 +315,15 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   .brand{font-size:1.85rem;padding-bottom:1.7rem}
   .plate-art{height:70px}
   .dateline{font-size:.62rem;letter-spacing:.08em;padding:.3rem .8rem}
-  .vizwrap .viz{min-height:0!important;max-height:340px;overflow-y:auto}
+  .vizwrap .viz{min-height:0!important;max-height:340px;overflow-y:auto;
+    scrollbar-width:none;overscroll-behavior-x:contain}
+  .vizwrap .viz::-webkit-scrollbar{display:none}
+  .yourtown{display:block}
+  .yt-line1{font:700 1.05rem/1.25 var(--serif);color:var(--ink)}
+  .yt-facts{margin-top:.25rem}
+  .yt-facts b{color:var(--ink)}
+  .yt-change{background:none;border:0;color:var(--dim);font-size:.78rem;
+    text-decoration:underline;cursor:pointer;padding:0;vertical-align:baseline}
   .sechead h2{letter-spacing:.06em}
   .item-fig{flex:0 0 132px}.item-fig img{width:132px}
   footer.site{padding-bottom:calc(2.2rem + 4.5rem +
@@ -395,7 +403,8 @@ def footer() -> str:
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
 public data answers it. Know where you live.</p>
 <p><a class="subbtn" href="mailto:{email}?subject=Board%20sponsorship">Sponsor the board</a></p>
-<p><a href="mailto:{email}">{email}</a></p></div>
+<p><a href="mailto:{email}">{email}</a></p>
+<p><a href="mailto:{email}?subject=Question%20for%20the%20desk&amp;body=Town%3A%20%0AQuestion%20(one%20sentence)%3A%20">Ask the desk a question</a> — every message is read and logged.</p></div>
 <div><h2>Sections</h2><ul>
 <li><a href="/">The board</a></li>
 <li><a href="/#signals">Latest questions</a></li>

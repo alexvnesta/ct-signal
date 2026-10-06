@@ -19,7 +19,7 @@ SERIF_T = font(__import__("_brand").SERIF, 64)
 BOLD = font(__import__("_brand").SANS, 30, 1)
 VAL = font(__import__("_brand").SANS, 38, 1)
 CAP = font(__import__("_brand").SANS, 21)
-RANK = font(__import__("_brand").SANS, 21, 1)
+RANK = font(__import__("_brand").SANS, 19, 1)
 SMALL = font(__import__("_brand").SANS, 22)
 FIVE = [("income", "Median household income"), ("poverty", "Below poverty line"),
         ("rent", "Median gross rent"), ("value", "Median home value"),
@@ -36,7 +36,15 @@ def fmt(key: str, v) -> str:
         return str(round(v))
     if key == "pop":
         return f"{v:,.0f}"
+    if v >= 1_000_000:
+        return f"${v / 1_000_000:.2f}M"
     return f"${v:,.0f}"
+
+
+def _ord(n: int) -> str:
+    suf = ("th" if 11 <= n % 100 <= 13
+           else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th"))
+    return f"{n}{suf}"
 
 
 def cover(slug: str, t: dict, n: dict, vintage: str) -> Image.Image:
@@ -62,12 +70,11 @@ def cover(slug: str, t: dict, n: dict, vintage: str) -> Image.Image:
         for j, line in enumerate(lines[:2]):
             d.text((x + 14, y0 + 22 + j * 44), line, font=VAL, fill=INK)
         rk = ("\u2014" if rank is None
-              else f"#{rank} of {n.get(key, '?')} in state")
+              else f"{_ord(rank)}-highest of {n.get(key, '?')}")
         d.text((x + 14, y0 + 128), rk, font=RANK, fill=ACC)
         for j, line in enumerate(wrap(d, label, CAP, bw - 28)[:2]):
             d.text((x + 14, y0 + 158 + j * 24), line, font=CAP, fill=DIM)
-    d.text((48, H - 58), "Know where you live. Every number names its "
-           "source and vintage \u00b7 ctsignal.org", font=CAP, fill=DIM)
+    d.text((48, H - 58), "Know where you live \u00b7 ctsignal.org/town/" + slug, font=CAP, fill=DIM)
     return img
 
 
