@@ -1749,15 +1749,9 @@
     "https://fred.stlouisfed.org/series/PRS85006173"
   ],
   "generated_at": "2026-10-05T14:54:08+00:00",
-  "headline": {
-    "id": "fixjobs03",
-    "published": "2026-10-02",
-    "source": "jobs-report fixture",
-    "stream": "national",
-    "title": "Productivity gains keep rolling along while workers' paychecks fall behind"
-  },
   "id": "fc46f3ad624e",
   "indicator": "labor_share",
+  "origin": "data desk",
   "query": "FRED fredgraph.csv id=PRS85006173; agency of record: US Bureau of Labor Statistics, Productivity and Costs",
   "question": "Are workers keeping their share of what they produce?",
   "series_freq": "quarterly",

@@ -33,6 +33,14 @@ def is_demo_trigger(card: dict) -> bool:
     return "fixture" in src.lower()
 
 
+def is_data_filed(card: dict) -> bool:
+    """A data-filed card answers a question the desk itself raised from a
+    live series — no news trigger is claimed, so none has to be honest.
+    It stays promotable: the first real headline that raises the same
+    question upgrades it back to a triggered card, same URL."""
+    return card.get("origin") == "data desk"
+
+
 def _card_id(indicator_id: str, question: str) -> str:
     return hashlib.sha1(f"{indicator_id}:{question}".encode()).hexdigest()[:12]
 
@@ -87,7 +95,7 @@ def from_stackup(indicator: dict, proposal: dict, result: dict,
         "stream": "stackup",
         "topic": indicator["topic"],
         "indicator": indicator["id"],
-        "headline": proposal["headline"],
+        "headline": proposal.get("headline"),
         "question": question,
         "answer_text": answer,
         "answer_values": result["ct"],
@@ -124,7 +132,7 @@ def from_national(item: dict, proposal: dict, result: dict) -> dict:
         "stream": "national",
         "topic": item["topic"],
         "indicator": item["id"],
-        "headline": proposal["headline"],
+        "headline": proposal.get("headline"),
         "question": question,
         "answer_text": answer,
         "answer_values": {"value": result["value"], "date": result["date"]},
@@ -162,7 +170,7 @@ def from_local(item: dict, proposal: dict, result: dict) -> dict:
         "stream": "local",
         "topic": item["topic"],
         "indicator": item["id"],
-        "headline": proposal["headline"],
+        "headline": proposal.get("headline"),
         "question": question,
         "answer_text": answer,
         "answer_values": {"top": top, "n": result["n"],
@@ -196,7 +204,7 @@ def from_mill_rates(item: dict, proposal: dict, result: dict) -> dict:
         "stream": "local",
         "topic": item["topic"],
         "indicator": item["id"],
-        "headline": proposal["headline"],
+        "headline": proposal.get("headline"),
         "question": question,
         "answer_text": answer,
         "answer_values": {"top": t, "n": result["n"],

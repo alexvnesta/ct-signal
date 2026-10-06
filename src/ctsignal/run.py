@@ -272,19 +272,26 @@ def _trend() -> list[dict]:
 def _migrate_fixtures(cards_by_id: dict, by_id: dict,
                       headlines: list[dict],
                       proposals: list[dict]) -> int:
-    """Demo triggers retire themselves. A fixture-triggered card stays on
-    the board with live numbers (the disclaimer says exactly that), but
-    every cycle we check the wire for a real headline that would raise the
-    same question. When one exists the card is rebuilt on that trigger —
-    same question, same URL, real receipt. The fixture disclaimer deletes
-    itself when the last demo trigger migrates; nothing else needed."""
+    """Demo triggers retire themselves — two ways, both honest.
+
+    Promotion: every cycle we check the wire for a real headline that
+    would raise the same question. When one exists the card is rebuilt
+    on that trigger — same question, same URL, real receipt.
+
+    Filing: when a demo card finds no real trigger, the synthetic one is
+    deleted rather than displayed. The card keeps its live numbers and
+    becomes a data desk filing: a question the desk raised from the
+    series itself, claiming no news hook it cannot show. The fixture
+    disclaimer deletes itself when the last demo trigger goes one way or
+    the other; nothing else needed."""
     touched = 0
     for cid, card in list(cards_by_id.items()):
-        if not cards.is_demo_trigger(card):
+        demo = cards.is_demo_trigger(card)
+        if not (demo or cards.is_data_filed(card)):
             continue
         ind = by_id.get(card.get("indicator"))
         if not ind or not ind.get("fred"):
-            continue          # the current demo set is all national series
+            continue          # the current data-filed set is all national series
         # A live proposal for this indicator is the strongest candidate:
         # it may have come from the LLM proposer and would otherwise be
         # swallowed by the asked-log dedup gate, since the numbers it
@@ -301,12 +308,41 @@ def _migrate_fixtures(cards_by_id: dict, by_id: dict,
                 break
             new = cards.from_national(ind, {"headline": h}, res)
             if new["id"] != cid:
-                break         # reworded question: leave the demo in place
+                break         # reworded question: leave the card as is
             cards_by_id[cid] = new
             touched += 1
-            print(f"  \u2192 de-fixturized [{card['stream']}/{card['topic']}] "
+            print(f"  \u2192 promoted [{card['stream']}/{card['topic']}] "
                   f"{ind['id']} <- {h['title'][:64]}")
             break
+        else:
+            if demo:
+                card.pop("headline", None)
+                card["origin"] = "data desk"
+                touched += 1
+                print(f"  \u2192 data-filed (no real trigger to claim) "
+                      f"[{card['stream']}/{card['topic']}] {ind['id']}")
+            elif cards.is_data_filed(card):
+                # A filed card is a standing question: its numbers must
+                # not fossilize just because no headline reopens it.
+                res = fred.observations(
+                    ind,
+                    fixture=config.FIXTURES_DIR / f"fred_{ind['id']}.csv")
+                if not res:
+                    continue
+                rebuilt = cards.from_national(
+                    ind, {"question_override": card["question"],
+                          "headline": None}, res)
+                if rebuilt["id"] != cid or \
+                        rebuilt["answer_text"] == card.get("answer_text"):
+                    continue
+                rebuilt["origin"] = "data desk"
+                rebuilt["generated_at"] = card["generated_at"]
+                rebuilt["revalidated_at"] = dt.datetime.now(
+                    dt.timezone.utc).isoformat(timespec="seconds")
+                cards_by_id[cid] = rebuilt
+                touched += 1
+                print(f"  ~ data-filed numbers revalidated [{ind['id']}] "
+                      f"-> {res['date']}")
     return touched
 
 

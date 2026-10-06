@@ -9251,15 +9251,9 @@
         "https://fred.stlouisfed.org/series/UEMPMED"
       ],
       "generated_at": "2026-10-05T14:54:08+00:00",
-      "headline": {
-        "id": "fixjobs01",
-        "published": "2026-09-30",
-        "source": "PBS NewsHour (fixture)",
-        "stream": "national",
-        "title": "Job growth cools as unemployment edges up in several states"
-      },
       "id": "615030e77f4c",
       "indicator": "unemployment_duration",
+      "origin": "data desk",
       "query": "FRED fredgraph.csv id=UEMPMED; agency of record: US Bureau of Labor Statistics, Current Population Survey",
       "question": "When Americans lose a job, how long are they out?",
       "series_freq": "monthly",
@@ -10972,15 +10966,9 @@
         "https://fred.stlouisfed.org/series/JTSHIR"
       ],
       "generated_at": "2026-10-05T14:54:08+00:00",
-      "headline": {
-        "id": "fixjobs02",
-        "published": "2026-10-02",
-        "source": "jobs-report fixture",
-        "stream": "national",
-        "title": "Hiring slowed, layoffs are rare and hardly anyone is quitting: the labor market has frozen over"
-      },
       "id": "5c5c307e3f19",
       "indicator": "hires_rate",
+      "origin": "data desk",
       "query": "FRED fredgraph.csv id=JTSHIR; agency of record: US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey",
       "question": "Is America still hiring people into new jobs?",
       "series_freq": "monthly",
@@ -12693,15 +12681,9 @@
         "https://fred.stlouisfed.org/series/JTSQUR"
       ],
       "generated_at": "2026-10-05T14:54:08+00:00",
-      "headline": {
-        "id": "fixjobs02",
-        "published": "2026-10-02",
-        "source": "jobs-report fixture",
-        "stream": "national",
-        "title": "Hiring slowed, layoffs are rare and hardly anyone is quitting: the labor market has frozen over"
-      },
       "id": "d5873d2851dd",
       "indicator": "quits_rate",
+      "origin": "data desk",
       "query": "FRED fredgraph.csv id=JTSQUR; agency of record: US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey",
       "question": "Are workers still confident enough to quit?",
       "series_freq": "monthly",
@@ -14414,15 +14396,9 @@
         "https://fred.stlouisfed.org/series/JTSLDR"
       ],
       "generated_at": "2026-10-05T14:54:08+00:00",
-      "headline": {
-        "id": "fixjobs02",
-        "published": "2026-10-02",
-        "source": "jobs-report fixture",
-        "stream": "national",
-        "title": "Hiring slowed, layoffs are rare and hardly anyone is quitting: the labor market has frozen over"
-      },
       "id": "138bf32c8350",
       "indicator": "layoffs_rate",
+      "origin": "data desk",
       "query": "FRED fredgraph.csv id=JTSLDR; agency of record: US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey",
       "question": "Are employers laying everyone off, really?",
       "series_freq": "monthly",
@@ -16180,15 +16156,9 @@
         "https://fred.stlouisfed.org/series/PRS85006173"
       ],
       "generated_at": "2026-10-05T14:54:08+00:00",
-      "headline": {
-        "id": "fixjobs03",
-        "published": "2026-10-02",
-        "source": "jobs-report fixture",
-        "stream": "national",
-        "title": "Productivity gains keep rolling along while workers' paychecks fall behind"
-      },
       "id": "fc46f3ad624e",
       "indicator": "labor_share",
+      "origin": "data desk",
       "query": "FRED fredgraph.csv id=PRS85006173; agency of record: US Bureau of Labor Statistics, Productivity and Costs",
       "question": "Are workers keeping their share of what they produce?",
       "series_freq": "quarterly",

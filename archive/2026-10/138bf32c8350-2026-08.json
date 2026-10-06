@@ -1704,15 +1704,9 @@
     "https://fred.stlouisfed.org/series/JTSLDR"
   ],
   "generated_at": "2026-10-05T14:54:08+00:00",
-  "headline": {
-    "id": "fixjobs02",
-    "published": "2026-10-02",
-    "source": "jobs-report fixture",
-    "stream": "national",
-    "title": "Hiring slowed, layoffs are rare and hardly anyone is quitting: the labor market has frozen over"
-  },
   "id": "138bf32c8350",
   "indicator": "layoffs_rate",
+  "origin": "data desk",
   "query": "FRED fredgraph.csv id=JTSLDR; agency of record: US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey",
   "question": "Are employers laying everyone off, really?",
   "series_freq": "monthly",

@@ -1959,15 +1959,9 @@
     "https://fred.stlouisfed.org/series/UEMPMED"
   ],
   "generated_at": "2026-10-05T14:54:08+00:00",
-  "headline": {
-    "id": "fixjobs01",
-    "published": "2026-09-30",
-    "source": "PBS NewsHour (fixture)",
-    "stream": "national",
-    "title": "Job growth cools as unemployment edges up in several states"
-  },
   "id": "615030e77f4c",
   "indicator": "unemployment_duration",
+  "origin": "data desk",
   "query": "FRED fredgraph.csv id=UEMPMED; agency of record: US Bureau of Labor Statistics, Current Population Survey",
   "question": "When Americans lose a job, how long are they out?",
   "series_freq": "monthly",

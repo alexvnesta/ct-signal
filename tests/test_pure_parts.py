@@ -180,6 +180,55 @@ class TestFixtureMigration(unittest.TestCase):
                          cards_by_id[card["id"]]["headline"]["source"])
         self.assertEqual(cards_by_id[card["id"]]["headline"]["source"], "NPR")
 
+    def test_no_trigger_files_the_card_not_demos_it(self):
+        """The override the standing bar allows: when no real headline
+        exists, the synthetic trigger is DELETED, not displayed. The
+        card keeps its live numbers and claims only what it can show."""
+        from ctsignal import cards as _cards
+        cat, card = self._fixture_card()
+        orig = run.fred.observations
+        run.fred.observations = lambda item, fixture=None: None
+        try:
+            cards_by_id = {card["id"]: card}
+            n = run._migrate_fixtures(cards_by_id, cat, [], [])
+        finally:
+            run.fred.observations = orig
+        c = cards_by_id[card["id"]]
+        self.assertEqual(n, 1)
+        self.assertIsNone(c.get("headline"))
+        self.assertEqual(c.get("origin"), "data desk")
+        self.assertFalse(_cards.is_demo_trigger(c))
+
+    def test_filed_card_numbers_do_not_fossilize(self):
+        """A filed card is a standing question: each cycle revalidates
+        its numbers without re-aging the story or losing its origin."""
+        cat, card = self._fixture_card()
+        card.pop("headline")
+        card["origin"] = "data desk"
+        card["generated_at"] = "2026-10-01T00:00:00+00:00"
+        card["answer_text"] = "old answer"
+        canned = {"value": 2.4, "date": "2026-09",
+                  "rows": [{"date": "2026-08", "series": "United States",
+                            "value": 2.5},
+                           {"date": "2026-09", "series": "United States",
+                            "value": 2.4}],
+                  "extreme": "lowest since January 2026",
+                  "citation": "https://fred.stlouisfed.org/series/JTSQUR",
+                  "query": "probe"}
+        orig = run.fred.observations
+        run.fred.observations = lambda item, fixture=None: dict(canned)
+        try:
+            cards_by_id = {card["id"]: card}
+            n = run._migrate_fixtures(cards_by_id, cat, [], [])
+        finally:
+            run.fred.observations = orig
+        c = cards_by_id[card["id"]]
+        self.assertEqual(n, 1)
+        self.assertNotEqual(c["answer_text"], "old answer")
+        self.assertEqual(c["generated_at"], "2026-10-01T00:00:00+00:00")
+        self.assertIn("revalidated_at", c)
+        self.assertEqual(c["origin"], "data desk")
+
     def test_both_demo_label_styles_are_detected(self):
         from ctsignal import cards as _cards
         for src in ("jobs-report fixture", "PBS NewsHour (fixture)",

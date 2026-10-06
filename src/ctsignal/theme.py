@@ -401,7 +401,11 @@ def trigger_parts(card: dict) -> tuple[str, str]:
     never has to scroll to a global disclaimer to learn a card
     ran on a stand-in headline."""
     from . import cards as _c
-    h = card["headline"]
+    h = card.get("headline") or {}
+    if not h.get("title"):
+        return ('<span class="badge">DATA DESK</span> ',
+                _ESC("Question raised by the data itself; no news "
+                     "headline claims credit for it."))
     title = _ESC(h["title"])
     src = h.get("source") or ""
     # civic-calendar entries carry "[civic calendar] ..." in the title;

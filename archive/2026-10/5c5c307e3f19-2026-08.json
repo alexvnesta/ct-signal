@@ -1704,15 +1704,9 @@
     "https://fred.stlouisfed.org/series/JTSHIR"
   ],
   "generated_at": "2026-10-05T14:54:08+00:00",
-  "headline": {
-    "id": "fixjobs02",
-    "published": "2026-10-02",
-    "source": "jobs-report fixture",
-    "stream": "national",
-    "title": "Hiring slowed, layoffs are rare and hardly anyone is quitting: the labor market has frozen over"
-  },
   "id": "5c5c307e3f19",
   "indicator": "hires_rate",
+  "origin": "data desk",
   "query": "FRED fredgraph.csv id=JTSHIR; agency of record: US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey",
   "question": "Is America still hiring people into new jobs?",
   "series_freq": "monthly",

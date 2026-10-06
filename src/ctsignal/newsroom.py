@@ -449,7 +449,7 @@ def rss_xml(cards: list[dict]) -> str:
 def json_feed(cards: list[dict]) -> str:
     items = []
     for c in cards:
-        h = c["headline"]
+        h = c.get("headline") or {}
         src = f'{h["source"]} — ' if h.get("source") else ""
         trig = f' Source: {src}{h["title"]}' if h.get("title") else ""
         it = {

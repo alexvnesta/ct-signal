@@ -134,7 +134,8 @@ class TestSprintSurfaces(unittest.TestCase):
         # board and story share theme.trigger_parts; both render it, and a
         # trigger with a URL links out with noopener on BOTH surfaces
         cards = self._cards()
-        linked = next(c for c in cards if c["headline"].get("url"))
+        linked = next(c for c in cards
+                        if (c.get("headline") or {}).get("url"))
         home = publish.home_html(cards, {})
         story = (config.STORY_DIR / f"{linked['id']}" / "index.html").read_text()
         for surface in (home, story):
