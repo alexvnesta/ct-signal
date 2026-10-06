@@ -198,7 +198,7 @@ details.embed textarea{width:100%;box-sizing:border-box;background:var(--bg2);
 .wirelist li a{font-weight:600;font-size:.95rem}
 .wiresrc{display:block;color:var(--faint);font:.7rem/1.4 var(--mono);
   margin-top:.1rem;text-transform:uppercase;letter-spacing:.06em}
-.wireans{display:inline-block;background:#eee9df;color:var(--acc);
+.wireans{display:inline-block;background:#eee9df;color:#6e3705;
   font:700 .68rem/1 var(--mono);letter-spacing:.06em;padding:.18rem .45rem;
   border-radius:3px;text-transform:uppercase;margin-top:.25rem}
 .wireans:hover{background:var(--acc);color:#fff}
