@@ -3,6 +3,11 @@ name: digest
 # Buttondown as a DRAFT. The pipeline writes; a human still sends.
 on:
   workflow_dispatch:
+    inputs:
+      discard_draft:
+        description: "email id to DELETE instead of filing a new draft"
+        required: false
+        default: ""
   schedule:
     - cron: "3 14 * * 0"   # Sundays 14:03 UTC, before anyone reads Sunday papers
 permissions:
@@ -15,11 +20,28 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: discard a stale draft (dispatch-only)
+        if: ${{ inputs.discard_draft != '' }}
+        env:
+          BUTTONDOWN_KEY: ${{ secrets.BUTTONDOWN_KEY }}
+          DRAFT: ${{ inputs.discard_draft }}
+        run: |
+          python - <<'PY'
+          import os, urllib.request
+          req = urllib.request.Request(
+              f"https://api.buttondown.com/v1/emails/{os.environ['DRAFT']}",
+              method="DELETE",
+              headers={"Authorization": f"Token {os.environ['BUTTONDOWN_KEY']}"})
+          with urllib.request.urlopen(req, timeout=30) as r:
+              print("discarded:", os.environ["DRAFT"], r.status)
+          PY
       - name: render issue
+        if: ${{ inputs.discard_draft == '' }}
         run: |
           pip install --quiet pillow
           python scripts/make_digest.py
       - name: post draft to Buttondown
+        if: ${{ inputs.discard_draft == '' }}
         env:
           BUTTONDOWN_KEY: ${{ secrets.BUTTONDOWN_KEY }}
         run: |
