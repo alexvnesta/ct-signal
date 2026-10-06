@@ -48,10 +48,20 @@ def main() -> None:
         + "</tr>"
         for t in board["tiles"])
 
+    # A Connecticut digest should lead with Connecticut receipts; cards still
+    # running on demo triggers sink to the bottom and say so in the draft.
+    cards = sorted(cards, key=lambda c: "fixture" in
+                   str((c.get("headline") or {}).get("source", "")).lower())
+    def demo_tag(c):
+        src = str((c.get("headline") or {}).get("source", "")).lower()
+        return ('' if "fixture" not in src else
+                ' <span style="font:700 11px/1 ui-monospace,monospace;'
+                'color:#c9a45c;border:1px solid #c9a45c;border-radius:3px;'
+                'padding:1px 4px;vertical-align:2px">DEMO TRIGGER</span>')
     stories = "".join(
         f'<h2 style="font:700 17px/1.4 Georgia,serif;color:#e9eef4;margin:20px 0 4px">'
         f'<a href="{SITE}/story/{c["id"]}" style="color:#7fb4ff;text-decoration:none">'
-        f'{E(c["question"])}</a></h2>'
+        f'{E(c["question"])}</a>{demo_tag(c)}</h2>'
         f'<p style="font:15px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;'
         f'color:#93a7b9;margin:0 0 2px">{E(c["answer_text"])}</p>'
         f'<p style="font:13px/1.4 -apple-system,Segoe UI,Roboto,sans-serif;'

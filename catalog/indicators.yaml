@@ -88,10 +88,14 @@ stackup:
     per: 100000
     unit: per 100k
     direction: low
-    superlative: safest
+    # "Safest" measured more than one reported rate can carry, and
+    # reporting coverage varies by state — the plain ranking says what
+    # the data says.
+    superlative: null
     keywords: [crime, homicide, violent crime, public safety, shooting]
-    question: How safe is Connecticut compared with the rest of the country?
-    answer: "Connecticut reports {value} violent crimes per 100k people ({date}), the {low_word}-safest of {n} peers."
+    question: How does Connecticut’s reported violent crime compare with
+      the rest of the country?
+    answer: "Connecticut reports {value} violent crimes per 100k people ({date}), the {low_word}-lowest reported of {n} peers. Reported rates compare reporting, not safety."
     validated: "live 2026-09-30"
 
 local:

@@ -24,12 +24,12 @@ article h1{font:700 clamp(1.7rem,4vw,2.3rem)/1.15 var(--serif);margin:.4rem 0 .3
 article .sub{color:var(--dim);font-size:.9rem;margin:0 0 1.6rem}
 article h2{font:800 1rem/1.3 var(--sans);color:var(--acc);margin:2rem 0 .5rem;
   text-transform:uppercase;letter-spacing:.1em}
-article p{margin:.5rem 0 1rem;color:#c8d4de}
+article p{margin:.5rem 0 1rem;color:var(--dim)}
 article ul{margin:.5rem 0 1rem;padding-left:1.2rem}
-article li{margin:.45rem 0;color:#c8d4de}
+article li{margin:.45rem 0;color:var(--dim)}
 article strong{color:var(--ink)}
 table{border-collapse:collapse;margin:.5rem 0}
-td{padding:.45rem 1.4rem .45rem 0;vertical-align:top;color:#c8d4de}
+td{padding:.45rem 1.4rem .45rem 0;vertical-align:top;color:var(--dim)}
 td:first-child{color:var(--dim);font-size:.78rem;text-transform:uppercase;
   letter-spacing:.08em;white-space:nowrap;padding-top:.6rem}
 </style>
@@ -107,9 +107,27 @@ shape), so most fixes are automatic on the next fetch. What we list below are th
 where a reader saw something we'd have kept serving.</p>
 
 <h2>Corrections to date</h2>
-<p>None yet. That is a small sample, not a claim of perfection —
-<a href="https://github.com/alexvnesta/ct-signal">our failure log is public</a> and longer than our corrections
-list on purpose: failures that stop a card from publishing never needed correcting.</p>
+<ol>
+<li><strong>2026-10-06 — the unemployment answer contradicted itself.</strong>
+The story card showed 5.1% (August, "2nd-highest of 9 peers", cached) while the
+board tile showed 5.8% (July, 3rd-highest of 52). A partial upstream cohort had
+outranked a complete print. The fix is in the code: cohort-consistent dates at
+the source and a completeness rule in revalidation — a nine-peer answer can no
+longer beat a 52-peer one. What readers saw for the day: two defensible numbers
+and no explanation, which is exactly the kind of thing this page exists to
+admit.</li>
+<li><strong>2026-10-06 — we published a credential in our own failure log.</strong>
+A bug in our Data Commons adapter on October 3 wrote a failed request URL —
+API key attached — into <code>data/failures.log</code>, which the pipeline
+commits publicly. The key was rotated the moment we caught it; the log is
+scrubbed, and failure lines are now redacted before they are ever written. The
+old key's value is a dead credential; the lesson is printed where you can
+check it.</li>
+</ol>
+<p>That is a small list, not a claim of perfection —
+<a href="https://github.com/alexvnesta/ct-signal">our failure log is public</a>
+and longer than our corrections list on purpose: failures that stop a card
+from publishing never needed correcting.</p>
 </article>""")
 
 

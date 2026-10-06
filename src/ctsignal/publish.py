@@ -78,7 +78,9 @@ def home_html(cards: list[dict], board: dict) -> str:
         # quietly borrows freshness the dataset does not have.
         _m = re.search(r"\d{4}", str((c.get("answer_values") or {})
                                      .get("date", "")))
-        _vint = (f" · latest print {_m.group()}"
+        # "latest print" claimed knowledge of the source’s release
+        # inventory; the kicker states only the vintage answered.
+        _vint = (f" · data through {_m.group()}"
                  if _m and int(_m.group()) < dt.datetime.now().year else "")
         lead = f"""<article class="lead">
 <span class="kicker">Today's lead · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk{_vint}</span>
@@ -99,15 +101,17 @@ and the exact query →</a></div></article>"""
                        f'aria-hidden="true"><img class="item-thumb" '
                        f'src="/assets/story-{c["id"]}-thumb.png?v={v}" '
                        f'width="1200" height="480" loading="lazy" alt=""></a>')
+            demo = (' · <span class="badge">DEMO TRIGGER</span>'
+                    if _cards.is_demo_trigger(c) else "")
             sec2 += f"""<div class="item">{fig}<div class="item-body">
-<span class="kicker">{_ESC(c["topic"])}</span>
+<span class="kicker">{_ESC(c["topic"])}{demo}</span>
 <h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
 <div class="meta">{ago(c["generated_at"], now)}</div>
 </div></div>"""
 
         for c in cards[5:10]:
             rail += f"""<div class="item"><div class="item-body">
-<span class="kicker">{_ESC(c["topic"])} · {_ESC(c["stream"])}</span>
+<span class="kicker">{_ESC(c["topic"])} · {_ESC(c["stream"])}{' · <span class="badge">DEMO TRIGGER</span>' if _cards.is_demo_trigger(c) else ""}</span>
 <h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
 <div class="meta">{ago(c["generated_at"], now)}</div>
 </div></div>"""
@@ -160,13 +164,24 @@ and the exact query →</a></div></article>"""
     by_ind = {c.get("indicator"): c["id"] for c in cards if c.get("indicator")}
     wire_items = ""
     n_ans = 0
-    for e in _q2.recent_wire(hours=30, limit=14):
+    seen_titles: set[str] = set()
+    for e in _q2.recent_wire(hours=30, limit=30):
+        # Google News syndicates one story under five " - Outlet" titles;
+        # exact-hash dedup catches none of them. Collapse on the first
+        # clause with the publisher suffix stripped.
+        key = re.split(r"\s+-\s+", e["title"])[0]
+        key = re.sub(r"[^a-z0-9]+", " ", key.lower()).strip()[:60]
+        if key in seen_titles:
+            continue
+        seen_titles.add(key)
+        if len(seen_titles) > 10:
+            break
         age = ("new to the desk" if e.get("undated") else
                "just now" if e["age_h"] < 1 else
                f"{int(e['age_h'])}h ago" if e["age_h"] < 48 else
                f"{int(e['age_h'] // 24)}d ago")
         ans = next((f' <a class="wireans" href="/story/{by_ind[i]}">'
-                    f'our answer</a>' for i in e.get("hits", [])
+                    f'related data</a>' for i in e.get("hits", [])
                     if i in by_ind), "")
         if ans:
             n_ans += 1
@@ -180,20 +195,25 @@ and the exact query →</a></div></article>"""
 <div class="sechead"><h2>On the wire</h2>
 <p class="sechelp">Headlines from the tracked newsrooms in the last 30
 hours — Connecticut first, national wires only where the state's newsrooms
-fell short. {n_ans} of the {wire_items.count("<li>")} shown can be answered
-with public data we hold; those carry the chip. Everything else is news we
-read but cannot yet answer with a number of our own. Links go to the
+fell short. "Related data" links a headline to the indicator it touches —
+a pointer to our numbers, not a claim that we answered that story.
+Everything else is news we read but cannot yet answer with a number of
+our own. Links go to the
 newsrooms, not to us. "New to the desk" means the feed gave no publish
 time, not that the story is.</p></div>
 <ul class="wirelist">{wire_items}</ul>
 </div></section>""" if wire_items else "")
 
     fixture = any(_cards.is_demo_trigger(c) for c in cards)
-    help_ = ("Every question here is raised by a headline first. These cards "
-             "run on labeled demo fixtures; each fresh cycle replaces them "
-             "with live receipts."
+    help_ = ("Every question here was raised by a real headline or a "
+             "disclosed civic-calendar date — the trigger prints on each "
+             "card. These cards run on demo triggers: the data is live, "
+             "the headline that opened the question is not. Each such "
+             "card carries a DEMO label; the first real headline "
+             "replaces it."
              if fixture else
-             "Every question on this page was raised by a real headline first.")
+             "Every question on this page was raised by a real headline "
+             "or a disclosed civic-calendar date.")
     latest = f"""<section class="latest" id="signals"><div class="wrap">
 <p class="sechelp" style="text-align:left;margin:0 0 .2rem">{help_}</p>
 {wire}

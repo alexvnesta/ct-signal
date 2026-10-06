@@ -10,6 +10,7 @@ from __future__ import annotations
 import datetime as dt
 import email.utils
 import html
+import hashlib
 import json
 import shutil
 
@@ -184,7 +185,10 @@ def chart_intro(card: dict) -> tuple[str, str]:
 def _vote_widget(card: dict) -> str:
     """First-party attention, no cookies: one beacon per page view, one vote
     per browser (localStorage). Counts are stored, never displayed — a young
-    paper should not print its small numbers in public."""
+    paper should not print its small numbers in public. Votes are explicit
+    clicks only: an automatic page-view beacon records a reader’s presence
+    without consent, and we removed ours (2026-10-06) rather than argue
+    that first-party counts are not tracking."""
     vid = card["id"]
     return f"""<div class="vote"><span>Useful?</span>
 <button data-v="u" aria-label="Mark useful"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true" style="width:.72em;height:1em;vertical-align:-.1em"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg> yes</button>
@@ -192,8 +196,6 @@ def _vote_widget(card: dict) -> str:
 <script>
 (() => {{
   const k = "ctv:{vid}", id = "{vid}";
-  fetch("/api/see", {{ method: "POST", body: JSON.stringify({{ id }}) }})
-    .catch(() => {{}});
   const bs = document.querySelectorAll(".vote button");
   const lock = (d) => bs.forEach((b) => {{ b.disabled = true;
     if (b.dataset.v === d) b.setAttribute("data-chosen", ""); }});
@@ -262,7 +264,8 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
     hero_art, h1 = "", f'<h1 class="vh">{q}</h1>'
     cover = config.ROOT / "assets" / f"story-{card['id']}.png"
     if cover.exists():
-        hero_art = (f'<img class="storyhero" src="/assets/story-{card["id"]}.png"'
+        cv = hashlib.md5(cover.read_bytes()).hexdigest()[:8]
+        hero_art = (f'<img class="storyhero" src="/assets/story-{card["id"]}.png?v={cv}"'
                     f' width="1200" height="630" alt="{q} {a}">')
     else:
         h1 = ('<h1 style="font:700 clamp(1.6rem,4vw,2.3rem)/1.2 '
@@ -299,7 +302,8 @@ see <a href="/corrections">the corrections policy</a>.</p>
             card_id=card["id"], headline=card["question"],
             description=card["answer_text"][:200],
             published=card["generated_at"], section=card["topic"],
-            image=og))
+            image=og,
+            modified=card.get("revalidated_at")))
 
 
 
@@ -497,7 +501,13 @@ def write_all(cards: list[dict]) -> None:
         share.export(card, assets)   # before the story renders its link
         arch = config.ARCHIVE_DIR / card["generated_at"][:7]
         arch.mkdir(parents=True, exist_ok=True)
-        (arch / f"{card['id']}.json").write_text(
+        # The archive page promises superseded vintages are "kept
+        # forever" — an id-only filename silently overwrote the prior
+        # version within the same month. Data date makes every print
+        # of every card a durable, diffable artifact.
+        stamp = str(card.get("answer_values", {}).get("date")
+                    or card["generated_at"][:10]).replace(":", "-")
+        (arch / f"{card['id']}-{stamp}.json").write_text(
             json.dumps(card, indent=2, sort_keys=True, default=str))
         story = config.STORY_DIR / card["id"]
         story.mkdir(parents=True, exist_ok=True)
@@ -543,7 +553,8 @@ def _slug(name: str) -> str:
 
 def _freshness_html(card: dict) -> str:
     """Honesty strip: how many archived vintages exist for this card."""
-    vers = sorted(set(config.ARCHIVE_DIR.glob(f"*/{card['id']}.json")))
+    vers = sorted(set(config.ARCHIVE_DIR.glob(f"*/{card['id']}-*.json"))
+                | set(config.ARCHIVE_DIR.glob(f"*/{card['id']}.json")))
     if len(vers) < 2:
         return ""
     return (f'<p class="meta">This story refreshes automatically with its '
@@ -579,7 +590,7 @@ def town_html(town: str, pieces: dict) -> str:
             f'<tr><td>Net grand list, {esc(str(card["answer_values"].get("date", "")))}</td>'
             f'<td>${row["latest"]:,.0f}</td></tr>'
             f'<tr><td>Net grand list, prior vintage</td><td>${row["prior"]:,.0f}</td></tr>'
-            f'<tr><td>Change in two years</td>'
+            f'<tr><td>Change between the latest two assessment rolls</td>'
             f'<td>${row["added"]:,.0f} ({row["pct"]:+.1f}%)</td></tr>'
             f'<tr><td>Rank among {n} Connecticut places</td>'
             f'<td>{row["rank"]} of {n}</td></tr>'

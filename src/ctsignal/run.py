@@ -43,6 +43,20 @@ def build_board(catalog: dict) -> dict:
     return {"tiles": tiles}
 
 
+def _scrub_failure(msg: str) -> str:
+    """Failure lines are published with the site (sources.html points
+    at the log), so an exception string must never carry a credential:
+    an upstream URL that failed validation once leaked a live API key
+    through here. Scrub scheme-less URLs and any key-like parameter
+    before the string gets a public home."""
+    msg = re.sub(r"https?://\S+", "<url>", msg)
+    msg = re.sub(r"[?&]((?:api_)?[Kk]ey|[Tt]oken|[Ss]ecret|[Pp]assword)"
+                 r"=[^&\s,]+", lambda m: "<redacted " + m.group(1)
+                 + ">", msg)
+    msg = re.sub(r"[A-Za-z0-9_-]{32,}", "<redacted>", msg)
+    return msg[:200]
+
+
 def _now() -> str:
     return dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
 
@@ -336,11 +350,23 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
             new = cards.from_national(ind, proposal, res)
             if new["id"] != cid:
                 continue
+            # Completeness beats nominal recency: a 9-peer partial
+            # cache must not keep outranking a full 52-state print
+            # just because its date label is newer (a 5.1%/9-peers
+            # answer once sat beside 5.8%/52 on the same site).
+            old_n = int((card.get("answer_values") or {}).get("n") or 0)
+            new_n = int((new.get("answer_values") or {}).get("n") or 0)
+            if old_n and new_n < old_n and new_date == old_date:
+                continue
+            if new_date <= old_date and new_n <= old_n:
+                continue
             new["generated_at"] = card["generated_at"]
+            new["revalidated_at"] = now.isoformat(timespec="seconds")
             cards_by_id[cid] = new
             touched += 1
             print(f"  ~ revalidated [national/{card['topic']}] "
-                  f"{ind['id']}: {old_date} -> {new_date}")
+                  f"{ind['id']}: {old_date}/{old_n} -> "
+                  f"{new_date}/{new_n}")
             continue
         result = None
         if ind.get("census1yr"):
@@ -355,10 +381,19 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
                 continue
         new_date = (result.get("ct") or {}).get("date")
         old_date = (card.get("answer_values") or {}).get("date")
-        # forward-only: upstream facets that flap backwards (DC serves several
-        # facets per variable) must not bounce a published number or re-post it
-        if not new_date or new_date <= old_date:
+        new_n = int(result.get("n") or 0)
+        old_n = int((card.get("answer_values") or {}).get("n") or 0)
+        # Forward-only by default: facets that flap backwards (DC serves
+        # several per variable) must not bounce a published number. But
+        # a published answer built on a partial cohort is always fair
+        # game for a complete one, at any date — completeness is a
+        # stronger claim to truth than a newer date label (this rule
+        # replaced the 5.1%-of-9-peers answer; see corrections).
+        if not new_date:
             continue
+        if new_date <= old_date:
+            if old_n >= datacommons.MIN_PEERS or new_n <= old_n:
+                continue
         trend_rows = None
         if ind.get("trend"):
             try:
@@ -372,10 +407,12 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
         if new["id"] != cid:          # question drifted; not our business here
             continue
         new["generated_at"] = card["generated_at"]   # same story, newer number
+        new["revalidated_at"] = now.isoformat(timespec="seconds")
         cards_by_id[cid] = new
         touched += 1
         print(f"  ~ revalidated [{card['stream']}/{card['topic']}] "
-              f"{ind['id']}: {old_date} -> {new_date}")
+              f"{ind['id']}: {old_date}/{old_n} -> "
+              f"{new_date}/{new_n}")
     stamp["__last__"] = now.isoformat(timespec="seconds")
     stamp_path.write_text(json.dumps(stamp, indent=2, sort_keys=True))
     return touched
@@ -477,7 +514,7 @@ def main() -> None:
         except Exception as exc:
             # one named line, committed with the site: "our failure log is
             # public" is now a statement about this repo, not a hope
-            msg = re.sub(r"https?://\S+", "<url>", str(exc))[:200]
+            msg = _scrub_failure(str(exc))
             line = f"{_now()} cycle failed: {type(exc).__name__}: {msg}"
             config.ASKED_LOG_PATH.parent.mkdir(exist_ok=True)
             with open(config.ASKED_LOG_PATH.parent / "failures.log", "a") as fh:

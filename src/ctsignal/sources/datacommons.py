@@ -47,15 +47,33 @@ def client():
 def _latest_by_entity(payload: dict, variable: str) -> dict[str, tuple[str, float]]:
     out: dict[str, tuple[str, float]] = {}
     by_var = payload.get("byVariable", {}).get(variable, {})
+    # DC facets expire on different schedules: per-entity "latest" can
+    # mix vintages (nine states on August, forty-three on July) and
+    # publish a partial cohort as the answer. Pick the newest date the
+    # WHOLE cohort shares; fall back to per-entity latest only when no
+    # shared date exists.
+    obs_by: dict[str, list[dict]] = {}
     for entity, blob in by_var.get("byEntity", {}).items():
         obs = blob.get("observations")
         if obs is None:
-            obs = [o for f in blob.get("orderedFacets", []) for o in f.get("observations", [])]
-        if not obs:
+            obs = [o for f in blob.get("orderedFacets", [])
+                   for o in f.get("observations", [])]
+        if obs:
+            obs_by[entity] = obs
+    cohort: dict[str, int] = {}
+    for obs in obs_by.values():
+        for d in {o.get("date", "") for o in obs
+                  if o.get("value") is not None}:
+            cohort[d] = cohort.get(d, 0) + 1
+    shared = [d for d, c in cohort.items() if c >= len(obs_by)]
+    target = max(shared) if shared else ""
+    for entity, obs in obs_by.items():
+        pick = ([o for o in obs if o.get("date") == target
+                 and o.get("value") is not None] or
+                [o for o in obs if o.get("value") is not None])
+        if not pick:
             continue
-        latest = max(obs, key=lambda o: o.get("date", ""))
-        if latest.get("value") is None:
-            continue
+        latest = max(pick, key=lambda o: o.get("date", ""))
         out[entity] = (latest.get("date", ""), float(latest["value"]))
     return out
 

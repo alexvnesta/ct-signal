@@ -46,6 +46,40 @@ class TestMillRates(unittest.TestCase):
                          "assess_ratio": 0.7}))
 
 
+
+class TestFailureScrub(unittest.TestCase):
+    """The public failure log must never carry a credential (it once did)."""
+
+    def test_url_scrubbed_even_without_scheme(self):
+        from ctsignal.run import _scrub_failure
+        msg = ("/data/2025/acs?get=NAME&key=SECRETVALUE123 broken "
+               "&key=DC_API_KEY=tIA0MmsKcEZOGoWe0OsdkecxjIFjHbSs")
+        out = _scrub_failure(msg)
+        self.assertNotIn("tIA0Mm", out)
+        self.assertNotIn("SECRETVALUE123", out)
+
+    def test_http_url_and_length(self):
+        from ctsignal.run import _scrub_failure
+        out = _scrub_failure("https://x.example/a?api_key=abc " + "z" * 500)
+        self.assertIn("<url>", out)
+        self.assertLessEqual(len(out), 200)
+
+
+class TestDcCohort(unittest.TestCase):
+    """Data Commons facets age unevenly: pick the newest whole-cohort date."""
+
+    def test_partial_newer_facet_loses_to_shared_cohort(self):
+        from ctsignal.sources.datacommons import _latest_by_entity
+        payload = {"byVariable": {"V": {"byEntity": {
+            "a": {"observations": [
+                {"date": "2026-08", "value": 5.1},
+                {"date": "2026-07", "value": 5.8}]},
+            "b": {"observations": [{"date": "2026-07", "value": 6.0}]},
+        }}}}
+        out = _latest_by_entity(payload, "V")
+        self.assertEqual(out["a"], ("2026-07", 5.8))
+        self.assertEqual(out["b"], ("2026-07", 6.0))
+
 class TestAuditLocal(unittest.TestCase):
     """Run the audit's local eyes against the actually-generated tree:
     the committed site must have no broken links and no sitemap gaps."""

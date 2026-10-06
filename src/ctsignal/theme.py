@@ -355,7 +355,11 @@ def header() -> str:
 
 def trigger_parts(card: dict) -> tuple[str, str]:
     """The 'Source' attribution, rendered once for home and stories.
-    Returns (source-prefix, title-html); both already HTML-escaped."""
+    Returns (source-prefix, title-html); both already HTML-escaped.
+    Demo-triggered cards are labeled here, per card, so a reader
+    never has to scroll to a global disclaimer to learn a card
+    ran on a stand-in headline."""
+    from . import cards as _c
     h = card["headline"]
     title = _ESC(h["title"])
     src = h.get("source") or ""
@@ -366,6 +370,8 @@ def trigger_parts(card: dict) -> tuple[str, str]:
     if h.get("url"):
         title = f'<a href="{_ESC(h["url"])}" rel="noopener">{title}</a>'
     prefix = f'{_ESC(src)} \u2014 ' if src else ""
+    if _c.is_demo_trigger(card):
+        prefix = '<span class="badge">DEMO TRIGGER</span> ' + prefix
     return prefix, title
 
 
@@ -428,7 +434,8 @@ def site_json_ld() -> dict:
 
 def article_json_ld(*, card_id: str, headline: str, description: str,
                     published: str, section: str,
-                    image: str | None = None) -> dict:
+                    image: str | None = None,
+                    modified: str | None = None) -> dict:
     url = f"{config.SITE_URL}/story/{card_id}"
     return {
         "@context": "https://schema.org", "@type": "NewsArticle",
@@ -436,7 +443,10 @@ def article_json_ld(*, card_id: str, headline: str, description: str,
         "mainEntityOfPage": {"@type": "WebPage", "@id": url},
         "headline": headline, "description": description,
         "image": [image or f"{config.SITE_URL}/assets/og-cover.png"],
-        "datePublished": published, "dateModified": published,
+        # dateModified only moves when the pipeline actually re-checked
+        # the number, so "modified" means modified, not "deployed".
+        "datePublished": published,
+        "dateModified": modified or published,
         "author": {"@type": "Organization", "name": "CT Signal",
                    "url": f"{config.SITE_URL}/"},
         "publisher": dict(_ORG),
@@ -502,9 +512,14 @@ def page(*, title: str, desc: str, path: str, body: str, **kw) -> str:
 
 # Inline JSON spec islands + one loader keep charts dependency-light and work
 # identically on the board and story pages.
-VEGA_LOAD = """<script defer src="https://cdn.jsdelivr.net/npm/vega@6"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+# Charts are the one piece of JavaScript the board cannot generate as
+# markup, and the review found the honest way to keep the promise: ship
+# the renderer ourselves. Pinned copies in assets/vendor/ — same bytes
+# every visitor gets, no CDN request that leaks a page view to a
+# third party, and the CSP shrinks to this origin.
+VEGA_LOAD = """<script defer src="/assets/vendor/vega.min.js?v=6-6-7"></script>
+<script defer src="/assets/vendor/vega-lite.min.js?v=6-6-7"></script>
+<script defer src="/assets/vendor/vega-embed.min.js?v=6-6-7"></script>
 <script>window.addEventListener("DOMContentLoaded",()=>{
 // vega-embed replaces the target div, so re-assert the accessible wrapper
 // (role=img + label + tabindex) on the node that ends up in the DOM, and make

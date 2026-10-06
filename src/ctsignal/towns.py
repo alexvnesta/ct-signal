@@ -243,6 +243,8 @@ svg.townsmap{width:min(100%,560px);height:auto;background:var(--panel);
 svg.townsmap path{stroke:#fff;stroke-width:.5;transition:fill .3s;
   cursor:pointer}
 svg.townsmap path:hover{stroke:var(--ink);stroke-width:1.2}
+svg.townsmap path:focus-visible{stroke:var(--acc);stroke-width:2;
+  outline:none}
 .maplegend{display:flex;flex-direction:column;gap:.3rem;
   font:.74rem/1.2 var(--sans);color:var(--dim);min-width:150px}
 .maplegend .sw{display:inline-block;width:.9rem;height:.9rem;
@@ -271,7 +273,7 @@ function fmtV(kind, v){ if (v===null||v===undefined) return "\\u2014";
   if (kind==="int") return Math.round(v).toLocaleString("en-US");
   return v.toLocaleString("en-US"); }
 function ord(n){ if(!n) return null; const s=["th","st","nd","rd"],
-  v=n%100; return n+(s[v-20]||s[v]||s[0]); }
+  v=n%100; return n+(s[v-20]||s[v]||s[0])+"-highest"; }
 function quantiles(vals){ const v=vals.slice().sort((a,b)=>a-b), q=[];
   for (let i=1;i<5;i++) q.push(v[Math.floor(v.length*i/5)]); return q; }
 function bucket(v, qs){ for (let i=0;i<4;i++) if (v<=qs[i]) return i;
@@ -310,6 +312,11 @@ function paint(){
 }
 paths.forEach(p=>{
   p.setAttribute("aria-label", p.dataset.n);
+  p.setAttribute("tabindex", "0");
+  p.setAttribute("role", "link");
+  p.addEventListener("keydown",e=>{
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault(); location.href = p.dataset.h; }});
   p.addEventListener("mousemove",e=>{
     const d=MT[p.dataset.n]||{}, v=d[metric];
     const r=(v!==null&&v!==undefined)?d[metric+"_r"]:null;
@@ -321,6 +328,11 @@ paths.forEach(p=>{
     tip.style.top=(e.clientY+16)+"px";
   });
   p.addEventListener("mouseleave",()=>{tip.style.display="none";});
+  p.addEventListener("focus",()=>{
+    const b=p.getBoundingClientRect();
+    p.dispatchEvent(new MouseEvent("mousemove",
+      {clientX:b.x+b.width/2, clientY:b.y+b.height/2}));});
+  p.addEventListener("blur",()=>{tip.style.display="none";});
   p.addEventListener("click",()=>{location.href=p.dataset.h;});
 });
 document.querySelectorAll(".mapchips button").forEach(b=>{
@@ -361,7 +373,11 @@ def _map_html(data: dict) -> str:
         f' class="{("on" if k == "income" else "")}">{_ESC(lab)}</button>'
         for k, lab, _, _ in LABELS[1:])
     mm = {k: {"label": lab, "kind": kind} for k, lab, _, kind in LABELS}
-    n = {k: data["n"] for k, _, _, _ in LABELS}
+    # "of 169" was a lie for any suppressed measure: a rank can only
+    # run across the towns that actually have a published value.
+    n = {k: sum(1 for t in data["towns"]
+                if isinstance(t.get(f"{k}_rank"), int))
+         for k, _, _, _ in LABELS}
     js = (_MAP_JS.replace("__MT__", json.dumps(mt, separators=(",", ":")))
           .replace("__MMETA__", json.dumps(mm))
           .replace("__N__", json.dumps(n)))
