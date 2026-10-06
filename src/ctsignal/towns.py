@@ -289,8 +289,8 @@ function paint(){
     const v=(MT[p.dataset.n]||{})[metric];
     p.style.fill = (v===null||v===undefined) ? NOVAL : RAMP[bucket(v,qs)];
     const r=(MT[p.dataset.n]||{})[metric+"_r"];
-    p.firstChild.textContent = p.dataset.n+": "+fmtV(meta.kind,v)+
-      (r? " \\u2014 "+ord(r)+" of "+window._n[metric] : "");
+    p.setAttribute("aria-label", p.dataset.n+": "+fmtV(meta.kind,v)+
+      (r? " \\u2014 "+ord(r)+" of "+window._n[metric] : ""));
   });
   let h = '<span class="dim" style="font-weight:700">shade = '+
     meta.label+' (quintiles)</span>';
@@ -309,11 +309,7 @@ function paint(){
   document.getElementById("mlab").textContent=meta.label.toLowerCase();
 }
 paths.forEach(p=>{
-  p.insertBefore(document.createTextNode(""), p.firstChild);
-  p.insertBefore(
-    document.createElementNS("http://www.w3.org/2000/svg","title"),
-    p.firstChild);
-  p.firstChild.textContent = p.dataset.n;
+  p.setAttribute("aria-label", p.dataset.n);
   p.addEventListener("mousemove",e=>{
     const d=MT[p.dataset.n]||{}, v=d[metric];
     const r=(v!==null&&v!==undefined)?d[metric+"_r"]:null;
