@@ -111,6 +111,16 @@ class TestFixtureMigration(unittest.TestCase):
                          cards_by_id[card["id"]]["headline"]["source"])
         self.assertEqual(cards_by_id[card["id"]]["headline"]["source"], "NPR")
 
+    def test_both_demo_label_styles_are_detected(self):
+        from ctsignal import cards as _cards
+        for src in ("jobs-report fixture", "PBS NewsHour (fixture)",
+                    "CT Mirror (FIXTURE)"):
+            self.assertTrue(
+                _cards.is_demo_trigger(
+                    {"headline": {"source": src}}), src)
+        self.assertFalse(_cards.is_demo_trigger(
+            {"headline": {"source": "CT Mirror"}}))
+
     def test_proposals_count_as_triggers_too(self):
         cat, card = self._fixture_card()
         canned = {"value": 1.9, "date": "2026-08",

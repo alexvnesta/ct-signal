@@ -23,6 +23,16 @@ def display(indicator: dict, value: float) -> str:
 _display = display
 
 
+def is_demo_trigger(card: dict) -> bool:
+    """True when a card's trigger headline is a labeled demo. The label
+    style has drifted before ('jobs-report fixture' vs 'PBS NewsHour
+    (fixture)'), so we test for the word, in any casing, not one exact
+    spelling — a card that quietly stops admitting it is a demo is the
+    worst kind of lie this site can tell."""
+    src = (card.get("headline") or {}).get("source") or ""
+    return "fixture" in src.lower()
+
+
 def _card_id(indicator_id: str, question: str) -> str:
     return hashlib.sha1(f"{indicator_id}:{question}".encode()).hexdigest()[:12]
 

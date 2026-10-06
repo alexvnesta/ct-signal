@@ -10,6 +10,7 @@ import hashlib
 import html
 import json
 
+from . import cards as _cards
 from . import config, theme, util
 
 _ESC = html.escape
@@ -144,8 +145,7 @@ and the exact query →</a></div></article>"""
                     + f' \u2014 from {_ESC(str(att["headlines"]))} headlines '
                     + 'ingested across the tracked newsrooms.</p>')
 
-    fixture = any("(fixture)" in (c["headline"].get("source") or "")
-                  for c in cards)
+    fixture = any(_cards.is_demo_trigger(c) for c in cards)
     help_ = ("Every question here is raised by a headline first. These cards "
              "run on labeled demo fixtures; each fresh cycle replaces them "
              "with live receipts."

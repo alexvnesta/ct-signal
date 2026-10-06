@@ -266,7 +266,7 @@ def _migrate_fixtures(cards_by_id: dict, by_id: dict,
     itself when the last demo trigger migrates; nothing else needed."""
     touched = 0
     for cid, card in list(cards_by_id.items()):
-        if "(fixture)" not in (card["headline"].get("source") or ""):
+        if not cards.is_demo_trigger(card):
             continue
         ind = by_id.get(card.get("indicator"))
         if not ind or not ind.get("fred"):
@@ -277,7 +277,7 @@ def _migrate_fixtures(cards_by_id: dict, by_id: dict,
         # answers with are already on record.
         cands = [p["headline"] for p in proposals
                  if p.get("indicator_id") == ind["id"]
-                 and "(fixture)" not in (p["headline"].get("source") or "")]
+                 and not cards.is_demo_trigger(p)]
         cands += [h for h in headlines if questions._keyword_hits(
             h["title"], ind.get("keywords") or [])]
         for h in cands:
