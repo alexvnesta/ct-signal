@@ -16,6 +16,8 @@ import datetime as dt
 import html
 import json
 
+import hashlib
+
 from . import config
 
 _ESC = html.escape
@@ -24,6 +26,7 @@ _ESC = html.escape
 # Dark editorial: ink navy background, warm orange mast accent, green answers,
 # blue links. Verified AA+ on every surface (see CONTRAST note in CSS header).
 
+CSS_HASH = ''  # patched at import end
 CSS = """
 /* Contrast (WCAG 2.2 AA, verified on paper #faf8f3): ink #1c2733 13.8 ·
    dim #4c5a68 6.6 · faint #66717e 4.6 · acc #a85408 4.9 · blue #2b62b8 5.2
@@ -182,6 +185,19 @@ details.embed textarea{width:100%;box-sizing:border-box;background:var(--bg2);
   font:.8rem/1.5 var(--mono);margin-top:.6rem}
 .legend{color:var(--faint);font-size:.8rem;margin:1rem 0 0}
 .wire{color:var(--faint);font-size:.8rem;margin:.2rem 0 .9rem}
+.wireblock{border-top:3px double var(--ink);margin-top:2.2rem;padding-top:.2rem}
+.wirelist{list-style:none;padding:0;margin:.4rem 0 0;column-count:2;
+  column-gap:2.4rem}
+.wirelist li{padding:.5rem 0;border-bottom:1px solid var(--rule);
+  break-inside:avoid;list-style:none}
+.wirelist{padding-left:0}
+.wirelist li a{font-weight:600;font-size:.95rem}
+.wiresrc{display:block;color:var(--faint);font:.7rem/1.4 var(--mono);
+  margin-top:.1rem;text-transform:uppercase;letter-spacing:.06em}
+.wireans{display:inline-block;background:#eee9df;color:var(--acc);
+  font:700 .68rem/1 var(--mono);letter-spacing:.06em;padding:.18rem .45rem;
+  border-radius:3px;text-transform:uppercase;margin-top:.25rem}
+.wireans:hover{background:var(--acc);color:#fff}
 .wire-n{background:#eee9df;color:var(--dim);padding:.02rem .35rem;
   border-radius:3px;font:700 .72rem var(--mono)}
 
@@ -473,7 +489,7 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website",
  href="{config.SITE_URL}/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="{config.SITE_URL}/feed.json">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v={CSS_HASH}">
 {ld}"""
 
 
@@ -544,3 +560,6 @@ def viz(spec_json: str, el_id: str, *, label: str,
             f'tabindex="0" aria-label="{_ESC(label)}"{reserve}></div>{cap}</figure>'
             f'<script type="application/json" class="vs" '
             f'data-target="{el_id}">{safe}</script>')
+
+
+CSS_HASH = hashlib.sha1(CSS.encode()).hexdigest()[:8]

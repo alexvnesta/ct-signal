@@ -55,6 +55,9 @@ def update_ledger(headlines: list[dict], catalog: dict) -> dict:
         ent[h["id"]] = {"ts": now.isoformat(timespec="seconds"),
                         "src": h.get("source", ""),
                         "title": h.get("title", "")[:140],
+                        "url": (h.get("url") or "")[:300],
+                        "pub": int(h.get("published_sort") or 0),
+                        "stream": h.get("stream", "national"),
                         "hits": hits}
     cutoff = (now - dt.timedelta(days=LEDGER_TTL_DAYS)
               ).isoformat(timespec="seconds")
@@ -88,6 +91,44 @@ def attention(days: int = 7) -> dict:
             cell["hits"] += 1
             cell["last"] = max(cell["last"], v["ts"])
     return {"window_days": days, "headlines": total, "indicators": seen}
+
+
+def recent_wire(hours: int = 24, limit: int = 12) -> list[dict]:
+    """The desk's memory of the last day of news, freshest first, for the
+    board's wire block. Entries without a URL predate the field and are
+    skipped rather than shown as dead links."""
+    if not LEDGER_PATH.exists():
+        return []
+    try:
+        ent = json.loads(LEDGER_PATH.read_text()).get("entries", {})
+    except (ValueError, OSError):
+        return []
+    now = dt.datetime.now(dt.timezone.utc)
+    cutoff = (now - dt.timedelta(hours=hours)).isoformat(timespec="seconds")
+    out = []
+    for v in ent.values():
+        if v.get("ts", "") < cutoff or not v.get("url", "").startswith(
+                ("http://", "https://")):
+            continue
+        clock = (v.get("pub")
+                 and dt.datetime.fromtimestamp(v["pub"], dt.timezone.utc)
+                 or dt.datetime.fromisoformat(v["ts"]))
+        if clock > now:          # newsroom clock skew never means negative age
+            clock = dt.datetime.fromisoformat(v["ts"])
+        age_h = max((now - clock).total_seconds() / 3600, 0.0)
+        # without a published date we only know "seen this cycle", not
+        # "published this minute" — park such items behind dated ones
+        # and mark the age as seen-time
+        undated = not v.get("pub")
+        out.append({**v, "age_h": age_h, "undated": undated})
+    # Connecticut newsrooms first — it is a Connecticut board; national
+    # fills toward the list limit rather than leading it.
+    out.sort(key=lambda e: (e["stream"] != "ct", e["age_h"]))
+    ct = out[:limit]
+    if len(ct) < 8:
+        rest = [e for e in out if e["stream"] != "ct"]
+        ct = (ct + rest)[:limit]
+    return ct
 
 
 def _keyword_hits(title: str, keywords: list[str]) -> list[str]:

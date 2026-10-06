@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import datetime as dt
 import hashlib
+import re
 import html
 import json
 
@@ -72,8 +73,15 @@ def home_html(cards: list[dict], board: dict) -> str:
             vdesc, vlabel = newsroom.chart_intro(c)
             heroviz = theme.viz(newsroom._spec_json(c["chart"]), "heroviz",
                                 label=vlabel, caption=vdesc)
+        # A story published today can legitimately rest on an older print
+        # (FBI crime is annual) — the kicker says which, so "today" never
+        # quietly borrows freshness the dataset does not have.
+        _m = re.search(r"\d{4}", str((c.get("answer_values") or {})
+                                     .get("date", "")))
+        _vint = (f" · latest print {_m.group()}"
+                 if _m and int(_m.group()) < dt.datetime.now().year else "")
         lead = f"""<article class="lead">
-<span class="kicker">Today's lead · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk</span>
+<span class="kicker">Today's lead · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk{_vint}</span>
 <h2><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h2>
 <p class="lede">{_ESC(c["answer_text"])}</p>
 {heroviz}
@@ -145,6 +153,41 @@ and the exact query →</a></div></article>"""
                     + f' \u2014 from {_ESC(str(att["headlines"]))} headlines '
                     + 'ingested across the tracked newsrooms.</p>')
 
+    # The wire block: yesterday-and-today's actual headlines from the
+    # tracked newsrooms, links going out to them. The desk publishes only
+    # what public data can answer — but it reads everything, and says so.
+    from . import questions as _q2
+    by_ind = {c.get("indicator"): c["id"] for c in cards if c.get("indicator")}
+    wire_items = ""
+    n_ans = 0
+    for e in _q2.recent_wire(hours=30, limit=14):
+        age = ("new to the desk" if e.get("undated") else
+               "just now" if e["age_h"] < 1 else
+               f"{int(e['age_h'])}h ago" if e["age_h"] < 48 else
+               f"{int(e['age_h'] // 24)}d ago")
+        ans = next((f' <a class="wireans" href="/story/{by_ind[i]}">'
+                    f'our answer</a>' for i in e.get("hits", [])
+                    if i in by_ind), "")
+        if ans:
+            n_ans += 1
+        wire_items += (
+            f'<li><a href="{_ESC(e["url"])}" rel="noopener">'
+            f'{_ESC(e["title"])}</a>'
+            f'<span class="wiresrc"> &nbsp;{_ESC(e["src"])} · {age}'
+            f'</span>{ans}</li>')
+    wire_section = (f"""
+<section class="wireblock"><div class="wrap">
+<div class="sechead"><h2>On the wire</h2>
+<p class="sechelp">Headlines from the tracked newsrooms in the last 30
+hours — Connecticut first, national wires only where the state's newsrooms
+fell short. {n_ans} of the {wire_items.count("<li>")} shown can be answered
+with public data we hold; those carry the chip. Everything else is news we
+read but cannot yet answer with a number of our own. Links go to the
+newsrooms, not to us. "New to the desk" means the feed gave no publish
+time, not that the story is.</p></div>
+<ul class="wirelist">{wire_items}</ul>
+</div></section>""" if wire_items else "")
+
     fixture = any(_cards.is_demo_trigger(c) for c in cards)
     help_ = ("Every question here is raised by a headline first. These cards "
              "run on labeled demo fixtures; each fresh cycle replaces them "
@@ -161,6 +204,7 @@ and the exact query →</a></div></article>"""
 </div></div></section>"""
 
     body = f"""{latest}
+{wire_section}
 <section><div class="wrap">
 <div class="sechead"><h2>The Connecticut board</h2>
 <p class="sechelp">Where we stand among our peers — refreshed with every data
