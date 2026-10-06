@@ -95,11 +95,12 @@ class TestAuditLocal(unittest.TestCase):
         artifact so a template edit that quietly drops either fails the
         cycle: an ask surface on every page, a five-number town brief."""
         page = (config.ROOT / "index.html").read_text()
+        tpage = (config.ROOT / "towns.html").read_text()
         self.assertIn("Ask the desk a question", page)
         self.assertIn("subject=Question%20for%20the%20desk", page)
         for metric in ("income", "poverty", "rent", "value", "age"):
-            self.assertIn(f'fmt("{metric}"', page.replace("'", '"'),
-                          f"town brief must render {metric}")
+            self.assertIn(f'fmt("{metric}"', tpage.replace("'", '"'),
+                          f"town brief must render {metric} (towns page)")
 
     def test_town_feed_is_valid_atom(self):
         """A feed is a promise to machines: wrong vocabulary parses but

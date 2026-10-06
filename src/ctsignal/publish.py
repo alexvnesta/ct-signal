@@ -14,44 +14,6 @@ import json
 from . import cards as _cards
 from . import config, theme, util
 
-_YOUR_TOWN_JS = r"""
-<script>
-(function(){var b=window.__TB__,slugs=Object.keys(b.towns).sort();
-function fmt(i,p){var v=p[0],r=p[1],n=b.n[i];
- var s=v===null?"\u2014":i==="poverty"?v.toFixed(1)+"%":
-  i==="age"?String(Math.round(v)):
-  i==="pop"?Math.round(v).toLocaleString("en-US"):
-  "$"+Math.round(v).toLocaleString("en-US");
- if(i==="pop"||r===null)return s;
- var o=r%10===1&&r%100!==11?"st":r%10===2&&r%100!==12?"nd":
-       r%10===3&&r%100!==13?"rd":"th";
- return s+" ("+r+o+"-highest of "+n+")";}
-function render(){var s=null;try{s=localStorage.getItem("ct-town");}catch(e){}
- if(!s||!b.towns[s]){pick();return;}
- var t=b.towns[s],v=t.v;
- document.getElementById("yourtown").innerHTML=
-  '<span class="yt-line1">Your town \u00b7 '+t.n+
-  ' \u00b7 <a href="/town/'+s+'">town file \u2192</a></span>'
-  +'<span class="yt-facts">income '+fmt("income",v[2])
-  +" \u00b7 poverty "+fmt("poverty",v[3])
-  +" \u00b7 rent "+fmt("rent",v[4])
-  +" \u00b7 home value "+fmt("value",v[5])
-  +" \u00b7 median age "+fmt("age",v[1])
-  +' \u00b7 <button id="yt-chg" class="yt-change">change town</button></span>';
- var c=document.getElementById("yt-chg"); if(c)c.onclick=function(){
-  try{localStorage.removeItem("ct-town");}catch(e){} render();};}
-function pick(){var e=document.getElementById("yourtown");
- e.innerHTML="Your town? <select id=\"yt-sel\" aria-label=\"Choose your town\">"
-  +slugs.map(function(s){return '<option value="'+s+'">'+b.towns[s].n+
-    '</option>';}).join("")
-  +'</select> <button id="yt-set" class="ytbtn">Remember it</button>';
- document.getElementById("yt-set").onclick=function(){
-  try{localStorage.setItem("ct-town",
-    document.getElementById("yt-sel").value);}catch(e){} render();};}
-render();})();
-</script>"""
-
-
 _ESC = html.escape
 
 
@@ -203,26 +165,6 @@ and the exact query →</a></div></article>"""
     del chip  # trend badge stays available to story pages this cycle
 
     # The week's wire, mapped: which questions the news cycle itself pushed
-    # at us, counted from the headline ledger — salience measured, not said.
-    from . import questions as _q
-    att = _q.attention(7)
-    wire = ""
-    if att.get("indicators"):
-        _cat = _q.load_catalog()
-        _titles = {it["id"]: it.get("title") or it["id"]
-                   for sec in ("stackup", "local", "national")
-                   for it in _cat.get(sec, [])}
-        top = sorted(att["indicators"].items(),
-                     key=lambda kv: (-kv[1]["hits"], kv[0]))[:3]
-        parts = [f'{_ESC(_titles.get(iid, iid))} '
-                 f'<span class="wire-n">\u00d7{n["hits"]}</span>'
-                 for iid, n in top if n.get("hits")]
-        if parts:
-            wire = (f'<p class="wire">What Connecticut news is asking this week: '
-                    + " \u00b7 ".join(parts)
-                    + f' \u2014 from {_ESC(str(att["headlines"]))} headlines '
-                    + 'ingested across the tracked newsrooms.</p>')
-
     # The wire block: yesterday-and-today's actual headlines from the
     # tracked newsrooms, links going out to them. The desk publishes only
     # what public data can answer — but it reads everything, and says so.
@@ -273,18 +215,8 @@ and the exact query →</a></div></article>"""
 <ul class="wirelist">{wire_items}</ul>
 </div></section>""" if wire_items else "")
 
-    from . import towns as _towns
-    tb = _towns.briefs()
-    yt = ""
-    if tb:
-        yt = (f'<p class="yourtown" id="yourtown" aria-live="polite"></p>'
-              '<script>window.__TB__='
-              f'{json.dumps(tb, separators=(",", ":"))};</script>'
-              + _YOUR_TOWN_JS)
     latest = f"""<section class="latest" id="signals"><div class="wrap">
 <h1 class="vh">Today\u2019s Connecticut data board</h1>
-{yt}
-{wire}
 <div class="latest-grid">
 {lead}
 <div class="sec2"><h2 class="sec2-head">More from Connecticut data</h2>{sec2}</div>

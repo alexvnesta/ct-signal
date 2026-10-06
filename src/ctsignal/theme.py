@@ -312,7 +312,7 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
 .peersum li.ct .pb{background:var(--acc)}
 .peersum .pv{font:600 .78rem var(--sans);color:var(--ink)}
 .peersum-t{font-size:.78rem;color:var(--dim);text-decoration:underline;cursor:pointer;margin-top:.3rem}
-.yourtown{min-height:3.6rem;background:var(--panel);padding:.55rem .7rem;
+.yourtown{background:var(--panel);padding:.55rem .7rem;
   border-left:3px solid var(--acc)}
 .yt-line1{display:block;font:700 1.05rem/1.25 var(--serif);color:var(--ink)}
 .yourtown a{text-decoration:underline}
@@ -333,7 +333,6 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   .brand{font-size:1.85rem;padding-bottom:1.7rem}
   .plate-art{height:70px}
   .dateline{font-size:.62rem;letter-spacing:.08em;padding:.3rem .8rem}
-  .yourtown{min-height:9rem}
   .vizwrap .viz{min-height:0!important;max-height:340px;
     overflow-y:auto;scrollbar-width:none;overscroll-behavior-x:contain}
   .vizwrap .viz::-webkit-scrollbar{display:none}

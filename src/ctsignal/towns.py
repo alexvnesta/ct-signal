@@ -423,6 +423,59 @@ def briefs() -> dict:
     return {"towns": out, "n": counts, "vintage": data["vintage"]}
 
 
+
+_MY_TOWN_JS = r"""
+<script>
+(function(){var b=window.__TB__,slugs=Object.keys(b.towns).sort();
+function fmt(i,p){var v=p[0],r=p[1],n=b.n[i];
+ var s=v===null?"\u2014":i==="poverty"?v.toFixed(1)+"%":
+  i==="age"?String(Math.round(v)):
+  i==="pop"?Math.round(v).toLocaleString("en-US"):
+  "$"+Math.round(v).toLocaleString("en-US");
+ if(i==="pop"||r===null)return s;
+ var o=r%10===1&&r%100!==11?"st":r%10===2&&r%100!==12?"nd":
+       r%10===3&&r%100!==13?"rd":"th";
+ return s+" ("+r+o+"-highest of "+n+")";}
+var el=document.getElementById("yourtown");
+function facts(s){var t=b.towns[s],v=t.v;
+ el.innerHTML='<span class="yt-line1">Your town \u00b7 '+t.n+
+  ' \u00b7 <a href="/town/'+s+'">full town file \u2192</a></span>'
+  +'<span class="yt-facts">income '+fmt("income",v[2])
+  +" \u00b7 poverty "+fmt("poverty",v[3])
+  +" \u00b7 rent "+fmt("rent",v[4])
+  +" \u00b7 home value "+fmt("value",v[5])
+  +" \u00b7 median age "+fmt("age",v[1])
+  +' \u00b7 <button id="yt-chg" class="yt-change">change town</button></span>';
+ var c=document.getElementById("yt-chg"); if(c)c.onclick=function(){
+  try{localStorage.removeItem("ct-town");}catch(e){} pick();};}
+function pick(){
+ el.innerHTML='<span class="yt-line1">Your town</span> '
+  +'<select id="yt-sel" aria-label="Choose your town">'
+  +slugs.map(function(s){return '<option value="'+s+'">'+b.towns[s].n+
+    '</option>';}).join("")
+  +'</select> <button id="yt-set" class="ytbtn">Remember it</button>'
+  +'<span id="yt-sug"></span>';
+ document.getElementById("yt-set").onclick=function(){
+  save(document.getElementById("yt-sel").value);};}
+function save(s){try{localStorage.setItem("ct-town",s);}catch(e){} facts(s);}
+function suggest(s){var e=document.getElementById("yt-sug"); if(!e)return;
+ e.innerHTML=' \u00b7 Looks like you\u2019re in <b>'+b.towns[s].n+
+  '</b> \u00b7 <button id="yt-yes" class="ytbtn">Make it my town</button>'
+  +' <button id="yt-no" class="yt-change">not me</button>';
+ document.getElementById("yt-yes").onclick=function(){save(s);};
+ document.getElementById("yt-no").onclick=function(){
+  try{localStorage.setItem("ct-town-no","1");}catch(x){} e.innerHTML="";};}
+var saved=null,dismiss=null;
+try{saved=localStorage.getItem("ct-town");
+    dismiss=localStorage.getItem("ct-town-no");}catch(e){}
+if(saved&&b.towns[saved]){facts(saved);}else{pick();
+ if(!dismiss)fetch("/api/geo").then(function(r){return r.json();})
+  .then(function(g){if(!g||g.region!=="CT"||!g.city)return;
+   var s=g.city.toLowerCase().replace(/[^a-z]+/g,"-").replace(/^-|-$/g,"");
+   if(b.towns[s])suggest(s);}).catch(function(){});}
+})();
+</script>"""
+
 def index_page(data: dict) -> str:
     map_html = _map_html(data)
     rows = ""
@@ -435,6 +488,9 @@ def index_page(data: dict) -> str:
 <div class="sechead"><h1>Every Connecticut town, one table</h1>
 <p class="sechelp">{data["vintage"]} — five-year estimates, because that is what
 makes a town of 800 readable. Sort is by population; type to find your town.</p></div>
+<p class="yourtown" id="yourtown">Pick your town and the numbers
+become about where you live. Every town also has its own file, linked in
+the table.</p>
 <input class="filter" id="q" placeholder="Filter towns…" aria-label="Filter towns"
  autocomplete="off">
 {map_html}
@@ -469,5 +525,12 @@ def publish() -> dict | None:
     data = ensure()
     if not data:
         return None
-    util.atomic_write_text(config.ROOT / "towns.html", index_page(data))
+    from . import towns as _self
+    tb = _self.briefs() or {"towns": {}, "n": {}}
+    page = index_page(data)
+    inject = (f'<script>window.__TB__='
+              f'{json.dumps(tb, separators=(",", ":"))};</script>'
+              + _MY_TOWN_JS)
+    util.atomic_write_text(config.ROOT / "towns.html",
+                           page.replace("</body>", inject + "</body>", 1))
     return data

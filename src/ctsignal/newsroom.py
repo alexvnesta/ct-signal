@@ -609,6 +609,19 @@ def _freshness_html(card: dict) -> str:
             f'<a href="/archive">the public archive</a>.</p>')
 
 
+_MY_TOWN_BTN = r"""
+<span id="mt-wrap"></span>
+<script>(function(){var s="%s",w=document.getElementById("mt-wrap"),cur=null;
+try{cur=localStorage.getItem("ct-town");}catch(e){}
+if(cur===s){w.innerHTML=' <button id="mt-b" class="ytbtn">\u2713 your town</button>'
+ +' \u00b7 <a href="/towns">change</a>';
+ w.querySelector("#mt-b").onclick=function(){try{localStorage.removeItem("ct-town");}catch(e){}
+  w.innerHTML=' <a href="/towns">not that? pick on the towns page</a>';};}
+else{w.innerHTML=' <button id="mt-b" class="ytbtn">Make this my town</button>';
+ w.querySelector("#mt-b").onclick=function(){try{localStorage.setItem("ct-town",s);}catch(e){}
+  w.innerHTML=' \u2713 saved \u00b7 <a href="/towns">view your numbers</a>';};}})();</script>"""
+
+
 def town_feed(town: str, slug: str, cards: list[dict]) -> str:
     """A per-town Atom feed: the return channel a remembered town still
     lacks. Static, honest entries only — the stories that measure this town
@@ -749,7 +762,8 @@ stories; errors are corrected publicly.</p>
             'Share card for ' + esc(town) + ' (PNG, 1200×630)</a>'
             ' — generated from the numbers on this page. '
             f'<a href="/town/{tslug}/feed.xml">Subscribe</a>'
-            ' to updates for this town (Atom).</p>'
+            ' to updates for this town (Atom).'
+            + (_MY_TOWN_BTN % tslug) + '</p>'
             '<p class="meta">Dataset citations')
     title = f"{town} town file · CT Signal"
     # The og:description must match the share card the preview shows:
