@@ -90,6 +90,17 @@ class TestAuditLocal(unittest.TestCase):
     def test_sitemap_matches_disk(self):
         self.assertEqual(audit.sitemap_gaps(), [])
 
+    def test_ask_desk_and_five_numbers_ship(self):
+        """The promises from the round-3 review, asserted in the built
+        artifact so a template edit that quietly drops either fails the
+        cycle: an ask surface on every page, a five-number town brief."""
+        page = (config.ROOT / "index.html").read_text()
+        self.assertIn("Ask the desk a question", page)
+        self.assertIn("subject=Question%20for%20the%20desk", page)
+        for metric in ("income", "poverty", "rent", "value", "age"):
+            self.assertIn(f'fmt("{metric}"', page.replace("'", '"'),
+                          f"town brief must render {metric}")
+
 
 class TestInventoryArtifact(unittest.TestCase):
     def test_table_renders_without_network(self):
