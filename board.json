@@ -585,31 +585,31 @@
             {
               "highlight": false,
               "rank": 14,
-              "state": "New Jersey",
-              "value": 4.6
-            },
-            {
-              "highlight": false,
-              "rank": 15,
-              "state": "Florida",
-              "value": 4.6
-            },
-            {
-              "highlight": false,
-              "rank": 16,
-              "state": "Oklahoma",
-              "value": 4.6
-            },
-            {
-              "highlight": false,
-              "rank": 17,
               "state": "Illinois",
               "value": 4.6
             },
             {
               "highlight": false,
-              "rank": 18,
+              "rank": 15,
+              "state": "New Jersey",
+              "value": 4.6
+            },
+            {
+              "highlight": false,
+              "rank": 16,
+              "state": "Florida",
+              "value": 4.6
+            },
+            {
+              "highlight": false,
+              "rank": 17,
               "state": "Minnesota",
+              "value": 4.6
+            },
+            {
+              "highlight": false,
+              "rank": 18,
+              "state": "Oklahoma",
               "value": 4.6
             },
             {
@@ -633,7 +633,7 @@
             {
               "highlight": false,
               "rank": 22,
-              "state": "New York",
+              "state": "Maryland",
               "value": 4.2
             },
             {
@@ -645,7 +645,7 @@
             {
               "highlight": false,
               "rank": 24,
-              "state": "Maryland",
+              "state": "New York",
               "value": 4.2
             },
             {
@@ -687,55 +687,55 @@
             {
               "highlight": false,
               "rank": 31,
-              "state": "North Carolina",
-              "value": 3.7
-            },
-            {
-              "highlight": false,
-              "rank": 32,
-              "state": "Virginia",
-              "value": 3.7
-            },
-            {
-              "highlight": false,
-              "rank": 33,
               "state": "Alaska",
               "value": 3.7
             },
             {
               "highlight": false,
-              "rank": 34,
+              "rank": 32,
+              "state": "North Carolina",
+              "value": 3.7
+            },
+            {
+              "highlight": false,
+              "rank": 33,
               "state": "Alabama",
               "value": 3.7
             },
             {
               "highlight": false,
+              "rank": 34,
+              "state": "Virginia",
+              "value": 3.7
+            },
+            {
+              "highlight": false,
               "rank": 35,
-              "state": "Tennessee",
-              "value": 3.6
-            },
-            {
-              "highlight": false,
-              "rank": 36,
-              "state": "Rhode Island",
-              "value": 3.6
-            },
-            {
-              "highlight": false,
-              "rank": 37,
               "state": "Utah",
               "value": 3.6
             },
             {
               "highlight": false,
-              "rank": 38,
+              "rank": 36,
               "state": "Indiana",
               "value": 3.6
             },
             {
               "highlight": false,
+              "rank": 37,
+              "state": "Rhode Island",
+              "value": 3.6
+            },
+            {
+              "highlight": false,
+              "rank": 38,
+              "state": "Tennessee",
+              "value": 3.6
+            },
+            {
+              "highlight": false,
               "rank": 39,
-              "state": "Iowa",
+              "state": "Ohio",
               "value": 3.4
             },
             {
@@ -747,13 +747,13 @@
             {
               "highlight": false,
               "rank": 41,
-              "state": "Ohio",
+              "state": "Idaho",
               "value": 3.4
             },
             {
               "highlight": false,
               "rank": 42,
-              "state": "Idaho",
+              "state": "Iowa",
               "value": 3.4
             },
             {
@@ -765,13 +765,13 @@
             {
               "highlight": false,
               "rank": 44,
-              "state": "Maine",
+              "state": "Nebraska",
               "value": 3.0
             },
             {
               "highlight": false,
               "rank": 45,
-              "state": "Nebraska",
+              "state": "Maine",
               "value": 3.0
             },
             {

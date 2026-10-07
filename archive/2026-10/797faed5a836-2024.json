@@ -901,7 +901,7 @@
   "indicator": "poverty",
   "query": "api.census.gov ACS 1-Year 2024: get=NAME,B17020&for=state:*",
   "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-  "revalidated_at": "2026-10-07T02:42:35+00:00",
+  "revalidated_at": "2026-10-07T09:22:06+00:00",
   "stream": "stackup",
   "topic": "equity"
 }
