@@ -902,7 +902,7 @@
   "indicator": "violent_crime",
   "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
   "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-  "revalidated_at": "2026-10-09T07:24:48+00:00",
+  "revalidated_at": "2026-10-09T14:32:32+00:00",
   "stream": "stackup",
   "topic": "justice"
 }

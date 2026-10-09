@@ -902,7 +902,7 @@
   "indicator": "median_rent",
   "query": "api.census.gov ACS 1-Year 2024: get=NAME,B25113&for=state:*",
   "question": "How expensive is renting in Connecticut compared to the rest of America?",
-  "revalidated_at": "2026-10-09T07:24:48+00:00",
+  "revalidated_at": "2026-10-09T14:32:32+00:00",
   "stream": "stackup",
   "topic": "housing"
 }
