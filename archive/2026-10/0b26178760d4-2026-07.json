@@ -663,7 +663,7 @@
   "indicator": "unemployment",
   "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
   "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-  "revalidated_at": "2026-10-09T14:32:32+00:00",
+  "revalidated_at": "2026-10-09T19:48:40+00:00",
   "stream": "stackup",
   "topic": "economy"
 }

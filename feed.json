@@ -6,6 +6,24 @@
   "items": [
     {
       "_tags": [
+        "economy"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 138118,
+          "url": "https://ctsignal.org/assets/story-5c5c307e3f19.png"
+        }
+      ],
+      "content_text": "Employers hired 3.3% of America's workforce into new jobs in 2026-08 \u2014 lowest since July 2026. Source: CT Mirror \u2014 CT Mirror launches arts and culture coverage, hires Lucy Gellman as editor",
+      "date_published": "2026-10-09T19:48:46+00:00",
+      "id": "https://ctsignal.org/story/5c5c307e3f19",
+      "image": "https://ctsignal.org/assets/story-5c5c307e3f19.png",
+      "title": "Is America still hiring people into new jobs?",
+      "url": "https://ctsignal.org/story/5c5c307e3f19"
+    },
+    {
+      "_tags": [
         "justice"
       ],
       "attachments": [
@@ -147,24 +165,6 @@
       "image": "https://ctsignal.org/assets/story-615030e77f4c.png",
       "title": "When Americans lose a job, how long are they out?",
       "url": "https://ctsignal.org/story/615030e77f4c"
-    },
-    {
-      "_tags": [
-        "economy"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 138118,
-          "url": "https://ctsignal.org/assets/story-5c5c307e3f19.png"
-        }
-      ],
-      "content_text": "Employers hired 3.3% of America's workforce into new jobs in 2026-08 \u2014 lowest since July 2026.",
-      "date_published": "2026-10-05T14:54:08+00:00",
-      "id": "https://ctsignal.org/story/5c5c307e3f19",
-      "image": "https://ctsignal.org/assets/story-5c5c307e3f19.png",
-      "title": "Is America still hiring people into new jobs?",
-      "url": "https://ctsignal.org/story/5c5c307e3f19"
     },
     {
       "_tags": [
