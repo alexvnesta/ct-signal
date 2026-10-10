@@ -2627,7 +2627,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-10-09T23:52:48+00:00",
+      "revalidated_at": "2026-10-10T04:56:36+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -3535,7 +3535,7 @@
       "indicator": "household_income",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-10-09T23:52:48+00:00",
+      "revalidated_at": "2026-10-10T04:56:36+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -7194,7 +7194,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-10-09T23:52:48+00:00",
+      "revalidated_at": "2026-10-10T04:56:36+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -8102,7 +8102,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-10-09T23:52:48+00:00",
+      "revalidated_at": "2026-10-10T04:56:36+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -9010,7 +9010,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-10-09T23:52:48+00:00",
+      "revalidated_at": "2026-10-10T04:56:36+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -16839,7 +16839,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-10-09T23:52:48+00:00",
+      "revalidated_at": "2026-10-10T04:56:36+00:00",
       "stream": "stackup",
       "topic": "economy"
     }
