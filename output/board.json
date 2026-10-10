@@ -567,13 +567,13 @@
             {
               "highlight": false,
               "rank": 11,
-              "state": "Delaware",
+              "state": "Texas",
               "value": 4.8
             },
             {
               "highlight": false,
               "rank": 12,
-              "state": "Texas",
+              "state": "Delaware",
               "value": 4.8
             },
             {
@@ -591,25 +591,25 @@
             {
               "highlight": false,
               "rank": 15,
-              "state": "Illinois",
+              "state": "Florida",
               "value": 4.6
             },
             {
               "highlight": false,
               "rank": 16,
-              "state": "Minnesota",
-              "value": 4.6
-            },
-            {
-              "highlight": false,
-              "rank": 17,
               "state": "Oklahoma",
               "value": 4.6
             },
             {
               "highlight": false,
+              "rank": 17,
+              "state": "Minnesota",
+              "value": 4.6
+            },
+            {
+              "highlight": false,
               "rank": 18,
-              "state": "Florida",
+              "state": "Illinois",
               "value": 4.6
             },
             {
@@ -639,25 +639,25 @@
             {
               "highlight": false,
               "rank": 23,
-              "state": "Kansas",
-              "value": 4.2
-            },
-            {
-              "highlight": false,
-              "rank": 24,
               "state": "Maryland",
               "value": 4.2
             },
             {
               "highlight": false,
+              "rank": 24,
+              "state": "Kansas",
+              "value": 4.2
+            },
+            {
+              "highlight": false,
               "rank": 25,
-              "state": "Colorado",
+              "state": "South Carolina",
               "value": 4.1
             },
             {
               "highlight": false,
               "rank": 26,
-              "state": "South Carolina",
+              "state": "Colorado",
               "value": 4.1
             },
             {
@@ -693,25 +693,25 @@
             {
               "highlight": false,
               "rank": 32,
-              "state": "Alabama",
-              "value": 3.7
-            },
-            {
-              "highlight": false,
-              "rank": 33,
               "state": "North Carolina",
               "value": 3.7
             },
             {
               "highlight": false,
-              "rank": 34,
+              "rank": 33,
               "state": "Virginia",
               "value": 3.7
             },
             {
               "highlight": false,
+              "rank": 34,
+              "state": "Alabama",
+              "value": 3.7
+            },
+            {
+              "highlight": false,
               "rank": 35,
-              "state": "Utah",
+              "state": "Rhode Island",
               "value": 3.6
             },
             {
@@ -729,31 +729,31 @@
             {
               "highlight": false,
               "rank": 38,
-              "state": "Rhode Island",
+              "state": "Utah",
               "value": 3.6
             },
             {
               "highlight": false,
               "rank": 39,
-              "state": "Idaho",
-              "value": 3.4
-            },
-            {
-              "highlight": false,
-              "rank": 40,
               "state": "Iowa",
               "value": 3.4
             },
             {
               "highlight": false,
-              "rank": 41,
+              "rank": 40,
               "state": "Ohio",
               "value": 3.4
             },
             {
               "highlight": false,
-              "rank": 42,
+              "rank": 41,
               "state": "Wisconsin",
+              "value": 3.4
+            },
+            {
+              "highlight": false,
+              "rank": 42,
+              "state": "Idaho",
               "value": 3.4
             },
             {
