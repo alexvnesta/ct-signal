@@ -902,7 +902,7 @@
   "indicator": "median_home_value",
   "query": "api.census.gov ACS 1-Year 2024: get=NAME,B25077&for=state:*",
   "question": "Are Connecticut homes expensive by national standards?",
-  "revalidated_at": "2026-10-10T04:56:36+00:00",
+  "revalidated_at": "2026-10-10T11:03:26+00:00",
   "stream": "stackup",
   "topic": "housing"
 }
