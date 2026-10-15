@@ -257,6 +257,21 @@ national:
       since 1967."
     validated: "live series probe 2026-10-05 (raw counts, first row 1967-01-07)"
 
+  - id: weather_anomaly
+    topic: weather
+    title: Connecticut temperature anomaly (30 days)
+    agency: "NOAA Regional Climate Centers, Applied Climate Information System"
+    answerer: acis_weather
+    unit: "°F"
+    precision: 1
+    keywords: [weather, forecast, heat, cold snap, rain, snow, storm,
+               hurricane, tropical storm, heat wave, first frost]
+    question: Is Connecticut running warmer or colder than normal?
+    answer: "Connecticut's average temperature ran {value:+.1f}°F from its
+      1991-2020 normal over the 30 days ending {date} — measured at Bradley
+      International and Danbury, each against its own normals. {extreme}"
+    validated: "live series probe 2026-10-14 (Bradley +0.3F, Danbury +0.9F, 30d)"
+
   - id: ct_unemployment
     topic: economy
     title: Connecticut unemployment rate

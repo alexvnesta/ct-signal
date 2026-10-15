@@ -338,3 +338,55 @@ class TestTriggerQuality(unittest.TestCase):
         self.assertEqual(seen, {})
         self.assertIsNone(cards_by_id[card["id"]].get("headline"))
         self.assertEqual(cards_by_id[card["id"]].get("origin"), "data desk")
+
+class TestWeatherAnswerer(unittest.TestCase):
+    """The ACIS weather card: signed anomaly arithmetic, never a mood,
+    and never a degree sign doubled."""
+
+    def test_signed_answer_formats(self):
+        from ctsignal import run as _r, questions as _q
+        cat = _q.load_catalog()
+        item = next(i for i in cat["national"]
+                    if i["id"] == "weather_anomaly")
+        canned = {"value": 1.1, "date": "2026-10-13", "stations": ["KBDL"],
+                  "precip": 4.5, "precip_normal": 4.6,
+                  "rows": [{"date": "2026-10-13", "series": "Bradley Intl",
+                            "value": 1.1}],
+                  "extreme": "warmer than normal",
+                  "citation": "https://data.rcc-acis.org/StnData",
+                  "query": "probe", "cache": False}
+        orig = _r.acis.observations
+        _r.acis.observations = lambda: dict(canned)
+        try:
+            card = _r._answer_national(
+                {"headline": {"id": "h-w", "title": "t", "url": "",
+                              "source": "s", "published": "",
+                              "published_sort": 0}}, item)
+        finally:
+            _r.acis.observations = orig
+        self.assertIn("+1.1\u00b0F", card["answer_text"])
+        self.assertNotIn("\u00b0F\u00b0F", card["answer_text"])
+        self.assertIn("warmer than normal", card["answer_text"])
+
+    def test_negative_anomaly_reads_cooler(self):
+        from ctsignal import run as _r, questions as _q
+        cat = _q.load_catalog()
+        item = next(i for i in cat["national"]
+                    if i["id"] == "weather_anomaly")
+        canned = {"value": -2.4, "date": "2026-01-10", "stations": ["KBDL"],
+                  "precip": 1.0, "precip_normal": 3.0,
+                  "rows": [{"date": "2026-01-10", "series": "Bradley Intl",
+                            "value": -2.4}],
+                  "extreme": "", "citation": "c", "query": "q",
+                  "cache": False}
+        orig = _r.acis.observations
+        _r.acis.observations = lambda: dict(canned)
+        try:
+            card = _r._answer_national(
+                {"headline": {"id": "h-w", "title": "t", "url": "",
+                              "source": "s", "published": "",
+                              "published_sort": 0}}, item)
+        finally:
+            _r.acis.observations = orig
+        self.assertIn("-2.4\u00b0F", card["answer_text"])
+        self.assertIn("cooler than normal", card["answer_text"])

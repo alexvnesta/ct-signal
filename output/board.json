@@ -585,19 +585,19 @@
             {
               "highlight": false,
               "rank": 14,
-              "state": "Florida",
+              "state": "Oklahoma",
               "value": 4.6
             },
             {
               "highlight": false,
               "rank": 15,
-              "state": "Minnesota",
+              "state": "Illinois",
               "value": 4.6
             },
             {
               "highlight": false,
               "rank": 16,
-              "state": "Illinois",
+              "state": "Florida",
               "value": 4.6
             },
             {
@@ -609,7 +609,7 @@
             {
               "highlight": false,
               "rank": 18,
-              "state": "Oklahoma",
+              "state": "Minnesota",
               "value": 4.6
             },
             {
@@ -639,13 +639,13 @@
             {
               "highlight": false,
               "rank": 23,
-              "state": "New York",
+              "state": "Maryland",
               "value": 4.2
             },
             {
               "highlight": false,
               "rank": 24,
-              "state": "Maryland",
+              "state": "New York",
               "value": 4.2
             },
             {
@@ -711,49 +711,49 @@
             {
               "highlight": false,
               "rank": 35,
-              "state": "Rhode Island",
-              "value": 3.6
-            },
-            {
-              "highlight": false,
-              "rank": 36,
-              "state": "Utah",
-              "value": 3.6
-            },
-            {
-              "highlight": false,
-              "rank": 37,
               "state": "Tennessee",
               "value": 3.6
             },
             {
               "highlight": false,
-              "rank": 38,
+              "rank": 36,
               "state": "Indiana",
               "value": 3.6
             },
             {
               "highlight": false,
+              "rank": 37,
+              "state": "Rhode Island",
+              "value": 3.6
+            },
+            {
+              "highlight": false,
+              "rank": 38,
+              "state": "Utah",
+              "value": 3.6
+            },
+            {
+              "highlight": false,
               "rank": 39,
-              "state": "Wisconsin",
+              "state": "Idaho",
               "value": 3.4
             },
             {
               "highlight": false,
               "rank": 40,
-              "state": "Iowa",
-              "value": 3.4
-            },
-            {
-              "highlight": false,
-              "rank": 41,
               "state": "Ohio",
               "value": 3.4
             },
             {
               "highlight": false,
+              "rank": 41,
+              "state": "Wisconsin",
+              "value": 3.4
+            },
+            {
+              "highlight": false,
               "rank": 42,
-              "state": "Idaho",
+              "state": "Iowa",
               "value": 3.4
             },
             {
@@ -765,13 +765,13 @@
             {
               "highlight": false,
               "rank": 44,
-              "state": "Nebraska",
+              "state": "Maine",
               "value": 3.0
             },
             {
               "highlight": false,
               "rank": 45,
-              "state": "Maine",
+              "state": "Nebraska",
               "value": 3.0
             },
             {

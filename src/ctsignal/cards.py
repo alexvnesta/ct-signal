@@ -120,12 +120,20 @@ def from_national(item: dict, proposal: dict, result: dict) -> dict:
     says US, the trend chart is the picture, and the extreme phrase is
     computed, not written."""
     question = proposal.get("question_override") or item["question"]
-    disp = _display(item, result["value"])
-    answer = item["answer"].format(
-        value=disp.strip("$") if item.get("prefix") else disp,
-        date=result["date"],
-        extreme=result["extreme"],
-    )
+    if item.get("answerer") == "acis_weather":
+        # The anomaly is signed on purpose (+0.5 / -0.5): the format spec
+        # in the answer template needs the raw number, not display()'s
+        # rounded unsigned string.
+        answer = item["answer"].format(
+            value=result["value"], date=result["date"],
+            extreme=result["extreme"])
+    else:
+        disp = _display(item, result["value"])
+        answer = item["answer"].format(
+            value=disp.strip("$") if item.get("prefix") else disp,
+            date=result["date"],
+            extreme=result["extreme"],
+        )
     return {
         "id": _card_id(item["id"], question),
         "generated_at": _now(),

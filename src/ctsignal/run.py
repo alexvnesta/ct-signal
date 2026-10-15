@@ -7,7 +7,7 @@ import re
 import time
 
 from . import cards, charts, config, feeds, questions, util
-from .sources import census1yr, datacommons, fred, socrata
+from .sources import acis, census1yr, datacommons, fred, socrata
 
 
 def build_board(catalog: dict) -> dict:
@@ -126,9 +126,15 @@ def _answer_stackup(proposal: dict, item: dict) -> dict | None:
 
 
 def _answer_national(proposal: dict, item: dict) -> dict | None:
-    fixture = config.FIXTURES_DIR / f"fred_{item['id']}.csv"
-    result = fred.observations(item, fixture=fixture if fixture.exists()
-                               else None)
+    if item.get("answerer") == "acis_weather":
+        result = acis.observations()
+        if result is not None:
+            result["extreme"] = ("warmer than normal" if result["value"] >= 0
+                                 else "cooler than normal")
+    else:
+        fixture = config.FIXTURES_DIR / f"fred_{item['id']}.csv"
+        result = fred.observations(item, fixture=fixture if fixture.exists()
+                                   else None)
     if result is None:
         print(f"  discard (no data): {item['id']} <- {proposal['headline']['title'][:60]}")
         return None
