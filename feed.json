@@ -11,6 +11,42 @@
       "attachments": [
         {
           "mime_type": "image/png",
+          "size_in_bytes": 138954,
+          "url": "https://ctsignal.org/assets/story-138bf32c8350.png"
+        }
+      ],
+      "content_text": "US layoffs and discharges ran at 1.0% in 2026-08 \u2014 lowest since April 2026 for this series, which began in 2000. Source: NYT U.S. \u2014 Harvard Endowment Soars to $68 Billion Even as Federal Cuts Force Layoffs",
+      "date_published": "2026-10-15T19:19:30+00:00",
+      "id": "https://ctsignal.org/story/138bf32c8350",
+      "image": "https://ctsignal.org/assets/story-138bf32c8350.png",
+      "title": "Are employers laying everyone off, really?",
+      "url": "https://ctsignal.org/story/138bf32c8350"
+    },
+    {
+      "_tags": [
+        "economy"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 145678,
+          "url": "https://ctsignal.org/assets/story-0b26178760d4.png"
+        }
+      ],
+      "content_text": "Connecticut's unemployment rate is 5.8% (2026), the 3rd-highest of 52 peers. Source: NYT U.S. \u2014 Harvard Endowment Soars to $68 Billion Even as Federal Cuts Force Layoffs",
+      "date_published": "2026-10-15T19:19:29+00:00",
+      "id": "https://ctsignal.org/story/0b26178760d4",
+      "image": "https://ctsignal.org/assets/story-0b26178760d4.png",
+      "title": "Is Connecticut's job market doing better or worse than the rest of the country?",
+      "url": "https://ctsignal.org/story/0b26178760d4"
+    },
+    {
+      "_tags": [
+        "economy"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
           "size_in_bytes": 141260,
           "url": "https://ctsignal.org/assets/story-9089da248fbd.png"
         }
@@ -204,24 +240,6 @@
     },
     {
       "_tags": [
-        "economy"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 138954,
-          "url": "https://ctsignal.org/assets/story-138bf32c8350.png"
-        }
-      ],
-      "content_text": "US layoffs and discharges ran at 1.0% in 2026-08 \u2014 lowest since April 2026 for this series, which began in 2000.",
-      "date_published": "2026-10-05T14:54:08+00:00",
-      "id": "https://ctsignal.org/story/138bf32c8350",
-      "image": "https://ctsignal.org/assets/story-138bf32c8350.png",
-      "title": "Are employers laying everyone off, really?",
-      "url": "https://ctsignal.org/story/138bf32c8350"
-    },
-    {
-      "_tags": [
         "equity"
       ],
       "attachments": [
@@ -237,24 +255,6 @@
       "image": "https://ctsignal.org/assets/story-fc46f3ad624e.png",
       "title": "Are workers keeping their share of what they produce?",
       "url": "https://ctsignal.org/story/fc46f3ad624e"
-    },
-    {
-      "_tags": [
-        "economy"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 145678,
-          "url": "https://ctsignal.org/assets/story-0b26178760d4.png"
-        }
-      ],
-      "content_text": "Connecticut's unemployment rate is 5.8% (2026), the 3rd-highest of 52 peers. Source: PBS NewsHour \u2014 Disappointing 29,000 jobs added in September as unemployment ticks up",
-      "date_published": "2026-10-02T18:29:37+00:00",
-      "id": "https://ctsignal.org/story/0b26178760d4",
-      "image": "https://ctsignal.org/assets/story-0b26178760d4.png",
-      "title": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "url": "https://ctsignal.org/story/0b26178760d4"
     }
   ],
   "title": "CT Signal",

@@ -13,20 +13,20 @@
     "background": "transparent",
     "config": {
       "axis": {
-        "domainColor": "#26313d",
-        "gridColor": "#26313d",
-        "labelColor": "#9fb0bf",
-        "tickColor": "#26313d",
-        "titleColor": "#9fb0bf"
+        "domainColor": "#b8b2a6",
+        "gridColor": "#e4dfd3",
+        "labelColor": "#4c5a68",
+        "tickColor": "#b8b2a6",
+        "titleColor": "#4c5a68"
       },
       "legend": {
-        "labelColor": "#9fb0bf",
+        "labelColor": "#4c5a68",
         "symbolStrokeWidth": 0,
-        "titleColor": "#9fb0bf"
+        "titleColor": "#4c5a68"
       },
       "title": {
-        "color": "#eef2f5",
-        "subtitleColor": "#9fb0bf"
+        "color": "#1c2733",
+        "subtitleColor": "#66717e"
       },
       "view": {
         "continuousHeight": 300,
@@ -1595,7 +1595,7 @@
                 "United States"
               ],
               "range": [
-                "#f2a65a"
+                "#d9772b"
               ]
             },
             "type": "nominal"
@@ -1619,7 +1619,7 @@
           ],
           "x": {
             "axis": {
-              "domainColor": "#28394a",
+              "domainColor": "#c9c3b6",
               "format": "%Y",
               "grid": false,
               "tickCount": 6
@@ -1662,7 +1662,7 @@
                 "United States"
               ],
               "range": [
-                "#f2a65a"
+                "#d9772b"
               ]
             },
             "type": "nominal"
@@ -1703,10 +1703,18 @@
   "citations": [
     "https://fred.stlouisfed.org/series/JTSLDR"
   ],
-  "generated_at": "2026-10-05T14:54:08+00:00",
+  "generated_at": "2026-10-15T19:19:30+00:00",
+  "headline": {
+    "id": "d6ed073f3cf0",
+    "published": "Thu, 15 Oct 2026 18:40:27 +0000",
+    "published_sort": 1792089627,
+    "source": "NYT U.S.",
+    "stream": "national",
+    "title": "Harvard Endowment Soars to $68 Billion Even as Federal Cuts Force Layoffs",
+    "url": "https://www.nytimes.com/2026/10/15/us/harvard-endowment-soars.html"
+  },
   "id": "138bf32c8350",
   "indicator": "layoffs_rate",
-  "origin": "data desk",
   "query": "FRED fredgraph.csv id=JTSLDR; agency of record: US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey",
   "question": "Are employers laying everyone off, really?",
   "series_freq": "monthly",
