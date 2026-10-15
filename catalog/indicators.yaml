@@ -168,7 +168,7 @@ national:
     unit: percent
     suffix: "%"
     extreme: min
-    keywords: [hiring, hires, job openings, labor market, jobs report, employment report]
+    keywords: [hiring, job openings, labor market, jobs report, employment report]
     question: Is America still hiring people into new jobs?
     answer: "Employers hired {value} of America's workforce into new jobs in {date} — {extreme}."
     validated: "live series probe 2026-10-05"

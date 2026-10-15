@@ -262,3 +262,79 @@ class TestFixtureMigration(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def _cards_questions():
+    from ctsignal import questions as _q
+    cat = _q.load_catalog()
+    return cat["stackup"] + cat["local"] + cat["national"]
+
+
+class TestTriggerQuality(unittest.TestCase):
+    """The promotion gate: a receipt must mean the story raised the
+    question, not merely contain a phrase. Both paths — new cards and
+    promotion — must share one bar so they can never drift."""
+
+    def test_weak_single_phrase_is_blocked(self):
+        from ctsignal import questions as _q
+        self.assertFalse(_q._strong_enough(["workforce"]))
+        self.assertFalse(_q._strong_enough(["hiring"]))
+        self.assertFalse(_q._strong_enough(["labor market"]))
+
+    def test_specific_phrase_alone_passes(self):
+        from ctsignal import questions as _q
+        self.assertTrue(_q._strong_enough(["jobless claims"]))
+        self.assertTrue(_q._strong_enough(["workforce reduction"]))
+
+    def test_two_weak_phrases_pass(self):
+        from ctsignal import questions as _q
+        self.assertTrue(_q._strong_enough(["labor market", "workforce"]))
+
+    def test_proposer_uses_the_same_bar(self):
+        """A civil-rights story with one generic word must not open a
+        labor card — this exact headline produced one in production."""
+        from ctsignal import questions as _q
+        cat = _q.load_catalog()
+        headline = {"id": "h-test", "title": "Reshaped civil rights "
+                    "mission at Justice Department transforms its work, "
+                    "workforce", "url": "", "source": "NPR",
+                    "published": "2026-10-11", "published_sort": 0}
+        proposals = _q.propose_from_catalog(headline, cat, "stackup")
+        ids = {p["indicator_id"] for p in proposals}
+        self.assertNotIn("prime_age_participation", ids)
+
+    def test_migration_promotion_respects_the_bar(self):
+        """The hiring-editor headline must not promote the hires card."""
+        from ctsignal import cards as _cards
+        cat = {i["id"]: i for sec in ("stackup", "local", "national")
+               for i in _cards_questions()}
+        q = cat["hires_rate"]["question"]
+        card = {"id": _cards._card_id("hires_rate", q),
+                "stream": "national", "topic": "economy",
+                "indicator": "hires_rate", "question": q,
+                "headline": {"title": "(demo)", "source": "jobs-report "
+                             "fixture (fixture)", "link": ""}}
+        orig = run.fred.observations
+        seen = {}
+        def fake(item, fixture=None):
+            seen["called"] = True
+            return {"value": 1.9, "date": "2026-08",
+                    "rows": [{"date": "2026-01", "series": "United States",
+                              "value": 2.0}],
+                    "extreme": "lowest since January 2026",
+                    "citation": "https://fred.stlouisfed.org/series/JTSQUR",
+                    "query": "probe"}
+        run.fred.observations = fake
+        try:
+            cards_by_id = {card["id"]: card}
+            n = run._migrate_fixtures(
+                cards_by_id, cat,
+                [{"id": "h1", "title": "CT Mirror launches arts and "
+                  "culture coverage, hires Lucy Gellman as editor",
+                  "source": "CT Mirror", "url": ""}], [])
+        finally:
+            run.fred.observations = orig
+        self.assertEqual(n, 1)
+        self.assertEqual(seen, {})
+        self.assertIsNone(cards_by_id[card["id"]].get("headline"))
+        self.assertEqual(cards_by_id[card["id"]].get("origin"), "data desk")

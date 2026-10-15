@@ -139,6 +139,19 @@ def _keyword_hits(title: str, keywords: list[str]) -> list[str]:
     ]
 
 
+WEAK_KEYWORDS = {"workforce", "labor market", "labor force", "hiring",
+                 "labor supply"}
+
+
+def _strong_enough(hits: list[str]) -> bool:
+    """One generic phrase is a false friend: 'workforce' matched a civil-
+    rights story, a newsroom's own hiring matched the hiring-rate card.
+    A headline earns a receipt only when a topic-specific phrase hits, or
+    two distinct phrases do."""
+    strong = [h for h in hits if h not in WEAK_KEYWORDS]
+    return len(strong) >= 1 or len(hits) >= 2
+
+
 def _answerable(item: dict) -> bool:
     """Only indicators with a question and an answer template may be asked.
     A catalog entry can otherwise be 'row-verified' as a dataset and still
@@ -160,7 +173,7 @@ def propose_from_catalog(
             if not _answerable(item):
                 continue
             hits = _keyword_hits(headline["title"], item.get("keywords", []))
-            if not hits:
+            if not _strong_enough(hits):
                 continue
             proposals.append(
                 {

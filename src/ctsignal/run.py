@@ -296,11 +296,13 @@ def _migrate_fixtures(cards_by_id: dict, by_id: dict,
         # it may have come from the LLM proposer and would otherwise be
         # swallowed by the asked-log dedup gate, since the numbers it
         # answers with are already on record.
+        # Same bar as new cards: the qualifier lives in questions.py so
+        # promotion and proposal can never drift apart.
         cands = [p["headline"] for p in proposals
                  if p.get("indicator_id") == ind["id"]
                  and not cards.is_demo_trigger(p)]
-        cands += [h for h in headlines if questions._keyword_hits(
-            h["title"], ind.get("keywords") or [])]
+        cands += [h for h in headlines if questions._strong_enough(
+            questions._keyword_hits(h["title"], ind.get("keywords") or []))]
         for h in cands:
             res = fred.observations(
                 ind, fixture=config.FIXTURES_DIR / f"fred_{ind['id']}.csv")
