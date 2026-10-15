@@ -197,6 +197,50 @@ def _sources_body() -> str:
         '<span style="color:var(--dim)">&#9679; fetched whenever a national '
         'card asks</span></td></tr>')
 
+    # What the wire asked that no tracked dataset can answer — measured,
+    # not written: the desk reads everything, and admits what it cannot
+    # yet cover. Five lines, counts only, refreshed every publish.
+    try:
+        import datetime as _dt
+        _ledger = json.loads((config.ROOT / "data" /
+                              "ledger.json").read_text()).get("entries", {})
+        _cut = (_dt.datetime.now(_dt.timezone.utc)
+                - _dt.timedelta(days=7)).timestamp()
+        _recent = [h for h in _ledger.values()
+                   if (h.get("pub") or 0) > _cut]
+        _mapped = sorted({k for sec in ("stackup", "local", "national")
+                          for i in questions.load_catalog()[sec]
+                          for k in (i.get("keywords") or [])})
+        _buckets = {}
+        for _h in _recent:
+            _t = _h["title"].lower()
+            if questions._keyword_hits(_t, _mapped):
+                continue
+            for _name, _terms in (
+                    ("politics & elections", ("trump", "senate", "election",
+                     "midterm", "governor", "campaign", "debate")),
+                    ("justice & courts", ("police", "court", "trial",
+                     "charged", "arrest", "prison", "execut")),
+                    ("weather & utilities", ("hurricane", "storm", "outage",
+                     "power", "flood", "weather")),
+                    ("schools & education", ("school", "district",
+                     "student", "teacher", "education"))):
+                if any(w in _t for w in _terms):
+                    _buckets[_name] = _buckets.get(_name, 0) + 1
+                    break
+        _top = sorted(_buckets.items(), key=lambda kv: -kv[1])[:3]
+        if _top:
+            _gap = " \u00b7 ".join(f"{esc(k)} ({v})" for k, v in _top)
+            _gapline = (
+                f'<p class="sub">This week the wire also asked about '
+                f'{_gap} \u2014 {len(_recent)} headlines read in 7 days, '
+                f'and no tracked dataset answers those yet. When one '
+                f'arrives, the desk covers it.</p>')
+        else:
+            _gapline = ""
+    except (OSError, json.JSONDecodeError, KeyError):
+        _gapline = ""
+
     trig = "".join(
         f'<li style="padding:.3rem 0">{esc(feeds._source_name(u))} &middot; '
         f'<span class="meta"><a href="{esc(u)}">{esc(u)}</a></span></li>'
@@ -213,6 +257,7 @@ endpoint degrades, you see it here first, not in a silent gap.</p>
 <p class="sub">Live news feeds scanned every cycle; a question is only asked
 when a tracked dataset can answer it.</p>
 <ul style="list-style:none;padding:0">{trig}</ul>
+{_gapline}
 <p class="meta">The endpoint check runs from the validate script and is
 committed with the repo; a failing chip means the pipeline is answering from
 labeled cached/fallback data until it recovers.</p>
