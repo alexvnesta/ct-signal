@@ -1703,15 +1703,14 @@
   "citations": [
     "https://fred.stlouisfed.org/series/JTSHIR"
   ],
-  "generated_at": "2026-10-09T19:48:46+00:00",
+  "generated_at": "2026-10-16T00:47:23+00:00",
   "headline": {
-    "id": "6ae6f094e86b",
-    "published": "Fri, 09 Oct 2026 13:00:00 +0000",
-    "published_sort": 1791550800,
-    "source": "CT Mirror",
-    "stream": "ct",
-    "title": "CT Mirror launches arts and culture coverage, hires Lucy Gellman as editor",
-    "url": "https://ctmirror.org/2026/10/09/ct-mirror-launches-arts-culture-coverage-lucy-gellman-editor/"
+    "id": "seed-2026-10-30",
+    "published": "2026-10-30",
+    "published_sort": 0,
+    "source": "civic calendar",
+    "title": "[civic calendar] October jobs report cycle (national churn context)",
+    "url": ""
   },
   "id": "5c5c307e3f19",
   "indicator": "hires_rate",

@@ -11,6 +11,42 @@
       "attachments": [
         {
           "mime_type": "image/png",
+          "size_in_bytes": 138546,
+          "url": "https://ctsignal.org/assets/story-5c5c307e3f19.png"
+        }
+      ],
+      "content_text": "Employers hired 3.3% of America's workforce into new jobs in 2026-08 \u2014 lowest since July 2026. Source: civic calendar \u2014 [civic calendar] October jobs report cycle (national churn context)",
+      "date_published": "2026-10-16T00:47:23+00:00",
+      "id": "https://ctsignal.org/story/5c5c307e3f19",
+      "image": "https://ctsignal.org/assets/story-5c5c307e3f19.png",
+      "title": "Is America still hiring people into new jobs?",
+      "url": "https://ctsignal.org/story/5c5c307e3f19"
+    },
+    {
+      "_tags": [
+        "economy"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 141116,
+          "url": "https://ctsignal.org/assets/story-615030e77f4c.png"
+        }
+      ],
+      "content_text": "The median unemployed US worker has been out of work 11.5 weeks (2026-09) \u2014 highest since May 2026. Source: civic calendar \u2014 [civic calendar] October jobs report cycle (national duration context)",
+      "date_published": "2026-10-16T00:47:23+00:00",
+      "id": "https://ctsignal.org/story/615030e77f4c",
+      "image": "https://ctsignal.org/assets/story-615030e77f4c.png",
+      "title": "When Americans lose a job, how long are they out?",
+      "url": "https://ctsignal.org/story/615030e77f4c"
+    },
+    {
+      "_tags": [
+        "economy"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
           "size_in_bytes": 139139,
           "url": "https://ctsignal.org/assets/story-138bf32c8350.png"
         }
@@ -57,24 +93,6 @@
       "image": "https://ctsignal.org/assets/story-9089da248fbd.png",
       "title": "Are working-age Americans in the labor force?",
       "url": "https://ctsignal.org/story/9089da248fbd"
-    },
-    {
-      "_tags": [
-        "economy"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 138546,
-          "url": "https://ctsignal.org/assets/story-5c5c307e3f19.png"
-        }
-      ],
-      "content_text": "Employers hired 3.3% of America's workforce into new jobs in 2026-08 \u2014 lowest since July 2026. Source: CT Mirror \u2014 CT Mirror launches arts and culture coverage, hires Lucy Gellman as editor",
-      "date_published": "2026-10-09T19:48:46+00:00",
-      "id": "https://ctsignal.org/story/5c5c307e3f19",
-      "image": "https://ctsignal.org/assets/story-5c5c307e3f19.png",
-      "title": "Is America still hiring people into new jobs?",
-      "url": "https://ctsignal.org/story/5c5c307e3f19"
     },
     {
       "_tags": [
@@ -201,24 +219,6 @@
       "image": "https://ctsignal.org/assets/story-517fafa716bc.png",
       "title": "Are Connecticut homes expensive by national standards?",
       "url": "https://ctsignal.org/story/517fafa716bc"
-    },
-    {
-      "_tags": [
-        "economy"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 141116,
-          "url": "https://ctsignal.org/assets/story-615030e77f4c.png"
-        }
-      ],
-      "content_text": "The median unemployed US worker has been out of work 11.5 weeks (2026-09) \u2014 highest since May 2026.",
-      "date_published": "2026-10-05T14:54:08+00:00",
-      "id": "https://ctsignal.org/story/615030e77f4c",
-      "image": "https://ctsignal.org/assets/story-615030e77f4c.png",
-      "title": "When Americans lose a job, how long are they out?",
-      "url": "https://ctsignal.org/story/615030e77f4c"
     },
     {
       "_tags": [
