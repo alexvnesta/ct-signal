@@ -422,7 +422,10 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
                 result = datacommons.stackup(
                     ind, fixture=config.FIXTURES_DIR / f"dc_{ind['id']}.json")
             except Exception:
-                continue
+                result = None
+        if result is None:
+            continue          # an answerer with no stackup behind it
+                              # (ACIS weather) must not crash the pass
         new_date = (result.get("ct") or {}).get("date")
         old_date = (card.get("answer_values") or {}).get("date")
         new_n = int(result.get("n") or 0)
