@@ -555,13 +555,13 @@
             {
               "highlight": false,
               "rank": 9,
-              "state": "Nevada",
+              "state": "Kentucky",
               "value": 5.1
             },
             {
               "highlight": false,
               "rank": 10,
-              "state": "Kentucky",
+              "state": "Nevada",
               "value": 5.1
             },
             {
@@ -591,25 +591,25 @@
             {
               "highlight": false,
               "rank": 15,
-              "state": "Oklahoma",
-              "value": 4.6
-            },
-            {
-              "highlight": false,
-              "rank": 16,
               "state": "Florida",
               "value": 4.6
             },
             {
               "highlight": false,
+              "rank": 16,
+              "state": "New Jersey",
+              "value": 4.6
+            },
+            {
+              "highlight": false,
               "rank": 17,
-              "state": "Illinois",
+              "state": "Oklahoma",
               "value": 4.6
             },
             {
               "highlight": false,
               "rank": 18,
-              "state": "New Jersey",
+              "state": "Illinois",
               "value": 4.6
             },
             {
@@ -651,13 +651,13 @@
             {
               "highlight": false,
               "rank": 25,
-              "state": "Colorado",
+              "state": "South Carolina",
               "value": 4.1
             },
             {
               "highlight": false,
               "rank": 26,
-              "state": "South Carolina",
+              "state": "Colorado",
               "value": 4.1
             },
             {
@@ -693,7 +693,7 @@
             {
               "highlight": false,
               "rank": 32,
-              "state": "Alabama",
+              "state": "Alaska",
               "value": 3.7
             },
             {
@@ -705,55 +705,55 @@
             {
               "highlight": false,
               "rank": 34,
-              "state": "Alaska",
+              "state": "Alabama",
               "value": 3.7
             },
             {
               "highlight": false,
               "rank": 35,
-              "state": "Rhode Island",
-              "value": 3.6
-            },
-            {
-              "highlight": false,
-              "rank": 36,
               "state": "Tennessee",
               "value": 3.6
             },
             {
               "highlight": false,
-              "rank": 37,
+              "rank": 36,
               "state": "Utah",
               "value": 3.6
             },
             {
               "highlight": false,
-              "rank": 38,
+              "rank": 37,
               "state": "Indiana",
               "value": 3.6
             },
             {
               "highlight": false,
-              "rank": 39,
-              "state": "Ohio",
-              "value": 3.4
+              "rank": 38,
+              "state": "Rhode Island",
+              "value": 3.6
             },
             {
               "highlight": false,
-              "rank": 40,
+              "rank": 39,
               "state": "Iowa",
               "value": 3.4
             },
             {
               "highlight": false,
-              "rank": 41,
+              "rank": 40,
               "state": "Wisconsin",
               "value": 3.4
             },
             {
               "highlight": false,
-              "rank": 42,
+              "rank": 41,
               "state": "Idaho",
+              "value": 3.4
+            },
+            {
+              "highlight": false,
+              "rank": 42,
+              "state": "Ohio",
               "value": 3.4
             },
             {
@@ -2824,25 +2824,25 @@
   "trend": [
     {
       "id": "90255dce8175",
-      "score": 0.36,
+      "score": 0.31,
       "sees": 0,
       "votes": 1
     },
     {
       "id": "797faed5a836",
-      "score": 0.25,
+      "score": 0.21,
       "sees": 1,
       "votes": 1
     },
     {
       "id": "ed851796295a",
-      "score": 0.23,
+      "score": 0.2,
       "sees": 0,
       "votes": 1
     },
     {
       "id": "0125297ea839",
-      "score": 0.03,
+      "score": 0.02,
       "sees": 2,
       "votes": 0
     },
