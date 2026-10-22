@@ -8,9 +8,17 @@
       "_tags": [
         "economy"
       ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 139286,
+          "url": "https://ctsignal.org/assets/story-4aab121d492a.png"
+        }
+      ],
       "content_text": "194,000 Americans filed first-time unemployment claims in the week ending 2026-10-17 \u2014 highest since October 10, 2026 for a series that has printed every week since 1967. Source: PBS NewsHour \u2014 U.S. jobless claims fell to 194,000 last week, lowest since July",
       "date_published": "2026-10-22T19:57:48+00:00",
       "id": "https://ctsignal.org/story/4aab121d492a",
+      "image": "https://ctsignal.org/assets/story-4aab121d492a.png",
       "title": "How many Americans just lost their jobs?",
       "url": "https://ctsignal.org/story/4aab121d492a"
     },
