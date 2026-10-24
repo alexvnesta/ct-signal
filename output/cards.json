@@ -1,6 +1,1563 @@
 {
   "cards": [
     {
+      "answer_text": "Old Lyme led the 170 towns measured in equalized assessment growth in 2024 (+57.4%), adding $0.92B.",
+      "answer_values": {
+        "date": "2024",
+        "n": 170,
+        "top": {
+          "added": 919222181.0,
+          "latest": 2521783821.0,
+          "pct": 57.35955223538235,
+          "prior": 1602561640.0,
+          "town": "Old Lyme"
+        }
+      },
+      "cache": false,
+      "chart": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+        "background": "transparent",
+        "config": {
+          "axis": {
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68"
+          },
+          "legend": {
+            "labelColor": "#4c5a68",
+            "symbolStrokeWidth": 0,
+            "titleColor": "#4c5a68"
+          },
+          "title": {
+            "color": "#1c2733",
+            "subtitleColor": "#66717e"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
+          }
+        },
+        "data": {
+          "values": [
+            {
+              "highlight": true,
+              "rank": 1,
+              "state": "Old Lyme",
+              "value": 57.36
+            },
+            {
+              "highlight": false,
+              "rank": 2,
+              "state": "New Fairfield",
+              "value": 47.58
+            },
+            {
+              "highlight": false,
+              "rank": 3,
+              "state": "Mansfield",
+              "value": 47.41
+            },
+            {
+              "highlight": false,
+              "rank": 4,
+              "state": "Branford",
+              "value": 46.52
+            },
+            {
+              "highlight": false,
+              "rank": 5,
+              "state": "Woodbridge",
+              "value": 45.61
+            },
+            {
+              "highlight": false,
+              "rank": 6,
+              "state": "Thompson",
+              "value": 45.1
+            },
+            {
+              "highlight": false,
+              "rank": 7,
+              "state": "West Haven",
+              "value": 44.34
+            },
+            {
+              "highlight": false,
+              "rank": 8,
+              "state": "Coventry",
+              "value": 43.61
+            },
+            {
+              "highlight": false,
+              "rank": 9,
+              "state": "Voluntown",
+              "value": 41.51
+            },
+            {
+              "highlight": false,
+              "rank": 10,
+              "state": "Pomfret",
+              "value": 39.74
+            }
+          ]
+        },
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#d9772b",
+                "#b9b3a6"
+              ]
+            },
+            "type": "nominal"
+          },
+          "tooltip": [
+            {
+              "field": "state",
+              "title": "Town",
+              "type": "nominal"
+            },
+            {
+              "field": "value",
+              "title": "Equalized assessment growth, 2024 (top 10 towns)",
+              "type": "quantitative"
+            },
+            {
+              "field": "rank",
+              "title": "Rank",
+              "type": "quantitative"
+            }
+          ],
+          "x": {
+            "axis": {
+              "format": ",.0f"
+            },
+            "field": "value",
+            "title": "Equalized assessment growth, 2024 (top 10 towns) (% change)",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "Pomfret",
+              "Voluntown",
+              "Coventry",
+              "West Haven",
+              "Thompson",
+              "Woodbridge",
+              "Branford",
+              "Mansfield",
+              "New Fairfield",
+              "Old Lyme"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
+        },
+        "height": 140,
+        "mark": {
+          "tooltip": false,
+          "type": "bar"
+        },
+        "title": {
+          "subtitle": "Old Lyme highlighted",
+          "text": "Equalized assessment growth, 2024 (top 10 towns)"
+        },
+        "width": "container"
+      },
+      "chart_kind": "rank_strip",
+      "citations": [
+        "https://data.ct.gov/d/8rr8-a322"
+      ],
+      "generated_at": "2026-10-24T15:44:58+00:00",
+      "headline": {
+        "id": "c52058f53a60",
+        "published": "Sat, 24 Oct 2026 11:13:00 GMT",
+        "published_sort": 1792840380,
+        "source": "Google News (CT)",
+        "stream": "ct",
+        "title": "Connecticut town will cut taxable home values 35% after revaluation shook budgets - Yahoo",
+        "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQdVdGZmwtb1NIZi1DS3pnZ3lKN1ZhNVlIaTg2ekR6a3JfaWQzU3BqQzdMN2NtODhOZW9yRGNKMWVnNTAtSWhUQWV1Z3V6MUxIZTNaRzBaOTVJOWhFdWU0VGY2YUlmekFfR1pYRXh2VEVyLUVlNVM3VTBUNmMyWlZ5aU1GUzNQTGhydkdCTUF6VFY?oc=5"
+      },
+      "id": "e7de2c32ffea",
+      "indicator": "equalized_grand_list",
+      "query": "GET /resource/8rr8-a322.json $order=grand_list_year DESC (170 places, last 2 years)",
+      "question": "Which Connecticut towns saw the fastest growth in equalized property assessments?",
+      "stream": "local",
+      "topic": "local-finance",
+      "towns": [
+        {
+          "added": 919222181.0,
+          "latest": 2521783821.0,
+          "pct": 57.36,
+          "prior": 1602561640.0,
+          "rank": 1,
+          "town": "Old Lyme"
+        },
+        {
+          "added": 814125843.0,
+          "latest": 2525314383.0,
+          "pct": 47.58,
+          "prior": 1711188540.0,
+          "rank": 2,
+          "town": "New Fairfield"
+        },
+        {
+          "added": 571122259.0,
+          "latest": 1775708530.0,
+          "pct": 47.41,
+          "prior": 1204586271.0,
+          "rank": 3,
+          "town": "Mansfield"
+        },
+        {
+          "added": 1817963533.0,
+          "latest": 5726042666.0,
+          "pct": 46.52,
+          "prior": 3908079133.0,
+          "rank": 4,
+          "town": "Branford"
+        },
+        {
+          "added": 522143456.0,
+          "latest": 1666877717.0,
+          "pct": 45.61,
+          "prior": 1144734261.0,
+          "rank": 5,
+          "town": "Woodbridge"
+        },
+        {
+          "added": 351172815.0,
+          "latest": 1129763450.0,
+          "pct": 45.1,
+          "prior": 778590635.0,
+          "rank": 6,
+          "town": "Thompson"
+        },
+        {
+          "added": 1422573983.0,
+          "latest": 4630705133.0,
+          "pct": 44.34,
+          "prior": 3208131150.0,
+          "rank": 7,
+          "town": "West Haven"
+        },
+        {
+          "added": 479035869.0,
+          "latest": 1577594099.0,
+          "pct": 43.61,
+          "prior": 1098558230.0,
+          "rank": 8,
+          "town": "Coventry"
+        },
+        {
+          "added": 97618925.0,
+          "latest": 332796810.0,
+          "pct": 41.51,
+          "prior": 235177885.0,
+          "rank": 9,
+          "town": "Voluntown"
+        },
+        {
+          "added": 160176566.0,
+          "latest": 563247590.0,
+          "pct": 39.74,
+          "prior": 403071024.0,
+          "rank": 10,
+          "town": "Pomfret"
+        },
+        {
+          "added": 178759852.0,
+          "latest": 637885959.0,
+          "pct": 38.93,
+          "prior": 459126107.0,
+          "rank": 11,
+          "town": "Canterbury"
+        },
+        {
+          "added": 514055353.0,
+          "latest": 1882923112.0,
+          "pct": 37.55,
+          "prior": 1368867759.0,
+          "rank": 12,
+          "town": "Tolland"
+        },
+        {
+          "added": 286965631.0,
+          "latest": 1063939259.0,
+          "pct": 36.93,
+          "prior": 776973628.0,
+          "rank": 13,
+          "town": "Putnam"
+        },
+        {
+          "added": 877218104.0,
+          "latest": 3266185114.0,
+          "pct": 36.72,
+          "prior": 2388967010.0,
+          "rank": 14,
+          "town": "Monroe"
+        },
+        {
+          "added": 247336989.0,
+          "latest": 938002816.0,
+          "pct": 35.81,
+          "prior": 690665827.0,
+          "rank": 15,
+          "town": "Brooklyn"
+        },
+        {
+          "added": 478759054.0,
+          "latest": 1854967926.0,
+          "pct": 34.79,
+          "prior": 1376208872.0,
+          "rank": 16,
+          "town": "Seymour"
+        },
+        {
+          "added": 168375777.0,
+          "latest": 655013594.0,
+          "pct": 34.6,
+          "prior": 486637817.0,
+          "rank": 17,
+          "town": "Willington"
+        },
+        {
+          "added": 475982733.0,
+          "latest": 1875399269.0,
+          "pct": 34.01,
+          "prior": 1399416536.0,
+          "rank": 18,
+          "town": "North Branford"
+        },
+        {
+          "added": 291334047.0,
+          "latest": 1229558527.0,
+          "pct": 31.05,
+          "prior": 938224480.0,
+          "rank": 19,
+          "town": "Prospect"
+        },
+        {
+          "added": 1418642585.0,
+          "latest": 6056637913.0,
+          "pct": 30.59,
+          "prior": 4637995328.0,
+          "rank": 20,
+          "town": "Wallingford"
+        },
+        {
+          "added": 83315587.0,
+          "latest": 365622885.0,
+          "pct": 29.51,
+          "prior": 282307298.0,
+          "rank": 21,
+          "town": "Norfolk"
+        },
+        {
+          "added": 513348742.0,
+          "latest": 2303942606.0,
+          "pct": 28.67,
+          "prior": 1790593864.0,
+          "rank": 22,
+          "town": "Oxford"
+        },
+        {
+          "added": 924180798.0,
+          "latest": 4196105891.0,
+          "pct": 28.25,
+          "prior": 3271925093.0,
+          "rank": 23,
+          "town": "North Haven"
+        },
+        {
+          "added": 613348620.0,
+          "latest": 2807527318.0,
+          "pct": 27.95,
+          "prior": 2194178698.0,
+          "rank": 24,
+          "town": "Torrington"
+        },
+        {
+          "added": 267842486.0,
+          "latest": 1822214343.0,
+          "pct": 17.23,
+          "prior": 1554371857.0,
+          "rank": 25,
+          "town": "Windsor Locks"
+        },
+        {
+          "added": 629164048.0,
+          "latest": 4587162037.0,
+          "pct": 15.9,
+          "prior": 3957997989.0,
+          "rank": 26,
+          "town": "Windsor"
+        },
+        {
+          "added": 243147678.0,
+          "latest": 2715362825.0,
+          "pct": 9.84,
+          "prior": 2472215147.0,
+          "rank": 27,
+          "town": "Orange"
+        },
+        {
+          "added": 225626604.0,
+          "latest": 2679655209.0,
+          "pct": 9.19,
+          "prior": 2454028605.0,
+          "rank": 28,
+          "town": "Wethersfield"
+        },
+        {
+          "added": 500116968.0,
+          "latest": 6198656330.0,
+          "pct": 8.78,
+          "prior": 5698539362.0,
+          "rank": 29,
+          "town": "Waterbury"
+        },
+        {
+          "added": 378010817.0,
+          "latest": 4708063501.0,
+          "pct": 8.73,
+          "prior": 4330052684.0,
+          "rank": 30,
+          "town": "Hamden"
+        },
+        {
+          "added": 159166956.0,
+          "latest": 2460090347.0,
+          "pct": 6.92,
+          "prior": 2300923391.0,
+          "rank": 31,
+          "town": "Naugatuck"
+        },
+        {
+          "added": 84702189.0,
+          "latest": 1315670832.0,
+          "pct": 6.88,
+          "prior": 1230968643.0,
+          "rank": 32,
+          "town": "Canton"
+        },
+        {
+          "added": 906051386.0,
+          "latest": 16289076652.0,
+          "pct": 5.89,
+          "prior": 15383025266.0,
+          "rank": 33,
+          "town": "Norwalk"
+        },
+        {
+          "added": 31161131.0,
+          "latest": 612187509.0,
+          "pct": 5.36,
+          "prior": 581026378.0,
+          "rank": 34,
+          "town": "Bolton"
+        },
+        {
+          "added": 119496340.0,
+          "latest": 2712433565.0,
+          "pct": 4.61,
+          "prior": 2592937225.0,
+          "rank": 35,
+          "town": "Bloomfield"
+        },
+        {
+          "added": 231838403.0,
+          "latest": 5364791999.0,
+          "pct": 4.52,
+          "prior": 5132953596.0,
+          "rank": 36,
+          "town": "Stratford"
+        },
+        {
+          "added": 19204177653.0,
+          "latest": 487379691392.0,
+          "pct": 4.1,
+          "prior": 468175513739.0,
+          "rank": 37,
+          "town": "Total"
+        },
+        {
+          "added": 22034940.0,
+          "latest": 645256488.0,
+          "pct": 3.54,
+          "prior": 623221548.0,
+          "rank": 38,
+          "town": "North Stonington"
+        },
+        {
+          "added": 44545001.0,
+          "latest": 1510898471.0,
+          "pct": 3.04,
+          "prior": 1466353470.0,
+          "rank": 39,
+          "town": "East Windsor"
+        },
+        {
+          "added": 13434404.0,
+          "latest": 476706482.0,
+          "pct": 2.9,
+          "prior": 463272078.0,
+          "rank": 40,
+          "town": "Bridgewater"
+        },
+        {
+          "added": 84128604.0,
+          "latest": 3043197493.0,
+          "pct": 2.84,
+          "prior": 2959068889.0,
+          "rank": 41,
+          "town": "Berlin"
+        },
+        {
+          "added": 19289967.0,
+          "latest": 886077943.0,
+          "pct": 2.23,
+          "prior": 866787976.0,
+          "rank": 42,
+          "town": "Derby"
+        },
+        {
+          "added": 16376051.0,
+          "latest": 792002553.0,
+          "pct": 2.11,
+          "prior": 775626502.0,
+          "rank": 43,
+          "town": "East Granby"
+        },
+        {
+          "added": 17712322.0,
+          "latest": 971829484.0,
+          "pct": 1.86,
+          "prior": 954117162.0,
+          "rank": 44,
+          "town": "Portland"
+        },
+        {
+          "added": 25447339.0,
+          "latest": 1538304990.0,
+          "pct": 1.68,
+          "prior": 1512857651.0,
+          "rank": 45,
+          "town": "Salisbury"
+        },
+        {
+          "added": 14236485.0,
+          "latest": 889497860.0,
+          "pct": 1.63,
+          "prior": 875261375.0,
+          "rank": 46,
+          "town": "Stafford"
+        },
+        {
+          "added": 27368717.0,
+          "latest": 1739324288.0,
+          "pct": 1.6,
+          "prior": 1711955571.0,
+          "rank": 47,
+          "town": "Plainville"
+        },
+        {
+          "added": 6472289.0,
+          "latest": 468811330.0,
+          "pct": 1.4,
+          "prior": 462339041.0,
+          "rank": 48,
+          "town": "Morris"
+        },
+        {
+          "added": 78226191.0,
+          "latest": 5775809829.0,
+          "pct": 1.37,
+          "prior": 5697583638.0,
+          "rank": 49,
+          "town": "Wilton"
+        },
+        {
+          "added": 3195984.0,
+          "latest": 243178682.0,
+          "pct": 1.33,
+          "prior": 239982698.0,
+          "rank": 50,
+          "town": "Canaan"
+        },
+        {
+          "added": 11272770.0,
+          "latest": 879248138.0,
+          "pct": 1.3,
+          "prior": 867975368.0,
+          "rank": 51,
+          "town": "Sherman"
+        },
+        {
+          "added": 147371160.0,
+          "latest": 11614552580.0,
+          "pct": 1.29,
+          "prior": 11467181420.0,
+          "rank": 52,
+          "town": "Westport"
+        },
+        {
+          "added": 48191159.0,
+          "latest": 4133661384.0,
+          "pct": 1.18,
+          "prior": 4085470225.0,
+          "rank": 53,
+          "town": "Stonington"
+        },
+        {
+          "added": 20539704.0,
+          "latest": 1769651674.0,
+          "pct": 1.17,
+          "prior": 1749111970.0,
+          "rank": 54,
+          "town": "Washington"
+        },
+        {
+          "added": 421272489.0,
+          "latest": 36878052349.0,
+          "pct": 1.16,
+          "prior": 36456779860.0,
+          "rank": 55,
+          "town": "Greenwich"
+        },
+        {
+          "added": 15937300.0,
+          "latest": 1409677916.0,
+          "pct": 1.14,
+          "prior": 1393740616.0,
+          "rank": 56,
+          "town": "Granby"
+        },
+        {
+          "added": 9249498.0,
+          "latest": 836943478.0,
+          "pct": 1.12,
+          "prior": 827693980.0,
+          "rank": 57,
+          "town": "Kent"
+        },
+        {
+          "added": 59958910.0,
+          "latest": 5529140801.0,
+          "pct": 1.1,
+          "prior": 5469181891.0,
+          "rank": 58,
+          "town": "Bristol"
+        },
+        {
+          "added": 11489390.0,
+          "latest": 1095455452.0,
+          "pct": 1.06,
+          "prior": 1083966062.0,
+          "rank": 59,
+          "town": "Sharon"
+        },
+        {
+          "added": 32842376.0,
+          "latest": 3267298550.0,
+          "pct": 1.02,
+          "prior": 3234456174.0,
+          "rank": 60,
+          "town": "Weston"
+        },
+        {
+          "added": 28045169.0,
+          "latest": 2892710081.0,
+          "pct": 0.98,
+          "prior": 2864664912.0,
+          "rank": 61,
+          "town": "Brookfield"
+        },
+        {
+          "added": 110794070.0,
+          "latest": 12088566433.0,
+          "pct": 0.92,
+          "prior": 11977772363.0,
+          "rank": 62,
+          "town": "Fairfield"
+        },
+        {
+          "added": 36438722.0,
+          "latest": 4031135558.0,
+          "pct": 0.91,
+          "prior": 3994696836.0,
+          "rank": 63,
+          "town": "Cheshire"
+        },
+        {
+          "added": 34387666.0,
+          "latest": 3820389295.0,
+          "pct": 0.91,
+          "prior": 3786001629.0,
+          "rank": 64,
+          "town": "South Windsor"
+        },
+        {
+          "added": 236739219.0,
+          "latest": 27446473673.0,
+          "pct": 0.87,
+          "prior": 27209734454.0,
+          "rank": 65,
+          "town": "Stamford"
+        },
+        {
+          "added": 40405122.0,
+          "latest": 4731239886.0,
+          "pct": 0.86,
+          "prior": 4690834764.0,
+          "rank": 66,
+          "town": "Southington"
+        },
+        {
+          "added": 92968480.0,
+          "latest": 11207630644.0,
+          "pct": 0.84,
+          "prior": 11114662164.0,
+          "rank": 67,
+          "town": "Darien"
+        },
+        {
+          "added": 60226395.0,
+          "latest": 7289478027.0,
+          "pct": 0.83,
+          "prior": 7229251632.0,
+          "rank": 68,
+          "town": "West Hartford"
+        },
+        {
+          "added": 30329126.0,
+          "latest": 3969706782.0,
+          "pct": 0.77,
+          "prior": 3939377656.0,
+          "rank": 69,
+          "town": "New Britain"
+        },
+        {
+          "added": 3840886.0,
+          "latest": 507905540.0,
+          "pct": 0.76,
+          "prior": 504064654.0,
+          "rank": 70,
+          "town": "Warren"
+        },
+        {
+          "added": 21051060.0,
+          "latest": 2937038351.0,
+          "pct": 0.72,
+          "prior": 2915987291.0,
+          "rank": 71,
+          "town": "Southbury"
+        },
+        {
+          "added": 41402677.0,
+          "latest": 5859863156.0,
+          "pct": 0.71,
+          "prior": 5818460479.0,
+          "rank": 72,
+          "town": "Ridgefield"
+        },
+        {
+          "added": 19578449.0,
+          "latest": 2835260444.0,
+          "pct": 0.7,
+          "prior": 2815681995.0,
+          "rank": 73,
+          "town": "East Lyme"
+        },
+        {
+          "added": 19551444.0,
+          "latest": 2917501407.0,
+          "pct": 0.67,
+          "prior": 2897949963.0,
+          "rank": 74,
+          "town": "Newington"
+        },
+        {
+          "added": 30265924.0,
+          "latest": 4539018242.0,
+          "pct": 0.67,
+          "prior": 4508752318.0,
+          "rank": 75,
+          "town": "Farmington"
+        },
+        {
+          "added": 2145848.0,
+          "latest": 322548727.0,
+          "pct": 0.67,
+          "prior": 320402879.0,
+          "rank": 76,
+          "town": "Franklin"
+        },
+        {
+          "added": 5669790.0,
+          "latest": 862388370.0,
+          "pct": 0.66,
+          "prior": 856718580.0,
+          "rank": 77,
+          "town": "Roxbury"
+        },
+        {
+          "added": 17707810.0,
+          "latest": 2777274890.0,
+          "pct": 0.64,
+          "prior": 2759567080.0,
+          "rank": 78,
+          "town": "Bethel"
+        },
+        {
+          "added": 6334478.0,
+          "latest": 1008763487.0,
+          "pct": 0.63,
+          "prior": 1002429009.0,
+          "rank": 79,
+          "town": "Haddam"
+        },
+        {
+          "added": 10058745.0,
+          "latest": 1666458201.0,
+          "pct": 0.61,
+          "prior": 1656399456.0,
+          "rank": 80,
+          "town": "Montville"
+        },
+        {
+          "added": 30071375.0,
+          "latest": 5077329692.0,
+          "pct": 0.6,
+          "prior": 5047258317.0,
+          "rank": 81,
+          "town": "Groton"
+        },
+        {
+          "added": 8012626.0,
+          "latest": 1468640742.0,
+          "pct": 0.55,
+          "prior": 1460628116.0,
+          "rank": 82,
+          "town": "Woodbury"
+        },
+        {
+          "added": 8310552.0,
+          "latest": 1558422555.0,
+          "pct": 0.54,
+          "prior": 1550112003.0,
+          "rank": 83,
+          "town": "Litchfield"
+        },
+        {
+          "added": 11404442.0,
+          "latest": 2295824349.0,
+          "pct": 0.5,
+          "prior": 2284419907.0,
+          "rank": 84,
+          "town": "Vernon"
+        },
+        {
+          "added": 6466100.0,
+          "latest": 1329475758.0,
+          "pct": 0.49,
+          "prior": 1323009658.0,
+          "rank": 85,
+          "town": "Burlington"
+        },
+        {
+          "added": 18923855.0,
+          "latest": 4087152069.0,
+          "pct": 0.47,
+          "prior": 4068228214.0,
+          "rank": 86,
+          "town": "Meriden"
+        },
+        {
+          "added": 13114449.0,
+          "latest": 2876189700.0,
+          "pct": 0.46,
+          "prior": 2863075251.0,
+          "rank": 87,
+          "town": "Norwich"
+        },
+        {
+          "added": 7142051.0,
+          "latest": 1919157580.0,
+          "pct": 0.37,
+          "prior": 1912015529.0,
+          "rank": 88,
+          "town": "Cromwell"
+        },
+        {
+          "added": 36511004.0,
+          "latest": 9939751140.0,
+          "pct": 0.37,
+          "prior": 9903240136.0,
+          "rank": 89,
+          "town": "New Canaan"
+        },
+        {
+          "added": 3537998.0,
+          "latest": 1041262813.0,
+          "pct": 0.34,
+          "prior": 1037724815.0,
+          "rank": 90,
+          "town": "Lebanon"
+        },
+        {
+          "added": 3785193.0,
+          "latest": 1199179960.0,
+          "pct": 0.32,
+          "prior": 1195394767.0,
+          "rank": 91,
+          "town": "Middlebury"
+        },
+        {
+          "added": 701482.0,
+          "latest": 246701741.0,
+          "pct": 0.29,
+          "prior": 246000259.0,
+          "rank": 92,
+          "town": "Sprague"
+        },
+        {
+          "added": 8784675.0,
+          "latest": 3223528221.0,
+          "pct": 0.27,
+          "prior": 3214743546.0,
+          "rank": 93,
+          "town": "Avon"
+        },
+        {
+          "added": 10758892.0,
+          "latest": 4182441739.0,
+          "pct": 0.26,
+          "prior": 4171682847.0,
+          "rank": 94,
+          "town": "Guilford"
+        },
+        {
+          "added": 21519448.0,
+          "latest": 10474730486.0,
+          "pct": 0.21,
+          "prior": 10453211038.0,
+          "rank": 95,
+          "town": "Danbury"
+        },
+        {
+          "added": 10641449.0,
+          "latest": 5319927616.0,
+          "pct": 0.2,
+          "prior": 5309286167.0,
+          "rank": 96,
+          "town": "Trumbull"
+        },
+        {
+          "added": 1253164.0,
+          "latest": 739899315.0,
+          "pct": 0.17,
+          "prior": 738646151.0,
+          "rank": 97,
+          "town": "Goshen"
+        },
+        {
+          "added": 5432695.0,
+          "latest": 3409067566.0,
+          "pct": 0.16,
+          "prior": 3403634871.0,
+          "rank": 98,
+          "town": "Simsbury"
+        },
+        {
+          "added": 6969547.0,
+          "latest": 6135998930.0,
+          "pct": 0.11,
+          "prior": 6129029383.0,
+          "rank": 99,
+          "town": "Shelton"
+        },
+        {
+          "added": 3563399.0,
+          "latest": 3217339149.0,
+          "pct": 0.11,
+          "prior": 3213775750.0,
+          "rank": 100,
+          "town": "New Milford"
+        },
+        {
+          "added": 1553618.0,
+          "latest": 2193961880.0,
+          "pct": 0.07,
+          "prior": 2192408262.0,
+          "rank": 101,
+          "town": "New London"
+        },
+        {
+          "added": 477500.0,
+          "latest": 979261820.0,
+          "pct": 0.05,
+          "prior": 978784320.0,
+          "rank": 102,
+          "town": "Woodstock"
+        },
+        {
+          "added": 675321.0,
+          "latest": 1465464246.0,
+          "pct": 0.05,
+          "prior": 1464788925.0,
+          "rank": 103,
+          "town": "Wolcott"
+        },
+        {
+          "added": 766713.0,
+          "latest": 2388677635.0,
+          "pct": 0.03,
+          "prior": 2387910922.0,
+          "rank": 104,
+          "town": "East Haven"
+        },
+        {
+          "added": -379193.0,
+          "latest": 4251927044.0,
+          "pct": -0.01,
+          "prior": 4252306237.0,
+          "rank": 105,
+          "town": "Madison"
+        },
+        {
+          "added": -704893.0,
+          "latest": 5418114145.0,
+          "pct": -0.01,
+          "prior": 5418819038.0,
+          "rank": 106,
+          "town": "Glastonbury"
+        },
+        {
+          "added": -139586.0,
+          "latest": 471362040.0,
+          "pct": -0.03,
+          "prior": 471501626.0,
+          "rank": 107,
+          "town": "Lisbon"
+        },
+        {
+          "added": -523035.0,
+          "latest": 1394631495.0,
+          "pct": -0.04,
+          "prior": 1395154530.0,
+          "rank": 108,
+          "town": "Windham"
+        },
+        {
+          "added": -326302.0,
+          "latest": 480202281.0,
+          "pct": -0.07,
+          "prior": 480528583.0,
+          "rank": 109,
+          "town": "Cornwall"
+        },
+        {
+          "added": -1170232.0,
+          "latest": 1456982180.0,
+          "pct": -0.08,
+          "prior": 1458152412.0,
+          "rank": 110,
+          "town": "Essex"
+        },
+        {
+          "added": -107470.0,
+          "latest": 127822234.0,
+          "pct": -0.08,
+          "prior": 127929704.0,
+          "rank": 111,
+          "town": "Union"
+        },
+        {
+          "added": -3061988.0,
+          "latest": 2595017325.0,
+          "pct": -0.12,
+          "prior": 2598079313.0,
+          "rank": 112,
+          "town": "Watertown"
+        },
+        {
+          "added": -2737905.0,
+          "latest": 1940304516.0,
+          "pct": -0.14,
+          "prior": 1943042421.0,
+          "rank": 113,
+          "town": "Redding"
+        },
+        {
+          "added": -979124.0,
+          "latest": 629038328.0,
+          "pct": -0.16,
+          "prior": 630017452.0,
+          "rank": 114,
+          "town": "Marlborough"
+        },
+        {
+          "added": -2360578.0,
+          "latest": 1488046212.0,
+          "pct": -0.16,
+          "prior": 1490406790.0,
+          "rank": 115,
+          "town": "Plainfield"
+        },
+        {
+          "added": -1169333.0,
+          "latest": 710396671.0,
+          "pct": -0.16,
+          "prior": 711566004.0,
+          "rank": 116,
+          "town": "Lyme"
+        },
+        {
+          "added": -4073936.0,
+          "latest": 2049166994.0,
+          "pct": -0.2,
+          "prior": 2053240930.0,
+          "rank": 117,
+          "town": "Suffield"
+        },
+        {
+          "added": -1381694.0,
+          "latest": 640320504.0,
+          "pct": -0.22,
+          "prior": 641702198.0,
+          "rank": 118,
+          "town": "Beacon Falls"
+        },
+        {
+          "added": -12239295.0,
+          "latest": 4753170868.0,
+          "pct": -0.26,
+          "prior": 4765410163.0,
+          "rank": 119,
+          "town": "Middletown"
+        },
+        {
+          "added": -2110185.0,
+          "latest": 812149799.0,
+          "pct": -0.26,
+          "prior": 814259984.0,
+          "rank": 120,
+          "town": "Harwinton"
+        },
+        {
+          "added": -1425928.0,
+          "latest": 530990150.0,
+          "pct": -0.27,
+          "prior": 532416078.0,
+          "rank": 121,
+          "town": "Bethlehem"
+        },
+        {
+          "added": -8873705.0,
+          "latest": 3302587154.0,
+          "pct": -0.27,
+          "prior": 3311460859.0,
+          "rank": 122,
+          "town": "Old Saybrook"
+        },
+        {
+          "added": -432590.0,
+          "latest": 154986550.0,
+          "pct": -0.28,
+          "prior": 155419140.0,
+          "rank": 123,
+          "town": "Scotland"
+        },
+        {
+          "added": -1719707.0,
+          "latest": 595229435.0,
+          "pct": -0.29,
+          "prior": 596949142.0,
+          "rank": 124,
+          "town": "Chester"
+        },
+        {
+          "added": -4169771.0,
+          "latest": 1422648504.0,
+          "pct": -0.29,
+          "prior": 1426818275.0,
+          "rank": 125,
+          "town": "Ansonia"
+        },
+        {
+          "added": -3023933.0,
+          "latest": 1023086578.0,
+          "pct": -0.29,
+          "prior": 1026110511.0,
+          "rank": 126,
+          "town": "Winchester"
+        },
+        {
+          "added": -2739031.0,
+          "latest": 910164653.0,
+          "pct": -0.3,
+          "prior": 912903684.0,
+          "rank": 127,
+          "town": "Plymouth"
+        },
+        {
+          "added": -5459070.0,
+          "latest": 1555959470.0,
+          "pct": -0.35,
+          "prior": 1561418540.0,
+          "rank": 128,
+          "town": "Ellington"
+        },
+        {
+          "added": -3653346.0,
+          "latest": 932290795.0,
+          "pct": -0.39,
+          "prior": 935944141.0,
+          "rank": 129,
+          "town": "Hebron"
+        },
+        {
+          "added": -17769703.0,
+          "latest": 4519835159.0,
+          "pct": -0.39,
+          "prior": 4537604862.0,
+          "rank": 130,
+          "town": "Newtown"
+        },
+        {
+          "added": -2043368.0,
+          "latest": 493896469.0,
+          "pct": -0.41,
+          "prior": 495939837.0,
+          "rank": 131,
+          "town": "Barkhamsted"
+        },
+        {
+          "added": -21053303.0,
+          "latest": 4784115405.0,
+          "pct": -0.44,
+          "prior": 4805168708.0,
+          "rank": 132,
+          "town": "Hartford"
+        },
+        {
+          "added": -8021610.0,
+          "latest": 1732317057.0,
+          "pct": -0.46,
+          "prior": 1740338667.0,
+          "rank": 133,
+          "town": "Clinton"
+        },
+        {
+          "added": -6949181.0,
+          "latest": 1498179553.0,
+          "pct": -0.46,
+          "prior": 1505128734.0,
+          "rank": 134,
+          "town": "Easton"
+        },
+        {
+          "added": -7174360.0,
+          "latest": 1310761596.0,
+          "pct": -0.54,
+          "prior": 1317935956.0,
+          "rank": 135,
+          "town": "Ledyard"
+        },
+        {
+          "added": -5139213.0,
+          "latest": 930083900.0,
+          "pct": -0.55,
+          "prior": 935223113.0,
+          "rank": 136,
+          "town": "Griswold"
+        },
+        {
+          "added": -1105183.0,
+          "latest": 196207100.0,
+          "pct": -0.56,
+          "prior": 197312283.0,
+          "rank": 137,
+          "town": "Colebrook"
+        },
+        {
+          "added": -5199680.0,
+          "latest": 901330925.0,
+          "pct": -0.57,
+          "prior": 906530605.0,
+          "rank": 138,
+          "town": "New Hartford"
+        },
+        {
+          "added": -17260094.0,
+          "latest": 2913655085.0,
+          "pct": -0.59,
+          "prior": 2930915179.0,
+          "rank": 139,
+          "town": "Rocky Hill"
+        },
+        {
+          "added": -57517549.0,
+          "latest": 9001531506.0,
+          "pct": -0.63,
+          "prior": 9059049055.0,
+          "rank": 140,
+          "town": "New Haven"
+        },
+        {
+          "added": -9325862.0,
+          "latest": 1419849280.0,
+          "pct": -0.65,
+          "prior": 1429175142.0,
+          "rank": 141,
+          "town": "Westbrook"
+        },
+        {
+          "added": -5507394.0,
+          "latest": 834902694.0,
+          "pct": -0.66,
+          "prior": 840410088.0,
+          "rank": 142,
+          "town": "Killingworth"
+        },
+        {
+          "added": -5298916.0,
+          "latest": 788522807.0,
+          "pct": -0.67,
+          "prior": 793821723.0,
+          "rank": 143,
+          "town": "Bethany"
+        },
+        {
+          "added": -54943333.0,
+          "latest": 7932639174.0,
+          "pct": -0.69,
+          "prior": 7987582507.0,
+          "rank": 144,
+          "town": "Milford"
+        },
+        {
+          "added": -2593489.0,
+          "latest": 367774985.0,
+          "pct": -0.7,
+          "prior": 370368474.0,
+          "rank": 145,
+          "town": "Ashford"
+        },
+        {
+          "added": -8513315.0,
+          "latest": 1190767575.0,
+          "pct": -0.71,
+          "prior": 1199280890.0,
+          "rank": 146,
+          "town": "East Haddam"
+        },
+        {
+          "added": -28669653.0,
+          "latest": 3689855097.0,
+          "pct": -0.77,
+          "prior": 3718524750.0,
+          "rank": 147,
+          "town": "Enfield"
+        },
+        {
+          "added": -64365760.0,
+          "latest": 8107241903.0,
+          "pct": -0.79,
+          "prior": 8171607663.0,
+          "rank": 148,
+          "town": "Bridgeport"
+        },
+        {
+          "added": -2881228.0,
+          "latest": 316705080.0,
+          "pct": -0.9,
+          "prior": 319586308.0,
+          "rank": 149,
+          "town": "Andover"
+        },
+        {
+          "added": -4381457.0,
+          "latest": 462018028.0,
+          "pct": -0.94,
+          "prior": 466399485.0,
+          "rank": 150,
+          "town": "Salem"
+        },
+        {
+          "added": -2119188.0,
+          "latest": 218325147.0,
+          "pct": -0.96,
+          "prior": 220444335.0,
+          "rank": 151,
+          "town": "Hartland"
+        },
+        {
+          "added": -4326284.0,
+          "latest": 413115205.0,
+          "pct": -1.04,
+          "prior": 417441489.0,
+          "rank": 152,
+          "town": "North Canaan"
+        },
+        {
+          "added": -8122609.0,
+          "latest": 769366323.0,
+          "pct": -1.04,
+          "prior": 777488932.0,
+          "rank": 153,
+          "town": "Durham"
+        },
+        {
+          "added": -17484603.0,
+          "latest": 1606116801.0,
+          "pct": -1.08,
+          "prior": 1623601404.0,
+          "rank": 154,
+          "town": "Colchester"
+        },
+        {
+          "added": -6450971.0,
+          "latest": 587509914.0,
+          "pct": -1.09,
+          "prior": 593960885.0,
+          "rank": 155,
+          "town": "Columbia"
+        },
+        {
+          "added": -13901556.0,
+          "latest": 1250582996.0,
+          "pct": -1.1,
+          "prior": 1264484552.0,
+          "rank": 156,
+          "town": "East Hampton"
+        },
+        {
+          "added": -6556568.0,
+          "latest": 522096970.0,
+          "pct": -1.24,
+          "prior": 528653538.0,
+          "rank": 157,
+          "town": "Middlefield"
+        },
+        {
+          "added": -64899297.0,
+          "latest": 4925870832.0,
+          "pct": -1.3,
+          "prior": 4990770129.0,
+          "rank": 158,
+          "town": "Manchester"
+        },
+        {
+          "added": -3014850.0,
+          "latest": 216269060.0,
+          "pct": -1.37,
+          "prior": 219283910.0,
+          "rank": 159,
+          "town": "Hampton"
+        },
+        {
+          "added": -8261090.0,
+          "latest": 561251970.0,
+          "pct": -1.45,
+          "prior": 569513060.0,
+          "rank": 160,
+          "town": "Deep River"
+        },
+        {
+          "added": -14369522.0,
+          "latest": 975583304.0,
+          "pct": -1.45,
+          "prior": 989952826.0,
+          "rank": 161,
+          "town": "Somers"
+        },
+        {
+          "added": -55464952.0,
+          "latest": 3588660460.0,
+          "pct": -1.52,
+          "prior": 3644125412.0,
+          "rank": 162,
+          "town": "East Hartford"
+        },
+        {
+          "added": -9875417.0,
+          "latest": 629905136.0,
+          "pct": -1.54,
+          "prior": 639780553.0,
+          "rank": 163,
+          "town": "Preston"
+        },
+        {
+          "added": -3893783.0,
+          "latest": 230407268.0,
+          "pct": -1.66,
+          "prior": 234301051.0,
+          "rank": 164,
+          "town": "Eastford"
+        },
+        {
+          "added": -77660283.0,
+          "latest": 4441604871.0,
+          "pct": -1.72,
+          "prior": 4519265154.0,
+          "rank": 165,
+          "town": "Waterford"
+        },
+        {
+          "added": -6136268.0,
+          "latest": 337813677.0,
+          "pct": -1.78,
+          "prior": 343949945.0,
+          "rank": 166,
+          "town": "Bozrah"
+        },
+        {
+          "added": -6987970.0,
+          "latest": 355192169.0,
+          "pct": -1.93,
+          "prior": 362180139.0,
+          "rank": 167,
+          "town": "Sterling"
+        },
+        {
+          "added": -5353680.0,
+          "latest": 246241010.0,
+          "pct": -2.13,
+          "prior": 251594690.0,
+          "rank": 168,
+          "town": "Chaplin"
+        },
+        {
+          "added": -15343303.0,
+          "latest": 662484750.0,
+          "pct": -2.26,
+          "prior": 677828053.0,
+          "rank": 169,
+          "town": "Thomaston"
+        },
+        {
+          "added": -286940658.0,
+          "latest": 1878279578.0,
+          "pct": -13.25,
+          "prior": 2165220236.0,
+          "rank": 170,
+          "town": "Killingly"
+        }
+      ]
+    },
+    {
       "answer_text": "Connecticut's average temperature ran +1.0\u00b0F from its 1991-2020 normal over the 30 days ending 2026-10-22 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
       "answer_values": {
         "date": "2026-10-22",
@@ -11952,7 +13509,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-10-24T11:56:57+00:00",
+      "revalidated_at": "2026-10-24T15:45:06+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -14838,7 +16395,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-10-24T11:56:57+00:00",
+      "revalidated_at": "2026-10-24T15:45:06+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -15746,7 +17303,7 @@
       "indicator": "household_income",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-10-24T11:56:57+00:00",
+      "revalidated_at": "2026-10-24T15:45:06+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -19405,7 +20962,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-10-24T11:56:57+00:00",
+      "revalidated_at": "2026-10-24T15:45:06+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -20313,7 +21870,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-10-24T11:56:57+00:00",
+      "revalidated_at": "2026-10-24T15:45:06+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -21221,7 +22778,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-10-24T11:56:57+00:00",
+      "revalidated_at": "2026-10-24T15:45:06+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -24701,5 +26258,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-10-23T17:09:34+00:00"
+  "generated_at": "2026-10-24T15:44:58+00:00"
 }
