@@ -1,8 +1,8 @@
 {
-  "answer_text": "Connecticut's average temperature ran +1.1\u00b0F from its 1991-2020 normal over the 30 days ending 2026-10-25 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+  "answer_text": "Connecticut's average temperature ran +1.2\u00b0F from its 1991-2020 normal over the 30 days ending 2026-10-25 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
   "answer_values": {
     "date": "2026-10-25",
-    "value": 1.1
+    "value": 1.2
   },
   "cache": false,
   "chart": {
@@ -178,11 +178,6 @@
               "date": "2026-10-23",
               "series": "Bradley Intl",
               "value": -3.5
-            },
-            {
-              "date": "2026-10-24",
-              "series": "Bradley Intl",
-              "value": -4.5
             },
             {
               "date": "2026-10-25",
@@ -467,15 +462,15 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-10-26T10:09:01+00:00",
+  "generated_at": "2026-10-26T16:48:17+00:00",
   "headline": {
-    "id": "0f9e2c0e0633",
-    "published": "Mon, 26 Oct 2026 09:00:57 +0000",
-    "published_sort": 1793005257,
+    "id": "3e2d466bfc9d",
+    "published": "Mon, 26 Oct 2026 14:21:09 +0000",
+    "published_sort": 1793024469,
     "source": "NYT U.S.",
     "stream": "national",
-    "title": "Bridges Still Destroyed Years After Hurricane",
-    "url": "https://www.nytimes.com/video/us/100000011153947/north-carolina-bridges-destroyed-hurricane-helene.html"
+    "title": "The Storm Wrecked Their Bridges. \u2018All That Red Tape\u2019 Left Them Stranded.",
+    "url": "https://www.nytimes.com/2026/10/26/us/north-carolina-hurricane-helene-bridges.html"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",
