@@ -1,9 +1,9 @@
 {
   "cards": [
     {
-      "answer_text": "Connecticut's average temperature ran +1.2\u00b0F from its 1991-2020 normal over the 30 days ending 2026-10-25 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+      "answer_text": "Connecticut's average temperature ran +1.2\u00b0F from its 1991-2020 normal over the 30 days ending 2026-10-26 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
       "answer_values": {
-        "date": "2026-10-25",
+        "date": "2026-10-26",
         "value": 1.2
       },
       "cache": false,
@@ -41,11 +41,6 @@
           {
             "data": {
               "values": [
-                {
-                  "date": "2026-09-26",
-                  "series": "Bradley Intl",
-                  "value": -1.5
-                },
                 {
                   "date": "2026-09-27",
                   "series": "Bradley Intl",
@@ -182,14 +177,14 @@
                   "value": -3.5
                 },
                 {
+                  "date": "2026-10-24",
+                  "series": "Bradley Intl",
+                  "value": -4.5
+                },
+                {
                   "date": "2026-10-25",
                   "series": "Bradley Intl",
                   "value": -2.5
-                },
-                {
-                  "date": "2026-09-26",
-                  "series": "Danbury",
-                  "value": -1.5
                 },
                 {
                   "date": "2026-09-27",
@@ -464,15 +459,15 @@
       "citations": [
         "https://data.rcc-acis.org/StnData"
       ],
-      "generated_at": "2026-10-26T16:48:17+00:00",
+      "generated_at": "2026-10-27T00:43:31+00:00",
       "headline": {
-        "id": "3e2d466bfc9d",
-        "published": "Mon, 26 Oct 2026 14:21:09 +0000",
-        "published_sort": 1793024469,
-        "source": "NYT U.S.",
+        "id": "f984d90c5551",
+        "published": "Mon, 26 Oct 2026 05:00:00 -0400",
+        "published_sort": 1793005200,
+        "source": "NPR",
         "stream": "national",
-        "title": "The Storm Wrecked Their Bridges. \u2018All That Red Tape\u2019 Left Them Stranded.",
-        "url": "https://www.nytimes.com/2026/10/26/us/north-carolina-hurricane-helene-bridges.html"
+        "title": "How AI is transforming hurricane forecasts",
+        "url": "https://www.npr.org/2026/10/26/nx-s1-6012820/ai-hurricane-forecast-google-deepmind-isaias"
       },
       "id": "0785479c5e31",
       "indicator": "weather_anomaly",
@@ -13504,7 +13499,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-10-26T21:28:35+00:00",
+      "revalidated_at": "2026-10-27T00:43:34+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -16390,7 +16385,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-10-26T21:28:35+00:00",
+      "revalidated_at": "2026-10-27T00:43:34+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -17298,7 +17293,7 @@
       "indicator": "household_income",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-10-26T21:28:35+00:00",
+      "revalidated_at": "2026-10-27T00:43:34+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -20957,7 +20952,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-10-26T21:28:35+00:00",
+      "revalidated_at": "2026-10-27T00:43:34+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -21865,7 +21860,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-10-26T21:28:35+00:00",
+      "revalidated_at": "2026-10-27T00:43:34+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -22773,7 +22768,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2024: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-10-26T21:28:35+00:00",
+      "revalidated_at": "2026-10-27T00:43:34+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -26253,5 +26248,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-10-26T16:48:17+00:00"
+  "generated_at": "2026-10-27T00:43:31+00:00"
 }
