@@ -131,7 +131,9 @@ const trim=spec=>{
   if(spec.title) delete spec.title;
   if(spec.subtitle) delete spec.subtitle;
   const kill=enc=>{ if(!enc) return;
-    ["x","y"].forEach(k=>{ if(enc[k]&&enc[k].axis) delete enc[k].axis.title; }); };
+    ["x","y"].forEach(k=>{ if(!enc[k]) return;
+      delete enc[k].title;
+      if(enc[k].axis) delete enc[k].axis.title; }); };
   kill(spec.encoding);
   (spec.layer||[]).forEach(l=>{ kill(l.encoding); if(l.title) delete l.title; });
   return spec;
