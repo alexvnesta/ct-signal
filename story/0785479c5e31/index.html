@@ -130,10 +130,13 @@ const trim=spec=>{
   if(!narrow) return spec;
   if(spec.title) delete spec.title;
   if(spec.subtitle) delete spec.subtitle;
+  // null, not delete: a missing title means "default to the field name"
+  // in Vega-Lite — deleting produced axes labelled "state" and "value".
   const kill=enc=>{ if(!enc) return;
     ["x","y"].forEach(k=>{ if(!enc[k]) return;
-      delete enc[k].title;
-      if(enc[k].axis) delete enc[k].axis.title; }); };
+      enc[k].title = null;
+      enc[k].axis = enc[k].axis || {};
+      enc[k].axis.title = null; }); };
   kill(spec.encoding);
   (spec.layer||[]).forEach(l=>{ kill(l.encoding); if(l.title) delete l.title; });
   return spec;
