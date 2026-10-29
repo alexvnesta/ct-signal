@@ -303,6 +303,26 @@ class TestTriggerQuality(unittest.TestCase):
         ids = {p["indicator_id"] for p in proposals}
         self.assertNotIn("prime_age_participation", ids)
 
+    def test_political_heat_does_not_open_the_weather_card(self):
+        """'Heat' in a Senate-race story once minted the weather card.
+        A metaphor is not a weather receipt; 'heat wave' still is."""
+        from ctsignal import questions as _q
+        cat = _q.load_catalog()
+        political = {"id": "h-heat", "title": "In Michigan, El-Sayed Faces "
+                     "Heat From Former Primary Rival as Election Nears",
+                     "url": "", "source": "NYT U.S.",
+                     "published": "2026-10-28", "published_sort": 0}
+        ids = {p["indicator_id"] for p in
+               _q.propose_from_catalog(political, cat, "stackup")}
+        self.assertNotIn("weather_anomaly", ids)
+
+        weather = {"id": "h-hw", "title": "Heat wave grips Connecticut",
+                   "url": "", "source": "NBC Connecticut",
+                   "published": "2026-10-28", "published_sort": 0}
+        ids = {p["indicator_id"] for p in
+               _q.propose_from_catalog(weather, cat, "stackup")}
+        self.assertIn("weather_anomaly", ids)
+
     def test_migration_promotion_respects_the_bar(self):
         """The hiring-editor headline must not promote the hires card."""
         from ctsignal import cards as _cards

@@ -228,9 +228,10 @@ def balance_by_topic(new_cards: list[dict]) -> list[dict]:
     best: dict[tuple, dict] = {}
     for card in new_cards:
         key = (card["topic"], card.get("indicator"))
-        score = card["headline"].get("published_sort") or 0
+        score = (card.get("headline") or {}).get("published_sort") or 0
         current = best.get(key)
-        if current is None or score > (current["headline"].get("published_sort") or 0):
+        if current is None or score > ((current.get("headline") or {})
+                                      .get("published_sort") or 0):
             best[key] = card
     kept = list(best.values())
     kept_ids = {c["id"] for c in kept}
@@ -388,7 +389,7 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
             old_date = (card.get("answer_values") or {}).get("date")
             if not new_date or new_date <= old_date:
                 continue
-            proposal = {"headline": card["headline"],
+            proposal = {"headline": card.get("headline"),
                         "question_override": card["question"],
                         "indicator_id": ind["id"]}
             new = cards.from_national(ind, proposal, res)
@@ -447,7 +448,7 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
                 trend_rows = datacommons.trend(ind)
             except Exception:
                 trend_rows = None
-        proposal = {"headline": card["headline"],
+        proposal = {"headline": card.get("headline"),
                     "question_override": card["question"],
                     "indicator_id": ind["id"]}
         new = cards.from_stackup(ind, proposal, result, trend_rows=trend_rows)

@@ -464,13 +464,13 @@
   ],
   "generated_at": "2026-10-29T08:47:01+00:00",
   "headline": {
-    "id": "f96093325140",
-    "published": "Thu, 29 Oct 2026 05:21:51 +0000",
-    "published_sort": 1793251311,
-    "source": "NYT U.S.",
+    "id": "f984d90c5551",
+    "published": "Mon, 26 Oct 2026 10:08:57 +0000",
+    "published_sort": 1793005200,
+    "source": "NPR",
     "stream": "national",
-    "title": "In Michigan, El-Sayed Faces Heat From Former Primary Rival as Election Nears",
-    "url": "https://www.nytimes.com/2026/10/28/us/politics/stevens-el-sayed-senate-democrats-michigan.html"
+    "title": "How AI is transforming hurricane forecasts",
+    "url": "https://www.npr.org/2026/10/26/nx-s1-6012820/ai-hurricane-forecast-google-deepmind-isaias"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",
