@@ -13,20 +13,20 @@
     "background": "transparent",
     "config": {
       "axis": {
-        "domainColor": "#26313d",
-        "gridColor": "#26313d",
-        "labelColor": "#9fb0bf",
-        "tickColor": "#26313d",
-        "titleColor": "#9fb0bf"
+        "domainColor": "#b8b2a6",
+        "gridColor": "#e4dfd3",
+        "labelColor": "#4c5a68",
+        "tickColor": "#b8b2a6",
+        "titleColor": "#4c5a68"
       },
       "legend": {
-        "labelColor": "#9fb0bf",
+        "labelColor": "#4c5a68",
         "symbolStrokeWidth": 0,
-        "titleColor": "#9fb0bf"
+        "titleColor": "#4c5a68"
       },
       "title": {
-        "color": "#eef2f5",
-        "subtitleColor": "#9fb0bf"
+        "color": "#1c2733",
+        "subtitleColor": "#66717e"
       },
       "view": {
         "continuousHeight": 300,
@@ -1595,7 +1595,7 @@
                 "United States"
               ],
               "range": [
-                "#f2a65a"
+                "#d9772b"
               ]
             },
             "type": "nominal"
@@ -1619,7 +1619,7 @@
           ],
           "x": {
             "axis": {
-              "domainColor": "#28394a",
+              "domainColor": "#c9c3b6",
               "format": "%Y",
               "grid": false,
               "tickCount": 6
@@ -1662,7 +1662,7 @@
                 "United States"
               ],
               "range": [
-                "#f2a65a"
+                "#d9772b"
               ]
             },
             "type": "nominal"
@@ -1703,10 +1703,18 @@
   "citations": [
     "https://fred.stlouisfed.org/series/JTSQUR"
   ],
-  "generated_at": "2026-10-05T14:54:08+00:00",
+  "generated_at": "2026-10-29T15:55:22+00:00",
+  "headline": {
+    "id": "258487d25932",
+    "published": "Thu, 29 Oct 2026 15:13:58 GMT",
+    "published_sort": 1793286838,
+    "source": "Google News (CT)",
+    "stream": "ct",
+    "title": "Connecticut high school football coach quits mid-game after \u2018confrontational exchanges\u2019 with players - New York Post",
+    "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNVHZHWjFpeUZySk5BaUNXUEQzRDJyVDFyLTBxbFE4LUVJSGpjMHE5Rm9EdUpVVnhsNmhrTGpSQk5PRUF2VW5fVkRLNXRoVmQxMkotQllDT3lYd3pBRnVDZEF2em5yMlI3UDlNdk9NNmFjUUlldllOSUphOVRHUmdIc1FuSnFSSW45SFBsLWd5SGx2SWg0dkFUOEJFV2U5am5DMF9Wa1hmX25sYWUzTlZ2WXRtb1dZcTZybGhubHVHbw?oc=5"
+  },
   "id": "d5873d2851dd",
   "indicator": "quits_rate",
-  "origin": "data desk",
   "query": "FRED fredgraph.csv id=JTSQUR; agency of record: US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey",
   "question": "Are workers still confident enough to quit?",
   "series_freq": "monthly",
