@@ -892,6 +892,7 @@
   "headline": null,
   "id": "916a9da3173f",
   "indicator": "household_income",
+  "origin": "data desk",
   "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
   "question": "What do Connecticut households earn compared with the rest of the country?",
   "revalidated_at": "2026-10-29T13:18:14+00:00",

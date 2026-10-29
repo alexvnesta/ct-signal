@@ -407,6 +407,8 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
                 continue
             new["generated_at"] = card["generated_at"]
             new["revalidated_at"] = now.isoformat(timespec="seconds")
+            if card.get("origin") == "data desk":
+                new["origin"] = "data desk"   # filing survives a refresh
             cards_by_id[cid] = new
             touched += 1
             print(f"  ~ revalidated [national/{card['topic']}] "
@@ -456,6 +458,8 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
             continue
         new["generated_at"] = card["generated_at"]   # same story, newer number
         new["revalidated_at"] = now.isoformat(timespec="seconds")
+        if card.get("origin") == "data desk":
+            new["origin"] = "data desk"   # filing survives a refresh
         cards_by_id[cid] = new
         touched += 1
         print(f"  ~ revalidated [{card['stream']}/{card['topic']}] "

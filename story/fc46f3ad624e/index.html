@@ -122,11 +122,25 @@ const tidy=root=>{const svg=root&&root.querySelector("svg");if(!svg)return;
 const views=[];let rt;
 window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{
   views.forEach(v=>{try{v.resize().run()}catch(e){}});},150);});
+// A chart title printed inside an SVG cannot wrap; on a phone it clips
+// mid-word instead. Strip titles (the card's own heading already names the
+// subject, and the figcaption carries the takeaway) while keeping axes.
+const narrow=window.innerWidth<720;
+const trim=spec=>{
+  if(!narrow) return spec;
+  if(spec.title) delete spec.title;
+  if(spec.subtitle) delete spec.subtitle;
+  const kill=enc=>{ if(!enc) return;
+    ["x","y"].forEach(k=>{ if(enc[k]&&enc[k].axis) delete enc[k].axis.title; }); };
+  kill(spec.encoding);
+  (spec.layer||[]).forEach(l=>{ kill(l.encoding); if(l.title) delete l.title; });
+  return spec;
+};
 const go=()=>{
 document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementById(
   s.dataset.target); if(!el) return; const holder=el.parentElement,
-  label=el.getAttribute("aria-label"); try{ vegaEmbed(el, JSON.parse(
-  s.textContent), {actions:false,renderer:"svg",
+  label=el.getAttribute("aria-label"); try{ vegaEmbed(el, trim(JSON.parse(
+  s.textContent)), {actions:false,renderer:"svg",
   config:{background:"transparent"}}).then(r=>{ views.push(r.view);
     const node=holder.querySelector(".vega-embed")||holder;
     node.setAttribute("role","img");node.setAttribute("aria-label",label);
