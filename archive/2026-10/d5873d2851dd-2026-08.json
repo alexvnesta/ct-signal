@@ -1703,15 +1703,15 @@
   "citations": [
     "https://fred.stlouisfed.org/series/JTSQUR"
   ],
-  "generated_at": "2026-10-29T15:55:22+00:00",
+  "generated_at": "2026-10-29T20:56:05+00:00",
   "headline": {
-    "id": "258487d25932",
-    "published": "Thu, 29 Oct 2026 15:13:58 GMT",
-    "published_sort": 1793286838,
-    "source": "Google News (CT)",
-    "stream": "ct",
-    "title": "Connecticut high school football coach quits mid-game after \u2018confrontational exchanges\u2019 with players - New York Post",
-    "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNVHZHWjFpeUZySk5BaUNXUEQzRDJyVDFyLTBxbFE4LUVJSGpjMHE5Rm9EdUpVVnhsNmhrTGpSQk5PRUF2VW5fVkRLNXRoVmQxMkotQllDT3lYd3pBRnVDZEF2em5yMlI3UDlNdk9NNmFjUUlldllOSUphOVRHUmdIc1FuSnFSSW45SFBsLWd5SGx2SWg0dkFUOEJFV2U5am5DMF9Wa1hmX25sYWUzTlZ2WXRtb1dZcTZybGhubHVHbw?oc=5"
+    "id": "36a654acabeb",
+    "published": "Thu, 29 Oct 2026 17:47:35 +0000",
+    "published_sort": 1793296055,
+    "source": "NYT U.S.",
+    "stream": "national",
+    "title": "California\u2019s High-Speed Rail Chief Quits Amid Questions About Spending",
+    "url": "https://www.nytimes.com/2026/10/29/us/choudri-resign-california-high-speed-rail.html"
   },
   "id": "d5873d2851dd",
   "indicator": "quits_rate",
