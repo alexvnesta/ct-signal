@@ -1,0 +1,482 @@
+{
+  "answer_text": "Connecticut's average temperature ran +1.2\u00b0F from its 1991-2020 normal over the 30 days ending 2026-10-28 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+  "answer_values": {
+    "date": "2026-10-28",
+    "value": 1.2
+  },
+  "cache": false,
+  "chart": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "autosize": {
+      "contains": "padding"
+    },
+    "background": "transparent",
+    "config": {
+      "axis": {
+        "domainColor": "#b8b2a6",
+        "gridColor": "#e4dfd3",
+        "labelColor": "#4c5a68",
+        "tickColor": "#b8b2a6",
+        "titleColor": "#4c5a68"
+      },
+      "legend": {
+        "labelColor": "#4c5a68",
+        "symbolStrokeWidth": 0,
+        "titleColor": "#4c5a68"
+      },
+      "title": {
+        "color": "#1c2733",
+        "subtitleColor": "#66717e"
+      },
+      "view": {
+        "continuousHeight": 300,
+        "continuousWidth": 300,
+        "strokeWidth": 0
+      }
+    },
+    "height": 200,
+    "layer": [
+      {
+        "data": {
+          "values": [
+            {
+              "date": "2026-09-29",
+              "series": "Bradley Intl",
+              "value": 3.0
+            },
+            {
+              "date": "2026-09-30",
+              "series": "Bradley Intl",
+              "value": 2.0
+            },
+            {
+              "date": "2026-10-01",
+              "series": "Bradley Intl",
+              "value": 7.0
+            },
+            {
+              "date": "2026-10-02",
+              "series": "Bradley Intl",
+              "value": 17.5
+            },
+            {
+              "date": "2026-10-03",
+              "series": "Bradley Intl",
+              "value": 3.0
+            },
+            {
+              "date": "2026-10-04",
+              "series": "Bradley Intl",
+              "value": -2.0
+            },
+            {
+              "date": "2026-10-05",
+              "series": "Bradley Intl",
+              "value": 1.0
+            },
+            {
+              "date": "2026-10-06",
+              "series": "Bradley Intl",
+              "value": -6.5
+            },
+            {
+              "date": "2026-10-07",
+              "series": "Bradley Intl",
+              "value": -5.0
+            },
+            {
+              "date": "2026-10-08",
+              "series": "Bradley Intl",
+              "value": 5.5
+            },
+            {
+              "date": "2026-10-09",
+              "series": "Bradley Intl",
+              "value": 1.5
+            },
+            {
+              "date": "2026-10-10",
+              "series": "Bradley Intl",
+              "value": -1.0
+            },
+            {
+              "date": "2026-10-11",
+              "series": "Bradley Intl",
+              "value": -4.5
+            },
+            {
+              "date": "2026-10-12",
+              "series": "Bradley Intl",
+              "value": 7.0
+            },
+            {
+              "date": "2026-10-13",
+              "series": "Bradley Intl",
+              "value": 5.5
+            },
+            {
+              "date": "2026-10-14",
+              "series": "Bradley Intl",
+              "value": 15.5
+            },
+            {
+              "date": "2026-10-15",
+              "series": "Bradley Intl",
+              "value": 1.5
+            },
+            {
+              "date": "2026-10-16",
+              "series": "Bradley Intl",
+              "value": 6.5
+            },
+            {
+              "date": "2026-10-17",
+              "series": "Bradley Intl",
+              "value": -8.5
+            },
+            {
+              "date": "2026-10-18",
+              "series": "Bradley Intl",
+              "value": -9.5
+            },
+            {
+              "date": "2026-10-19",
+              "series": "Bradley Intl",
+              "value": -3.5
+            },
+            {
+              "date": "2026-10-20",
+              "series": "Bradley Intl",
+              "value": 1.0
+            },
+            {
+              "date": "2026-10-21",
+              "series": "Bradley Intl",
+              "value": 1.5
+            },
+            {
+              "date": "2026-10-22",
+              "series": "Bradley Intl",
+              "value": 3.0
+            },
+            {
+              "date": "2026-10-23",
+              "series": "Bradley Intl",
+              "value": -3.5
+            },
+            {
+              "date": "2026-10-24",
+              "series": "Bradley Intl",
+              "value": -4.5
+            },
+            {
+              "date": "2026-10-25",
+              "series": "Bradley Intl",
+              "value": -2.5
+            },
+            {
+              "date": "2026-10-26",
+              "series": "Bradley Intl",
+              "value": 2.5
+            },
+            {
+              "date": "2026-10-27",
+              "series": "Bradley Intl",
+              "value": -1.5
+            },
+            {
+              "date": "2026-09-29",
+              "series": "Danbury",
+              "value": 2.5
+            },
+            {
+              "date": "2026-09-30",
+              "series": "Danbury",
+              "value": 5.5
+            },
+            {
+              "date": "2026-10-01",
+              "series": "Danbury",
+              "value": 7.5
+            },
+            {
+              "date": "2026-10-02",
+              "series": "Danbury",
+              "value": 15.5
+            },
+            {
+              "date": "2026-10-03",
+              "series": "Danbury",
+              "value": 3.0
+            },
+            {
+              "date": "2026-10-04",
+              "series": "Danbury",
+              "value": -1.5
+            },
+            {
+              "date": "2026-10-05",
+              "series": "Danbury",
+              "value": -1.0
+            },
+            {
+              "date": "2026-10-06",
+              "series": "Danbury",
+              "value": -7.5
+            },
+            {
+              "date": "2026-10-07",
+              "series": "Danbury",
+              "value": -6.0
+            },
+            {
+              "date": "2026-10-08",
+              "series": "Danbury",
+              "value": 3.0
+            },
+            {
+              "date": "2026-10-09",
+              "series": "Danbury",
+              "value": -0.5
+            },
+            {
+              "date": "2026-10-10",
+              "series": "Danbury",
+              "value": -1.0
+            },
+            {
+              "date": "2026-10-11",
+              "series": "Danbury",
+              "value": -4.0
+            },
+            {
+              "date": "2026-10-12",
+              "series": "Danbury",
+              "value": 8.0
+            },
+            {
+              "date": "2026-10-13",
+              "series": "Danbury",
+              "value": 7.0
+            },
+            {
+              "date": "2026-10-14",
+              "series": "Danbury",
+              "value": 14.5
+            },
+            {
+              "date": "2026-10-15",
+              "series": "Danbury",
+              "value": 4.0
+            },
+            {
+              "date": "2026-10-16",
+              "series": "Danbury",
+              "value": 8.0
+            },
+            {
+              "date": "2026-10-17",
+              "series": "Danbury",
+              "value": -7.0
+            },
+            {
+              "date": "2026-10-18",
+              "series": "Danbury",
+              "value": -7.0
+            },
+            {
+              "date": "2026-10-19",
+              "series": "Danbury",
+              "value": -1.5
+            },
+            {
+              "date": "2026-10-20",
+              "series": "Danbury",
+              "value": 2.0
+            },
+            {
+              "date": "2026-10-21",
+              "series": "Danbury",
+              "value": 2.5
+            },
+            {
+              "date": "2026-10-22",
+              "series": "Danbury",
+              "value": 4.0
+            },
+            {
+              "date": "2026-10-23",
+              "series": "Danbury",
+              "value": -2.0
+            },
+            {
+              "date": "2026-10-24",
+              "series": "Danbury",
+              "value": -3.0
+            },
+            {
+              "date": "2026-10-25",
+              "series": "Danbury",
+              "value": -1.0
+            },
+            {
+              "date": "2026-10-26",
+              "series": "Danbury",
+              "value": 1.5
+            },
+            {
+              "date": "2026-10-27",
+              "series": "Danbury",
+              "value": -0.5
+            }
+          ]
+        },
+        "encoding": {
+          "color": {
+            "field": "series",
+            "legend": null,
+            "scale": {
+              "domain": [
+                "United States",
+                "Bradley Intl",
+                "Danbury"
+              ],
+              "range": [
+                "#d9772b",
+                "#b9b3a6",
+                "#b9b3a6"
+              ]
+            },
+            "type": "nominal"
+          },
+          "tooltip": [
+            {
+              "field": "series",
+              "type": "nominal"
+            },
+            {
+              "field": "date",
+              "format": "%Y-%m",
+              "title": "Month",
+              "type": "temporal"
+            },
+            {
+              "field": "value",
+              "format": ".1f",
+              "type": "quantitative"
+            }
+          ],
+          "x": {
+            "axis": {
+              "domainColor": "#c9c3b6",
+              "format": "%Y",
+              "grid": false,
+              "tickCount": 6
+            },
+            "field": "date",
+            "title": null,
+            "type": "temporal"
+          },
+          "y": {
+            "axis": {
+              "format": ",.0f"
+            },
+            "field": "value",
+            "title": "Connecticut temperature anomaly (30 days) (\u00b0F)",
+            "type": "quantitative"
+          }
+        },
+        "mark": {
+          "point": true,
+          "type": "line"
+        }
+      },
+      {
+        "data": {
+          "values": [
+            {
+              "date": "2026-10-27",
+              "series": "Bradley Intl",
+              "short": "BR",
+              "value": -1.5
+            },
+            {
+              "date": "2026-10-27",
+              "series": "Danbury",
+              "short": "DA",
+              "value": -0.5
+            }
+          ]
+        },
+        "encoding": {
+          "color": {
+            "field": "series",
+            "legend": null,
+            "scale": {
+              "domain": [
+                "United States",
+                "Bradley Intl",
+                "Danbury"
+              ],
+              "range": [
+                "#d9772b",
+                "#b9b3a6",
+                "#b9b3a6"
+              ]
+            },
+            "type": "nominal"
+          },
+          "text": {
+            "field": "short",
+            "type": "nominal"
+          },
+          "x": {
+            "field": "date",
+            "type": "temporal"
+          },
+          "y": {
+            "field": "value",
+            "type": "quantitative"
+          }
+        },
+        "mark": {
+          "align": "left",
+          "dx": 8,
+          "dy": -8,
+          "fontSize": 12,
+          "fontWeight": 700,
+          "type": "text"
+        }
+      }
+    ],
+    "padding": {
+      "right": 64
+    },
+    "title": {
+      "text": "Connecticut temperature anomaly (30 days)"
+    },
+    "width": "container"
+  },
+  "chart2": null,
+  "chart_kind": "trend",
+  "citations": [
+    "https://data.rcc-acis.org/StnData"
+  ],
+  "generated_at": "2026-10-29T08:47:01+00:00",
+  "headline": {
+    "id": "f96093325140",
+    "published": "Thu, 29 Oct 2026 05:21:51 +0000",
+    "published_sort": 1793251311,
+    "source": "NYT U.S.",
+    "stream": "national",
+    "title": "In Michigan, El-Sayed Faces Heat From Former Primary Rival as Election Nears",
+    "url": "https://www.nytimes.com/2026/10/28/us/politics/stevens-el-sayed-senate-democrats-michigan.html"
+  },
+  "id": "0785479c5e31",
+  "indicator": "weather_anomaly",
+  "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
+  "question": "Is Connecticut running warmer or colder than normal?",
+  "series_freq": "monthly",
+  "stream": "national",
+  "topic": "weather"
+}
