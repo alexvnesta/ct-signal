@@ -181,7 +181,8 @@ national:
     unit: percent
     suffix: "%"
     extreme: min
-    keywords: [quitting, quits, walkaway, job switching, labor market, resignation]
+    keywords: [quitting, quit their jobs, quits rate, job switching,
+               walkaway, labor market, quits, resignation]
     question: Are workers still confident enough to quit?
     answer: "Only {value} of US workers quit their jobs in {date} — {extreme}."
     validated: "live series probe 2026-10-05"

@@ -323,6 +323,35 @@ class TestTriggerQuality(unittest.TestCase):
                _q.propose_from_catalog(weather, cat, "stackup")}
         self.assertIn("weather_anomaly", ids)
 
+    def test_single_person_quits_does_not_open_the_quits_card(self):
+        """A rail chief 'Quits' is a person leaving a job, not a population
+        quits rate; the same ambiguity once promoted the card."""
+        from ctsignal import questions as _q
+        cat = _q.load_catalog()
+        person = {"id": "h-q", "title": "California's High-Speed Rail Chief "
+                  "Quits Amid Questions About Spending", "url": "",
+                  "source": "NYT U.S.", "published": "2026-10-29",
+                  "published_sort": 0}
+        ids = {p["indicator_id"] for p in
+               _q.propose_from_catalog(person, cat, "stackup")}
+        self.assertNotIn("quits_rate", ids)
+
+        coach = {"id": "h-c", "title": "Connecticut high school football "
+                 "coach quits mid-game after confrontation", "url": "",
+                 "source": "Google News (CT)", "published": "2026-10-29",
+                 "published_sort": 0}
+        ids = {p["indicator_id"] for p in
+               _q.propose_from_catalog(coach, cat, "stackup")}
+        self.assertNotIn("quits_rate", ids)
+
+        population = {"id": "h-p", "title": "Americans quit their jobs at "
+                      "the lowest rate on record", "url": "",
+                      "source": "NPR", "published": "2026-10-29",
+                      "published_sort": 0}
+        ids = {p["indicator_id"] for p in
+               _q.propose_from_catalog(population, cat, "stackup")}
+        self.assertIn("quits_rate", ids)
+
     def test_migration_promotion_respects_the_bar(self):
         """The hiring-editor headline must not promote the hires card."""
         from ctsignal import cards as _cards

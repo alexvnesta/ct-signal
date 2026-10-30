@@ -1706,17 +1706,9 @@
         "https://fred.stlouisfed.org/series/JTSQUR"
       ],
       "generated_at": "2026-10-29T20:56:05+00:00",
-      "headline": {
-        "id": "36a654acabeb",
-        "published": "Thu, 29 Oct 2026 17:47:35 +0000",
-        "published_sort": 1793296055,
-        "source": "NYT U.S.",
-        "stream": "national",
-        "title": "California\u2019s High-Speed Rail Chief Quits Amid Questions About Spending",
-        "url": "https://www.nytimes.com/2026/10/29/us/choudri-resign-california-high-speed-rail.html"
-      },
       "id": "d5873d2851dd",
       "indicator": "quits_rate",
+      "origin": "data desk",
       "query": "FRED fredgraph.csv id=JTSQUR; agency of record: US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey",
       "question": "Are workers still confident enough to quit?",
       "series_freq": "monthly",
@@ -17206,7 +17198,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-10-30T06:31:02+00:00",
+      "revalidated_at": "2026-10-30T13:13:16+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -20084,7 +20076,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-10-30T06:31:02+00:00",
+      "revalidated_at": "2026-10-30T13:13:16+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -20985,7 +20977,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-10-30T06:31:02+00:00",
+      "revalidated_at": "2026-10-30T13:13:16+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -24644,7 +24636,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-10-30T06:31:02+00:00",
+      "revalidated_at": "2026-10-30T13:13:16+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -25552,7 +25544,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-10-30T06:31:02+00:00",
+      "revalidated_at": "2026-10-30T13:13:16+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -26460,7 +26452,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-10-30T06:31:02+00:00",
+      "revalidated_at": "2026-10-30T13:13:16+00:00",
       "stream": "stackup",
       "topic": "housing"
     },

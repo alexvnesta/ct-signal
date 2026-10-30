@@ -1704,17 +1704,9 @@
     "https://fred.stlouisfed.org/series/JTSQUR"
   ],
   "generated_at": "2026-10-29T20:56:05+00:00",
-  "headline": {
-    "id": "36a654acabeb",
-    "published": "Thu, 29 Oct 2026 17:47:35 +0000",
-    "published_sort": 1793296055,
-    "source": "NYT U.S.",
-    "stream": "national",
-    "title": "California\u2019s High-Speed Rail Chief Quits Amid Questions About Spending",
-    "url": "https://www.nytimes.com/2026/10/29/us/choudri-resign-california-high-speed-rail.html"
-  },
   "id": "d5873d2851dd",
   "indicator": "quits_rate",
+  "origin": "data desk",
   "query": "FRED fredgraph.csv id=JTSQUR; agency of record: US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey",
   "question": "Are workers still confident enough to quit?",
   "series_freq": "monthly",

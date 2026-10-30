@@ -140,7 +140,7 @@ def _keyword_hits(title: str, keywords: list[str]) -> list[str]:
 
 
 WEAK_KEYWORDS = {"workforce", "labor market", "labor force", "hiring",
-                 "labor supply", "heat"}
+                 "labor supply", "heat", "quits", "resignation"}
 
 
 def _strong_enough(hits: list[str]) -> bool:
