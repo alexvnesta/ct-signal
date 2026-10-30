@@ -895,7 +895,7 @@
   "origin": "data desk",
   "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
   "question": "What do Connecticut households earn compared with the rest of the country?",
-  "revalidated_at": "2026-10-29T20:56:09+00:00",
+  "revalidated_at": "2026-10-30T00:41:59+00:00",
   "stream": "stackup",
   "topic": "economy"
 }
