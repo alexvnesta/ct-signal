@@ -214,7 +214,8 @@ def _sources_body() -> str:
         _buckets = {}
         for _h in _recent:
             _t = _h["title"].lower()
-            if questions._keyword_hits(_t, _mapped):
+            if questions._strong_enough(
+                    questions._keyword_hits(_t, _mapped)):
                 continue
             for _name, _terms in (
                     ("politics & elections", ("trump", "senate", "election",

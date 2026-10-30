@@ -170,6 +170,10 @@ and the exact query →</a></div></article>"""
     # what public data can answer — but it reads everything, and says so.
     from . import questions as _q2
     by_ind = {c.get("indicator"): c["id"] for c in cards if c.get("indicator")}
+    _cat = _q2.load_catalog()
+    _ind_kw = {i["id"]: i.get("keywords") or []
+               for sec in ("stackup", "local", "national")
+               for i in _cat.get(sec, [])}
     wire_items = ""
     wire_rows: list[tuple] = []
     seen_titles: set[str] = set()
@@ -182,15 +186,21 @@ and the exact query →</a></div></article>"""
         if key in seen_titles:
             continue
         seen_titles.add(key)
-        if len(seen_titles) > 10:
-            break
+        # Don't stop at ten: a mapped headline further down the wire still
+        # earns the block; the display cap applies after mapped-first sort.
         age = ("new to the desk" if e.get("undated") else
                "just now" if e["age_h"] < 1 else
                f"{int(e['age_h'])}h ago" if e["age_h"] < 48 else
                f"{int(e['age_h'] // 24)}d ago")
+        # A "related data" badge is itself a receipt: the same bar that
+        # decides whether a headline may open a card decides whether the
+        # wire may advertise that card. The ledger's ingest-time hits are
+        # candidates, not proof — re-check them against today's keywords.
         ans = next((f' <a class="wireans" href="/story/{by_ind[i]}">'
                     f'related data</a>' for i in e.get("hits", [])
-                    if i in by_ind), "")
+                    if i in by_ind
+                    and _q2._strong_enough(_q2._keyword_hits(
+                        e["title"], _ind_kw.get(i, [])))), "")
         wire_items += (
             f'<li><a href="{_ESC(e["url"])}" rel="noopener">'
             f'{_ESC(e["title"])}</a>'
