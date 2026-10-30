@@ -6,6 +6,24 @@
   "items": [
     {
       "_tags": [
+        "housing"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 141318,
+          "url": "https://ctsignal.org/assets/story-517fafa716bc.png"
+        }
+      ],
+      "content_text": "The median Connecticut home is worth $423,900 (2025), the 18th-highest of 52 peers. Source: NPR \u2014 'Affordability? For who?' Voters decide between helping homeowners or public services",
+      "date_published": "2026-10-30T13:37:22+00:00",
+      "id": "https://ctsignal.org/story/517fafa716bc",
+      "image": "https://ctsignal.org/assets/story-517fafa716bc.png",
+      "title": "Are Connecticut homes expensive by national standards?",
+      "url": "https://ctsignal.org/story/517fafa716bc"
+    },
+    {
+      "_tags": [
         "economy"
       ],
       "attachments": [
@@ -291,24 +309,6 @@
       "image": "https://ctsignal.org/assets/story-0125297ea839.png",
       "title": "How expensive is renting in Connecticut compared to the rest of America?",
       "url": "https://ctsignal.org/story/0125297ea839"
-    },
-    {
-      "_tags": [
-        "housing"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 141318,
-          "url": "https://ctsignal.org/assets/story-517fafa716bc.png"
-        }
-      ],
-      "content_text": "The median Connecticut home is worth $423,900 (2025), the 18th-highest of 52 peers. Source: CT Examiner \u2014 Fazio Pitches \u2018Grand Bargain\u2019 to Lower Housing Costs, Preserve Local Control",
-      "date_published": "2026-10-05T20:28:06+00:00",
-      "id": "https://ctsignal.org/story/517fafa716bc",
-      "image": "https://ctsignal.org/assets/story-517fafa716bc.png",
-      "title": "Are Connecticut homes expensive by national standards?",
-      "url": "https://ctsignal.org/story/517fafa716bc"
     },
     {
       "_tags": [

@@ -888,21 +888,20 @@
   "citations": [
     "https://data.census.gov/table/ACSDT1Y2025.B25077?g=040XX00US$0400000"
   ],
-  "generated_at": "2026-10-05T20:28:06+00:00",
+  "generated_at": "2026-10-30T13:37:22+00:00",
   "headline": {
-    "id": "41f15ff1a997",
-    "published": "Mon, 05 Oct 2026 19:10:49 +0000",
-    "published_sort": 1791227449,
-    "source": "CT Examiner",
-    "stream": "ct",
-    "title": "Fazio Pitches \u2018Grand Bargain\u2019 to Lower Housing Costs, Preserve Local Control",
-    "url": "https://ctexaminer.com/2026/10/05/fazio-pitches-grand-bargain-to-lower-housing-costs-preserve-local-control/"
+    "id": "bc321a2dc3fb",
+    "published": "Fri, 30 Oct 2026 05:00:00 -0400",
+    "published_sort": 1793350800,
+    "source": "NPR",
+    "stream": "national",
+    "title": "'Affordability? For who?' Voters decide between helping homeowners or public services",
+    "url": "https://www.npr.org/2026/10/30/nx-s1-6018258/affordability-florida-amendment-3"
   },
   "id": "517fafa716bc",
   "indicator": "median_home_value",
   "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
   "question": "Are Connecticut homes expensive by national standards?",
-  "revalidated_at": "2026-10-30T13:13:16+00:00",
   "stream": "stackup",
   "topic": "housing"
 }
