@@ -280,6 +280,7 @@ class TestTriggerQuality(unittest.TestCase):
         self.assertFalse(_q._strong_enough(["workforce"]))
         self.assertFalse(_q._strong_enough(["hiring"]))
         self.assertFalse(_q._strong_enough(["labor market"]))
+        self.assertFalse(_q._strong_enough(["town council"]))
 
     def test_specific_phrase_alone_passes(self):
         from ctsignal import questions as _q
@@ -351,6 +352,27 @@ class TestTriggerQuality(unittest.TestCase):
         ids = {p["indicator_id"] for p in
                _q.propose_from_catalog(population, cat, "stackup")}
         self.assertIn("quits_rate", ids)
+
+    def test_generic_storm_does_not_open_the_weather_card(self):
+        """A remote Alaska storm story has no bearing on Connecticut's
+        30-day temperature anomaly; a storm that names CT's weather does."""
+        from ctsignal import questions as _q
+        cat = _q.load_catalog()
+        remote = {"id": "h-st", "title": "After last year's storm, this "
+                  "remote Alaska town is still picking up the pieces",
+                  "url": "", "source": "NYT U.S.", "published": "2026-10-30",
+                  "published_sort": 0}
+        ids = {p["indicator_id"] for p in
+               _q.propose_from_catalog(remote, cat, "stackup")}
+        self.assertNotIn("weather_anomaly", ids)
+
+        named = {"id": "h-st2", "title": "'Big' Storm To Impact CT's "
+                 "Weather: Here's What To Know - Patch", "url": "",
+                 "source": "Google News (CT)", "published": "2026-10-30",
+                 "published_sort": 0}
+        ids = {p["indicator_id"] for p in
+               _q.propose_from_catalog(named, cat, "local")}
+        self.assertIn("weather_anomaly", ids)
 
     def test_migration_promotion_respects_the_bar(self):
         """The hiring-editor headline must not promote the hires card."""

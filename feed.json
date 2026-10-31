@@ -6,6 +6,24 @@
   "items": [
     {
       "_tags": [
+        "weather"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 143805,
+          "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
+        }
+      ],
+      "content_text": "Connecticut's average temperature ran +1.4\u00b0F from its 1991-2020 normal over the 30 days ending 2026-10-30 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+      "date_published": "2026-10-31T13:12:52+00:00",
+      "id": "https://ctsignal.org/story/0785479c5e31",
+      "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
+      "title": "Is Connecticut running warmer or colder than normal?",
+      "url": "https://ctsignal.org/story/0785479c5e31"
+    },
+    {
+      "_tags": [
         "housing"
       ],
       "attachments": [
@@ -57,24 +75,6 @@
       "image": "https://ctsignal.org/assets/story-498e46c75cd7.png",
       "title": "Is Connecticut's job market loosening?",
       "url": "https://ctsignal.org/story/498e46c75cd7"
-    },
-    {
-      "_tags": [
-        "weather"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 143805,
-          "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
-        }
-      ],
-      "content_text": "Connecticut's average temperature ran +1.2\u00b0F from its 1991-2020 normal over the 30 days ending 2026-10-28 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: NPR \u2014 How AI is transforming hurricane forecasts",
-      "date_published": "2026-10-29T08:47:01+00:00",
-      "id": "https://ctsignal.org/story/0785479c5e31",
-      "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
-      "title": "Is Connecticut running warmer or colder than normal?",
-      "url": "https://ctsignal.org/story/0785479c5e31"
     },
     {
       "_tags": [

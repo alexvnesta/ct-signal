@@ -140,7 +140,8 @@ def _keyword_hits(title: str, keywords: list[str]) -> list[str]:
 
 
 WEAK_KEYWORDS = {"workforce", "labor market", "labor force", "hiring",
-                 "labor supply", "heat", "quits", "resignation"}
+                 "labor supply", "heat", "quits", "resignation",
+                 "town council", "storm", "forecast"}
 
 
 def _strong_enough(hits: list[str]) -> bool:
@@ -164,9 +165,11 @@ def propose_from_catalog(
     headline: dict, catalog: dict, stream: str
 ) -> list[dict]:
     pool = catalog.get("stackup" if stream == "stackup" else "local", [])
-    # national-series context cards answer national headlines too: one
-    # jobs-report day may open several honest questions at once
-    extra = catalog.get("national", []) if stream == "stackup" else []
+    # national-series cards answer headlines from either stream. Their
+    # questions can be Connecticut-specific (CT unemployment, CT weather),
+    # so a CT headline must be able to raise them — otherwise only a
+    # national wire story could ever open a CT question.
+    extra = catalog.get("national", [])
     proposals = []
     for pstream, items in ((stream, pool), ("national", extra)):
         for item in items:

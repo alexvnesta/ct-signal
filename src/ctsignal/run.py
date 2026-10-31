@@ -382,6 +382,34 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
         ind = by_id.get(card.get("indicator"))
         if not ind or card.get("stream") not in ("stackup", "national"):
             continue
+        if ind.get("answerer") == "acis_weather":
+            # ACIS has no fred (or Data Commons) series behind it: refresh it
+            # by its own answerer or the filing freezes. The headline (if any)
+            # is preserved — a trigger is not invented by a refresh.
+            res = acis.observations()
+            if not res:
+                continue
+            res["extreme"] = ("warmer than normal" if res["value"] >= 0
+                              else "cooler than normal")
+            new_date = res.get("date")
+            old_date = (card.get("answer_values") or {}).get("date")
+            if not new_date or new_date <= old_date:
+                continue
+            proposal = {"headline": card.get("headline"),
+                        "question_override": card["question"],
+                        "indicator_id": ind["id"]}
+            new = cards.from_national(ind, proposal, res)
+            if new["id"] != cid:
+                continue
+            new["generated_at"] = card["generated_at"]
+            new["revalidated_at"] = now.isoformat(timespec="seconds")
+            if card.get("origin") == "data desk":
+                new["origin"] = "data desk"
+            cards_by_id[cid] = new
+            touched += 1
+            print(f"  ~ revalidated [{card['stream']}/{card['topic']}] "
+                  f"{ind['id']}: {old_date} -> {new_date}")
+            continue
         if ind.get("fred"):
             res = fred.observations(
                 ind, fixture=config.FIXTURES_DIR / f"fred_{ind['id']}.csv")
