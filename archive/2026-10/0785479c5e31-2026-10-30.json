@@ -285,11 +285,6 @@
               "value": -1.5
             },
             {
-              "date": "2026-10-20",
-              "series": "Danbury",
-              "value": 2.0
-            },
-            {
               "date": "2026-10-21",
               "series": "Danbury",
               "value": 2.5
@@ -472,10 +467,18 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-10-31T13:12:52+00:00",
+  "generated_at": "2026-10-31T18:48:03+00:00",
+  "headline": {
+    "id": "0ca48fb9d2af",
+    "published": "Thu, 29 Oct 2026 10:53:06 GMT",
+    "published_sort": 1793271186,
+    "source": "Google News (CT)",
+    "stream": "ct",
+    "title": "Good Morning Connecticut team makes snow predictions! - WTNH.com",
+    "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQb1BjYzR4UjVGV1Z4VFBpMkdQVVktM1ZVN1BfYlY5QWpyNWdJS2pFZVlXdnRMTW42TnNGSVk2QUhPSG9tc012bDhJY2tZNVpuT1BqWHVRREMzbXZYeGh3VkVvM280MGk2V2o4SVp3Qmx4bU5iTDJnQXpRaWJNNi1SVEFIRXJYTnQxNHhwQ0ROZXRMMTQ?oc=5"
+  },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",
-  "origin": "data desk",
   "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
   "question": "Is Connecticut running warmer or colder than normal?",
   "series_freq": "monthly",

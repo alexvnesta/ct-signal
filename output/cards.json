@@ -287,11 +287,6 @@
                   "value": -1.5
                 },
                 {
-                  "date": "2026-10-20",
-                  "series": "Danbury",
-                  "value": 2.0
-                },
-                {
                   "date": "2026-10-21",
                   "series": "Danbury",
                   "value": 2.5
@@ -474,10 +469,18 @@
       "citations": [
         "https://data.rcc-acis.org/StnData"
       ],
-      "generated_at": "2026-10-31T13:12:52+00:00",
+      "generated_at": "2026-10-31T18:48:03+00:00",
+      "headline": {
+        "id": "0ca48fb9d2af",
+        "published": "Thu, 29 Oct 2026 10:53:06 GMT",
+        "published_sort": 1793271186,
+        "source": "Google News (CT)",
+        "stream": "ct",
+        "title": "Good Morning Connecticut team makes snow predictions! - WTNH.com",
+        "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQb1BjYzR4UjVGV1Z4VFBpMkdQVVktM1ZVN1BfYlY5QWpyNWdJS2pFZVlXdnRMTW42TnNGSVk2QUhPSG9tc012bDhJY2tZNVpuT1BqWHVRREMzbXZYeGh3VkVvM280MGk2V2o4SVp3Qmx4bU5iTDJnQXpRaWJNNi1SVEFIRXJYTnQxNHhwQ0ROZXRMMTQ?oc=5"
+      },
       "id": "0785479c5e31",
       "indicator": "weather_anomaly",
-      "origin": "data desk",
       "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
       "question": "Is Connecticut running warmer or colder than normal?",
       "series_freq": "monthly",
@@ -1388,7 +1391,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-10-31T13:13:01+00:00",
+      "revalidated_at": "2026-10-31T18:48:09+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -18108,7 +18111,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-10-31T13:13:01+00:00",
+      "revalidated_at": "2026-10-31T18:48:09+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -20986,7 +20989,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-10-31T13:13:01+00:00",
+      "revalidated_at": "2026-10-31T18:48:09+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -21887,7 +21890,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-10-31T13:13:01+00:00",
+      "revalidated_at": "2026-10-31T18:48:09+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -25546,7 +25549,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-10-31T13:13:01+00:00",
+      "revalidated_at": "2026-10-31T18:48:09+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -26454,7 +26457,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-10-31T13:13:01+00:00",
+      "revalidated_at": "2026-10-31T18:48:09+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -28219,5 +28222,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-10-31T13:12:52+00:00"
+  "generated_at": "2026-10-31T18:48:03+00:00"
 }
