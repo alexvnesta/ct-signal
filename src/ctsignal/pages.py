@@ -208,14 +208,16 @@ def _sources_body() -> str:
                 - _dt.timedelta(days=7)).timestamp()
         _recent = [h for h in _ledger.values()
                    if (h.get("pub") or 0) > _cut]
-        _mapped = sorted({k for sec in ("stackup", "local", "national")
-                          for i in questions.load_catalog()[sec]
-                          for k in (i.get("keywords") or [])})
+        _kw_sets = [i.get("keywords") or []
+                    for sec in ("stackup", "local", "national")
+                    for i in questions.load_catalog().get(sec, [])]
         _buckets = {}
         for _h in _recent:
             _t = _h["title"].lower()
-            if questions._strong_enough(
-                    questions._keyword_hits(_t, _mapped)):
+            # Strong must be per-indicator: two weak phrases from two
+            # different cards do not together make one answerable question.
+            if any(questions._strong_enough(
+                       questions._keyword_hits(_t, kws)) for kws in _kw_sets):
                 continue
             for _name, _terms in (
                     ("politics & elections", ("trump", "senate", "election",
