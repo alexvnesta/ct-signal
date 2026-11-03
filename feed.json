@@ -6,6 +6,24 @@
   "items": [
     {
       "_tags": [
+        "economy"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 138411,
+          "url": "https://ctsignal.org/assets/story-5c5c307e3f19.png"
+        }
+      ],
+      "content_text": "Employers hired 3.4% of America's workforce into new jobs in 2026-09 \u2014 lowest since August 2026. Source: civic calendar \u2014 [civic calendar] October jobs report cycle (national churn context)",
+      "date_published": "2026-11-03T17:37:29+00:00",
+      "id": "https://ctsignal.org/story/5c5c307e3f19",
+      "image": "https://ctsignal.org/assets/story-5c5c307e3f19.png",
+      "title": "Is America still hiring people into new jobs?",
+      "url": "https://ctsignal.org/story/5c5c307e3f19"
+    },
+    {
+      "_tags": [
         "weather"
       ],
       "attachments": [
@@ -15,8 +33,8 @@
           "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
         }
       ],
-      "content_text": "Connecticut's average temperature ran +0.4\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-02 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: Google News (CT) \u2014 Good Morning Connecticut team makes snow predictions! - WTNH.com",
-      "date_published": "2026-10-31T18:48:03+00:00",
+      "content_text": "Connecticut's average temperature ran +0.5\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-02 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: PBS NewsHour \u2014 Rain moves out as flood risks remain in Southwest following destructive storms",
+      "date_published": "2026-11-03T17:37:28+00:00",
       "id": "https://ctsignal.org/story/0785479c5e31",
       "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
       "title": "Is Connecticut running warmer or colder than normal?",
@@ -51,7 +69,7 @@
           "url": "https://ctsignal.org/assets/story-d5873d2851dd.png"
         }
       ],
-      "content_text": "Only 1.9% of US workers quit their jobs in 2026-08 \u2014 lowest since July 2026.",
+      "content_text": "Only 2.1% of US workers quit their jobs in 2026-09 \u2014 lowest since August 2026.",
       "date_published": "2026-10-29T20:56:05+00:00",
       "id": "https://ctsignal.org/story/d5873d2851dd",
       "image": "https://ctsignal.org/assets/story-d5873d2851dd.png",
@@ -119,24 +137,6 @@
       "attachments": [
         {
           "mime_type": "image/png",
-          "size_in_bytes": 138411,
-          "url": "https://ctsignal.org/assets/story-5c5c307e3f19.png"
-        }
-      ],
-      "content_text": "Employers hired 3.3% of America's workforce into new jobs in 2026-08 \u2014 lowest since July 2026. Source: civic calendar \u2014 [civic calendar] October jobs report cycle (national churn context)",
-      "date_published": "2026-10-16T00:47:23+00:00",
-      "id": "https://ctsignal.org/story/5c5c307e3f19",
-      "image": "https://ctsignal.org/assets/story-5c5c307e3f19.png",
-      "title": "Is America still hiring people into new jobs?",
-      "url": "https://ctsignal.org/story/5c5c307e3f19"
-    },
-    {
-      "_tags": [
-        "economy"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
           "size_in_bytes": 141405,
           "url": "https://ctsignal.org/assets/story-615030e77f4c.png"
         }
@@ -159,7 +159,7 @@
           "url": "https://ctsignal.org/assets/story-138bf32c8350.png"
         }
       ],
-      "content_text": "US layoffs and discharges ran at 1.0% in 2026-08 \u2014 lowest since April 2026 for this series, which began in 2000. Source: NYT U.S. \u2014 Harvard Endowment Soars to $68 Billion Even as Federal Cuts Force Layoffs",
+      "content_text": "US layoffs and discharges ran at 1.0% in 2026-09 \u2014 lowest since April 2026 for this series, which began in 2000. Source: NYT U.S. \u2014 Harvard Endowment Soars to $68 Billion Even as Federal Cuts Force Layoffs",
       "date_published": "2026-10-15T19:19:30+00:00",
       "id": "https://ctsignal.org/story/138bf32c8350",
       "image": "https://ctsignal.org/assets/story-138bf32c8350.png",
