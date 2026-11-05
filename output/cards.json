@@ -1,10 +1,10 @@
 {
   "cards": [
     {
-      "answer_text": "Connecticut's average temperature ran +0.9\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-03 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+      "answer_text": "Connecticut's average temperature ran +1.0\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-04 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
       "answer_values": {
-        "date": "2026-11-03",
-        "value": 0.9
+        "date": "2026-11-04",
+        "value": 1.0
       },
       "cache": false,
       "chart": {
@@ -41,11 +41,6 @@
           {
             "data": {
               "values": [
-                {
-                  "date": "2026-10-05",
-                  "series": "Bradley Intl",
-                  "value": 1.0
-                },
                 {
                   "date": "2026-10-06",
                   "series": "Bradley Intl",
@@ -190,11 +185,6 @@
                   "date": "2026-11-03",
                   "series": "Bradley Intl",
                   "value": 13.0
-                },
-                {
-                  "date": "2026-10-05",
-                  "series": "Danbury",
-                  "value": -1.0
                 },
                 {
                   "date": "2026-10-06",
@@ -483,6 +473,7 @@
       "indicator": "weather_anomaly",
       "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
       "question": "Is Connecticut running warmer or colder than normal?",
+      "revalidated_at": "2026-11-05T03:38:51+00:00",
       "series_freq": "monthly",
       "stream": "national",
       "topic": "weather"
@@ -3118,7 +3109,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-04T23:24:20+00:00",
+      "revalidated_at": "2026-11-05T03:38:51+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -18129,7 +18120,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-04T23:24:20+00:00",
+      "revalidated_at": "2026-11-05T03:38:51+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -21007,7 +20998,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-04T23:24:20+00:00",
+      "revalidated_at": "2026-11-05T03:38:51+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -21908,7 +21899,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-04T23:24:20+00:00",
+      "revalidated_at": "2026-11-05T03:38:51+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -25567,7 +25558,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-04T23:24:20+00:00",
+      "revalidated_at": "2026-11-05T03:38:51+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -26475,7 +26466,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-04T23:24:20+00:00",
+      "revalidated_at": "2026-11-05T03:38:51+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
