@@ -1,6 +1,1216 @@
 {
   "cards": [
     {
+      "answer_text": "In fiscal year 2027, Hartford taxes real property at 69.95 mills, 2.6 times the 26.65-mill rate that property pays statewide across 169 towns.",
+      "answer_values": {
+        "assess_ratio": 0.7,
+        "date": "FY2027",
+        "n": 169,
+        "state": 26.65,
+        "top": {
+          "multiple": 2.62,
+          "rate": 69.95,
+          "town": "Hartford"
+        }
+      },
+      "cache": false,
+      "chart": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+        "background": "transparent",
+        "config": {
+          "axis": {
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68"
+          },
+          "legend": {
+            "labelColor": "#4c5a68",
+            "symbolStrokeWidth": 0,
+            "titleColor": "#4c5a68"
+          },
+          "title": {
+            "color": "#1c2733",
+            "subtitleColor": "#66717e"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
+          }
+        },
+        "data": {
+          "values": [
+            {
+              "highlight": true,
+              "rank": 1,
+              "state": "Hartford",
+              "value": 69.95
+            },
+            {
+              "highlight": false,
+              "rank": 2,
+              "state": "Hamden",
+              "value": 53.67
+            },
+            {
+              "highlight": false,
+              "rank": 3,
+              "state": "East Hartford",
+              "value": 47.24
+            },
+            {
+              "highlight": false,
+              "rank": 4,
+              "state": "West Hartford",
+              "value": 46.77
+            },
+            {
+              "highlight": false,
+              "rank": 5,
+              "state": "Waterbury",
+              "value": 43.34
+            },
+            {
+              "highlight": false,
+              "rank": 6,
+              "state": "Manchester",
+              "value": 41.0
+            },
+            {
+              "highlight": false,
+              "rank": 7,
+              "state": "Naugatuck",
+              "value": 40.44
+            },
+            {
+              "highlight": false,
+              "rank": 8,
+              "state": "Wethersfield",
+              "value": 39.98
+            },
+            {
+              "highlight": false,
+              "rank": 9,
+              "state": "New Haven",
+              "value": 39.96
+            },
+            {
+              "highlight": false,
+              "rank": 10,
+              "state": "New Britain",
+              "value": 39.18
+            }
+          ]
+        },
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#d9772b",
+                "#b9b3a6"
+              ]
+            },
+            "type": "nominal"
+          },
+          "tooltip": [
+            {
+              "field": "state",
+              "title": "Town",
+              "type": "nominal"
+            },
+            {
+              "field": "value",
+              "title": "Property tax rate, FY2027 (top 10 towns)",
+              "type": "quantitative"
+            },
+            {
+              "field": "rank",
+              "title": "Rank",
+              "type": "quantitative"
+            }
+          ],
+          "x": {
+            "axis": {
+              "format": ",.0f"
+            },
+            "field": "value",
+            "title": "Property tax rate, FY2027 (top 10 towns) (mills per $1,000)",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "New Britain",
+              "New Haven",
+              "Wethersfield",
+              "Naugatuck",
+              "Manchester",
+              "Waterbury",
+              "West Hartford",
+              "East Hartford",
+              "Hamden",
+              "Hartford"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
+        },
+        "height": 140,
+        "mark": {
+          "tooltip": false,
+          "type": "bar"
+        },
+        "title": {
+          "subtitle": "Hartford highlighted",
+          "text": "Property tax rate, FY2027 (top 10 towns)"
+        },
+        "width": "container"
+      },
+      "chart_kind": "rank_strip",
+      "citations": [
+        "https://data.ct.gov/d/emyx-j53e"
+      ],
+      "generated_at": "2026-11-05T19:00:27+00:00",
+      "headline": {
+        "id": "seed-2026-10-01",
+        "published": "2026-10-01",
+        "published_sort": 0,
+        "source": "civic calendar",
+        "title": "[civic calendar] municipal budgets adopted for fiscal 2027 (July 1) make the new mill rates the operative tax facts; budget-adopt coverage is seasonal and may not mention rates at all",
+        "url": ""
+      },
+      "id": "a3514b53fb39",
+      "indicator": "mill_rates",
+      "query": "GET /resource/emyx-j53e.json?fiscal_year=2027 (municipal rows, split rates; weighted by webp-fgt3 2025)",
+      "question": "Which Connecticut town has the highest property tax rate?",
+      "stream": "local",
+      "topic": "local-finance",
+      "towns": [
+        {
+          "rank": 1,
+          "rate": 69.95,
+          "town": "Hartford",
+          "vs_state": 2.62
+        },
+        {
+          "rank": 2,
+          "rate": 53.67,
+          "town": "Hamden",
+          "vs_state": 2.01
+        },
+        {
+          "rank": 3,
+          "rate": 47.24,
+          "town": "East Hartford",
+          "vs_state": 1.77
+        },
+        {
+          "rank": 4,
+          "rate": 46.77,
+          "town": "West Hartford",
+          "vs_state": 1.75
+        },
+        {
+          "rank": 5,
+          "rate": 43.34,
+          "town": "Waterbury",
+          "vs_state": 1.63
+        },
+        {
+          "rank": 6,
+          "rate": 41.0,
+          "town": "Manchester",
+          "vs_state": 1.54
+        },
+        {
+          "rank": 7,
+          "rate": 40.44,
+          "town": "Naugatuck",
+          "vs_state": 1.52
+        },
+        {
+          "rank": 8,
+          "rate": 39.98,
+          "town": "Wethersfield",
+          "vs_state": 1.5
+        },
+        {
+          "rank": 9,
+          "rate": 39.96,
+          "town": "New Haven",
+          "vs_state": 1.5
+        },
+        {
+          "rank": 10,
+          "rate": 39.18,
+          "town": "New Britain",
+          "vs_state": 1.47
+        },
+        {
+          "rank": 11,
+          "rate": 38.44,
+          "town": "Derby",
+          "vs_state": 1.44
+        },
+        {
+          "rank": 12,
+          "rate": 37.73,
+          "town": "Stratford",
+          "vs_state": 1.42
+        },
+        {
+          "rank": 13,
+          "rate": 37.42,
+          "town": "Trumbull",
+          "vs_state": 1.4
+        },
+        {
+          "rank": 14,
+          "rate": 37.01,
+          "town": "South Windsor",
+          "vs_state": 1.39
+        },
+        {
+          "rank": 15,
+          "rate": 36.96,
+          "town": "Hebron",
+          "vs_state": 1.39
+        },
+        {
+          "rank": 16,
+          "rate": 36.36,
+          "town": "Portland",
+          "vs_state": 1.36
+        },
+        {
+          "rank": 17,
+          "rate": 36.31,
+          "town": "Vernon",
+          "vs_state": 1.36
+        },
+        {
+          "rank": 18,
+          "rate": 35.86,
+          "town": "Plainville",
+          "vs_state": 1.35
+        },
+        {
+          "rank": 19,
+          "rate": 35.78,
+          "town": "East Haven",
+          "vs_state": 1.34
+        },
+        {
+          "rank": 20,
+          "rate": 35.3,
+          "town": "Bristol",
+          "vs_state": 1.32
+        },
+        {
+          "rank": 21,
+          "rate": 34.47,
+          "town": "Granby",
+          "vs_state": 1.29
+        },
+        {
+          "rank": 22,
+          "rate": 34.4,
+          "town": "Bloomfield",
+          "vs_state": 1.29
+        },
+        {
+          "rank": 23,
+          "rate": 34.15,
+          "town": "Norwich",
+          "vs_state": 1.28
+        },
+        {
+          "rank": 24,
+          "rate": 33.99,
+          "town": "Woodbridge",
+          "vs_state": 1.28
+        },
+        {
+          "rank": 25,
+          "rate": 33.97,
+          "town": "Bolton",
+          "vs_state": 1.27
+        },
+        {
+          "rank": 26,
+          "rate": 33.73,
+          "town": "Glastonbury",
+          "vs_state": 1.27
+        },
+        {
+          "rank": 27,
+          "rate": 33.67,
+          "town": "Simsbury",
+          "vs_state": 1.26
+        },
+        {
+          "rank": 28,
+          "rate": 33.46,
+          "town": "Torrington",
+          "vs_state": 1.26
+        },
+        {
+          "rank": 29,
+          "rate": 33.3,
+          "town": "Middletown",
+          "vs_state": 1.25
+        },
+        {
+          "rank": 30,
+          "rate": 33.2,
+          "town": "Canton",
+          "vs_state": 1.25
+        },
+        {
+          "rank": 31,
+          "rate": 33.15,
+          "town": "Easton",
+          "vs_state": 1.24
+        },
+        {
+          "rank": 32,
+          "rate": 33.11,
+          "town": "Enfield",
+          "vs_state": 1.24
+        },
+        {
+          "rank": 33,
+          "rate": 32.88,
+          "town": "Chaplin",
+          "vs_state": 1.23
+        },
+        {
+          "rank": 34,
+          "rate": 32.62,
+          "town": "Scotland",
+          "vs_state": 1.22
+        },
+        {
+          "rank": 35,
+          "rate": 32.0,
+          "town": "Norwalk",
+          "vs_state": 1.2
+        },
+        {
+          "rank": 36,
+          "rate": 31.96,
+          "town": "Middlefield",
+          "vs_state": 1.2
+        },
+        {
+          "rank": 37,
+          "rate": 31.8,
+          "town": "Avon",
+          "vs_state": 1.19
+        },
+        {
+          "rank": 38,
+          "rate": 31.71,
+          "town": "Bethel",
+          "vs_state": 1.19
+        },
+        {
+          "rank": 39,
+          "rate": 31.7,
+          "town": "Rocky Hill",
+          "vs_state": 1.19
+        },
+        {
+          "rank": 40,
+          "rate": 31.58,
+          "town": "Andover",
+          "vs_state": 1.18
+        },
+        {
+          "rank": 41,
+          "rate": 31.43,
+          "town": "Montville",
+          "vs_state": 1.18
+        },
+        {
+          "rank": 42,
+          "rate": 31.36,
+          "town": "Cheshire",
+          "vs_state": 1.18
+        },
+        {
+          "rank": 43,
+          "rate": 31.15,
+          "town": "Berlin",
+          "vs_state": 1.17
+        },
+        {
+          "rank": 44,
+          "rate": 31.1,
+          "town": "East Granby",
+          "vs_state": 1.17
+        },
+        {
+          "rank": 45,
+          "rate": 30.75,
+          "town": "Columbia",
+          "vs_state": 1.15
+        },
+        {
+          "rank": 46,
+          "rate": 30.7,
+          "town": "Sprague",
+          "vs_state": 1.15
+        },
+        {
+          "rank": 47,
+          "rate": 30.56,
+          "town": "North Haven",
+          "vs_state": 1.15
+        },
+        {
+          "rank": 48,
+          "rate": 30.47,
+          "town": "Redding",
+          "vs_state": 1.14
+        },
+        {
+          "rank": 49,
+          "rate": 30.2,
+          "town": "Salem",
+          "vs_state": 1.13
+        },
+        {
+          "rank": 50,
+          "rate": 30.04,
+          "town": "Watertown",
+          "vs_state": 1.13
+        },
+        {
+          "rank": 51,
+          "rate": 30.0,
+          "town": "Winchester",
+          "vs_state": 1.13
+        },
+        {
+          "rank": 52,
+          "rate": 29.99,
+          "town": "Bethany",
+          "vs_state": 1.13
+        },
+        {
+          "rank": 53,
+          "rate": 29.99,
+          "town": "Meriden",
+          "vs_state": 1.13
+        },
+        {
+          "rank": 54,
+          "rate": 29.97,
+          "town": "Brookfield",
+          "vs_state": 1.12
+        },
+        {
+          "rank": 55,
+          "rate": 29.92,
+          "town": "Colchester",
+          "vs_state": 1.12
+        },
+        {
+          "rank": 56,
+          "rate": 29.88,
+          "town": "Monroe",
+          "vs_state": 1.12
+        },
+        {
+          "rank": 57,
+          "rate": 29.46,
+          "town": "Ansonia",
+          "vs_state": 1.11
+        },
+        {
+          "rank": 58,
+          "rate": 29.41,
+          "town": "Newington",
+          "vs_state": 1.1
+        },
+        {
+          "rank": 59,
+          "rate": 29.28,
+          "town": "Cromwell",
+          "vs_state": 1.1
+        },
+        {
+          "rank": 60,
+          "rate": 29.26,
+          "town": "Newtown",
+          "vs_state": 1.1
+        },
+        {
+          "rank": 61,
+          "rate": 28.95,
+          "town": "East Lyme",
+          "vs_state": 1.09
+        },
+        {
+          "rank": 62,
+          "rate": 28.9,
+          "town": "Wolcott",
+          "vs_state": 1.08
+        },
+        {
+          "rank": 63,
+          "rate": 28.88,
+          "town": "Windsor",
+          "vs_state": 1.08
+        },
+        {
+          "rank": 64,
+          "rate": 28.81,
+          "town": "North Branford",
+          "vs_state": 1.08
+        },
+        {
+          "rank": 65,
+          "rate": 28.73,
+          "town": "Plymouth",
+          "vs_state": 1.08
+        },
+        {
+          "rank": 66,
+          "rate": 28.67,
+          "town": "East Haddam",
+          "vs_state": 1.08
+        },
+        {
+          "rank": 67,
+          "rate": 28.67,
+          "town": "Milford",
+          "vs_state": 1.08
+        },
+        {
+          "rank": 68,
+          "rate": 28.64,
+          "town": "Seymour",
+          "vs_state": 1.07
+        },
+        {
+          "rank": 69,
+          "rate": 28.47,
+          "town": "Killingworth",
+          "vs_state": 1.07
+        },
+        {
+          "rank": 70,
+          "rate": 28.47,
+          "town": "Prospect",
+          "vs_state": 1.07
+        },
+        {
+          "rank": 71,
+          "rate": 28.47,
+          "town": "Stamford",
+          "vs_state": 1.07
+        },
+        {
+          "rank": 72,
+          "rate": 28.4,
+          "town": "Guilford",
+          "vs_state": 1.07
+        },
+        {
+          "rank": 73,
+          "rate": 28.36,
+          "town": "Ridgefield",
+          "vs_state": 1.06
+        },
+        {
+          "rank": 74,
+          "rate": 28.0,
+          "town": "Durham",
+          "vs_state": 1.05
+        },
+        {
+          "rank": 75,
+          "rate": 27.95,
+          "town": "Bridgeport",
+          "vs_state": 1.05
+        },
+        {
+          "rank": 76,
+          "rate": 27.87,
+          "town": "Griswold",
+          "vs_state": 1.05
+        },
+        {
+          "rank": 77,
+          "rate": 27.85,
+          "town": "Windham",
+          "vs_state": 1.04
+        },
+        {
+          "rank": 78,
+          "rate": 27.8,
+          "town": "Ashford",
+          "vs_state": 1.04
+        },
+        {
+          "rank": 79,
+          "rate": 27.79,
+          "town": "East Hampton",
+          "vs_state": 1.04
+        },
+        {
+          "rank": 80,
+          "rate": 27.78,
+          "town": "Chester",
+          "vs_state": 1.04
+        },
+        {
+          "rank": 81,
+          "rate": 27.78,
+          "town": "Tolland",
+          "vs_state": 1.04
+        },
+        {
+          "rank": 82,
+          "rate": 27.7,
+          "town": "Lisbon",
+          "vs_state": 1.04
+        },
+        {
+          "rank": 83,
+          "rate": 27.57,
+          "town": "New Hartford",
+          "vs_state": 1.03
+        },
+        {
+          "rank": 84,
+          "rate": 27.54,
+          "town": "New Fairfield",
+          "vs_state": 1.03
+        },
+        {
+          "rank": 85,
+          "rate": 27.4,
+          "town": "Orange",
+          "vs_state": 1.03
+        },
+        {
+          "rank": 86,
+          "rate": 27.36,
+          "town": "Farmington",
+          "vs_state": 1.03
+        },
+        {
+          "rank": 87,
+          "rate": 27.3,
+          "town": "Burlington",
+          "vs_state": 1.02
+        },
+        {
+          "rank": 88,
+          "rate": 27.21,
+          "town": "Thomaston",
+          "vs_state": 1.02
+        },
+        {
+          "rank": 89,
+          "rate": 27.1,
+          "town": "Marlborough",
+          "vs_state": 1.02
+        },
+        {
+          "rank": 90,
+          "rate": 27.1,
+          "town": "New London",
+          "vs_state": 1.02
+        },
+        {
+          "rank": 91,
+          "rate": 26.64,
+          "town": "East Windsor",
+          "vs_state": 1.0
+        },
+        {
+          "rank": 92,
+          "rate": 26.46,
+          "town": "Middlebury",
+          "vs_state": 0.99
+        },
+        {
+          "rank": 93,
+          "rate": 26.3,
+          "town": "Willington",
+          "vs_state": 0.99
+        },
+        {
+          "rank": 94,
+          "rate": 25.87,
+          "town": "Ledyard",
+          "vs_state": 0.97
+        },
+        {
+          "rank": 95,
+          "rate": 25.59,
+          "town": "Stafford",
+          "vs_state": 0.96
+        },
+        {
+          "rank": 96,
+          "rate": 25.58,
+          "town": "West Haven",
+          "vs_state": 0.96
+        },
+        {
+          "rank": 97,
+          "rate": 25.52,
+          "town": "Preston",
+          "vs_state": 0.96
+        },
+        {
+          "rank": 98,
+          "rate": 25.42,
+          "town": "Ellington",
+          "vs_state": 0.95
+        },
+        {
+          "rank": 99,
+          "rate": 25.4,
+          "town": "Southbury",
+          "vs_state": 0.95
+        },
+        {
+          "rank": 100,
+          "rate": 25.29,
+          "town": "Groton",
+          "vs_state": 0.95
+        },
+        {
+          "rank": 101,
+          "rate": 25.23,
+          "town": "Danbury",
+          "vs_state": 0.95
+        },
+        {
+          "rank": 102,
+          "rate": 25.06,
+          "town": "Wilton",
+          "vs_state": 0.94
+        },
+        {
+          "rank": 103,
+          "rate": 25.04,
+          "town": "Woodbury",
+          "vs_state": 0.94
+        },
+        {
+          "rank": 104,
+          "rate": 25.0,
+          "town": "Colebrook",
+          "vs_state": 0.94
+        },
+        {
+          "rank": 105,
+          "rate": 24.98,
+          "town": "Haddam",
+          "vs_state": 0.94
+        },
+        {
+          "rank": 106,
+          "rate": 24.75,
+          "town": "North Canaan",
+          "vs_state": 0.93
+        },
+        {
+          "rank": 107,
+          "rate": 24.57,
+          "town": "Wallingford",
+          "vs_state": 0.92
+        },
+        {
+          "rank": 108,
+          "rate": 24.57,
+          "town": "Weston",
+          "vs_state": 0.92
+        },
+        {
+          "rank": 109,
+          "rate": 24.54,
+          "town": "Waterford",
+          "vs_state": 0.92
+        },
+        {
+          "rank": 110,
+          "rate": 24.27,
+          "town": "Barkhamsted",
+          "vs_state": 0.91
+        },
+        {
+          "rank": 111,
+          "rate": 24.21,
+          "town": "Coventry",
+          "vs_state": 0.91
+        },
+        {
+          "rank": 112,
+          "rate": 24.1,
+          "town": "Suffield",
+          "vs_state": 0.9
+        },
+        {
+          "rank": 113,
+          "rate": 24.0,
+          "town": "Bozrah",
+          "vs_state": 0.9
+        },
+        {
+          "rank": 114,
+          "rate": 23.81,
+          "town": "Canaan",
+          "vs_state": 0.89
+        },
+        {
+          "rank": 115,
+          "rate": 23.75,
+          "town": "Hartland",
+          "vs_state": 0.89
+        },
+        {
+          "rank": 116,
+          "rate": 23.67,
+          "town": "Beacon Falls",
+          "vs_state": 0.89
+        },
+        {
+          "rank": 117,
+          "rate": 23.57,
+          "town": "Bethlehem",
+          "vs_state": 0.88
+        },
+        {
+          "rank": 118,
+          "rate": 23.5,
+          "town": "New Milford",
+          "vs_state": 0.88
+        },
+        {
+          "rank": 119,
+          "rate": 23.46,
+          "town": "Somers",
+          "vs_state": 0.88
+        },
+        {
+          "rank": 120,
+          "rate": 23.31,
+          "town": "Brooklyn",
+          "vs_state": 0.87
+        },
+        {
+          "rank": 121,
+          "rate": 23.29,
+          "town": "Southington",
+          "vs_state": 0.87
+        },
+        {
+          "rank": 122,
+          "rate": 23.25,
+          "town": "Westbrook",
+          "vs_state": 0.87
+        },
+        {
+          "rank": 123,
+          "rate": 23.1,
+          "town": "Harwinton",
+          "vs_state": 0.87
+        },
+        {
+          "rank": 124,
+          "rate": 23.06,
+          "town": "Madison",
+          "vs_state": 0.87
+        },
+        {
+          "rank": 125,
+          "rate": 22.76,
+          "town": "Union",
+          "vs_state": 0.85
+        },
+        {
+          "rank": 126,
+          "rate": 22.59,
+          "town": "Deep River",
+          "vs_state": 0.85
+        },
+        {
+          "rank": 127,
+          "rate": 22.5,
+          "town": "Lebanon",
+          "vs_state": 0.84
+        },
+        {
+          "rank": 128,
+          "rate": 22.49,
+          "town": "Norfolk",
+          "vs_state": 0.84
+        },
+        {
+          "rank": 129,
+          "rate": 22.25,
+          "town": "Windsor Locks",
+          "vs_state": 0.83
+        },
+        {
+          "rank": 130,
+          "rate": 22.24,
+          "town": "Clinton",
+          "vs_state": 0.83
+        },
+        {
+          "rank": 131,
+          "rate": 22.2,
+          "town": "Eastford",
+          "vs_state": 0.83
+        },
+        {
+          "rank": 132,
+          "rate": 22.16,
+          "town": "Branford",
+          "vs_state": 0.83
+        },
+        {
+          "rank": 133,
+          "rate": 21.94,
+          "town": "Sterling",
+          "vs_state": 0.82
+        },
+        {
+          "rank": 134,
+          "rate": 21.86,
+          "town": "Killingly",
+          "vs_state": 0.82
+        },
+        {
+          "rank": 135,
+          "rate": 21.48,
+          "town": "Hampton",
+          "vs_state": 0.81
+        },
+        {
+          "rank": 136,
+          "rate": 21.25,
+          "town": "Franklin",
+          "vs_state": 0.8
+        },
+        {
+          "rank": 137,
+          "rate": 21.03,
+          "town": "Pomfret",
+          "vs_state": 0.79
+        },
+        {
+          "rank": 138,
+          "rate": 20.78,
+          "town": "Voluntown",
+          "vs_state": 0.78
+        },
+        {
+          "rank": 139,
+          "rate": 20.56,
+          "town": "Plainfield",
+          "vs_state": 0.77
+        },
+        {
+          "rank": 140,
+          "rate": 20.55,
+          "town": "Oxford",
+          "vs_state": 0.77
+        },
+        {
+          "rank": 141,
+          "rate": 20.5,
+          "town": "Litchfield",
+          "vs_state": 0.77
+        },
+        {
+          "rank": 142,
+          "rate": 20.21,
+          "town": "Woodstock",
+          "vs_state": 0.76
+        },
+        {
+          "rank": 143,
+          "rate": 20.0,
+          "town": "Mansfield",
+          "vs_state": 0.75
+        },
+        {
+          "rank": 144,
+          "rate": 19.75,
+          "town": "Bridgewater",
+          "vs_state": 0.74
+        },
+        {
+          "rank": 145,
+          "rate": 19.68,
+          "town": "Thompson",
+          "vs_state": 0.74
+        },
+        {
+          "rank": 146,
+          "rate": 19.41,
+          "town": "Morris",
+          "vs_state": 0.73
+        },
+        {
+          "rank": 147,
+          "rate": 19.26,
+          "town": "Essex",
+          "vs_state": 0.72
+        },
+        {
+          "rank": 148,
+          "rate": 19.2,
+          "town": "Stonington",
+          "vs_state": 0.72
+        },
+        {
+          "rank": 149,
+          "rate": 19.19,
+          "town": "Fairfield",
+          "vs_state": 0.72
+        },
+        {
+          "rank": 150,
+          "rate": 18.5,
+          "town": "Putnam",
+          "vs_state": 0.69
+        },
+        {
+          "rank": 151,
+          "rate": 17.5,
+          "town": "North Stonington",
+          "vs_state": 0.66
+        },
+        {
+          "rank": 152,
+          "rate": 17.41,
+          "town": "Sherman",
+          "vs_state": 0.65
+        },
+        {
+          "rank": 153,
+          "rate": 17.34,
+          "town": "Kent",
+          "vs_state": 0.65
+        },
+        {
+          "rank": 154,
+          "rate": 17.0,
+          "town": "Canterbury",
+          "vs_state": 0.64
+        },
+        {
+          "rank": 155,
+          "rate": 16.97,
+          "town": "New Canaan",
+          "vs_state": 0.64
+        },
+        {
+          "rank": 156,
+          "rate": 16.86,
+          "town": "Old Lyme",
+          "vs_state": 0.63
+        },
+        {
+          "rank": 157,
+          "rate": 16.7,
+          "town": "Goshen",
+          "vs_state": 0.63
+        },
+        {
+          "rank": 158,
+          "rate": 16.62,
+          "town": "Cornwall",
+          "vs_state": 0.62
+        },
+        {
+          "rank": 159,
+          "rate": 16.05,
+          "town": "Darien",
+          "vs_state": 0.6
+        },
+        {
+          "rank": 160,
+          "rate": 15.77,
+          "town": "Old Saybrook",
+          "vs_state": 0.59
+        },
+        {
+          "rank": 161,
+          "rate": 15.51,
+          "town": "Shelton",
+          "vs_state": 0.58
+        },
+        {
+          "rank": 162,
+          "rate": 14.5,
+          "town": "Lyme",
+          "vs_state": 0.54
+        },
+        {
+          "rank": 163,
+          "rate": 13.2,
+          "town": "Westport",
+          "vs_state": 0.5
+        },
+        {
+          "rank": 164,
+          "rate": 13.0,
+          "town": "Roxbury",
+          "vs_state": 0.49
+        },
+        {
+          "rank": 165,
+          "rate": 12.75,
+          "town": "Warren",
+          "vs_state": 0.48
+        },
+        {
+          "rank": 166,
+          "rate": 11.15,
+          "town": "Sharon",
+          "vs_state": 0.42
+        },
+        {
+          "rank": 167,
+          "rate": 10.85,
+          "town": "Washington",
+          "vs_state": 0.41
+        },
+        {
+          "rank": 168,
+          "rate": 10.12,
+          "town": "Greenwich",
+          "vs_state": 0.38
+        },
+        {
+          "rank": 169,
+          "rate": 9.8,
+          "town": "Salisbury",
+          "vs_state": 0.37
+        }
+      ]
+    },
+    {
       "answer_text": "Connecticut's average temperature ran +1.2\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-04 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
       "answer_values": {
         "date": "2026-11-04",
@@ -3113,7 +4323,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-05T11:33:47+00:00",
+      "revalidated_at": "2026-11-05T19:00:27+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -8375,10 +9585,10 @@
       ]
     },
     {
-      "answer_text": "194,000 Americans filed first-time unemployment claims in the week ending 2026-10-24 \u2014 highest since October 17, 2026 for a series that has printed every week since 1967.",
+      "answer_text": "189,000 Americans filed first-time unemployment claims in the week ending 2026-10-31 \u2014 highest since October 24, 2026 for a series that has printed every week since 1967.",
       "answer_values": {
-        "date": "2026-10-24",
-        "value": 194000.0
+        "date": "2026-10-31",
+        "value": 189000.0
       },
       "cache": false,
       "chart": {
@@ -8415,11 +9625,6 @@
           {
             "data": {
               "values": [
-                {
-                  "date": "2006-11-25",
-                  "series": "United States",
-                  "value": 349000.0
-                },
                 {
                   "date": "2006-12-02",
                   "series": "United States",
@@ -13613,7 +14818,12 @@
                 {
                   "date": "2026-10-24",
                   "series": "United States",
-                  "value": 194000.0
+                  "value": 195000.0
+                },
+                {
+                  "date": "2026-10-31",
+                  "series": "United States",
+                  "value": 189000.0
                 }
               ]
             },
@@ -13677,10 +14887,10 @@
             "data": {
               "values": [
                 {
-                  "date": "2026-10-24",
+                  "date": "2026-10-31",
                   "series": "United States",
                   "short": "US",
-                  "value": 194000.0
+                  "value": 189000.0
                 }
               ]
             },
@@ -13748,7 +14958,7 @@
       "indicator": "jobless_claims",
       "query": "FRED fredgraph.csv id=ICSA; agency of record: US Department of Labor, Weekly Unemployment Insurance Claims",
       "question": "How many Americans just lost their jobs?",
-      "revalidated_at": "2026-10-29T13:18:14+00:00",
+      "revalidated_at": "2026-11-05T19:00:27+00:00",
       "series_freq": "weekly",
       "stream": "national",
       "topic": "economy"
@@ -18124,7 +19334,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-05T11:33:47+00:00",
+      "revalidated_at": "2026-11-05T19:00:27+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -21002,7 +22212,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-05T11:33:47+00:00",
+      "revalidated_at": "2026-11-05T19:00:27+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -21903,1213 +23113,9 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-05T11:33:47+00:00",
+      "revalidated_at": "2026-11-05T19:00:27+00:00",
       "stream": "stackup",
       "topic": "economy"
-    },
-    {
-      "answer_text": "In fiscal year 2027, Hartford taxes real property at 69.95 mills, 2.6 times the 26.66-mill rate that property pays statewide across 168 towns.",
-      "answer_values": {
-        "assess_ratio": 0.7,
-        "date": "FY2027",
-        "n": 168,
-        "state": 26.66,
-        "top": {
-          "multiple": 2.62,
-          "rate": 69.95,
-          "town": "Hartford"
-        }
-      },
-      "cache": false,
-      "chart": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-        "background": "transparent",
-        "config": {
-          "axis": {
-            "domainColor": "#b8b2a6",
-            "gridColor": "#e4dfd3",
-            "labelColor": "#4c5a68",
-            "tickColor": "#b8b2a6",
-            "titleColor": "#4c5a68"
-          },
-          "legend": {
-            "labelColor": "#4c5a68",
-            "symbolStrokeWidth": 0,
-            "titleColor": "#4c5a68"
-          },
-          "title": {
-            "color": "#1c2733",
-            "subtitleColor": "#66717e"
-          },
-          "view": {
-            "continuousHeight": 300,
-            "continuousWidth": 300,
-            "strokeWidth": 0
-          }
-        },
-        "data": {
-          "values": [
-            {
-              "highlight": true,
-              "rank": 1,
-              "state": "Hartford",
-              "value": 69.95
-            },
-            {
-              "highlight": false,
-              "rank": 2,
-              "state": "Hamden",
-              "value": 53.67
-            },
-            {
-              "highlight": false,
-              "rank": 3,
-              "state": "East Hartford",
-              "value": 47.24
-            },
-            {
-              "highlight": false,
-              "rank": 4,
-              "state": "West Hartford",
-              "value": 46.77
-            },
-            {
-              "highlight": false,
-              "rank": 5,
-              "state": "Waterbury",
-              "value": 43.34
-            },
-            {
-              "highlight": false,
-              "rank": 6,
-              "state": "Manchester",
-              "value": 41.0
-            },
-            {
-              "highlight": false,
-              "rank": 7,
-              "state": "Naugatuck",
-              "value": 40.44
-            },
-            {
-              "highlight": false,
-              "rank": 8,
-              "state": "Wethersfield",
-              "value": 39.98
-            },
-            {
-              "highlight": false,
-              "rank": 9,
-              "state": "New Haven",
-              "value": 39.96
-            },
-            {
-              "highlight": false,
-              "rank": 10,
-              "state": "New Britain",
-              "value": 39.18
-            }
-          ]
-        },
-        "encoding": {
-          "color": {
-            "field": "highlight",
-            "legend": null,
-            "scale": {
-              "domain": [
-                true,
-                false
-              ],
-              "range": [
-                "#d9772b",
-                "#b9b3a6"
-              ]
-            },
-            "type": "nominal"
-          },
-          "tooltip": [
-            {
-              "field": "state",
-              "title": "Town",
-              "type": "nominal"
-            },
-            {
-              "field": "value",
-              "title": "Property tax rate, FY2027 (top 10 towns)",
-              "type": "quantitative"
-            },
-            {
-              "field": "rank",
-              "title": "Rank",
-              "type": "quantitative"
-            }
-          ],
-          "x": {
-            "axis": {
-              "format": ",.0f"
-            },
-            "field": "value",
-            "title": "Property tax rate, FY2027 (top 10 towns) (mills per $1,000)",
-            "type": "quantitative"
-          },
-          "y": {
-            "field": "state",
-            "sort": [
-              "New Britain",
-              "New Haven",
-              "Wethersfield",
-              "Naugatuck",
-              "Manchester",
-              "Waterbury",
-              "West Hartford",
-              "East Hartford",
-              "Hamden",
-              "Hartford"
-            ],
-            "title": null,
-            "type": "nominal"
-          }
-        },
-        "height": 140,
-        "mark": {
-          "tooltip": false,
-          "type": "bar"
-        },
-        "title": {
-          "subtitle": "Hartford highlighted",
-          "text": "Property tax rate, FY2027 (top 10 towns)"
-        },
-        "width": "container"
-      },
-      "chart_kind": "rank_strip",
-      "citations": [
-        "https://data.ct.gov/d/emyx-j53e"
-      ],
-      "generated_at": "2026-10-05T20:28:08+00:00",
-      "headline": {
-        "id": "seed-2026-10-01",
-        "published": "2026-10-01",
-        "published_sort": 0,
-        "source": "civic calendar",
-        "title": "[civic calendar] municipal budgets adopted for fiscal 2027 (July 1) make the new mill rates the operative tax facts; budget-adopt coverage is seasonal and may not mention rates at all",
-        "url": ""
-      },
-      "id": "a3514b53fb39",
-      "indicator": "mill_rates",
-      "query": "GET /resource/emyx-j53e.json?fiscal_year=2027 (municipal rows, split rates; weighted by webp-fgt3 2025)",
-      "question": "Which Connecticut town has the highest property tax rate?",
-      "stream": "local",
-      "topic": "local-finance",
-      "towns": [
-        {
-          "rank": 1,
-          "rate": 69.95,
-          "town": "Hartford",
-          "vs_state": 2.62
-        },
-        {
-          "rank": 2,
-          "rate": 53.67,
-          "town": "Hamden",
-          "vs_state": 2.01
-        },
-        {
-          "rank": 3,
-          "rate": 47.24,
-          "town": "East Hartford",
-          "vs_state": 1.77
-        },
-        {
-          "rank": 4,
-          "rate": 46.77,
-          "town": "West Hartford",
-          "vs_state": 1.75
-        },
-        {
-          "rank": 5,
-          "rate": 43.34,
-          "town": "Waterbury",
-          "vs_state": 1.63
-        },
-        {
-          "rank": 6,
-          "rate": 41.0,
-          "town": "Manchester",
-          "vs_state": 1.54
-        },
-        {
-          "rank": 7,
-          "rate": 40.44,
-          "town": "Naugatuck",
-          "vs_state": 1.52
-        },
-        {
-          "rank": 8,
-          "rate": 39.98,
-          "town": "Wethersfield",
-          "vs_state": 1.5
-        },
-        {
-          "rank": 9,
-          "rate": 39.96,
-          "town": "New Haven",
-          "vs_state": 1.5
-        },
-        {
-          "rank": 10,
-          "rate": 39.18,
-          "town": "New Britain",
-          "vs_state": 1.47
-        },
-        {
-          "rank": 11,
-          "rate": 38.44,
-          "town": "Derby",
-          "vs_state": 1.44
-        },
-        {
-          "rank": 12,
-          "rate": 37.73,
-          "town": "Stratford",
-          "vs_state": 1.42
-        },
-        {
-          "rank": 13,
-          "rate": 37.42,
-          "town": "Trumbull",
-          "vs_state": 1.4
-        },
-        {
-          "rank": 14,
-          "rate": 37.01,
-          "town": "South Windsor",
-          "vs_state": 1.39
-        },
-        {
-          "rank": 15,
-          "rate": 36.96,
-          "town": "Hebron",
-          "vs_state": 1.39
-        },
-        {
-          "rank": 16,
-          "rate": 36.36,
-          "town": "Portland",
-          "vs_state": 1.36
-        },
-        {
-          "rank": 17,
-          "rate": 36.31,
-          "town": "Vernon",
-          "vs_state": 1.36
-        },
-        {
-          "rank": 18,
-          "rate": 35.86,
-          "town": "Plainville",
-          "vs_state": 1.34
-        },
-        {
-          "rank": 19,
-          "rate": 35.78,
-          "town": "East Haven",
-          "vs_state": 1.34
-        },
-        {
-          "rank": 20,
-          "rate": 35.3,
-          "town": "Bristol",
-          "vs_state": 1.32
-        },
-        {
-          "rank": 21,
-          "rate": 34.47,
-          "town": "Granby",
-          "vs_state": 1.29
-        },
-        {
-          "rank": 22,
-          "rate": 34.4,
-          "town": "Bloomfield",
-          "vs_state": 1.29
-        },
-        {
-          "rank": 23,
-          "rate": 34.15,
-          "town": "Norwich",
-          "vs_state": 1.28
-        },
-        {
-          "rank": 24,
-          "rate": 33.99,
-          "town": "Woodbridge",
-          "vs_state": 1.27
-        },
-        {
-          "rank": 25,
-          "rate": 33.97,
-          "town": "Bolton",
-          "vs_state": 1.27
-        },
-        {
-          "rank": 26,
-          "rate": 33.73,
-          "town": "Glastonbury",
-          "vs_state": 1.27
-        },
-        {
-          "rank": 27,
-          "rate": 33.67,
-          "town": "Simsbury",
-          "vs_state": 1.26
-        },
-        {
-          "rank": 28,
-          "rate": 33.46,
-          "town": "Torrington",
-          "vs_state": 1.25
-        },
-        {
-          "rank": 29,
-          "rate": 33.3,
-          "town": "Middletown",
-          "vs_state": 1.25
-        },
-        {
-          "rank": 30,
-          "rate": 33.2,
-          "town": "Canton",
-          "vs_state": 1.25
-        },
-        {
-          "rank": 31,
-          "rate": 33.15,
-          "town": "Easton",
-          "vs_state": 1.24
-        },
-        {
-          "rank": 32,
-          "rate": 33.11,
-          "town": "Enfield",
-          "vs_state": 1.24
-        },
-        {
-          "rank": 33,
-          "rate": 32.88,
-          "town": "Chaplin",
-          "vs_state": 1.23
-        },
-        {
-          "rank": 34,
-          "rate": 32.62,
-          "town": "Scotland",
-          "vs_state": 1.22
-        },
-        {
-          "rank": 35,
-          "rate": 32.0,
-          "town": "Norwalk",
-          "vs_state": 1.2
-        },
-        {
-          "rank": 36,
-          "rate": 31.96,
-          "town": "Middlefield",
-          "vs_state": 1.2
-        },
-        {
-          "rank": 37,
-          "rate": 31.8,
-          "town": "Avon",
-          "vs_state": 1.19
-        },
-        {
-          "rank": 38,
-          "rate": 31.71,
-          "town": "Bethel",
-          "vs_state": 1.19
-        },
-        {
-          "rank": 39,
-          "rate": 31.7,
-          "town": "Rocky Hill",
-          "vs_state": 1.19
-        },
-        {
-          "rank": 40,
-          "rate": 31.58,
-          "town": "Andover",
-          "vs_state": 1.18
-        },
-        {
-          "rank": 41,
-          "rate": 31.43,
-          "town": "Montville",
-          "vs_state": 1.18
-        },
-        {
-          "rank": 42,
-          "rate": 31.36,
-          "town": "Cheshire",
-          "vs_state": 1.18
-        },
-        {
-          "rank": 43,
-          "rate": 31.15,
-          "town": "Berlin",
-          "vs_state": 1.17
-        },
-        {
-          "rank": 44,
-          "rate": 31.1,
-          "town": "East Granby",
-          "vs_state": 1.17
-        },
-        {
-          "rank": 45,
-          "rate": 30.75,
-          "town": "Columbia",
-          "vs_state": 1.15
-        },
-        {
-          "rank": 46,
-          "rate": 30.7,
-          "town": "Sprague",
-          "vs_state": 1.15
-        },
-        {
-          "rank": 47,
-          "rate": 30.56,
-          "town": "North Haven",
-          "vs_state": 1.15
-        },
-        {
-          "rank": 48,
-          "rate": 30.47,
-          "town": "Redding",
-          "vs_state": 1.14
-        },
-        {
-          "rank": 49,
-          "rate": 30.2,
-          "town": "Salem",
-          "vs_state": 1.13
-        },
-        {
-          "rank": 50,
-          "rate": 30.04,
-          "town": "Watertown",
-          "vs_state": 1.13
-        },
-        {
-          "rank": 51,
-          "rate": 30.0,
-          "town": "Winchester",
-          "vs_state": 1.13
-        },
-        {
-          "rank": 52,
-          "rate": 29.99,
-          "town": "Bethany",
-          "vs_state": 1.12
-        },
-        {
-          "rank": 53,
-          "rate": 29.99,
-          "town": "Meriden",
-          "vs_state": 1.12
-        },
-        {
-          "rank": 54,
-          "rate": 29.97,
-          "town": "Brookfield",
-          "vs_state": 1.12
-        },
-        {
-          "rank": 55,
-          "rate": 29.92,
-          "town": "Colchester",
-          "vs_state": 1.12
-        },
-        {
-          "rank": 56,
-          "rate": 29.88,
-          "town": "Monroe",
-          "vs_state": 1.12
-        },
-        {
-          "rank": 57,
-          "rate": 29.46,
-          "town": "Ansonia",
-          "vs_state": 1.1
-        },
-        {
-          "rank": 58,
-          "rate": 29.41,
-          "town": "Newington",
-          "vs_state": 1.1
-        },
-        {
-          "rank": 59,
-          "rate": 29.28,
-          "town": "Cromwell",
-          "vs_state": 1.1
-        },
-        {
-          "rank": 60,
-          "rate": 29.26,
-          "town": "Newtown",
-          "vs_state": 1.1
-        },
-        {
-          "rank": 61,
-          "rate": 28.95,
-          "town": "East Lyme",
-          "vs_state": 1.09
-        },
-        {
-          "rank": 62,
-          "rate": 28.9,
-          "town": "Wolcott",
-          "vs_state": 1.08
-        },
-        {
-          "rank": 63,
-          "rate": 28.88,
-          "town": "Windsor",
-          "vs_state": 1.08
-        },
-        {
-          "rank": 64,
-          "rate": 28.81,
-          "town": "North Branford",
-          "vs_state": 1.08
-        },
-        {
-          "rank": 65,
-          "rate": 28.73,
-          "town": "Plymouth",
-          "vs_state": 1.08
-        },
-        {
-          "rank": 66,
-          "rate": 28.67,
-          "town": "East Haddam",
-          "vs_state": 1.08
-        },
-        {
-          "rank": 67,
-          "rate": 28.67,
-          "town": "Milford",
-          "vs_state": 1.08
-        },
-        {
-          "rank": 68,
-          "rate": 28.64,
-          "town": "Seymour",
-          "vs_state": 1.07
-        },
-        {
-          "rank": 69,
-          "rate": 28.47,
-          "town": "Killingworth",
-          "vs_state": 1.07
-        },
-        {
-          "rank": 70,
-          "rate": 28.47,
-          "town": "Prospect",
-          "vs_state": 1.07
-        },
-        {
-          "rank": 71,
-          "rate": 28.47,
-          "town": "Stamford",
-          "vs_state": 1.07
-        },
-        {
-          "rank": 72,
-          "rate": 28.4,
-          "town": "Guilford",
-          "vs_state": 1.07
-        },
-        {
-          "rank": 73,
-          "rate": 28.36,
-          "town": "Ridgefield",
-          "vs_state": 1.06
-        },
-        {
-          "rank": 74,
-          "rate": 28.0,
-          "town": "Durham",
-          "vs_state": 1.05
-        },
-        {
-          "rank": 75,
-          "rate": 27.95,
-          "town": "Bridgeport",
-          "vs_state": 1.05
-        },
-        {
-          "rank": 76,
-          "rate": 27.87,
-          "town": "Griswold",
-          "vs_state": 1.05
-        },
-        {
-          "rank": 77,
-          "rate": 27.85,
-          "town": "Windham",
-          "vs_state": 1.04
-        },
-        {
-          "rank": 78,
-          "rate": 27.8,
-          "town": "Ashford",
-          "vs_state": 1.04
-        },
-        {
-          "rank": 79,
-          "rate": 27.79,
-          "town": "East Hampton",
-          "vs_state": 1.04
-        },
-        {
-          "rank": 80,
-          "rate": 27.78,
-          "town": "Chester",
-          "vs_state": 1.04
-        },
-        {
-          "rank": 81,
-          "rate": 27.78,
-          "town": "Tolland",
-          "vs_state": 1.04
-        },
-        {
-          "rank": 82,
-          "rate": 27.7,
-          "town": "Lisbon",
-          "vs_state": 1.04
-        },
-        {
-          "rank": 83,
-          "rate": 27.57,
-          "town": "New Hartford",
-          "vs_state": 1.03
-        },
-        {
-          "rank": 84,
-          "rate": 27.54,
-          "town": "New Fairfield",
-          "vs_state": 1.03
-        },
-        {
-          "rank": 85,
-          "rate": 27.4,
-          "town": "Orange",
-          "vs_state": 1.03
-        },
-        {
-          "rank": 86,
-          "rate": 27.36,
-          "town": "Farmington",
-          "vs_state": 1.03
-        },
-        {
-          "rank": 87,
-          "rate": 27.3,
-          "town": "Burlington",
-          "vs_state": 1.02
-        },
-        {
-          "rank": 88,
-          "rate": 27.21,
-          "town": "Thomaston",
-          "vs_state": 1.02
-        },
-        {
-          "rank": 89,
-          "rate": 27.1,
-          "town": "Marlborough",
-          "vs_state": 1.02
-        },
-        {
-          "rank": 90,
-          "rate": 27.1,
-          "town": "New London",
-          "vs_state": 1.02
-        },
-        {
-          "rank": 91,
-          "rate": 26.64,
-          "town": "East Windsor",
-          "vs_state": 1.0
-        },
-        {
-          "rank": 92,
-          "rate": 26.46,
-          "town": "Middlebury",
-          "vs_state": 0.99
-        },
-        {
-          "rank": 93,
-          "rate": 26.3,
-          "town": "Willington",
-          "vs_state": 0.99
-        },
-        {
-          "rank": 94,
-          "rate": 25.87,
-          "town": "Ledyard",
-          "vs_state": 0.97
-        },
-        {
-          "rank": 95,
-          "rate": 25.59,
-          "town": "Stafford",
-          "vs_state": 0.96
-        },
-        {
-          "rank": 96,
-          "rate": 25.58,
-          "town": "West Haven",
-          "vs_state": 0.96
-        },
-        {
-          "rank": 97,
-          "rate": 25.52,
-          "town": "Preston",
-          "vs_state": 0.96
-        },
-        {
-          "rank": 98,
-          "rate": 25.42,
-          "town": "Ellington",
-          "vs_state": 0.95
-        },
-        {
-          "rank": 99,
-          "rate": 25.4,
-          "town": "Southbury",
-          "vs_state": 0.95
-        },
-        {
-          "rank": 100,
-          "rate": 25.29,
-          "town": "Groton",
-          "vs_state": 0.95
-        },
-        {
-          "rank": 101,
-          "rate": 25.23,
-          "town": "Danbury",
-          "vs_state": 0.95
-        },
-        {
-          "rank": 102,
-          "rate": 25.06,
-          "town": "Wilton",
-          "vs_state": 0.94
-        },
-        {
-          "rank": 103,
-          "rate": 25.04,
-          "town": "Woodbury",
-          "vs_state": 0.94
-        },
-        {
-          "rank": 104,
-          "rate": 25.0,
-          "town": "Colebrook",
-          "vs_state": 0.94
-        },
-        {
-          "rank": 105,
-          "rate": 24.98,
-          "town": "Haddam",
-          "vs_state": 0.94
-        },
-        {
-          "rank": 106,
-          "rate": 24.75,
-          "town": "North Canaan",
-          "vs_state": 0.93
-        },
-        {
-          "rank": 107,
-          "rate": 24.57,
-          "town": "Wallingford",
-          "vs_state": 0.92
-        },
-        {
-          "rank": 108,
-          "rate": 24.57,
-          "town": "Weston",
-          "vs_state": 0.92
-        },
-        {
-          "rank": 109,
-          "rate": 24.54,
-          "town": "Waterford",
-          "vs_state": 0.92
-        },
-        {
-          "rank": 110,
-          "rate": 24.27,
-          "town": "Barkhamsted",
-          "vs_state": 0.91
-        },
-        {
-          "rank": 111,
-          "rate": 24.21,
-          "town": "Coventry",
-          "vs_state": 0.91
-        },
-        {
-          "rank": 112,
-          "rate": 24.1,
-          "town": "Suffield",
-          "vs_state": 0.9
-        },
-        {
-          "rank": 113,
-          "rate": 24.0,
-          "town": "Bozrah",
-          "vs_state": 0.9
-        },
-        {
-          "rank": 114,
-          "rate": 23.81,
-          "town": "Canaan",
-          "vs_state": 0.89
-        },
-        {
-          "rank": 115,
-          "rate": 23.75,
-          "town": "Hartland",
-          "vs_state": 0.89
-        },
-        {
-          "rank": 116,
-          "rate": 23.67,
-          "town": "Beacon Falls",
-          "vs_state": 0.89
-        },
-        {
-          "rank": 117,
-          "rate": 23.57,
-          "town": "Bethlehem",
-          "vs_state": 0.88
-        },
-        {
-          "rank": 118,
-          "rate": 23.5,
-          "town": "New Milford",
-          "vs_state": 0.88
-        },
-        {
-          "rank": 119,
-          "rate": 23.46,
-          "town": "Somers",
-          "vs_state": 0.88
-        },
-        {
-          "rank": 120,
-          "rate": 23.31,
-          "town": "Brooklyn",
-          "vs_state": 0.87
-        },
-        {
-          "rank": 121,
-          "rate": 23.29,
-          "town": "Southington",
-          "vs_state": 0.87
-        },
-        {
-          "rank": 122,
-          "rate": 23.25,
-          "town": "Westbrook",
-          "vs_state": 0.87
-        },
-        {
-          "rank": 123,
-          "rate": 23.1,
-          "town": "Harwinton",
-          "vs_state": 0.87
-        },
-        {
-          "rank": 124,
-          "rate": 23.06,
-          "town": "Madison",
-          "vs_state": 0.86
-        },
-        {
-          "rank": 125,
-          "rate": 22.76,
-          "town": "Union",
-          "vs_state": 0.85
-        },
-        {
-          "rank": 126,
-          "rate": 22.59,
-          "town": "Deep River",
-          "vs_state": 0.85
-        },
-        {
-          "rank": 127,
-          "rate": 22.5,
-          "town": "Lebanon",
-          "vs_state": 0.84
-        },
-        {
-          "rank": 128,
-          "rate": 22.49,
-          "town": "Norfolk",
-          "vs_state": 0.84
-        },
-        {
-          "rank": 129,
-          "rate": 22.25,
-          "town": "Windsor Locks",
-          "vs_state": 0.83
-        },
-        {
-          "rank": 130,
-          "rate": 22.24,
-          "town": "Clinton",
-          "vs_state": 0.83
-        },
-        {
-          "rank": 131,
-          "rate": 22.2,
-          "town": "Eastford",
-          "vs_state": 0.83
-        },
-        {
-          "rank": 132,
-          "rate": 22.16,
-          "town": "Branford",
-          "vs_state": 0.83
-        },
-        {
-          "rank": 133,
-          "rate": 21.94,
-          "town": "Sterling",
-          "vs_state": 0.82
-        },
-        {
-          "rank": 134,
-          "rate": 21.86,
-          "town": "Killingly",
-          "vs_state": 0.82
-        },
-        {
-          "rank": 135,
-          "rate": 21.48,
-          "town": "Hampton",
-          "vs_state": 0.81
-        },
-        {
-          "rank": 136,
-          "rate": 21.25,
-          "town": "Franklin",
-          "vs_state": 0.8
-        },
-        {
-          "rank": 137,
-          "rate": 21.03,
-          "town": "Pomfret",
-          "vs_state": 0.79
-        },
-        {
-          "rank": 138,
-          "rate": 20.78,
-          "town": "Voluntown",
-          "vs_state": 0.78
-        },
-        {
-          "rank": 139,
-          "rate": 20.56,
-          "town": "Plainfield",
-          "vs_state": 0.77
-        },
-        {
-          "rank": 140,
-          "rate": 20.55,
-          "town": "Oxford",
-          "vs_state": 0.77
-        },
-        {
-          "rank": 141,
-          "rate": 20.5,
-          "town": "Litchfield",
-          "vs_state": 0.77
-        },
-        {
-          "rank": 142,
-          "rate": 20.21,
-          "town": "Woodstock",
-          "vs_state": 0.76
-        },
-        {
-          "rank": 143,
-          "rate": 20.0,
-          "town": "Mansfield",
-          "vs_state": 0.75
-        },
-        {
-          "rank": 144,
-          "rate": 19.75,
-          "town": "Bridgewater",
-          "vs_state": 0.74
-        },
-        {
-          "rank": 145,
-          "rate": 19.68,
-          "town": "Thompson",
-          "vs_state": 0.74
-        },
-        {
-          "rank": 146,
-          "rate": 19.41,
-          "town": "Morris",
-          "vs_state": 0.73
-        },
-        {
-          "rank": 147,
-          "rate": 19.26,
-          "town": "Essex",
-          "vs_state": 0.72
-        },
-        {
-          "rank": 148,
-          "rate": 19.2,
-          "town": "Stonington",
-          "vs_state": 0.72
-        },
-        {
-          "rank": 149,
-          "rate": 19.19,
-          "town": "Fairfield",
-          "vs_state": 0.72
-        },
-        {
-          "rank": 150,
-          "rate": 18.5,
-          "town": "Putnam",
-          "vs_state": 0.69
-        },
-        {
-          "rank": 151,
-          "rate": 17.5,
-          "town": "North Stonington",
-          "vs_state": 0.66
-        },
-        {
-          "rank": 152,
-          "rate": 17.41,
-          "town": "Sherman",
-          "vs_state": 0.65
-        },
-        {
-          "rank": 153,
-          "rate": 17.34,
-          "town": "Kent",
-          "vs_state": 0.65
-        },
-        {
-          "rank": 154,
-          "rate": 16.97,
-          "town": "New Canaan",
-          "vs_state": 0.64
-        },
-        {
-          "rank": 155,
-          "rate": 16.86,
-          "town": "Old Lyme",
-          "vs_state": 0.63
-        },
-        {
-          "rank": 156,
-          "rate": 16.7,
-          "town": "Goshen",
-          "vs_state": 0.63
-        },
-        {
-          "rank": 157,
-          "rate": 16.62,
-          "town": "Cornwall",
-          "vs_state": 0.62
-        },
-        {
-          "rank": 158,
-          "rate": 16.05,
-          "town": "Darien",
-          "vs_state": 0.6
-        },
-        {
-          "rank": 159,
-          "rate": 15.77,
-          "town": "Old Saybrook",
-          "vs_state": 0.59
-        },
-        {
-          "rank": 160,
-          "rate": 15.51,
-          "town": "Shelton",
-          "vs_state": 0.58
-        },
-        {
-          "rank": 161,
-          "rate": 14.5,
-          "town": "Lyme",
-          "vs_state": 0.54
-        },
-        {
-          "rank": 162,
-          "rate": 13.2,
-          "town": "Westport",
-          "vs_state": 0.5
-        },
-        {
-          "rank": 163,
-          "rate": 13.0,
-          "town": "Roxbury",
-          "vs_state": 0.49
-        },
-        {
-          "rank": 164,
-          "rate": 12.75,
-          "town": "Warren",
-          "vs_state": 0.48
-        },
-        {
-          "rank": 165,
-          "rate": 11.15,
-          "town": "Sharon",
-          "vs_state": 0.42
-        },
-        {
-          "rank": 166,
-          "rate": 10.85,
-          "town": "Washington",
-          "vs_state": 0.41
-        },
-        {
-          "rank": 167,
-          "rate": 10.12,
-          "town": "Greenwich",
-          "vs_state": 0.38
-        },
-        {
-          "rank": 168,
-          "rate": 9.8,
-          "town": "Salisbury",
-          "vs_state": 0.37
-        }
-      ]
     },
     {
       "answer_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest growth of 169 towns.",
@@ -25562,7 +25568,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-05T11:33:47+00:00",
+      "revalidated_at": "2026-11-05T19:00:27+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -26470,15 +26476,15 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-05T11:33:47+00:00",
+      "revalidated_at": "2026-11-05T19:00:27+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
     {
-      "answer_text": "Labor's share of US nonfarm output sits at 93.4 on the 2017=100 index (2026-04) \u2014 lowest on record since the series began in 1947.",
+      "answer_text": "Labor's share of US nonfarm output sits at 93.7 on the 2017=100 index (2026-07) \u2014 lowest on record since the series began in 1947.",
       "answer_values": {
-        "date": "2026-04",
-        "value": 93.446
+        "date": "2026-07",
+        "value": 93.729
       },
       "cache": false,
       "chart": {
@@ -26489,20 +26495,20 @@
         "background": "transparent",
         "config": {
           "axis": {
-            "domainColor": "#26313d",
-            "gridColor": "#26313d",
-            "labelColor": "#9fb0bf",
-            "tickColor": "#26313d",
-            "titleColor": "#9fb0bf"
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68"
           },
           "legend": {
-            "labelColor": "#9fb0bf",
+            "labelColor": "#4c5a68",
             "symbolStrokeWidth": 0,
-            "titleColor": "#9fb0bf"
+            "titleColor": "#4c5a68"
           },
           "title": {
-            "color": "#eef2f5",
-            "subtitleColor": "#9fb0bf"
+            "color": "#1c2733",
+            "subtitleColor": "#66717e"
           },
           "view": {
             "continuousHeight": 300,
@@ -27998,12 +28004,12 @@
                 {
                   "date": "2021-01",
                   "series": "United States",
-                  "value": 100.6
+                  "value": 100.51
                 },
                 {
                   "date": "2021-04",
                   "series": "United States",
-                  "value": 100.42
+                  "value": 100.3
                 },
                 {
                   "date": "2021-07",
@@ -28013,97 +28019,102 @@
                 {
                   "date": "2021-10",
                   "series": "United States",
-                  "value": 99.57
+                  "value": 99.45
                 },
                 {
                   "date": "2022-01",
                   "series": "United States",
-                  "value": 99.12
+                  "value": 99.16
                 },
                 {
                   "date": "2022-04",
                   "series": "United States",
-                  "value": 97.5
+                  "value": 97.48
                 },
                 {
                   "date": "2022-07",
                   "series": "United States",
-                  "value": 98.17
+                  "value": 98.15
                 },
                 {
                   "date": "2022-10",
                   "series": "United States",
-                  "value": 96.9
+                  "value": 96.94
                 },
                 {
                   "date": "2023-01",
                   "series": "United States",
-                  "value": 96.56
+                  "value": 96.62
                 },
                 {
                   "date": "2023-04",
                   "series": "United States",
-                  "value": 96.71
+                  "value": 96.93
                 },
                 {
                   "date": "2023-07",
                   "series": "United States",
-                  "value": 96.25
+                  "value": 96.57
                 },
                 {
                   "date": "2023-10",
                   "series": "United States",
-                  "value": 96.22
+                  "value": 96.31
                 },
                 {
                   "date": "2024-01",
                   "series": "United States",
-                  "value": 96.88
+                  "value": 96.69
                 },
                 {
                   "date": "2024-04",
                   "series": "United States",
-                  "value": 96.6
+                  "value": 96.35
                 },
                 {
                   "date": "2024-07",
                   "series": "United States",
-                  "value": 96.66
+                  "value": 96.42
                 },
                 {
                   "date": "2024-10",
                   "series": "United States",
-                  "value": 96.94
+                  "value": 96.35
                 },
                 {
                   "date": "2025-01",
                   "series": "United States",
-                  "value": 97.87
+                  "value": 96.86
                 },
                 {
                   "date": "2025-04",
                   "series": "United States",
-                  "value": 96.72
+                  "value": 96.11
                 },
                 {
                   "date": "2025-07",
                   "series": "United States",
-                  "value": 96.0
+                  "value": 95.25
                 },
                 {
                   "date": "2025-10",
                   "series": "United States",
-                  "value": 95.73
+                  "value": 95.64
                 },
                 {
                   "date": "2026-01",
                   "series": "United States",
-                  "value": 94.84
+                  "value": 95.52
                 },
                 {
                   "date": "2026-04",
                   "series": "United States",
-                  "value": 93.45
+                  "value": 94.36
+                },
+                {
+                  "date": "2026-07",
+                  "series": "United States",
+                  "value": 93.73
                 }
               ]
             },
@@ -28116,7 +28127,7 @@
                     "United States"
                   ],
                   "range": [
-                    "#f2a65a"
+                    "#d9772b"
                   ]
                 },
                 "type": "nominal"
@@ -28140,7 +28151,7 @@
               ],
               "x": {
                 "axis": {
-                  "domainColor": "#28394a",
+                  "domainColor": "#c9c3b6",
                   "format": "%Y",
                   "grid": false,
                   "tickCount": 6
@@ -28167,10 +28178,10 @@
             "data": {
               "values": [
                 {
-                  "date": "2026-04",
+                  "date": "2026-07",
                   "series": "United States",
                   "short": "US",
-                  "value": 93.45
+                  "value": 93.73
                 }
               ]
             },
@@ -28183,7 +28194,7 @@
                     "United States"
                   ],
                   "range": [
-                    "#f2a65a"
+                    "#d9772b"
                   ]
                 },
                 "type": "nominal"
@@ -28225,15 +28236,17 @@
         "https://fred.stlouisfed.org/series/PRS85006173"
       ],
       "generated_at": "2026-10-05T14:54:08+00:00",
+      "headline": null,
       "id": "fc46f3ad624e",
       "indicator": "labor_share",
       "origin": "data desk",
       "query": "FRED fredgraph.csv id=PRS85006173; agency of record: US Bureau of Labor Statistics, Productivity and Costs",
       "question": "Are workers keeping their share of what they produce?",
+      "revalidated_at": "2026-11-05T19:00:27+00:00",
       "series_freq": "quarterly",
       "stream": "national",
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-05T11:33:42+00:00"
+  "generated_at": "2026-11-05T19:00:27+00:00"
 }
