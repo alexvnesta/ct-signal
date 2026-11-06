@@ -1,8 +1,8 @@
 {
-  "answer_text": "Connecticut's average temperature ran +1.7\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-05 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+  "answer_text": "Connecticut's average temperature ran +2.3\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-05 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
   "answer_values": {
     "date": "2026-11-05",
-    "value": 1.7
+    "value": 2.3
   },
   "cache": false,
   "chart": {
@@ -180,6 +180,11 @@
               "value": 13.0
             },
             {
+              "date": "2026-11-05",
+              "series": "Bradley Intl",
+              "value": 17.0
+            },
+            {
               "date": "2026-10-07",
               "series": "Danbury",
               "value": -6.0
@@ -318,6 +323,11 @@
               "date": "2026-11-04",
               "series": "Danbury",
               "value": 14.5
+            },
+            {
+              "date": "2026-11-05",
+              "series": "Danbury",
+              "value": 16.5
             }
           ]
         },
@@ -385,16 +395,16 @@
         "data": {
           "values": [
             {
-              "date": "2026-11-03",
+              "date": "2026-11-05",
               "series": "Bradley Intl",
               "short": "BR",
-              "value": 13.0
+              "value": 17.0
             },
             {
-              "date": "2026-11-04",
+              "date": "2026-11-05",
               "series": "Danbury",
               "short": "DA",
-              "value": 14.5
+              "value": 16.5
             }
           ]
         },
@@ -452,15 +462,15 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-06T00:06:52+00:00",
+  "generated_at": "2026-11-06T14:50:51+00:00",
   "headline": {
-    "id": "11aa444c900b",
-    "published": "Thu, 05 Nov 2026 19:29:26 GMT",
-    "published_sort": 1793906966,
+    "id": "15518365ec75",
+    "published": "Thu, 05 Nov 2026 09:05:22 GMT",
+    "published_sort": 1793869522,
     "source": "Google News (CT)",
     "stream": "ct",
-    "title": "Rain returns to Connecticut Friday, with thunderstorms and flooding possible - New Haven Register",
-    "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOT05acDFMWml6blo5a2JBWEsxb3RuNnFBVG5JVXVRcnhqN2ppLU9fbXUyRktBd1M3V0N0eFhZYXpIdHIxcHVnOHJldVMycXZoekNlVS0xb3otTmMzcTN4S3VaNW12SFJQVF9QV0t6TzRGMEFQbHN0YV9MeTVpR1dTQ1hQMVpHY2VUelRTaEV1eG50UTVJYmNSbTVYcDFTb3dGNWtWRDJrTzc?oc=5"
+    "title": "What are the chances for a 'white Christmas' in Connecticut? Here's where snow is most likely - CT Insider",
+    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOOENOSEtjeGJ2cVh5cGlYYXVTWW8yNzJQYUtxTzR2M2lxeDZoTW9UXzFrc0lGY1JSd3JBX1FJbW1XT2NxaVRqNml1MkVacjItam9hTHJuanRqRUxkOGxMSDA5T1lTS0pWRm90T3ozU0o0ZndIRDhLdjVGX0JBbkQ4Mjl0YVd6cHNBZ2R0VkxDSkxUU3BnUHNN?oc=5"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",

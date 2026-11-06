@@ -1,10 +1,1988 @@
 {
   "cards": [
     {
-      "answer_text": "Connecticut's average temperature ran +1.7\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-05 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+      "answer_text": "83.7% of Americans aged 25 to 54 were working or looking for work in 2026-09 \u2014 highest since May 2026.",
+      "answer_values": {
+        "date": "2026-09",
+        "value": 83.7
+      },
+      "cache": false,
+      "chart": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+        "autosize": {
+          "contains": "padding"
+        },
+        "background": "transparent",
+        "config": {
+          "axis": {
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68"
+          },
+          "legend": {
+            "labelColor": "#4c5a68",
+            "symbolStrokeWidth": 0,
+            "titleColor": "#4c5a68"
+          },
+          "title": {
+            "color": "#1c2733",
+            "subtitleColor": "#66717e"
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
+          }
+        },
+        "height": 200,
+        "layer": [
+          {
+            "data": {
+              "values": [
+                {
+                  "date": "1996-09",
+                  "series": "United States",
+                  "value": 83.9
+                },
+                {
+                  "date": "1996-10",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1996-11",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1996-12",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1997-01",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "1997-02",
+                  "series": "United States",
+                  "value": 83.9
+                },
+                {
+                  "date": "1997-03",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "1997-04",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "1997-05",
+                  "series": "United States",
+                  "value": 83.8
+                },
+                {
+                  "date": "1997-06",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1997-07",
+                  "series": "United States",
+                  "value": 84.3
+                },
+                {
+                  "date": "1997-08",
+                  "series": "United States",
+                  "value": 84.5
+                },
+                {
+                  "date": "1997-09",
+                  "series": "United States",
+                  "value": 84.3
+                },
+                {
+                  "date": "1997-10",
+                  "series": "United States",
+                  "value": 84.2
+                },
+                {
+                  "date": "1997-11",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "1997-12",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1998-01",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "1998-02",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1998-03",
+                  "series": "United States",
+                  "value": 84.2
+                },
+                {
+                  "date": "1998-04",
+                  "series": "United States",
+                  "value": 83.9
+                },
+                {
+                  "date": "1998-05",
+                  "series": "United States",
+                  "value": 83.9
+                },
+                {
+                  "date": "1998-06",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "1998-07",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1998-08",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1998-09",
+                  "series": "United States",
+                  "value": 84.2
+                },
+                {
+                  "date": "1998-10",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1998-11",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1998-12",
+                  "series": "United States",
+                  "value": 84.2
+                },
+                {
+                  "date": "1999-01",
+                  "series": "United States",
+                  "value": 84.6
+                },
+                {
+                  "date": "1999-02",
+                  "series": "United States",
+                  "value": 84.4
+                },
+                {
+                  "date": "1999-03",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "1999-04",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1999-05",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1999-06",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1999-07",
+                  "series": "United States",
+                  "value": 83.9
+                },
+                {
+                  "date": "1999-08",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "1999-09",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "1999-10",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "1999-11",
+                  "series": "United States",
+                  "value": 84.2
+                },
+                {
+                  "date": "1999-12",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "2000-01",
+                  "series": "United States",
+                  "value": 84.4
+                },
+                {
+                  "date": "2000-02",
+                  "series": "United States",
+                  "value": 84.4
+                },
+                {
+                  "date": "2000-03",
+                  "series": "United States",
+                  "value": 84.3
+                },
+                {
+                  "date": "2000-04",
+                  "series": "United States",
+                  "value": 84.4
+                },
+                {
+                  "date": "2000-05",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "2000-06",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "2000-07",
+                  "series": "United States",
+                  "value": 83.9
+                },
+                {
+                  "date": "2000-08",
+                  "series": "United States",
+                  "value": 83.8
+                },
+                {
+                  "date": "2000-09",
+                  "series": "United States",
+                  "value": 83.7
+                },
+                {
+                  "date": "2000-10",
+                  "series": "United States",
+                  "value": 83.6
+                },
+                {
+                  "date": "2000-11",
+                  "series": "United States",
+                  "value": 83.8
+                },
+                {
+                  "date": "2000-12",
+                  "series": "United States",
+                  "value": 83.9
+                },
+                {
+                  "date": "2001-01",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "2001-02",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "2001-03",
+                  "series": "United States",
+                  "value": 84.1
+                },
+                {
+                  "date": "2001-04",
+                  "series": "United States",
+                  "value": 83.7
+                },
+                {
+                  "date": "2001-05",
+                  "series": "United States",
+                  "value": 83.8
+                },
+                {
+                  "date": "2001-06",
+                  "series": "United States",
+                  "value": 83.6
+                },
+                {
+                  "date": "2001-07",
+                  "series": "United States",
+                  "value": 83.6
+                },
+                {
+                  "date": "2001-08",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2001-09",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2001-10",
+                  "series": "United States",
+                  "value": 83.6
+                },
+                {
+                  "date": "2001-11",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2001-12",
+                  "series": "United States",
+                  "value": 83.7
+                },
+                {
+                  "date": "2002-01",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2002-02",
+                  "series": "United States",
+                  "value": 83.7
+                },
+                {
+                  "date": "2002-03",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2002-04",
+                  "series": "United States",
+                  "value": 83.6
+                },
+                {
+                  "date": "2002-05",
+                  "series": "United States",
+                  "value": 83.6
+                },
+                {
+                  "date": "2002-06",
+                  "series": "United States",
+                  "value": 83.2
+                },
+                {
+                  "date": "2002-07",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2002-08",
+                  "series": "United States",
+                  "value": 83.2
+                },
+                {
+                  "date": "2002-09",
+                  "series": "United States",
+                  "value": 83.3
+                },
+                {
+                  "date": "2002-10",
+                  "series": "United States",
+                  "value": 83.2
+                },
+                {
+                  "date": "2002-11",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2002-12",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2003-01",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2003-02",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2003-03",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2003-04",
+                  "series": "United States",
+                  "value": 83.2
+                },
+                {
+                  "date": "2003-05",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2003-06",
+                  "series": "United States",
+                  "value": 83.3
+                },
+                {
+                  "date": "2003-07",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2003-08",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2003-09",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2003-10",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2003-11",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2003-12",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2004-01",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2004-02",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2004-03",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2004-04",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2004-05",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2004-06",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2004-07",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2004-08",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2004-09",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2004-10",
+                  "series": "United States",
+                  "value": 82.6
+                },
+                {
+                  "date": "2004-11",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2004-12",
+                  "series": "United States",
+                  "value": 82.6
+                },
+                {
+                  "date": "2005-01",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2005-02",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2005-03",
+                  "series": "United States",
+                  "value": 82.6
+                },
+                {
+                  "date": "2005-04",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2005-05",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2005-06",
+                  "series": "United States",
+                  "value": 82.6
+                },
+                {
+                  "date": "2005-07",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2005-08",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2005-09",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2005-10",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2005-11",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2005-12",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2006-01",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2006-02",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2006-03",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2006-04",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2006-05",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2006-06",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2006-07",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2006-08",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2006-09",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2006-10",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2006-11",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2006-12",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2007-01",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2007-02",
+                  "series": "United States",
+                  "value": 83.2
+                },
+                {
+                  "date": "2007-03",
+                  "series": "United States",
+                  "value": 83.2
+                },
+                {
+                  "date": "2007-04",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2007-05",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2007-06",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2007-07",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2007-08",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2007-09",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2007-10",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2007-11",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2007-12",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2008-01",
+                  "series": "United States",
+                  "value": 83.3
+                },
+                {
+                  "date": "2008-02",
+                  "series": "United States",
+                  "value": 83.2
+                },
+                {
+                  "date": "2008-03",
+                  "series": "United States",
+                  "value": 83.3
+                },
+                {
+                  "date": "2008-04",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2008-05",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2008-06",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2008-07",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2008-08",
+                  "series": "United States",
+                  "value": 83.2
+                },
+                {
+                  "date": "2008-09",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2008-10",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2008-11",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2008-12",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2009-01",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2009-02",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2009-03",
+                  "series": "United States",
+                  "value": 82.6
+                },
+                {
+                  "date": "2009-04",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2009-05",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2009-06",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2009-07",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2009-08",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2009-09",
+                  "series": "United States",
+                  "value": 82.5
+                },
+                {
+                  "date": "2009-10",
+                  "series": "United States",
+                  "value": 82.5
+                },
+                {
+                  "date": "2009-11",
+                  "series": "United States",
+                  "value": 82.4
+                },
+                {
+                  "date": "2009-12",
+                  "series": "United States",
+                  "value": 82.0
+                },
+                {
+                  "date": "2010-01",
+                  "series": "United States",
+                  "value": 82.4
+                },
+                {
+                  "date": "2010-02",
+                  "series": "United States",
+                  "value": 82.3
+                },
+                {
+                  "date": "2010-03",
+                  "series": "United States",
+                  "value": 82.4
+                },
+                {
+                  "date": "2010-04",
+                  "series": "United States",
+                  "value": 82.6
+                },
+                {
+                  "date": "2010-05",
+                  "series": "United States",
+                  "value": 82.3
+                },
+                {
+                  "date": "2010-06",
+                  "series": "United States",
+                  "value": 82.2
+                },
+                {
+                  "date": "2010-07",
+                  "series": "United States",
+                  "value": 81.9
+                },
+                {
+                  "date": "2010-08",
+                  "series": "United States",
+                  "value": 82.0
+                },
+                {
+                  "date": "2010-09",
+                  "series": "United States",
+                  "value": 82.0
+                },
+                {
+                  "date": "2010-10",
+                  "series": "United States",
+                  "value": 81.8
+                },
+                {
+                  "date": "2010-11",
+                  "series": "United States",
+                  "value": 82.0
+                },
+                {
+                  "date": "2010-12",
+                  "series": "United States",
+                  "value": 81.9
+                },
+                {
+                  "date": "2011-01",
+                  "series": "United States",
+                  "value": 81.7
+                },
+                {
+                  "date": "2011-02",
+                  "series": "United States",
+                  "value": 81.6
+                },
+                {
+                  "date": "2011-03",
+                  "series": "United States",
+                  "value": 81.7
+                },
+                {
+                  "date": "2011-04",
+                  "series": "United States",
+                  "value": 81.7
+                },
+                {
+                  "date": "2011-05",
+                  "series": "United States",
+                  "value": 81.7
+                },
+                {
+                  "date": "2011-06",
+                  "series": "United States",
+                  "value": 81.7
+                },
+                {
+                  "date": "2011-07",
+                  "series": "United States",
+                  "value": 81.4
+                },
+                {
+                  "date": "2011-08",
+                  "series": "United States",
+                  "value": 81.6
+                },
+                {
+                  "date": "2011-09",
+                  "series": "United States",
+                  "value": 81.5
+                },
+                {
+                  "date": "2011-10",
+                  "series": "United States",
+                  "value": 81.3
+                },
+                {
+                  "date": "2011-11",
+                  "series": "United States",
+                  "value": 81.5
+                },
+                {
+                  "date": "2011-12",
+                  "series": "United States",
+                  "value": 81.6
+                },
+                {
+                  "date": "2012-01",
+                  "series": "United States",
+                  "value": 81.5
+                },
+                {
+                  "date": "2012-02",
+                  "series": "United States",
+                  "value": 81.5
+                },
+                {
+                  "date": "2012-03",
+                  "series": "United States",
+                  "value": 81.5
+                },
+                {
+                  "date": "2012-04",
+                  "series": "United States",
+                  "value": 81.4
+                },
+                {
+                  "date": "2012-05",
+                  "series": "United States",
+                  "value": 81.4
+                },
+                {
+                  "date": "2012-06",
+                  "series": "United States",
+                  "value": 81.5
+                },
+                {
+                  "date": "2012-07",
+                  "series": "United States",
+                  "value": 81.4
+                },
+                {
+                  "date": "2012-08",
+                  "series": "United States",
+                  "value": 81.4
+                },
+                {
+                  "date": "2012-09",
+                  "series": "United States",
+                  "value": 81.5
+                },
+                {
+                  "date": "2012-10",
+                  "series": "United States",
+                  "value": 81.6
+                },
+                {
+                  "date": "2012-11",
+                  "series": "United States",
+                  "value": 81.2
+                },
+                {
+                  "date": "2012-12",
+                  "series": "United States",
+                  "value": 81.4
+                },
+                {
+                  "date": "2013-01",
+                  "series": "United States",
+                  "value": 81.1
+                },
+                {
+                  "date": "2013-02",
+                  "series": "United States",
+                  "value": 81.0
+                },
+                {
+                  "date": "2013-03",
+                  "series": "United States",
+                  "value": 81.0
+                },
+                {
+                  "date": "2013-04",
+                  "series": "United States",
+                  "value": 81.0
+                },
+                {
+                  "date": "2013-05",
+                  "series": "United States",
+                  "value": 81.2
+                },
+                {
+                  "date": "2013-06",
+                  "series": "United States",
+                  "value": 81.2
+                },
+                {
+                  "date": "2013-07",
+                  "series": "United States",
+                  "value": 81.2
+                },
+                {
+                  "date": "2013-08",
+                  "series": "United States",
+                  "value": 81.0
+                },
+                {
+                  "date": "2013-09",
+                  "series": "United States",
+                  "value": 81.0
+                },
+                {
+                  "date": "2013-10",
+                  "series": "United States",
+                  "value": 80.6
+                },
+                {
+                  "date": "2013-11",
+                  "series": "United States",
+                  "value": 81.0
+                },
+                {
+                  "date": "2013-12",
+                  "series": "United States",
+                  "value": 80.8
+                },
+                {
+                  "date": "2014-01",
+                  "series": "United States",
+                  "value": 80.9
+                },
+                {
+                  "date": "2014-02",
+                  "series": "United States",
+                  "value": 81.1
+                },
+                {
+                  "date": "2014-03",
+                  "series": "United States",
+                  "value": 81.1
+                },
+                {
+                  "date": "2014-04",
+                  "series": "United States",
+                  "value": 80.8
+                },
+                {
+                  "date": "2014-05",
+                  "series": "United States",
+                  "value": 80.7
+                },
+                {
+                  "date": "2014-06",
+                  "series": "United States",
+                  "value": 81.0
+                },
+                {
+                  "date": "2014-07",
+                  "series": "United States",
+                  "value": 80.8
+                },
+                {
+                  "date": "2014-08",
+                  "series": "United States",
+                  "value": 81.1
+                },
+                {
+                  "date": "2014-09",
+                  "series": "United States",
+                  "value": 80.8
+                },
+                {
+                  "date": "2014-10",
+                  "series": "United States",
+                  "value": 80.9
+                },
+                {
+                  "date": "2014-11",
+                  "series": "United States",
+                  "value": 80.9
+                },
+                {
+                  "date": "2014-12",
+                  "series": "United States",
+                  "value": 80.9
+                },
+                {
+                  "date": "2015-01",
+                  "series": "United States",
+                  "value": 81.0
+                },
+                {
+                  "date": "2015-02",
+                  "series": "United States",
+                  "value": 80.9
+                },
+                {
+                  "date": "2015-03",
+                  "series": "United States",
+                  "value": 80.8
+                },
+                {
+                  "date": "2015-04",
+                  "series": "United States",
+                  "value": 81.0
+                },
+                {
+                  "date": "2015-05",
+                  "series": "United States",
+                  "value": 81.1
+                },
+                {
+                  "date": "2015-06",
+                  "series": "United States",
+                  "value": 80.9
+                },
+                {
+                  "date": "2015-07",
+                  "series": "United States",
+                  "value": 80.7
+                },
+                {
+                  "date": "2015-08",
+                  "series": "United States",
+                  "value": 80.7
+                },
+                {
+                  "date": "2015-09",
+                  "series": "United States",
+                  "value": 80.6
+                },
+                {
+                  "date": "2015-10",
+                  "series": "United States",
+                  "value": 80.8
+                },
+                {
+                  "date": "2015-11",
+                  "series": "United States",
+                  "value": 80.9
+                },
+                {
+                  "date": "2015-12",
+                  "series": "United States",
+                  "value": 80.9
+                },
+                {
+                  "date": "2016-01",
+                  "series": "United States",
+                  "value": 81.1
+                },
+                {
+                  "date": "2016-02",
+                  "series": "United States",
+                  "value": 81.1
+                },
+                {
+                  "date": "2016-03",
+                  "series": "United States",
+                  "value": 81.3
+                },
+                {
+                  "date": "2016-04",
+                  "series": "United States",
+                  "value": 81.2
+                },
+                {
+                  "date": "2016-05",
+                  "series": "United States",
+                  "value": 81.2
+                },
+                {
+                  "date": "2016-06",
+                  "series": "United States",
+                  "value": 81.3
+                },
+                {
+                  "date": "2016-07",
+                  "series": "United States",
+                  "value": 81.3
+                },
+                {
+                  "date": "2016-08",
+                  "series": "United States",
+                  "value": 81.4
+                },
+                {
+                  "date": "2016-09",
+                  "series": "United States",
+                  "value": 81.5
+                },
+                {
+                  "date": "2016-10",
+                  "series": "United States",
+                  "value": 81.5
+                },
+                {
+                  "date": "2016-11",
+                  "series": "United States",
+                  "value": 81.4
+                },
+                {
+                  "date": "2016-12",
+                  "series": "United States",
+                  "value": 81.3
+                },
+                {
+                  "date": "2017-01",
+                  "series": "United States",
+                  "value": 81.5
+                },
+                {
+                  "date": "2017-02",
+                  "series": "United States",
+                  "value": 81.6
+                },
+                {
+                  "date": "2017-03",
+                  "series": "United States",
+                  "value": 81.6
+                },
+                {
+                  "date": "2017-04",
+                  "series": "United States",
+                  "value": 81.7
+                },
+                {
+                  "date": "2017-05",
+                  "series": "United States",
+                  "value": 81.7
+                },
+                {
+                  "date": "2017-06",
+                  "series": "United States",
+                  "value": 81.6
+                },
+                {
+                  "date": "2017-07",
+                  "series": "United States",
+                  "value": 81.8
+                },
+                {
+                  "date": "2017-08",
+                  "series": "United States",
+                  "value": 81.6
+                },
+                {
+                  "date": "2017-09",
+                  "series": "United States",
+                  "value": 81.9
+                },
+                {
+                  "date": "2017-10",
+                  "series": "United States",
+                  "value": 81.6
+                },
+                {
+                  "date": "2017-11",
+                  "series": "United States",
+                  "value": 81.7
+                },
+                {
+                  "date": "2017-12",
+                  "series": "United States",
+                  "value": 81.8
+                },
+                {
+                  "date": "2018-01",
+                  "series": "United States",
+                  "value": 81.7
+                },
+                {
+                  "date": "2018-02",
+                  "series": "United States",
+                  "value": 82.1
+                },
+                {
+                  "date": "2018-03",
+                  "series": "United States",
+                  "value": 82.0
+                },
+                {
+                  "date": "2018-04",
+                  "series": "United States",
+                  "value": 82.0
+                },
+                {
+                  "date": "2018-05",
+                  "series": "United States",
+                  "value": 81.9
+                },
+                {
+                  "date": "2018-06",
+                  "series": "United States",
+                  "value": 82.1
+                },
+                {
+                  "date": "2018-07",
+                  "series": "United States",
+                  "value": 82.1
+                },
+                {
+                  "date": "2018-08",
+                  "series": "United States",
+                  "value": 81.9
+                },
+                {
+                  "date": "2018-09",
+                  "series": "United States",
+                  "value": 81.9
+                },
+                {
+                  "date": "2018-10",
+                  "series": "United States",
+                  "value": 82.3
+                },
+                {
+                  "date": "2018-11",
+                  "series": "United States",
+                  "value": 82.2
+                },
+                {
+                  "date": "2018-12",
+                  "series": "United States",
+                  "value": 82.3
+                },
+                {
+                  "date": "2019-01",
+                  "series": "United States",
+                  "value": 82.5
+                },
+                {
+                  "date": "2019-02",
+                  "series": "United States",
+                  "value": 82.5
+                },
+                {
+                  "date": "2019-03",
+                  "series": "United States",
+                  "value": 82.4
+                },
+                {
+                  "date": "2019-04",
+                  "series": "United States",
+                  "value": 82.2
+                },
+                {
+                  "date": "2019-05",
+                  "series": "United States",
+                  "value": 82.2
+                },
+                {
+                  "date": "2019-06",
+                  "series": "United States",
+                  "value": 82.2
+                },
+                {
+                  "date": "2019-07",
+                  "series": "United States",
+                  "value": 82.1
+                },
+                {
+                  "date": "2019-08",
+                  "series": "United States",
+                  "value": 82.5
+                },
+                {
+                  "date": "2019-09",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2019-10",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2019-11",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2019-12",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2020-01",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2020-02",
+                  "series": "United States",
+                  "value": 82.9
+                },
+                {
+                  "date": "2020-03",
+                  "series": "United States",
+                  "value": 82.4
+                },
+                {
+                  "date": "2020-04",
+                  "series": "United States",
+                  "value": 79.8
+                },
+                {
+                  "date": "2020-05",
+                  "series": "United States",
+                  "value": 80.6
+                },
+                {
+                  "date": "2020-06",
+                  "series": "United States",
+                  "value": 81.4
+                },
+                {
+                  "date": "2020-07",
+                  "series": "United States",
+                  "value": 81.2
+                },
+                {
+                  "date": "2020-08",
+                  "series": "United States",
+                  "value": 81.3
+                },
+                {
+                  "date": "2020-09",
+                  "series": "United States",
+                  "value": 80.9
+                },
+                {
+                  "date": "2020-10",
+                  "series": "United States",
+                  "value": 81.3
+                },
+                {
+                  "date": "2020-11",
+                  "series": "United States",
+                  "value": 81.0
+                },
+                {
+                  "date": "2020-12",
+                  "series": "United States",
+                  "value": 81.1
+                },
+                {
+                  "date": "2021-01",
+                  "series": "United States",
+                  "value": 81.1
+                },
+                {
+                  "date": "2021-02",
+                  "series": "United States",
+                  "value": 81.1
+                },
+                {
+                  "date": "2021-03",
+                  "series": "United States",
+                  "value": 81.3
+                },
+                {
+                  "date": "2021-04",
+                  "series": "United States",
+                  "value": 81.3
+                },
+                {
+                  "date": "2021-05",
+                  "series": "United States",
+                  "value": 81.3
+                },
+                {
+                  "date": "2021-06",
+                  "series": "United States",
+                  "value": 81.7
+                },
+                {
+                  "date": "2021-07",
+                  "series": "United States",
+                  "value": 81.8
+                },
+                {
+                  "date": "2021-08",
+                  "series": "United States",
+                  "value": 81.7
+                },
+                {
+                  "date": "2021-09",
+                  "series": "United States",
+                  "value": 81.6
+                },
+                {
+                  "date": "2021-10",
+                  "series": "United States",
+                  "value": 81.8
+                },
+                {
+                  "date": "2021-11",
+                  "series": "United States",
+                  "value": 82.0
+                },
+                {
+                  "date": "2021-12",
+                  "series": "United States",
+                  "value": 82.0
+                },
+                {
+                  "date": "2022-01",
+                  "series": "United States",
+                  "value": 82.0
+                },
+                {
+                  "date": "2022-02",
+                  "series": "United States",
+                  "value": 82.2
+                },
+                {
+                  "date": "2022-03",
+                  "series": "United States",
+                  "value": 82.5
+                },
+                {
+                  "date": "2022-04",
+                  "series": "United States",
+                  "value": 82.4
+                },
+                {
+                  "date": "2022-05",
+                  "series": "United States",
+                  "value": 82.6
+                },
+                {
+                  "date": "2022-06",
+                  "series": "United States",
+                  "value": 82.3
+                },
+                {
+                  "date": "2022-07",
+                  "series": "United States",
+                  "value": 82.4
+                },
+                {
+                  "date": "2022-08",
+                  "series": "United States",
+                  "value": 82.8
+                },
+                {
+                  "date": "2022-09",
+                  "series": "United States",
+                  "value": 82.6
+                },
+                {
+                  "date": "2022-10",
+                  "series": "United States",
+                  "value": 82.6
+                },
+                {
+                  "date": "2022-11",
+                  "series": "United States",
+                  "value": 82.4
+                },
+                {
+                  "date": "2022-12",
+                  "series": "United States",
+                  "value": 82.6
+                },
+                {
+                  "date": "2023-01",
+                  "series": "United States",
+                  "value": 82.7
+                },
+                {
+                  "date": "2023-02",
+                  "series": "United States",
+                  "value": 83.0
+                },
+                {
+                  "date": "2023-03",
+                  "series": "United States",
+                  "value": 83.1
+                },
+                {
+                  "date": "2023-04",
+                  "series": "United States",
+                  "value": 83.3
+                },
+                {
+                  "date": "2023-05",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2023-06",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2023-07",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2023-08",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2023-09",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2023-10",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2023-11",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2023-12",
+                  "series": "United States",
+                  "value": 83.2
+                },
+                {
+                  "date": "2024-01",
+                  "series": "United States",
+                  "value": 83.3
+                },
+                {
+                  "date": "2024-02",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2024-03",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2024-04",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2024-05",
+                  "series": "United States",
+                  "value": 83.6
+                },
+                {
+                  "date": "2024-06",
+                  "series": "United States",
+                  "value": 83.7
+                },
+                {
+                  "date": "2024-07",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "2024-08",
+                  "series": "United States",
+                  "value": 83.9
+                },
+                {
+                  "date": "2024-09",
+                  "series": "United States",
+                  "value": 83.8
+                },
+                {
+                  "date": "2024-10",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2024-11",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2024-12",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2025-01",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2025-02",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2025-03",
+                  "series": "United States",
+                  "value": 83.3
+                },
+                {
+                  "date": "2025-04",
+                  "series": "United States",
+                  "value": 83.6
+                },
+                {
+                  "date": "2025-05",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2025-06",
+                  "series": "United States",
+                  "value": 83.5
+                },
+                {
+                  "date": "2025-07",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2025-08",
+                  "series": "United States",
+                  "value": 83.7
+                },
+                {
+                  "date": "2025-09",
+                  "series": "United States",
+                  "value": 83.7
+                },
+                {
+                  "date": "2025-11",
+                  "series": "United States",
+                  "value": 83.8
+                },
+                {
+                  "date": "2025-12",
+                  "series": "United States",
+                  "value": 83.8
+                },
+                {
+                  "date": "2026-01",
+                  "series": "United States",
+                  "value": 84.0
+                },
+                {
+                  "date": "2026-02",
+                  "series": "United States",
+                  "value": 83.9
+                },
+                {
+                  "date": "2026-03",
+                  "series": "United States",
+                  "value": 83.8
+                },
+                {
+                  "date": "2026-04",
+                  "series": "United States",
+                  "value": 83.8
+                },
+                {
+                  "date": "2026-05",
+                  "series": "United States",
+                  "value": 83.9
+                },
+                {
+                  "date": "2026-06",
+                  "series": "United States",
+                  "value": 83.3
+                },
+                {
+                  "date": "2026-07",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2026-08",
+                  "series": "United States",
+                  "value": 83.4
+                },
+                {
+                  "date": "2026-09",
+                  "series": "United States",
+                  "value": 83.7
+                }
+              ]
+            },
+            "encoding": {
+              "color": {
+                "field": "series",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    "United States"
+                  ],
+                  "range": [
+                    "#d9772b"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "tooltip": [
+                {
+                  "field": "series",
+                  "type": "nominal"
+                },
+                {
+                  "field": "date",
+                  "format": "%Y-%m",
+                  "title": "Month",
+                  "type": "temporal"
+                },
+                {
+                  "field": "value",
+                  "format": ".1f",
+                  "type": "quantitative"
+                }
+              ],
+              "x": {
+                "axis": {
+                  "domainColor": "#c9c3b6",
+                  "format": "%Y",
+                  "grid": false,
+                  "tickCount": 6
+                },
+                "field": "date",
+                "title": null,
+                "type": "temporal"
+              },
+              "y": {
+                "axis": {
+                  "format": ".1f"
+                },
+                "field": "value",
+                "title": "Prime-age labor force participation (percent)",
+                "type": "quantitative"
+              }
+            },
+            "mark": {
+              "point": true,
+              "type": "line"
+            }
+          },
+          {
+            "data": {
+              "values": [
+                {
+                  "date": "2026-09",
+                  "series": "United States",
+                  "short": "US",
+                  "value": 83.7
+                }
+              ]
+            },
+            "encoding": {
+              "color": {
+                "field": "series",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    "United States"
+                  ],
+                  "range": [
+                    "#d9772b"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "text": {
+                "field": "short",
+                "type": "nominal"
+              },
+              "x": {
+                "field": "date",
+                "type": "temporal"
+              },
+              "y": {
+                "field": "value",
+                "type": "quantitative"
+              }
+            },
+            "mark": {
+              "align": "left",
+              "dx": 8,
+              "dy": -8,
+              "fontSize": 12,
+              "fontWeight": 700,
+              "type": "text"
+            }
+          }
+        ],
+        "padding": {
+          "right": 64
+        },
+        "title": {
+          "text": "Prime-age labor force participation"
+        },
+        "width": "container"
+      },
+      "chart2": null,
+      "chart_kind": "trend",
+      "citations": [
+        "https://fred.stlouisfed.org/series/LNS11300060"
+      ],
+      "generated_at": "2026-11-06T14:51:07+00:00",
+      "headline": {
+        "id": "3472d99d6870",
+        "published": "Fri, 06 Nov 2026 07:24:52 -0500",
+        "published_sort": 1793967892,
+        "source": "NPR",
+        "stream": "national",
+        "title": "Judge halts construction of Trump's arch. And, Labor Department to release jobs report",
+        "url": "https://www.npr.org/2026/11/06/g-s1-152213/up-first-newsletter-job-market-trump-arch-school-enrollment-harmeet-dhillon"
+      },
+      "id": "9089da248fbd",
+      "indicator": "prime_age_participation",
+      "query": "FRED fredgraph.csv id=LNS11300060; agency of record: US Bureau of Labor Statistics, Current Population Survey",
+      "question": "Are working-age Americans in the labor force?",
+      "series_freq": "monthly",
+      "stream": "national",
+      "topic": "economy"
+    },
+    {
+      "answer_text": "Connecticut's average temperature ran +2.3\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-05 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
       "answer_values": {
         "date": "2026-11-05",
-        "value": 1.7
+        "value": 2.3
       },
       "cache": false,
       "chart": {
@@ -182,6 +2160,11 @@
                   "value": 13.0
                 },
                 {
+                  "date": "2026-11-05",
+                  "series": "Bradley Intl",
+                  "value": 17.0
+                },
+                {
                   "date": "2026-10-07",
                   "series": "Danbury",
                   "value": -6.0
@@ -320,6 +2303,11 @@
                   "date": "2026-11-04",
                   "series": "Danbury",
                   "value": 14.5
+                },
+                {
+                  "date": "2026-11-05",
+                  "series": "Danbury",
+                  "value": 16.5
                 }
               ]
             },
@@ -387,16 +2375,16 @@
             "data": {
               "values": [
                 {
-                  "date": "2026-11-03",
+                  "date": "2026-11-05",
                   "series": "Bradley Intl",
                   "short": "BR",
-                  "value": 13.0
+                  "value": 17.0
                 },
                 {
-                  "date": "2026-11-04",
+                  "date": "2026-11-05",
                   "series": "Danbury",
                   "short": "DA",
-                  "value": 14.5
+                  "value": 16.5
                 }
               ]
             },
@@ -454,15 +2442,15 @@
       "citations": [
         "https://data.rcc-acis.org/StnData"
       ],
-      "generated_at": "2026-11-06T00:06:52+00:00",
+      "generated_at": "2026-11-06T14:50:51+00:00",
       "headline": {
-        "id": "11aa444c900b",
-        "published": "Thu, 05 Nov 2026 19:29:26 GMT",
-        "published_sort": 1793906966,
+        "id": "15518365ec75",
+        "published": "Thu, 05 Nov 2026 09:05:22 GMT",
+        "published_sort": 1793869522,
         "source": "Google News (CT)",
         "stream": "ct",
-        "title": "Rain returns to Connecticut Friday, with thunderstorms and flooding possible - New Haven Register",
-        "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOT05acDFMWml6blo5a2JBWEsxb3RuNnFBVG5JVXVRcnhqN2ppLU9fbXUyRktBd1M3V0N0eFhZYXpIdHIxcHVnOHJldVMycXZoekNlVS0xb3otTmMzcTN4S3VaNW12SFJQVF9QV0t6TzRGMEFQbHN0YV9MeTVpR1dTQ1hQMVpHY2VUelRTaEV1eG50UTVJYmNSbTVYcDFTb3dGNWtWRDJrTzc?oc=5"
+        "title": "What are the chances for a 'white Christmas' in Connecticut? Here's where snow is most likely - CT Insider",
+        "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOOENOSEtjeGJ2cVh5cGlYYXVTWW8yNzJQYUtxTzR2M2lxeDZoTW9UXzFrc0lGY1JSd3JBX1FJbW1XT2NxaVRqNml1MkVacjItam9hTHJuanRqRUxkOGxMSDA5T1lTS0pWRm90T3ozU0o0ZndIRDhLdjVGX0JBbkQ4Mjl0YVd6cHNBZ2R0VkxDSkxUU3BnUHNN?oc=5"
       },
       "id": "0785479c5e31",
       "indicator": "weather_anomaly",
@@ -4313,7 +6301,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-06T06:50:09+00:00",
+      "revalidated_at": "2026-11-06T14:51:02+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -19324,1978 +21312,8 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-06T06:50:09+00:00",
+      "revalidated_at": "2026-11-06T14:51:02+00:00",
       "stream": "stackup",
-      "topic": "economy"
-    },
-    {
-      "answer_text": "83.7% of Americans aged 25 to 54 were working or looking for work in 2026-09 \u2014 highest since May 2026.",
-      "answer_values": {
-        "date": "2026-09",
-        "value": 83.7
-      },
-      "cache": false,
-      "chart": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-        "autosize": {
-          "contains": "padding"
-        },
-        "background": "transparent",
-        "config": {
-          "axis": {
-            "domainColor": "#b8b2a6",
-            "gridColor": "#e4dfd3",
-            "labelColor": "#4c5a68",
-            "tickColor": "#b8b2a6",
-            "titleColor": "#4c5a68"
-          },
-          "legend": {
-            "labelColor": "#4c5a68",
-            "symbolStrokeWidth": 0,
-            "titleColor": "#4c5a68"
-          },
-          "title": {
-            "color": "#1c2733",
-            "subtitleColor": "#66717e"
-          },
-          "view": {
-            "continuousHeight": 300,
-            "continuousWidth": 300,
-            "strokeWidth": 0
-          }
-        },
-        "height": 200,
-        "layer": [
-          {
-            "data": {
-              "values": [
-                {
-                  "date": "1996-09",
-                  "series": "United States",
-                  "value": 83.9
-                },
-                {
-                  "date": "1996-10",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1996-11",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1996-12",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1997-01",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "1997-02",
-                  "series": "United States",
-                  "value": 83.9
-                },
-                {
-                  "date": "1997-03",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "1997-04",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "1997-05",
-                  "series": "United States",
-                  "value": 83.8
-                },
-                {
-                  "date": "1997-06",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1997-07",
-                  "series": "United States",
-                  "value": 84.3
-                },
-                {
-                  "date": "1997-08",
-                  "series": "United States",
-                  "value": 84.5
-                },
-                {
-                  "date": "1997-09",
-                  "series": "United States",
-                  "value": 84.3
-                },
-                {
-                  "date": "1997-10",
-                  "series": "United States",
-                  "value": 84.2
-                },
-                {
-                  "date": "1997-11",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "1997-12",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1998-01",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "1998-02",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1998-03",
-                  "series": "United States",
-                  "value": 84.2
-                },
-                {
-                  "date": "1998-04",
-                  "series": "United States",
-                  "value": 83.9
-                },
-                {
-                  "date": "1998-05",
-                  "series": "United States",
-                  "value": 83.9
-                },
-                {
-                  "date": "1998-06",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "1998-07",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1998-08",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1998-09",
-                  "series": "United States",
-                  "value": 84.2
-                },
-                {
-                  "date": "1998-10",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1998-11",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1998-12",
-                  "series": "United States",
-                  "value": 84.2
-                },
-                {
-                  "date": "1999-01",
-                  "series": "United States",
-                  "value": 84.6
-                },
-                {
-                  "date": "1999-02",
-                  "series": "United States",
-                  "value": 84.4
-                },
-                {
-                  "date": "1999-03",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "1999-04",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1999-05",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1999-06",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1999-07",
-                  "series": "United States",
-                  "value": 83.9
-                },
-                {
-                  "date": "1999-08",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "1999-09",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "1999-10",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "1999-11",
-                  "series": "United States",
-                  "value": 84.2
-                },
-                {
-                  "date": "1999-12",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "2000-01",
-                  "series": "United States",
-                  "value": 84.4
-                },
-                {
-                  "date": "2000-02",
-                  "series": "United States",
-                  "value": 84.4
-                },
-                {
-                  "date": "2000-03",
-                  "series": "United States",
-                  "value": 84.3
-                },
-                {
-                  "date": "2000-04",
-                  "series": "United States",
-                  "value": 84.4
-                },
-                {
-                  "date": "2000-05",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "2000-06",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "2000-07",
-                  "series": "United States",
-                  "value": 83.9
-                },
-                {
-                  "date": "2000-08",
-                  "series": "United States",
-                  "value": 83.8
-                },
-                {
-                  "date": "2000-09",
-                  "series": "United States",
-                  "value": 83.7
-                },
-                {
-                  "date": "2000-10",
-                  "series": "United States",
-                  "value": 83.6
-                },
-                {
-                  "date": "2000-11",
-                  "series": "United States",
-                  "value": 83.8
-                },
-                {
-                  "date": "2000-12",
-                  "series": "United States",
-                  "value": 83.9
-                },
-                {
-                  "date": "2001-01",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "2001-02",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "2001-03",
-                  "series": "United States",
-                  "value": 84.1
-                },
-                {
-                  "date": "2001-04",
-                  "series": "United States",
-                  "value": 83.7
-                },
-                {
-                  "date": "2001-05",
-                  "series": "United States",
-                  "value": 83.8
-                },
-                {
-                  "date": "2001-06",
-                  "series": "United States",
-                  "value": 83.6
-                },
-                {
-                  "date": "2001-07",
-                  "series": "United States",
-                  "value": 83.6
-                },
-                {
-                  "date": "2001-08",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2001-09",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2001-10",
-                  "series": "United States",
-                  "value": 83.6
-                },
-                {
-                  "date": "2001-11",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2001-12",
-                  "series": "United States",
-                  "value": 83.7
-                },
-                {
-                  "date": "2002-01",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2002-02",
-                  "series": "United States",
-                  "value": 83.7
-                },
-                {
-                  "date": "2002-03",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2002-04",
-                  "series": "United States",
-                  "value": 83.6
-                },
-                {
-                  "date": "2002-05",
-                  "series": "United States",
-                  "value": 83.6
-                },
-                {
-                  "date": "2002-06",
-                  "series": "United States",
-                  "value": 83.2
-                },
-                {
-                  "date": "2002-07",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2002-08",
-                  "series": "United States",
-                  "value": 83.2
-                },
-                {
-                  "date": "2002-09",
-                  "series": "United States",
-                  "value": 83.3
-                },
-                {
-                  "date": "2002-10",
-                  "series": "United States",
-                  "value": 83.2
-                },
-                {
-                  "date": "2002-11",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2002-12",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2003-01",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2003-02",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2003-03",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2003-04",
-                  "series": "United States",
-                  "value": 83.2
-                },
-                {
-                  "date": "2003-05",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2003-06",
-                  "series": "United States",
-                  "value": 83.3
-                },
-                {
-                  "date": "2003-07",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2003-08",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2003-09",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2003-10",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2003-11",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2003-12",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2004-01",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2004-02",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2004-03",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2004-04",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2004-05",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2004-06",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2004-07",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2004-08",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2004-09",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2004-10",
-                  "series": "United States",
-                  "value": 82.6
-                },
-                {
-                  "date": "2004-11",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2004-12",
-                  "series": "United States",
-                  "value": 82.6
-                },
-                {
-                  "date": "2005-01",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2005-02",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2005-03",
-                  "series": "United States",
-                  "value": 82.6
-                },
-                {
-                  "date": "2005-04",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2005-05",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2005-06",
-                  "series": "United States",
-                  "value": 82.6
-                },
-                {
-                  "date": "2005-07",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2005-08",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2005-09",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2005-10",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2005-11",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2005-12",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2006-01",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2006-02",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2006-03",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2006-04",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2006-05",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2006-06",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2006-07",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2006-08",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2006-09",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2006-10",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2006-11",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2006-12",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2007-01",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2007-02",
-                  "series": "United States",
-                  "value": 83.2
-                },
-                {
-                  "date": "2007-03",
-                  "series": "United States",
-                  "value": 83.2
-                },
-                {
-                  "date": "2007-04",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2007-05",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2007-06",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2007-07",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2007-08",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2007-09",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2007-10",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2007-11",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2007-12",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2008-01",
-                  "series": "United States",
-                  "value": 83.3
-                },
-                {
-                  "date": "2008-02",
-                  "series": "United States",
-                  "value": 83.2
-                },
-                {
-                  "date": "2008-03",
-                  "series": "United States",
-                  "value": 83.3
-                },
-                {
-                  "date": "2008-04",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2008-05",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2008-06",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2008-07",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2008-08",
-                  "series": "United States",
-                  "value": 83.2
-                },
-                {
-                  "date": "2008-09",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2008-10",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2008-11",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2008-12",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2009-01",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2009-02",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2009-03",
-                  "series": "United States",
-                  "value": 82.6
-                },
-                {
-                  "date": "2009-04",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2009-05",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2009-06",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2009-07",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2009-08",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2009-09",
-                  "series": "United States",
-                  "value": 82.5
-                },
-                {
-                  "date": "2009-10",
-                  "series": "United States",
-                  "value": 82.5
-                },
-                {
-                  "date": "2009-11",
-                  "series": "United States",
-                  "value": 82.4
-                },
-                {
-                  "date": "2009-12",
-                  "series": "United States",
-                  "value": 82.0
-                },
-                {
-                  "date": "2010-01",
-                  "series": "United States",
-                  "value": 82.4
-                },
-                {
-                  "date": "2010-02",
-                  "series": "United States",
-                  "value": 82.3
-                },
-                {
-                  "date": "2010-03",
-                  "series": "United States",
-                  "value": 82.4
-                },
-                {
-                  "date": "2010-04",
-                  "series": "United States",
-                  "value": 82.6
-                },
-                {
-                  "date": "2010-05",
-                  "series": "United States",
-                  "value": 82.3
-                },
-                {
-                  "date": "2010-06",
-                  "series": "United States",
-                  "value": 82.2
-                },
-                {
-                  "date": "2010-07",
-                  "series": "United States",
-                  "value": 81.9
-                },
-                {
-                  "date": "2010-08",
-                  "series": "United States",
-                  "value": 82.0
-                },
-                {
-                  "date": "2010-09",
-                  "series": "United States",
-                  "value": 82.0
-                },
-                {
-                  "date": "2010-10",
-                  "series": "United States",
-                  "value": 81.8
-                },
-                {
-                  "date": "2010-11",
-                  "series": "United States",
-                  "value": 82.0
-                },
-                {
-                  "date": "2010-12",
-                  "series": "United States",
-                  "value": 81.9
-                },
-                {
-                  "date": "2011-01",
-                  "series": "United States",
-                  "value": 81.7
-                },
-                {
-                  "date": "2011-02",
-                  "series": "United States",
-                  "value": 81.6
-                },
-                {
-                  "date": "2011-03",
-                  "series": "United States",
-                  "value": 81.7
-                },
-                {
-                  "date": "2011-04",
-                  "series": "United States",
-                  "value": 81.7
-                },
-                {
-                  "date": "2011-05",
-                  "series": "United States",
-                  "value": 81.7
-                },
-                {
-                  "date": "2011-06",
-                  "series": "United States",
-                  "value": 81.7
-                },
-                {
-                  "date": "2011-07",
-                  "series": "United States",
-                  "value": 81.4
-                },
-                {
-                  "date": "2011-08",
-                  "series": "United States",
-                  "value": 81.6
-                },
-                {
-                  "date": "2011-09",
-                  "series": "United States",
-                  "value": 81.5
-                },
-                {
-                  "date": "2011-10",
-                  "series": "United States",
-                  "value": 81.3
-                },
-                {
-                  "date": "2011-11",
-                  "series": "United States",
-                  "value": 81.5
-                },
-                {
-                  "date": "2011-12",
-                  "series": "United States",
-                  "value": 81.6
-                },
-                {
-                  "date": "2012-01",
-                  "series": "United States",
-                  "value": 81.5
-                },
-                {
-                  "date": "2012-02",
-                  "series": "United States",
-                  "value": 81.5
-                },
-                {
-                  "date": "2012-03",
-                  "series": "United States",
-                  "value": 81.5
-                },
-                {
-                  "date": "2012-04",
-                  "series": "United States",
-                  "value": 81.4
-                },
-                {
-                  "date": "2012-05",
-                  "series": "United States",
-                  "value": 81.4
-                },
-                {
-                  "date": "2012-06",
-                  "series": "United States",
-                  "value": 81.5
-                },
-                {
-                  "date": "2012-07",
-                  "series": "United States",
-                  "value": 81.4
-                },
-                {
-                  "date": "2012-08",
-                  "series": "United States",
-                  "value": 81.4
-                },
-                {
-                  "date": "2012-09",
-                  "series": "United States",
-                  "value": 81.5
-                },
-                {
-                  "date": "2012-10",
-                  "series": "United States",
-                  "value": 81.6
-                },
-                {
-                  "date": "2012-11",
-                  "series": "United States",
-                  "value": 81.2
-                },
-                {
-                  "date": "2012-12",
-                  "series": "United States",
-                  "value": 81.4
-                },
-                {
-                  "date": "2013-01",
-                  "series": "United States",
-                  "value": 81.1
-                },
-                {
-                  "date": "2013-02",
-                  "series": "United States",
-                  "value": 81.0
-                },
-                {
-                  "date": "2013-03",
-                  "series": "United States",
-                  "value": 81.0
-                },
-                {
-                  "date": "2013-04",
-                  "series": "United States",
-                  "value": 81.0
-                },
-                {
-                  "date": "2013-05",
-                  "series": "United States",
-                  "value": 81.2
-                },
-                {
-                  "date": "2013-06",
-                  "series": "United States",
-                  "value": 81.2
-                },
-                {
-                  "date": "2013-07",
-                  "series": "United States",
-                  "value": 81.2
-                },
-                {
-                  "date": "2013-08",
-                  "series": "United States",
-                  "value": 81.0
-                },
-                {
-                  "date": "2013-09",
-                  "series": "United States",
-                  "value": 81.0
-                },
-                {
-                  "date": "2013-10",
-                  "series": "United States",
-                  "value": 80.6
-                },
-                {
-                  "date": "2013-11",
-                  "series": "United States",
-                  "value": 81.0
-                },
-                {
-                  "date": "2013-12",
-                  "series": "United States",
-                  "value": 80.8
-                },
-                {
-                  "date": "2014-01",
-                  "series": "United States",
-                  "value": 80.9
-                },
-                {
-                  "date": "2014-02",
-                  "series": "United States",
-                  "value": 81.1
-                },
-                {
-                  "date": "2014-03",
-                  "series": "United States",
-                  "value": 81.1
-                },
-                {
-                  "date": "2014-04",
-                  "series": "United States",
-                  "value": 80.8
-                },
-                {
-                  "date": "2014-05",
-                  "series": "United States",
-                  "value": 80.7
-                },
-                {
-                  "date": "2014-06",
-                  "series": "United States",
-                  "value": 81.0
-                },
-                {
-                  "date": "2014-07",
-                  "series": "United States",
-                  "value": 80.8
-                },
-                {
-                  "date": "2014-08",
-                  "series": "United States",
-                  "value": 81.1
-                },
-                {
-                  "date": "2014-09",
-                  "series": "United States",
-                  "value": 80.8
-                },
-                {
-                  "date": "2014-10",
-                  "series": "United States",
-                  "value": 80.9
-                },
-                {
-                  "date": "2014-11",
-                  "series": "United States",
-                  "value": 80.9
-                },
-                {
-                  "date": "2014-12",
-                  "series": "United States",
-                  "value": 80.9
-                },
-                {
-                  "date": "2015-01",
-                  "series": "United States",
-                  "value": 81.0
-                },
-                {
-                  "date": "2015-02",
-                  "series": "United States",
-                  "value": 80.9
-                },
-                {
-                  "date": "2015-03",
-                  "series": "United States",
-                  "value": 80.8
-                },
-                {
-                  "date": "2015-04",
-                  "series": "United States",
-                  "value": 81.0
-                },
-                {
-                  "date": "2015-05",
-                  "series": "United States",
-                  "value": 81.1
-                },
-                {
-                  "date": "2015-06",
-                  "series": "United States",
-                  "value": 80.9
-                },
-                {
-                  "date": "2015-07",
-                  "series": "United States",
-                  "value": 80.7
-                },
-                {
-                  "date": "2015-08",
-                  "series": "United States",
-                  "value": 80.7
-                },
-                {
-                  "date": "2015-09",
-                  "series": "United States",
-                  "value": 80.6
-                },
-                {
-                  "date": "2015-10",
-                  "series": "United States",
-                  "value": 80.8
-                },
-                {
-                  "date": "2015-11",
-                  "series": "United States",
-                  "value": 80.9
-                },
-                {
-                  "date": "2015-12",
-                  "series": "United States",
-                  "value": 80.9
-                },
-                {
-                  "date": "2016-01",
-                  "series": "United States",
-                  "value": 81.1
-                },
-                {
-                  "date": "2016-02",
-                  "series": "United States",
-                  "value": 81.1
-                },
-                {
-                  "date": "2016-03",
-                  "series": "United States",
-                  "value": 81.3
-                },
-                {
-                  "date": "2016-04",
-                  "series": "United States",
-                  "value": 81.2
-                },
-                {
-                  "date": "2016-05",
-                  "series": "United States",
-                  "value": 81.2
-                },
-                {
-                  "date": "2016-06",
-                  "series": "United States",
-                  "value": 81.3
-                },
-                {
-                  "date": "2016-07",
-                  "series": "United States",
-                  "value": 81.3
-                },
-                {
-                  "date": "2016-08",
-                  "series": "United States",
-                  "value": 81.4
-                },
-                {
-                  "date": "2016-09",
-                  "series": "United States",
-                  "value": 81.5
-                },
-                {
-                  "date": "2016-10",
-                  "series": "United States",
-                  "value": 81.5
-                },
-                {
-                  "date": "2016-11",
-                  "series": "United States",
-                  "value": 81.4
-                },
-                {
-                  "date": "2016-12",
-                  "series": "United States",
-                  "value": 81.3
-                },
-                {
-                  "date": "2017-01",
-                  "series": "United States",
-                  "value": 81.5
-                },
-                {
-                  "date": "2017-02",
-                  "series": "United States",
-                  "value": 81.6
-                },
-                {
-                  "date": "2017-03",
-                  "series": "United States",
-                  "value": 81.6
-                },
-                {
-                  "date": "2017-04",
-                  "series": "United States",
-                  "value": 81.7
-                },
-                {
-                  "date": "2017-05",
-                  "series": "United States",
-                  "value": 81.7
-                },
-                {
-                  "date": "2017-06",
-                  "series": "United States",
-                  "value": 81.6
-                },
-                {
-                  "date": "2017-07",
-                  "series": "United States",
-                  "value": 81.8
-                },
-                {
-                  "date": "2017-08",
-                  "series": "United States",
-                  "value": 81.6
-                },
-                {
-                  "date": "2017-09",
-                  "series": "United States",
-                  "value": 81.9
-                },
-                {
-                  "date": "2017-10",
-                  "series": "United States",
-                  "value": 81.6
-                },
-                {
-                  "date": "2017-11",
-                  "series": "United States",
-                  "value": 81.7
-                },
-                {
-                  "date": "2017-12",
-                  "series": "United States",
-                  "value": 81.8
-                },
-                {
-                  "date": "2018-01",
-                  "series": "United States",
-                  "value": 81.7
-                },
-                {
-                  "date": "2018-02",
-                  "series": "United States",
-                  "value": 82.1
-                },
-                {
-                  "date": "2018-03",
-                  "series": "United States",
-                  "value": 82.0
-                },
-                {
-                  "date": "2018-04",
-                  "series": "United States",
-                  "value": 82.0
-                },
-                {
-                  "date": "2018-05",
-                  "series": "United States",
-                  "value": 81.9
-                },
-                {
-                  "date": "2018-06",
-                  "series": "United States",
-                  "value": 82.1
-                },
-                {
-                  "date": "2018-07",
-                  "series": "United States",
-                  "value": 82.1
-                },
-                {
-                  "date": "2018-08",
-                  "series": "United States",
-                  "value": 81.9
-                },
-                {
-                  "date": "2018-09",
-                  "series": "United States",
-                  "value": 81.9
-                },
-                {
-                  "date": "2018-10",
-                  "series": "United States",
-                  "value": 82.3
-                },
-                {
-                  "date": "2018-11",
-                  "series": "United States",
-                  "value": 82.2
-                },
-                {
-                  "date": "2018-12",
-                  "series": "United States",
-                  "value": 82.3
-                },
-                {
-                  "date": "2019-01",
-                  "series": "United States",
-                  "value": 82.5
-                },
-                {
-                  "date": "2019-02",
-                  "series": "United States",
-                  "value": 82.5
-                },
-                {
-                  "date": "2019-03",
-                  "series": "United States",
-                  "value": 82.4
-                },
-                {
-                  "date": "2019-04",
-                  "series": "United States",
-                  "value": 82.2
-                },
-                {
-                  "date": "2019-05",
-                  "series": "United States",
-                  "value": 82.2
-                },
-                {
-                  "date": "2019-06",
-                  "series": "United States",
-                  "value": 82.2
-                },
-                {
-                  "date": "2019-07",
-                  "series": "United States",
-                  "value": 82.1
-                },
-                {
-                  "date": "2019-08",
-                  "series": "United States",
-                  "value": 82.5
-                },
-                {
-                  "date": "2019-09",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2019-10",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2019-11",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2019-12",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2020-01",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2020-02",
-                  "series": "United States",
-                  "value": 82.9
-                },
-                {
-                  "date": "2020-03",
-                  "series": "United States",
-                  "value": 82.4
-                },
-                {
-                  "date": "2020-04",
-                  "series": "United States",
-                  "value": 79.8
-                },
-                {
-                  "date": "2020-05",
-                  "series": "United States",
-                  "value": 80.6
-                },
-                {
-                  "date": "2020-06",
-                  "series": "United States",
-                  "value": 81.4
-                },
-                {
-                  "date": "2020-07",
-                  "series": "United States",
-                  "value": 81.2
-                },
-                {
-                  "date": "2020-08",
-                  "series": "United States",
-                  "value": 81.3
-                },
-                {
-                  "date": "2020-09",
-                  "series": "United States",
-                  "value": 80.9
-                },
-                {
-                  "date": "2020-10",
-                  "series": "United States",
-                  "value": 81.3
-                },
-                {
-                  "date": "2020-11",
-                  "series": "United States",
-                  "value": 81.0
-                },
-                {
-                  "date": "2020-12",
-                  "series": "United States",
-                  "value": 81.1
-                },
-                {
-                  "date": "2021-01",
-                  "series": "United States",
-                  "value": 81.1
-                },
-                {
-                  "date": "2021-02",
-                  "series": "United States",
-                  "value": 81.1
-                },
-                {
-                  "date": "2021-03",
-                  "series": "United States",
-                  "value": 81.3
-                },
-                {
-                  "date": "2021-04",
-                  "series": "United States",
-                  "value": 81.3
-                },
-                {
-                  "date": "2021-05",
-                  "series": "United States",
-                  "value": 81.3
-                },
-                {
-                  "date": "2021-06",
-                  "series": "United States",
-                  "value": 81.7
-                },
-                {
-                  "date": "2021-07",
-                  "series": "United States",
-                  "value": 81.8
-                },
-                {
-                  "date": "2021-08",
-                  "series": "United States",
-                  "value": 81.7
-                },
-                {
-                  "date": "2021-09",
-                  "series": "United States",
-                  "value": 81.6
-                },
-                {
-                  "date": "2021-10",
-                  "series": "United States",
-                  "value": 81.8
-                },
-                {
-                  "date": "2021-11",
-                  "series": "United States",
-                  "value": 82.0
-                },
-                {
-                  "date": "2021-12",
-                  "series": "United States",
-                  "value": 82.0
-                },
-                {
-                  "date": "2022-01",
-                  "series": "United States",
-                  "value": 82.0
-                },
-                {
-                  "date": "2022-02",
-                  "series": "United States",
-                  "value": 82.2
-                },
-                {
-                  "date": "2022-03",
-                  "series": "United States",
-                  "value": 82.5
-                },
-                {
-                  "date": "2022-04",
-                  "series": "United States",
-                  "value": 82.4
-                },
-                {
-                  "date": "2022-05",
-                  "series": "United States",
-                  "value": 82.6
-                },
-                {
-                  "date": "2022-06",
-                  "series": "United States",
-                  "value": 82.3
-                },
-                {
-                  "date": "2022-07",
-                  "series": "United States",
-                  "value": 82.4
-                },
-                {
-                  "date": "2022-08",
-                  "series": "United States",
-                  "value": 82.8
-                },
-                {
-                  "date": "2022-09",
-                  "series": "United States",
-                  "value": 82.6
-                },
-                {
-                  "date": "2022-10",
-                  "series": "United States",
-                  "value": 82.6
-                },
-                {
-                  "date": "2022-11",
-                  "series": "United States",
-                  "value": 82.4
-                },
-                {
-                  "date": "2022-12",
-                  "series": "United States",
-                  "value": 82.6
-                },
-                {
-                  "date": "2023-01",
-                  "series": "United States",
-                  "value": 82.7
-                },
-                {
-                  "date": "2023-02",
-                  "series": "United States",
-                  "value": 83.0
-                },
-                {
-                  "date": "2023-03",
-                  "series": "United States",
-                  "value": 83.1
-                },
-                {
-                  "date": "2023-04",
-                  "series": "United States",
-                  "value": 83.3
-                },
-                {
-                  "date": "2023-05",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2023-06",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2023-07",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2023-08",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2023-09",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2023-10",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2023-11",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2023-12",
-                  "series": "United States",
-                  "value": 83.2
-                },
-                {
-                  "date": "2024-01",
-                  "series": "United States",
-                  "value": 83.3
-                },
-                {
-                  "date": "2024-02",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2024-03",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2024-04",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2024-05",
-                  "series": "United States",
-                  "value": 83.6
-                },
-                {
-                  "date": "2024-06",
-                  "series": "United States",
-                  "value": 83.7
-                },
-                {
-                  "date": "2024-07",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "2024-08",
-                  "series": "United States",
-                  "value": 83.9
-                },
-                {
-                  "date": "2024-09",
-                  "series": "United States",
-                  "value": 83.8
-                },
-                {
-                  "date": "2024-10",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2024-11",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2024-12",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2025-01",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2025-02",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2025-03",
-                  "series": "United States",
-                  "value": 83.3
-                },
-                {
-                  "date": "2025-04",
-                  "series": "United States",
-                  "value": 83.6
-                },
-                {
-                  "date": "2025-05",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2025-06",
-                  "series": "United States",
-                  "value": 83.5
-                },
-                {
-                  "date": "2025-07",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2025-08",
-                  "series": "United States",
-                  "value": 83.7
-                },
-                {
-                  "date": "2025-09",
-                  "series": "United States",
-                  "value": 83.7
-                },
-                {
-                  "date": "2025-11",
-                  "series": "United States",
-                  "value": 83.8
-                },
-                {
-                  "date": "2025-12",
-                  "series": "United States",
-                  "value": 83.8
-                },
-                {
-                  "date": "2026-01",
-                  "series": "United States",
-                  "value": 84.0
-                },
-                {
-                  "date": "2026-02",
-                  "series": "United States",
-                  "value": 83.9
-                },
-                {
-                  "date": "2026-03",
-                  "series": "United States",
-                  "value": 83.8
-                },
-                {
-                  "date": "2026-04",
-                  "series": "United States",
-                  "value": 83.8
-                },
-                {
-                  "date": "2026-05",
-                  "series": "United States",
-                  "value": 83.9
-                },
-                {
-                  "date": "2026-06",
-                  "series": "United States",
-                  "value": 83.3
-                },
-                {
-                  "date": "2026-07",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2026-08",
-                  "series": "United States",
-                  "value": 83.4
-                },
-                {
-                  "date": "2026-09",
-                  "series": "United States",
-                  "value": 83.7
-                }
-              ]
-            },
-            "encoding": {
-              "color": {
-                "field": "series",
-                "legend": null,
-                "scale": {
-                  "domain": [
-                    "United States"
-                  ],
-                  "range": [
-                    "#d9772b"
-                  ]
-                },
-                "type": "nominal"
-              },
-              "tooltip": [
-                {
-                  "field": "series",
-                  "type": "nominal"
-                },
-                {
-                  "field": "date",
-                  "format": "%Y-%m",
-                  "title": "Month",
-                  "type": "temporal"
-                },
-                {
-                  "field": "value",
-                  "format": ".1f",
-                  "type": "quantitative"
-                }
-              ],
-              "x": {
-                "axis": {
-                  "domainColor": "#c9c3b6",
-                  "format": "%Y",
-                  "grid": false,
-                  "tickCount": 6
-                },
-                "field": "date",
-                "title": null,
-                "type": "temporal"
-              },
-              "y": {
-                "axis": {
-                  "format": ".1f"
-                },
-                "field": "value",
-                "title": "Prime-age labor force participation (percent)",
-                "type": "quantitative"
-              }
-            },
-            "mark": {
-              "point": true,
-              "type": "line"
-            }
-          },
-          {
-            "data": {
-              "values": [
-                {
-                  "date": "2026-09",
-                  "series": "United States",
-                  "short": "US",
-                  "value": 83.7
-                }
-              ]
-            },
-            "encoding": {
-              "color": {
-                "field": "series",
-                "legend": null,
-                "scale": {
-                  "domain": [
-                    "United States"
-                  ],
-                  "range": [
-                    "#d9772b"
-                  ]
-                },
-                "type": "nominal"
-              },
-              "text": {
-                "field": "short",
-                "type": "nominal"
-              },
-              "x": {
-                "field": "date",
-                "type": "temporal"
-              },
-              "y": {
-                "field": "value",
-                "type": "quantitative"
-              }
-            },
-            "mark": {
-              "align": "left",
-              "dx": 8,
-              "dy": -8,
-              "fontSize": 12,
-              "fontWeight": 700,
-              "type": "text"
-            }
-          }
-        ],
-        "padding": {
-          "right": 64
-        },
-        "title": {
-          "text": "Prime-age labor force participation"
-        },
-        "width": "container"
-      },
-      "chart2": null,
-      "chart_kind": "trend",
-      "citations": [
-        "https://fred.stlouisfed.org/series/LNS11300060"
-      ],
-      "generated_at": "2026-10-11T15:34:43+00:00",
-      "id": "9089da248fbd",
-      "indicator": "prime_age_participation",
-      "origin": "data desk",
-      "query": "FRED fredgraph.csv id=LNS11300060; agency of record: US Bureau of Labor Statistics, Current Population Survey",
-      "question": "Are working-age Americans in the labor force?",
-      "series_freq": "monthly",
-      "stream": "national",
       "topic": "economy"
     },
     {
@@ -22202,7 +22220,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-06T06:50:09+00:00",
+      "revalidated_at": "2026-11-06T14:51:02+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -23103,7 +23121,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-06T06:50:09+00:00",
+      "revalidated_at": "2026-11-06T14:51:02+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -25558,7 +25576,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-06T06:50:09+00:00",
+      "revalidated_at": "2026-11-06T14:51:02+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -26466,7 +26484,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-06T06:50:09+00:00",
+      "revalidated_at": "2026-11-06T14:51:02+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -28238,5 +28256,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-06T00:06:52+00:00"
+  "generated_at": "2026-11-06T14:51:07+00:00"
 }
