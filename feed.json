@@ -11,7 +11,25 @@
       "attachments": [
         {
           "mime_type": "image/png",
-          "size_in_bytes": 141405,
+          "size_in_bytes": 141295,
+          "url": "https://ctsignal.org/assets/story-9089da248fbd.png"
+        }
+      ],
+      "content_text": "83.7% of Americans aged 25 to 54 were working or looking for work in 2026-10 \u2014 highest since September 2026. Source: PBS NewsHour \u2014 What to know about a better-than-expected jobs report amid AI bubble concerns",
+      "date_published": "2026-11-07T00:25:24+00:00",
+      "id": "https://ctsignal.org/story/9089da248fbd",
+      "image": "https://ctsignal.org/assets/story-9089da248fbd.png",
+      "title": "Are working-age Americans in the labor force?",
+      "url": "https://ctsignal.org/story/9089da248fbd"
+    },
+    {
+      "_tags": [
+        "economy"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 141324,
           "url": "https://ctsignal.org/assets/story-615030e77f4c.png"
         }
       ],
@@ -24,24 +42,6 @@
     },
     {
       "_tags": [
-        "economy"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 141364,
-          "url": "https://ctsignal.org/assets/story-9089da248fbd.png"
-        }
-      ],
-      "content_text": "83.7% of Americans aged 25 to 54 were working or looking for work in 2026-10 \u2014 highest since September 2026. Source: NPR \u2014 Judge halts construction of Trump's arch. And, Labor Department to release jobs report",
-      "date_published": "2026-11-06T14:51:07+00:00",
-      "id": "https://ctsignal.org/story/9089da248fbd",
-      "image": "https://ctsignal.org/assets/story-9089da248fbd.png",
-      "title": "Are working-age Americans in the labor force?",
-      "url": "https://ctsignal.org/story/9089da248fbd"
-    },
-    {
-      "_tags": [
         "weather"
       ],
       "attachments": [
@@ -51,7 +51,7 @@
           "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
         }
       ],
-      "content_text": "Connecticut's average temperature ran +2.3\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-05 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: Google News (CT) \u2014 What are the chances for a 'white Christmas' in Connecticut? Here's where snow is most likely - CT Insider",
+      "content_text": "Connecticut's average temperature ran +2.5\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-06 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: Google News (CT) \u2014 What are the chances for a 'white Christmas' in Connecticut? Here's where snow is most likely - CT Insider",
       "date_published": "2026-11-06T14:50:51+00:00",
       "id": "https://ctsignal.org/story/0785479c5e31",
       "image": "https://ctsignal.org/assets/story-0785479c5e31.png",

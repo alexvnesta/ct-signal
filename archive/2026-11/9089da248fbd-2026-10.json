@@ -1958,21 +1958,20 @@
   "citations": [
     "https://fred.stlouisfed.org/series/LNS11300060"
   ],
-  "generated_at": "2026-11-06T14:51:07+00:00",
+  "generated_at": "2026-11-07T00:25:24+00:00",
   "headline": {
-    "id": "3472d99d6870",
-    "published": "Fri, 06 Nov 2026 07:24:52 -0500",
-    "published_sort": 1793967892,
-    "source": "NPR",
+    "id": "70eae86b774e",
+    "published": "Fri, 06 Nov 2026 18:45:56 -0500",
+    "published_sort": 1794008756,
+    "source": "PBS NewsHour",
     "stream": "national",
-    "title": "Judge halts construction of Trump's arch. And, Labor Department to release jobs report",
-    "url": "https://www.npr.org/2026/11/06/g-s1-152213/up-first-newsletter-job-market-trump-arch-school-enrollment-harmeet-dhillon"
+    "title": "What to know about a better-than-expected jobs report amid AI bubble concerns",
+    "url": "https://www.pbs.org/newshour/show/what-to-know-about-a-better-than-expected-jobs-report-amid-ai-bubble-concerns"
   },
   "id": "9089da248fbd",
   "indicator": "prime_age_participation",
   "query": "FRED fredgraph.csv id=LNS11300060; agency of record: US Bureau of Labor Statistics, Current Population Survey",
   "question": "Are working-age Americans in the labor force?",
-  "revalidated_at": "2026-11-06T20:44:16+00:00",
   "series_freq": "monthly",
   "stream": "national",
   "topic": "economy"
