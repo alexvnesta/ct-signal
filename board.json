@@ -543,37 +543,37 @@
             {
               "highlight": false,
               "rank": 7,
-              "state": "Oregon",
-              "value": 5.3
-            },
-            {
-              "highlight": false,
-              "rank": 8,
               "state": "California",
               "value": 5.3
             },
             {
               "highlight": false,
-              "rank": 9,
-              "state": "Nevada",
-              "value": 5.1
+              "rank": 8,
+              "state": "Oregon",
+              "value": 5.3
             },
             {
               "highlight": false,
-              "rank": 10,
+              "rank": 9,
               "state": "Kentucky",
               "value": 5.1
             },
             {
               "highlight": false,
+              "rank": 10,
+              "state": "Nevada",
+              "value": 5.1
+            },
+            {
+              "highlight": false,
               "rank": 11,
-              "state": "Delaware",
+              "state": "Texas",
               "value": 4.8
             },
             {
               "highlight": false,
               "rank": 12,
-              "state": "Texas",
+              "state": "Delaware",
               "value": 4.8
             },
             {
@@ -591,7 +591,7 @@
             {
               "highlight": false,
               "rank": 15,
-              "state": "Illinois",
+              "state": "Florida",
               "value": 4.6
             },
             {
@@ -603,13 +603,13 @@
             {
               "highlight": false,
               "rank": 17,
-              "state": "Florida",
+              "state": "New Jersey",
               "value": 4.6
             },
             {
               "highlight": false,
               "rank": 18,
-              "state": "New Jersey",
+              "state": "Illinois",
               "value": 4.6
             },
             {
@@ -633,13 +633,13 @@
             {
               "highlight": false,
               "rank": 22,
-              "state": "Maryland",
+              "state": "New York",
               "value": 4.2
             },
             {
               "highlight": false,
               "rank": 23,
-              "state": "New York",
+              "state": "Maryland",
               "value": 4.2
             },
             {
@@ -669,13 +669,13 @@
             {
               "highlight": false,
               "rank": 28,
-              "state": "Mississippi",
+              "state": "Missouri",
               "value": 3.9
             },
             {
               "highlight": false,
               "rank": 29,
-              "state": "Missouri",
+              "state": "Mississippi",
               "value": 3.9
             },
             {
@@ -699,13 +699,13 @@
             {
               "highlight": false,
               "rank": 33,
-              "state": "Alabama",
+              "state": "Virginia",
               "value": 3.7
             },
             {
               "highlight": false,
               "rank": 34,
-              "state": "Virginia",
+              "state": "Alabama",
               "value": 3.7
             },
             {
@@ -717,7 +717,7 @@
             {
               "highlight": false,
               "rank": 36,
-              "state": "Indiana",
+              "state": "Rhode Island",
               "value": 3.6
             },
             {
@@ -729,13 +729,13 @@
             {
               "highlight": false,
               "rank": 38,
-              "state": "Rhode Island",
+              "state": "Indiana",
               "value": 3.6
             },
             {
               "highlight": false,
               "rank": 39,
-              "state": "Ohio",
+              "state": "Iowa",
               "value": 3.4
             },
             {
@@ -747,7 +747,7 @@
             {
               "highlight": false,
               "rank": 41,
-              "state": "Iowa",
+              "state": "Ohio",
               "value": 3.4
             },
             {
