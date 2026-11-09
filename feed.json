@@ -6,6 +6,42 @@
   "items": [
     {
       "_tags": [
+        "weather"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 143792,
+          "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
+        }
+      ],
+      "content_text": "Connecticut's average temperature ran +3.4\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-08 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: PBS NewsHour \u2014 COP31 climate summit begins after disastrous year of extreme weather",
+      "date_published": "2026-11-09T20:58:11+00:00",
+      "id": "https://ctsignal.org/story/0785479c5e31",
+      "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
+      "title": "Is Connecticut running warmer or colder than normal?",
+      "url": "https://ctsignal.org/story/0785479c5e31"
+    },
+    {
+      "_tags": [
+        "economy"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 146170,
+          "url": "https://ctsignal.org/assets/story-0b26178760d4.png"
+        }
+      ],
+      "content_text": "Connecticut's unemployment rate is 5.8% (2026), the 3rd-highest of 52 peers. Source: civic calendar \u2014 [civic calendar] October jobs report cycle",
+      "date_published": "2026-11-09T20:58:11+00:00",
+      "id": "https://ctsignal.org/story/0b26178760d4",
+      "image": "https://ctsignal.org/assets/story-0b26178760d4.png",
+      "title": "Is Connecticut's job market doing better or worse than the rest of the country?",
+      "url": "https://ctsignal.org/story/0b26178760d4"
+    },
+    {
+      "_tags": [
         "economy"
       ],
       "attachments": [
@@ -39,24 +75,6 @@
       "image": "https://ctsignal.org/assets/story-615030e77f4c.png",
       "title": "When Americans lose a job, how long are they out?",
       "url": "https://ctsignal.org/story/615030e77f4c"
-    },
-    {
-      "_tags": [
-        "weather"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 143792,
-          "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
-        }
-      ],
-      "content_text": "Connecticut's average temperature ran +3.3\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-08 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: Google News (CT) \u2014 What are the chances for a 'white Christmas' in Connecticut? Here's where snow is most likely - CT Insider",
-      "date_published": "2026-11-06T14:50:51+00:00",
-      "id": "https://ctsignal.org/story/0785479c5e31",
-      "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
-      "title": "Is Connecticut running warmer or colder than normal?",
-      "url": "https://ctsignal.org/story/0785479c5e31"
     },
     {
       "_tags": [
@@ -201,24 +219,6 @@
       "image": "https://ctsignal.org/assets/story-138bf32c8350.png",
       "title": "Are employers laying everyone off, really?",
       "url": "https://ctsignal.org/story/138bf32c8350"
-    },
-    {
-      "_tags": [
-        "economy"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 146170,
-          "url": "https://ctsignal.org/assets/story-0b26178760d4.png"
-        }
-      ],
-      "content_text": "Connecticut's unemployment rate is 5.8% (2026), the 3rd-highest of 52 peers. Source: NYT U.S. \u2014 Harvard Endowment Soars to $68 Billion Even as Federal Cuts Force Layoffs",
-      "date_published": "2026-10-15T19:19:29+00:00",
-      "id": "https://ctsignal.org/story/0b26178760d4",
-      "image": "https://ctsignal.org/assets/story-0b26178760d4.png",
-      "title": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "url": "https://ctsignal.org/story/0b26178760d4"
     },
     {
       "_tags": [

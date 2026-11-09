@@ -1,8 +1,8 @@
 {
-  "answer_text": "Connecticut's average temperature ran +3.3\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-08 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+  "answer_text": "Connecticut's average temperature ran +3.4\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-08 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
   "answer_values": {
     "date": "2026-11-08",
-    "value": 3.3
+    "value": 3.4
   },
   "cache": false,
   "chart": {
@@ -185,6 +185,11 @@
               "value": 9.0
             },
             {
+              "date": "2026-11-08",
+              "series": "Bradley Intl",
+              "value": 7.0
+            },
+            {
               "date": "2026-10-10",
               "series": "Danbury",
               "value": -1.0
@@ -323,6 +328,11 @@
               "date": "2026-11-07",
               "series": "Danbury",
               "value": 8.5
+            },
+            {
+              "date": "2026-11-08",
+              "series": "Danbury",
+              "value": 6.0
             }
           ]
         },
@@ -390,16 +400,16 @@
         "data": {
           "values": [
             {
-              "date": "2026-11-07",
+              "date": "2026-11-08",
               "series": "Bradley Intl",
               "short": "BR",
-              "value": 9.0
+              "value": 7.0
             },
             {
-              "date": "2026-11-07",
+              "date": "2026-11-08",
               "series": "Danbury",
               "short": "DA",
-              "value": 8.5
+              "value": 6.0
             }
           ]
         },
@@ -457,21 +467,20 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-06T14:50:51+00:00",
+  "generated_at": "2026-11-09T20:58:11+00:00",
   "headline": {
-    "id": "15518365ec75",
-    "published": "Thu, 05 Nov 2026 09:05:22 GMT",
-    "published_sort": 1793869522,
-    "source": "Google News (CT)",
-    "stream": "ct",
-    "title": "What are the chances for a 'white Christmas' in Connecticut? Here's where snow is most likely - CT Insider",
-    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOOENOSEtjeGJ2cVh5cGlYYXVTWW8yNzJQYUtxTzR2M2lxeDZoTW9UXzFrc0lGY1JSd3JBX1FJbW1XT2NxaVRqNml1MkVacjItam9hTHJuanRqRUxkOGxMSDA5T1lTS0pWRm90T3ozU0o0ZndIRDhLdjVGX0JBbkQ4Mjl0YVd6cHNBZ2R0VkxDSkxUU3BnUHNN?oc=5"
+    "id": "f3d03191d34e",
+    "published": "Mon, 09 Nov 2026 13:41:34 -0500",
+    "published_sort": 1794249694,
+    "source": "PBS NewsHour",
+    "stream": "national",
+    "title": "COP31 climate summit begins after disastrous year of extreme weather",
+    "url": "https://www.pbs.org/newshour/science/cop31-climate-summit-begins-after-disastrous-year-of-extreme-weather"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",
   "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
   "question": "Is Connecticut running warmer or colder than normal?",
-  "revalidated_at": "2026-11-09T02:40:38+00:00",
   "series_freq": "monthly",
   "stream": "national",
   "topic": "weather"
