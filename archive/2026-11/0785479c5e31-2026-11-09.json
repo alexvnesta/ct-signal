@@ -185,6 +185,11 @@
               "value": 7.0
             },
             {
+              "date": "2026-11-09",
+              "series": "Bradley Intl",
+              "value": 4.5
+            },
+            {
               "date": "2026-10-11",
               "series": "Danbury",
               "value": -4.0
@@ -323,6 +328,11 @@
               "date": "2026-11-08",
               "series": "Danbury",
               "value": 6.0
+            },
+            {
+              "date": "2026-11-09",
+              "series": "Danbury",
+              "value": 2.5
             }
           ]
         },
@@ -390,16 +400,16 @@
         "data": {
           "values": [
             {
-              "date": "2026-11-08",
+              "date": "2026-11-09",
               "series": "Bradley Intl",
               "short": "BR",
-              "value": 7.0
+              "value": 4.5
             },
             {
-              "date": "2026-11-08",
+              "date": "2026-11-09",
               "series": "Danbury",
               "short": "DA",
-              "value": 6.0
+              "value": 2.5
             }
           ]
         },
@@ -457,21 +467,20 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-09T20:58:11+00:00",
+  "generated_at": "2026-11-10T18:51:23+00:00",
   "headline": {
-    "id": "f3d03191d34e",
-    "published": "Mon, 09 Nov 2026 13:41:34 -0500",
-    "published_sort": 1794249694,
-    "source": "PBS NewsHour",
-    "stream": "national",
-    "title": "COP31 climate summit begins after disastrous year of extreme weather",
-    "url": "https://www.pbs.org/newshour/science/cop31-climate-summit-begins-after-disastrous-year-of-extreme-weather"
+    "id": "20d00bc89937",
+    "published": "Tue, 10 Nov 2026 18:15:11 GMT",
+    "published_sort": 1794334511,
+    "source": "Google News (CT)",
+    "stream": "ct",
+    "title": "Will it snow in Connecticut this week? See winter storm forecast - Yahoo",
+    "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOLVF3YmlKSTF6c1g3NjlpVzZLQlE4Z09HQlZQM3NPZURGa3YtU3pwWGxwTWdZN3dWd1JscXpCVnU1enpVYjVNcEdJemhGclB6LUdUVEg3c09OSUFsNzh2M2hHR1hzMmFHVXFfamxYZEpaNzV0dm9uQlBDYk41Xy1kQU9ONVFwVVJyX1BXandpT0NTRVdoQU9rVkRQMHc?oc=5"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",
   "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
   "question": "Is Connecticut running warmer or colder than normal?",
-  "revalidated_at": "2026-11-10T03:24:11+00:00",
   "series_freq": "monthly",
   "stream": "national",
   "topic": "weather"

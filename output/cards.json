@@ -187,6 +187,11 @@
                   "value": 7.0
                 },
                 {
+                  "date": "2026-11-09",
+                  "series": "Bradley Intl",
+                  "value": 4.5
+                },
+                {
                   "date": "2026-10-11",
                   "series": "Danbury",
                   "value": -4.0
@@ -325,6 +330,11 @@
                   "date": "2026-11-08",
                   "series": "Danbury",
                   "value": 6.0
+                },
+                {
+                  "date": "2026-11-09",
+                  "series": "Danbury",
+                  "value": 2.5
                 }
               ]
             },
@@ -392,16 +402,16 @@
             "data": {
               "values": [
                 {
-                  "date": "2026-11-08",
+                  "date": "2026-11-09",
                   "series": "Bradley Intl",
                   "short": "BR",
-                  "value": 7.0
+                  "value": 4.5
                 },
                 {
-                  "date": "2026-11-08",
+                  "date": "2026-11-09",
                   "series": "Danbury",
                   "short": "DA",
-                  "value": 6.0
+                  "value": 2.5
                 }
               ]
             },
@@ -459,21 +469,20 @@
       "citations": [
         "https://data.rcc-acis.org/StnData"
       ],
-      "generated_at": "2026-11-09T20:58:11+00:00",
+      "generated_at": "2026-11-10T18:51:23+00:00",
       "headline": {
-        "id": "f3d03191d34e",
-        "published": "Mon, 09 Nov 2026 13:41:34 -0500",
-        "published_sort": 1794249694,
-        "source": "PBS NewsHour",
-        "stream": "national",
-        "title": "COP31 climate summit begins after disastrous year of extreme weather",
-        "url": "https://www.pbs.org/newshour/science/cop31-climate-summit-begins-after-disastrous-year-of-extreme-weather"
+        "id": "20d00bc89937",
+        "published": "Tue, 10 Nov 2026 18:15:11 GMT",
+        "published_sort": 1794334511,
+        "source": "Google News (CT)",
+        "stream": "ct",
+        "title": "Will it snow in Connecticut this week? See winter storm forecast - Yahoo",
+        "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOLVF3YmlKSTF6c1g3NjlpVzZLQlE4Z09HQlZQM3NPZURGa3YtU3pwWGxwTWdZN3dWd1JscXpCVnU1enpVYjVNcEdJemhGclB6LUdUVEg3c09OSUFsNzh2M2hHR1hzMmFHVXFfamxYZEpaNzV0dm9uQlBDYk41Xy1kQU9ONVFwVVJyX1BXandpT0NTRVdoQU9rVkRQMHc?oc=5"
       },
       "id": "0785479c5e31",
       "indicator": "weather_anomaly",
       "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
       "question": "Is Connecticut running warmer or colder than normal?",
-      "revalidated_at": "2026-11-10T03:24:11+00:00",
       "series_freq": "monthly",
       "stream": "national",
       "topic": "weather"
@@ -1142,7 +1151,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-10T11:34:57+00:00",
+      "revalidated_at": "2026-11-10T18:51:31+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -8942,7 +8951,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-10T11:34:57+00:00",
+      "revalidated_at": "2026-11-10T18:51:31+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -22215,7 +22224,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-10T11:34:57+00:00",
+      "revalidated_at": "2026-11-10T18:51:31+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -23116,7 +23125,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-10T11:34:57+00:00",
+      "revalidated_at": "2026-11-10T18:51:31+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -25571,7 +25580,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-10T11:34:57+00:00",
+      "revalidated_at": "2026-11-10T18:51:31+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -26479,7 +26488,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-10T11:34:57+00:00",
+      "revalidated_at": "2026-11-10T18:51:31+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -28251,5 +28260,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-09T20:58:11+00:00"
+  "generated_at": "2026-11-10T18:51:23+00:00"
 }
