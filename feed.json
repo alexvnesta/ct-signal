@@ -6,12 +6,30 @@
   "items": [
     {
       "_tags": [
+        "weather"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 143623,
+          "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
+        }
+      ],
+      "content_text": "Connecticut's average temperature ran +3.8\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-10 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: Google News (CT) \u2014 Good weather today to a cold rain/mix on the way - WTNH.com",
+      "date_published": "2026-11-11T12:55:04+00:00",
+      "id": "https://ctsignal.org/story/0785479c5e31",
+      "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
+      "title": "Is Connecticut running warmer or colder than normal?",
+      "url": "https://ctsignal.org/story/0785479c5e31"
+    },
+    {
+      "_tags": [
         "housing"
       ],
       "attachments": [
         {
           "mime_type": "image/png",
-          "size_in_bytes": 146014,
+          "size_in_bytes": 145873,
           "url": "https://ctsignal.org/assets/story-0125297ea839.png"
         }
       ],
@@ -21,24 +39,6 @@
       "image": "https://ctsignal.org/assets/story-0125297ea839.png",
       "title": "How expensive is renting in Connecticut compared to the rest of America?",
       "url": "https://ctsignal.org/story/0125297ea839"
-    },
-    {
-      "_tags": [
-        "weather"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 143657,
-          "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
-        }
-      ],
-      "content_text": "Connecticut's average temperature ran +3.8\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-10 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: Google News (CT) \u2014 Will it snow in Connecticut this week? See winter storm forecast - Yahoo",
-      "date_published": "2026-11-11T05:29:12+00:00",
-      "id": "https://ctsignal.org/story/0785479c5e31",
-      "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
-      "title": "Is Connecticut running warmer or colder than normal?",
-      "url": "https://ctsignal.org/story/0785479c5e31"
     },
     {
       "_tags": [

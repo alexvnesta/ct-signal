@@ -185,6 +185,11 @@
               "value": 4.5
             },
             {
+              "date": "2026-11-10",
+              "series": "Bradley Intl",
+              "value": 6.5
+            },
+            {
               "date": "2026-10-12",
               "series": "Danbury",
               "value": 8.0
@@ -323,6 +328,11 @@
               "date": "2026-11-09",
               "series": "Danbury",
               "value": 2.5
+            },
+            {
+              "date": "2026-11-10",
+              "series": "Danbury",
+              "value": 4.0
             }
           ]
         },
@@ -390,16 +400,16 @@
         "data": {
           "values": [
             {
-              "date": "2026-11-09",
+              "date": "2026-11-10",
               "series": "Bradley Intl",
               "short": "BR",
-              "value": 4.5
+              "value": 6.5
             },
             {
-              "date": "2026-11-09",
+              "date": "2026-11-10",
               "series": "Danbury",
               "short": "DA",
-              "value": 2.5
+              "value": 4.0
             }
           ]
         },
@@ -457,15 +467,15 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-11T05:29:12+00:00",
+  "generated_at": "2026-11-11T12:55:04+00:00",
   "headline": {
-    "id": "20d00bc89937",
-    "published": "Tue, 10 Nov 2026 18:15:11 GMT",
-    "published_sort": 1794334511,
+    "id": "afe558506afc",
+    "published": "Wed, 11 Nov 2026 11:28:02 GMT",
+    "published_sort": 1794396482,
     "source": "Google News (CT)",
     "stream": "ct",
-    "title": "Will it snow in Connecticut this week? See winter storm forecast - Yahoo",
-    "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOLVF3YmlKSTF6c1g3NjlpVzZLQlE4Z09HQlZQM3NPZURGa3YtU3pwWGxwTWdZN3dWd1JscXpCVnU1enpVYjVNcEdJemhGclB6LUdUVEg3c09OSUFsNzh2M2hHR1hzMmFHVXFfamxYZEpaNzV0dm9uQlBDYk41Xy1kQU9ONVFwVVJyX1BXandpT0NTRVdoQU9rVkRQMHc?oc=5"
+    "title": "Good weather today to a cold rain/mix on the way - WTNH.com",
+    "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPQUZXLXZNWkk0YzNsZ05zZC1QeV9Temp2cUVtOGtzejJHS3Q2RG5jdndiUlYxZXNwczhjVGY3SmxMM2prV0xOVjUzR2FKX1RveEdyd3g5VDFLbXNFd3Rpa1E4LU82c0JRRFlKbndFTlhfNWd2YktJbmlmYktmZ1BPbE1LSHBINTdiaFd2ZXVneVlRd05EdU5pMmxac3p5bk13R3hRWHk4a3ROZ9IBrwFBVV95cUxNSWJkczI4eHFEdWZ0WkY3SU9mTFNLeEtlQnh4cmtEQUZiSzNXNUgyVmhNSmQ5bWluUWdBWmVBb2ZlU1lYU1pBSTJqVTh0U0dkUjlHTW5SOUlveklLQm1fdVZNWTd6cDlWUGYyZ0lZaUJORjZhZTlseWpKcmdNdGRJQXROQTcwRXkxWDlKd21jT1NSamFwQXVDLXFEeVZ3Y1hMTFB3emRELXMzTHJ6UTVV?oc=5"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",
