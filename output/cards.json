@@ -187,6 +187,11 @@
                   "value": 7.5
                 },
                 {
+                  "date": "2026-11-12",
+                  "series": "Bradley Intl",
+                  "value": 0.5
+                },
+                {
                   "date": "2026-10-14",
                   "series": "Danbury",
                   "value": 14.5
@@ -325,6 +330,11 @@
                   "date": "2026-11-11",
                   "series": "Danbury",
                   "value": 4.0
+                },
+                {
+                  "date": "2026-11-12",
+                  "series": "Danbury",
+                  "value": 6.0
                 }
               ]
             },
@@ -392,16 +402,16 @@
             "data": {
               "values": [
                 {
-                  "date": "2026-11-11",
+                  "date": "2026-11-12",
                   "series": "Bradley Intl",
                   "short": "BR",
-                  "value": 7.5
+                  "value": 0.5
                 },
                 {
-                  "date": "2026-11-11",
+                  "date": "2026-11-12",
                   "series": "Danbury",
                   "short": "DA",
-                  "value": 4.0
+                  "value": 6.0
                 }
               ]
             },
@@ -459,15 +469,15 @@
       "citations": [
         "https://data.rcc-acis.org/StnData"
       ],
-      "generated_at": "2026-11-13T03:15:33+00:00",
+      "generated_at": "2026-11-13T11:25:21+00:00",
       "headline": {
-        "id": "9e654340af25",
-        "published": "Thu, 12 Nov 2026 15:57:16 GMT",
-        "published_sort": 1794499036,
+        "id": "bf4d1f22f80b",
+        "published": "Fri, 13 Nov 2026 10:01:53 GMT",
+        "published_sort": 1794564113,
         "source": "Google News (CT)",
         "stream": "ct",
-        "title": "Thunderstorms, Heavy Rain And Wet Snow All Forecast In CT: Latest Updates - Patch",
-        "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNcGxQY1BfUUQ4Zk83OW4tNDNweXRXNVdqbENVVGRydGFtVTJOc2txUFhxRWxIY0V2a09yWWxreTk1NG9zX0UwLXYxUVpodjRQcktvUVI4WXhTRU4tS1NmcmpUQ1E5SlVVSDJWMVFtS0x5dzY3dzNIclZaS3ZmNE1fZG5fNzdSSXl4NUdVYzV1NlJBYjM4NmNvb250MEhlaF96bFZVNjRwdkFpTkllNjJxVtIBwgFBVV95cUxNUXRNem5hck5GXzVuUEhDVWRuZm9vS2FuRnNhcVZEUzJ2WDR0blFIZXE5eGt0dkN6STdFMmRnbzhIeEg5Y3M1VTlmOWRZQ3A4dzNlM1gxYnBPUk1ac2N2UllOejBIUG9VN3I5SUJZZ19qaklNbC1kbFNKclhTLWpoWGpfeHRselEtMkVOSVBINi1vMXZtWGtxQnk2bGszQmtVc3ZUSU1SMDVnYTUzNExObmxsRlFTRXlTZWZBSXpzQldtQQ?oc=5"
+        "title": "A mix of rain and snow showers for Friday - NBC Connecticut",
+        "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNMGs0WEZtNjNJSEtCWElsekVWSnNEV2N0WGR4STdhZTVRSXhrNWc2WGZLV0Nuc1JlODNmVENuTm50R0lsNEoxcWhUNkcyc3h6dnp0Z1hCaVZlV0czcm9PQ0g5S0lXYUxRczg2cWdJbThzdVBCRFpEOW9VZjVnUExtSzh0WmNhR0dGVjgxcVJINkJuTDNEM2xfVHdB0gGiAUFVX3lxTE95bWRzc0huSjJhZ0dFT2t6S2g5NU1kSnJ3ZWphRG13amt6TmFaemJ6WVRvZllQVXBnQTBmMkdXOVhTaDNBRlpFNVBOemNNMTRCRllMRG10Q256YS0yT2lqNXdlZURwWHRTcFY5elgxNWZneHdmM2dTbXlmYXR4Q2tIQnJlSVJHbFI3bXJaTVV2OVg4LUdVdS1qczBPWVVhYTVNZw?oc=5"
       },
       "id": "0785479c5e31",
       "indicator": "weather_anomaly",
@@ -1381,7 +1391,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-13T03:15:49+00:00",
+      "revalidated_at": "2026-11-13T11:25:41+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -2049,7 +2059,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-13T03:15:49+00:00",
+      "revalidated_at": "2026-11-13T11:25:41+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -9849,7 +9859,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-13T03:15:49+00:00",
+      "revalidated_at": "2026-11-13T11:25:41+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -23122,7 +23132,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-13T03:15:49+00:00",
+      "revalidated_at": "2026-11-13T11:25:41+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -24023,7 +24033,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-13T03:15:49+00:00",
+      "revalidated_at": "2026-11-13T11:25:41+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -26478,7 +26488,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-13T03:15:49+00:00",
+      "revalidated_at": "2026-11-13T11:25:41+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -28250,5 +28260,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-13T03:15:33+00:00"
+  "generated_at": "2026-11-13T11:25:21+00:00"
 }
