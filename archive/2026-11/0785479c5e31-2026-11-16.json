@@ -1,8 +1,8 @@
 {
-  "answer_text": "Connecticut's average temperature ran +2.9\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-16 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+  "answer_text": "Connecticut's average temperature ran +2.8\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-16 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
   "answer_values": {
     "date": "2026-11-16",
-    "value": 2.9
+    "value": 2.8
   },
   "cache": false,
   "chart": {
@@ -185,6 +185,11 @@
               "value": -1.0
             },
             {
+              "date": "2026-11-16",
+              "series": "Bradley Intl",
+              "value": -0.5
+            },
+            {
               "date": "2026-10-18",
               "series": "Danbury",
               "value": -7.0
@@ -323,6 +328,11 @@
               "date": "2026-11-15",
               "series": "Danbury",
               "value": -2.5
+            },
+            {
+              "date": "2026-11-16",
+              "series": "Danbury",
+              "value": -2.5
             }
           ]
         },
@@ -390,13 +400,13 @@
         "data": {
           "values": [
             {
-              "date": "2026-11-15",
+              "date": "2026-11-16",
               "series": "Bradley Intl",
               "short": "BR",
-              "value": -1.0
+              "value": -0.5
             },
             {
-              "date": "2026-11-15",
+              "date": "2026-11-16",
               "series": "Danbury",
               "short": "DA",
               "value": -2.5
@@ -457,21 +467,20 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-16T18:48:25+00:00",
+  "generated_at": "2026-11-17T10:59:21+00:00",
   "headline": {
-    "id": "6f56ce033016",
-    "published": "Mon, 16 Nov 2026 17:07:55 GMT",
-    "published_sort": 1794848875,
+    "id": "44107698af53",
+    "published": "Tue, 17 Nov 2026 09:10:18 GMT",
+    "published_sort": 1794906618,
     "source": "Google News (CT)",
     "stream": "ct",
-    "title": "El Ni\u00f1o is strengthening. What does the latest forecast mean for Connecticut snow? - CT Insider",
-    "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPbHdoWG9JV0RrSTZfTTNpV1FvSHFiWHFiRlJiWlREeGN2SXR4TU5hLWt6V1pJT3ZwQlJUMWdZVUFoN3o2VmZqaEhiWFJjMzRXSGRRTWlDUE4wMWxhbUxsSUtxYllvQkUzdC00MVdHRVlkMHdPckN6S1lmaEhBZDZXelZKcnNWQmJqMUd4MS0zcXFWRFNxNDNkQW5NZWtWUQ?oc=5"
+    "title": "Bright and milder weather ahead - WTNH.com",
+    "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPNXg4MlVoRWVOU05VVjkwT01FZVppamlHczQzSENXQm81VDl6MzJxRmI3TVVEc3JabGt6QVZOaVhoQkZuZEVTV2lKMmdCTGRmQUZ5OFZCUTJnbHlrZFNUTDI4R1ZjNWRIalpNN3lNRVp5b0dqMkJnRDRUSXRTMGlhSDdDMnhWekZNLU00cWM0c05ESTDSAZgBQVVfeXFMTmdjSndDdkwtQzg4d3ItSTRTREZXTXF3QWVCd253dFVZc0ZrWmlZMUxScFJrYWJsTVhtc3pwS0tHeTJNbHV6Sm15alEzWm9vX2JVSEJGal9kRE9UMXNmSUdlLTVFemE2SHhtTkN2M3hBLTNPaXJjZUNYd2hHUHlRd3dRWVV5d09SN3dJbHMxTnFvXzVQbGFNVk4?oc=5"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",
   "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
   "question": "Is Connecticut running warmer or colder than normal?",
-  "revalidated_at": "2026-11-17T02:22:11+00:00",
   "series_freq": "monthly",
   "stream": "national",
   "topic": "weather"
