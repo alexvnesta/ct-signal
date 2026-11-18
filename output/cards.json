@@ -1,10 +1,10 @@
 {
   "cards": [
     {
-      "answer_text": "Connecticut's average temperature ran +2.8\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-16 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+      "answer_text": "Connecticut's average temperature ran +3.2\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-17 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
       "answer_values": {
-        "date": "2026-11-16",
-        "value": 2.8
+        "date": "2026-11-17",
+        "value": 3.2
       },
       "cache": false,
       "chart": {
@@ -41,11 +41,6 @@
           {
             "data": {
               "values": [
-                {
-                  "date": "2026-10-18",
-                  "series": "Bradley Intl",
-                  "value": -9.5
-                },
                 {
                   "date": "2026-10-19",
                   "series": "Bradley Intl",
@@ -190,11 +185,6 @@
                   "date": "2026-11-16",
                   "series": "Bradley Intl",
                   "value": -0.5
-                },
-                {
-                  "date": "2026-10-18",
-                  "series": "Danbury",
-                  "value": -7.0
                 },
                 {
                   "date": "2026-10-19",
@@ -469,15 +459,15 @@
       "citations": [
         "https://data.rcc-acis.org/StnData"
       ],
-      "generated_at": "2026-11-17T10:59:21+00:00",
+      "generated_at": "2026-11-18T02:12:40+00:00",
       "headline": {
-        "id": "44107698af53",
-        "published": "Tue, 17 Nov 2026 09:10:18 GMT",
-        "published_sort": 1794906618,
+        "id": "49e194dd2657",
+        "published": "Wed, 18 Nov 2026 00:46:10 GMT",
+        "published_sort": 1794962770,
         "source": "Google News (CT)",
         "stream": "ct",
-        "title": "Bright and milder weather ahead - WTNH.com",
-        "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPNXg4MlVoRWVOU05VVjkwT01FZVppamlHczQzSENXQm81VDl6MzJxRmI3TVVEc3JabGt6QVZOaVhoQkZuZEVTV2lKMmdCTGRmQUZ5OFZCUTJnbHlrZFNUTDI4R1ZjNWRIalpNN3lNRVp5b0dqMkJnRDRUSXRTMGlhSDdDMnhWekZNLU00cWM0c05ESTDSAZgBQVVfeXFMTmdjSndDdkwtQzg4d3ItSTRTREZXTXF3QWVCd253dFVZc0ZrWmlZMUxScFJrYWJsTVhtc3pwS0tHeTJNbHV6Sm15alEzWm9vX2JVSEJGal9kRE9UMXNmSUdlLTVFemE2SHhtTkN2M3hBLTNPaXJjZUNYd2hHUHlRd3dRWVV5d09SN3dJbHMxTnFvXzVQbGFNVk4?oc=5"
+        "title": "Residential electric rates will rise in January on cold weather fuel costs - Hartford Courant",
+        "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNRUs4RXF3aFM0NWFQdHFqZTBHeFRISFU4UXJrOV9OSlp3RUxuMmhLSnpUQU9lMnFERF9HZGVYNVl1YVJZTmcwbXVXc0Q5OE9uNWE2a0Nxc0xURFZOYV9DSjU0Q0FNcHBBUHd0LThvSHRJYWEtUVV1MUkxdGxZTlpHc1hMb3ZGSUlvblFxc3lZYnVWTi1PYm5PaGJYbU1SanZyeEMyV3R3SjZZMGRwZ0VN?oc=5"
       },
       "id": "0785479c5e31",
       "indicator": "weather_anomaly",
@@ -1391,7 +1381,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-17T19:46:17+00:00",
+      "revalidated_at": "2026-11-18T02:12:53+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -2059,7 +2049,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-17T19:46:17+00:00",
+      "revalidated_at": "2026-11-18T02:12:53+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -9859,7 +9849,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-17T19:46:17+00:00",
+      "revalidated_at": "2026-11-18T02:12:53+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -23132,7 +23122,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-17T19:46:17+00:00",
+      "revalidated_at": "2026-11-18T02:12:53+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -24033,7 +24023,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-17T19:46:17+00:00",
+      "revalidated_at": "2026-11-18T02:12:53+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -26488,7 +26478,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-17T19:46:17+00:00",
+      "revalidated_at": "2026-11-18T02:12:53+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -28260,5 +28250,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-17T10:59:21+00:00"
+  "generated_at": "2026-11-18T02:12:40+00:00"
 }
