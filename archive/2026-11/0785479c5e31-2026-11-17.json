@@ -1,8 +1,8 @@
 {
-  "answer_text": "Connecticut's average temperature ran +3.2\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-17 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+  "answer_text": "Connecticut's average temperature ran +3.1\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-17 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
   "answer_values": {
     "date": "2026-11-17",
-    "value": 3.2
+    "value": 3.1
   },
   "cache": false,
   "chart": {
@@ -185,6 +185,11 @@
               "value": -0.5
             },
             {
+              "date": "2026-11-17",
+              "series": "Bradley Intl",
+              "value": 1.0
+            },
+            {
               "date": "2026-10-19",
               "series": "Danbury",
               "value": -1.5
@@ -323,6 +328,11 @@
               "date": "2026-11-16",
               "series": "Danbury",
               "value": -2.5
+            },
+            {
+              "date": "2026-11-17",
+              "series": "Danbury",
+              "value": -1.0
             }
           ]
         },
@@ -390,16 +400,16 @@
         "data": {
           "values": [
             {
-              "date": "2026-11-16",
+              "date": "2026-11-17",
               "series": "Bradley Intl",
               "short": "BR",
-              "value": -0.5
+              "value": 1.0
             },
             {
-              "date": "2026-11-16",
+              "date": "2026-11-17",
               "series": "Danbury",
               "short": "DA",
-              "value": -2.5
+              "value": -1.0
             }
           ]
         },
@@ -457,7 +467,7 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-18T02:12:40+00:00",
+  "generated_at": "2026-11-18T10:15:57+00:00",
   "headline": {
     "id": "49e194dd2657",
     "published": "Wed, 18 Nov 2026 00:46:10 GMT",
