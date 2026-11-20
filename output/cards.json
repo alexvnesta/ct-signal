@@ -1386,7 +1386,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-20T07:48:34+00:00",
+      "revalidated_at": "2026-11-20T16:48:38+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -2054,7 +2054,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-20T07:48:34+00:00",
+      "revalidated_at": "2026-11-20T16:48:38+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -9854,7 +9854,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-20T07:48:34+00:00",
+      "revalidated_at": "2026-11-20T16:48:38+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -11581,9 +11581,9 @@
       "topic": "economy"
     },
     {
-      "answer_text": "5.1% of Connecticut's workforce was unemployed in 2026-09 \u2014 highest since August 2026 for a series that has run monthly since 1976.",
+      "answer_text": "5.1% of Connecticut's workforce was unemployed in 2026-10 \u2014 highest since September 2026 for a series that has run monthly since 1976.",
       "answer_values": {
-        "date": "2026-09",
+        "date": "2026-10",
         "value": 5.1
       },
       "cache": false,
@@ -11621,11 +11621,6 @@
           {
             "data": {
               "values": [
-                {
-                  "date": "1996-09",
-                  "series": "Connecticut",
-                  "value": 5.2
-                },
                 {
                   "date": "1996-10",
                   "series": "Connecticut",
@@ -13420,6 +13415,11 @@
                   "date": "2026-09",
                   "series": "Connecticut",
                   "value": 5.1
+                },
+                {
+                  "date": "2026-10",
+                  "series": "Connecticut",
+                  "value": 5.1
                 }
               ]
             },
@@ -13483,7 +13483,7 @@
             "data": {
               "values": [
                 {
-                  "date": "2026-09",
+                  "date": "2026-10",
                   "series": "Connecticut",
                   "short": "CT",
                   "value": 5.1
@@ -13554,6 +13554,7 @@
       "indicator": "ct_unemployment",
       "query": "FRED fredgraph.csv id=CTUR; agency of record: US Bureau of Labor Statistics, Local Area Unemployment Statistics",
       "question": "Is Connecticut's job market loosening?",
+      "revalidated_at": "2026-11-20T16:48:38+00:00",
       "series_freq": "monthly",
       "stream": "national",
       "topic": "economy"
@@ -23127,7 +23128,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-20T07:48:34+00:00",
+      "revalidated_at": "2026-11-20T16:48:38+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -24028,7 +24029,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-20T07:48:34+00:00",
+      "revalidated_at": "2026-11-20T16:48:38+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -26483,7 +26484,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-20T07:48:34+00:00",
+      "revalidated_at": "2026-11-20T16:48:38+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
