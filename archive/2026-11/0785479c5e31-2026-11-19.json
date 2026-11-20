@@ -185,6 +185,11 @@
               "value": 8.5
             },
             {
+              "date": "2026-11-19",
+              "series": "Bradley Intl",
+              "value": 5.0
+            },
+            {
               "date": "2026-10-21",
               "series": "Danbury",
               "value": 2.5
@@ -328,6 +333,11 @@
               "date": "2026-11-18",
               "series": "Danbury",
               "value": 2.5
+            },
+            {
+              "date": "2026-11-19",
+              "series": "Danbury",
+              "value": 5.0
             }
           ]
         },
@@ -395,16 +405,16 @@
         "data": {
           "values": [
             {
-              "date": "2026-11-18",
+              "date": "2026-11-19",
               "series": "Bradley Intl",
               "short": "BR",
-              "value": 8.5
+              "value": 5.0
             },
             {
-              "date": "2026-11-18",
+              "date": "2026-11-19",
               "series": "Danbury",
               "short": "DA",
-              "value": 2.5
+              "value": 5.0
             }
           ]
         },
@@ -462,15 +472,15 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-20T00:37:28+00:00",
+  "generated_at": "2026-11-20T22:59:10+00:00",
   "headline": {
-    "id": "b36588cc9c75",
-    "published": "Thu, 19 Nov 2026 15:23:39 GMT",
-    "published_sort": 1795101819,
-    "source": "Google News (CT)",
-    "stream": "ct",
-    "title": "Developing Storm To Produce Significant Weather Impacts On CT - Patch",
-    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOZ01YcFdhQVZwVlFRbGZUakV5bEJlQ0Q0bHU2MzcwbnRISGRhV2hYTDRXaTJKNmpyeV9scnJ0ZUtmeThpdG8zVUNqTWU4VVJNZ2RjbGdRUHcxc2NqT1dVVjJEb0J6dkc4VlltdTNkb3liWGZmSjQ1cERDSElGWFBtU3dNRmNTaG5ET21uUXJNdTVEZm5kXzJrVmd4d9IBtAFBVV95cUxPdDFrVWFLMXZPd1ZZUzZfZDFDZGhYQjlfdktudnREejZUQ1M2RUo2QXRMSExJR253NzdRSTRwOVZCS3d4NkItbS1uWGdBWE9GMXJhVkFjdnEzUVpsV1RQdzdubG1rWm9WWkYyNlZGN2tpZU1pU3lKZlhWRVoyaEZDTHBlVEQ4alJyUFVQNnJaMjVGRWlKX3diUlFBTU1UY3Q5SFB1QkhyaXdoNUs0UXk0aTJ4RXo?oc=5"
+    "id": "f6f2ee958285",
+    "published": "Fri, 20 Nov 2026 13:46:06 -0500",
+    "published_sort": 1795200366,
+    "source": "PBS NewsHour",
+    "stream": "national",
+    "title": "Northeastern Florida now under flood threats from heavy rain that has devastated coastal communities",
+    "url": "https://www.pbs.org/newshour/nation/northeastern-florida-now-under-flood-threats-from-heavy-rain-that-has-devastated-coastal-communities"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",

@@ -187,6 +187,11 @@
                   "value": 8.5
                 },
                 {
+                  "date": "2026-11-19",
+                  "series": "Bradley Intl",
+                  "value": 5.0
+                },
+                {
                   "date": "2026-10-21",
                   "series": "Danbury",
                   "value": 2.5
@@ -330,6 +335,11 @@
                   "date": "2026-11-18",
                   "series": "Danbury",
                   "value": 2.5
+                },
+                {
+                  "date": "2026-11-19",
+                  "series": "Danbury",
+                  "value": 5.0
                 }
               ]
             },
@@ -397,16 +407,16 @@
             "data": {
               "values": [
                 {
-                  "date": "2026-11-18",
+                  "date": "2026-11-19",
                   "series": "Bradley Intl",
                   "short": "BR",
-                  "value": 8.5
+                  "value": 5.0
                 },
                 {
-                  "date": "2026-11-18",
+                  "date": "2026-11-19",
                   "series": "Danbury",
                   "short": "DA",
-                  "value": 2.5
+                  "value": 5.0
                 }
               ]
             },
@@ -464,15 +474,15 @@
       "citations": [
         "https://data.rcc-acis.org/StnData"
       ],
-      "generated_at": "2026-11-20T00:37:28+00:00",
+      "generated_at": "2026-11-20T22:59:10+00:00",
       "headline": {
-        "id": "b36588cc9c75",
-        "published": "Thu, 19 Nov 2026 15:23:39 GMT",
-        "published_sort": 1795101819,
-        "source": "Google News (CT)",
-        "stream": "ct",
-        "title": "Developing Storm To Produce Significant Weather Impacts On CT - Patch",
-        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOZ01YcFdhQVZwVlFRbGZUakV5bEJlQ0Q0bHU2MzcwbnRISGRhV2hYTDRXaTJKNmpyeV9scnJ0ZUtmeThpdG8zVUNqTWU4VVJNZ2RjbGdRUHcxc2NqT1dVVjJEb0J6dkc4VlltdTNkb3liWGZmSjQ1cERDSElGWFBtU3dNRmNTaG5ET21uUXJNdTVEZm5kXzJrVmd4d9IBtAFBVV95cUxPdDFrVWFLMXZPd1ZZUzZfZDFDZGhYQjlfdktudnREejZUQ1M2RUo2QXRMSExJR253NzdRSTRwOVZCS3d4NkItbS1uWGdBWE9GMXJhVkFjdnEzUVpsV1RQdzdubG1rWm9WWkYyNlZGN2tpZU1pU3lKZlhWRVoyaEZDTHBlVEQ4alJyUFVQNnJaMjVGRWlKX3diUlFBTU1UY3Q5SFB1QkhyaXdoNUs0UXk0aTJ4RXo?oc=5"
+        "id": "f6f2ee958285",
+        "published": "Fri, 20 Nov 2026 13:46:06 -0500",
+        "published_sort": 1795200366,
+        "source": "PBS NewsHour",
+        "stream": "national",
+        "title": "Northeastern Florida now under flood threats from heavy rain that has devastated coastal communities",
+        "url": "https://www.pbs.org/newshour/nation/northeastern-florida-now-under-flood-threats-from-heavy-rain-that-has-devastated-coastal-communities"
       },
       "id": "0785479c5e31",
       "indicator": "weather_anomaly",
@@ -1386,7 +1396,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-20T16:48:38+00:00",
+      "revalidated_at": "2026-11-20T22:59:12+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -2054,7 +2064,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-20T16:48:38+00:00",
+      "revalidated_at": "2026-11-20T22:59:12+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -9854,7 +9864,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-20T16:48:38+00:00",
+      "revalidated_at": "2026-11-20T22:59:12+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -23128,7 +23138,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-20T16:48:38+00:00",
+      "revalidated_at": "2026-11-20T22:59:12+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -24029,7 +24039,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-20T16:48:38+00:00",
+      "revalidated_at": "2026-11-20T22:59:12+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -26484,7 +26494,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-20T16:48:38+00:00",
+      "revalidated_at": "2026-11-20T22:59:12+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -28256,5 +28266,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-20T00:37:28+00:00"
+  "generated_at": "2026-11-20T22:59:10+00:00"
 }
