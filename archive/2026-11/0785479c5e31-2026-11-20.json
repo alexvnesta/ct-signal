@@ -1,8 +1,8 @@
 {
-  "answer_text": "Connecticut's average temperature ran +3.5\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-20 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+  "answer_text": "Connecticut's average temperature ran +3.6\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-20 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
   "answer_values": {
     "date": "2026-11-20",
-    "value": 3.5
+    "value": 3.6
   },
   "cache": false,
   "chart": {
@@ -185,6 +185,11 @@
               "value": 5.0
             },
             {
+              "date": "2026-11-20",
+              "series": "Bradley Intl",
+              "value": 7.5
+            },
+            {
               "date": "2026-10-22",
               "series": "Danbury",
               "value": 4.0
@@ -328,6 +333,11 @@
               "date": "2026-11-19",
               "series": "Danbury",
               "value": 5.0
+            },
+            {
+              "date": "2026-11-20",
+              "series": "Danbury",
+              "value": 8.0
             }
           ]
         },
@@ -395,16 +405,16 @@
         "data": {
           "values": [
             {
-              "date": "2026-11-19",
+              "date": "2026-11-20",
               "series": "Bradley Intl",
               "short": "BR",
-              "value": 5.0
+              "value": 7.5
             },
             {
-              "date": "2026-11-19",
+              "date": "2026-11-20",
               "series": "Danbury",
               "short": "DA",
-              "value": 5.0
+              "value": 8.0
             }
           ]
         },
@@ -462,21 +472,20 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-20T22:59:10+00:00",
+  "generated_at": "2026-11-21T19:39:46+00:00",
   "headline": {
-    "id": "f6f2ee958285",
-    "published": "Fri, 20 Nov 2026 13:46:06 -0500",
-    "published_sort": 1795200366,
-    "source": "PBS NewsHour",
-    "stream": "national",
-    "title": "Northeastern Florida now under flood threats from heavy rain that has devastated coastal communities",
-    "url": "https://www.pbs.org/newshour/nation/northeastern-florida-now-under-flood-threats-from-heavy-rain-that-has-devastated-coastal-communities"
+    "id": "71ec06bc60b6",
+    "published": "Sat, 21 Nov 2026 08:06:55 GMT",
+    "published_sort": 1795248415,
+    "source": "Google News (CT)",
+    "stream": "ct",
+    "title": "A sunny and warm Saturday in Connecticut. But heavy rain likely on the way. - CT Insider",
+    "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOVklMaUtNVGIyUmFGQ25zQ18tNzZTMEJjejRYTHFTTjh2WEMyQVVQdzlSdWJPamZZLUpJSnVqRXQ4Z2pBVmo1S2ctazlTbmhCTVVzZFJpYXRXSGhKZjZtbUJENDk1czJLM0NYaDRSeWprUVdSOVR2aTZwNmFjY2o5UUhzSDBEcTV3S1IwS3l3VDI4U1dCMURXZnhFWFFhSTlXY01jWURR?oc=5"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",
   "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
   "question": "Is Connecticut running warmer or colder than normal?",
-  "revalidated_at": "2026-11-21T03:53:35+00:00",
   "series_freq": "monthly",
   "stream": "national",
   "topic": "weather"
