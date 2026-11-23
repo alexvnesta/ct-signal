@@ -1,10 +1,10 @@
 {
   "cards": [
     {
-      "answer_text": "Connecticut's average temperature ran +4.0\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-22 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+      "answer_text": "Connecticut's average temperature ran +4.1\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-22 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
       "answer_values": {
         "date": "2026-11-22",
-        "value": 4.0
+        "value": 4.1
       },
       "cache": false,
       "chart": {
@@ -464,15 +464,15 @@
       "citations": [
         "https://data.rcc-acis.org/StnData"
       ],
-      "generated_at": "2026-11-23T01:27:31+00:00",
+      "generated_at": "2026-11-23T09:40:29+00:00",
       "headline": {
-        "id": "bcca1ad47f13",
-        "published": "Sun, 22 Nov 2026 13:24:03 GMT",
-        "published_sort": 1795353843,
+        "id": "2d894dcb30e2",
+        "published": "Sun, 22 Nov 2026 23:06:19 GMT",
+        "published_sort": 1795388779,
         "source": "Google News (CT)",
         "stream": "ct",
-        "title": "Heavy rain possible at times late Sunday into Sunday night - NBC Connecticut",
-        "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNZ1U5TVhTRzJ2bXpXTWxLQk1taTREd0JqdE12OUg0eDBKXzRQZ2NCa0t3SGRIZTlOS09iZXozcFdiaUxzeVdZZ1Z4TEJtNGk0Zm9hTEl5QVpFWVFXRlBtMG5YbVdsUVZrYVRwMHNIbjR2MDMxVUlvNDR6UVBXeVo2Mzd3Z2xvMXo3Y05zRk1USXBaNkVjNGs2Y0NDQTh4ZDBDWWlNMm5GYmEzcjc1ZlIxLTZ0UkJCZ1htVlFn0gHDAUFVX3lxTE5FSzFfYlhNSDNCSDk0YWRwVzR1Tklic2tQYXRRWW9WbVBEMjJ0SFlhRVJSLUVMbDFyWDRCcExPdWNvOG1TNlcxYnczbFVfSzZNS3YxU3M3Rk14WUFOVEpwbzJmT2psZWMtbEhEZWV1MDJscURJOTdzVzlqMVg4YXlXNFBLVGtFckh1OGpEMjR4M2VkWkloN21udE4zX3MxTVRIWFpkWjZ2emFQWjVyc25rVFpZUURKNmpkTU1qVzV0ZHViWQ?oc=5"
+        "title": "Thanksgiving in Connecticut could start with snow before rain and strong winds, forecasters say - Yahoo",
+        "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPVXlwTW52c2FrQ3E3czRBMlFQVldVbnNkN0lCbHVGMlRBLUc0STNJZHdVQlRnR0tTN3BwMmRDSjJkdnBQWDh2bjl1M3NFRzJURFFDM05KUzJXdW9jVHNLWlVzRXdNTmdKNk9QYUdGd19yZDNxcTk2bE0wMGVCVG9LajZScXpvY0xZU1NoSE5POHRjUEFuWEhhYTc3Sk1MaE93N0tqd01xbFk?oc=5"
       },
       "id": "0785479c5e31",
       "indicator": "weather_anomaly",
@@ -1386,7 +1386,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-23T01:27:34+00:00",
+      "revalidated_at": "2026-11-23T09:40:33+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -2054,7 +2054,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-23T01:27:34+00:00",
+      "revalidated_at": "2026-11-23T09:40:33+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -9854,7 +9854,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-23T01:27:34+00:00",
+      "revalidated_at": "2026-11-23T09:40:33+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -23128,7 +23128,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-23T01:27:34+00:00",
+      "revalidated_at": "2026-11-23T09:40:33+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -24029,7 +24029,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-23T01:27:34+00:00",
+      "revalidated_at": "2026-11-23T09:40:33+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -26484,7 +26484,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-23T01:27:34+00:00",
+      "revalidated_at": "2026-11-23T09:40:33+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -28256,5 +28256,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-23T01:27:31+00:00"
+  "generated_at": "2026-11-23T09:40:29+00:00"
 }
