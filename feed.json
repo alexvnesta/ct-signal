@@ -6,17 +6,35 @@
   "items": [
     {
       "_tags": [
+        "economy"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 146605,
+          "url": "https://ctsignal.org/assets/story-916a9da3173f.png"
+        }
+      ],
+      "content_text": "Connecticut's median household income is $100,056 (2025), the 9th-highest of 52 peers. Source: NYT U.S. \u2014 Why Chicago\u2019s Tax Incentive Program Fell Short in Low-Income Neighborhoods",
+      "date_published": "2026-11-24T16:29:03+00:00",
+      "id": "https://ctsignal.org/story/916a9da3173f",
+      "image": "https://ctsignal.org/assets/story-916a9da3173f.png",
+      "title": "What do Connecticut households earn compared with the rest of the country?",
+      "url": "https://ctsignal.org/story/916a9da3173f"
+    },
+    {
+      "_tags": [
         "weather"
       ],
       "attachments": [
         {
           "mime_type": "image/png",
-          "size_in_bytes": 142951,
+          "size_in_bytes": 142966,
           "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
         }
       ],
-      "content_text": "Connecticut's average temperature ran +4.4\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-23 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: NYT U.S. \u2014 Rain Storms Overwhelm San Francisco\u2019s Sewers, Sending Wastewater Into the Streets",
-      "date_published": "2026-11-23T21:42:00+00:00",
+      "content_text": "Connecticut's average temperature ran +4.8\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-23 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: Google News (CT) \u2014 Thanksgiving storm could bring heavy rain, 50 mph gusts to Connecticut - CT Insider",
+      "date_published": "2026-11-24T16:29:02+00:00",
       "id": "https://ctsignal.org/story/0785479c5e31",
       "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
       "title": "Is Connecticut running warmer or colder than normal?",
@@ -255,24 +273,6 @@
       "image": "https://ctsignal.org/assets/story-90255dce8175.png",
       "title": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
       "url": "https://ctsignal.org/story/90255dce8175"
-    },
-    {
-      "_tags": [
-        "economy"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 146605,
-          "url": "https://ctsignal.org/assets/story-916a9da3173f.png"
-        }
-      ],
-      "content_text": "Connecticut's median household income is $100,056 (2025), the 9th-highest of 52 peers.",
-      "date_published": "2026-10-05T20:37:30+00:00",
-      "id": "https://ctsignal.org/story/916a9da3173f",
-      "image": "https://ctsignal.org/assets/story-916a9da3173f.png",
-      "title": "What do Connecticut households earn compared with the rest of the country?",
-      "url": "https://ctsignal.org/story/916a9da3173f"
     },
     {
       "_tags": [

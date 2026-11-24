@@ -1,8 +1,8 @@
 {
-  "answer_text": "Connecticut's average temperature ran +4.4\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-23 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+  "answer_text": "Connecticut's average temperature ran +4.8\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-23 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
   "answer_values": {
     "date": "2026-11-23",
-    "value": 4.4
+    "value": 4.8
   },
   "cache": false,
   "chart": {
@@ -185,6 +185,11 @@
               "value": 7.5
             },
             {
+              "date": "2026-11-23",
+              "series": "Bradley Intl",
+              "value": 17.0
+            },
+            {
               "date": "2026-10-25",
               "series": "Danbury",
               "value": -1.0
@@ -328,6 +333,11 @@
               "date": "2026-11-22",
               "series": "Danbury",
               "value": 10.5
+            },
+            {
+              "date": "2026-11-23",
+              "series": "Danbury",
+              "value": 14.0
             }
           ]
         },
@@ -395,16 +405,16 @@
         "data": {
           "values": [
             {
-              "date": "2026-11-22",
+              "date": "2026-11-23",
               "series": "Bradley Intl",
               "short": "BR",
-              "value": 7.5
+              "value": 17.0
             },
             {
-              "date": "2026-11-22",
+              "date": "2026-11-23",
               "series": "Danbury",
               "short": "DA",
-              "value": 10.5
+              "value": 14.0
             }
           ]
         },
@@ -462,21 +472,20 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-23T21:42:00+00:00",
+  "generated_at": "2026-11-24T16:29:02+00:00",
   "headline": {
-    "id": "7f65764303cf",
-    "published": "Mon, 23 Nov 2026 18:25:16 +0000",
-    "published_sort": 1795458316,
-    "source": "NYT U.S.",
-    "stream": "national",
-    "title": "Rain Storms Overwhelm San Francisco\u2019s Sewers, Sending Wastewater Into the Streets",
-    "url": "https://www.nytimes.com/2026/11/23/us/san-francisco-flooding-water-sewer-rain.html"
+    "id": "22c7ed045413",
+    "published": "Mon, 23 Nov 2026 12:21:23 GMT",
+    "published_sort": 1795436483,
+    "source": "Google News (CT)",
+    "stream": "ct",
+    "title": "Thanksgiving storm could bring heavy rain, 50 mph gusts to Connecticut - CT Insider",
+    "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQazhCbDBCYmhYeVhrSHBCM0dVMmk4cUNQUy1YejRDQzl0aFN2YldsaWh2d01fSUtONHNERGplV2UzM1JQVm12ekFOREpUZ2pnbGNyWjFlTG1lajdFcG9UNHA5WnVjS3VrMEV4YlU0QVNiOW1xNlJTWmo5RzFtVWpPSGRrcGxCWnBUNlRuZUVYb0I3N2l4bGhjVTFwb3MzUHNPc3pNRg?oc=5"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",
   "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
   "question": "Is Connecticut running warmer or colder than normal?",
-  "revalidated_at": "2026-11-24T05:35:28+00:00",
   "series_freq": "monthly",
   "stream": "national",
   "topic": "weather"
