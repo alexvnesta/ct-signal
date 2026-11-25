@@ -1,8 +1,8 @@
 {
-  "answer_text": "Connecticut's average temperature ran +5.0\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-24 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+  "answer_text": "Connecticut's average temperature ran +4.8\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-24 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
   "answer_values": {
     "date": "2026-11-24",
-    "value": 5.0
+    "value": 4.8
   },
   "cache": false,
   "chart": {
@@ -185,6 +185,11 @@
               "value": 17.0
             },
             {
+              "date": "2026-11-24",
+              "series": "Bradley Intl",
+              "value": 0.0
+            },
+            {
               "date": "2026-10-26",
               "series": "Danbury",
               "value": 1.5
@@ -328,6 +333,11 @@
               "date": "2026-11-23",
               "series": "Danbury",
               "value": 14.0
+            },
+            {
+              "date": "2026-11-24",
+              "series": "Danbury",
+              "value": -1.5
             }
           ]
         },
@@ -395,16 +405,16 @@
         "data": {
           "values": [
             {
-              "date": "2026-11-23",
+              "date": "2026-11-24",
               "series": "Bradley Intl",
               "short": "BR",
-              "value": 17.0
+              "value": 0.0
             },
             {
-              "date": "2026-11-23",
+              "date": "2026-11-24",
               "series": "Danbury",
               "short": "DA",
-              "value": 14.0
+              "value": -1.5
             }
           ]
         },
@@ -462,15 +472,15 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-25T01:00:35+00:00",
+  "generated_at": "2026-11-25T19:49:09+00:00",
   "headline": {
-    "id": "6c8040361e08",
-    "published": "Tue, 24 Nov 2026 23:15:50 GMT",
-    "published_sort": 1795562150,
-    "source": "Google News (CT)",
+    "id": "29f1ebeac6ef",
+    "published": "Wed, 25 Nov 2026 14:57:17 +0000",
+    "published_sort": 1795618637,
+    "source": "CT News Junkie",
     "stream": "ct",
-    "title": "Tracking Connecticut Thanksgiving storm: Heavy rain, strong winds and coastal flooding on the table - CT Insider",
-    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNZExXcUJ5RXkzVWNmcFh4NDJzT0xldl9vV0pCaVg5RVFzcHRqWFJCay1pTjJNdElXN05CSG9feVZCbnVKdTIyMFNoTEJrZG9ya3VfQUhra2ZkRXJhdS1KSlZseXFDLVRCcnZPVEsxT0RDczhNSFJuSS1acHprNDNWcDhOVl9vdXo0N2d4clg2eHlBMGZoV1Blcm5ydw?oc=5"
+    "title": "UI Adds Crews As Thanksgiving Storm Expected To Bring Heavy Rain, 50 MPH Wind",
+    "url": "https://ctnewsjunkie.com/2026/11/25/ui-adds-crews-as-thanksgiving-storm-expected-to-bring-heavy-rain-50-mph-wind/"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",
