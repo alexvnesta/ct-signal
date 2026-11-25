@@ -6,12 +6,30 @@
   "items": [
     {
       "_tags": [
+        "weather"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 143693,
+          "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
+        }
+      ],
+      "content_text": "Connecticut's average temperature ran +5.0\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-24 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: Google News (CT) \u2014 Tracking Connecticut Thanksgiving storm: Heavy rain, strong winds and coastal flooding on the table - CT Insider",
+      "date_published": "2026-11-25T01:00:35+00:00",
+      "id": "https://ctsignal.org/story/0785479c5e31",
+      "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
+      "title": "Is Connecticut running warmer or colder than normal?",
+      "url": "https://ctsignal.org/story/0785479c5e31"
+    },
+    {
+      "_tags": [
         "economy"
       ],
       "attachments": [
         {
           "mime_type": "image/png",
-          "size_in_bytes": 146605,
+          "size_in_bytes": 146595,
           "url": "https://ctsignal.org/assets/story-916a9da3173f.png"
         }
       ],
@@ -21,24 +39,6 @@
       "image": "https://ctsignal.org/assets/story-916a9da3173f.png",
       "title": "What do Connecticut households earn compared with the rest of the country?",
       "url": "https://ctsignal.org/story/916a9da3173f"
-    },
-    {
-      "_tags": [
-        "weather"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 142966,
-          "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
-        }
-      ],
-      "content_text": "Connecticut's average temperature ran +4.8\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-23 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal Source: Google News (CT) \u2014 Thanksgiving storm could bring heavy rain, 50 mph gusts to Connecticut - CT Insider",
-      "date_published": "2026-11-24T16:29:02+00:00",
-      "id": "https://ctsignal.org/story/0785479c5e31",
-      "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
-      "title": "Is Connecticut running warmer or colder than normal?",
-      "url": "https://ctsignal.org/story/0785479c5e31"
     },
     {
       "_tags": [
