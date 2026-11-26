@@ -15,8 +15,8 @@ verified against the live service, not assumed.
 ## 2. Buttondown — AUTOMATED
 
 - Account `buttondown.com/ctsignal`, branded (name, bio, `#f2a65a` tint).
-- CI key lives as `BUTTONDOWN_KEY`; scopes are **Emails: read & write** and
-  **Sending: enabled**, with subscriber/administrivia access left at none.
+- CI key lives as `BUTTONDOWN_KEY`; scopes are **Emails: read & write**
+  and **Sending: enabled**, with subscriber/administrivia access left at none.
   Sending is a separate scope from editing: `send-draft` returns 403
   `permission_denied` when the key can write drafts but cannot send.
 - Sunday `digest` workflow at 14:03 UTC renders the ISO-week issue from the
@@ -24,8 +24,13 @@ verified against the live service, not assumed.
   run summary. Monday at 12:03 UTC searches drafts for that Sunday's
   `Issue YYYY-WNN` line and sends the newest match to the active list.
 - A manual dispatch can `discard_draft=<id>` or `send_draft=<id>`; pass
-  `send_to=you@example.com` for a one-recipient preview. Blank recipients
-  means the full list, so previews are never silent test sends.
+  `send_to=sub_...` (a Buttondown **subscriber id**, not an email address) for
+  a one-recipient preview. Blank `send_to` means the full active list.
+  Buttondown's `recipients` email-address form returned HTTP 200 but delivered
+  nothing under this key; subscriber ids delivered and analytics recorded it.
+- `send-draft` leaves the email in `draft` status even after delivery. The
+  send steps therefore poll `/emails/{id}/analytics` and fail if `deliveries`
+  stays at zero — HTTP 200 alone is not treated as proof of sending.
 - No human step remains in the scheduled path. The Monday match is deliberate:
   an older draft for another week can never ship just because it is newest.
 - Footer subscribe widget is live; the digest is one email, filed Sunday and
