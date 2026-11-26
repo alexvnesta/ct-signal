@@ -299,10 +299,12 @@ footer.site{border-top:3px double var(--ink);background:var(--bg2);margin-top:2.
 .footgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1.3fr;gap:1.5rem}
 .footgrid form{display:flex;gap:.4rem;margin-top:.4rem}
 .footgrid input{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);
-color:var(--ink);padding:.45rem .6rem;font:inherit;font-size:.87rem}
+color:var(--ink);padding:.45rem .6rem;font:inherit;font-size:.87rem;min-height:44px}
+.footgrid input::placeholder{color:var(--faint)}
 .footgrid input:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
 .footgrid form button{background:var(--acc);color:#fff;border:0;padding:.45rem .8rem;
-font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
+font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
+.footgrid form button:hover,.footgrid form button:focus-visible{background:#8f4706}
 @media(max-width:880px){.footgrid{grid-template-columns:1fr 1fr}}
 .footgrid h2{margin:.2rem 0 .6rem;color:var(--dim);font-size:.74rem;
   letter-spacing:.16em;text-transform:uppercase}
@@ -464,7 +466,8 @@ Unsubscribe in one click — we sell no data.</p>
 <form action="https://buttondown.com/api/emails/embed-subscribe/ctsignal"
 method="post" target="_blank" rel="noopener">
 <label class="sr-only" for="foot-sub-email">Email address</label>
-<input id="foot-sub-email" type="email" name="email" placeholder="you@example.com" required>
+<input id="foot-sub-email" type="email" name="email" autocomplete="email"
+inputmode="email" placeholder="you@example.com" required>
 <button type="submit">Subscribe</button></form></div></div>
 <div class="wrap colophon"><span>© {year} CT Signal · Independent automated newsroom ·
 <a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></span>
@@ -617,17 +620,28 @@ const trim=spec=>{
   (spec.layer||[]).forEach(l=>{ kill(l.encoding); if(l.title) delete l.title; });
   return spec;
 };
-const go=()=>{
-document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementById(
-  s.dataset.target); if(!el) return; const holder=el.parentElement,
-  label=el.getAttribute("aria-label"); try{ vegaEmbed(el, trim(JSON.parse(
-  s.textContent)), {actions:false,renderer:"svg",
+const mount=(el,holder,label,spec)=>{
+  try{ vegaEmbed(el, trim(spec), {actions:false,renderer:"svg",
   config:{background:"transparent"}}).then(r=>{ views.push(r.view);
     const node=holder.querySelector(".vega-embed")||holder;
     node.setAttribute("role","img");node.setAttribute("aria-label",label);
     node.setAttribute("tabindex","0");tidy(node);})
   .catch(e=>console.warn("chart:",e));
-  }catch(e){console.warn("spec:",e);}});};
+  }catch(e){console.warn("spec:",e);}};
+const go=()=>{
+document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementById(
+  s.dataset.target); if(!el) return; const holder=el.parentElement,
+  label=el.getAttribute("aria-label"); let spec;
+  try{ spec=JSON.parse(s.textContent); }catch(e){ console.warn("spec:",e);
+    return; }
+  // A container that is display:none reports width 0, and Vega then keeps a
+  // 0-wide SVG even after CSS reveals it. The peer chart is hidden until its
+  // "show all" box is checked, so mount it only when it actually has width.
+  const peer=holder.querySelector(".peershow");
+  if(!(narrow && peer && !peer.checked)) mount(el,holder,label,spec);
+  if(peer) peer.addEventListener("change",()=>{ if(peer.checked)
+    mount(el,holder,label,spec); });
+});};
   if(window.vegaEmbed) go(); else window.addEventListener("load",go);});</script>"""
 
 

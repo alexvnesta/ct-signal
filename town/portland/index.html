@@ -30,7 +30,7 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css?v=db873e44">
+<link rel="stylesheet" href="/assets/site.css?v=c8ade262">
 
 <link rel="alternate" type="application/atom+xml" title="CT Signal — Portland (Atom)" href="/town/portland/feed.xml"></head>
 <body>
@@ -63,16 +63,16 @@
   color:var(--dim);cursor:pointer;letter-spacing:.04em}
 .mapchips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .mapchips button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-.mapflex{display:flex;gap:1.2rem;align-items:flex-start;flex-wrap:wrap}
-svg.townsmap{width:min(100%,560px);height:auto;background:var(--panel);
+.mapflex{display:block}
+svg.townsmap{display:block;width:100%;height:auto;background:var(--panel);
   border:1px solid var(--line);border-radius:8px;padding:6px}
 svg.townsmap path{stroke:#fff;stroke-width:.5;transition:fill .3s;
   cursor:pointer}
 svg.townsmap path:hover{stroke:var(--ink);stroke-width:1.2}
 svg.townsmap path:focus-visible{stroke:var(--acc);stroke-width:2;
   outline:none}
-.maplegend{display:flex;flex-direction:column;gap:.3rem;
-  font:.74rem/1.2 var(--sans);color:var(--dim);min-width:150px}
+.maplegend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;
+  font:.74rem/1.2 var(--sans);color:var(--dim);width:100%;margin-top:.7rem}
 .maplegend .sw{display:inline-block;width:.9rem;height:.9rem;
   border:1px solid var(--line);margin-right:.45rem;vertical-align:-1px}
 .mtip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;
@@ -126,7 +126,8 @@ Unsubscribe in one click — we sell no data.</p>
 <form action="https://buttondown.com/api/emails/embed-subscribe/ctsignal"
 method="post" target="_blank" rel="noopener">
 <label class="sr-only" for="foot-sub-email">Email address</label>
-<input id="foot-sub-email" type="email" name="email" placeholder="you@example.com" required>
+<input id="foot-sub-email" type="email" name="email" autocomplete="email"
+inputmode="email" placeholder="you@example.com" required>
 <button type="submit">Subscribe</button></form></div></div>
 <div class="wrap colophon"><span>© 2026 CT Signal · Independent automated newsroom ·
 <a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></span>

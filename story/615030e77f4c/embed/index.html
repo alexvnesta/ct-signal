@@ -28,7 +28,7 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css?v=db873e44">
+<link rel="stylesheet" href="/assets/site.css?v=c8ade262">
 <body><div style="background:var(--bg);color:var(--ink);
 font:16px/1.6 var(--sans);padding:1rem 1.2rem;min-height:100vh;box-sizing:border-box">
 <div class="kicker"><a class="klink" href="/story/615030e77f4c" target="_blank"
@@ -73,15 +73,26 @@ const trim=spec=>{
   (spec.layer||[]).forEach(l=>{ kill(l.encoding); if(l.title) delete l.title; });
   return spec;
 };
-const go=()=>{
-document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementById(
-  s.dataset.target); if(!el) return; const holder=el.parentElement,
-  label=el.getAttribute("aria-label"); try{ vegaEmbed(el, trim(JSON.parse(
-  s.textContent)), {actions:false,renderer:"svg",
+const mount=(el,holder,label,spec)=>{
+  try{ vegaEmbed(el, trim(spec), {actions:false,renderer:"svg",
   config:{background:"transparent"}}).then(r=>{ views.push(r.view);
     const node=holder.querySelector(".vega-embed")||holder;
     node.setAttribute("role","img");node.setAttribute("aria-label",label);
     node.setAttribute("tabindex","0");tidy(node);})
   .catch(e=>console.warn("chart:",e));
-  }catch(e){console.warn("spec:",e);}});};
+  }catch(e){console.warn("spec:",e);}};
+const go=()=>{
+document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementById(
+  s.dataset.target); if(!el) return; const holder=el.parentElement,
+  label=el.getAttribute("aria-label"); let spec;
+  try{ spec=JSON.parse(s.textContent); }catch(e){ console.warn("spec:",e);
+    return; }
+  // A container that is display:none reports width 0, and Vega then keeps a
+  // 0-wide SVG even after CSS reveals it. The peer chart is hidden until its
+  // "show all" box is checked, so mount it only when it actually has width.
+  const peer=holder.querySelector(".peershow");
+  if(!(narrow && peer && !peer.checked)) mount(el,holder,label,spec);
+  if(peer) peer.addEventListener("change",()=>{ if(peer.checked)
+    mount(el,holder,label,spec); });
+});};
   if(window.vegaEmbed) go(); else window.addEventListener("load",go);});</script></body></html>
