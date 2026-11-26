@@ -1,6 +1,8 @@
 name: digest
-# Renders this week's issue from the committed board and posts it to
-# Buttondown as a DRAFT. The pipeline writes; a human still sends.
+# Sunday: render the week's board and file it with Buttondown as a draft.
+# Monday: send the draft for that same ISO week (so a stale draft can never
+# ship by accident). A dispatch can discard a draft or send one immediately,
+# optionally to test recipients only.
 on:
   workflow_dispatch:
     inputs:
@@ -8,8 +10,17 @@ on:
         description: "email id to DELETE instead of filing a new draft"
         required: false
         default: ""
+      send_draft:
+        description: "email id to SEND now (no new draft is created)"
+        required: false
+        default: ""
+      send_to:
+        description: "optional comma-separated recipients; blank = all subscribers"
+        required: false
+        default: ""
   schedule:
-    - cron: "3 14 * * 0"   # Sundays 14:03 UTC, before anyone reads Sunday papers
+    - cron: "3 14 * * 0"   # Sundays 14:03 UTC: file the draft
+    - cron: "3 12 * * 1"   # Mondays 12:03 UTC: send Sunday's draft
 permissions:
   contents: read
 jobs:
@@ -21,7 +32,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: discard a stale draft (dispatch-only)
-        if: ${{ inputs.discard_draft != '' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.discard_draft != '' && inputs.send_draft == '' }}
         env:
           BUTTONDOWN_KEY: ${{ secrets.BUTTONDOWN_KEY }}
           DRAFT: ${{ inputs.discard_draft }}
@@ -36,12 +47,13 @@ jobs:
               print("discarded:", os.environ["DRAFT"], r.status)
           PY
       - name: render issue
-        if: ${{ inputs.discard_draft == '' }}
+        if: ${{ (github.event_name == 'workflow_dispatch' && inputs.discard_draft == '' && inputs.send_draft == '') || github.event.schedule == '3 14 * * 0' }}
         run: |
           pip install --quiet pillow
           python scripts/make_digest.py
       - name: post draft to Buttondown
-        if: ${{ inputs.discard_draft == '' }}
+        if: ${{ (github.event_name == 'workflow_dispatch' && inputs.discard_draft == '' && inputs.send_draft == '') || github.event.schedule == '3 14 * * 0' }}
+        id: post_draft
         env:
           BUTTONDOWN_KEY: ${{ secrets.BUTTONDOWN_KEY }}
         run: |
@@ -62,8 +74,119 @@ jobs:
           try:
               with urllib.request.urlopen(req, timeout=30) as r:
                   d = json.loads(r.read())
-                  print("draft created:", d.get("id"), "->",
-                        "https://buttondown.com/emails/%s" % d.get("id"))
+                  did = d.get("id")
+                  print("draft created:", did, "->",
+                        "https://buttondown.com/emails/%s" % did)
+                  # Hand the id to the Monday/manual send step without relying
+                  # on a query that could pick an older unreviewed draft.
+                  github_out = os.environ.get("GITHUB_OUTPUT")
+                  if github_out:
+                      with open(github_out, "a") as fh:
+                          fh.write(f"draft_id={did}\n")
+                  summary = os.environ.get("GITHUB_STEP_SUMMARY")
+                  if summary:
+                      with open(summary, "a") as fh:
+                          fh.write(
+                              "### Buttondown draft filed\n\n"
+                              f"- Issue: `{issue}`\n"
+                              f"- Subject: {payload['subject']}\n"
+                              f"- Draft: [{did}](https://buttondown.com/"
+                              f"emails/{did})\n\n"
+                              "Scheduled send: Monday 12:03 UTC. "
+                              f"To send now: `send_draft={did}`.\n")
+          except urllib.error.HTTPError as e:
+              print("Buttondown said:", e.code, e.read().decode()[:400])
+              raise SystemExit(1)
+          PY
+      - name: send a specific draft (dispatch-only)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.send_draft != '' }}
+        env:
+          BUTTONDOWN_KEY: ${{ secrets.BUTTONDOWN_KEY }}
+          DRAFT: ${{ inputs.send_draft }}
+          SEND_TO: ${{ inputs.send_to }}
+        run: |
+          python - <<'PY'
+          import json, os, urllib.request
+          did = os.environ["DRAFT"]
+          payload = {}
+          to = os.environ.get("SEND_TO", "").strip()
+          if to:
+              payload["recipients"] = [x.strip() for x in to.split(",") if x.strip()]
+          req = urllib.request.Request(
+              f"https://api.buttondown.com/v1/emails/{did}/send-draft",
+              data=json.dumps(payload).encode(),
+              method="POST",
+              headers={"Authorization": f"Token {os.environ['BUTTONDOWN_KEY']}",
+                       "Content-Type": "application/json"})
+          try:
+              with urllib.request.urlopen(req, timeout=60) as r:
+                  print("send requested:", did, "HTTP", r.status,
+                        "recipients:", payload.get("recipients") or "all subscribers")
+                  summary = os.environ.get("GITHUB_STEP_SUMMARY")
+                  if summary:
+                      with open(summary, "a") as fh:
+                          fh.write(
+                              "### Buttondown issue sent\n\n"
+                              f"- Email: [{did}](https://buttondown.com/"
+                              f"emails/{did})\n"
+                              "- Recipients: "
+                              + (", ".join(payload["recipients"])
+                                 if payload.get("recipients")
+                                 else "the active subscriber list")
+                              + "\n")
+          except urllib.error.HTTPError as e:
+              print("Buttondown said:", e.code, e.read().decode()[:400])
+              raise SystemExit(1)
+          PY
+      - name: send Sunday's draft on Monday
+        if: ${{ github.event_name == 'schedule' && github.event.schedule == '3 12 * * 1' }}
+        env:
+          BUTTONDOWN_KEY: ${{ secrets.BUTTONDOWN_KEY }}
+        run: |
+          python - <<'PY'
+          import datetime as dt, json, os, urllib.request
+          # Monday belongs to the next ISO week; the issue filed Sunday is
+          # yesterday's week. Search that week, never the Monday date's week.
+          week = (dt.datetime.now(dt.timezone.utc).date()
+                  - dt.timedelta(days=1)).isocalendar()
+          needle = f"Issue {week.year}-W{week.week:02d}"
+          req = urllib.request.Request(
+              "https://api.buttondown.com/v1/emails?status=draft",
+              headers={"Authorization": f"Token {os.environ['BUTTONDOWN_KEY']}"})
+          with urllib.request.urlopen(req, timeout=45) as r:
+              d = json.loads(r.read())
+          rows = d.get("results") or d.get("data") or []
+          # Buttondown ids are ULIDs, so max(id) is the newest draft. Match the
+          # body's issue line, not just "newest draft": an older unsent draft
+          # must never ship when Sunday's render failed or was already sent.
+          mine = [e for e in rows
+                  if needle in str(e.get("body") or "")
+                  and e.get("id")]
+          if not mine:
+              print("no draft for", needle, "- nothing to send")
+              summary = os.environ.get("GITHUB_STEP_SUMMARY")
+              if summary:
+                  with open(summary, "a") as fh:
+                      fh.write(f"### No Monday send\n\nNo draft matched `{needle}`.\n")
+              raise SystemExit(0)
+          did = max(mine, key=lambda e: str(e["id"]))["id"]
+          send = urllib.request.Request(
+              f"https://api.buttondown.com/v1/emails/{did}/send-draft",
+              data=b"{}",
+              method="POST",
+              headers={"Authorization": f"Token {os.environ['BUTTONDOWN_KEY']}",
+                       "Content-Type": "application/json"})
+          try:
+              with urllib.request.urlopen(send, timeout=60) as r:
+                  print("Monday send:", did, "HTTP", r.status, "for", needle)
+                  summary = os.environ.get("GITHUB_STEP_SUMMARY")
+                  if summary:
+                      with open(summary, "a") as fh:
+                          fh.write(
+                              "### Weekly issue sent\n\n"
+                              f"- {needle}\n"
+                              f"- Email: [{did}](https://buttondown.com/emails/{did})\n"
+                              "- Recipients: the active subscriber list\n")
           except urllib.error.HTTPError as e:
               print("Buttondown said:", e.code, e.read().decode()[:400])
               raise SystemExit(1)

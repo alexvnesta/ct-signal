@@ -268,9 +268,9 @@ national:
     keywords: [weather, forecast, heat, cold snap, rain, snow, storm,
                hurricane, tropical storm, heat wave, first frost]
     question: Is Connecticut running warmer or colder than normal?
-    answer: "Connecticut's average temperature ran {value:+.1f}°F from its
-      1991-2020 normal over the 30 days ending {date} — measured at Bradley
-      International and Danbury, each against its own normals. {extreme}"
+    answer: "Connecticut ran {abs_value:.1f}°F {extreme} over the 30 days
+      ending {date} — measured at Bradley International and Danbury, each
+      against its own 1991-2020 normals."
     validated: "live series probe 2026-10-14 (Bradley +0.3F, Danbury +0.9F, 30d)"
 
   - id: ct_unemployment

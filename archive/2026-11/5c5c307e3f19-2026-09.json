@@ -1638,7 +1638,7 @@
               "format": ".1f"
             },
             "field": "value",
-            "title": "JOLTS hiring rate (percent)",
+            "title": null,
             "type": "quantitative"
           }
         },
@@ -1699,7 +1699,7 @@
       "right": 64
     },
     "title": {
-      "text": "JOLTS hiring rate"
+      "text": "JOLTS hiring rate (percent)"
     },
     "width": "container"
   },

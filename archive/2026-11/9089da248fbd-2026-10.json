@@ -1888,7 +1888,7 @@
               "format": ".1f"
             },
             "field": "value",
-            "title": "Prime-age labor force participation (percent)",
+            "title": null,
             "type": "quantitative"
           }
         },
@@ -1949,7 +1949,7 @@
       "right": 64
     },
     "title": {
-      "text": "Prime-age labor force participation"
+      "text": "Prime-age labor force participation (percent)"
     },
     "width": "container"
   },

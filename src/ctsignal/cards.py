@@ -125,8 +125,8 @@ def from_national(item: dict, proposal: dict, result: dict) -> dict:
         # in the answer template needs the raw number, not display()'s
         # rounded unsigned string.
         answer = item["answer"].format(
-            value=result["value"], date=result["date"],
-            extreme=result["extreme"])
+            value=result["value"], abs_value=abs(result["value"]),
+            date=result["date"], extreme=result["extreme"])
     else:
         disp = _display(item, result["value"])
         answer = item["answer"].format(
@@ -144,12 +144,15 @@ def from_national(item: dict, proposal: dict, result: dict) -> dict:
         "question": question,
         "answer_text": answer,
         "answer_values": {"value": result["value"], "date": result["date"]},
-        "series_freq": item.get("fred", {}).get("freq", "monthly"),
+        "series_freq": ("daily" if item.get("answerer") == "acis_weather"
+                        else item.get("fred", {}).get("freq", "monthly")),
         "chart_kind": "trend",
         "chart": charts.trend(result["rows"], title=item["title"],
                               unit=item.get("unit", ""),
-                              highlight_series=item.get("geo",
-                                                        "United States")),
+                              highlight_series=(
+                                  "Bradley Intl"
+                                  if item.get("answerer") == "acis_weather"
+                                  else item.get("geo", "United States"))),
         "chart2": None,
         "citations": [result["citation"]],
         "query": result["query"],

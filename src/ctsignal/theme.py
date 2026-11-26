@@ -18,13 +18,19 @@ import json
 
 import hashlib
 
+try:
+    from zoneinfo import ZoneInfo
+    _ET = ZoneInfo("America/New_York")
+except Exception:                     # exotic host with no tzdata
+    _ET = dt.timezone.utc
+
 from . import config
 
 _ESC = html.escape
 
 # ---------------------------------------------------------------- palette ---
-# Dark editorial: ink navy background, warm orange mast accent, green answers,
-# blue links. Verified AA+ on every surface (see CONTRAST note in CSS header).
+# Light editorial: paper background, ink navy mast accent, warm orange,
+# green answers, blue links. Verified AA+ on every surface (see CONTRAST note).
 
 CSS_HASH = ''  # patched at import end
 CSS = """
@@ -300,6 +306,7 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   display:flex;justify-content:space-between;
   flex-wrap:wrap;gap:.4rem}
 .colophon a{text-decoration:underline}
+.colophon .totop{font-weight:600;white-space:nowrap}
 .breadcrumb{margin:1.4rem 0 .2rem;font-size:.82rem}
 .breadcrumb a{color:var(--faint);display:inline-block;padding:.35rem .15em}
 @media (max-width:999px){.latest-grid{grid-template-columns:minmax(0,1fr)}}
@@ -323,12 +330,11 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   font:600 .8rem var(--sans);cursor:pointer}
 @media (max-width:720px){.footgrid{grid-template-columns:1fr}
   .val{font-size:1.7rem}.hero .lede{font-size:1.1rem}
-  nav.sitebar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
-    overscroll-behavior-x:contain;justify-content:flex-start}
-  nav.sitebar::-webkit-scrollbar{display:none}
-  nav.sitebar a{white-space:nowrap;padding:.5rem .65rem;font-size:.74rem}
+  nav.sitebar{flex-wrap:wrap;overflow:visible;justify-content:center;gap:.1rem}
+  nav.sitebar a{white-space:nowrap;padding:.5rem .3rem;font-size:.68rem;
+    letter-spacing:.06em}
   .kicker{letter-spacing:.1em;font-size:.74rem}
-  nav.sitebar a.rss{display:none}
+  .wirelist{column-count:1}
   .nameplate{padding:.9rem .8rem 0}
   .brand{font-size:1.85rem;padding-bottom:1.7rem}
   .plate-art{height:70px}
@@ -346,8 +352,7 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
 
   .sechead h2{letter-spacing:.06em}
   .item-fig{flex:0 0 132px}.item-fig img{width:132px}
-  footer.site{padding-bottom:calc(2.2rem + 4.5rem +
-    env(safe-area-inset-bottom,0px))}}
+  footer.site{padding-bottom:calc(2.2rem + env(safe-area-inset-bottom,0px))}}
 """
 
 # ------------------------------------------------------------- components ---
@@ -371,7 +376,9 @@ _NAV = (
 
 
 def dateline(now: dt.datetime | None = None) -> str:
-    now = now or dt.datetime.now(dt.timezone.utc)
+    # The masthead is the Connecticut clock, not the UTC clock: at 9 p.m. in
+    # Hartford the paper is still Wednesday's edition, not Thursday's.
+    now = (now or dt.datetime.now(dt.timezone.utc)).astimezone(_ET)
     # nbsp glues the separator to the date: balanced wraps must never leave
     # a leading "·" on the tagline's second line.
     return now.strftime("%A, %B %-d, %Y") + "\u00a0\u00b7 automated data desk"
@@ -383,7 +390,7 @@ def header() -> str:
     # (The full-strength copy stays as the page's tailpiece at the bottom.)
     return (
         '<a class="skip" href="#main">Skip to content</a>'
-        '<header class="site">'
+        '<header class="site" id="top">'
         '<div class="wrap nameplate">'
         '<img class="plate-art" src="/assets/skyline-light.png" '
         'width="2340" height="875" alt="" aria-hidden="true">'
@@ -442,7 +449,7 @@ public data answers it. Know where you live.</p>
 <li><a href="/corrections">Corrections</a></li>
 </ul></div>
 <div><h2>Weekly digest</h2>
-<p>The strongest signal of the week, one email, filed weekly and sent by a human.
+<p>The strongest signal of the week, one email, filed Sunday and sent Monday.
 Unsubscribe in one click — we sell no data.</p>
 <form action="https://buttondown.com/api/emails/embed-subscribe/ctsignal"
 method="post" target="_blank" rel="noopener">
@@ -451,7 +458,8 @@ method="post" target="_blank" rel="noopener">
 <button type="submit">Subscribe</button></form></div></div>
 <div class="wrap colophon"><span>© {year} CT Signal · Independent automated newsroom ·
 <a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></span>
-<span>Built at Hack for Humanity · Runs on free-tier public infrastructure</span></div>
+<span>Built at Hack for Humanity · Runs on free-tier public infrastructure</span>
+<a class="totop" href="#top">Back to top ↑</a></div>
 </footer>"""
 
 

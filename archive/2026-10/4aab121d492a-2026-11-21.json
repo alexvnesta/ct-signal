@@ -5288,7 +5288,7 @@
               "format": ",.0f"
             },
             "field": "value",
-            "title": "Initial jobless claims (weekly) (claims)",
+            "title": null,
             "type": "quantitative"
           }
         },

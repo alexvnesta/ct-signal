@@ -16,6 +16,11 @@ from . import config, theme, util
 
 _ESC = html.escape
 
+# A Connecticut trigger is worth the lead only while it is still this week's
+# news. Without a horizon the CT-first rule can promote a month-old card ahead
+# of today's data; the fallback is the freshest card overall.
+LEAD_CT_WINDOW_H = 72
+
 
 def _parse(ts: str) -> dt.datetime:
     return util.parse_ts(ts)
@@ -73,7 +78,10 @@ def home_html(cards: list[dict], board: dict) -> str:
         return (x.get("stream") == "ct" or h.get("stream") == "ct"
                 or int(h.get("ct_hits") or 0) >= 2)
     if cards and not _ct_trigger(cards[0]):
-        _i = next((i for i, x in enumerate(cards) if _ct_trigger(x)), None)
+        _i = next((i for i, x in enumerate(cards)
+                   if _ct_trigger(x)
+                   and (now - _parse(x["generated_at"])).total_seconds()
+                   <= LEAD_CT_WINDOW_H * 3600), None)
         if _i:
             cards = [cards[_i]] + cards[:_i] + cards[_i + 1:]
     if cards:

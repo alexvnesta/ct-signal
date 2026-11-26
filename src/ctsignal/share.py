@@ -17,6 +17,10 @@ import pathlib
 
 EXPORT_WIDTH = 680          # px; 2x scale below, so the file lands ~1360 wide
 BG = "#0e141b"              # site background: PNGs must read on Reddit white
+SHARE_INK = "#f3efe6"
+SHARE_DIM = "#c9c3b6"
+SHARE_GRID = "#2b333c"
+SHARE_RULE = "#5a616a"
 
 
 def _export_spec(spec: dict) -> dict:
@@ -24,6 +28,23 @@ def _export_spec(spec: dict) -> dict:
     copy["width"] = EXPORT_WIDTH
     copy["background"] = BG
     copy.pop("autosize", None)   # "container" is meaningless without a DOM
+    # The page chart is configured for paper; the share card is a dark brand
+    # canvas. Repaint its text and rules here or the title is ink on ink.
+    cfg = copy.setdefault("config", {})
+    axis = dict(cfg.get("axis") or {})
+    axis.update(labelColor=SHARE_DIM, titleColor=SHARE_DIM,
+                gridColor=SHARE_GRID, domainColor=SHARE_RULE,
+                tickColor=SHARE_RULE)
+    cfg["axis"] = axis
+    legend = dict(cfg.get("legend") or {})
+    legend.update(labelColor=SHARE_DIM, titleColor=SHARE_DIM)
+    cfg["legend"] = legend
+    title = dict(cfg.get("title") or {})
+    title.update(color=SHARE_INK, subtitleColor=SHARE_DIM)
+    cfg["title"] = title
+    view = dict(cfg.get("view") or {})
+    view["strokeWidth"] = 0
+    cfg["view"] = view
     return copy
 
 

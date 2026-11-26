@@ -411,7 +411,7 @@ class TestTriggerQuality(unittest.TestCase):
         self.assertEqual(cards_by_id[card["id"]].get("origin"), "data desk")
 
 class TestWeatherAnswerer(unittest.TestCase):
-    """The ACIS weather card: signed anomaly arithmetic, never a mood,
+    """The ACIS weather card: absolute anomaly plus direction, never a mood,
     and never a degree sign doubled."""
 
     def test_signed_answer_formats(self):
@@ -435,7 +435,9 @@ class TestWeatherAnswerer(unittest.TestCase):
                               "published_sort": 0}}, item)
         finally:
             _r.acis.observations = orig
-        self.assertIn("+1.1\u00b0F", card["answer_text"])
+        self.assertIn("ran 1.1\u00b0F warmer than normal",
+                      card["answer_text"])
+        self.assertNotIn("+1.1", card["answer_text"])
         self.assertNotIn("\u00b0F\u00b0F", card["answer_text"])
         self.assertIn("warmer than normal", card["answer_text"])
 
@@ -459,5 +461,7 @@ class TestWeatherAnswerer(unittest.TestCase):
                               "published_sort": 0}}, item)
         finally:
             _r.acis.observations = orig
-        self.assertIn("-2.4\u00b0F", card["answer_text"])
+        self.assertIn("ran 2.4\u00b0F cooler than normal",
+                      card["answer_text"])
+        self.assertNotIn("-2.4", card["answer_text"])
         self.assertIn("cooler than normal", card["answer_text"])

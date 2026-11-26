@@ -1683,7 +1683,7 @@
               "format": ",.0f"
             },
             "field": "value",
-            "title": "Labor share of output (index, 2017=100) (index)",
+            "title": null,
             "type": "quantitative"
           }
         },

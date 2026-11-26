@@ -1638,7 +1638,7 @@
               "format": ".1f"
             },
             "field": "value",
-            "title": "JOLTS quits rate (percent)",
+            "title": null,
             "type": "quantitative"
           }
         },
@@ -1699,7 +1699,7 @@
       "right": 64
     },
     "title": {
-      "text": "JOLTS quits rate"
+      "text": "JOLTS quits rate (percent)"
     },
     "width": "container"
   },

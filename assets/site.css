@@ -271,6 +271,7 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   display:flex;justify-content:space-between;
   flex-wrap:wrap;gap:.4rem}
 .colophon a{text-decoration:underline}
+.colophon .totop{font-weight:600;white-space:nowrap}
 .breadcrumb{margin:1.4rem 0 .2rem;font-size:.82rem}
 .breadcrumb a{color:var(--faint);display:inline-block;padding:.35rem .15em}
 @media (max-width:999px){.latest-grid{grid-template-columns:minmax(0,1fr)}}
@@ -294,12 +295,11 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
   font:600 .8rem var(--sans);cursor:pointer}
 @media (max-width:720px){.footgrid{grid-template-columns:1fr}
   .val{font-size:1.7rem}.hero .lede{font-size:1.1rem}
-  nav.sitebar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
-    overscroll-behavior-x:contain;justify-content:flex-start}
-  nav.sitebar::-webkit-scrollbar{display:none}
-  nav.sitebar a{white-space:nowrap;padding:.5rem .65rem;font-size:.74rem}
+  nav.sitebar{flex-wrap:wrap;overflow:visible;justify-content:center;gap:.1rem}
+  nav.sitebar a{white-space:nowrap;padding:.5rem .3rem;font-size:.68rem;
+    letter-spacing:.06em}
   .kicker{letter-spacing:.1em;font-size:.74rem}
-  nav.sitebar a.rss{display:none}
+  .wirelist{column-count:1}
   .nameplate{padding:.9rem .8rem 0}
   .brand{font-size:1.85rem;padding-bottom:1.7rem}
   .plate-art{height:70px}
@@ -317,5 +317,4 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer}
 
   .sechead h2{letter-spacing:.06em}
   .item-fig{flex:0 0 132px}.item-fig img{width:132px}
-  footer.site{padding-bottom:calc(2.2rem + 4.5rem +
-    env(safe-area-inset-bottom,0px))}}
+  footer.site{padding-bottom:calc(2.2rem + env(safe-area-inset-bottom,0px))}}

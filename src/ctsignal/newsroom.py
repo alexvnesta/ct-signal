@@ -148,10 +148,26 @@ def chart_intro(card: dict) -> tuple[str, str]:
     is never a different sentence from the story's picture."""
     kind = card.get("chart_kind", "rank_strip")
     if card.get("stream") == "national":
+        if card.get("series_freq") == "daily":
+            chart = card.get("chart") or {}
+            names = (((chart.get("encoding") or {}).get("color") or {})
+                     .get("scale") or {}).get("domain") or []
+            named = ("Bradley Intl (orange) and Danbury (gray)"
+                     if names == ["Bradley Intl", "Danbury"]
+                     else ", ".join(names) or "the stations")
+            latest = (card.get("answer_values") or {}).get("date")
+            tail = (f"the window ends {latest}" if latest
+                    else "the newest observation is at the right edge")
+            desc = (f"Daily station readings, {named}, each measured against "
+                    f"its own 1991–2020 normals; {tail}. Source and query "
+                    "below.")
+            label = (f'Daily station trend chart for “{card["question"]}”. '
+                     f'{card["answer_text"]}')
+            return desc, label
         cadence = ("Quarterly" if card.get("series_freq") == "quarterly"
                    else "Monthly")
-        desc = (f"{cadence} US series since the early 2000s; the latest "
-                "print is labelled on the chart. Source and query below.")
+        desc = (f"{cadence} US series since the early 2000s; the newest "
+                "observation is at the right edge. Source and query below.")
         label = (f'US trend chart for “{card["question"]}”. '
                  f'{card["answer_text"]}')
         return desc, label
@@ -289,9 +305,15 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
                                    "AlbersUSA omits DC and Puerto Rico.")
     cache_badge = ' <span class="badge">cache</span>' if card.get("cache") else ""
     shareline = ""
-    if (config.ROOT / "assets" / f"share-{card['id']}.png").exists():
+    png = config.ROOT / "assets" / f"share-{card['id']}.png"
+    if png.exists():
+        stamp = png.with_name(png.name + ".ver")
+        try:
+            q = f"?v={stamp.read_text().strip()[:12]}"
+        except OSError:
+            q = ""
         shareline = ('<p class="meta" style="margin:.5rem 0 0">'
-                     f'<a href="/assets/share-{card["id"]}.png">'
+                     f'<a href="/assets/share-{card["id"]}.png{q}">'
                      "Download this chart (PNG, 2×)</a>"
                      " &middot; rendered server-side from the same spec "
                      "you see above.</p>")

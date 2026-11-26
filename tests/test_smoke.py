@@ -1,13 +1,16 @@
 """Stdlib-only smoke tests: the invariants that keep an unattended pipeline
 honest. Run: .venv/bin/python -m unittest discover -s tests"""
+import datetime as dt
 import json
 import pathlib
+import re
 import sys
 import unittest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "src"))
 
-from ctsignal import cards, config, feeds, newsroom, publish, run, util  # noqa: E402
+from ctsignal import (cards, charts, config, feeds, newsroom, publish, run,
+                      theme, util)  # noqa: E402
 from ctsignal.sources import socrata  # noqa: E402
 
 
@@ -145,6 +148,114 @@ class TestSprintSurfaces(unittest.TestCase):
                          "exactly one skip link per page")
 
 
+class TestLeadFreshness(unittest.TestCase):
+    """The front page must not promote a month-old Connecticut card over
+    today's number just because the old card happens to be CT-triggered."""
+
+    def setUp(self):
+        self.cards = json.loads(
+            (config.OUTPUT_DIR / "cards.json").read_text())["cards"]
+        self.now = dt.datetime.now(dt.timezone.utc)
+
+    def test_stale_ct_trigger_does_not_displace_fresh_lead(self):
+        fresh = dict(self.cards[0])
+        fresh["generated_at"] = self.now.isoformat()
+        fresh["stream"] = "national"
+        fresh["headline"] = {"stream": "national", "ct_hits": 0,
+                             "title": "Fresh number from the data desk"}
+        fresh["question"] = "Is the freshest number on the board still current?"
+        old = dict(next(c for c in self.cards
+                        if (c.get("headline") or {}).get("stream") == "ct"))
+        old["generated_at"] = (self.now - dt.timedelta(days=30)).isoformat()
+        old["question"] = "Is Connecticut's job market loosening?"
+        home = publish.home_html([fresh, old], {})
+        lead = re.search(r'<article class="lead">.*?</article>', home, re.S)
+        self.assertIsNotNone(lead)
+        self.assertIn(fresh["question"], lead.group(0))
+        self.assertNotIn(old["question"], lead.group(0))
+
+    def test_dateline_uses_connecticut_clock(self):
+        # 02:10 UTC is still Wednesday evening in Hartford; the masthead must
+        # not sell tomorrow's edition to readers who are still in today.
+        stamp = dt.datetime(2026, 11, 26, 2, 10, tzinfo=dt.timezone.utc)
+        line = theme.dateline(stamp)
+        self.assertIn("Wednesday, November 25, 2026", line)
+        self.assertNotIn("Thursday", line)
+
+
+class TestCharts(unittest.TestCase):
+    """Chart metadata is data-derived: a station series is not a monthly US
+    series, and a highlight may never point at a line that is not plotted."""
+
+    WEATHER_ROWS = [
+        {"date": "2026-10-27", "series": "Bradley Intl", "value": -1.5},
+        {"date": "2026-10-28", "series": "Bradley Intl", "value": -5.0},
+        {"date": "2026-10-27", "series": "Danbury", "value": -0.4},
+        {"date": "2026-10-28", "series": "Danbury", "value": -3.1},
+        {"date": "2026-11-25", "series": "Bradley Intl", "value": 1.2},
+        {"date": "2026-11-25", "series": "Danbury", "value": 0.1},
+    ]
+
+    def test_missing_highlight_falls_back_to_a_plotted_line(self):
+        spec = charts.trend(self.WEATHER_ROWS,
+                            title="Temperature anomaly (°F)", unit="°F",
+                            highlight_series="United States")
+        color = spec["encoding"]["color"]
+        self.assertEqual(color["scale"]["domain"],
+                         ["Bradley Intl", "Danbury"])
+        self.assertEqual(color["legend"]["orient"], "bottom")
+        self.assertNotIn("layer", spec)
+        # unit already in the title; do not print it twice on the y axis
+        self.assertIsNone(spec["encoding"]["y"]["title"])
+        self.assertEqual(spec["title"]["text"], "Temperature anomaly (°F)")
+        # a 30-day station window needs dates, not four copies of "2026"
+        self.assertEqual(spec["encoding"]["x"]["axis"]["format"], "%b %d")
+        self.assertLessEqual(spec["encoding"]["x"]["axis"]["tickCount"], 4)
+        self.assertEqual(spec["$schema"],
+                         "https://vega.github.io/schema/vega-lite/v6.json")
+
+    def test_monthly_series_keeps_year_ticks_and_direct_labels(self):
+        rows = [
+            {"date": "2000-01", "series": "Connecticut", "value": 2.0},
+            {"date": "2009-06", "series": "Connecticut", "value": 9.0},
+            {"date": "2026-08", "series": "Connecticut", "value": 5.8},
+            {"date": "2000-01", "series": "United States", "value": 4.0},
+            {"date": "2009-06", "series": "United States", "value": 9.6},
+            {"date": "2026-08", "series": "United States", "value": 4.3},
+        ]
+        spec = charts.trend(rows, title="Unemployment rate", unit="percent",
+                            highlight_series="Connecticut")
+        self.assertIn("layer", spec)
+        self.assertEqual(spec["layer"][0]["encoding"]["x"]["axis"]["format"],
+                         "%Y")
+        self.assertEqual(spec["title"]["text"], "Unemployment rate (percent)")
+
+    def test_daily_weather_caption_names_the_real_series(self):
+        card = {
+            "id": "w", "question": "Is Connecticut running warmer or colder "
+                                   "than normal?",
+            "answer_text": "Connecticut ran 4.9°F warmer than normal.",
+            "stream": "national", "series_freq": "daily",
+            "answer_values": {"date": "2026-11-25"},
+            "chart": {"encoding": {"color": {"scale": {
+                "domain": ["Bradley Intl", "Danbury"]}}}},
+        }
+        desc, _ = newsroom.chart_intro(card)
+        self.assertIn("Daily station readings", desc)
+        self.assertIn("window ends 2026-11-25", desc)
+        self.assertIn("Bradley Intl", desc)
+        self.assertNotIn("Monthly US", desc)
+
+    def test_weather_answer_is_a_direction_not_a_signed_puzzle(self):
+        from ctsignal import questions
+        item = next(i for i in questions.load_catalog()["national"]
+                    if i["id"] == "weather_anomaly")
+        txt = item["answer"].format(abs_value=4.9, date="2026-11-25",
+                                    extreme="warmer than normal")
+        self.assertIn("Connecticut ran 4.9°F warmer than normal", txt)
+        self.assertNotIn("+", txt)
+
+
 class TestNationalDeck(unittest.TestCase):
     """The FRED context layer: honest national cards, computed superlatives,
     and a balance rule that lets one headline publish the whole deck."""
@@ -259,6 +370,20 @@ class TestShareExport(unittest.TestCase):
             self.assertIsNone(share.export(
                 {"id": "z", "chart": {"marks": "not-a-list"}},
                 pathlib.Path(td)))
+
+    def test_export_spec_repaints_ink_for_dark_canvas(self):
+        from ctsignal import share
+        spec = share._export_spec({
+            "width": "container", "autosize": "pad", "background": "transparent",
+            "config": {"axis": {"labelColor": "#4c5a68"},
+                       "legend": {"labelColor": "#4c5a68"},
+                       "title": {"color": "#1c2733"}},
+        })
+        self.assertEqual(spec["background"], share.BG)
+        self.assertNotIn("autosize", spec)
+        self.assertEqual(spec["config"]["title"]["color"], share.SHARE_INK)
+        self.assertEqual(spec["config"]["axis"]["labelColor"], share.SHARE_DIM)
+        self.assertEqual(spec["config"]["legend"]["labelColor"], share.SHARE_DIM)
 
     def test_story_links_download_when_file_exists(self):
         trig = {"id": "h", "title": "t", "url": "u", "source": "s"}

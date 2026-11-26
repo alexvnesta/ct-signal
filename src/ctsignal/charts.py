@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import datetime as dt
 from typing import Any, cast
 
 import altair as alt
@@ -9,6 +10,26 @@ alt.data_transformers.consolidate_datasets = False
 
 def _tick_fmt(unit: str) -> str:
     return {"USD": "$,.0f", "percent": ".1f", "per 100k": ",.0f"}.get(unit, ",.0f")
+
+
+def _axis_title(title: str, unit: str) -> str:
+    # Some titles already carry the unit ("Temperature anomaly (°F)"); do not
+    # print it twice. Others need it added ("Unemployment rate (percent)").
+    return title if not unit or unit in title else f"{title} ({unit})"
+
+
+def _x_axis(rows: list[dict]) -> tuple[str, int]:
+    """A 30-day station series cannot be labelled like a 70-year FRED series.
+    Pick the time format from the data's own span, not from the card's desk."""
+    dates = sorted(str(r.get("date", ""))[:10] for r in rows if r.get("date"))
+    try:
+        start = dt.date.fromisoformat(dates[0])
+        end = dt.date.fromisoformat(dates[-1])
+    except (IndexError, ValueError):
+        return "%Y", 6
+    if (end - start).days <= 120:
+        return "%b %d", 4
+    return "%Y", 6
 
 
 _HIGHLIGHT_COLOR = "#d9772b"
@@ -173,25 +194,37 @@ def trend(rows: list[dict], *, title: str, unit: str = "",
     one the answer is talking about — orange means 'the subject', not
     'Connecticut'."""
     names = sorted({r["series"] for r in rows})
-    domain = ([highlight_series]
-              + [n for n in names if n != highlight_series])
+    # A caller can name a series that is not in this particular result (the
+    # weather card used to pass "United States" while plotting two stations).
+    # Never let the highlight color land on a line nobody can see.
+    focus = highlight_series if highlight_series in names else names[0]
+    domain = [focus] + [n for n in names if n != focus]
     range_ = ([_HIGHLIGHT_COLOR] + [_MUTED_COLOR] * (len(domain) - 1))
-    series = alt.Color("series:N").legend(None).scale(
-        domain=domain, range=range_
-    )
+    # Connecticut/US have house abbreviations; station names do not. When the
+    # series need their real names, a legend at the foot is clearer than two
+    # overlapping two-letter labels at the same endpoint.
+    custom = any(n not in ("Connecticut", "United States") for n in domain)
+    color = alt.Color("series:N").legend(
+        alt.Legend(orient="bottom", direction="horizontal", title=None,
+                   labelFontSize=12)
+        if custom else None
+    ).scale(domain=domain, range=range_)
+    xfmt, xticks = _x_axis(rows)
     line = (
         alt.Chart(alt.Data(values=rows))
         .mark_line(point=True)
         .encode(
             x=alt.X("date:T").title(None).axis(
-                alt.Axis(format="%Y", tickCount=6, grid=False,
+                alt.Axis(format=xfmt, tickCount=xticks, grid=False,
                            domainColor="#c9c3b6")),
-            y=alt.Y("value:Q").title(f"{title}{f' ({unit})' if unit else ''}")
+            y=alt.Y("value:Q").title(None)
                 .axis(alt.Axis(format=_tick_fmt(unit))),
-            color=series,
+            color=color,
             tooltip=[
                 alt.Tooltip("series:N"),
-                alt.Tooltip("date:T").title("Month").format("%Y-%m"),
+                alt.Tooltip("date:T")
+                    .title("Date" if xfmt == "%b %d" else "Month")
+                    .format("%Y-%m-%d" if xfmt == "%b %d" else "%Y-%m"),
                 alt.Tooltip("value:Q").format(".1f"),
             ],
         )
@@ -204,7 +237,7 @@ def trend(rows: list[dict], *, title: str, unit: str = "",
         pts = [r for r in rows if r["series"] == name]
         if pts:
             e = max(pts, key=lambda r: str(r["date"]))
-            ends.append({**e, "short": shorts.get(name, name[:2].upper())})
+            ends.append({**e, "short": shorts.get(name, name)})
     labels = (
         alt.Chart(alt.Data(values=ends))
         .mark_text(align="left", dx=8, dy=-8, fontSize=12, fontWeight=700)
@@ -213,9 +246,10 @@ def trend(rows: list[dict], *, title: str, unit: str = "",
                 color=alt.Color("series:N", legend=None,
                                 scale=alt.Scale(domain=domain, range=range_)))
     )
-    chart = (line + labels).properties(
-        width="container", height=200, title=alt.TitleParams(text=title),
+    chart = ((line if custom else line + labels).properties(
+        width="container", height=200,
+        title=alt.TitleParams(text=_axis_title(title, unit)),
         autosize=alt.AutoSizeParams(contains="padding"),
-        padding=alt.Padding(right=64))
+        padding=alt.Padding(right=12 if custom else 64)))
     chart = _paper(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))

@@ -62,8 +62,3 @@ jobs:
           BSKY_HANDLE: ${{ secrets.BSKY_HANDLE }}
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
         run: bash scripts/ci_post_bsky.sh
-      - name: Buttondown digest draft
-        if: always()
-        env:
-          BUTTONDOWN_KEY: ${{ secrets.BUTTONDOWN_KEY }}
-        run: bash scripts/ci_digest_draft.sh

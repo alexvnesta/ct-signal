@@ -151,7 +151,7 @@ def digest_header():
     scrim(img, (30, 26, 640, 234), BG2, 160)
     d = ImageDraw.Draw(img)
     brand(d, 56, 52, 82)
-    d.text((58, 182), "The weekly digest  ·  filed weekly, sent by a human",
+    d.text((58, 182), "The weekly digest  ·  filed Sunday, sent Monday",
            font=font(SANS, 24), fill=DIM)
     img.convert("RGB").save(OUT / "digest-header.png", optimize=True)
 

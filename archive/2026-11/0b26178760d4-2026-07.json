@@ -571,7 +571,7 @@
               "format": ".1f"
             },
             "field": "value",
-            "title": "Unemployment rate (percent)",
+            "title": null,
             "type": "quantitative"
           }
         },
@@ -640,7 +640,7 @@
       "right": 64
     },
     "title": {
-      "text": "Unemployment rate"
+      "text": "Unemployment rate (percent)"
     },
     "width": "container"
   },

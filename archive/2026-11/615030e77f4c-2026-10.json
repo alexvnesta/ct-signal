@@ -1888,7 +1888,7 @@
               "format": ",.0f"
             },
             "field": "value",
-            "title": "Median weeks unemployed (weeks)",
+            "title": null,
             "type": "quantitative"
           }
         },

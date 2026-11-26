@@ -10,6 +10,7 @@ import datetime as dt
 import html
 import json
 import pathlib
+import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -32,7 +33,11 @@ def main() -> None:
         max(c["generated_at"] for c in cards)[:10]).isocalendar()
     issue = f"{week.year}-W{week.week:02d}"
     lead = cards[0]["answer_text"].split(" — ")[0].split(". ")[0]
-    subject = f"CT Signal: the board this week — {lead}"
+    # A dated window belongs in the body, not the subject line. Strip the
+    # cadence clause when it is the only thing between a result and a reader.
+    lead = re.sub(r"\s+over the \d+ days ending \d{4}-\d{2}-\d{2}", "",
+                  lead).strip()
+    subject = f"CT Signal: {lead}"
 
     def td(inner, weight="400", color="#e9eef4", size="15px"):
         return (f'<td style="padding:6px 10px;border-bottom:1px solid #24303e;'

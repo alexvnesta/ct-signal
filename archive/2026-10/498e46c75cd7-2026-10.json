@@ -1888,7 +1888,7 @@
               "format": ".1f"
             },
             "field": "value",
-            "title": "Connecticut unemployment rate (percent)",
+            "title": null,
             "type": "quantitative"
           }
         },
@@ -1949,7 +1949,7 @@
       "right": 64
     },
     "title": {
-      "text": "Connecticut unemployment rate"
+      "text": "Connecticut unemployment rate (percent)"
     },
     "width": "container"
   },

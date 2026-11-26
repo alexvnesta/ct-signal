@@ -12,14 +12,22 @@ verified against the live service, not assumed.
 - Bing imported the property via "Import from Search Console"; Sitemaps
   page shows the feed Imported/Processing.
 
-## 2. Buttondown — DONE
+## 2. Buttondown — AUTOMATED
 
 - Account `buttondown.com/ctsignal`, branded (name, bio, `#f2a65a` tint).
-- Scoped CI key (Emails RW, Sending disabled) lives as `BUTTONDOWN_KEY`.
-- API pinned to `2026-04-01`: the digest step files a **draft** with
-  `{subject, body}` — verified 201 against production; a human presses
-  send. Remaining 10-minute follow-up: footer subscribe widget (the list
-  exists now).
+- CI key lives as `BUTTONDOWN_KEY`; `send-draft` requires sending enabled on
+  the key (Buttondown's endpoint is the sender, not the draft editor).
+- Sunday `digest` workflow at 14:03 UTC renders the ISO-week issue from the
+  committed board, files it as a **draft**, and records the draft id in the
+  run summary. Monday at 12:03 UTC searches drafts for that Sunday's
+  `Issue YYYY-WNN` line and sends the newest match to the active list.
+- A manual dispatch can `discard_draft=<id>` or `send_draft=<id>`; pass
+  `send_to=you@example.com` for a one-recipient preview. Blank recipients
+  means the full list, so previews are never silent test sends.
+- No human step remains in the scheduled path. The Monday match is deliberate:
+  an older draft for another week can never ship just because it is newest.
+- Footer subscribe widget is live; the digest is one email, filed Sunday and
+  sent Monday, one-click unsubscribe, no trackers.
 
 ## 3. Bluesky — DONE (handle is the domain)
 
