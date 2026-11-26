@@ -107,7 +107,17 @@ jobs:
         run: |
           python - <<'PY'
           import json, os, time, urllib.request
+
+          KEY = os.environ["BUTTONDOWN_KEY"]
           did = os.environ["DRAFT"]
+
+          def deliveries():
+              req = urllib.request.Request(
+                  f"https://api.buttondown.com/v1/emails/{did}/analytics",
+                  headers={"Authorization": f"Token {KEY}"})
+              with urllib.request.urlopen(req, timeout=30) as r:
+                  return int(json.loads(r.read()).get("deliveries") or 0)
+
           payload = {}
           to = os.environ.get("SEND_TO", "").strip()
           if to:
@@ -120,33 +130,37 @@ jobs:
                   print("send_to must be Buttondown subscriber ids (sub_...):", bad)
                   raise SystemExit(1)
               payload["subscribers"] = subs
+          try:
+              baseline = deliveries()
+          except urllib.error.HTTPError as e:
+              print("analytics before send said:", e.code)
+              baseline = 0
           req = urllib.request.Request(
               f"https://api.buttondown.com/v1/emails/{did}/send-draft",
               data=json.dumps(payload).encode(),
               method="POST",
-              headers={"Authorization": f"Token {os.environ['BUTTONDOWN_KEY']}",
+              headers={"Authorization": f"Token {KEY}",
                        "Content-Type": "application/json"})
           try:
               with urllib.request.urlopen(req, timeout=60) as r:
                   print("send requested:", did, "HTTP", r.status,
-                        "subscribers:", payload.get("subscribers") or "all subscribers")
+                        "subscribers:", payload.get("subscribers") or "all subscribers",
+                        "deliveries before:", baseline)
                   # Buttondown leaves the email in `draft` status even after a
                   # send-draft has delivered (observed 2026-11-26), so status is
-                  # not proof. Analytics deliveries are.
-                  deliveries = 0
+                  # not proof. A delivery *increase* is.
+                  after = baseline
                   for _ in range(6):
                       time.sleep(5)
-                      check = urllib.request.Request(
-                          f"https://api.buttondown.com/v1/emails/{did}/analytics",
-                          headers={"Authorization": f"Token {os.environ['BUTTONDOWN_KEY']}"})
-                      with urllib.request.urlopen(check, timeout=30) as cr:
-                          deliveries = int(json.loads(cr.read()).get("deliveries") or 0)
-                      if deliveries > 0:
+                      after = deliveries()
+                      if after > baseline:
                           break
-                  if deliveries < 1:
-                      print("no Buttondown delivery recorded for", did)
+                  if after <= baseline:
+                      print("no new Buttondown delivery recorded for", did,
+                            "(before", baseline, "after", after, ")")
                       raise SystemExit(1)
-                  print("Buttondown deliveries recorded:", deliveries)
+                  print("Buttondown deliveries recorded:", after,
+                        "(+" + str(after - baseline) + ")")
                   summary = os.environ.get("GITHUB_STEP_SUMMARY")
                   if summary:
                       with open(summary, "a") as fh:
@@ -158,7 +172,8 @@ jobs:
                               + (", ".join(payload["subscribers"])
                                  if payload.get("subscribers")
                                  else "the active subscriber list")
-                              + f"\n- Deliveries recorded: {deliveries}\n")
+                              + f"\n- Deliveries recorded: {after} "
+                              f"(+{after - baseline})\n")
           except urllib.error.HTTPError as e:
               print("Buttondown said:", e.code, e.read().decode()[:400])
               raise SystemExit(1)
@@ -195,31 +210,44 @@ jobs:
                       fh.write(f"### No Monday send\n\nNo draft matched `{needle}`.\n")
               raise SystemExit(0)
           did = max(mine, key=lambda e: str(e["id"]))["id"]
+          KEY = os.environ["BUTTONDOWN_KEY"]
+
+          def deliveries():
+              check = urllib.request.Request(
+                  f"https://api.buttondown.com/v1/emails/{did}/analytics",
+                  headers={"Authorization": f"Token {KEY}"})
+              with urllib.request.urlopen(check, timeout=30) as cr:
+                  return int(json.loads(cr.read()).get("deliveries") or 0)
+
+          try:
+              baseline = deliveries()
+          except urllib.error.HTTPError as e:
+              print("analytics before send said:", e.code)
+              baseline = 0
           send = urllib.request.Request(
               f"https://api.buttondown.com/v1/emails/{did}/send-draft",
               data=b"{}",
               method="POST",
-              headers={"Authorization": f"Token {os.environ['BUTTONDOWN_KEY']}",
+              headers={"Authorization": f"Token {KEY}",
                        "Content-Type": "application/json"})
           try:
               with urllib.request.urlopen(send, timeout=60) as r:
-                  print("Monday send:", did, "HTTP", r.status, "for", needle)
+                  print("Monday send:", did, "HTTP", r.status, "for", needle,
+                        "deliveries before:", baseline)
                   # send-draft leaves the email in `draft` status even after
-                  # delivery. Analytics deliveries are the actual proof.
-                  deliveries = 0
+                  # delivery. A delivery increase is the actual proof.
+                  after = baseline
                   for _ in range(6):
                       time.sleep(5)
-                      check = urllib.request.Request(
-                          f"https://api.buttondown.com/v1/emails/{did}/analytics",
-                          headers={"Authorization": f"Token {os.environ['BUTTONDOWN_KEY']}"})
-                      with urllib.request.urlopen(check, timeout=30) as cr:
-                          deliveries = int(json.loads(cr.read()).get("deliveries") or 0)
-                      if deliveries > 0:
+                      after = deliveries()
+                      if after > baseline:
                           break
-                  if deliveries < 1:
-                      print("no Buttondown delivery recorded for", did)
+                  if after <= baseline:
+                      print("no new Buttondown delivery recorded for", did,
+                            "(before", baseline, "after", after, ")")
                       raise SystemExit(1)
-                  print("Buttondown deliveries recorded:", deliveries)
+                  print("Buttondown deliveries recorded:", after,
+                        "(+" + str(after - baseline) + ")")
                   summary = os.environ.get("GITHUB_STEP_SUMMARY")
                   if summary:
                       with open(summary, "a") as fh:
@@ -227,7 +255,7 @@ jobs:
                               "### Weekly issue sent\n\n"
                               f"- {needle}\n"
                               f"- Email: [{did}](https://buttondown.com/emails/{did})\n"
-                              f"- Deliveries recorded: {deliveries}\n")
+                              f"- Deliveries recorded: {after} (+{after - baseline})\n")
           except urllib.error.HTTPError as e:
               print("Buttondown said:", e.code, e.read().decode()[:400])
               raise SystemExit(1)
