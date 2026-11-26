@@ -34,8 +34,19 @@ DID=$(printf '%s' "$SESS" | python3 -c 'import json,sys; print(json.load(sys.std
 [ -z "$SID" ] || [ -z "$DID" ] && { echo "bsky: session failed" >&2; exit 0; }
 
 for ID in $NEW; do
+  BLOB_FILE=""
+  IMG="assets/share-$ID.png"
+  if [ -f "$IMG" ] && [ "$(wc -c < "$IMG")" -lt 1000000 ]; then
+    curl -s -X POST https://bsky.social/xrpc/com.atproto.repo.uploadBlob \
+      -H "authorization: Bearer $SID" -H 'content-type: image/png' \
+      --data-binary @"$IMG" -o "/tmp/bsky_blob_$ID.json"
+    if python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); sys.exit(0 if (d.get("blob") or {}).get("ref") else 1)' "/tmp/bsky_blob_$ID.json"; then
+      BLOB_FILE="/tmp/bsky_blob_$ID.json"
+    fi
+  fi
   git show "HEAD:output/cards.json" \
     | ID="$ID" BSKY_DID="$DID" OUT="/tmp/bsky_rec_$ID.json" \
+      BSKY_BLOB_FILE="$BLOB_FILE" \
       python3 scripts/bsky_record.py \
   && curl -s -o /dev/null -w "bsky post $ID: %{http_code}\n" \
        -X POST https://bsky.social/xrpc/com.atproto.repo.createRecord \
