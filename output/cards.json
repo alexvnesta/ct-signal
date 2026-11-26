@@ -1,10 +1,10 @@
 {
   "cards": [
     {
-      "answer_text": "Connecticut ran 4.9\u00b0F warmer than normal over the 30 days ending 2026-11-25 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
+      "answer_text": "Connecticut ran 4.5\u00b0F warmer than normal over the 30 days ending 2026-11-25 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
       "answer_values": {
         "date": "2026-11-25",
-        "value": 4.9
+        "value": 4.5
       },
       "cache": false,
       "chart": {
@@ -184,6 +184,11 @@
               "value": 0.0
             },
             {
+              "date": "2026-11-25",
+              "series": "Bradley Intl",
+              "value": -7.0
+            },
+            {
               "date": "2026-10-27",
               "series": "Danbury",
               "value": -0.5
@@ -327,6 +332,11 @@
               "date": "2026-11-24",
               "series": "Danbury",
               "value": -1.5
+            },
+            {
+              "date": "2026-11-25",
+              "series": "Danbury",
+              "value": -7.5
             }
           ]
         },
@@ -397,7 +407,7 @@
           "right": 12
         },
         "title": {
-          "text": "Temperature anomaly (\u00b0F)"
+          "text": "Connecticut temperature anomaly (30 days) (\u00b0F)"
         },
         "width": "container"
       },
@@ -406,15 +416,15 @@
       "citations": [
         "https://data.rcc-acis.org/StnData"
       ],
-      "generated_at": "2026-11-26T02:10:02+00:00",
+      "generated_at": "2026-11-26T11:31:48+00:00",
       "headline": {
-        "id": "4fc33577d036",
-        "published": "Wed, 25 Nov 2026 18:45:42 -0500",
-        "published_sort": 1795650342,
-        "source": "PBS NewsHour",
-        "stream": "national",
-        "title": "News Wrap: Severe weather threatens holiday travel for millions",
-        "url": "https://www.pbs.org/newshour/show/news-wrap-severe-weather-threatens-holiday-travel-for-millions"
+        "id": "8a86ae47bc85",
+        "published": "Thu, 26 Nov 2026 10:47:45 GMT",
+        "published_sort": 1795690065,
+        "source": "Google News (CT)",
+        "stream": "ct",
+        "title": "Thanksgiving nor'easter timeline: When heavy rain, gusty winds will hit Connecticut - CT Insider",
+        "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPSGpMYjBOVmQ5UmxvS1JNVElFY2tKSkZjcC12VXRhNG5Nc1ROcmhucDVwakZjc3pIX1ZQY3dIZG0teHhLLVhYR2JFUVJLeG1sQjEtX2I5VWdLcDBoVzEzT1BjOFdKVFZkOGo4TFhHRnhRMzc0TGdCWnpYb0UyLWh6LUtzZndnZzRTU3VkWTBUWG1pMEVtMGlQRFJsYnI4eXd1NV9oemZwYw?oc=5"
       },
       "id": "0785479c5e31",
       "indicator": "weather_anomaly",
@@ -1328,7 +1338,7 @@
       "indicator": "household_income",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-26T02:10:07+00:00",
+      "revalidated_at": "2026-11-26T11:32:00+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -2236,7 +2246,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-26T02:10:07+00:00",
+      "revalidated_at": "2026-11-26T11:32:00+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -2904,7 +2914,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-26T02:10:07+00:00",
+      "revalidated_at": "2026-11-26T11:32:00+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -10704,7 +10714,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-26T02:10:07+00:00",
+      "revalidated_at": "2026-11-26T11:32:00+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -23978,7 +23988,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-26T02:10:07+00:00",
+      "revalidated_at": "2026-11-26T11:32:00+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -26433,7 +26443,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-26T02:10:07+00:00",
+      "revalidated_at": "2026-11-26T11:32:00+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -28205,5 +28215,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-26T02:10:02+00:00"
+  "generated_at": "2026-11-26T11:31:48+00:00"
 }

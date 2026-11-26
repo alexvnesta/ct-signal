@@ -1,8 +1,8 @@
 {
-  "answer_text": "Connecticut ran 4.9\u00b0F warmer than normal over the 30 days ending 2026-11-25 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
+  "answer_text": "Connecticut ran 4.5\u00b0F warmer than normal over the 30 days ending 2026-11-25 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
   "answer_values": {
     "date": "2026-11-25",
-    "value": 4.9
+    "value": 4.5
   },
   "cache": false,
   "chart": {
@@ -182,6 +182,11 @@
           "value": 0.0
         },
         {
+          "date": "2026-11-25",
+          "series": "Bradley Intl",
+          "value": -7.0
+        },
+        {
           "date": "2026-10-27",
           "series": "Danbury",
           "value": -0.5
@@ -325,6 +330,11 @@
           "date": "2026-11-24",
           "series": "Danbury",
           "value": -1.5
+        },
+        {
+          "date": "2026-11-25",
+          "series": "Danbury",
+          "value": -7.5
         }
       ]
     },
@@ -395,7 +405,7 @@
       "right": 12
     },
     "title": {
-      "text": "Temperature anomaly (\u00b0F)"
+      "text": "Connecticut temperature anomaly (30 days) (\u00b0F)"
     },
     "width": "container"
   },
@@ -404,15 +414,15 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-26T02:10:02+00:00",
+  "generated_at": "2026-11-26T11:31:48+00:00",
   "headline": {
-    "id": "4fc33577d036",
-    "published": "Wed, 25 Nov 2026 18:45:42 -0500",
-    "published_sort": 1795650342,
-    "source": "PBS NewsHour",
-    "stream": "national",
-    "title": "News Wrap: Severe weather threatens holiday travel for millions",
-    "url": "https://www.pbs.org/newshour/show/news-wrap-severe-weather-threatens-holiday-travel-for-millions"
+    "id": "8a86ae47bc85",
+    "published": "Thu, 26 Nov 2026 10:47:45 GMT",
+    "published_sort": 1795690065,
+    "source": "Google News (CT)",
+    "stream": "ct",
+    "title": "Thanksgiving nor'easter timeline: When heavy rain, gusty winds will hit Connecticut - CT Insider",
+    "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPSGpMYjBOVmQ5UmxvS1JNVElFY2tKSkZjcC12VXRhNG5Nc1ROcmhucDVwakZjc3pIX1ZQY3dIZG0teHhLLVhYR2JFUVJLeG1sQjEtX2I5VWdLcDBoVzEzT1BjOFdKVFZkOGo4TFhHRnhRMzc0TGdCWnpYb0UyLWh6LUtzZndnZzRTU3VkWTBUWG1pMEVtMGlQRFJsYnI4eXd1NV9oemZwYw?oc=5"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",
