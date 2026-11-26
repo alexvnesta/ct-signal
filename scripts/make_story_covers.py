@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import re
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -130,6 +131,10 @@ def thumb(card: dict) -> Image.Image | None:
         elif "rate" in top:  # mill-rate grammar: the rate is the figure
             val_txt = f"{top['rate']:.2f}"
             unit = " mills per $1,000"
+    elif (m := re.search(r"([+-]\d+(?:\.\d+)?)\s*(°[FC])", ans)):
+        # Signed anomaly in the answer: a bare "5" hides both direction
+        # and unit, so the cover prints the figure the sentence states.
+        val_txt = f"{m.group(1)}{m.group(2)}"
     elif "$" in ans:
         val_txt = f"${float(av.get('value', 0)):,.0f}"
     elif "%" in ans:
