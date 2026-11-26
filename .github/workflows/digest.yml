@@ -203,12 +203,15 @@ jobs:
                   if needle in str(e.get("body") or "")
                   and e.get("id")]
           if not mine:
-              print("no draft for", needle, "- nothing to send")
+              print("no draft for", needle, "- expected Sunday's draft is missing")
               summary = os.environ.get("GITHUB_STEP_SUMMARY")
               if summary:
                   with open(summary, "a") as fh:
-                      fh.write(f"### No Monday send\n\nNo draft matched `{needle}`.\n")
-              raise SystemExit(0)
+                      fh.write(
+                          f"### Monday send failed\n\n"
+                          f"No filed draft matched `{needle}`. Sunday's render "
+                          "or Buttondown post may have failed.\n")
+              raise SystemExit(1)
           did = max(mine, key=lambda e: str(e["id"]))["id"]
           KEY = os.environ["BUTTONDOWN_KEY"]
 
