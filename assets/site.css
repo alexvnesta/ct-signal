@@ -179,7 +179,7 @@ details.embed textarea{width:100%;box-sizing:border-box;background:var(--bg2);
 /* ------------------------------------------------------------- signals ---- */
 /* kept: town/story index lists reuse .sig on paper */
 ol.signals{list-style:none;margin:0;padding:0;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:1rem}
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:1rem}
 li.sig{border:1px solid var(--rule);background:var(--panel);
   overflow:hidden;display:flex;flex-direction:column}
 .sigart{display:block;width:100%;height:auto;border-bottom:1px solid var(--rule)}
@@ -233,7 +233,8 @@ code{background:var(--panel2);color:var(--ink);padding:.1rem .35rem;
 .lede{font-size:1.25rem;line-height:1.5;color:var(--dim);margin:0 0 1rem}
 .hero .vizwrap{margin:1.2rem 0 .3rem;background:var(--panel);
   border:1px solid var(--rule);padding:.6rem .5rem .3rem}
-.hero .meta, .meta{color:var(--dim);font-size:.9rem;line-height:1.55}
+.hero .meta, .meta{color:var(--dim);font-size:.9rem;line-height:1.55;
+  overflow-wrap:anywhere}
 .meta .trig{display:block}
 .meta .when,.meta .more{display:block;margin-top:.2rem}
 .meta time{font-variant-numeric:tabular-nums}
