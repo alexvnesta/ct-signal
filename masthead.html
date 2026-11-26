@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="Who runs CT Signal: publisher, reporting desk, independence policy, and republication terms.">
 <meta name="twitter:image" content="https://ctsignal.org/assets/og-cover.png">
 <meta name="twitter:image:alt" content="Masthead · CT Signal">
-<meta name="theme-color" content="#0e141b">
+<meta name="theme-color" content="#faf8f3">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="/assets/favicon-32.png" type="image/png">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -30,11 +30,11 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v=db873e44">
 
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a><header class="site"><div class="wrap mast"><a class="brand" href="/">CT<span class="bolt" aria-hidden="true">⚡</span>Signal</a><span class="tagline">Saturday, October 6, 2026 · automated data desk</span></div><nav class="sitebar wrap" aria-label="Primary"><a href="/">The board</a><a href="/#signals">Latest questions</a><a href="/methodology">Methodology</a><a href="/about">About</a><a class="rss" href="/feed.xml">RSS <span aria-hidden="true">⚡</span></a></nav></header>
+<a class="skip" href="#main">Skip to content</a><header class="site" id="top"><div class="wrap nameplate"><img class="plate-art" src="/assets/skyline-light.png" width="2340" height="875" alt="" aria-hidden="true"><a class="brand" href="/">CT<i class="boltwrap" aria-hidden="true"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg></i>Signal</a></div><div class="dateline">Thursday, November 26, 2026 · automated data desk</div><nav class="sitebar" aria-label="Primary"><a href="/">The board</a><a href="/#signals">Latest questions</a><a href="/towns">Towns</a><a href="/about">About</a><a class="rss" href="/feed.xml">RSS <svg class="bolt" viewBox="0 0 12 18" aria-hidden="true"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg></a></nav></header>
 <main id="main">
 
 <style>
@@ -42,25 +42,31 @@ article h1{font:700 clamp(1.7rem,4vw,2.3rem)/1.15 var(--serif);margin:.4rem 0 .3
 article .sub{color:var(--dim);font-size:.9rem;margin:0 0 1.6rem}
 article h2{font:800 1rem/1.3 var(--sans);color:var(--acc);margin:2rem 0 .5rem;
   text-transform:uppercase;letter-spacing:.1em}
-article p{margin:.5rem 0 1rem;color:#c8d4de}
+article p{margin:.5rem 0 1rem;color:var(--dim)}
 article ul{margin:.5rem 0 1rem;padding-left:1.2rem}
-article li{margin:.45rem 0;color:#c8d4de}
+article li{margin:.45rem 0;color:var(--dim)}
 article strong{color:var(--ink)}
-table{border-collapse:collapse;margin:.5rem 0}
-td{padding:.45rem 1.4rem .45rem 0;vertical-align:top;color:#c8d4de}
+table{width:100%;border-collapse:collapse;margin:.5rem 0}
+td{padding:.45rem 1rem .45rem 0;vertical-align:top;color:var(--dim);
+  overflow-wrap:anywhere}
 td:first-child{color:var(--dim);font-size:.78rem;text-transform:uppercase;
-  letter-spacing:.08em;white-space:nowrap;padding-top:.6rem}
+  letter-spacing:.08em;white-space:normal;padding-top:.6rem}
+.masttab{table-layout:fixed}
+.masttab td:first-child{width:34%;white-space:normal}
+@media(max-width:720px){.masttab td:first-child{width:38%;font-size:.7rem;
+  letter-spacing:.06em}}
 </style>
 <article class="wrap col">
 <h1>Masthead</h1>
-<table>
+<p class="sub">One human, one pipeline, and the rules both follow.</p>
+<table class="masttab">
 <tr><td>Publisher &amp; editor</td><td>Alex V. Nesta — final word on corrections,
 catalog changes, and anything with a decimal point.</td></tr>
 <tr><td>Reporting desk</td><td>The pipeline. It picks questions from the news cycle and
-fetches answers from the US Census Bureau, Data Commons, and the Connecticut Open Data Portal. It has no
-access to press releases, vibes, or ad buyers.</td></tr>
+fetches answers from the US Census Bureau, Data Commons, and the Connecticut Open Data
+Portal. It has no access to press releases, vibes, or ad buyers.</td></tr>
 <tr><td>Contact</td><td><a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a>
-— corrections, tips, and republication requests.</td></tr>
+— corrections, tips, and republication requests. Every message is read and logged.</td></tr>
 <tr><td>Independence</td><td>CT Signal runs on free-tier public infrastructure and takes
 no paid placement. No dataset, card, or position is influenced by sponsorship.</td></tr>
 <tr><td>Republication</td><td>Story pages and charts may be republished free with
@@ -73,58 +79,36 @@ Challenge 4: CTData.org, Made Conversational. Code, logs, and history:
 </article>
 </main>
 <footer class="site"><div class="wrap footgrid">
-<div><h2>CT&nbsp;<span style="color:var(--acc)" aria-hidden="true">⚡</span>&nbsp;Signal</h2>
+<div><h2>CT&nbsp;<span class="boltwrap" aria-hidden="true"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg></span>&nbsp;Signal</h2>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
-public data answers it. Know where you live.</p><p><a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a></p></div>
+public data answers it. Know where you live.</p>
+<p><a class="subbtn" href="mailto:hello@ctsignal.org?subject=Board%20sponsorship">Sponsor the board</a></p>
+<p><a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a></p>
+<p><a href="mailto:hello@ctsignal.org?subject=Question%20for%20the%20desk&amp;body=Town%3A%20%0AQuestion%20(one%20sentence)%3A%20">Ask the desk a question</a> — every message is read and logged.</p></div>
 <div><h2>Sections</h2><ul>
 <li><a href="/">The board</a></li>
 <li><a href="/#signals">Latest questions</a></li>
 <li><a href="/archive">Card archive</a></li>
+<li><a href="/towns">Towns</a></li>
 <li><a href="/sources">Data sources</a></li>
 <li><a href="/feed.xml">RSS feed</a></li></ul></div>
 <div><h2>Newsroom</h2><ul>
 <li><a href="/about">About</a></li>
-<li><a href="/methodology">How we work</a></li>
-<li><a href="/masthead">Masthead</a></li>
+<li><a href="/masthead">Who runs this</a></li>
 <li><a href="/corrections">Corrections</a></li>
-<li><a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></li>
 </ul></div>
 <div><h2>Weekly digest</h2>
-<p>The strongest signal of the week, one email, filed weekly and sent by a human.
+<p>The strongest signal of the week, one email, filed Sunday and sent Monday.
 Unsubscribe in one click — we sell no data.</p>
 <form action="https://buttondown.com/api/emails/embed-subscribe/ctsignal"
 method="post" target="_blank" rel="noopener">
 <label class="sr-only" for="foot-sub-email">Email address</label>
 <input id="foot-sub-email" type="email" name="email" placeholder="you@example.com" required>
 <button type="submit">Subscribe</button></form></div></div>
-<div class="wrap colophon"><span>© 2026 CT Signal · Independent automated newsroom</span>
-<span>Built at Hack for Humanity · Runs on free-tier public infrastructure</span></div>
+<div class="wrap colophon"><span>© 2026 CT Signal · Independent automated newsroom ·
+<a href="https://github.com/alexvnesta/ct-signal">Source &amp; failure logs</a></span>
+<span>Built at Hack for Humanity · Runs on free-tier public infrastructure</span>
+<a class="totop" href="#top">Back to top ↑</a></div>
 </footer>
-<script defer src="https://cdn.jsdelivr.net/npm/vega@6"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
-<script>window.addEventListener("DOMContentLoaded",()=>{
-// vega-embed replaces the target div, so re-assert the accessible wrapper
-// (role=img + label + tabindex) on the node that ends up in the DOM, and make
-// the injected SVG presentational — its nested graphics-symbol roles would
-// otherwise be flagged as img-role nodes without alt text.
-const tidy=root=>{const svg=root&&root.querySelector("svg");if(!svg)return;
-  svg.setAttribute("aria-hidden","true");svg.setAttribute("focusable","false");
-  svg.querySelectorAll("[role],[aria-roledescription]").forEach(n=>{
-    n.removeAttribute("role");n.removeAttribute("aria-roledescription");});};
-const views=[];let rt;
-window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{
-  views.forEach(v=>{try{v.resize().run()}catch(e){}});},150);});
-const go=()=>{
-document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementById(
-  s.dataset.target); if(!el) return; const holder=el.parentElement,
-  label=el.getAttribute("aria-label"); try{ vegaEmbed(el, JSON.parse(
-  s.textContent), {actions:false,renderer:"svg",
-  config:{background:"transparent"}}).then(r=>{ views.push(r.view);
-    const node=holder.querySelector(".vega-embed")||holder;
-    node.setAttribute("role","img");node.setAttribute("aria-label",label);
-    node.setAttribute("tabindex","0");tidy(node);})
-  .catch(e=>console.warn("chart:",e));
-  }catch(e){console.warn("spec:",e);}});};
-  if(window.vegaEmbed) go(); else window.addEventListener("load",go);});</script>
+
 </body></html>

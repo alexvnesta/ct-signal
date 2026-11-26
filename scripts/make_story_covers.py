@@ -74,16 +74,26 @@ def cover(card: dict) -> Image.Image:
         d.text((60, y), ln, font=fq, fill=INK)
         y += 58
 
-    # answer pill
-    fa = font(SANS, 26, 1)
-    alines = wrap(d, card["answer_text"], fa, W - 160)[:2]
-    box_h = 26 + 38 * len(alines)
-    d.rounded_rectangle((60, 430, 940, 430 + box_h), radius=14, fill=PANEL)
-    d.rectangle((60, 430, 65, 430 + box_h), fill=OK)
-    yy = 443
+    # answer pill — fit the whole sentence, not its first two lines. A
+    # truncated comma at the edge of a share card is a quiet lie about
+    # where the sentence ended. Shrink the type until the full answer fits
+    # in the band above the footer.
+    fa_size = 26
+    while True:
+        fa = font(SANS, fa_size, 1)
+        alines = wrap(d, card["answer_text"], fa, W - 160)
+        line_h = round(fa_size * 1.45)
+        box_h = 26 + line_h * len(alines)
+        if box_h <= 150 or fa_size <= 20:
+            break
+        fa_size -= 1
+    box_top = 408
+    d.rounded_rectangle((60, box_top, 940, box_top + box_h), radius=14, fill=PANEL)
+    d.rectangle((60, box_top, 65, box_top + box_h), fill=OK)
+    yy = box_top + 13
     for ln in alines:
         d.text((84, yy), ln, font=fa, fill=OK)
-        yy += 38
+        yy += line_h
 
     d.text((60, 570), "ctsignal.org", font=font(SANS, 24, 1), fill=ACC)
     import datetime as _dt

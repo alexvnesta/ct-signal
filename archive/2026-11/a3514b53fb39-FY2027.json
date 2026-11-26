@@ -20,17 +20,23 @@
         "domainColor": "#b8b2a6",
         "gridColor": "#e4dfd3",
         "labelColor": "#4c5a68",
+        "labelFontSize": 12,
         "tickColor": "#b8b2a6",
-        "titleColor": "#4c5a68"
+        "titleColor": "#4c5a68",
+        "titleFontSize": 12
       },
       "legend": {
         "labelColor": "#4c5a68",
+        "labelFontSize": 12,
         "symbolStrokeWidth": 0,
-        "titleColor": "#4c5a68"
+        "titleColor": "#4c5a68",
+        "titleFontSize": 12
       },
       "title": {
         "color": "#1c2733",
-        "subtitleColor": "#66717e"
+        "fontSize": 14,
+        "subtitleColor": "#66717e",
+        "subtitleFontSize": 12
       },
       "view": {
         "continuousHeight": 300,

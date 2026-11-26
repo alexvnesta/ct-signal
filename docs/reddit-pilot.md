@@ -11,7 +11,7 @@ in the first comment so the post itself reads as OC data viz, not promotion.
 
 - Subreddit: `r/dataisbeautiful`
 - Image: `/Users/alex/development/ct-signal/assets/share-0785479c5e31.png`
-  (1428×528 PNG, 139,698 bytes, chart title and legend baked in)
+  (1432×532 PNG, 144,624 bytes, chart title and legend baked in)
 - Story: https://ctsignal.org/story/0785479c5e31
 - Card id: `0785479c5e31`
 - Data date: 2026-11-25 (30-day window ending that day)

@@ -48,10 +48,13 @@ def _paper(chart):
         chart
         .configure_axis(labelColor="#4c5a68", titleColor="#4c5a68",
                         gridColor="#e4dfd3", domainColor="#b8b2a6",
-                        tickColor="#b8b2a6")
+                        tickColor="#b8b2a6", labelFontSize=12,
+                        titleFontSize=12)
         .configure_legend(labelColor="#4c5a68", titleColor="#4c5a68",
-                          symbolStrokeWidth=0)
-        .configure_title(color="#1c2733", subtitleColor="#66717e")
+                          symbolStrokeWidth=0, labelFontSize=12,
+                          titleFontSize=12)
+        .configure_title(color="#1c2733", subtitleColor="#66717e",
+                         fontSize=14, subtitleFontSize=12)
         .configure_view(strokeWidth=0)
     )
 

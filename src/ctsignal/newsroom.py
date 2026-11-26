@@ -304,16 +304,16 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
                            caption="Peer map; Connecticut outlined. "
                                    "AlbersUSA omits DC and Puerto Rico.")
     cache_badge = ' <span class="badge">cache</span>' if card.get("cache") else ""
-    shareline = ""
+    shareline, ver = "", ""
     png = config.ROOT / "assets" / f"share-{card['id']}.png"
     if png.exists():
         stamp = png.with_name(png.name + ".ver")
         try:
-            q = f"?v={stamp.read_text().strip()[:12]}"
+            ver = f"?v={stamp.read_text().strip()[:12]}"
         except OSError:
-            q = ""
+            ver = ""
         shareline = ('<p class="meta" style="margin:.5rem 0 0">'
-                     f'<a href="/assets/share-{card["id"]}.png{q}">'
+                     f'<a href="/assets/share-{card["id"]}.png{ver}">'
                      "Download this chart (PNG, 2×)</a>"
                      " &middot; rendered server-side from the same spec "
                      "you see above.</p>")
@@ -845,14 +845,14 @@ def archive_html(cards: list[dict]) -> str:
         rows = sorted(months[month], key=lambda c: c.get("generated_at", ""),
                       reverse=True)
         lis = "".join(
-            f'<li style="padding:.5rem 0;border-bottom:1px solid var(--line)">'
-            f'<a href="/story/{c["id"]}">{esc(c["question"])}</a> '
-            f'<span class="meta">&middot; {esc(c.get("topic", ""))} &middot; '
-            f'{esc(c.get("generated_at", ""))[:10]}</span></li>'
+            f'<li><div class="archive-row">'
+            f'<a href="/story/{c["id"]}">{esc(c["question"])}</a>'
+            f'<span class="archive-meta">{esc(c.get("topic", ""))} &middot; '
+            f'{esc(c.get("generated_at", ""))[:10]}</span></div></li>'
             for c in rows)
         blocks.append(
-            f'<h2 style="font:700 1.15rem/1.3 var(--serif);margin:1.4rem 0 .2rem">'
-            f'{esc(month)}</h2><ul style="list-style:none;padding:0">{lis}</ul>')
+            f'<h2 class="archive-month">{esc(month)}</h2>'
+            f'<ul class="archive-list">{lis}</ul>')
     total = len(seen)
     body = f"""<article class="wrap col">
 <div class="label">Public archive</div>

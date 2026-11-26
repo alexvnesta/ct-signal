@@ -411,13 +411,19 @@ class TestShareExport(unittest.TestCase):
                     citations=["https://f"], query="q", cache=False,
                     generated_at="2026-10-05T00:00:00+00:00")
         f = config.ROOT / "assets" / "share-aa.png"
+        stamp = f.with_name(f.name + ".ver")
         try:
             f.write_bytes(b"\x89PNG fake")
+            stamp.write_text("deadbeefcafe1234567890")
             page = newsroom.story_html(card, [card])
             self.assertIn("Download this chart", page)
-            self.assertIn("/assets/share-aa.png", page)
+            self.assertIn("/assets/share-aa.png?v=deadbeefcafe", page)
+            # The cachebuster must never displace the page's real headline.
+            self.assertIn(f'>{card["question"]}</h1>', page)
+            self.assertNotIn('>?v=deadbeefcafe</h1>', page)
         finally:
             f.unlink(missing_ok=True)
+            stamp.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

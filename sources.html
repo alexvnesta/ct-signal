@@ -30,7 +30,7 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css?v=6421773e">
+<link rel="stylesheet" href="/assets/site.css?v=db873e44">
 
 </head>
 <body>
@@ -46,10 +46,15 @@ article p{margin:.5rem 0 1rem;color:var(--dim)}
 article ul{margin:.5rem 0 1rem;padding-left:1.2rem}
 article li{margin:.45rem 0;color:var(--dim)}
 article strong{color:var(--ink)}
-table{border-collapse:collapse;margin:.5rem 0}
-td{padding:.45rem 1.4rem .45rem 0;vertical-align:top;color:var(--dim)}
+table{width:100%;border-collapse:collapse;margin:.5rem 0}
+td{padding:.45rem 1rem .45rem 0;vertical-align:top;color:var(--dim);
+  overflow-wrap:anywhere}
 td:first-child{color:var(--dim);font-size:.78rem;text-transform:uppercase;
-  letter-spacing:.08em;white-space:nowrap;padding-top:.6rem}
+  letter-spacing:.08em;white-space:normal;padding-top:.6rem}
+.masttab{table-layout:fixed}
+.masttab td:first-child{width:34%;white-space:normal}
+@media(max-width:720px){.masttab td:first-child{width:38%;font-size:.7rem;
+  letter-spacing:.06em}}
 </style>
 <article class="wrap col">
 <div class="label">Data sources</div>
@@ -63,7 +68,7 @@ endpoint degrades, you see it here first, not in a silent gap.</p>
 <p class="sub">Live news feeds scanned every cycle; a question is only asked
 when a tracked dataset can answer it.</p>
 <ul style="list-style:none;padding:0"><li style="padding:.3rem 0">CT Mirror &middot; <span class="meta"><a href="https://ctmirror.org/feed/">https://ctmirror.org/feed/</a></span></li><li style="padding:.3rem 0">CT News Junkie &middot; <span class="meta"><a href="https://www.ctnewsjunkie.com/feed/">https://www.ctnewsjunkie.com/feed/</a></span></li><li style="padding:.3rem 0">CT Examiner &middot; <span class="meta"><a href="https://ctexaminer.com/feed/">https://ctexaminer.com/feed/</a></span></li><li style="padding:.3rem 0">Google News (CT) &middot; <span class="meta"><a href="https://news.google.com/rss/search?q=connecticut&amp;hl=en-US&amp;gl=US&amp;ceid=US:en">https://news.google.com/rss/search?q=connecticut&amp;hl=en-US&amp;gl=US&amp;ceid=US:en</a></span></li><li style="padding:.3rem 0">NYT U.S. &middot; <span class="meta"><a href="https://rss.nytimes.com/services/xml/rss/nyt/US.xml">https://rss.nytimes.com/services/xml/rss/nyt/US.xml</a></span></li><li style="padding:.3rem 0">NPR &middot; <span class="meta"><a href="https://feeds.npr.org/1001/rss.xml">https://feeds.npr.org/1001/rss.xml</a></span></li><li style="padding:.3rem 0">PBS NewsHour &middot; <span class="meta"><a href="https://www.pbs.org/newshour/feeds/rss/headlines">https://www.pbs.org/newshour/feeds/rss/headlines</a></span></li></ul>
-<p class="sub">This week the wire also asked about politics &amp; elections (111) · justice &amp; courts (51) · schools &amp; education (15) — 628 headlines read in 7 days, and no tracked dataset answers those yet. When one arrives, the desk covers it.</p>
+<p class="sub">This week the wire also asked about politics &amp; elections (111) · justice &amp; courts (51) · schools &amp; education (15) — 627 headlines read in 7 days, and no tracked dataset answers those yet. When one arrives, the desk covers it.</p>
 <p class="meta">The endpoint check runs from the validate script and is
 committed with the repo; a failing chip means the pipeline is answering from
 labeled cached/fallback data until it recovers.</p>

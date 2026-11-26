@@ -46,6 +46,22 @@ b{color:var(--ink)}
 img.big{width:100%;border-radius:12px;border:1px solid var(--line)}
 .rule{border-top:1px solid var(--line)}
 nav{position:fixed;bottom:2.2vh;left:50%;transform:translateX(-50%);color:#2f4250;font-size:1.4rem;z-index:5}
+@media(max-width:720px){
+  html{font-size:13px} body{overflow-y:auto}
+  section{padding:4.5vh 6vw;gap:1.3rem;min-height:100dvh;justify-content:flex-start}
+  h1{font-size:3.4rem} h2{font-size:2rem}
+  p,li{font-size:1.5rem;line-height:1.4}
+  .tag{font-size:1.4rem}
+  .grid{grid-template-columns:1fr;gap:1.3rem}
+  .cards,.flow{flex-direction:column}
+  .arr{align-self:center;transform:rotate(90deg)}
+  .step{font-size:1.05rem}
+  .quote{font-size:1.1rem}
+  .why{font-size:1.25rem}
+  .stat b{font-size:2rem}
+  .stat span{font-size:.95rem}
+  .hint,.count{font-size:.8rem;bottom:1vh}
+}
 </style></head><body>
 
 <section class="on">

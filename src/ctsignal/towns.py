@@ -202,10 +202,15 @@ def table_for(t: dict, data: dict, esc) -> str:
         rows += (f'<tr><td>{esc(label)}{link}</td><td>{_fmt(t, key, kind)}</td>'
                  f'<td class="dim">{_fmt(ct, key, kind)}</td>'
                  f'<td>{_delta(t, ct, key, kind)}</td><td class="dim">{rk}</td></tr>')
+    table = (f'<table class="townstats"><thead><tr><th>Measure</th>'
+             f'<th>{esc(t["name"])}</th><th>Connecticut</th><th>Difference</th>'
+             f'<th>Rank among towns</th></tr></thead><tbody>{rows}</tbody></table>')
     return (f'<h2>Where {esc(t["name"])} sits</h2>'
-            f'<table class="townstats"><thead><tr><th>Measure</th>'
-            f'<th>{esc(t["name"])}</th><th>Connecticut</th><th>Difference</th>'
-            f'<th>Rank among towns</th></tr></thead><tbody>{rows}</tbody></table>'
+            f'<p class="tablehint">On a phone, swipe the table sideways for the '
+            f'difference and rank columns.</p>'
+            f'<div class="tscroll" role="region" tabindex="0" '
+            f'aria-label="Statistics for {esc(t["name"])}, scrolls sideways '
+            f'on phones">{table}</div>'
             f'<p class="provenance">US Census Bureau, {data["vintage"]}, county-subdivision '
             f'level — the estimates built for places this size. Ranks run across the '
             f'{data["n"]} places with published values. Suppressed cells are dashes, '
@@ -223,12 +228,22 @@ def lookup(data: dict, name: str) -> dict | None:
 
 _PAGE_CSS = """<style>
 .townstats{width:100%;border-collapse:collapse;margin:1.2rem 0}
+.tscroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-gutter:stable}
+.tscroll:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.tablehint{color:var(--faint);font-size:.76rem;margin:.9rem 0 -.2rem}
+@media(min-width:721px){.tablehint{display:none}}
 .townstats th{text-align:left;font:700 .72rem/1 var(--sans);color:var(--dim);
   text-transform:uppercase;letter-spacing:.1em;padding:0 .9rem .6rem 0;
   border-bottom:1px solid var(--acc)}
 .townstats td{padding:.6rem .9rem .6rem 0;border-bottom:1px solid var(--line);
   font-size:.95rem}
 .townstats .dim{color:var(--dim)}
+@media(max-width:720px){
+.townstats th:first-child,.townstats td:first-child{position:sticky;left:0;
+  z-index:1;background:var(--bg);box-shadow:1px 0 0 var(--line)}
+.townstats thead th:first-child{z-index:2}
+}
 .filter{margin:1rem 0;background:var(--panel);border:1px solid var(--line);
   border-radius:8px;color:var(--ink);padding:.55rem .8rem;font:inherit;width:min(280px,100%)}
 .mapblock{margin:1.2rem 0 .4rem}
@@ -238,16 +253,16 @@ _PAGE_CSS = """<style>
   color:var(--dim);cursor:pointer;letter-spacing:.04em}
 .mapchips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 .mapchips button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-.mapflex{display:flex;gap:1.2rem;align-items:flex-start;flex-wrap:wrap}
-svg.townsmap{width:min(100%,560px);height:auto;background:var(--panel);
+.mapflex{display:block}
+svg.townsmap{display:block;width:100%;height:auto;background:var(--panel);
   border:1px solid var(--line);border-radius:8px;padding:6px}
 svg.townsmap path{stroke:#fff;stroke-width:.5;transition:fill .3s;
   cursor:pointer}
 svg.townsmap path:hover{stroke:var(--ink);stroke-width:1.2}
 svg.townsmap path:focus-visible{stroke:var(--acc);stroke-width:2;
   outline:none}
-.maplegend{display:flex;flex-direction:column;gap:.3rem;
-  font:.74rem/1.2 var(--sans);color:var(--dim);min-width:150px}
+.maplegend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;
+  font:.74rem/1.2 var(--sans);color:var(--dim);width:100%;margin-top:.7rem}
 .maplegend .sw{display:inline-block;width:.9rem;height:.9rem;
   border:1px solid var(--line);margin-right:.45rem;vertical-align:-1px}
 .mtip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;
@@ -494,6 +509,8 @@ the table.</p>
 <input class="filter" id="q" placeholder="Filter towns…" aria-label="Filter towns"
  autocomplete="off">
 {map_html}
+<p class="tablehint">On a phone, swipe the table sideways for poverty, rent
+and home value.</p>
 <div class="tscroll" role="region" aria-label="Town statistics table, scrolls sideways on phones" tabindex="0">
 <table class="townstats" id="tt"><thead><tr><th>Town</th>
 {''.join(f"<th>{lab}</th>" for _, lab, _, _ in LABELS)}</tr></thead>

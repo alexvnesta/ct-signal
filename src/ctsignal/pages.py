@@ -28,10 +28,15 @@ article p{margin:.5rem 0 1rem;color:var(--dim)}
 article ul{margin:.5rem 0 1rem;padding-left:1.2rem}
 article li{margin:.45rem 0;color:var(--dim)}
 article strong{color:var(--ink)}
-table{border-collapse:collapse;margin:.5rem 0}
-td{padding:.45rem 1.4rem .45rem 0;vertical-align:top;color:var(--dim)}
+table{width:100%;border-collapse:collapse;margin:.5rem 0}
+td{padding:.45rem 1rem .45rem 0;vertical-align:top;color:var(--dim);
+  overflow-wrap:anywhere}
 td:first-child{color:var(--dim);font-size:.78rem;text-transform:uppercase;
-  letter-spacing:.08em;white-space:nowrap;padding-top:.6rem}
+  letter-spacing:.08em;white-space:normal;padding-top:.6rem}
+.masttab{table-layout:fixed}
+.masttab td:first-child{width:34%;white-space:normal}
+@media(max-width:720px){.masttab td:first-child{width:38%;font-size:.7rem;
+  letter-spacing:.06em}}
 </style>
 """
 
@@ -79,6 +84,33 @@ commits are the audit trail. We fail by absence, never by invention.</p>
 Challenge 4: CTData.org, Made Conversational), and operating as an independent automated
 newsroom since. The full pipeline, failure logs, and every card ever published are
 <a href="https://github.com/alexvnesta/ct-signal">in public on GitHub</a>.</p>
+</article>""")
+
+_page(
+    "masthead",
+    "Masthead · CT Signal",
+    "Who runs CT Signal: publisher, reporting desk, independence policy, and "
+    "republication terms.",
+    """<article class="wrap col">
+<h1>Masthead</h1>
+<p class="sub">One human, one pipeline, and the rules both follow.</p>
+<table class="masttab">
+<tr><td>Publisher &amp; editor</td><td>Alex V. Nesta — final word on corrections,
+catalog changes, and anything with a decimal point.</td></tr>
+<tr><td>Reporting desk</td><td>The pipeline. It picks questions from the news cycle and
+fetches answers from the US Census Bureau, Data Commons, and the Connecticut Open Data
+Portal. It has no access to press releases, vibes, or ad buyers.</td></tr>
+<tr><td>Contact</td><td><a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a>
+— corrections, tips, and republication requests. Every message is read and logged.</td></tr>
+<tr><td>Independence</td><td>CT Signal runs on free-tier public infrastructure and takes
+no paid placement. No dataset, card, or position is influenced by sponsorship.</td></tr>
+<tr><td>Republication</td><td>Story pages and charts may be republished free with
+attribution and a link to the original permalink. Credit the underlying dataset too —
+it did the work.</td></tr>
+<tr><td>Origin</td><td>Built at Hack for Humanity (UConn School of Business),
+Challenge 4: CTData.org, Made Conversational. Code, logs, and history:
+<a href="https://github.com/alexvnesta/ct-signal">github.com/alexvnesta/ct-signal</a>.</td></tr>
+</table>
 </article>""")
 
 _page(
