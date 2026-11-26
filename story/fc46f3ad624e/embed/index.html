@@ -28,7 +28,7 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css?v=c8ade262">
+<link rel="stylesheet" href="/assets/site.css?v=efcb6e40">
 <body><div style="background:var(--bg);color:var(--ink);
 font:16px/1.6 var(--sans);padding:1rem 1.2rem;min-height:100vh;box-sizing:border-box">
 <div class="kicker"><a class="klink" href="/story/fc46f3ad624e" target="_blank"
@@ -68,7 +68,12 @@ const trim=spec=>{
     ["x","y"].forEach(k=>{ if(!enc[k]) return;
       enc[k].title = null;
       enc[k].axis = enc[k].axis || {};
-      enc[k].axis.title = null; }); };
+      enc[k].axis.title = null; });
+    // A map's colour legend title truncates at phone width ("Median household
+    // income (U…"). Null suppresses it; the gradient endpoints still carry
+    // the scale, and the chart's aria-label carries the full metric + unit.
+    if(enc.color && enc.color.legend && enc.color.legend.title !== undefined)
+      enc.color.legend.title = null; };
   kill(spec.encoding);
   (spec.layer||[]).forEach(l=>{ kill(l.encoding); if(l.title) delete l.title; });
   return spec;

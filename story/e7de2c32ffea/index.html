@@ -30,7 +30,7 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css?v=c8ade262">
+<link rel="stylesheet" href="/assets/site.css?v=efcb6e40">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","@id":"https://ctsignal.org/story/e7de2c32ffea#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://ctsignal.org/story/e7de2c32ffea"},"headline":"Which Connecticut towns saw the fastest growth in equalized property assessments?","description":"Old Lyme led the 170 towns measured in equalized assessment growth in 2024 (+57.4%), adding $0.92B.","image":["https://ctsignal.org/assets/story-e7de2c32ffea.png"],"datePublished":"2026-10-24T15:44:58+00:00","dateModified":"2026-10-24T15:44:58+00:00","author":{"@type":"Organization","name":"CT Signal","url":"https://ctsignal.org/"},"publisher":{"@type":"Organization","name":"CT Signal","url":"https://ctsignal.org/","logo":{"@type":"ImageObject","url":"https://ctsignal.org/assets/og-cover.png","width":1200,"height":630}},"articleSection":"local-finance","inLanguage":"en-US","isAccessibleForFree":true}</script>
 </head>
 <body>
@@ -138,7 +138,12 @@ const trim=spec=>{
     ["x","y"].forEach(k=>{ if(!enc[k]) return;
       enc[k].title = null;
       enc[k].axis = enc[k].axis || {};
-      enc[k].axis.title = null; }); };
+      enc[k].axis.title = null; });
+    // A map's colour legend title truncates at phone width ("Median household
+    // income (U…"). Null suppresses it; the gradient endpoints still carry
+    // the scale, and the chart's aria-label carries the full metric + unit.
+    if(enc.color && enc.color.legend && enc.color.legend.title !== undefined)
+      enc.color.legend.title = null; };
   kill(spec.encoding);
   (spec.layer||[]).forEach(l=>{ kill(l.encoding); if(l.title) delete l.title; });
   return spec;

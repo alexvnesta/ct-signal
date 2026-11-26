@@ -355,7 +355,8 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
     overflow-y:auto;scrollbar-width:none;overscroll-behavior-x:contain}
   .vizwrap .viz::-webkit-scrollbar{display:none}
   .peershow~.viz,.peershow~.viz.vega-embed{display:none}
-  .peershow:checked~.viz,.peershow:checked~.viz.vega-embed{display:block}
+  .peershow:checked~.viz,.peershow:checked~.viz.vega-embed{
+    display:block;max-height:none;overflow:visible}
   .peershow:checked~.peersum{display:none}
   .peershow~figcaption{display:none}
   .peershow:checked~figcaption{display:block}
@@ -615,7 +616,12 @@ const trim=spec=>{
     ["x","y"].forEach(k=>{ if(!enc[k]) return;
       enc[k].title = null;
       enc[k].axis = enc[k].axis || {};
-      enc[k].axis.title = null; }); };
+      enc[k].axis.title = null; });
+    // A map's colour legend title truncates at phone width ("Median household
+    // income (U…"). Null suppresses it; the gradient endpoints still carry
+    // the scale, and the chart's aria-label carries the full metric + unit.
+    if(enc.color && enc.color.legend && enc.color.legend.title !== undefined)
+      enc.color.legend.title = null; };
   kill(spec.encoding);
   (spec.layer||[]).forEach(l=>{ kill(l.encoding); if(l.title) delete l.title; });
   return spec;

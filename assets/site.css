@@ -320,7 +320,8 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
     overflow-y:auto;scrollbar-width:none;overscroll-behavior-x:contain}
   .vizwrap .viz::-webkit-scrollbar{display:none}
   .peershow~.viz,.peershow~.viz.vega-embed{display:none}
-  .peershow:checked~.viz,.peershow:checked~.viz.vega-embed{display:block}
+  .peershow:checked~.viz,.peershow:checked~.viz.vega-embed{
+    display:block;max-height:none;overflow:visible}
   .peershow:checked~.peersum{display:none}
   .peershow~figcaption{display:none}
   .peershow:checked~figcaption{display:block}
