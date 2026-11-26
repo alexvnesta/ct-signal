@@ -238,7 +238,7 @@ national:
     extreme: min
     keywords: [productivity, wage share, labor share, paychecks, workers pay, profit margins, corporate profits]
     question: Are workers keeping their share of what they produce?
-    answer: "Labor's share of US nonfarm output sits at {value} on the 2017=100 index ({date}) — {extreme} since the series began in 1947."
+    answer: "Labor's share of US nonfarm output sits at {value} on the 2017=100 index ({date}) — {extreme} for this series, which began in 1947."
     validated: "live series probe 2026-10-05"
 
   - id: jobless_claims

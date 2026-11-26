@@ -49,7 +49,7 @@ def _spec_json(obj) -> str:
     # Chart islands are JSON-in-HTML: neutralize both "</" and "<!--" so no
     # external string (town names, feed text inside altair data) can flip the
     # parser state; absolute us.json for deep story pages.
-    blob = json.dumps(obj, default=str).replace("</", "<\\/")
+    blob = json.dumps(obj, sort_keys=True, default=str).replace("</", "<\\/")
     blob = blob.replace("<!--", "<\\u0021--")
     return blob.replace('"us.json"', f'"{_ESC(config.SITE_URL)}/us.json"')
 

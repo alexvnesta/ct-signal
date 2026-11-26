@@ -36,6 +36,14 @@ def _parse(text: str, weekly: bool = False) -> list[dict]:
     return rows
 
 
+def _period_label(row: dict, weekly: bool) -> str:
+    when = dt.date.fromisoformat(
+        row["date"] if len(row["date"]) == 10 else row["date"] + "-01")
+    # A weekly series naming only the month reads as nonsense when
+    # the print itself is inside that month — weeks say the day.
+    return f"{when:%B %-d, %Y}" if weekly else f"{when:%B %Y}"
+
+
 def extreme_phrase(rows: list[dict], direction: str,
                    weekly: bool = False) -> str:
     """Deterministic superlative: compare the latest print to every earlier
@@ -44,16 +52,23 @@ def extreme_phrase(rows: list[dict], direction: str,
     word = "lowest" if direction == "min" else "highest"
     better = (lambda v, m: v < m) if direction == "min" else (lambda v, m: v > m)
     latest, hist = rows[-1], rows[:-1]
-    if not hist or not any(better(r["value"], latest["value"]) for r in hist):
+    if not hist:
+        return f"{word} on record"
+    prev = hist[-1]
+    # Adjacent prints are a transition, not a superlative. Saying
+    # "highest since September" when September itself was higher (or the
+    # same) reads as a contradiction; name the move instead.
+    if latest["value"] == prev["value"]:
+        return f"unchanged from {_period_label(prev, weekly)}"
+    if better(prev["value"], latest["value"]):
+        return (f"down from {_period_label(prev, weekly)}"
+                if direction == "max"
+                else f"up from {_period_label(prev, weekly)}")
+    if not any(better(r["value"], latest["value"]) for r in hist):
         return f"{word} on record"
     for r in reversed(hist):
-        if better(r["value"], latest["value"]) or r["value"] == latest["value"]:
-            when = dt.date.fromisoformat(
-                r["date"] if len(r["date"]) == 10 else r["date"] + "-01")
-            # A weekly series naming only the month reads as nonsense when
-            # the print itself is inside that month — weeks say the day.
-            return f"{word} since {when:%B %-d, %Y}" if weekly \
-                else f"{word} since {when:%B %Y}"
+        if better(r["value"], latest["value"]):
+            return f"{word} since {_period_label(r, weekly)}"
     return f"{word} on record"
 
 

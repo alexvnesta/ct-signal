@@ -284,6 +284,24 @@ class TestNationalDeck(unittest.TestCase):
         self.assertEqual(fred.extreme_phrase(rows, "min"),
                          "lowest on record")
 
+    def test_extremes_read_adjacent_months_as_moves(self):
+        from ctsignal.sources import fred
+        rows = fred._parse(
+            "observation_date,JTSHIR\n2026-07-01,3.2\n2026-08-01,3.3\n"
+            "2026-09-01,3.3\n")
+        self.assertEqual(fred.extreme_phrase(rows, "min"),
+                         "unchanged from August 2026")
+        rows = fred._parse(
+            "observation_date,JTSHIR\n2026-07-01,3.0\n2026-08-01,3.3\n"
+            "2026-09-01,3.2\n")
+        self.assertEqual(fred.extreme_phrase(rows, "max"),
+                         "down from August 2026")
+        rows = fred._parse(
+            "observation_date,JTSHIR\n2026-07-01,3.3\n2026-08-01,3.0\n"
+            "2026-09-01,3.1\n")
+        self.assertEqual(fred.extreme_phrase(rows, "max"),
+                         "highest since July 2026")
+
     def test_national_card_shape(self):
         result = {
             "value": 3.3, "date": "2026-08",

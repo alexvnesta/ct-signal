@@ -15,8 +15,10 @@ verified against the live service, not assumed.
 ## 2. Buttondown — AUTOMATED
 
 - Account `buttondown.com/ctsignal`, branded (name, bio, `#f2a65a` tint).
-- CI key lives as `BUTTONDOWN_KEY`; `send-draft` requires sending enabled on
-  the key (Buttondown's endpoint is the sender, not the draft editor).
+- CI key lives as `BUTTONDOWN_KEY`; scopes are **Emails: read & write** and
+  **Sending: enabled**, with subscriber/administrivia access left at none.
+  Sending is a separate scope from editing: `send-draft` returns 403
+  `permission_denied` when the key can write drafts but cannot send.
 - Sunday `digest` workflow at 14:03 UTC renders the ISO-week issue from the
   committed board, files it as a **draft**, and records the draft id in the
   run summary. Monday at 12:03 UTC searches drafts for that Sunday's
