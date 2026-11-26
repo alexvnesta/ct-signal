@@ -1,10 +1,10 @@
 {
   "cards": [
     {
-      "answer_text": "Connecticut's average temperature ran +4.8\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-24 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
+      "answer_text": "Connecticut's average temperature ran +4.9\u00b0F from its 1991-2020 normal over the 30 days ending 2026-11-25 \u2014 measured at Bradley International and Danbury, each against its own normals. warmer than normal",
       "answer_values": {
-        "date": "2026-11-24",
-        "value": 4.8
+        "date": "2026-11-25",
+        "value": 4.9
       },
       "cache": false,
       "chart": {
@@ -41,11 +41,6 @@
           {
             "data": {
               "values": [
-                {
-                  "date": "2026-10-26",
-                  "series": "Bradley Intl",
-                  "value": 2.5
-                },
                 {
                   "date": "2026-10-27",
                   "series": "Bradley Intl",
@@ -190,11 +185,6 @@
                   "date": "2026-11-24",
                   "series": "Bradley Intl",
                   "value": 0.0
-                },
-                {
-                  "date": "2026-10-26",
-                  "series": "Danbury",
-                  "value": 1.5
                 },
                 {
                   "date": "2026-10-27",
@@ -474,15 +464,15 @@
       "citations": [
         "https://data.rcc-acis.org/StnData"
       ],
-      "generated_at": "2026-11-25T19:49:09+00:00",
+      "generated_at": "2026-11-26T02:10:02+00:00",
       "headline": {
-        "id": "29f1ebeac6ef",
-        "published": "Wed, 25 Nov 2026 14:57:17 +0000",
-        "published_sort": 1795618637,
-        "source": "CT News Junkie",
-        "stream": "ct",
-        "title": "UI Adds Crews As Thanksgiving Storm Expected To Bring Heavy Rain, 50 MPH Wind",
-        "url": "https://ctnewsjunkie.com/2026/11/25/ui-adds-crews-as-thanksgiving-storm-expected-to-bring-heavy-rain-50-mph-wind/"
+        "id": "4fc33577d036",
+        "published": "Wed, 25 Nov 2026 18:45:42 -0500",
+        "published_sort": 1795650342,
+        "source": "PBS NewsHour",
+        "stream": "national",
+        "title": "News Wrap: Severe weather threatens holiday travel for millions",
+        "url": "https://www.pbs.org/newshour/show/news-wrap-severe-weather-threatens-holiday-travel-for-millions"
       },
       "id": "0785479c5e31",
       "indicator": "weather_anomaly",
@@ -1396,7 +1386,7 @@
       "indicator": "household_income",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-25T19:49:31+00:00",
+      "revalidated_at": "2026-11-26T02:10:07+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -2304,7 +2294,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-25T19:49:31+00:00",
+      "revalidated_at": "2026-11-26T02:10:07+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -2972,7 +2962,7 @@
       "indicator": "unemployment",
       "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-25T19:49:31+00:00",
+      "revalidated_at": "2026-11-26T02:10:07+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -10772,7 +10762,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-25T19:49:31+00:00",
+      "revalidated_at": "2026-11-26T02:10:07+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -24046,7 +24036,7 @@
       "indicator": "violent_crime",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-25T19:49:31+00:00",
+      "revalidated_at": "2026-11-26T02:10:07+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -26501,7 +26491,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-25T19:49:31+00:00",
+      "revalidated_at": "2026-11-26T02:10:07+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -28273,5 +28263,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-25T19:49:09+00:00"
+  "generated_at": "2026-11-26T02:10:02+00:00"
 }
