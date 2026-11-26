@@ -29,8 +29,11 @@ verified against the live service, not assumed.
   Buttondown's `recipients` email-address form returned HTTP 200 but delivered
   nothing under this key; subscriber ids delivered and analytics recorded it.
 - `send-draft` leaves the email in `draft` status even after delivery. The
-  send steps therefore poll `/emails/{id}/analytics` and fail if `deliveries`
-  stays at zero — HTTP 200 alone is not treated as proof of sending.
+  send steps therefore poll `/emails/{id}/analytics` and fail unless
+  `deliveries` rises above its pre-send value — HTTP 200 alone is not treated
+  as proof of sending. End-to-end proof on 2026-11-26: a fresh W48 draft sent
+  to one subscriber id recorded `deliveries 0 -> 1` (digest run
+  `45828887648`), and the owner inbox received the 4.5°F issue.
 - No human step remains in the scheduled path. The Monday match is deliberate:
   an older draft for another week can never ship just because it is newest.
 - Footer subscribe widget is live; the digest is one email, filed Sunday and
