@@ -6,6 +6,7 @@
   "grand_list_growth:Which Connecticut towns grew their property tax base fastest?:2025": "2026-10-02T04:23:22+00:00",
   "grand_list_growth:Which Connecticut towns grew their property tax base fastest?:2025:57ca5a6385": "2026-10-05T18:51:05+00:00",
   "grand_list_growth:Which Connecticut towns grew their property tax base fastest?:2025:9cecc62369": "2026-10-05T18:27:20+00:00",
+  "grand_list_growth:Which Connecticut towns grew their property tax base fastest?:2025:b78b78c565": "2026-11-26T20:33:29+00:00",
   "grand_list_growth:Which Connecticut towns grew their property tax base fastest?:2025:ba249adc67": "2026-10-05T18:24:25+00:00",
   "grand_list_growth:Which Connecticut towns grew their property tax base fastest?:2025:fc86487232": "2026-10-05T20:28:08+00:00",
   "hires_rate:Is America still hiring people into new jobs?:2026-08": "2026-10-05T14:54:08+00:00",
@@ -31,6 +32,7 @@
   "median_rent:How expensive is renting in Connecticut compared to the rest of America?:2024:e70060ea05": "2026-10-05T18:51:45+00:00",
   "median_rent:How expensive is renting in Connecticut compared to the rest of America?:2025:58ee2326e3": "2026-11-11T05:29:13+00:00",
   "mill_rates:Which Connecticut town has the highest property tax rate?:FY2027": "2026-10-05T18:21:48+00:00",
+  "mill_rates:Which Connecticut town has the highest property tax rate?:FY2027:0d2d0833f3": "2026-11-26T20:33:30+00:00",
   "mill_rates:Which Connecticut town has the highest property tax rate?:FY2027:6d01818985": "2026-10-05T18:51:09+00:00",
   "mill_rates:Which Connecticut town has the highest property tax rate?:FY2027:8a58dc453c": "2026-10-05T20:28:08+00:00",
   "mill_rates:Which Connecticut town has the highest property tax rate?:FY2027:d738f97c37": "2026-10-05T18:24:33+00:00",
@@ -42,6 +44,7 @@
   "poverty:How many Connecticut residents live below the poverty line compared with the res:2024:5f3794af86": "2026-10-05T18:26:58+00:00",
   "poverty:How many Connecticut residents live below the poverty line compared with the res:2024:a88ea05a4b": "2026-10-05T20:28:07+00:00",
   "poverty:How many Connecticut residents live below the poverty line compared with the res:2024:c949256f73": "2026-10-05T18:51:01+00:00",
+  "poverty:How many Connecticut residents live below the poverty line compared with the res:2025:5126773d23": "2026-11-26T20:33:19+00:00",
   "poverty:How many Connecticut residents live below the poverty line compared with the res:2025:c1d193967e": "2026-10-29T13:16:02+00:00",
   "prime_age_participation:Are working-age Americans in the labor force?:2026-09:e1aa326288": "2026-10-11T15:34:43+00:00",
   "prime_age_participation:Are working-age Americans in the labor force?:2026-10:bda0bf4b39": "2026-11-07T00:25:24+00:00",
@@ -99,5 +102,6 @@
   "weather_anomaly:Is Connecticut running warmer or colder than normal?:2026-11-24:1ab8c76a19": "2026-11-25T01:00:35+00:00",
   "weather_anomaly:Is Connecticut running warmer or colder than normal?:2026-11-24:1d32025dc3": "2026-11-25T19:49:09+00:00",
   "weather_anomaly:Is Connecticut running warmer or colder than normal?:2026-11-25:2917c5abbc": "2026-11-26T11:31:48+00:00",
+  "weather_anomaly:Is Connecticut running warmer or colder than normal?:2026-11-25:a257227bf0": "2026-11-26T20:33:32+00:00",
   "weather_anomaly:Is Connecticut running warmer or colder than normal?:2026-11-25:bc1af8e228": "2026-11-26T02:10:02+00:00"
 }
