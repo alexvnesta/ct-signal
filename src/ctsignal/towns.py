@@ -472,9 +472,25 @@ function pick(){
  document.getElementById("yt-set").onclick=function(){
   save(document.getElementById("yt-sel").value);};}
 function save(s){try{localStorage.setItem("ct-town",s);}catch(e){} facts(s);}
-var saved=null;
-try{saved=localStorage.getItem("ct-town");}catch(e){}
-if(saved&&b.towns[saved]){facts(saved);}else{pick();}
+function suggest(s){var e=document.getElementById("yt-sug"); if(!e)return;
+ e.innerHTML=' \u00b7 Looks like you\u2019re in <b>'+b.towns[s].n+
+  '</b> \u00b7 <button id="yt-yes" class="ytbtn">Make it my town</button>'
+  + ' <button id="yt-no" class="yt-change">not me</button>';
+ document.getElementById("yt-yes").onclick=function(){save(s);};
+ document.getElementById("yt-no").onclick=function(){
+  try{localStorage.setItem("ct-town-no","1");}catch(x){} e.innerHTML="";};}
+var saved=null,dismiss=null;
+try{saved=localStorage.getItem("ct-town");
+    dismiss=localStorage.getItem("ct-town-no");}catch(e){}
+if(saved&&b.towns[saved]){facts(saved);}else{pick();
+ // The location hint is a production-only Vercel function. Previews and
+ // the local static harness have no api/geo, so asking there would only
+ // produce a 404 in the console. The picker still works without it.
+ var prod=/(^|\.)ctsignal\.org$/.test(location.hostname);
+ if(!dismiss&&prod)fetch("/api/geo").then(function(r){return r.json();})
+  .then(function(g){if(!g||g.region!=="CT"||!g.city)return;
+   var s=g.city.toLowerCase().replace(/[^a-z]+/g,"-").replace(/^-|-$/g,"");
+   if(b.towns[s])suggest(s);}).catch(function(){});}
 })();
 </script>"""
 

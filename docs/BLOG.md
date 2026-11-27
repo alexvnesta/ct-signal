@@ -146,8 +146,9 @@ lead section, not a list.
   The peer map below the fold mounts only when 20% visible, so map compile
   stays off the first paint.
 - The town choropleth ships integer, relative-coordinate SVG paths (about
-  60 KiB instead of 126 KiB), and the dead same-origin `/api/geo` fetch was
-  removed: the town picker is local to the reader, not a broken API call.
+  60 KiB instead of 126 KiB). The town picker still uses the production
+  `api/geo` location hint, but only on ctsignal.org: previews and the local
+  static harness must not request a route their host does not serve.
 - Respect `prefers-reduced-motion`; no entrance animations on article chrome.
 
 ## 6. SEO, schema and trust
@@ -207,9 +208,10 @@ A story passes when:
 - [x] Load the pinned Vega stack after page load; charts still mount in the
       reserved container, and the first paint no longer shares a critical
       path with an 833 KB renderer.
-- [x] Compact the town map's SVG geometry to integer relative coordinates and
-      remove the dead `/api/geo` request; `/towns` now clears 100/100/100/100
-      on the same mobile profile.
+- [x] Compact the town map's SVG geometry to integer relative coordinates;
+      `/towns` now clears 100/100/100/100 on the same mobile profile. Keep the
+      production-only location hint, but gate it by host so previews never
+      log a 404.
 - [x] Underline inline prose, table and label links (WCAG 1.4.1 contrast cue),
       bringing `/about` and individual town pages to 100 accessibility.
 
