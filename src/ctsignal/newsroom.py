@@ -411,8 +411,8 @@ def _catalog_index() -> dict:
     return _CATALOG_CACHE
 
 
-def _context_index() -> dict:
-    """Evergreen editorial context, separate from the data catalog."""
+def _context_file() -> dict:
+    """The editorial context file, loaded once per render cycle."""
     global _CONTEXT_CACHE
     if _CONTEXT_CACHE is None:
         path = config.ROOT / "catalog" / "context.yaml"
@@ -420,8 +420,18 @@ def _context_index() -> dict:
             data = yaml.safe_load(path.read_text())
         except (OSError, ValueError, yaml.YAMLError):
             data = {}
-        _CONTEXT_CACHE = (data or {}).get("indicators", {}) or {}
+        _CONTEXT_CACHE = data or {}
     return _CONTEXT_CACHE
+
+
+def _context_index() -> dict:
+    """Evergreen editorial context, separate from the data catalog."""
+    return _context_file().get("indicators", {}) or {}
+
+
+def _desk_index() -> dict:
+    """Evergreen desk explainers, keyed by topic id."""
+    return _context_file().get("desks", {}) or {}
 
 
 def _indicator_meta(card: dict) -> dict:
@@ -1148,6 +1158,20 @@ def _desk_label(topic: str) -> str:
     return topic.replace("-", " ").title()
 
 
+def _desk_intro_html(topic: str) -> str:
+    """Evergreen explainer for a desk, from catalog/context.yaml."""
+    desk = _desk_index().get(topic) or {}
+    blurb = str(desk.get("blurb") or "").strip()
+    question = str(desk.get("question") or "").strip()
+    if not blurb:
+        return ""
+    q = (f'<p class="meta">Standing question: {_ESC(question)}</p>'
+         if question else "")
+    return (f'<div class="card deskintro">'
+            f'<h2 class="label">About this desk</h2>'
+            f'<p>{_ESC(blurb)}</p>{q}</div>')
+
+
 def _topic_chips(topics: list[str], active: str | None = None) -> str:
     links = ['<a href="/archive"%s>All</a>' % (
         ' aria-current="page"' if active is None else "")]
@@ -1233,6 +1257,7 @@ this desk, newest first — each with its data vintage and the question behind
 it.</p>
 {_topic_chips(topics, topic)}
 </header>
+{_desk_intro_html(topic)}
 {_archive_blocks(cards)}
 {_topic_files_html(topic, current)}
 </article>"""
@@ -1579,6 +1604,80 @@ def town_feed(town: str, slug: str, cards: list[dict]) -> str:
             f'<id>{base}/feed.xml</id>{"".join(entries)}</feed>')
 
 
+def _town_lede(town: str, pieces: dict, rec: dict | None,
+               snap: dict | None) -> str:
+    """A short narrative top block built only from numbers on the page.
+
+    Each sentence names its own dataset and vintage, so the lede never
+    implies that a grand-list year, a mill-rate year and a Census five-year
+    estimate came from one file.
+    """
+    from . import towns as _tw
+    parts = []
+    gl = pieces.get("grand_list_growth") or pieces.get("equalized_grand_list")
+    if gl:
+        row, card = gl
+        n = card.get("answer_values", {}).get("n") or len(card.get("towns") or [])
+        pct = row.get("pct")
+        rank = row.get("rank")
+        if pct is not None:
+            verb = "grew" if pct >= 0 else "fell"
+            s = (f"{_ESC(town)}'s net grand list {verb} {abs(pct):.1f}% "
+                 "between the latest two assessment rolls")
+            if rank and n:
+                s += f", {_tw._ord(rank)}-highest of {n} Connecticut places"
+            parts.append(s + ".")
+    mr = pieces.get("mill_rates")
+    if mr:
+        row, card = mr
+        av = card.get("answer_values", {})
+        fy = str(av.get("date", "")).replace("FY", "")
+        rate = row.get("rate")
+        vs = row.get("vs_state")
+        if rate is not None:
+            s = (f"Its FY{fy} mill rate is {rate:.2f} mills per $1,000 of "
+                 "taxable value")
+            if vs is not None:
+                s += f", {vs:.2f}× the statewide average"
+            parts.append(s + ".")
+    if rec:
+        bits = []
+        if rec.get("income") is not None:
+            bits.append(f"median household income at ${rec['income']:,.0f}")
+        if rec.get("poverty") is not None:
+            bits.append(f"{rec['poverty']:.1f}% of residents below poverty")
+        if bits:
+            vintage = (snap or {}).get("vintage", "")
+            parts.append(f"The Census Bureau's {vintage} estimate puts "
+                         + " and ".join(bits) + ".")
+    if not parts:
+        return ""
+    return f'<p class="townlede">{" ".join(parts)}</p>'
+
+
+def _town_related_html(pieces: dict) -> str:
+    """Cross-links from a town file to its indicator files and desks."""
+    rows = []
+    for indicator, (row, card) in sorted(pieces.items()):
+        label = _indicator_label(card)
+        date = str((card.get("answer_values") or {}).get("date") or "")
+        if not date:
+            date = _short_date(card.get("generated_at", ""))
+        rows.append(
+            f'<li><a href="/indicator/{_ESC(indicator)}">{_ESC(label)}</a>'
+            f'<span>{_ESC(date)}</span></li>')
+    topics = sorted({card.get("topic") for _, card in pieces.values()
+                     if card.get("topic")})
+    for topic in topics:
+        rows.append(
+            f'<li><a href="/topic/{_ESC(topic)}">{_ESC(_desk_label(topic))} '
+            f'desk</a><span>desk</span></li>')
+    rows.append('<li><a href="/towns">All 169 town files</a>'
+                '<span>index</span></li>')
+    return ('<div class="card related"><h2 class="label">Keep reading</h2>'
+            '<ul class="filelist">' + "".join(rows) + '</ul></div>')
+
+
 def town_html(town: str, pieces: dict) -> str:
     """A town file is assembled from every local card that measures it.
 
@@ -1655,8 +1754,10 @@ def town_html(town: str, pieces: dict) -> str:
 <h1 style="font:700 clamp(1.7rem,4vw,2.4rem)/1.15 var(--serif);margin:.4rem 0 .3rem">{esc(town)}</h1>
 <p class="sub">Every local number the desk holds for this town, each naming its
 own source. Know where you live.</p>
+{_town_lede(town, pieces, rec, snap)}
 {''.join(sections)}
 {acs}
+{_town_related_html(pieces)}
 <p class="meta">Dataset citations and the literal queries live on the linked
 stories; errors are corrected publicly.</p>
 </article>"""
@@ -1699,10 +1800,26 @@ stories; errors are corrected publicly.</p>
         desc += f"{config.SITE_URL}/town/{_slug(town)}"
     else:
         desc = f"{town}: " + "; ".join(facts) + "."
+    url = f"{config.SITE_URL}/town/{_slug(town)}"
+    ld = theme.graph_json_ld(
+        {"@type": "WebPage", "@id": f"{url}#webpage", "url": url,
+         "name": title, "description": desc,
+         "isPartOf": {"@type": "WebSite",
+                      "@id": f"{config.SITE_URL}/#website"},
+         "inLanguage": "en-US"},
+        {"@type": "Place", "@id": f"{url}#place", "name": town,
+         "containedInPlace": {"@type": "AdministrativeArea",
+                              "name": "Connecticut"}},
+        theme.breadcrumb_json_ld([
+            ("CT Signal", f"{config.SITE_URL}/"),
+            ("Towns", f"{config.SITE_URL}/towns"),
+            (town, url),
+        ]))
     page = theme.page(title=title, desc=esc(desc),
                       path=f'/town/{_slug(town)}', body=body,
                       image=(timg if (config.ROOT / 'assets' /
-                               f'town-{tslug}.png').exists() else None))
+                               f'town-{tslug}.png').exists() else None),
+                      json_ld=ld)
     # Feed readers should find the town feed without a human clicking first.
     alt = (f'<link rel="alternate" type="application/atom+xml" '
            f'title="CT Signal \u2014 {esc(town)} (Atom)" '

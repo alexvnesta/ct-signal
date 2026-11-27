@@ -48,9 +48,11 @@ python -m http.server -d output      # local preview: http://localhost:8000
 or bad WiFi. The CT grand-list card runs live with no key.
 
 **Status (2026-11-27):** live end-to-end. 18 indicators, 169 real Connecticut
-towns, 222 sitemap paths, 86 tests passing, and Lighthouse 100/100/100/100 on
-the board, story, topic, archive and indicator surfaces. Keys live in `.env`
-(git-ignored); the pulse workflow runs every 15 minutes.
+towns, 222 sitemap paths, 87 tests passing, and Lighthouse 100/100/100/100 on
+the board, story, topic, archive, indicator and town surfaces. Every desk
+opens with an evergreen explainer; every town file carries a computed
+narrative and cross-links. Keys live in `.env` (git-ignored); the pulse
+workflow runs every 15 minutes.
 
 ## Layout
 

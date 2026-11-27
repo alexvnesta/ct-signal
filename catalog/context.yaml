@@ -103,3 +103,51 @@ indicators:
       The state rate is the local labor-market read. It can diverge from the
       national rate because Connecticut's mix of industries, workers, and
       commuting patterns differs from the country's.
+
+# Evergreen desk explainers. Each desk page opens with one of these so a
+# reader arriving from a single story can see what the desk measures before
+# scrolling the archive. Editorial copy, not data: no causal claims.
+desks:
+  weather:
+    question: Is Connecticut warmer or cooler than its own recent normal?
+    blurb: >-
+      Weather stories compare Connecticut with its own 30-day normal, not
+      with a national average. The measure is an anomaly — degrees above or
+      below what this season usually delivers — so a warm week reads as a
+      departure from local expectations, not a ranking of climates.
+  local-finance:
+    question: What does a town's tax base and mill rate actually say?
+    blurb: >-
+      Local finance stories read the property tax base and the mill rate
+      together. The grand list is what a town can tax; the mill rate is what
+      it charges per $1,000 of taxable value. Neither number alone says
+      whether a town is expensive or growing, because assessments and rates
+      move on different schedules.
+  equity:
+    question: How wide is the gap between the middle and the bottom?
+    blurb: >-
+      Equity stories compare the middle and the bottom of the distribution.
+      A poverty rate counts people below a fixed national threshold, and
+      labor share measures how much of output goes to workers rather than
+      owners. Both are ratios, so they describe shape rather than size.
+  economy:
+    question: Is the labor market tightening or loosening?
+    blurb: >-
+      Economy stories track the labor market from several angles:
+      unemployment, participation, hiring, quits, claims and layoffs. No
+      single series is the labor market; each counts a different slice, and
+      a rate can fall for good reasons or bad.
+  housing:
+    question: Are rent and home value moving together?
+    blurb: >-
+      Housing stories follow rent and home value as separate markets. Rent
+      is a monthly flow that renters pay; home value is a stock that owners
+      hold. A state median keeps a few expensive sales from standing in for
+      the whole market.
+  justice:
+    question: What does reported violent crime look like across Connecticut?
+    blurb: >-
+      Justice stories use reported crime, which measures what police
+      recorded rather than what happened. Reporting coverage differs by
+      place, so the comparison is a record of incidents and a starting point
+      for a question, not a verdict on safety.

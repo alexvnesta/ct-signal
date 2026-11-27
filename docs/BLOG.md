@@ -15,7 +15,10 @@ amount of computed prose around the data we already have.
 **Ship status (2026-11-27).** Phase 1 — the article shell, topic desks and
 finding-first archive — and Phase 2 — computed context, collapsed chart
 receipts and 18 stable indicator files — are implemented and verified.
-Phases 3–4 remain the plan of record. Evidence is recorded in §9.
+Phase 3 is partly shipped: every desk now opens with an evergreen explainer,
+town files carry a computed narrative and cross-links, and the weekly digest
+links the best stories. New desks wait on sources. Phase 4 measurement
+remains open. Evidence is recorded in §9.
 
 ## 1. The product shape
 
@@ -245,10 +248,18 @@ A story passes when:
 
 ### Phase 3 — durable reference
 
-- Evergreen explainers for the six existing topics; add health, education,
-  transportation, environment and civic government when sources are ready.
-- Town pages gain a narrative top block and cross-links to related stories.
-- A weekly brief that links the best stories rather than duplicating them.
+- [x] Evergreen explainers for the six existing topics, rendered as an
+      “About this desk” block with a standing question. Copy lives in
+      `catalog/context.yaml` under `desks`, so it is editorial, not data.
+- [ ] Add health, education, transportation, environment and civic
+      government desks when sources are ready.
+- [x] Town pages gain a computed narrative top block and cross-links to
+      their indicator files and desks. The lede names each dataset and
+      vintage separately, so a grand-list year, a mill-rate year and a
+      Census five-year estimate never read as one file.
+- [x] A weekly brief that links the best stories rather than duplicating
+      them; the digest is built from the same cards and board the site
+      serves.
 
 ### Phase 4 — measurement and distribution
 
@@ -260,10 +271,11 @@ A story passes when:
 
 ## 9. QA gates
 
-- `.venv/bin/python -m unittest discover -s tests` — 86 tests, OK.
-- Crawl every page at 320 and 1280; no horizontal overflow. Last crawl:
-  222 sitemap paths — 18 indicator files, `/indicators`, `/privacy`, 169 real
-  town pages; no aggregate `/town/total`.
+- `.venv/bin/python -m unittest discover -s tests` — 87 tests, OK.
+- Crawl every page at 320 and 1280; no horizontal overflow. Last crawl
+  (2026-11-27): 222 sitemap paths — 18 indicator files, `/indicators`,
+  `/privacy`, 169 real town pages; no aggregate `/town/total`; every page
+  has exactly one H1.
 - Keyboard pass on article header, chart focus, vote controls, embed details.
 - Check one story per stream/topic shape (rank, trend, local, weather).
 - Lighthouse mobile on home, one current story, `/archive`, one archived
@@ -273,7 +285,9 @@ A story passes when:
   TBT 0; `/towns` 100/100/100/100 (FCP 1.5s, CLS 0.012); `/about`, topic desk
   and town page 100/100/100/100.
 - Stable indicator pages, `/indicators` and topic desks hold 100/100/100/100
-  on mobile (last run 2026-11-27; FCP 0.9s, CLS 0, TBT 0).
+  on mobile (last run 2026-11-27; FCP 0.9s, CLS 0, TBT 0). The desk intro and
+  town narrative blocks keep the same scores: topic desk and town file both
+  100/100/100/100 after the Phase 3 copy shipped.
 - Keyboard pass includes the mobile chart toggle: tab to the checkbox, Space
   expands the full chart and shows its caption.
 - Newsletter: external subscriber delivery proven 2026-11-27
@@ -285,7 +299,8 @@ A story passes when:
 - Story, topic, archive and indicator pages carry a `BreadcrumbList` in the
   same `@graph` as their primary entity, matching the visible trail. Static
   pages that carry no richer schema get a plain `WebPage` node, so no page is
-  an untyped document.
+  an untyped document. Town files add a `Place` node and a Towns breadcrumb,
+  so a town page names the place it describes rather than only its URL.
 - `/privacy` states the actual collection surface: no accounts, no cookies,
   no pageview tracking; Speed Insights measures CWV without cookies; the
   digest list lives in Buttondown and is never sold.

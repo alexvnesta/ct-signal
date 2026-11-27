@@ -155,6 +155,11 @@ class TestSprintSurfaces(unittest.TestCase):
         body = (config.ROOT / "town" / "bridgeport" / "index.html").read_text()
         self.assertIn("Bridgeport", body)
         self.assertIn("of 169", body)
+        self.assertIn('class="townlede"', body)
+        self.assertIn('<h2 class="label">Keep reading</h2>', body)
+        self.assertIn('href="/indicator/', body)
+        self.assertIn('"@type":"Place"', body)
+        self.assertIn('"@type":"BreadcrumbList"', body)
 
     def test_privacy_page_exists_and_is_linked(self):
         body = (config.ROOT / "privacy.html").read_text()
@@ -298,6 +303,17 @@ class TestIndicatorFiles(unittest.TestCase):
         self.assertIn('<h2 class="label">Indicator files</h2>', body)
         self.assertGreaterEqual(body.count('class="filelist"'), 1)
         self.assertIn('"@type":"CollectionPage"', body)
+
+    def test_every_desk_has_an_evergreen_intro(self):
+        topics = sorted({c["topic"] for c in self.cards})
+        desks = newsroom._desk_index()
+        for topic in topics:
+            self.assertIn(topic, desks, f"missing desk copy for {topic}")
+            page = config.ROOT / "topic" / topic / "index.html"
+            body = page.read_text()
+            self.assertIn('<div class="card deskintro">', body, topic)
+            self.assertIn("About this desk", body, topic)
+            self.assertIn("Standing question:", body, topic)
 
     def test_every_indicator_has_a_stable_page_and_sitemap_entry(self):
         sitemap = (config.ROOT / "sitemap.xml").read_text()

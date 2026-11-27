@@ -331,6 +331,10 @@ white-space:nowrap;border:0;padding:0;margin:-1px;clip-path:inset(50%)}
 .storymeta time{font-variant-numeric:tabular-nums;white-space:nowrap}
 .storylede{font:400 clamp(1.125rem,1.5vw,1.2rem)/1.62 var(--sans);
   color:var(--ink);margin:1.1rem 0 1.35rem;max-width:68ch}
+.townlede{font:400 clamp(1.02rem,1.3vw,1.1rem)/1.62 var(--serif);
+  color:var(--ink);margin:.2rem 0 1.2rem;max-width:66ch}
+.deskintro p{font-size:.98rem;line-height:1.6;margin:.3rem 0 .5rem;
+  max-width:65ch}
 .story .card{max-width:var(--col)}
 
 /* ------------------------------------------------------ stories index ---- */
