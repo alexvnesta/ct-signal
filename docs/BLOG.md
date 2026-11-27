@@ -262,8 +262,8 @@ A story passes when:
 
 - `.venv/bin/python -m unittest discover -s tests` — 86 tests, OK.
 - Crawl every page at 320 and 1280; no horizontal overflow. Last crawl:
-  221 sitemap paths — 18 indicator files, `/indicators`, 169 real town pages;
-  no aggregate `/town/total`.
+  222 sitemap paths — 18 indicator files, `/indicators`, `/privacy`, 169 real
+  town pages; no aggregate `/town/total`.
 - Keyboard pass on article header, chart focus, vote controls, embed details.
 - Check one story per stream/topic shape (rank, trend, local, weather).
 - Lighthouse mobile on home, one current story, `/archive`, one archived
