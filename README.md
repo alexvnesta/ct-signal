@@ -1,6 +1,6 @@
 # CT Signal
 
-**Live → [ctsignal.org](https://ctsignal.org)** (DNS propagating; mirror:
+**Live → [ctsignal.org](https://ctsignal.org)** (mirror:
 [ct-signal.vercel.app](https://ct-signal.vercel.app)) · Deck → [/slides](https://ct-signal.vercel.app/slides) · Hack for Humanity · Challenge 4: CTData.org, Made Conversational
 
 News happens → CT data answers. A continual loop that makes CTData.org
@@ -20,6 +20,8 @@ cycle is already asking, and answers them only with fetched numbers.
 - `docs/use_cases.md` — six cards, each traced to a live test
 - `docs/judge-qa.md` — adversarial Q&A drill, by judge, with tiebreaker doctrine
 - `docs/newsroom.md` — the plan from demo → legit news site (decisions, ladder, ops)
+- `docs/BLOG.md` — story anatomy, archive, topic desks, indicator files, QA gates
+- `docs/LAUNCH.md` — launch checklist and external delivery proof
 - `docs/data_sources.md` — validation log (incl. failures: BLS v1 dead,
   data.ct.gov search is network-wide, DC needs a free key)
 - `docs/architecture.md` / `docs/plan-6h.md`
@@ -45,9 +47,10 @@ python -m http.server -d output      # local preview: http://localhost:8000
 `fixtures/` (labeled `cache` in the UI) so the demo survives a missing key
 or bad WiFi. The CT grand-list card runs live with no key.
 
-**Status (2026-09-30):** live end-to-end. All 6 stack-up DCIDs validated
-(52 states), feeds verified, keys in `.env` (git-ignored). Event-day
-to-dos in `docs/plan-6h.md`.
+**Status (2026-11-27):** live end-to-end. 18 indicators, 169 real Connecticut
+towns, 221 sitemap paths, 86 tests passing, and Lighthouse 100/100/100/100 on
+the board, story, topic, archive and indicator surfaces. Keys live in `.env`
+(git-ignored); the pulse workflow runs every 15 minutes.
 
 ## Layout
 
@@ -56,15 +59,18 @@ to-dos in `docs/plan-6h.md`.
 - `output/feed.json`, `output/index.html` — deterministic published feed
 - `story/<id>/` — permalink story pages; `archive/<YYYY-MM>/` — every card
   ever, as JSON; `feed.xml` + `sitemap.xml`; `/towns` + `/town/<slug>`
-  desk; `/about` `/masthead` `/corrections` `/sources` — the news site
-  layer (`src/ctsignal/newsroom.py`, `towns.py`, `pages.py`)
+  desk; `/indicators` + `/indicator/<id>` reference files; `/topic/<desk>`
+  desks; `/about` `/masthead` `/corrections` `/sources` `/privacy` — the
+  news site layer (`src/ctsignal/newsroom.py`, `towns.py`, `pages.py`)
 
 ## Deploy
 
 Git-integrated static deploy to Vercel; **GitHub Actions (`pulse` workflow)
 runs one cycle every 15 minutes** and pushes — the commit is the deploy and
-the audit trail. Needs repo secrets `DC_API_KEY` + `GEMINI_API_KEY`; without
-them pulses degrade to heuristics + keyless Socrata, never break the feed.
+the audit trail. The `digest` workflow drafts Sunday and sends Monday, and
+fails unless Buttondown records a delivery. Needs repo secrets `DC_API_KEY`
++ `GEMINI_API_KEY`; without them pulses degrade to heuristics + keyless
+Socrata, never break the feed.
 
 ```bash
 ./deploy.sh --deploy   # publish current output/ (what CI does)
@@ -72,7 +78,7 @@ them pulses degrade to heuristics + keyless Socrata, never break the feed.
 ./deploy.sh --pin      # snapshot feed to fixtures/, push
 ```
 
-Live at https://ctsignal.org (vercel.app until DNS finishes). `.env` (all API
+Live at https://ctsignal.org. `.env` (all API
 keys) is git- and Vercel-ignored; `SITE_URL`/`CONTACT_EMAIL` override the
 canonical URL/contact defaults. Deployment Protection is OFF (project
 settings) so anyone can view.
