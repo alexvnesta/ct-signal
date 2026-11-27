@@ -251,6 +251,7 @@ A story passes when:
 - [x] Evergreen explainers for the six existing topics, rendered as an
       “About this desk” block with a standing question. Copy lives in
       `catalog/context.yaml` under `desks`, so it is editorial, not data.
+      The `/indicators` index repeats each desk's blurb above its measures.
 - [ ] Add health, education, transportation, environment and civic
       government desks when sources are ready.
 - [x] Town pages gain a computed narrative top block and cross-links to

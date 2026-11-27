@@ -318,6 +318,8 @@ class TestIndicatorFiles(unittest.TestCase):
     def test_every_indicator_has_a_stable_page_and_sitemap_entry(self):
         sitemap = (config.ROOT / "sitemap.xml").read_text()
         self.assertIn(f'{config.SITE_URL}/indicators</loc>', sitemap)
+        index = (config.ROOT / "indicators" / "index.html").read_text()
+        self.assertIn('class="deskblurb"', index)
         for card in self.cards:
             path = config.ROOT / "indicator" / card["indicator"] / "index.html"
             self.assertTrue(path.exists(), f"missing {path}")

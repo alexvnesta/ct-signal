@@ -335,6 +335,8 @@ white-space:nowrap;border:0;padding:0;margin:-1px;clip-path:inset(50%)}
   color:var(--ink);margin:.2rem 0 1.2rem;max-width:66ch}
 .deskintro p{font-size:.98rem;line-height:1.6;margin:.3rem 0 .5rem;
   max-width:65ch}
+.deskblurb{font:400 .94rem/1.55 var(--serif);color:var(--dim);
+  margin:.15rem 0 .55rem;max-width:65ch}
 .story .card{max-width:var(--col)}
 
 /* ------------------------------------------------------ stories index ---- */

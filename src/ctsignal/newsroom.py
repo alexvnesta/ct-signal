@@ -1111,10 +1111,13 @@ def indicators_html(cards: list[dict]) -> str:
                 f'<p class="archive-q">Latest: '
                 f'<a href="/story/{card["id"]}">{_ESC(_finding(card))}</a></p>'
                 f'</li>')
+        desk = _desk_index().get(topic) or {}
+        blurb = str(desk.get("blurb") or "").strip()
         blocks.append(
             f'<h2 class="archive-month"><a href="/topic/{_ESC(topic)}">'
             f'{_ESC(_desk_label(topic))}</a></h2>'
-            f'<ul class="archive-list">{"".join(items)}</ul>')
+            + (f'<p class="deskblurb">{_ESC(blurb)}</p>' if blurb else "")
+            + f'<ul class="archive-list">{"".join(items)}</ul>')
     body = f"""<article class="wrap col">
 <div class="breadcrumb"><a href="/">← The board</a></div>
 <header class="bloghead">
