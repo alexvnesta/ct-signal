@@ -260,7 +260,7 @@ A story passes when:
 
 ## 9. QA gates
 
-- `.venv/bin/python -m unittest discover -s tests` — 83 tests, OK.
+- `.venv/bin/python -m unittest discover -s tests` — 84 tests, OK.
 - Crawl every page at 320 and 1280; no horizontal overflow. Last crawl:
   221 sitemap paths — 18 indicator files, `/indicators`, 169 real town pages;
   no aggregate `/town/total`.
@@ -282,6 +282,8 @@ A story passes when:
 - Speed Insights loads only on `ctsignal.org`; local previews skip the 404
   endpoint. It records Core Web Vitals, sets no cookies, and does not count
   page views.
+- Story, topic, archive and indicator pages carry a `BreadcrumbList` in the
+  same `@graph` as their primary entity, matching the visible trail.
 - Organization schema names the public policies it actually publishes:
   publishing principles (`/about`), corrections (`/corrections`), feedback
   (`/about`) and ownership (`/masthead`).

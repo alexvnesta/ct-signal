@@ -642,6 +642,25 @@ def article_json_ld(*, card_id: str, headline: str, description: str,
     }
 
 
+def breadcrumb_json_ld(items: list[tuple[str, str]]) -> dict:
+    """BreadcrumbList for the visible trail. Google reads this as a rich
+    result; the page still shows the same links to readers."""
+    return {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": i, "name": name, "item": url}
+        for i, (name, url) in enumerate(items, start=1)]}
+
+
+def graph_json_ld(*nodes: dict) -> dict:
+    """One @graph document so a page can carry its primary entity and its
+    breadcrumb without emitting two competing JSON-LD blocks."""
+    clean = []
+    for node in nodes:
+        node = dict(node)
+        node.pop("@context", None)
+        clean.append(node)
+    return {"@context": "https://schema.org", "@graph": clean}
+
+
 def head(*, title: str, desc: str, path: str, og_type: str = "website",
          og_title: str | None = None, og_desc: str | None = None,
          image: str | None = None, published: str | None = None,

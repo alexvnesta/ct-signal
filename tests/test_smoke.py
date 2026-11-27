@@ -208,6 +208,15 @@ class TestIndicatorFiles(unittest.TestCase):
         self.cards = json.loads(
             (config.OUTPUT_DIR / "cards.json").read_text())["cards"]
 
+    def test_story_and_indicator_pages_carry_breadcrumb_schema(self):
+        story = (config.STORY_DIR / "0785479c5e31" / "index.html").read_text()
+        self.assertIn('"@type":"NewsArticle"', story)
+        self.assertIn('"@type":"BreadcrumbList"', story)
+        indicator = (config.ROOT / "indicator" / "median_rent"
+                     / "index.html").read_text()
+        self.assertIn('"@type":"BreadcrumbList"', indicator)
+        self.assertIn('"@type":"WebPage"', indicator)
+
     def test_every_current_indicator_has_evergreen_context(self):
         context = newsroom._context_index()
         for card in self.cards:

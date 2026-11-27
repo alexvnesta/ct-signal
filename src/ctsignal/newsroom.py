@@ -885,12 +885,18 @@ see <a href="/corrections">the corrections policy</a>.</p>
         body=body, compact=True, og_type="article", og_title=finding,
         og_desc=card["answer_text"][:200], published=card["generated_at"],
         image=og,
-        json_ld=theme.article_json_ld(
-            card_id=card["id"], headline=finding,
-            description=card["answer_text"][:200],
-            published=card["generated_at"], section=card["topic"],
-            image=og,
-            modified=card.get("revalidated_at")))
+        json_ld=theme.graph_json_ld(
+            theme.article_json_ld(
+                card_id=card["id"], headline=finding,
+                description=card["answer_text"][:200],
+                published=card["generated_at"], section=card["topic"],
+                image=og,
+                modified=card.get("revalidated_at")),
+            theme.breadcrumb_json_ld([
+                ("CT Signal", f"{config.SITE_URL}/"),
+                ("Stories", f"{config.SITE_URL}/archive"),
+                (finding, f"{config.SITE_URL}/story/{card['id']}"),
+            ])))
 
 
 
@@ -1043,18 +1049,21 @@ news trigger and correction path. Every card on this site is reproducible
 from its committed JSON.</p>
 </article>"""
     url = f"{config.SITE_URL}{_indicator_path(card)}"
-    ld = {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        "@id": f"{url}#webpage",
-        "url": url,
-        "name": label,
-        "description": (f"{card.get('question', '')} Latest finding: "
-                        f"{card.get('answer_text', '')}")[:300],
-        "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
-        "about": {"@type": "Thing", "name": label},
-        "inLanguage": "en-US",
-    }
+    ld = theme.graph_json_ld(
+        {"@type": "WebPage",
+         "@id": f"{url}#webpage",
+         "url": url,
+         "name": label,
+         "description": (f"{card.get('question', '')} Latest finding: "
+                         f"{card.get('answer_text', '')}")[:300],
+         "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
+         "about": {"@type": "Thing", "name": label},
+         "inLanguage": "en-US"},
+        theme.breadcrumb_json_ld([
+            ("CT Signal", f"{config.SITE_URL}/"),
+            ("Indicator files", f"{config.SITE_URL}/indicators"),
+            (label, url),
+        ]))
     return theme.page(
         title=f"{label} · indicator file · CT Signal",
         desc=(f"{card.get('question', '')} Latest finding: "
@@ -1107,16 +1116,19 @@ prior vintage, why the number matters, and the observation dates on record.</p>
 </header>
 {"".join(blocks)}
 </article>"""
-    ld = {
-        "@context": "https://schema.org", "@type": "CollectionPage",
-        "@id": f"{config.SITE_URL}/indicators#webpage",
-        "url": f"{config.SITE_URL}/indicators",
-        "name": "CT Signal indicator files",
-        "description": "Stable reference pages for every measure CT Signal "
-                       "currently tracks.",
-        "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
-        "inLanguage": "en-US",
-    }
+    ld = theme.graph_json_ld(
+        {"@type": "CollectionPage",
+         "@id": f"{config.SITE_URL}/indicators#webpage",
+         "url": f"{config.SITE_URL}/indicators",
+         "name": "CT Signal indicator files",
+         "description": "Stable reference pages for every measure CT Signal "
+                        "currently tracks.",
+         "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
+         "inLanguage": "en-US"},
+        theme.breadcrumb_json_ld([
+            ("CT Signal", f"{config.SITE_URL}/"),
+            ("Indicator files", f"{config.SITE_URL}/indicators"),
+        ]))
     return theme.page(
         title="Indicator files · CT Signal",
         desc="Stable reference pages for every measure CT Signal tracks, "
@@ -1225,15 +1237,19 @@ it.</p>
 {_topic_files_html(topic, current)}
 </article>"""
     url = f"{config.SITE_URL}/topic/{topic}"
-    ld = {
-        "@context": "https://schema.org", "@type": "CollectionPage",
-        "@id": f"{url}#webpage", "url": url,
-        "name": f"{_desk_label(topic)} stories — CT Signal",
-        "description": f"All CT Signal findings on {_desk_label(topic)}: "
-                       "charts, rankings, and the query behind every number.",
-        "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
-        "inLanguage": "en-US",
-    }
+    ld = theme.graph_json_ld(
+        {"@type": "CollectionPage",
+         "@id": f"{url}#webpage", "url": url,
+         "name": f"{_desk_label(topic)} stories — CT Signal",
+         "description": f"All CT Signal findings on {_desk_label(topic)}: "
+                        "charts, rankings, and the query behind every number.",
+         "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
+         "inLanguage": "en-US"},
+        theme.breadcrumb_json_ld([
+            ("CT Signal", f"{config.SITE_URL}/"),
+            ("Stories", f"{config.SITE_URL}/archive"),
+            (_desk_label(topic), url),
+        ]))
     return theme.page(
         title=f"{_desk_label(topic)} stories · CT Signal",
         desc=f"All CT Signal findings on {_desk_label(topic)}: charts, "
@@ -1726,15 +1742,18 @@ JSON lives in the repository; this page is the readable index.</p>
 {_archive_blocks(history)}
 </article>"""
     url = f"{config.SITE_URL}/archive"
-    ld = {
-        "@context": "https://schema.org", "@type": "CollectionPage",
-        "@id": f"{url}#webpage", "url": url,
-        "name": "Every story CT Signal has published",
-        "description": "Every story CT Signal has published, with its finding, "
-                       "desk and data vintage kept forever.",
-        "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
-        "inLanguage": "en-US",
-    }
+    ld = theme.graph_json_ld(
+        {"@type": "CollectionPage",
+         "@id": f"{url}#webpage", "url": url,
+         "name": "Every story CT Signal has published",
+         "description": "Every story CT Signal has published, with its finding, "
+                        "desk and data vintage kept forever.",
+         "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
+         "inLanguage": "en-US"},
+        theme.breadcrumb_json_ld([
+            ("CT Signal", f"{config.SITE_URL}/"),
+            ("Stories", url),
+        ]))
     return theme.page(title="Stories · CT Signal",
                       desc="Every story CT Signal has published, with its "
                            "finding, desk and data vintage kept forever.",
