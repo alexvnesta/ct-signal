@@ -256,6 +256,15 @@ class TestIndicatorFiles(unittest.TestCase):
         finally:
             newsroom._SEEDS_CACHE = old
 
+    def test_topic_desks_link_to_their_indicator_files(self):
+        card = next(c for c in self.cards
+                    if c["indicator"] == "median_rent")
+        page = config.ROOT / "topic" / card["topic"] / "index.html"
+        body = page.read_text()
+        self.assertIn('href="/indicator/median_rent"', body)
+        self.assertIn('<h2 class="label">Indicator files</h2>', body)
+        self.assertGreaterEqual(body.count('class="filelist"'), 1)
+
     def test_every_indicator_has_a_stable_page_and_sitemap_entry(self):
         sitemap = (config.ROOT / "sitemap.xml").read_text()
         self.assertIn(f'{config.SITE_URL}/indicators</loc>', sitemap)

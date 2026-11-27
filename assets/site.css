@@ -326,7 +326,16 @@ white-space:nowrap;border:0;padding:0;margin:-1px;clip-path:inset(50%)}
 .archive-meta{color:var(--faint);font-size:.78rem;line-height:1.4;
   margin:.1rem 0 .25rem}
 .archive-meta a{color:var(--dim);text-decoration:underline}
+.filelist{list-style:none;padding:0;margin:.4rem 0 0}
+.filelist li{display:flex;align-items:baseline;justify-content:space-between;
+  gap:.8rem;padding:.55rem 0;border-bottom:1px solid var(--line)}
+.filelist li:last-child{border-bottom:0}
+.filelist a{font:600 .98rem/1.3 var(--sans);color:var(--ink)}
+.filelist a:hover{color:var(--acc);text-decoration:none}
+.filelist span{font:.76rem/1.3 var(--mono);color:var(--faint);
+  text-align:right;white-space:nowrap}
 @media(max-width:420px){
+  .filelist span{white-space:normal}
   .archive-item h3{font-size:1.12rem}
   .archive-meta{white-space:normal}
 }

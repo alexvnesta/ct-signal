@@ -1160,6 +1160,31 @@ def _archive_item(card: dict) -> str:
         f'<p class="archive-q">{_ESC(card.get("question", ""))}</p></li>')
 
 
+def _topic_files_html(topic: str, current: dict[str, dict] | None) -> str:
+    """The stable reference files for one desk. These pages survive cards;
+    the story list above them does not replace them."""
+    entries = []
+    for indicator, card in (current or {}).items():
+        if indicator and str(card.get("topic") or "") == topic:
+            entries.append((_indicator_label(card), indicator, card))
+    if not entries:
+        return ""
+    entries.sort(key=lambda item: item[0].lower())
+    rows = []
+    for label, indicator, card in entries:
+        when = str((card.get("answer_values") or {}).get("date") or "")
+        date = _data_date(when) if when else ""
+        rows.append(
+            f'<li><a href="/indicator/{_ESC(indicator)}">{_ESC(label)}</a>'
+            f'<span>{_ESC(date)}</span></li>' if date else
+            f'<li><a href="/indicator/{_ESC(indicator)}">{_ESC(label)}</a>'
+            f'<span>current</span></li>')
+    return (f'<div class="card topicfiles"><h2 class="label">Indicator files'
+            f'</h2><p class="meta">Stable reference pages for this desk: one '
+            f'measure, its latest finding, and every vintage on record.</p>'
+            f'<ul class="filelist">' + "".join(rows) + '</ul></div>')
+
+
 def _archive_blocks(cards: list[dict]) -> str:
     months: dict[str, list[dict]] = {}
     for card in cards:
@@ -1180,7 +1205,8 @@ def _archive_blocks(cards: list[dict]) -> str:
 
 
 def topic_html(topic: str, cards: list[dict],
-               topics: list[str] | None = None) -> str:
+               topics: list[str] | None = None,
+               current: dict[str, dict] | None = None) -> str:
     label = _ESC(_desk_label(topic))
     topics = topics or sorted({c.get("topic", "") for c in cards
                                if c.get("topic")})
@@ -1195,6 +1221,7 @@ it.</p>
 {_topic_chips(topics, topic)}
 </header>
 {_archive_blocks(cards)}
+{_topic_files_html(topic, current)}
 </article>"""
     return theme.page(
         title=f"{_desk_label(topic)} stories · CT Signal",
@@ -1403,7 +1430,8 @@ def write_all(cards: list[dict]) -> None:
         hd = tdir / topic
         hd.mkdir(exist_ok=True)
         util.atomic_write_text(hd / "index.html",
-                               topic_html(topic, tcards, topics))
+                               topic_html(topic, tcards, topics,
+                                          current_by_indicator))
     troot = config.ROOT / "town"
     # One page per town, every local fact that town has: two cards may
     # measure the same place (grand-list growth and the current tax rate),

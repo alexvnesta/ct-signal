@@ -236,6 +236,8 @@ A story passes when:
       link to the current story.
 - [x] Add `/indicators` to the footer and both index and per-indicator URLs to
       the sitemap. Stale indicator directories are removed on each build.
+- [x] Link each topic desk to its own indicator files, so a reader who arrives
+      through a story can reach the standing reference page without guessing.
 - [x] Make the mobile chart summary keyboard-operable: the checkbox stays in
       the tab order, the label gains a focus ring, and Space reveals the chart.
 - [x] Rebuild archived story pages with the Phase 2 context modules so old
@@ -257,7 +259,7 @@ A story passes when:
 
 ## 9. QA gates
 
-- `.venv/bin/python -m unittest discover -s tests` — 81 tests, OK.
+- `.venv/bin/python -m unittest discover -s tests` — 82 tests, OK.
 - Crawl every page at 320 and 1280; no horizontal overflow. Last crawl:
   221 sitemap paths — 18 indicator files, `/indicators`, 169 real town pages;
   no aggregate `/town/total`.
@@ -269,8 +271,8 @@ A story passes when:
   story, archive and archived story all 100/100/100/100 with FCP 1.1s and
   TBT 0; `/towns` 100/100/100/100 (FCP 1.5s, CLS 0.012); `/about`, topic desk
   and town page 100/100/100/100.
-- Stable indicator pages and `/indicators` hold 100/100/100/100 on mobile
-  (last run 2026-11-27; FCP 0.9s, CLS 0, TBT 0).
+- Stable indicator pages, `/indicators` and topic desks hold 100/100/100/100
+  on mobile (last run 2026-11-27; FCP 0.9s, CLS 0, TBT 0).
 - Keyboard pass includes the mobile chart toggle: tab to the checkbox, Space
   expands the full chart and shows its caption.
 - Live byte-check after Vercel deploy: title, H1, canonical, JSON-LD, OG.
