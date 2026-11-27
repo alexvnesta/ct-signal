@@ -831,67 +831,75 @@
           ],
           "x": {
             "axis": {
-              "format": ",.0f"
+              "format": ",.0f",
+              "grid": true
             },
             "field": "value",
-            "title": "Violent crime per 100k (per 100k)",
+            "scale": {
+              "domain": [
+                0,
+                1216.6308
+              ],
+              "nice": true
+            },
+            "title": "per 100k",
             "type": "quantitative"
           },
           "y": {
             "field": "state",
             "sort": [
-              "Maine",
-              "New Hampshire",
-              "Connecticut",
-              "Rhode Island",
-              "Puerto Rico",
-              "Hawaii",
-              "Wyoming",
-              "Mississippi",
-              "Vermont",
-              "New Jersey",
-              "Kentucky",
-              "Utah",
-              "Nebraska",
-              "Idaho",
-              "Virginia",
-              "Minnesota",
-              "North Dakota",
-              "Pennsylvania",
-              "West Virginia",
-              "Iowa",
-              "Florida",
-              "Ohio",
-              "Wisconsin",
-              "Illinois",
-              "Massachusetts",
-              "Oregon",
-              "Indiana",
-              "Georgia",
-              "South Dakota",
-              "Washington",
-              "Delaware",
-              "North Carolina",
-              "New York",
-              "Texas",
-              "Alabama",
-              "Arizona",
-              "Nevada",
-              "Oklahoma",
-              "Maryland",
-              "Kansas",
-              "Montana",
-              "Michigan",
-              "Missouri",
-              "South Carolina",
-              "Colorado",
-              "California",
-              "Louisiana",
-              "Arkansas",
-              "Tennessee",
-              "Alaska",
+              "District of Columbia",
               "New Mexico",
-              "District of Columbia"
+              "Alaska",
+              "Tennessee",
+              "Arkansas",
+              "Louisiana",
+              "California",
+              "Colorado",
+              "South Carolina",
+              "Missouri",
+              "Michigan",
+              "Montana",
+              "Kansas",
+              "Maryland",
+              "Oklahoma",
+              "Nevada",
+              "Arizona",
+              "Alabama",
+              "Texas",
+              "New York",
+              "North Carolina",
+              "Delaware",
+              "Washington",
+              "South Dakota",
+              "Georgia",
+              "Indiana",
+              "Oregon",
+              "Massachusetts",
+              "Illinois",
+              "Wisconsin",
+              "Ohio",
+              "Florida",
+              "Iowa",
+              "West Virginia",
+              "Pennsylvania",
+              "North Dakota",
+              "Minnesota",
+              "Virginia",
+              "Idaho",
+              "Nebraska",
+              "Utah",
+              "Kentucky",
+              "New Jersey",
+              "Vermont",
+              "Mississippi",
+              "Wyoming",
+              "Hawaii",
+              "Puerto Rico",
+              "Rhode Island",
+              "Connecticut",
+              "New Hampshire",
+              "Maine"
             ],
             "title": null,
             "type": "nominal"
@@ -1376,6 +1384,9 @@
       "cache": false,
       "chart": {
         "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+        "autosize": {
+          "contains": "padding"
+        },
         "background": "transparent",
         "config": {
           "axis": {
@@ -1470,70 +1481,136 @@
             }
           ]
         },
-        "encoding": {
-          "color": {
-            "field": "highlight",
-            "legend": null,
-            "scale": {
-              "domain": [
-                true,
-                false
+        "height": 250,
+        "layer": [
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#d9772b",
+                    "#b9b3a6"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "tooltip": [
+                {
+                  "field": "state",
+                  "title": "Town",
+                  "type": "nominal"
+                },
+                {
+                  "field": "value",
+                  "title": "Property tax rate, FY2027 (top 10 towns)",
+                  "type": "quantitative"
+                },
+                {
+                  "field": "rank",
+                  "title": "Rank",
+                  "type": "quantitative"
+                }
               ],
-              "range": [
-                "#d9772b",
-                "#b9b3a6"
-              ]
+              "x": {
+                "axis": {
+                  "format": ",.0f",
+                  "grid": false
+                },
+                "field": "value",
+                "scale": {
+                  "domain": [
+                    0,
+                    82.541
+                  ],
+                  "nice": true
+                },
+                "title": "mills per $1,000",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Hartford",
+                  "Hamden",
+                  "East Hartford",
+                  "West Hartford",
+                  "Waterbury",
+                  "Manchester",
+                  "Naugatuck",
+                  "Wethersfield",
+                  "New Haven",
+                  "New Britain"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
             },
-            "type": "nominal"
-          },
-          "tooltip": [
-            {
-              "field": "state",
-              "title": "Town",
-              "type": "nominal"
-            },
-            {
-              "field": "value",
-              "title": "Property tax rate, FY2027 (top 10 towns)",
-              "type": "quantitative"
-            },
-            {
-              "field": "rank",
-              "title": "Rank",
-              "type": "quantitative"
+            "mark": {
+              "cornerRadiusEnd": 2,
+              "tooltip": false,
+              "type": "bar"
             }
-          ],
-          "x": {
-            "axis": {
-              "format": ",.0f"
-            },
-            "field": "value",
-            "title": "Property tax rate, FY2027 (top 10 towns) (mills per $1,000)",
-            "type": "quantitative"
           },
-          "y": {
-            "field": "state",
-            "sort": [
-              "New Britain",
-              "New Haven",
-              "Wethersfield",
-              "Naugatuck",
-              "Manchester",
-              "Waterbury",
-              "West Hartford",
-              "East Hartford",
-              "Hamden",
-              "Hartford"
-            ],
-            "title": null,
-            "type": "nominal"
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#1c2733",
+                    "#4c5a68"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "text": {
+                "field": "value",
+                "format": ".2f",
+                "type": "quantitative"
+              },
+              "x": {
+                "field": "value",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Hartford",
+                  "Hamden",
+                  "East Hartford",
+                  "West Hartford",
+                  "Waterbury",
+                  "Manchester",
+                  "Naugatuck",
+                  "Wethersfield",
+                  "New Haven",
+                  "New Britain"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
+            },
+            "mark": {
+              "align": "left",
+              "baseline": "middle",
+              "dx": 5,
+              "fontSize": 11,
+              "fontWeight": 600,
+              "type": "text"
+            }
           }
-        },
-        "height": 140,
-        "mark": {
-          "tooltip": false,
-          "type": "bar"
-        },
+        ],
         "title": {
           "subtitle": "Hartford highlighted",
           "text": "Property tax rate, FY2027 (top 10 towns)"
@@ -2593,6 +2670,9 @@
       "cache": false,
       "chart": {
         "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+        "autosize": {
+          "contains": "padding"
+        },
         "background": "transparent",
         "config": {
           "axis": {
@@ -2687,70 +2767,136 @@
             }
           ]
         },
-        "encoding": {
-          "color": {
-            "field": "highlight",
-            "legend": null,
-            "scale": {
-              "domain": [
-                true,
-                false
+        "height": 250,
+        "layer": [
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#d9772b",
+                    "#b9b3a6"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "tooltip": [
+                {
+                  "field": "state",
+                  "title": "Town",
+                  "type": "nominal"
+                },
+                {
+                  "field": "value",
+                  "title": "Net grand list growth, 2025 (top 10 towns)",
+                  "type": "quantitative"
+                },
+                {
+                  "field": "rank",
+                  "title": "Rank",
+                  "type": "quantitative"
+                }
               ],
-              "range": [
-                "#d9772b",
-                "#b9b3a6"
-              ]
+              "x": {
+                "axis": {
+                  "format": ",.0f",
+                  "grid": false
+                },
+                "field": "value",
+                "scale": {
+                  "domain": [
+                    0,
+                    70.6938
+                  ],
+                  "nice": true
+                },
+                "title": "%",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Bridgeport",
+                  "Fairfield",
+                  "Westport",
+                  "Ellington",
+                  "Clinton",
+                  "Durham",
+                  "Stafford",
+                  "North Stonington",
+                  "Southington",
+                  "Deep River"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
             },
-            "type": "nominal"
-          },
-          "tooltip": [
-            {
-              "field": "state",
-              "title": "Town",
-              "type": "nominal"
-            },
-            {
-              "field": "value",
-              "title": "Net grand list growth, 2025 (top 10 towns)",
-              "type": "quantitative"
-            },
-            {
-              "field": "rank",
-              "title": "Rank",
-              "type": "quantitative"
+            "mark": {
+              "cornerRadiusEnd": 2,
+              "tooltip": false,
+              "type": "bar"
             }
-          ],
-          "x": {
-            "axis": {
-              "format": ",.0f"
-            },
-            "field": "value",
-            "title": "Net grand list growth, 2025 (top 10 towns) (% change)",
-            "type": "quantitative"
           },
-          "y": {
-            "field": "state",
-            "sort": [
-              "Deep River",
-              "Southington",
-              "North Stonington",
-              "Stafford",
-              "Durham",
-              "Clinton",
-              "Ellington",
-              "Westport",
-              "Fairfield",
-              "Bridgeport"
-            ],
-            "title": null,
-            "type": "nominal"
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#1c2733",
+                    "#4c5a68"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "text": {
+                "field": "value",
+                "format": ".1f",
+                "type": "quantitative"
+              },
+              "x": {
+                "field": "value",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Bridgeport",
+                  "Fairfield",
+                  "Westport",
+                  "Ellington",
+                  "Clinton",
+                  "Durham",
+                  "Stafford",
+                  "North Stonington",
+                  "Southington",
+                  "Deep River"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
+            },
+            "mark": {
+              "align": "left",
+              "baseline": "middle",
+              "dx": 5,
+              "fontSize": 11,
+              "fontWeight": 600,
+              "type": "text"
+            }
           }
-        },
-        "height": 140,
-        "mark": {
-          "tooltip": false,
-          "type": "bar"
-        },
+        ],
         "title": {
           "subtitle": "Bridgeport highlighted",
           "text": "Net grand list growth, 2025 (top 10 towns)"
@@ -4523,67 +4669,75 @@
           ],
           "x": {
             "axis": {
-              "format": ".1f"
+              "format": ".1f",
+              "grid": true
             },
             "field": "value",
-            "title": "Share below poverty line (percent)",
+            "scale": {
+              "domain": [
+                0,
+                38.1672
+              ],
+              "nice": true
+            },
+            "title": "percent",
             "type": "quantitative"
           },
           "y": {
             "field": "state",
             "sort": [
-              "New Hampshire",
-              "Utah",
-              "New Jersey",
-              "North Dakota",
-              "Minnesota",
-              "Connecticut",
-              "Colorado",
-              "Vermont",
-              "Hawaii",
-              "Virginia",
-              "Delaware",
-              "Rhode Island",
-              "Maryland",
-              "Idaho",
-              "Massachusetts",
-              "Maine",
-              "Wyoming",
-              "Nebraska",
-              "Kansas",
-              "Wisconsin",
-              "Washington",
-              "Alaska",
-              "Iowa",
-              "Montana",
-              "Florida",
-              "Pennsylvania",
-              "California",
-              "Nevada",
-              "Illinois",
-              "Missouri",
-              "Oregon",
-              "South Dakota",
-              "Arizona",
-              "Indiana",
-              "North Carolina",
-              "Georgia",
-              "Ohio",
-              "Tennessee",
-              "Michigan",
-              "Texas",
-              "South Carolina",
-              "New York",
-              "Oklahoma",
-              "Alabama",
-              "Arkansas",
-              "New Mexico",
-              "District of Columbia",
-              "Kentucky",
-              "West Virginia",
-              "Mississippi",
+              "Puerto Rico",
               "Louisiana",
-              "Puerto Rico"
+              "Mississippi",
+              "West Virginia",
+              "Kentucky",
+              "District of Columbia",
+              "New Mexico",
+              "Arkansas",
+              "Alabama",
+              "Oklahoma",
+              "New York",
+              "South Carolina",
+              "Texas",
+              "Michigan",
+              "Tennessee",
+              "Ohio",
+              "Georgia",
+              "North Carolina",
+              "Indiana",
+              "Arizona",
+              "South Dakota",
+              "Oregon",
+              "Missouri",
+              "Illinois",
+              "Nevada",
+              "California",
+              "Pennsylvania",
+              "Florida",
+              "Montana",
+              "Iowa",
+              "Alaska",
+              "Washington",
+              "Wisconsin",
+              "Kansas",
+              "Nebraska",
+              "Wyoming",
+              "Maine",
+              "Massachusetts",
+              "Idaho",
+              "Maryland",
+              "Rhode Island",
+              "Delaware",
+              "Virginia",
+              "Hawaii",
+              "Vermont",
+              "Colorado",
+              "Connecticut",
+              "Minnesota",
+              "North Dakota",
+              "New Jersey",
+              "Utah",
+              "New Hampshire"
             ],
             "title": null,
             "type": "nominal"
@@ -5443,67 +5597,75 @@
           ],
           "x": {
             "axis": {
-              "format": "$,.0f"
+              "format": "$,.0f",
+              "grid": true
             },
             "field": "value",
-            "title": "Median household income (USD)",
+            "scale": {
+              "domain": [
+                0,
+                118265.4
+              ],
+              "nice": true
+            },
+            "title": "USD",
             "type": "quantitative"
           },
           "y": {
             "field": "state",
             "sort": [
-              "Puerto Rico",
-              "Mississippi",
-              "West Virginia",
-              "Louisiana",
-              "Arkansas",
-              "Kentucky",
-              "Alabama",
-              "Oklahoma",
-              "New Mexico",
-              "South Carolina",
-              "Indiana",
-              "Ohio",
-              "Missouri",
-              "Michigan",
-              "Tennessee",
-              "Iowa",
-              "Montana",
-              "North Carolina",
-              "Kansas",
-              "Wisconsin",
-              "South Dakota",
-              "Florida",
-              "Wyoming",
-              "Pennsylvania",
-              "North Dakota",
-              "Nebraska",
-              "Maine",
-              "Georgia",
-              "Texas",
-              "Arizona",
-              "Idaho",
-              "Nevada",
-              "Vermont",
-              "Illinois",
-              "Oregon",
-              "New York",
-              "Rhode Island",
-              "Minnesota",
-              "Delaware",
-              "Alaska",
-              "Utah",
-              "Virginia",
-              "Colorado",
-              "Connecticut",
-              "Washington",
-              "California",
-              "Hawaii",
-              "Massachusetts",
-              "New Hampshire",
-              "Maryland",
+              "District of Columbia",
               "New Jersey",
-              "District of Columbia"
+              "Maryland",
+              "New Hampshire",
+              "Massachusetts",
+              "Hawaii",
+              "California",
+              "Washington",
+              "Connecticut",
+              "Colorado",
+              "Virginia",
+              "Utah",
+              "Alaska",
+              "Delaware",
+              "Minnesota",
+              "Rhode Island",
+              "New York",
+              "Oregon",
+              "Illinois",
+              "Vermont",
+              "Nevada",
+              "Idaho",
+              "Arizona",
+              "Texas",
+              "Georgia",
+              "Maine",
+              "Nebraska",
+              "North Dakota",
+              "Pennsylvania",
+              "Wyoming",
+              "Florida",
+              "South Dakota",
+              "Wisconsin",
+              "Kansas",
+              "North Carolina",
+              "Montana",
+              "Iowa",
+              "Tennessee",
+              "Michigan",
+              "Missouri",
+              "Ohio",
+              "Indiana",
+              "South Carolina",
+              "New Mexico",
+              "Oklahoma",
+              "Alabama",
+              "Kentucky",
+              "Arkansas",
+              "Louisiana",
+              "West Virginia",
+              "Mississippi",
+              "Puerto Rico"
             ],
             "title": null,
             "type": "nominal"
@@ -6363,67 +6525,75 @@
           ],
           "x": {
             "axis": {
-              "format": "$,.0f"
+              "format": "$,.0f",
+              "grid": true
             },
             "field": "value",
-            "title": "Median gross rent (USD)",
+            "scale": {
+              "domain": [
+                0,
+                2332.8
+              ],
+              "nice": true
+            },
+            "title": "USD",
             "type": "quantitative"
           },
           "y": {
             "field": "state",
             "sort": [
-              "Puerto Rico",
-              "West Virginia",
-              "Iowa",
-              "Mississippi",
-              "Arkansas",
-              "North Dakota",
-              "Kentucky",
-              "Wyoming",
-              "South Dakota",
-              "Louisiana",
-              "Oklahoma",
-              "Alabama",
-              "Kansas",
-              "Missouri",
-              "New Mexico",
-              "Ohio",
-              "Indiana",
-              "Nebraska",
-              "Montana",
-              "Wisconsin",
-              "Michigan",
-              "Pennsylvania",
-              "Maine",
-              "Vermont",
-              "Tennessee",
-              "Minnesota",
-              "South Carolina",
-              "North Carolina",
-              "Illinois",
-              "Idaho",
-              "Alaska",
-              "Texas",
-              "Rhode Island",
-              "Georgia",
-              "Delaware",
-              "Oregon",
-              "Utah",
-              "Connecticut",
-              "Nevada",
-              "Arizona",
-              "New York",
-              "Virginia",
-              "New Hampshire",
-              "Maryland",
-              "Colorado",
-              "Florida",
-              "Washington",
-              "New Jersey",
-              "Massachusetts",
-              "Hawaii",
+              "California",
               "District of Columbia",
-              "California"
+              "Hawaii",
+              "Massachusetts",
+              "New Jersey",
+              "Washington",
+              "Florida",
+              "Colorado",
+              "Maryland",
+              "New Hampshire",
+              "Virginia",
+              "New York",
+              "Arizona",
+              "Nevada",
+              "Connecticut",
+              "Utah",
+              "Oregon",
+              "Delaware",
+              "Georgia",
+              "Rhode Island",
+              "Texas",
+              "Alaska",
+              "Idaho",
+              "Illinois",
+              "North Carolina",
+              "South Carolina",
+              "Minnesota",
+              "Tennessee",
+              "Vermont",
+              "Maine",
+              "Pennsylvania",
+              "Michigan",
+              "Wisconsin",
+              "Montana",
+              "Nebraska",
+              "Indiana",
+              "Ohio",
+              "New Mexico",
+              "Missouri",
+              "Kansas",
+              "Alabama",
+              "Oklahoma",
+              "Louisiana",
+              "South Dakota",
+              "Wyoming",
+              "Kentucky",
+              "North Dakota",
+              "Arkansas",
+              "Mississippi",
+              "Iowa",
+              "West Virginia",
+              "Puerto Rico"
             ],
             "title": null,
             "type": "nominal"
@@ -13657,67 +13827,75 @@
           ],
           "x": {
             "axis": {
-              "format": "$,.0f"
+              "format": "$,.0f",
+              "grid": true
             },
             "field": "value",
-            "title": "Median home value (USD)",
+            "scale": {
+              "domain": [
+                0,
+                973620.0
+              ],
+              "nice": true
+            },
+            "title": "USD",
             "type": "quantitative"
           },
           "y": {
             "field": "state",
             "sort": [
-              "Puerto Rico",
-              "West Virginia",
-              "Mississippi",
-              "Arkansas",
-              "Louisiana",
-              "Oklahoma",
-              "Iowa",
-              "Kentucky",
-              "Alabama",
-              "Kansas",
-              "Ohio",
-              "Indiana",
-              "Michigan",
-              "Missouri",
-              "Nebraska",
-              "North Dakota",
-              "Pennsylvania",
-              "New Mexico",
-              "Illinois",
-              "South Dakota",
-              "South Carolina",
-              "Wisconsin",
-              "Texas",
-              "Tennessee",
-              "North Carolina",
-              "Georgia",
-              "Minnesota",
-              "Wyoming",
-              "Vermont",
-              "Maine",
-              "Alaska",
-              "Delaware",
-              "Florida",
-              "Virginia",
-              "Connecticut",
-              "Montana",
-              "Arizona",
-              "Maryland",
-              "Idaho",
-              "Nevada",
-              "New York",
-              "Rhode Island",
-              "New Hampshire",
-              "Oregon",
-              "New Jersey",
-              "Utah",
-              "Colorado",
-              "Washington",
-              "Massachusetts",
-              "District of Columbia",
+              "Hawaii",
               "California",
-              "Hawaii"
+              "District of Columbia",
+              "Massachusetts",
+              "Washington",
+              "Colorado",
+              "Utah",
+              "New Jersey",
+              "Oregon",
+              "New Hampshire",
+              "Rhode Island",
+              "New York",
+              "Nevada",
+              "Idaho",
+              "Maryland",
+              "Arizona",
+              "Montana",
+              "Connecticut",
+              "Virginia",
+              "Florida",
+              "Delaware",
+              "Alaska",
+              "Maine",
+              "Vermont",
+              "Wyoming",
+              "Minnesota",
+              "Georgia",
+              "North Carolina",
+              "Tennessee",
+              "Texas",
+              "Wisconsin",
+              "South Carolina",
+              "South Dakota",
+              "Illinois",
+              "New Mexico",
+              "Pennsylvania",
+              "North Dakota",
+              "Nebraska",
+              "Missouri",
+              "Michigan",
+              "Indiana",
+              "Ohio",
+              "Kansas",
+              "Alabama",
+              "Kentucky",
+              "Iowa",
+              "Oklahoma",
+              "Louisiana",
+              "Arkansas",
+              "Mississippi",
+              "West Virginia",
+              "Puerto Rico"
             ],
             "title": null,
             "type": "nominal"
@@ -17915,6 +18093,9 @@
       "cache": false,
       "chart": {
         "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+        "autosize": {
+          "contains": "padding"
+        },
         "background": "transparent",
         "config": {
           "axis": {
@@ -18009,70 +18190,136 @@
             }
           ]
         },
-        "encoding": {
-          "color": {
-            "field": "highlight",
-            "legend": null,
-            "scale": {
-              "domain": [
-                true,
-                false
+        "height": 250,
+        "layer": [
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#d9772b",
+                    "#b9b3a6"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "tooltip": [
+                {
+                  "field": "state",
+                  "title": "Town",
+                  "type": "nominal"
+                },
+                {
+                  "field": "value",
+                  "title": "Equalized assessment growth, 2024 (top 10 towns)",
+                  "type": "quantitative"
+                },
+                {
+                  "field": "rank",
+                  "title": "Rank",
+                  "type": "quantitative"
+                }
               ],
-              "range": [
-                "#d9772b",
-                "#b9b3a6"
-              ]
+              "x": {
+                "axis": {
+                  "format": ",.0f",
+                  "grid": false
+                },
+                "field": "value",
+                "scale": {
+                  "domain": [
+                    0,
+                    67.6848
+                  ],
+                  "nice": true
+                },
+                "title": "%",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Old Lyme",
+                  "New Fairfield",
+                  "Mansfield",
+                  "Branford",
+                  "Woodbridge",
+                  "Thompson",
+                  "West Haven",
+                  "Coventry",
+                  "Voluntown",
+                  "Pomfret"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
             },
-            "type": "nominal"
-          },
-          "tooltip": [
-            {
-              "field": "state",
-              "title": "Town",
-              "type": "nominal"
-            },
-            {
-              "field": "value",
-              "title": "Equalized assessment growth, 2024 (top 10 towns)",
-              "type": "quantitative"
-            },
-            {
-              "field": "rank",
-              "title": "Rank",
-              "type": "quantitative"
+            "mark": {
+              "cornerRadiusEnd": 2,
+              "tooltip": false,
+              "type": "bar"
             }
-          ],
-          "x": {
-            "axis": {
-              "format": ",.0f"
-            },
-            "field": "value",
-            "title": "Equalized assessment growth, 2024 (top 10 towns) (% change)",
-            "type": "quantitative"
           },
-          "y": {
-            "field": "state",
-            "sort": [
-              "Pomfret",
-              "Voluntown",
-              "Coventry",
-              "West Haven",
-              "Thompson",
-              "Woodbridge",
-              "Branford",
-              "Mansfield",
-              "New Fairfield",
-              "Old Lyme"
-            ],
-            "title": null,
-            "type": "nominal"
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#1c2733",
+                    "#4c5a68"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "text": {
+                "field": "value",
+                "format": ".1f",
+                "type": "quantitative"
+              },
+              "x": {
+                "field": "value",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Old Lyme",
+                  "New Fairfield",
+                  "Mansfield",
+                  "Branford",
+                  "Woodbridge",
+                  "Thompson",
+                  "West Haven",
+                  "Coventry",
+                  "Voluntown",
+                  "Pomfret"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
+            },
+            "mark": {
+              "align": "left",
+              "baseline": "middle",
+              "dx": 5,
+              "fontSize": 11,
+              "fontWeight": 600,
+              "type": "text"
+            }
           }
-        },
-        "height": 140,
-        "mark": {
-          "tooltip": false,
-          "type": "bar"
-        },
+        ],
         "title": {
           "subtitle": "Old Lyme highlighted",
           "text": "Equalized assessment growth, 2024 (top 10 towns)"

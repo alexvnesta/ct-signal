@@ -14,6 +14,9 @@
   "cache": false,
   "chart": {
     "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "autosize": {
+      "contains": "padding"
+    },
     "background": "transparent",
     "config": {
       "axis": {
@@ -108,70 +111,136 @@
         }
       ]
     },
-    "encoding": {
-      "color": {
-        "field": "highlight",
-        "legend": null,
-        "scale": {
-          "domain": [
-            true,
-            false
+    "height": 250,
+    "layer": [
+      {
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#d9772b",
+                "#b9b3a6"
+              ]
+            },
+            "type": "nominal"
+          },
+          "tooltip": [
+            {
+              "field": "state",
+              "title": "Town",
+              "type": "nominal"
+            },
+            {
+              "field": "value",
+              "title": "Net grand list growth, 2025 (top 10 towns)",
+              "type": "quantitative"
+            },
+            {
+              "field": "rank",
+              "title": "Rank",
+              "type": "quantitative"
+            }
           ],
-          "range": [
-            "#d9772b",
-            "#b9b3a6"
-          ]
+          "x": {
+            "axis": {
+              "format": ",.0f",
+              "grid": false
+            },
+            "field": "value",
+            "scale": {
+              "domain": [
+                0,
+                70.6938
+              ],
+              "nice": true
+            },
+            "title": "%",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "Bridgeport",
+              "Fairfield",
+              "Westport",
+              "Ellington",
+              "Clinton",
+              "Durham",
+              "Stafford",
+              "North Stonington",
+              "Southington",
+              "Deep River"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
         },
-        "type": "nominal"
-      },
-      "tooltip": [
-        {
-          "field": "state",
-          "title": "Town",
-          "type": "nominal"
-        },
-        {
-          "field": "value",
-          "title": "Net grand list growth, 2025 (top 10 towns)",
-          "type": "quantitative"
-        },
-        {
-          "field": "rank",
-          "title": "Rank",
-          "type": "quantitative"
+        "mark": {
+          "cornerRadiusEnd": 2,
+          "tooltip": false,
+          "type": "bar"
         }
-      ],
-      "x": {
-        "axis": {
-          "format": ",.0f"
-        },
-        "field": "value",
-        "title": "Net grand list growth, 2025 (top 10 towns) (% change)",
-        "type": "quantitative"
       },
-      "y": {
-        "field": "state",
-        "sort": [
-          "Deep River",
-          "Southington",
-          "North Stonington",
-          "Stafford",
-          "Durham",
-          "Clinton",
-          "Ellington",
-          "Westport",
-          "Fairfield",
-          "Bridgeport"
-        ],
-        "title": null,
-        "type": "nominal"
+      {
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#1c2733",
+                "#4c5a68"
+              ]
+            },
+            "type": "nominal"
+          },
+          "text": {
+            "field": "value",
+            "format": ".1f",
+            "type": "quantitative"
+          },
+          "x": {
+            "field": "value",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "Bridgeport",
+              "Fairfield",
+              "Westport",
+              "Ellington",
+              "Clinton",
+              "Durham",
+              "Stafford",
+              "North Stonington",
+              "Southington",
+              "Deep River"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
+        },
+        "mark": {
+          "align": "left",
+          "baseline": "middle",
+          "dx": 5,
+          "fontSize": 11,
+          "fontWeight": 600,
+          "type": "text"
+        }
       }
-    },
-    "height": 140,
-    "mark": {
-      "tooltip": false,
-      "type": "bar"
-    },
+    ],
     "title": {
       "subtitle": "Bridgeport highlighted",
       "text": "Net grand list growth, 2025 (top 10 towns)"
