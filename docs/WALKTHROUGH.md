@@ -344,7 +344,7 @@ come back:
 
 ## What we changed in this pass
 
-These are live in the working tree and regenerated:
+These are committed and live on `ctsignal.org`:
 
 1. **Homepage deck.** A visible line explains the value proposition, with
    “Find your town →” and “Follow a measure →” links. The old H1 was visually
@@ -366,7 +366,9 @@ These are live in the working tree and regenerated:
 Validation after these changes: 88 tests pass; 19 representative pages at
 320 px and 1280 px have no horizontal overflow and exactly one H1; Lighthouse
 mobile is 100/100/100/100 on home, a current story, an indicator file,
-`/towns`, a topic desk and a town file.
+`/towns`, a topic desk and a town file. The live deploy was verified after
+the push: CSS token `6c79f6a3`, homepage deck present, story masthead/CSV/desk
+links present, `/towns.csv` and indicator CSVs serving `text/csv`.
 
 ---
 
