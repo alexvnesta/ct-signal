@@ -154,13 +154,17 @@ and the exact query \u2192</a></div></article>
 
         # One jobs release must not become five of nine visible cards:
         # max two cards per triggering headline, max three per topic.
-        # Keep Connecticut-specific cards ahead of US macro context in the
-        # middle column; national context still surfaces in the right rail.
+        # Keep the front page unmistakably Connecticut-first: whenever we hold
+        # enough Connecticut/regional cards to fill the front page, keep US-only
+        # FRED macro series in /archive and /indicators rather than diluting
+        # the Connecticut board.
         def _trig(x):
             return (x.get("headline") or {}).get("url") or x["id"]
         trig = {_trig(cards[0]): 1}
         topic = {cards[0]["topic"]: 1}
-        rest = sorted(cards[1:], key=lambda x: (0 if _is_ct_card(x) else 1))
+        ct_rest = [x for x in cards[1:] if _is_ct_card(x)]
+        us_rest = [x for x in cards[1:] if not _is_ct_card(x)]
+        rest = ct_rest if len(ct_rest) >= 8 else ct_rest + us_rest
         sel = []
         for c in rest:
             if len(sel) >= 8:

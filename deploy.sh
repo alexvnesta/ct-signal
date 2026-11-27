@@ -23,6 +23,7 @@ GEN=(index.html board.json feed.json feed.xml sitemap.xml llms.txt us.json
      sources.html towns.html towns.csv compare.html about.html corrections.html
      masthead.html privacy.html partner.html 404.html
      data/towns.json data/inventory.json data/watchdog.json
+     data/fred_states_unemployment.json
      data/asked_log.json data/revalidation.json data/ledger.json
      data/failures.log data/validation_report.json
      assets story topic town indicator indicators archive week

@@ -29,10 +29,39 @@ def main() -> None:
     if not cards:
         sys.exit("feed has no cards; nothing to digest")
 
+    # Keep Connecticut-specific stories ahead of US macro context, and lead
+    # with high-salience statewide/municipal findings rather than small-town
+    # outliers or daily weather wobbles.
+    _DIGEST_PRIORITY = {
+        "housing_permits": 0, "mill_rates": 1, "home_sales_price": 2,
+        "unemployment": 3, "school_spending_per_pupil": 4,
+        "grand_list_growth": 5, "northeast_electricity": 6,
+    }
+
+    def _rank_key(c):
+        src = str((c.get("headline") or {}).get("source", "")).lower()
+        is_demo = "fixture" in src
+        is_ct = (c.get("stream") in ("local", "stackup")
+                 or c.get("indicator") in ("weather_anomaly", "ct_unemployment", "northeast_electricity"))
+        prio = _DIGEST_PRIORITY.get(str(c.get("indicator") or ""), 20)
+        return (1 if is_demo else 0, 0 if is_ct else 1, prio)
+
+    cards = sorted(cards, key=_rank_key)
     week = dt.date.fromisoformat(
         max(c["generated_at"] for c in cards)[:10]).isocalendar()
     issue = f"{week.year}-W{week.week:02d}"
-    lead = cards[0]["answer_text"].split(" — ")[0].split(". ")[0]
+    lead_card = cards[0]
+    if lead_card.get("indicator") == "housing_permits" and lead_card.get("towns"):
+        top = lead_card["towns"][0]
+        av = lead_card.get("answer_values") or {}
+        total = int(av.get("state") or 0)
+        if total > 0:
+            lead = (f"{top['town']} permitted {top['value'] / total * 100:.1f}% of "
+                    f"Connecticut's new housing in {av.get('date', '2025')}")
+        else:
+            lead = lead_card["answer_text"].split(" — ")[0].split(". ")[0]
+    else:
+        lead = lead_card["answer_text"].split(" — ")[0].split(". ")[0]
     # A dated window belongs in the body, not the subject line. Strip the
     # cadence clause when it is the only thing between a result and a reader.
     lead = re.sub(r"\s+over the \d+ days ending \d{4}-\d{2}-\d{2}", "",
@@ -53,15 +82,6 @@ def main() -> None:
         + "</tr>"
         for t in board["tiles"])
 
-    # Keep Connecticut-specific cards ahead of US macro context in the digest.
-    def _rank_key(c):
-        src = str((c.get("headline") or {}).get("source", "")).lower()
-        is_demo = "fixture" in src
-        is_ct = (c.get("stream") in ("local", "stackup")
-                 or c.get("indicator") in ("weather_anomaly", "ct_unemployment", "northeast_electricity"))
-        return (1 if is_demo else 0, 0 if is_ct else 1)
-
-    cards = sorted(cards, key=_rank_key)
     def demo_tag(c):
         src = str((c.get("headline") or {}).get("source", "")).lower()
         return ('' if "fixture" not in src else

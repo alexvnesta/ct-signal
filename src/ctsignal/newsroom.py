@@ -2501,8 +2501,12 @@ def write_week_pages(cards: list[dict]) -> None:
                 found[iss] = parsed
     cur = _current_week_issue(cards)
     if cur:
-        # Refresh current ISO week with latest live board & stories.
-        found[cur["issue"]] = cur
+        # Respect a structured JSON digest sidecar if make_digest.py already
+        # built this week's issue, refreshing only live board tiles when newer.
+        if cur["issue"] not in found:
+            found[cur["issue"]] = cur
+        elif cur.get("tiles"):
+            found[cur["issue"]]["tiles"] = cur["tiles"]
     if not found:
         return
     ordered_ids = sorted(found.keys(), reverse=True)

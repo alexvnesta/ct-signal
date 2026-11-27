@@ -149,11 +149,39 @@ _WIRE_NOISE_RE = re.compile(
     r"senior bowl|varsity|playoffs|quarterback|touchdown|uconn women|"
     r"sneaking into|sexually assault|arrested for|charged with|"
     r"accused of|stabbed|sentenced to|mugshot|obituary|marry under|"
-    r"bondi beach|recipes?|black friday deals?|horoscope|celebrity|"
-    r"devastating injuries|gofundme"
+    r"huppah|bondi beach|recipes?|black friday deals?|horoscope|celebrity|"
+    r"devastating injuries|gofundme|endowment"
     r")\b",
     re.I,
 )
+
+# Non-CT single-city, single-state, or foreign-location stories must never
+# attach as triggers to Connecticut cards unless Connecticut is also named.
+_OFF_GEO_RE = re.compile(
+    r"\b("
+    r"chicago|bondi|australia|california|texas|florida|los angeles|"
+    r"san francisco|seattle|houston|miami|atlanta|detroit|philadelphia|"
+    r"boston|manhattan|brooklyn|new york city|nyc|london|paris|tokyo|"
+    r"gaza|ukraine|israel|canada|mexico|harvard|stanford"
+    r")\b",
+    re.I,
+)
+
+
+def trigger_worthy(headline: dict, stream: str = "") -> bool:
+    """Reject noisy or non-Connecticut single-location headlines before they
+    can attach as triggers to a CT Signal card (applies to both heuristic and
+    LLM proposals)."""
+    title = str(headline.get("title") or "").strip()
+    if not title:
+        return False
+    if _WIRE_NOISE_RE.search(title):
+        return False
+    if headline.get("stream") == "ct" or re.search(r"\bconnecticut\b", title, re.I):
+        return True
+    if _OFF_GEO_RE.search(title):
+        return False
+    return True
 
 
 def wire_worthy(entry: dict, *, has_data: bool = False) -> bool:
@@ -192,6 +220,8 @@ def _answerable(item: dict) -> bool:
 def propose_from_catalog(
     headline: dict, catalog: dict, stream: str
 ) -> list[dict]:
+    if not trigger_worthy(headline, stream):
+        return []
     pool = catalog.get("stackup" if stream == "stackup" else "local", [])
     # national-series cards answer headlines from either stream. Their
     # questions can be Connecticut-specific (CT unemployment, CT weather),
@@ -319,7 +349,10 @@ def propose_with_llm(headlines: list[dict], catalog: dict) -> list[dict]:
         "Return ONLY a JSON array like [{\"indicator_id\":\"...\",\"headline_id\":\"...\"}]. "
         "Include a pair only if the headline is genuinely about that "
         "indicator as a population-level trend (not one house, person, or "
-        "case study); precision over recall; max 3 pairs per headline. "
+        "case study); skip stories centered on another single city, university, "
+        "or foreign country (e.g., Chicago, Harvard, Australia) unless "
+        "Connecticut or a US-wide trend is the actual subject; precision over "
+        "recall; max 3 pairs per headline. "
         f"\nCATALOG: {json.dumps(brief)}\nHEADLINES: {json.dumps(payload_headlines)}"
     )
     pairs = _llm_json(prompt)
@@ -340,6 +373,8 @@ def propose_with_llm(headlines: list[dict], catalog: dict) -> list[dict]:
         elif iid in national_ids:
             stream = "national"
         else:
+            continue
+        if not trigger_worthy(headline, stream):
             continue
         proposals.append({
             "indicator_id": iid,

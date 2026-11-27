@@ -19,6 +19,10 @@ stackup:
     topic: economy
     title: Unemployment rate vs. other states
     dcid: UnemploymentRate_Person
+    fred_states:
+      suffix: UR
+      us_series: UNRATE
+      agency: "US Bureau of Labor Statistics, Local Area Unemployment Statistics (seasonally adjusted)"
     trend: true
     unit: percent
     suffix: "%"
@@ -26,7 +30,7 @@ stackup:
     keywords: [unemployment, jobs report, layoffs, hiring, jobless]
     question: Is Connecticut's job market doing better or worse than the rest of the country?
     answer: "Connecticut's unemployment rate is {value} ({date}), the {rank_word}-highest of {n} peers."
-    validated: "live 2026-09-30"
+    validated: "live 2026-11-27 (51-state BLS LAUS seasonally adjusted via FRED <ST>UR)"
 
   - id: median_home_value
     topic: housing

@@ -15,7 +15,11 @@ def build_board(catalog: dict) -> dict:
     for indicator in catalog.get("stackup", []):
         fixture = config.FIXTURES_DIR / f"dc_{indicator['id']}.json"
         result = None
-        if indicator.get("census1yr"):
+        if indicator.get("fred_states"):
+            result = fred.state_stackup(
+                indicator["fred_states"],
+                cache_path=config.ROOT / "data" / f"fred_states_{indicator['id']}.json")
+        if result is None and indicator.get("census1yr"):
             result = census1yr.stackup(
                 indicator["census1yr"],
                 fixture=config.FIXTURES_DIR / f"census1yr_{indicator['id']}.json")
@@ -105,7 +109,11 @@ def _asked_key(card: dict) -> str:
 
 def _answer_stackup(proposal: dict, item: dict) -> dict | None:
     result = None
-    if item.get("census1yr"):
+    if item.get("fred_states"):
+        result = fred.state_stackup(
+            item["fred_states"],
+            cache_path=config.ROOT / "data" / f"fred_states_{item['id']}.json")
+    if result is None and item.get("census1yr"):
         # ACS 1-year beats Data Commons' 5-year ceiling when reachable
         result = census1yr.stackup(
             item["census1yr"],
@@ -119,7 +127,9 @@ def _answer_stackup(proposal: dict, item: dict) -> dict | None:
     trend_rows = None
     if item.get("trend"):
         try:
-            trend_rows = datacommons.trend(item)
+            trend_rows = (fred.state_trend(item["fred_states"])
+                          if item.get("fred_states")
+                          else datacommons.trend(item))
         except Exception as exc:
             print(f"  trend failed ({exc}); rank strip only")
     return cards.from_stackup(item, proposal, result, trend_rows=trend_rows)
@@ -453,7 +463,11 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
                   f"{new_date}/{new_n}")
             continue
         result = None
-        if ind.get("census1yr"):
+        if ind.get("fred_states"):
+            result = fred.state_stackup(
+                ind["fred_states"],
+                cache_path=config.ROOT / "data" / f"fred_states_{ind['id']}.json")
+        if result is None and ind.get("census1yr"):
             result = census1yr.stackup(
                 ind["census1yr"],
                 fixture=config.FIXTURES_DIR / f"census1yr_{ind['id']}.json")
@@ -484,7 +498,9 @@ def _revalidate(cards_by_id: dict, by_id: dict) -> int:
         trend_rows = None
         if ind.get("trend"):
             try:
-                trend_rows = datacommons.trend(ind)
+                trend_rows = (fred.state_trend(ind["fred_states"])
+                              if ind.get("fred_states")
+                              else datacommons.trend(ind))
             except Exception:
                 trend_rows = None
         proposal = {"headline": card.get("headline"),

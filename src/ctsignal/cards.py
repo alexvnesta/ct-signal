@@ -67,13 +67,23 @@ def human_rank(indicator: dict, rank: int, n: int) -> str:
     return f"{_ordinal(rank)}-highest"
 
 
+def _stackup_date_label(raw: str) -> str:
+    raw = str(raw or "")
+    if len(raw) == 7 and raw[4] == "-" and raw[:4].isdigit() and raw[5:7].isdigit():
+        try:
+            return dt.date.fromisoformat(raw + "-01").strftime("%B %Y")
+        except ValueError:
+            pass
+    return raw[:4]
+
+
 def from_stackup(indicator: dict, proposal: dict, result: dict,
                  trend_rows: list[dict] | None = None) -> dict:
     question = proposal.get("question_override") or indicator["question"]
     display = _display(indicator, result["ct"]["value"])
     answer = indicator["answer"].format(
         value=display.strip("$") if indicator.get("prefix") else display,
-        date=result["ct"]["date"][:4],
+        date=_stackup_date_label(result["ct"]["date"]),
         rank=result["ct"]["rank"],
         n=result["n"],
         rank_word=_ordinal(result["ct"]["rank"]),

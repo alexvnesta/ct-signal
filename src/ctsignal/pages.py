@@ -162,6 +162,17 @@ one card had admitted it into the town list at rank 37. We now exclude
 aggregate rows before ranking, so the card says 169 towns and the fake
 <code>/town/total</code> page is gone. The finding is unchanged: Old Lyme still
 led at +57.4%.</li>
+<li><strong>2026-11-27 — reconciled two Connecticut unemployment figures and
+removed three off-topic triggers.</strong>
+The state stackup tile showed 5.8% (July 2026, not seasonally adjusted via Data
+Commons) beside Connecticut's standalone BLS rate of 5.1% (October 2026,
+seasonally adjusted via FRED <code>CTUR</code>). Both the board and story now
+read the same 51-state BLS LAUS seasonally adjusted series (<code>5.1%</code>
+in October 2026, 2nd-highest of 51 peers). In the same pass we detached three
+national news triggers that did not concern Connecticut (Bondi Beach, Chicago,
+and Harvard's endowment) back to plain data-desk filings and tightened our
+trigger filter so single-city and foreign news stories cannot attach to
+Connecticut indicators.</li>
 </ol>
 <p>That is a small list, not a claim of perfection —
 <a href="https://github.com/alexvnesta/ct-signal">our failure log is public</a>

@@ -18,7 +18,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from ctsignal import cards, config, theme  # noqa: E402
+from ctsignal import cards, config, questions, theme  # noqa: E402
 from ctsignal.sources import socrata  # noqa: E402
 import make_story_covers  # noqa: E402
 import select_bsky_posts  # noqa: E402
@@ -188,6 +188,68 @@ class TestBuiltGrowthSurfaces(unittest.TestCase):
         self.assertIn("ctsignal\\.org", theme.SPEED_INSIGHTS)
         privacy = (ROOT / "privacy.html").read_text()
         self.assertIn("Vercel Web Analytics", privacy)
+
+
+class TestEditorialCleanups(unittest.TestCase):
+    def test_trigger_worthy_rejects_off_geo_and_noise_allows_ct(self):
+        self.assertFalse(questions.trigger_worthy({
+            "stream": "national",
+            "title": "After Deadly Bondi Beach Shooting, Two Non-Jews Marry Under a Huppah",
+        }))
+        self.assertFalse(questions.trigger_worthy({
+            "stream": "national",
+            "title": "Why Chicago’s Tax Incentive Program Fell Short in Low-Income Neighborhoods",
+        }))
+        self.assertFalse(questions.trigger_worthy({
+            "stream": "national",
+            "title": "Harvard Endowment Soars to $68 Billion Even as Federal Cuts Force Layoffs",
+        }))
+        self.assertTrue(questions.trigger_worthy({
+            "stream": "ct",
+            "title": "Lamont: CT’s savings habits pay big dividends in next budget",
+        }))
+        self.assertTrue(questions.trigger_worthy({
+            "stream": "national",
+            "title": "U.S. inflation report highlights strain of rising food, energy and housing costs",
+        }))
+
+    def test_no_live_card_carries_off_topic_legacy_trigger(self):
+        cards_data = json.loads((ROOT / "output" / "cards.json").read_text())["cards"]
+        for c in cards_data:
+            title = str((c.get("headline") or {}).get("title") or "").lower()
+            for bad in ("bondi beach", "chicago", "harvard endowment"):
+                self.assertNotIn(bad, title, f"stale off-topic trigger on {c['id']}")
+
+    def test_unemployment_board_and_story_agree_on_bls_rate(self):
+        board = json.loads((ROOT / "board.json").read_text())
+        cards_data = json.loads((ROOT / "output" / "cards.json").read_text())["cards"]
+        tile = next(t for t in board["tiles"] if t["id"] == "unemployment")
+        by_ind = {c.get("indicator"): c for c in cards_data}
+        st_card = by_ind["unemployment"]
+        ct_card = by_ind["ct_unemployment"]
+        self.assertEqual(tile["date"], st_card["answer_values"]["date"])
+        self.assertEqual(tile["date"], ct_card["answer_values"]["date"])
+        self.assertEqual(st_card["answer_values"]["value"], ct_card["answer_values"]["value"])
+
+    def test_front_page_excludes_us_only_macro_cards(self):
+        cards_data = json.loads((ROOT / "output" / "cards.json").read_text())["cards"]
+        us_only_ids = {
+            c["id"] for c in cards_data
+            if c.get("stream") == "national"
+            and c.get("indicator") not in ("weather_anomaly", "ct_unemployment", "northeast_electricity")
+        }
+        home = (ROOT / "index.html").read_text()
+        for cid in us_only_ids:
+            self.assertNotIn(f'/story/{cid}"', home, f"US-only macro card {cid} leaked onto CT front page")
+
+    def test_weekly_draft_leads_with_computed_spreads_and_shares(self):
+        cards_data = json.loads((ROOT / "output" / "cards.json").read_text())["cards"]
+        board = json.loads((ROOT / "board.json").read_text())
+        md = weekly_social_draft.render_draft(cards_data, board)
+        self.assertIn("% of all new housing in Connecticut", md)
+        self.assertIn("Greenwich", md)
+        self.assertIn("Stamford", md)
+        self.assertIn("Hartford", md)
 
 
 if __name__ == "__main__":
