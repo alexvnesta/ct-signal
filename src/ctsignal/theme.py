@@ -191,6 +191,24 @@ section{padding:1.6rem 0}
 .sub a,.meta a{text-decoration:underline}
 .klink{color:inherit;text-decoration:none;border-bottom:1px dotted currentColor}
 .klink:hover{border-bottom-style:solid}
+/* computed story context and the collapsed chart receipt */
+.context h2.label:not(:first-child){margin-top:1rem}
+.indicator-finding{font:700 1.2rem/1.3 var(--serif);margin:.1rem 0 .45rem}
+.indicator-finding a{color:inherit;text-decoration:none}
+.indicator-finding a:hover{color:var(--acc);text-decoration:underline}
+.databox{border-top:1px solid var(--rule);margin:.9rem 0 .2rem;padding-top:.6rem}
+.databox summary{cursor:pointer;color:var(--dim);font:700 .86rem/1.4 var(--sans);
+  min-height:44px;display:flex;align-items:center;padding:.2rem 0}
+.databox summary:hover,.databox summary:focus-visible{color:var(--ink)}
+.tablewrap{overflow-x:auto;margin:.35rem 0 .5rem}
+.datatable{width:100%;border-collapse:collapse;font-size:.8rem;line-height:1.4}
+.datatable th,.datatable td{padding:.4rem .55rem;border-bottom:1px solid var(--rule);
+  text-align:left;vertical-align:top}
+.datatable th{color:var(--dim);font-weight:700;white-space:nowrap}
+.datatable td{color:var(--ink)}
+.datatable .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.datatable.vintages{font-size:.84rem}
+.datatable.vintages td:first-child{color:var(--dim)}
 .towntab{width:100%;border-collapse:collapse;margin:.8rem 0}
 .towntab td{padding:.45rem .6rem;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
 .towntab td:first-child{color:var(--dim)}
@@ -307,9 +325,10 @@ white-space:nowrap;border:0;padding:0;margin:-1px;clip-path:inset(50%)}
   border-top:1px solid var(--rule);padding-top:.55rem;overflow-wrap:anywhere;
   display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .35rem}
 .storymeta>span{white-space:nowrap}
+.storymeta>span.long{white-space:normal}
 .storymeta b{color:var(--ink);font-weight:600}
 .storymeta .sep{color:var(--faint)}
-.storymeta time{font-variant-numeric:tabular-nums}
+.storymeta time{font-variant-numeric:tabular-nums;white-space:nowrap}
 .storylede{font:400 clamp(1.125rem,1.5vw,1.2rem)/1.62 var(--sans);
   color:var(--ink);margin:1.1rem 0 1.35rem;max-width:68ch}
 .story .card{max-width:var(--col)}
@@ -382,7 +401,7 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
 .breadcrumb{margin:1.4rem 0 .2rem;font-size:.82rem}
 .breadcrumb a{color:var(--faint);display:inline-block;padding:.35rem .15em}
 @media (max-width:999px){.latest-grid{grid-template-columns:minmax(0,1fr)}}
-.peersum,.peershow,.peersum-t{display:none}
+.peersum,.peershow,.peersum-t,.peersum-c{display:none}
 .peersum{list-style:none;margin:.4rem 0 0;padding:0}
 .peersum li{display:flex;align-items:center;gap:.45rem;margin:.18rem 0;font-size:.8rem}
 .peersum .pl{flex:0 0 7.2rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dim)}
@@ -390,7 +409,10 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
 .peersum li.ct .pl{color:var(--ink);font-weight:700}
 .peersum li.ct .pb{background:var(--acc)}
 .peersum .pv{font:600 .78rem var(--sans);color:var(--ink)}
-.peersum-t{font-size:.78rem;color:var(--dim);text-decoration:underline;cursor:pointer;margin-top:.3rem}
+.peersum-t,.peersum-c{font-size:.78rem;color:var(--dim);
+  text-decoration:underline;cursor:pointer;margin-top:.3rem}
+.peershow:checked~.peersum-t{display:none}
+.peershow:checked~.peersum-c{display:inline-block}
 .yourtown{background:var(--panel);padding:.55rem .7rem;
   border-left:3px solid var(--acc)}
 .yt-line1{display:block;font:700 1.05rem/1.25 var(--serif);color:var(--ink)}
@@ -421,6 +443,11 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
   .vizwrap .viz{min-height:min(var(--viz-h,0px),340px);max-height:340px;
     overflow-y:auto;scrollbar-width:none;overscroll-behavior-x:contain}
   .vizwrap .viz::-webkit-scrollbar{display:none}
+  .peershow{display:block;position:absolute;width:1px;height:1px;
+    opacity:0;overflow:hidden;clip-path:inset(50%)}
+  .peershow:focus-visible~.peersum-t,
+  .peershow:focus-visible~.peersum-c{outline:2px solid var(--acc);
+    outline-offset:3px}
   .peershow~.viz,.peershow~.viz.vega-embed{display:none}
   .peershow:checked~.viz,.peershow:checked~.viz.vega-embed{
     display:block;max-height:none;overflow:visible}
@@ -429,6 +456,7 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
   .peershow:checked~figcaption{display:block}
   .peersum{display:block}
   .peersum-t{display:inline-block}
+  .peershow:checked~.peersum-c{display:inline-block}
 
   .sechead h2{letter-spacing:.06em}
   .item-fig{flex:0 0 132px}.item-fig img{width:132px}
@@ -529,6 +557,7 @@ public data answers it. Know where you live.</p>
 <li><a href="/">The board</a></li>
 <li><a href="/archive">Stories</a></li>
 <li><a href="/towns">Towns</a></li>
+<li><a href="/indicators">Indicator files</a></li>
 <li><a href="/sources">Data sources</a></li>
 <li><a href="/feed.xml">RSS feed</a></li></ul></div>
 <div><h2>Newsroom</h2><ul>
@@ -828,7 +857,9 @@ def viz(spec_json: str, el_id: str, *, label: str,
     if summary:
         ctl = (f'<input type="checkbox" id="{el_id}-pp" class="peershow">'
                f'<label class="peersum-t" for="{el_id}-pp">'
-               f'Show all {n} peers</label>')
+               f'Show all {n} peers</label>'
+               f'<label class="peersum-c" for="{el_id}-pp">'
+               f'Hide full peer chart</label>')
     return (f'<figure class="vizwrap">{ctl}<div class="viz" id="{el_id}" role="img" '
             f'tabindex="0" aria-label="{_ESC(label)}"{reserve}></div>'
             f'{summary or ""}{cap}</figure>'

@@ -12,9 +12,10 @@ reconstruct it themselves. The fix is not a new framework. It is an article
 shell that puts the finding first, an index that exposes findings, and a small
 amount of computed prose around the data we already have.
 
-**Ship status (2026-11-26).** Phase 1 — the article shell, topic desks and
-finding-first archive — is implemented and verified. Phases 2–4 remain the
-plan of record. Phase 1 evidence is recorded in §9.
+**Ship status (2026-11-27).** Phase 1 — the article shell, topic desks and
+finding-first archive — and Phase 2 — computed context, collapsed chart
+receipts and 18 stable indicator files — are implemented and verified.
+Phases 3–4 remain the plan of record. Evidence is recorded in §9.
 
 ## 1. The product shape
 
@@ -64,9 +65,11 @@ the finding.
 13. **Related stories** — same topic or same town, not random.
 14. **Newsletter link** — the footer subscription, never a modal.
 
-Phase 2 will insert **“What changed”**, **“Why it matters”**, **“What to
-watch”** and a collapsed data table between the chart and the source box. None
-of those is claimed before the computation exists.
+Phase 2 now inserts **“What changed”**, **“Why it matters”**, **“What to
+watch”** and a collapsed data table between the chart and the source box. Each
+claim is computed from the card, the observation history, or the evergreen
+context catalog — never invented by the renderer. “What to watch” appears only
+when the civic calendar supplies a real upcoming release.
 
 The current page already has most of the receipts: chart caption, provenance,
 freshness strip, embed snippet, correction policy. The redesign keeps those
@@ -215,14 +218,28 @@ A story passes when:
 - [x] Underline inline prose, table and label links (WCAG 1.4.1 contrast cue),
       bringing `/about` and individual town pages to 100 accessibility.
 
-### Phase 2 — computed context
+### Phase 2 — computed context and stable files (shipped 2026-11-27)
 
-- Add a “What changed” module from the chart series: latest value, prior
-  value, direction, magnitude, and comparison window.
-- Add “What to watch” only where a release calendar exists.
-- Add a collapsed data table for every chart with more than ~12 rows.
-- Add stable per-indicator pages (`/indicator/<slug>`) that collect every
-  story about one measure.
+- [x] Add a “What changed” module from observation history: latest value,
+      prior value, direction, magnitude, and observation dates. Annual values
+      stay annual; monthly and daily dates keep their own precision.
+- [x] Add an evergreen “Why it matters” line from `catalog/context.yaml` for
+      every current indicator, with no claim that the number is new.
+- [x] Add “What to watch” only where a release calendar supplies a real
+      upcoming seed; suppress it during a quiet week.
+- [x] Add a collapsed data table to every chart. Tables keep all local town
+      rows and every peer row; long national series show the latest 12 rows
+      per series and say so.
+- [x] Add 18 stable `/indicator/<id>` files and a grouped `/indicators` index.
+      Each file keeps one H1, the standing question, the current finding, the
+      chart receipt, computed context, vintages on record, provenance, and a
+      link to the current story.
+- [x] Add `/indicators` to the footer and both index and per-indicator URLs to
+      the sitemap. Stale indicator directories are removed on each build.
+- [x] Make the mobile chart summary keyboard-operable: the checkbox stays in
+      the tab order, the label gains a focus ring, and Space reveals the chart.
+- [x] Rebuild archived story pages with the Phase 2 context modules so old
+      links share the current page contract.
 
 ### Phase 3 — durable reference
 
@@ -240,9 +257,10 @@ A story passes when:
 
 ## 9. QA gates
 
-- `.venv/bin/python -m unittest discover -s tests` — 73 tests, OK.
+- `.venv/bin/python -m unittest discover -s tests` — 81 tests, OK.
 - Crawl every page at 320 and 1280; no horizontal overflow. Last crawl:
-  202 sitemap paths; 169 real town pages, no aggregate `/town/total`.
+  221 sitemap paths — 18 indicator files, `/indicators`, 169 real town pages;
+  no aggregate `/town/total`.
 - Keyboard pass on article header, chart focus, vote controls, embed details.
 - Check one story per stream/topic shape (rank, trend, local, weather).
 - Lighthouse mobile on home, one current story, `/archive`, one archived
@@ -251,6 +269,10 @@ A story passes when:
   story, archive and archived story all 100/100/100/100 with FCP 1.1s and
   TBT 0; `/towns` 100/100/100/100 (FCP 1.5s, CLS 0.012); `/about`, topic desk
   and town page 100/100/100/100.
+- Stable indicator pages and `/indicators` hold 100/100/100/100 on mobile
+  (last run 2026-11-27; FCP 0.9s, CLS 0, TBT 0).
+- Keyboard pass includes the mobile chart toggle: tab to the checkbox, Space
+  expands the full chart and shows its caption.
 - Live byte-check after Vercel deploy: title, H1, canonical, JSON-LD, OG.
 - Regenerate story covers only after template changes settle; then rerun
   `publish.publish` so cache tokens match.

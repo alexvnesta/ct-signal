@@ -14,6 +14,8 @@ import json
 import re
 import shutil
 
+import yaml
+
 from . import config, theme, util
 
 _ESC = html.escape
@@ -374,6 +376,433 @@ def _related_html(card: dict, cards: list[dict]) -> str:
             f'{pn}</div>')
 
 
+# --------------------------------------------------------- story context ---
+# Phase 2 of the blog design: computed context, never generated filler. A
+# "what changed" line is built only from two archived observations. "Why it
+# matters" comes from an evergreen editorial file. "What to watch" appears
+# only when the desk calendar actually carries a future event for the metric.
+_CATALOG_CACHE: dict | None = None
+_CONTEXT_CACHE: dict | None = None
+_SEEDS_CACHE: list[dict] | None = None
+_OBSERVATIONS_CACHE: dict | None = None
+
+_TOWN_TABLE = {
+    "mill_rates": ("rate", "Mill rate (mills per $1,000)", "rate"),
+    "grand_list_growth": ("pct", "Net grand list growth (%)", "pct"),
+    "equalized_grand_list": ("pct", "Equalized assessment growth (%)", "pct"),
+}
+
+
+def _catalog_index() -> dict:
+    """Indicator metadata keyed by id, loaded once per render cycle."""
+    global _CATALOG_CACHE
+    if _CATALOG_CACHE is None:
+        from . import questions
+        try:
+            catalog = questions.load_catalog()
+        except (OSError, ValueError, yaml.YAMLError):
+            catalog = {}
+        _CATALOG_CACHE = {
+            item["id"]: item
+            for section in ("stackup", "local", "national")
+            for item in catalog.get(section, [])
+            if item.get("id")
+        }
+    return _CATALOG_CACHE
+
+
+def _context_index() -> dict:
+    """Evergreen editorial context, separate from the data catalog."""
+    global _CONTEXT_CACHE
+    if _CONTEXT_CACHE is None:
+        path = config.ROOT / "catalog" / "context.yaml"
+        try:
+            data = yaml.safe_load(path.read_text())
+        except (OSError, ValueError, yaml.YAMLError):
+            data = {}
+        _CONTEXT_CACHE = (data or {}).get("indicators", {}) or {}
+    return _CONTEXT_CACHE
+
+
+def _indicator_meta(card: dict) -> dict:
+    return _catalog_index().get(str(card.get("indicator") or ""), {})
+
+
+def _indicator_label(card: dict) -> str:
+    meta = _indicator_meta(card)
+    label = str(meta.get("title") or meta.get("chart_label") or "").strip()
+    if not label:
+        chart_title = (card.get("chart") or {}).get("title") or {}
+        label = str(chart_title.get("text") if isinstance(chart_title, dict)
+                    else chart_title or "").strip()
+        label = re.sub(r"\s*\(top 10 towns\)\s*$", "", label, flags=re.I)
+        label = re.sub(r",\s*(?:FY)?\d{4}\s*$", "", label)
+    if not label:
+        label = str(card.get("indicator") or "Indicator").replace("_", " ")
+        label = label[:1].upper() + label[1:]
+    return label
+
+
+def _indicator_path(card: dict) -> str:
+    return f"/indicator/{card.get('indicator') or 'unknown'}"
+
+
+def _observation_key(value) -> int:
+    """Comparable ordinal for every vintage label the cards carry: daily,
+    monthly, annual, and the local fiscal year. Unknown labels stay at 0."""
+    text = str(value or "").strip()
+    try:
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", text):
+            return int(dt.date.fromisoformat(text).strftime("%Y%m%d"))
+        if re.fullmatch(r"\d{4}-\d{2}", text):
+            return int(dt.date.fromisoformat(text + "-01").strftime("%Y%m%d"))
+        if re.fullmatch(r"\d{4}", text):
+            return int(text + "1231")
+        fy = re.fullmatch(r"FY(\d{4})", text)
+        if fy:
+            return int(fy.group(1) + "0630")
+    except ValueError:
+        pass
+    return 0
+
+
+def _observation_records() -> dict:
+    """Newest archived print per indicator per observation date. The raw
+    archive is the audit trail; the rendered table never invents history."""
+    global _OBSERVATIONS_CACHE
+    if _OBSERVATIONS_CACHE is None:
+        out: dict[str, dict[int, dict]] = {}
+        for path in config.ARCHIVE_DIR.rglob("*.json"):
+            try:
+                rec = json.loads(path.read_text())
+            except (json.JSONDecodeError, OSError):
+                continue
+            indicator = str(rec.get("indicator") or "")
+            vals = rec.get("answer_values") or {}
+            key = _observation_key(vals.get("date"))
+            if not indicator or not key:
+                continue
+            slot = out.setdefault(indicator, {})
+            prev = slot.get(key)
+            if prev is None or str(rec.get("generated_at") or "") > \
+                    str(prev.get("generated_at") or ""):
+                slot[key] = rec
+        _OBSERVATIONS_CACHE = out
+    return _OBSERVATIONS_CACHE
+
+
+def _prior_observation(card: dict) -> dict | None:
+    """The newest archived observation strictly older than this card's data
+    date. A newer archived print is not "prior" just because it has an older
+    timestamp; only observation dates are compared."""
+    vals = card.get("answer_values") or {}
+    key = _observation_key(vals.get("date"))
+    if not key or vals.get("value") is None:
+        return None
+    records = _observation_records().get(str(card.get("indicator") or ""), {})
+    prior = [k for k in records if k < key]
+    return records[max(prior)] if prior else None
+
+
+def _num(value, default=None):
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _value_text(meta: dict, value) -> str:
+    from . import cards as _cards
+    number = _num(value)
+    if number is None:
+        return _ESC(str(value))
+    unit = str((meta or {}).get("unit") or "")
+    try:
+        if "precision" not in (meta or {}) and unit in ("index", "weeks"):
+            base = f"{number:.1f}"
+        else:
+            base = _cards.display(meta or {}, number)
+    except (KeyError, ValueError):
+        base = f"{number:,.2f}".rstrip("0").rstrip(".")
+    suffix = str((meta or {}).get("suffix") or "")
+    if suffix:
+        return base
+    if unit == "%" or unit == "percent":
+        return base + ("%" if not base.endswith("%") else "")
+    if unit == "°F":
+        return base + ("°F" if not base.endswith("°F") else "")
+    if unit == "USD":
+        return base if base.startswith("$") else "$" + base
+    if unit == "index":
+        return base
+    if unit:
+        return base + " " + unit
+    return base
+
+
+def _delta_text(meta: dict, delta: float) -> str:
+    unit = str((meta or {}).get("unit") or "")
+    size = abs(delta)
+    if unit in ("percent", "%"):
+        return f"{size:.1f} points"
+    if unit == "USD":
+        return f"${size:,.0f}"
+    if unit == "°F":
+        return f"{size:.1f}°F"
+    if unit == "weeks":
+        return f"{size:.1f} weeks"
+    if unit == "claims":
+        return f"{size:,.0f} claims"
+    if unit == "index":
+        return f"{size:.1f} points on the index"
+    return f"{size:,.1f}"
+
+
+def _what_changed_paragraph(card: dict) -> str:
+    prior = _prior_observation(card)
+    if not prior:
+        return ""
+    cur = card.get("answer_values") or {}
+    pri = prior.get("answer_values") or {}
+    current = _num(cur.get("value"))
+    previous = _num(pri.get("value"))
+    if current is None or previous is None:
+        return ""
+    meta = _indicator_meta(card)
+    cur_date = _data_date(str(cur.get("date") or ""))
+    pri_date = _data_date(str(pri.get("date") or ""))
+    delta = current - previous
+    cur_text = _value_text(meta, current)
+    pri_text = _value_text(meta, previous)
+    if abs(delta) < 1e-9:
+        text = (f"The latest observation ({_ESC(cur_date)}) is "
+                f"{cur_text}, unchanged from {pri_text} ({_ESC(pri_date)}).")
+    else:
+        direction = "up" if delta > 0 else "down"
+        text = (f"The latest observation ({_ESC(cur_date)}) is {cur_text}, "
+                f"{direction} {_delta_text(meta, delta)} from {pri_text} "
+                f"({_ESC(pri_date)}).")
+    if card.get("indicator") == "weather_anomaly":
+        text += (" The anomaly is a trailing 30-day window, so this compares "
+                 "consecutive daily vintages rather than two calendar months.")
+    return f'<p>{text}</p>'
+
+
+def _next_seed(card: dict) -> dict | None:
+    """A future calendar hook for this indicator, if one exists. Past seeds
+    are history and are not dressed up as a forecast."""
+    global _SEEDS_CACHE
+    if _SEEDS_CACHE is None:
+        try:
+            data = yaml.safe_load(config.SEEDS_PATH.read_text()) or {}
+        except (OSError, ValueError, yaml.YAMLError):
+            data = {}
+        _SEEDS_CACHE = data.get("seeds", []) or []
+    today = util.et(dt.datetime.now(dt.timezone.utc)).date()
+    candidates = []
+    for seed in _SEEDS_CACHE:
+        if str(seed.get("indicator") or "") != str(card.get("indicator") or ""):
+            continue
+        try:
+            when = dt.date.fromisoformat(str(seed.get("date") or ""))
+        except ValueError:
+            continue
+        if today <= when <= today + dt.timedelta(days=90):
+            candidates.append((when, seed))
+    return min(candidates, key=lambda pair: pair[0])[1] if candidates else None
+
+
+def _watch_paragraph(card: dict) -> str:
+    seed = _next_seed(card)
+    if not seed:
+        return ""
+    when = _data_date(str(seed["date"]))
+    reason = str(seed.get("reason") or "").strip()
+    if reason:
+        return (f'<p>The next desk-calendar hook is {_ESC(reason)}, on '
+                f'{_ESC(when)}. This page is rebuilt when the series prints '
+                f'again.</p>')
+    return (f'<p>The next desk-calendar hook is {_ESC(when)}. This page is '
+            f'rebuilt when the series prints again.</p>')
+
+
+def _context_html(card: dict) -> str:
+    why = str((_context_index().get(str(card.get("indicator") or ""), {})
+               or {}).get("why") or "").strip()
+    changed = _what_changed_paragraph(card)
+    watch = _watch_paragraph(card)
+    parts = []
+    if changed:
+        parts.append(f'<h2 class="label">What changed</h2>{changed}')
+    if why:
+        parts.append(f'<h2 class="label">Why it matters</h2><p>{_ESC(why)}</p>')
+    if watch:
+        parts.append(f'<h2 class="label">What to watch</h2>{watch}')
+    indicator = str(card.get("indicator") or "")
+    if not indicator:
+        return ""
+    label = _ESC(_indicator_label(card))
+    parts.append(
+        f'<p class="meta"><a href="{_indicator_path(card)}">Read the '
+        f'{label} indicator file →</a></p>')
+    return f'<div class="card context">{"".join(parts)}</div>'
+
+
+def _chart_values(card: dict) -> list[dict]:
+    """Rows from a top-level data block or from each layer's nested data
+    block. National trend charts put their series inside layer.data."""
+    chart = card.get("chart") or {}
+    rows = []
+    for source in [chart] + list(chart.get("layer") or []):
+        for block in (source.get("data"), source):
+            vals = (block or {}).get("values")
+            if isinstance(vals, list):
+                rows.extend(r for r in vals if isinstance(r, dict))
+    return rows
+
+
+def _table_cell(value, meta: dict, kind: str | None = None) -> str:
+    number = _num(value)
+    if number is None:
+        return _ESC(str(value))
+    if kind == "rate":
+        return f"{number:,.2f}"
+    if kind == "pct":
+        return f"{number:.2f}%"
+    unit = str((meta or {}).get("unit") or "")
+    if unit == "USD":
+        return f"${number:,.0f}"
+    if unit in ("percent", "%"):
+        return f"{number:.1f}%"
+    if unit == "°F":
+        return f"{number:.1f}°F"
+    if unit == "per 100k":
+        return f"{number:,.2f}"
+    if unit == "index":
+        return f"{number:.1f}"
+    if unit in ("weeks", "claims"):
+        return f"{number:,.1f}" if unit == "weeks" else f"{number:,.0f}"
+    return f"{number:,.0f}" if abs(number) >= 100 else f"{number:.2f}"
+
+
+def _table_shell(cols: list[tuple[str, str, bool]], rows: list[list[str]],
+                 summary: str, note: str, caption: str) -> str:
+    head = "".join(
+        f'<th scope="col"{num_class}>{_ESC(label)}</th>'
+        for label, _, numeric in cols
+        for num_class in [' class="num"' if numeric else ""])
+    body = "".join(
+        '<tr>' + ''.join(
+            f'<td{num_class}>{cell}</td>'
+            for cell, (_, _, numeric) in zip(row, cols)
+            for num_class in [' class="num"' if numeric else ""])
+        + '</tr>'
+        for row in rows)
+    return (f'<details class="databox"><summary>{_ESC(summary)}</summary>'
+            f'<div class="tablewrap"><table class="datatable">'
+            f'<caption class="sr-only">{_ESC(caption)}</caption>'
+            f'<thead><tr>{head}</tr></thead><tbody>{body}</tbody></table></div>'
+            f'<p class="meta">{_ESC(note)}</p></details>')
+
+
+def _data_table_html(card: dict) -> str:
+    """A collapsed receipt for every chart with more than 12 rows. Town
+    cards use the full 169-row snapshot; chart cards keep the complete short
+    series and trim long series to the latest observations."""
+    towns = [row for row in (card.get("towns") or []) if _is_town(row)]
+    meta = _indicator_meta(card)
+    if len(towns) > 12:
+        indicator = str(card.get("indicator") or "")
+        key, heading, kind = _TOWN_TABLE.get(
+            indicator,
+            ("value", _indicator_label(card), None),
+        )
+        if key == "value":
+            first = towns[0]
+            key = ("rate" if "rate" in first else
+                   "pct" if "pct" in first else "value")
+        rows = []
+        for i, row in enumerate(towns):
+            rank = row.get("rank", i + 1)
+            rows.append([_ESC(str(rank)), _ESC(str(row.get("town") or "")),
+                         _table_cell(row.get(key), meta, kind)])
+        summary = f"See all {len(towns)} town rows behind the chart"
+        note = ("The chart shows the ranked top 10; this table keeps every "
+                "town row in the snapshot.")
+        cols = [("Rank", "", False), ("Town", "", False),
+                (heading, "", True)]
+        return _table_shell(cols, rows, summary, note,
+                            f"Town rows behind the chart: {heading}")
+
+    chart_rows = _chart_values(card)
+    if len(chart_rows) <= 12:
+        return ""
+    has_series = any(row.get("series") for row in chart_rows)
+    has_rank = any(row.get("rank") is not None for row in chart_rows)
+    truncated = False
+    if len(chart_rows) > 60:
+        truncated = True
+        if has_series:
+            groups: dict[str, list[dict]] = {}
+            for row in chart_rows:
+                groups.setdefault(str(row.get("series") or ""), []).append(row)
+            chart_rows = [row for group in groups.values()
+                          for row in group[-12:]]
+        else:
+            chart_rows = chart_rows[-24:]
+    chart_rows = sorted(chart_rows,
+                        key=lambda row: str(row.get("date") or ""))
+    label = _indicator_label(card)
+    unit = str(meta.get("unit") or "")
+    if unit and unit not in label:
+        label = f"{label} ({unit})"
+    if has_series:
+        cols = [("Date", "", False), ("Series", "", False),
+                (label, "", True)]
+        rows = [[_ESC(_data_date(str(row.get("date") or ""))),
+                 _ESC(str(row.get("series") or "")),
+                 _table_cell(row.get("value"), meta)] for row in chart_rows]
+        count = len(rows)
+        summary = (f"See all {count} observations behind the chart"
+                   if not truncated
+                   else f"See {count} recent observations behind the chart")
+        note = ("Observations are listed by date; the chart holds the full "
+                "series." if not truncated else
+                "Latest 12 observations per series; the chart holds the full "
+                "series.")
+        answer_date = str((card.get("answer_values") or {}).get("date") or "")
+        chart_date = max((str(row.get("date") or "") for row in chart_rows),
+                         default="")
+        if answer_date and chart_date and \
+                _observation_key(answer_date) > _observation_key(chart_date):
+            note += (f" Chart rows stop at {_ESC(_data_date(chart_date))}; "
+                     f"the answer uses the {_ESC(_data_date(answer_date))} "
+                     "vintage.")
+    elif has_rank:
+        townish = card.get("stream") == "local"
+        cols = [("Rank", "", False),
+                ("Town" if townish else "Peer", "", False),
+                (label, "", True)]
+        rows = [[_ESC(str(row.get("rank") or "")),
+                 _ESC(str(row.get("state") or row.get("town") or "")),
+                 _table_cell(row.get("value"), meta)] for row in chart_rows]
+        count = len(rows)
+        summary = f"See all {count} {'town' if townish else 'peer'} rows behind the chart"
+        note = "Rank, peer, and value are carried straight from the chart data."
+    else:
+        cols = [("Date", "", False), (label, "", True)]
+        rows = [[_ESC(_data_date(str(row.get("date") or ""))),
+                 _table_cell(row.get("value"), meta)] for row in chart_rows]
+        count = len(rows)
+        summary = (f"See all {count} observations behind the chart"
+                   if not truncated
+                   else f"See the latest {count} observations behind the chart")
+        note = ("The chart holds the complete series." if not truncated else
+                "Latest 24 observations; the chart holds the complete series.")
+    return _table_shell(cols, rows, summary, note,
+                        f"Observations behind the chart: {label}")
+
+
 def story_html(card: dict, siblings: list[dict] | None = None) -> str:
     q = _ESC(card["question"])
     a = _ESC(_display_prose(card["answer_text"]))
@@ -432,7 +861,9 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
 </header>
 <p class="storylede">{a}</p>
 {_place_line(card)}
-<div class="card"><h2 class="label">The data</h2>{chart}{chart2}{shareline}</div>
+<div class="card"><h2 class="label">The data</h2>{chart}{chart2}
+{_data_table_html(card)}{shareline}</div>
+{_context_html(card)}
 {_vote_widget(card)}
 {_trigger_html(card)}
 {_siblings_html(card, siblings)}
@@ -485,6 +916,212 @@ provenance →</a></p>
                       path=f'/story/{card["id"]}', og_type="article")
     return f'<!doctype html><html lang="en">{head}<body>{body}' \
            f'{theme.VEGA_LOAD}</body></html>\n'
+
+
+def _observation_value(vals: dict) -> tuple[float, str] | None:
+    """Comparable value for the vintage table: the card's direct value, or
+    a local card's top-town growth when the card has no single statewide
+    number."""
+    if vals.get("value") is not None:
+        number = _num(vals.get("value"))
+        if number is not None:
+            return number, "value"
+    top = vals.get("top") or {}
+    if top.get("pct") is not None:
+        number = _num(top.get("pct"))
+        if number is not None:
+            return number, "top-growth"
+    return None
+
+
+def _indicator_vintages(card: dict) -> list[dict]:
+    """Current and prior observation dates for one indicator. Only the
+    newest archived print per observation date survives, because within a
+    day repeated builds are deploy noise, not new data."""
+    vals = card.get("answer_values") or {}
+    key = _observation_key(vals.get("date"))
+    current = _observation_value(vals)
+    rows = []
+    if key and current is not None:
+        rows.append({"key": key, "date": vals.get("date"),
+                     "value": current[0], "kind": current[1],
+                     "published": card.get("generated_at")})
+        records = _observation_records().get(str(card.get("indicator") or ""), {})
+        for old_key in sorted((k for k in records if k < key), reverse=True)[:7]:
+            old = records[old_key]
+            value = _observation_value(old.get("answer_values") or {})
+            if value is None:
+                continue
+            rows.append({"key": old_key,
+                         "date": (old.get("answer_values") or {}).get("date"),
+                         "value": value[0], "kind": value[1],
+                         "published": old.get("generated_at")})
+    return rows
+
+
+def _indicator_vintages_html(card: dict) -> str:
+    rows = _indicator_vintages(card)
+    if len(rows) < 2:
+        return ""
+    meta = _indicator_meta(card)
+    cells = []
+    for row in rows:
+        if row["kind"] == "top-growth":
+            value = f"{row['value']:.1f}%"
+        else:
+            value = _value_text(meta, row["value"])
+        published = (f'<time datetime="{_ESC(str(row["published"]))}">'
+                     f'{_ESC(_short_date(str(row["published"])))}</time>'
+                     if row.get("published") else "unknown")
+        cells.append(
+            f'<tr><td>{_ESC(_data_date(str(row["date"])))}</td>'
+            f'<td class="num">{value}</td><td>{published}</td></tr>')
+    return (f'<h2 class="label">Vintages on record</h2>'
+            f'<div class="tablewrap"><table class="datatable vintages">'
+            f'<thead><tr><th scope="col">Data as of</th>'
+            f'<th scope="col" class="num">Value</th>'
+            f'<th scope="col">Published</th></tr></thead><tbody>'
+            + "".join(cells) + '</tbody></table></div>'
+            f'<p class="meta">Each row is a different observation date. '
+            f'Repeated builds of one vintage are not listed. The '
+            f'<a href="/archive">public archive</a> keeps the raw JSON.</p>')
+
+
+def indicator_html(card: dict) -> str:
+    """A stable, evergreen URL for one measure: the current story, the
+    computed change, why the measure matters, and every observation date on
+    record. The page lives across cards and data refreshes."""
+    label = _indicator_label(card)
+    question = _ESC(card["question"])
+    answer = _ESC(_display_prose(card["answer_text"]))
+    finding = _ESC(_finding(card))
+    vals = card.get("answer_values") or {}
+    data_date = _data_date(str(vals.get("date") or ""))
+    trail = []
+    if data_date:
+        trail.append(f'<b>Data as of {_ESC(data_date)}</b>')
+    trail.append(f'Published {_ESC(_short_date(card["generated_at"]))}')
+    meta = [f'Current story: <a href="/story/{card["id"]}">{finding}</a>',
+            '<span class="sep">·</span> ' + ' &middot; '.join(trail)]
+    desc, chart_label = chart_intro(card)
+    chart = theme.viz(_spec_json(card["chart"]), "chart",
+                      label=_display_prose(chart_label),
+                      caption=_display_prose(desc))
+    why = str((_context_index().get(str(card.get("indicator") or ""), {})
+               or {}).get("why") or "").strip()
+    changed = _what_changed_paragraph(card)
+    watch = _watch_paragraph(card)
+    context = []
+    if changed:
+        context.append(f'<h2 class="label">What changed</h2>{changed}')
+    if why:
+        context.append(f'<h2 class="label">Why it matters</h2><p>{_ESC(why)}</p>')
+    if watch:
+        context.append(f'<h2 class="label">What to watch</h2>{watch}')
+    context_html = ('<div class="card context">' + ''.join(context) +
+                    '</div>') if context else ""
+    vintages = _indicator_vintages_html(card)
+    vintages_html = f'<div class="card">{vintages}</div>' if vintages else ""
+    body = f"""<article class="wrap col">
+<div class="breadcrumb"><a href="/indicators">← All indicator files</a></div>
+<header class="bloghead">
+<div class="label">Indicator file</div>
+<h1>{_ESC(label)}</h1>
+<p class="blogdek">{question}</p>
+<p class="storymeta">{''.join(f'<span class="long">{m}</span>' for m in meta)}</p>
+</header>
+<div class="card"><h2 class="label">Latest finding</h2>
+<p class="indicator-finding">{answer}</p>
+{chart}
+{_data_table_html(card)}
+</div>
+{context_html}
+{vintages_html}
+{_provenance_html(card)}
+<p class="meta">Read <a href="/story/{card["id"]}">the full story</a> for the
+news trigger and correction path. Every card on this site is reproducible
+from its committed JSON.</p>
+</article>"""
+    url = f"{config.SITE_URL}{_indicator_path(card)}"
+    ld = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": f"{url}#webpage",
+        "url": url,
+        "name": label,
+        "description": (f"{card.get('question', '')} Latest finding: "
+                        f"{card.get('answer_text', '')}")[:300],
+        "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
+        "about": {"@type": "Thing", "name": label},
+        "inLanguage": "en-US",
+    }
+    return theme.page(
+        title=f"{label} · indicator file · CT Signal",
+        desc=(f"{card.get('question', '')} Latest finding: "
+              f"{card.get('answer_text', '')}")[:200],
+        path=_indicator_path(card), body=body, compact=True,
+        og_title=f"{label} — CT Signal", image=_story_og(card),
+        json_ld=ld)
+
+
+def indicators_html(cards: list[dict]) -> str:
+    """Index of stable indicator pages, grouped by desk. This is a reading
+    path into the measures themselves, not another feed."""
+    current: dict[str, dict] = {}
+    for card in sorted(cards, key=lambda c: c.get("generated_at", ""),
+                       reverse=True):
+        current.setdefault(str(card.get("indicator") or ""), card)
+    groups: dict[str, list[dict]] = {}
+    for card in current.values():
+        groups.setdefault(str(card.get("topic") or ""), []).append(card)
+    blocks = []
+    for topic in sorted(groups):
+        rows = sorted(groups[topic], key=lambda c: _indicator_label(c).lower())
+        items = []
+        for card in rows:
+            vals = card.get("answer_values") or {}
+            when = _data_date(str(vals.get("date") or ""))
+            items.append(
+                f'<li class="archive-item"><div class="archive-row">'
+                f'<h3><a href="{_indicator_path(card)}">'
+                f'{_ESC(_indicator_label(card))}</a></h3>'
+                f'<span class="archive-meta">{_ESC(_desk_label(topic))} desk'
+                + (f' · data as of {_ESC(when)}' if when else "") +
+                f'</span></div>'
+                f'<p class="archive-q">{_ESC(card["question"])}</p>'
+                f'<p class="archive-q">Latest: '
+                f'<a href="/story/{card["id"]}">{_ESC(_finding(card))}</a></p>'
+                f'</li>')
+        blocks.append(
+            f'<h2 class="archive-month">{_ESC(_desk_label(topic))}</h2>'
+            f'<ul class="archive-list">{"".join(items)}</ul>')
+    body = f"""<article class="wrap col">
+<div class="breadcrumb"><a href="/">← The board</a></div>
+<header class="bloghead">
+<div class="label">Reference</div>
+<h1>Indicator files</h1>
+<p class="blogdek">{len(current)} stable pages, one for every measure the
+desk currently answers. Each keeps the latest finding, the change from its
+prior vintage, why the number matters, and the observation dates on record.</p>
+</header>
+{"".join(blocks)}
+</article>"""
+    ld = {
+        "@context": "https://schema.org", "@type": "CollectionPage",
+        "@id": f"{config.SITE_URL}/indicators#webpage",
+        "url": f"{config.SITE_URL}/indicators",
+        "name": "CT Signal indicator files",
+        "description": "Stable reference pages for every measure CT Signal "
+                       "currently tracks.",
+        "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
+        "inLanguage": "en-US",
+    }
+    return theme.page(
+        title="Indicator files · CT Signal",
+        desc="Stable reference pages for every measure CT Signal tracks, "
+             "with the current finding, prior vintage, and why it matters.",
+        path="/indicators", body=body, compact=True,
+        og_title="Indicator files — CT Signal", json_ld=ld)
 
 
 def _topics(cards: list[dict]) -> dict:
@@ -671,6 +1308,17 @@ def sitemap_xml(cards: list[dict]) -> str:
                  f'<lastmod>{now}</lastmod></url>')
     parts.append(f'<url><loc>{config.SITE_URL}/archive</loc>'
                  f'<lastmod>{now}</lastmod></url>')
+    parts.append(f'<url><loc>{config.SITE_URL}/indicators</loc>'
+                 f'<lastmod>{now}</lastmod></url>')
+    seen = set()
+    for c in sorted(cards, key=lambda card: card.get("generated_at", ""),
+                    reverse=True):
+        indicator = str(c.get("indicator") or "")
+        if not indicator or indicator in seen:
+            continue
+        seen.add(indicator)
+        parts.append(f'<url><loc>{config.SITE_URL}{_indicator_path(c)}</loc>'
+                     f'<lastmod>{_day(c["generated_at"])}</lastmod></url>')
     # Town pages come from the desk's own snapshot, not from which cards
     # happen to name towns today: every built town page is a real page, and
     # the desk is the site's largest section. Cards may cite towns too —
@@ -698,8 +1346,12 @@ def sitemap_xml(cards: list[dict]) -> str:
 
 def write_all(cards: list[dict]) -> None:
     """Idempotent: rebuilds every story page, archive copy, feeds, sitemap."""
+    global _OBSERVATIONS_CACHE
     from . import pages, share
 
+    # Archive observations are written below. Start from disk, then refresh
+    # after the loop so indicator pages see today's vintages too.
+    _OBSERVATIONS_CACHE = None
     pages.write_pages()
     assets = config.ROOT / "assets"
     assets.mkdir(exist_ok=True)
@@ -723,6 +1375,27 @@ def write_all(cards: list[dict]) -> None:
         emb.mkdir(exist_ok=True)
         util.atomic_write_text(emb / "index.html", embed_html(card))
     history = _archive_index()
+    _OBSERVATIONS_CACHE = None
+    current_by_indicator: dict[str, dict] = {}
+    for card in sorted(cards, key=lambda item: item.get("generated_at", ""),
+                       reverse=True):
+        current_by_indicator.setdefault(str(card.get("indicator") or ""),
+                                        card)
+    idir = config.ROOT / "indicator"
+    idir.mkdir(parents=True, exist_ok=True)
+    for indicator, card in sorted(current_by_indicator.items()):
+        if not indicator:
+            continue
+        folder = idir / indicator
+        folder.mkdir(parents=True, exist_ok=True)
+        util.atomic_write_text(folder / "index.html", indicator_html(card))
+    live_indicators = set(current_by_indicator)
+    for stale in idir.iterdir():
+        if stale.is_dir() and stale.name not in live_indicators:
+            shutil.rmtree(stale)
+    root_ind = config.ROOT / "indicators"
+    root_ind.mkdir(parents=True, exist_ok=True)
+    util.atomic_write_text(root_ind / "index.html", indicators_html(cards))
     topics = sorted({c.get("topic", "") for c in history if c.get("topic")})
     tdir = config.ROOT / "topic"
     tdir.mkdir(exist_ok=True)

@@ -1,0 +1,105 @@
+# Evergreen context for the stable indicator pages.
+#
+# This is editorial copy, not data. Each sentence explains why the measure
+# matters without asserting a cause the series cannot prove. The story layer
+# renders these only when the indicator actually has a current card.
+indicators:
+  median_rent:
+    why: >-
+      Rent is a fixed monthly bill, so it decides how much of a paycheck is
+      left for everything else. A state median also shows whether renters are
+      absorbing the cost of a tight housing market or whether new supply is
+      giving them room.
+  unemployment:
+    why: >-
+      The unemployment rate counts people who are actively looking for work,
+      not everyone without a job. It can fall because hiring picked up or
+      because discouraged workers stopped searching, so the rate is a start
+      for a labor-market story, not the whole story.
+  median_home_value:
+    why: >-
+      Median home value is the middle of the market, not the average. It
+      shapes what a buyer must borrow and what a town can tax, and comparing
+      medians keeps a handful of expensive sales from standing in for the
+      whole state.
+  household_income:
+    why: >-
+      Median household income is the middle rung of the income ladder: half
+      of households earn less, half earn more. It says more about a typical
+      household's capacity to absorb costs than a mean pulled upward by a
+      small number of very high earners.
+  poverty:
+    why: >-
+      A poverty rate counts people below a fixed national threshold, not a
+      local cost of living. It shows how many households the safety net is
+      meant to reach, while the threshold itself stays the same whether
+      housing is cheap or expensive.
+  violent_crime:
+    why: >-
+      Reported violent crime measures what police recorded, and reporting
+      coverage differs by state. The comparison is a record of incidents,
+      not a scorecard for safety; it still tells a reader where public-safety
+      resources and court caseloads are concentrated.
+  grand_list_growth:
+    why: >-
+      The grand list is the taxable base a town levies against. When it grows,
+      a town can raise the same revenue at a lower mill rate, or keep the rate
+      and collect more. Fast growth changes who pays and how much a budget
+      actually costs each property.
+  equalized_grand_list:
+    why: >-
+      Equalized assessments put towns on the same assessment ratio, so growth
+      describes a town's taxable base rather than a quirk of local assessing.
+      A fast-growing base can fund services without a rate increase, but it
+      also raises the question of who is bearing the new value.
+  mill_rates:
+    why: >-
+      The mill rate is the multiplier on assessed value, the step that turns
+      a town budget into a property bill. Rates alone can mislead because
+      assessment ratios differ, so the statewide comparison and the town
+      table belong together.
+  hires_rate:
+    why: >-
+      A hiring rate counts new positions, not total employment. High churn
+      can mean opportunity even when payrolls are flat, and a low rate can
+      mean employers are holding the workers they already have.
+  quits_rate:
+    why: >-
+      Quits are voluntary exits. They signal worker confidence and the cost
+      of replacing people, which is a different question from layoffs; a high
+      quits rate can be a sign of a dynamic labor market or of unstable jobs.
+  layoffs_rate:
+    why: >-
+      Layoffs are involuntary separations. A low rate can still mean many job
+      losses in a large workforce, so the rate is a pace, not a body count.
+  unemployment_duration:
+    why: >-
+      Duration separates a shortage of jobs from a slow rehiring pipeline.
+      Long spells drain savings and skills even when the unemployment rate
+      itself looks modest.
+  prime_age_participation:
+    why: >-
+      Prime-age participation measures the people most likely to be in the
+      workforce. It falls when workers retire early, care for family, or stop
+      looking, and it rises when a labor market pulls people back in.
+  labor_share:
+    why: >-
+      Labor share tracks how much of the nation's output goes to workers' pay
+      rather than capital income. It is an index, not a dollar amount, so it
+      describes a split rather than a paycheck.
+  jobless_claims:
+    why: >-
+      Weekly claims are the fastest read on fresh layoffs. One week can be
+      noise, so direction over several weeks matters more than the single
+      print.
+  weather_anomaly:
+    why: >-
+      A 30-day anomaly tells you whether the season is running warm or cool,
+      not whether tomorrow will rain. Each station is measured against its
+      own 1991-2020 normals, so the number is a local baseline, not a
+      statewide average.
+  ct_unemployment:
+    why: >-
+      The state rate is the local labor-market read. It can diverge from the
+      national rate because Connecticut's mix of industries, workers, and
+      commuting patterns differs from the country's.

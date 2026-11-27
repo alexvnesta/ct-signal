@@ -188,6 +188,99 @@ class TestSprintSurfaces(unittest.TestCase):
                          "exactly one skip link per page")
 
 
+class TestIndicatorFiles(unittest.TestCase):
+    """Phase 2: computed change, evergreen context, and a stable URL for
+    every measure. These pages are reference surfaces, so a silent break is
+    a broken link from every story."""
+
+    def setUp(self):
+        self.cards = json.loads(
+            (config.OUTPUT_DIR / "cards.json").read_text())["cards"]
+
+    def test_every_current_indicator_has_evergreen_context(self):
+        context = newsroom._context_index()
+        for card in self.cards:
+            self.assertIn(card["indicator"], context,
+                          f"missing why copy for {card['indicator']}")
+            self.assertTrue(context[card["indicator"]]["why"].strip())
+
+    def test_what_changed_uses_observation_dates_not_build_order(self):
+        card = next(c for c in self.cards if c["indicator"] == "median_rent")
+        text = re.sub(r"<[^>]+>", "", newsroom._what_changed_paragraph(card))
+        self.assertIn("up $129 from $1,550 (2024)", text)
+        self.assertIn("The latest observation (2025)", text)
+
+    def test_value_text_does_not_repeat_currency_or_index_units(self):
+        self.assertEqual(newsroom._value_text({"unit": "USD"}, 1679), "$1,679")
+        self.assertEqual(newsroom._value_text({"unit": "index"}, 93.7), "93.7")
+        self.assertEqual(newsroom._value_text({"unit": "weeks"}, 11.9),
+                         "11.9 weeks")
+
+    def test_every_long_chart_has_a_collapsed_receipt(self):
+        by_id = {c["indicator"]: c for c in self.cards}
+        towns = newsroom._data_table_html(by_id["mill_rates"])
+        self.assertIn("See all 169 town rows behind the chart", towns)
+        self.assertIn("<details class=\"databox\">", towns)
+        self.assertEqual(towns.count("<td"), 169 * 3 + 52 * 0)
+        peers = newsroom._data_table_html(by_id["median_rent"])
+        self.assertIn("See all 52 peer rows behind the chart", peers)
+        weather = newsroom._data_table_html(by_id["weather_anomaly"])
+        self.assertIn("See all 58 observations behind the chart", weather)
+        self.assertIn("Chart rows stop at November 25, 2026", weather)
+        self.assertIn("answer uses the November 26, 2026 vintage", weather)
+
+    def test_story_context_links_to_the_indicator_file(self):
+        card = next(c for c in self.cards if c["indicator"] == "median_rent")
+        page = newsroom.story_html(card, [card])
+        self.assertIn('href="/indicator/median_rent"', page)
+        self.assertIn("What changed", page)
+        self.assertIn("Why it matters", page)
+        self.assertIn("See all 52 peer rows behind the chart", page)
+
+    def test_what_to_watch_appears_only_for_a_future_seed(self):
+        today = util.et(dt.datetime.now(dt.timezone.utc)).date()
+        up = today + dt.timedelta(days=7)
+        old = newsroom._SEEDS_CACHE
+        try:
+            newsroom._SEEDS_CACHE = [{"indicator": "median_rent",
+                                      "date": up.isoformat(),
+                                      "reason": "a test hook"}]
+            text = re.sub(r"<[^>]+>", "", newsroom._watch_paragraph(
+                {"indicator": "median_rent"}))
+            self.assertIn("a test hook", text)
+            self.assertIn(newsroom._data_date(up.isoformat()), text)
+            newsroom._SEEDS_CACHE = []
+            past = {"indicator": "median_rent",
+                    "date": (today - dt.timedelta(days=7)).isoformat()}
+            self.assertEqual(newsroom._watch_paragraph(past), "")
+        finally:
+            newsroom._SEEDS_CACHE = old
+
+    def test_every_indicator_has_a_stable_page_and_sitemap_entry(self):
+        sitemap = (config.ROOT / "sitemap.xml").read_text()
+        self.assertIn(f'{config.SITE_URL}/indicators</loc>', sitemap)
+        for card in self.cards:
+            path = config.ROOT / "indicator" / card["indicator"] / "index.html"
+            self.assertTrue(path.exists(), f"missing {path}")
+            body = path.read_text()
+            self.assertEqual(1, body.count("<h1"),
+                             "one H1 per indicator page")
+            self.assertIn(f'<link rel="canonical" href="{config.SITE_URL}'
+                          f'/indicator/{card["indicator"]}">', body)
+            self.assertIn(f'{config.SITE_URL}/indicator/{card["indicator"]}'
+                          '</loc>', sitemap)
+            self.assertIn('href="/indicators">← All indicator files</a>',
+                          body)
+
+    def test_indicator_index_lists_every_measure_and_footer_links_it(self):
+        body = (config.ROOT / "indicators" / "index.html").read_text()
+        self.assertEqual(1, body.count("<h1"))
+        self.assertEqual(len(self.cards), body.count('class="archive-item"'))
+        for card in self.cards:
+            self.assertIn(f'href="/indicator/{card["indicator"]}"', body)
+        self.assertIn('href="/indicators">Indicator files</a>', body)
+
+
 class TestLeadFreshness(unittest.TestCase):
     """The front page must not promote a month-old Connecticut card over
     today's number just because the old card happens to be CT-triggered."""
