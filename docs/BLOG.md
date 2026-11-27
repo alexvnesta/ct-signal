@@ -328,7 +328,7 @@ server-rendered and cheap to operate.
 - [Data Journalism Handbook](https://datajournalism.com/read/handbook/one)
 - [AP News Values and Principles](https://www.ap.org/about/news-values-and-principles/)
 - [SPJ Code of Ethics](https://www.spj.org/ethics/)
-- [Trust Project indicators](https://trustproject.org/trust-indicators/)
+- [Trust Project indicators](https://thetrustproject.org/trust-indicators/)
 - [Datawrapper chart-type guide](https://www.datawrapper.de/blog/chart-types-guide)
 - [FT Visual Vocabulary](https://github.com/Financial-Times/chart-doctor/tree/main/visual-vocabulary)
 - [NN/g: how users read on the web](https://www.nngroup.com/articles/how-users-read-on-the-web/)
