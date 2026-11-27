@@ -668,6 +668,7 @@
   "indicator": "unemployment",
   "query": "FRED fredgraph.csv 50 states + DC (<ST>UR, 2026-10); agency of record: US Bureau of Labor Statistics, Local Area Unemployment Statistics (seasonally adjusted)",
   "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
+  "revalidated_at": "2026-11-27T21:54:57+00:00",
   "stream": "stackup",
   "topic": "economy"
 }

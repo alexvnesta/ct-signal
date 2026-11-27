@@ -251,15 +251,14 @@
   "citations": [
     "https://data.ct.gov/d/emyx-j53e"
   ],
-  "generated_at": "2026-11-26T20:33:30+00:00",
+  "generated_at": "2026-11-27T21:54:57+00:00",
   "headline": {
-    "id": "0f65c66656e4",
-    "published": "Tue, 24 Nov 2026 20:18:43 +0000",
-    "published_sort": 1795551523,
-    "source": "CT Mirror",
-    "stream": "ct",
-    "title": "Lamont: CT\u2019s savings habits pay big dividends in next budget",
-    "url": "https://ctmirror.org/2026/11/24/lamont-ct-pension-savings-budget/"
+    "id": "seed-2026-10-01",
+    "published": "2026-10-01",
+    "published_sort": 0,
+    "source": "civic calendar",
+    "title": "[civic calendar] municipal budgets adopted for fiscal 2027 (July 1) make the new mill rates the operative tax facts; budget-adopt coverage is seasonal and may not mention rates at all",
+    "url": ""
   },
   "id": "a3514b53fb39",
   "indicator": "mill_rates",

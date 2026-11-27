@@ -160,7 +160,7 @@
               ],
               "nice": true
             },
-            "title": "%",
+            "title": "% change",
             "type": "quantitative"
           },
           "y": {
@@ -206,7 +206,7 @@
           },
           "text": {
             "field": "value",
-            "format": ".1f",
+            "format": ",.1f",
             "type": "quantitative"
           },
           "x": {
@@ -251,15 +251,14 @@
   "citations": [
     "https://data.ct.gov/d/webp-fgt3"
   ],
-  "generated_at": "2026-11-26T20:33:29+00:00",
+  "generated_at": "2026-11-27T21:54:56+00:00",
   "headline": {
-    "id": "0f65c66656e4",
-    "published": "Tue, 24 Nov 2026 20:18:43 +0000",
-    "published_sort": 1795551523,
-    "source": "CT Mirror",
-    "stream": "ct",
-    "title": "Lamont: CT\u2019s savings habits pay big dividends in next budget",
-    "url": "https://ctmirror.org/2026/11/24/lamont-ct-pension-savings-budget/"
+    "id": "seed-2026-11-03",
+    "published": "2026-11-03",
+    "published_sort": 0,
+    "source": "civic calendar",
+    "title": "[civic calendar] 2026 general election (governor's race)",
+    "url": ""
   },
   "id": "b37766e764aa",
   "indicator": "grand_list_growth",

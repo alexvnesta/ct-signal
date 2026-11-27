@@ -11,12 +11,48 @@
       "attachments": [
         {
           "mime_type": "image/png",
+          "size_in_bytes": 145294,
+          "url": "https://ctsignal.org/assets/story-a3514b53fb39.png"
+        }
+      ],
+      "content_text": "In fiscal year 2027, Hartford taxes real property at 69.95 mills, 2.6 times the 26.65-mill rate that property pays statewide across 169 towns. Source: civic calendar \u2014 [civic calendar] municipal budgets adopted for fiscal 2027 (July 1) make the new mill rates the operative tax facts; budget-adopt coverage is seasonal and may not mention rates at all",
+      "date_published": "2026-11-27T21:54:57+00:00",
+      "id": "https://ctsignal.org/story/a3514b53fb39",
+      "image": "https://ctsignal.org/assets/story-a3514b53fb39.png",
+      "title": "Which Connecticut town has the highest property tax rate?",
+      "url": "https://ctsignal.org/story/a3514b53fb39"
+    },
+    {
+      "_tags": [
+        "local-finance"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 146257,
+          "url": "https://ctsignal.org/assets/story-b37766e764aa.png"
+        }
+      ],
+      "content_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest growth of 169 towns. Source: civic calendar \u2014 [civic calendar] 2026 general election (governor's race)",
+      "date_published": "2026-11-27T21:54:56+00:00",
+      "id": "https://ctsignal.org/story/b37766e764aa",
+      "image": "https://ctsignal.org/assets/story-b37766e764aa.png",
+      "title": "Which Connecticut towns grew their property tax base fastest?",
+      "url": "https://ctsignal.org/story/b37766e764aa"
+    },
+    {
+      "_tags": [
+        "local-finance"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
           "size_in_bytes": 148928,
           "url": "https://ctsignal.org/assets/story-d83567a6654f.png"
         }
       ],
-      "content_text": "Sharon spent $47,845 per public school student in 2023, the highest of 169 Connecticut towns (statewide median: $20,958).",
-      "date_published": "2026-11-27T19:33:54+00:00",
+      "content_text": "Sharon spent $47,845 per public school student in 2023, the highest of 169 Connecticut towns (statewide median: $20,958). Source: CT Examiner \u2014 AI, Politics and School Funding Dominate Annual Gathering of State Education Leaders",
+      "date_published": "2026-11-27T21:54:53+00:00",
       "id": "https://ctsignal.org/story/d83567a6654f",
       "image": "https://ctsignal.org/assets/story-d83567a6654f.png",
       "title": "Which Connecticut towns spend the most per public school student?",
@@ -111,42 +147,6 @@
       "image": "https://ctsignal.org/assets/story-90255dce8175.png",
       "title": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
       "url": "https://ctsignal.org/story/90255dce8175"
-    },
-    {
-      "_tags": [
-        "local-finance"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 145294,
-          "url": "https://ctsignal.org/assets/story-a3514b53fb39.png"
-        }
-      ],
-      "content_text": "In fiscal year 2027, Hartford taxes real property at 69.95 mills, 2.6 times the 26.65-mill rate that property pays statewide across 169 towns. Source: CT Mirror \u2014 Lamont: CT\u2019s savings habits pay big dividends in next budget",
-      "date_published": "2026-11-26T20:33:30+00:00",
-      "id": "https://ctsignal.org/story/a3514b53fb39",
-      "image": "https://ctsignal.org/assets/story-a3514b53fb39.png",
-      "title": "Which Connecticut town has the highest property tax rate?",
-      "url": "https://ctsignal.org/story/a3514b53fb39"
-    },
-    {
-      "_tags": [
-        "local-finance"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 146257,
-          "url": "https://ctsignal.org/assets/story-b37766e764aa.png"
-        }
-      ],
-      "content_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest growth of 169 towns. Source: CT Mirror \u2014 Lamont: CT\u2019s savings habits pay big dividends in next budget",
-      "date_published": "2026-11-26T20:33:29+00:00",
-      "id": "https://ctsignal.org/story/b37766e764aa",
-      "image": "https://ctsignal.org/assets/story-b37766e764aa.png",
-      "title": "Which Connecticut towns grew their property tax base fastest?",
-      "url": "https://ctsignal.org/story/b37766e764aa"
     },
     {
       "_tags": [

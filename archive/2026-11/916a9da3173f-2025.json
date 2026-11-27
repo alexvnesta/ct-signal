@@ -909,12 +909,13 @@
     "https://data.census.gov/table/ACSDT1Y2025.B19013?g=040XX00US$0400000"
   ],
   "generated_at": "2026-11-24T16:29:03+00:00",
+  "headline": null,
   "id": "916a9da3173f",
   "indicator": "household_income",
   "origin": "data desk",
   "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
   "question": "What do Connecticut households earn compared with the rest of the country?",
-  "revalidated_at": "2026-11-27T12:58:34+00:00",
+  "revalidated_at": "2026-11-27T21:54:57+00:00",
   "stream": "stackup",
   "topic": "economy"
 }

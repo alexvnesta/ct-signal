@@ -909,12 +909,13 @@
     "https://datacommons.org/data/commons/Count_CriminalActivities_ViolentCrime"
   ],
   "generated_at": "2026-11-27T12:58:27+00:00",
+  "headline": null,
   "id": "90255dce8175",
   "indicator": "violent_crime",
   "origin": "data desk",
   "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
   "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-  "revalidated_at": "2026-11-27T12:58:34+00:00",
+  "revalidated_at": "2026-11-27T21:54:57+00:00",
   "stream": "stackup",
   "topic": "justice"
 }

@@ -250,11 +250,18 @@
   "citations": [
     "https://data.ct.gov/d/xgef-f6jp"
   ],
-  "generated_at": "2026-11-27T19:33:54+00:00",
-  "headline": null,
+  "generated_at": "2026-11-27T21:54:53+00:00",
+  "headline": {
+    "id": "bd31badc0a57",
+    "published": "Wed, 25 Nov 2026 18:45:58 +0000",
+    "published_sort": 1795632358,
+    "source": "CT Examiner",
+    "stream": "ct",
+    "title": "AI, Politics and School Funding Dominate Annual Gathering of State Education Leaders",
+    "url": "https://ctexaminer.com/2026/11/25/ai-politics-and-school-funding-dominate-annual-gathering-of-state-education-leaders/"
+  },
   "id": "d83567a6654f",
   "indicator": "school_spending_per_pupil",
-  "origin": "data desk",
   "query": "GET /resource/xgef-f6jp.json $where=metric='Net current education expenditures per pupil (CSDE)' AND year='2023' (Report Edition: 2019-2023; 169 towns)",
   "question": "Which Connecticut towns spend the most per public school student?",
   "stream": "local",
