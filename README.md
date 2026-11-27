@@ -57,6 +57,7 @@ workflow runs every 15 minutes.
 ## Layout
 
 - `catalog/indicators.yaml` — the closed set the LLM/heuristics may pick from
+- `catalog/context.yaml` — evergreen indicator context and desk explainers
 - `src/ctsignal/` — feeds → questions → sources → cards → publish
 - `output/feed.json`, `output/index.html` — deterministic published feed
 - `story/<id>/` — permalink story pages; `archive/<YYYY-MM>/` — every card
