@@ -34,6 +34,11 @@ verified against the live service, not assumed.
   as proof of sending. End-to-end proof on 2026-11-26: a fresh W48 draft sent
   to one subscriber id recorded `deliveries 0 -> 1` (digest run
   `45828887648`), and the owner inbox received the 4.5°F issue.
+- External-subscriber proof on 2026-11-27: draft
+  `em_06vfs7jpqf8qb9hmyd12cjcp3w` sent to
+  `sub_4zy83p7edf9sfvt99grkhx2tda` recorded `deliveries 0 -> 1`
+  (digest run `45939892321`). The same draft is the newest W48 match,
+  so Monday's scheduled send will use it for the active list.
 - No human step remains in the scheduled path. The Monday match is deliberate:
   an older draft for another week can never ship just because it is newest.
 - Footer subscribe widget is live; the digest is one email, filed Sunday and

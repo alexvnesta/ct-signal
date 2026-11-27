@@ -275,6 +275,9 @@ A story passes when:
   on mobile (last run 2026-11-27; FCP 0.9s, CLS 0, TBT 0).
 - Keyboard pass includes the mobile chart toggle: tab to the checkbox, Space
   expands the full chart and shows its caption.
+- Newsletter: external subscriber delivery proven 2026-11-27
+  (`deliveries 0 -> 1`, digest run `45939892321`); the newest W48 draft is
+  the one Monday's scheduled send will use.
 - Live byte-check after Vercel deploy: title, H1, canonical, JSON-LD, OG.
 - Regenerate story covers only after template changes settle; then rerun
   `publish.publish` so cache tokens match.
