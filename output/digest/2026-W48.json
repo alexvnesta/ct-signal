@@ -1,6 +1,6 @@
 {
   "issue": "2026-W48",
-  "subject": "CT Signal: Sharon spent $47,845 per public school student in 2023, the highest of 169 Connecticut towns (statewide median: $20,958).",
+  "subject": "CT Signal: Stamford permitted 15.9% of Connecticut's new housing in 2025",
   "generated_at": "2026-11-27T19:33:54+00:00",
   "tiles": [
     {
@@ -12,10 +12,10 @@
     },
     {
       "title": "Unemployment rate",
-      "value": "5.8%",
-      "rank_label": "3rd-highest",
-      "n": 52,
-      "date": "2026-07"
+      "value": "5.1%",
+      "rank_label": "2nd-highest",
+      "n": 51,
+      "date": "2026-10"
     },
     {
       "title": "Median home value",
@@ -48,20 +48,20 @@
   ],
   "stories": [
     {
-      "id": "d83567a6654f",
-      "topic": "local-finance",
+      "id": "5db571f537f4",
+      "topic": "housing",
       "stream": "local",
-      "question": "Which Connecticut towns spend the most per public school student?",
-      "answer_text": "Sharon spent $47,845 per public school student in 2023, the highest of 169 Connecticut towns (statewide median: $20,958).",
-      "date": "2023"
+      "question": "Which Connecticut towns permitted the most new housing?",
+      "answer_text": "Stamford permitted 1,564 new housing units in 2025, leading 169 Connecticut towns (9,834 units permitted statewide).",
+      "date": "2025"
     },
     {
-      "id": "c77ecc1c1e06",
-      "topic": "economy",
-      "stream": "national",
-      "question": "What are Northeast households paying for electricity?",
-      "answer_text": "Northeast urban electricity averaged $0.266 per kWh in 2026-10 \u2014 unchanged from September 2026 for this BLS series.",
-      "date": "2026-10"
+      "id": "a3514b53fb39",
+      "topic": "local-finance",
+      "stream": "local",
+      "question": "Which Connecticut town has the highest property tax rate?",
+      "answer_text": "In fiscal year 2027, Hartford taxes real property at 69.95 mills, 2.6 times the 26.65-mill rate that property pays statewide across 169 towns.",
+      "date": "FY2027"
     },
     {
       "id": "ea89b34f9217",
@@ -72,28 +72,28 @@
       "date": "2024"
     },
     {
-      "id": "5db571f537f4",
-      "topic": "housing",
-      "stream": "local",
-      "question": "Which Connecticut towns permitted the most new housing?",
-      "answer_text": "Stamford permitted 1,564 new housing units in 2025, leading 169 Connecticut towns (9,834 units permitted statewide).",
-      "date": "2025"
-    },
-    {
-      "id": "0785479c5e31",
-      "topic": "weather",
-      "stream": "national",
-      "question": "Is Connecticut running warmer or colder than normal?",
-      "answer_text": "Connecticut ran 4.6\u00b0F warmer than normal over the 30 days ending 2026-11-26 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
-      "date": "2026-11-26"
-    },
-    {
-      "id": "90255dce8175",
-      "topic": "justice",
+      "id": "0b26178760d4",
+      "topic": "economy",
       "stream": "stackup",
-      "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "answer_text": "Connecticut reports 147 violent crimes per 100k people (2023), the 3rd-lowest reported of 52 peers. Reported rates compare reporting, not safety.",
+      "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
+      "answer_text": "Connecticut's unemployment rate is 5.1% (October 2026), the 2nd-highest of 51 peers.",
+      "date": "2026-10"
+    },
+    {
+      "id": "d83567a6654f",
+      "topic": "local-finance",
+      "stream": "local",
+      "question": "Which Connecticut towns spend the most per public school student?",
+      "answer_text": "Sharon spent $47,845 per public school student in 2023, the highest of 169 Connecticut towns (statewide median: $20,958).",
       "date": "2023"
+    },
+    {
+      "id": "b37766e764aa",
+      "topic": "local-finance",
+      "stream": "local",
+      "question": "Which Connecticut towns grew their property tax base fastest?",
+      "answer_text": "Bridgeport added $4.85B of net taxable property in 2025 (+59.9%), the fastest growth of 169 towns.",
+      "date": "2025"
     }
   ]
 }

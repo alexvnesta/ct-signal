@@ -1,0 +1,320 @@
+{
+  "cache": false,
+  "citation": "https://fred.stlouisfed.org/series/CTUR",
+  "ct": {
+    "date": "2026-10",
+    "rank": 2,
+    "value": 5.1
+  },
+  "fetched_at": "2026-11-27T20:11:39+00:00",
+  "n": 51,
+  "query": "FRED fredgraph.csv 50 states + DC (<ST>UR, 2026-10); agency of record: US Bureau of Labor Statistics, Local Area Unemployment Statistics (seasonally adjusted)",
+  "rows": [
+    {
+      "highlight": false,
+      "rank": 1,
+      "state": "District of Columbia",
+      "value": 5.4
+    },
+    {
+      "highlight": true,
+      "rank": 2,
+      "state": "Connecticut",
+      "value": 5.1
+    },
+    {
+      "highlight": false,
+      "rank": 3,
+      "state": "California",
+      "value": 5.0
+    },
+    {
+      "highlight": false,
+      "rank": 4,
+      "state": "Michigan",
+      "value": 5.0
+    },
+    {
+      "highlight": false,
+      "rank": 5,
+      "state": "Arizona",
+      "value": 4.9
+    },
+    {
+      "highlight": false,
+      "rank": 6,
+      "state": "Oregon",
+      "value": 4.9
+    },
+    {
+      "highlight": false,
+      "rank": 7,
+      "state": "New Mexico",
+      "value": 4.8
+    },
+    {
+      "highlight": false,
+      "rank": 8,
+      "state": "Nevada",
+      "value": 4.7
+    },
+    {
+      "highlight": false,
+      "rank": 9,
+      "state": "Washington",
+      "value": 4.7
+    },
+    {
+      "highlight": false,
+      "rank": 10,
+      "state": "Delaware",
+      "value": 4.6
+    },
+    {
+      "highlight": false,
+      "rank": 11,
+      "state": "Kentucky",
+      "value": 4.6
+    },
+    {
+      "highlight": false,
+      "rank": 12,
+      "state": "Minnesota",
+      "value": 4.6
+    },
+    {
+      "highlight": false,
+      "rank": 13,
+      "state": "Illinois",
+      "value": 4.5
+    },
+    {
+      "highlight": false,
+      "rank": 14,
+      "state": "Colorado",
+      "value": 4.4
+    },
+    {
+      "highlight": false,
+      "rank": 15,
+      "state": "Texas",
+      "value": 4.4
+    },
+    {
+      "highlight": false,
+      "rank": 16,
+      "state": "Alaska",
+      "value": 4.3
+    },
+    {
+      "highlight": false,
+      "rank": 17,
+      "state": "Florida",
+      "value": 4.3
+    },
+    {
+      "highlight": false,
+      "rank": 18,
+      "state": "Massachusetts",
+      "value": 4.2
+    },
+    {
+      "highlight": false,
+      "rank": 19,
+      "state": "New Jersey",
+      "value": 4.2
+    },
+    {
+      "highlight": false,
+      "rank": 20,
+      "state": "New York",
+      "value": 4.2
+    },
+    {
+      "highlight": false,
+      "rank": 21,
+      "state": "Oklahoma",
+      "value": 4.1
+    },
+    {
+      "highlight": false,
+      "rank": 22,
+      "state": "West Virginia",
+      "value": 4.0
+    },
+    {
+      "highlight": false,
+      "rank": 23,
+      "state": "Kansas",
+      "value": 3.9
+    },
+    {
+      "highlight": false,
+      "rank": 24,
+      "state": "Louisiana",
+      "value": 3.9
+    },
+    {
+      "highlight": false,
+      "rank": 25,
+      "state": "South Carolina",
+      "value": 3.9
+    },
+    {
+      "highlight": false,
+      "rank": 26,
+      "state": "Arkansas",
+      "value": 3.8
+    },
+    {
+      "highlight": false,
+      "rank": 27,
+      "state": "Maryland",
+      "value": 3.8
+    },
+    {
+      "highlight": false,
+      "rank": 28,
+      "state": "Idaho",
+      "value": 3.7
+    },
+    {
+      "highlight": false,
+      "rank": 29,
+      "state": "Missouri",
+      "value": 3.6
+    },
+    {
+      "highlight": false,
+      "rank": 30,
+      "state": "Virginia",
+      "value": 3.6
+    },
+    {
+      "highlight": false,
+      "rank": 31,
+      "state": "Alabama",
+      "value": 3.5
+    },
+    {
+      "highlight": false,
+      "rank": 32,
+      "state": "Pennsylvania",
+      "value": 3.5
+    },
+    {
+      "highlight": false,
+      "rank": 33,
+      "state": "Rhode Island",
+      "value": 3.5
+    },
+    {
+      "highlight": false,
+      "rank": 34,
+      "state": "Utah",
+      "value": 3.5
+    },
+    {
+      "highlight": false,
+      "rank": 35,
+      "state": "Indiana",
+      "value": 3.4
+    },
+    {
+      "highlight": false,
+      "rank": 36,
+      "state": "Mississippi",
+      "value": 3.4
+    },
+    {
+      "highlight": false,
+      "rank": 37,
+      "state": "North Carolina",
+      "value": 3.4
+    },
+    {
+      "highlight": false,
+      "rank": 38,
+      "state": "Ohio",
+      "value": 3.4
+    },
+    {
+      "highlight": false,
+      "rank": 39,
+      "state": "Tennessee",
+      "value": 3.4
+    },
+    {
+      "highlight": false,
+      "rank": 40,
+      "state": "Georgia",
+      "value": 3.3
+    },
+    {
+      "highlight": false,
+      "rank": 41,
+      "state": "Iowa",
+      "value": 3.3
+    },
+    {
+      "highlight": false,
+      "rank": 42,
+      "state": "Maine",
+      "value": 3.3
+    },
+    {
+      "highlight": false,
+      "rank": 43,
+      "state": "Wisconsin",
+      "value": 3.3
+    },
+    {
+      "highlight": false,
+      "rank": 44,
+      "state": "Montana",
+      "value": 3.1
+    },
+    {
+      "highlight": false,
+      "rank": 45,
+      "state": "Wyoming",
+      "value": 3.1
+    },
+    {
+      "highlight": false,
+      "rank": 46,
+      "state": "Hawaii",
+      "value": 2.8
+    },
+    {
+      "highlight": false,
+      "rank": 47,
+      "state": "Nebraska",
+      "value": 2.8
+    },
+    {
+      "highlight": false,
+      "rank": 48,
+      "state": "Vermont",
+      "value": 2.6
+    },
+    {
+      "highlight": false,
+      "rank": 49,
+      "state": "New Hampshire",
+      "value": 2.5
+    },
+    {
+      "highlight": false,
+      "rank": 50,
+      "state": "North Dakota",
+      "value": 2.2
+    },
+    {
+      "highlight": false,
+      "rank": 51,
+      "state": "South Dakota",
+      "value": 2.0
+    }
+  ]
+}

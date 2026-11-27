@@ -6833,17 +6833,9 @@
         "https://datacommons.org/data/commons/Count_CriminalActivities_ViolentCrime"
       ],
       "generated_at": "2026-11-27T12:58:27+00:00",
-      "headline": {
-        "id": "d0172cb6c6c2",
-        "published": "Fri, 27 Nov 2026 10:02:55 +0000",
-        "published_sort": 1795773775,
-        "source": "NYT U.S.",
-        "stream": "national",
-        "title": "After Deadly Bondi Beach Shooting, Two Non-Jews Marry Under a Huppah",
-        "url": "https://www.nytimes.com/2026/11/27/us/australia-bondi-beach-shooting-wedding.html"
-      },
       "id": "90255dce8175",
       "indicator": "violent_crime",
+      "origin": "data desk",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
       "revalidated_at": "2026-11-27T12:58:34+00:00",
@@ -11599,17 +11591,9 @@
         "https://data.census.gov/table/ACSDT1Y2025.B19013?g=040XX00US$0400000"
       ],
       "generated_at": "2026-11-24T16:29:03+00:00",
-      "headline": {
-        "id": "aba9ad01c796",
-        "published": "Tue, 24 Nov 2026 10:00:33 +0000",
-        "published_sort": 1795514433,
-        "source": "NYT U.S.",
-        "stream": "national",
-        "title": "Why Chicago\u2019s Tax Incentive Program Fell Short in Low-Income Neighborhoods",
-        "url": "https://www.nytimes.com/2026/11/24/us/chicago-tax-incentives-low-income-neighborhoods.html"
-      },
       "id": "916a9da3173f",
       "indicator": "household_income",
+      "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
       "revalidated_at": "2026-11-27T12:58:34+00:00",
@@ -12545,11 +12529,11 @@
       "topic": "housing"
     },
     {
-      "answer_text": "Connecticut's unemployment rate is 5.8% (2026), the 3rd-highest of 52 peers.",
+      "answer_text": "Connecticut's unemployment rate is 5.1% (October 2026), the 2nd-highest of 51 peers.",
       "answer_values": {
-        "date": "2026-07",
-        "rank": 3,
-        "value": 5.8
+        "date": "2026-10",
+        "rank": 2,
+        "value": 5.1
       },
       "cache": false,
       "chart": {
@@ -12593,114 +12577,99 @@
             "data": {
               "values": [
                 {
-                  "date": "2022-07",
-                  "series": "Connecticut",
-                  "value": 4.3
-                },
-                {
-                  "date": "2022-08",
-                  "series": "Connecticut",
-                  "value": 3.9
-                },
-                {
-                  "date": "2022-09",
-                  "series": "Connecticut",
-                  "value": 3.4
-                },
-                {
                   "date": "2022-10",
-                  "series": "Connecticut",
-                  "value": 3.5
-                },
-                {
-                  "date": "2022-11",
-                  "series": "Connecticut",
-                  "value": 3.2
-                },
-                {
-                  "date": "2022-12",
-                  "series": "Connecticut",
-                  "value": 2.9
-                },
-                {
-                  "date": "2023-01",
-                  "series": "Connecticut",
-                  "value": 3.8
-                },
-                {
-                  "date": "2023-02",
-                  "series": "Connecticut",
-                  "value": 4.0
-                },
-                {
-                  "date": "2023-03",
-                  "series": "Connecticut",
-                  "value": 3.4
-                },
-                {
-                  "date": "2023-04",
-                  "series": "Connecticut",
-                  "value": 2.6
-                },
-                {
-                  "date": "2023-05",
-                  "series": "Connecticut",
-                  "value": 3.2
-                },
-                {
-                  "date": "2023-06",
-                  "series": "Connecticut",
-                  "value": 3.0
-                },
-                {
-                  "date": "2023-07",
-                  "series": "Connecticut",
-                  "value": 3.4
-                },
-                {
-                  "date": "2023-08",
-                  "series": "Connecticut",
-                  "value": 3.3
-                },
-                {
-                  "date": "2023-09",
-                  "series": "Connecticut",
-                  "value": 2.9
-                },
-                {
-                  "date": "2023-10",
-                  "series": "Connecticut",
-                  "value": 3.1
-                },
-                {
-                  "date": "2023-11",
-                  "series": "Connecticut",
-                  "value": 2.9
-                },
-                {
-                  "date": "2023-12",
-                  "series": "Connecticut",
-                  "value": 2.8
-                },
-                {
-                  "date": "2024-01",
                   "series": "Connecticut",
                   "value": 3.7
                 },
                 {
-                  "date": "2024-02",
+                  "date": "2022-11",
                   "series": "Connecticut",
-                  "value": 3.9
+                  "value": 3.6
                 },
                 {
-                  "date": "2024-03",
+                  "date": "2022-12",
+                  "series": "Connecticut",
+                  "value": 3.5
+                },
+                {
+                  "date": "2023-01",
+                  "series": "Connecticut",
+                  "value": 3.4
+                },
+                {
+                  "date": "2023-02",
                   "series": "Connecticut",
                   "value": 3.3
                 },
                 {
+                  "date": "2023-03",
+                  "series": "Connecticut",
+                  "value": 3.2
+                },
+                {
+                  "date": "2023-04",
+                  "series": "Connecticut",
+                  "value": 3.1
+                },
+                {
+                  "date": "2023-05",
+                  "series": "Connecticut",
+                  "value": 3.1
+                },
+                {
+                  "date": "2023-06",
+                  "series": "Connecticut",
+                  "value": 3.1
+                },
+                {
+                  "date": "2023-07",
+                  "series": "Connecticut",
+                  "value": 3.1
+                },
+                {
+                  "date": "2023-08",
+                  "series": "Connecticut",
+                  "value": 3.1
+                },
+                {
+                  "date": "2023-09",
+                  "series": "Connecticut",
+                  "value": 3.2
+                },
+                {
+                  "date": "2023-10",
+                  "series": "Connecticut",
+                  "value": 3.2
+                },
+                {
+                  "date": "2023-11",
+                  "series": "Connecticut",
+                  "value": 3.3
+                },
+                {
+                  "date": "2023-12",
+                  "series": "Connecticut",
+                  "value": 3.3
+                },
+                {
+                  "date": "2024-01",
+                  "series": "Connecticut",
+                  "value": 3.3
+                },
+                {
+                  "date": "2024-02",
+                  "series": "Connecticut",
+                  "value": 3.2
+                },
+                {
+                  "date": "2024-03",
+                  "series": "Connecticut",
+                  "value": 3.2
+                },
+                {
                   "date": "2024-04",
                   "series": "Connecticut",
-                  "value": 2.7
+                  "value": 3.2
                 },
                 {
                   "date": "2024-05",
@@ -12710,57 +12679,57 @@
                 {
                   "date": "2024-06",
                   "series": "Connecticut",
-                  "value": 3.0
+                  "value": 3.2
                 },
                 {
                   "date": "2024-07",
                   "series": "Connecticut",
-                  "value": 3.8
+                  "value": 3.3
                 },
                 {
                   "date": "2024-08",
                   "series": "Connecticut",
-                  "value": 3.5
+                  "value": 3.3
                 },
                 {
                   "date": "2024-09",
                   "series": "Connecticut",
-                  "value": 3.0
+                  "value": 3.4
                 },
                 {
                   "date": "2024-10",
                   "series": "Connecticut",
-                  "value": 3.2
+                  "value": 3.4
                 },
                 {
                   "date": "2024-11",
                   "series": "Connecticut",
-                  "value": 3.2
+                  "value": 3.5
                 },
                 {
                   "date": "2024-12",
                   "series": "Connecticut",
-                  "value": 3.0
+                  "value": 3.5
                 },
                 {
                   "date": "2025-01",
                   "series": "Connecticut",
-                  "value": 4.1
+                  "value": 3.6
                 },
                 {
                   "date": "2025-02",
                   "series": "Connecticut",
-                  "value": 4.3
+                  "value": 3.7
                 },
                 {
                   "date": "2025-03",
                   "series": "Connecticut",
-                  "value": 3.9
+                  "value": 3.7
                 },
                 {
                   "date": "2025-04",
                   "series": "Connecticut",
-                  "value": 3.3
+                  "value": 3.8
                 },
                 {
                   "date": "2025-05",
@@ -12770,12 +12739,12 @@
                 {
                   "date": "2025-06",
                   "series": "Connecticut",
-                  "value": 3.6
+                  "value": 3.9
                 },
                 {
                   "date": "2025-07",
                   "series": "Connecticut",
-                  "value": 4.3
+                  "value": 3.9
                 },
                 {
                   "date": "2025-08",
@@ -12785,52 +12754,67 @@
                 {
                   "date": "2025-09",
                   "series": "Connecticut",
-                  "value": 4.0
+                  "value": 4.2
                 },
                 {
                   "date": "2025-11",
                   "series": "Connecticut",
-                  "value": 4.4
+                  "value": 4.3
                 },
                 {
                   "date": "2025-12",
                   "series": "Connecticut",
-                  "value": 4.1
+                  "value": 4.3
                 },
                 {
                   "date": "2026-01",
                   "series": "Connecticut",
-                  "value": 5.5
+                  "value": 4.5
                 },
                 {
                   "date": "2026-02",
                   "series": "Connecticut",
-                  "value": 5.8
+                  "value": 4.7
                 },
                 {
                   "date": "2026-03",
                   "series": "Connecticut",
-                  "value": 5.1
+                  "value": 4.8
                 },
                 {
                   "date": "2026-04",
                   "series": "Connecticut",
-                  "value": 5.2
+                  "value": 5.0
                 },
                 {
                   "date": "2026-05",
                   "series": "Connecticut",
-                  "value": 5.0
+                  "value": 5.1
                 },
                 {
                   "date": "2026-06",
                   "series": "Connecticut",
-                  "value": 4.9
+                  "value": 5.2
                 },
                 {
                   "date": "2026-07",
                   "series": "Connecticut",
-                  "value": 5.8
+                  "value": 5.2
+                },
+                {
+                  "date": "2026-08",
+                  "series": "Connecticut",
+                  "value": 5.1
+                },
+                {
+                  "date": "2026-09",
+                  "series": "Connecticut",
+                  "value": 5.1
+                },
+                {
+                  "date": "2026-10",
+                  "series": "Connecticut",
+                  "value": 5.1
                 },
                 {
                   "date": "2022-10",
@@ -13136,10 +13120,10 @@
             "data": {
               "values": [
                 {
-                  "date": "2026-07",
+                  "date": "2026-10",
                   "series": "Connecticut",
                   "short": "CT",
-                  "value": 5.8
+                  "value": 5.1
                 },
                 {
                   "date": "2026-10",
@@ -13192,14 +13176,14 @@
           "right": 64
         },
         "title": {
-          "text": "Unemployment rate (percent)"
+          "text": "Unemployment rate vs. other states (percent)"
         },
         "width": "container"
       },
       "chart2": null,
       "chart_kind": "trend",
       "citations": [
-        "https://datacommons.org/data/commons/UnemploymentRate_Person"
+        "https://fred.stlouisfed.org/series/CTUR"
       ],
       "generated_at": "2026-11-09T20:58:11+00:00",
       "headline": {
@@ -13212,9 +13196,8 @@
       },
       "id": "0b26178760d4",
       "indicator": "unemployment",
-      "query": "DC v2 observations variable=UnemploymentRate_Person parent=country/USA type=State",
+      "query": "FRED fredgraph.csv 50 states + DC (<ST>UR, 2026-10); agency of record: US Bureau of Labor Statistics, Local Area Unemployment Statistics (seasonally adjusted)",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-27T12:58:34+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -32285,17 +32268,9 @@
         "https://fred.stlouisfed.org/series/JTSLDR"
       ],
       "generated_at": "2026-10-15T19:19:30+00:00",
-      "headline": {
-        "id": "d6ed073f3cf0",
-        "published": "Thu, 15 Oct 2026 18:40:27 +0000",
-        "published_sort": 1792089627,
-        "source": "NYT U.S.",
-        "stream": "national",
-        "title": "Harvard Endowment Soars to $68 Billion Even as Federal Cuts Force Layoffs",
-        "url": "https://www.nytimes.com/2026/10/15/us/harvard-endowment-soars.html"
-      },
       "id": "138bf32c8350",
       "indicator": "layoffs_rate",
+      "origin": "data desk",
       "query": "FRED fredgraph.csv id=JTSLDR; agency of record: US Bureau of Labor Statistics, Job Openings and Labor Turnover Survey",
       "question": "Are employers laying everyone off, really?",
       "revalidated_at": "2026-11-03T17:37:33+00:00",

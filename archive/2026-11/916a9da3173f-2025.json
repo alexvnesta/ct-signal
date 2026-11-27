@@ -909,17 +909,9 @@
     "https://data.census.gov/table/ACSDT1Y2025.B19013?g=040XX00US$0400000"
   ],
   "generated_at": "2026-11-24T16:29:03+00:00",
-  "headline": {
-    "id": "aba9ad01c796",
-    "published": "Tue, 24 Nov 2026 10:00:33 +0000",
-    "published_sort": 1795514433,
-    "source": "NYT U.S.",
-    "stream": "national",
-    "title": "Why Chicago\u2019s Tax Incentive Program Fell Short in Low-Income Neighborhoods",
-    "url": "https://www.nytimes.com/2026/11/24/us/chicago-tax-incentives-low-income-neighborhoods.html"
-  },
   "id": "916a9da3173f",
   "indicator": "household_income",
+  "origin": "data desk",
   "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
   "question": "What do Connecticut households earn compared with the rest of the country?",
   "revalidated_at": "2026-11-27T12:58:34+00:00",

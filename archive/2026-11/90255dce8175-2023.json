@@ -909,17 +909,9 @@
     "https://datacommons.org/data/commons/Count_CriminalActivities_ViolentCrime"
   ],
   "generated_at": "2026-11-27T12:58:27+00:00",
-  "headline": {
-    "id": "d0172cb6c6c2",
-    "published": "Fri, 27 Nov 2026 10:02:55 +0000",
-    "published_sort": 1795773775,
-    "source": "NYT U.S.",
-    "stream": "national",
-    "title": "After Deadly Bondi Beach Shooting, Two Non-Jews Marry Under a Huppah",
-    "url": "https://www.nytimes.com/2026/11/27/us/australia-bondi-beach-shooting-wedding.html"
-  },
   "id": "90255dce8175",
   "indicator": "violent_crime",
+  "origin": "data desk",
   "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
   "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
   "revalidated_at": "2026-11-27T12:58:34+00:00",
