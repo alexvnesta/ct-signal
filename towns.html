@@ -279,7 +279,8 @@ function pick(){
   +'<select id="yt-sel" aria-label="Choose your town">'
   +slugs.map(function(s){return '<option value="'+s+'">'+b.towns[s].n+
     '</option>';}).join("")
-  +'</select> <button id="yt-set" class="ytbtn">Remember it</button>';
+  +'</select> <button id="yt-set" class="ytbtn">Remember it</button>'
+  +'<span id="yt-sug"></span>';
  document.getElementById("yt-set").onclick=function(){
   save(document.getElementById("yt-sel").value);};}
 function save(s){try{localStorage.setItem("ct-town",s);}catch(e){} facts(s);}
