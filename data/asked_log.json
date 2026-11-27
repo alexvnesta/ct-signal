@@ -59,6 +59,7 @@
   "unemployment_duration:When Americans lose a job, how long are they out?:2026-09:7fc2e03acc": "2026-10-16T00:47:23+00:00",
   "unemployment_duration:When Americans lose a job, how long are they out?:2026-10:3860e23c48": "2026-11-06T20:44:03+00:00",
   "violent_crime:How does Connecticut\u2019s reported violent crime compare with the rest of the count:2023:5f72b2c4b1": "2026-10-06T12:50:51+00:00",
+  "violent_crime:How does Connecticut\u2019s reported violent crime compare with the rest of the count:2023:bb07a84fb5": "2026-11-27T12:58:27+00:00",
   "violent_crime:How does Connecticut\u2019s reported violent crime compare with the rest of the count:2023:e74d0aaf0c": "2026-10-06T12:57:27+00:00",
   "violent_crime:How safe is Connecticut compared with the rest of the country?:2023": "2026-10-02T01:39:13+00:00",
   "violent_crime:How safe is Connecticut compared with the rest of the country?:2023:2b1003e2bf": "2026-10-05T18:24:24+00:00",
@@ -104,5 +105,6 @@
   "weather_anomaly:Is Connecticut running warmer or colder than normal?:2026-11-25:2917c5abbc": "2026-11-26T11:31:48+00:00",
   "weather_anomaly:Is Connecticut running warmer or colder than normal?:2026-11-25:a257227bf0": "2026-11-26T20:33:32+00:00",
   "weather_anomaly:Is Connecticut running warmer or colder than normal?:2026-11-25:bc1af8e228": "2026-11-26T02:10:02+00:00",
+  "weather_anomaly:Is Connecticut running warmer or colder than normal?:2026-11-26:2354af1f19": "2026-11-27T12:58:29+00:00",
   "weather_anomaly:Is Connecticut running warmer or colder than normal?:2026-11-26:37fe142904": "2026-11-27T03:17:39+00:00"
 }
