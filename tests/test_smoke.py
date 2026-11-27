@@ -154,6 +154,12 @@ class TestSprintSurfaces(unittest.TestCase):
         self.assertIn("Bridgeport", body)
         self.assertIn("of 169", body)
 
+    def test_privacy_page_exists_and_is_linked(self):
+        body = (config.ROOT / "privacy.html").read_text()
+        self.assertIn("No accounts, no cookies, no pageview tracking", body)
+        self.assertIn('href="/privacy"', (config.ROOT / "index.html").read_text())
+        self.assertIn("/privacy", (config.ROOT / "sitemap.xml").read_text())
+
     def test_static_pages_name_their_primary_entity(self):
         for name in ("towns.html", "about.html", "sources.html"):
             body = (config.ROOT / name).read_text()

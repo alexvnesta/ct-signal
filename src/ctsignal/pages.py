@@ -170,6 +170,49 @@ from publishing never needed correcting.</p>
 </article>""")
 
 
+_page(
+    "privacy",
+    "Privacy · CT Signal",
+    "What CT Signal collects: no accounts, no cookies, no pageview tracking; "
+    "email only when you subscribe.",
+    """<article class="wrap col">
+<h1>Privacy</h1>
+<p class="sub">No accounts, no cookies, no pageview tracking.</p>
+
+<h2>What we collect</h2>
+<p>Nothing that identifies you by default. CT Signal has no login, no ad
+network, no tracking pixel, and no third-party analytics script that counts
+page views. Reading the site does not create a profile.</p>
+
+<h2>Server logs</h2>
+<p>Our host, Vercel, keeps ordinary request logs for security and reliability.
+They are not joined to a reader identity and are not used to build an audience
+profile.</p>
+
+<h2>Performance measurement</h2>
+<p>Vercel Speed Insights records Core Web Vitals — load speed, layout
+stability, interaction latency — on the production site. It sets no cookies
+and does not count page views. It is the only measurement script we load.</p>
+
+<h2>The weekly email</h2>
+<p>If you subscribe, Buttondown stores the email address you type and the
+delivery record for the digest. You can unsubscribe in one click from any
+issue. We do not sell, rent, or trade the list, and we do not add you to any
+other list.</p>
+
+<h2>What we do not do</h2>
+<ul>
+<li>No advertising trackers, retargeting pixels, or data brokers.</li>
+<li>No cross-site profiling or fingerprinting.</li>
+<li>No paid placement that changes a number or a ranking.</li>
+</ul>
+
+<h2>Contact</h2>
+<p>Questions about this page, or a request to remove an email address:
+<a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a>. Corrections and
+republication requests go to the same address.</p>
+</article>""")
+
 def write_pages() -> None:
     for slug, (title, desc, body) in _PAGES.items():
         page = theme.page(title=title, desc=desc, path=f"/{slug}",

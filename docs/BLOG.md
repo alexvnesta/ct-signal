@@ -260,7 +260,7 @@ A story passes when:
 
 ## 9. QA gates
 
-- `.venv/bin/python -m unittest discover -s tests` — 85 tests, OK.
+- `.venv/bin/python -m unittest discover -s tests` — 86 tests, OK.
 - Crawl every page at 320 and 1280; no horizontal overflow. Last crawl:
   221 sitemap paths — 18 indicator files, `/indicators`, 169 real town pages;
   no aggregate `/town/total`.
@@ -286,6 +286,9 @@ A story passes when:
   same `@graph` as their primary entity, matching the visible trail. Static
   pages that carry no richer schema get a plain `WebPage` node, so no page is
   an untyped document.
+- `/privacy` states the actual collection surface: no accounts, no cookies,
+  no pageview tracking; Speed Insights measures CWV without cookies; the
+  digest list lives in Buttondown and is never sold.
 - Organization schema names the public policies it actually publishes:
   publishing principles (`/about`), corrections (`/corrections`), feedback
   (`/about`) and ownership (`/masthead`).
