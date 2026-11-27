@@ -132,6 +132,7 @@ class TestRender(unittest.TestCase):
                          f"{config.SITE_URL}/masthead")
         self.assertEqual(org["privacyPolicy"],
                          f"{config.SITE_URL}/privacy")
+        self.assertIn("https://bsky.app/profile/ctsignal.org", org["sameAs"])
 
     def test_head_escapes_and_has_no_tag_mismatch(self):
         html = publish.home_html([], {}) if hasattr(publish, "home_html") else ""
