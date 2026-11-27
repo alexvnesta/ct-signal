@@ -610,7 +610,12 @@ def site_json_ld() -> dict:
          "name": "CT Signal", "url": f"{config.SITE_URL}/",
          "email": config.CONTACT_EMAIL,
          "logo": dict(_ORG["logo"]),
-         "sameAs": ["https://github.com/alexvnesta/ct-signal"]},
+         "sameAs": ["https://github.com/alexvnesta/ct-signal"],
+         "publishingPrinciples": f"{config.SITE_URL}/about",
+         "correctionsPolicy": f"{config.SITE_URL}/corrections",
+         "ethicsPolicy": f"{config.SITE_URL}/about",
+         "actionableFeedbackPolicy": f"{config.SITE_URL}/about",
+         "ownershipFundingInfo": f"{config.SITE_URL}/masthead"},
     ]}
 
 

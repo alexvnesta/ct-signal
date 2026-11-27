@@ -259,7 +259,7 @@ A story passes when:
 
 ## 9. QA gates
 
-- `.venv/bin/python -m unittest discover -s tests` — 82 tests, OK.
+- `.venv/bin/python -m unittest discover -s tests` — 83 tests, OK.
 - Crawl every page at 320 and 1280; no horizontal overflow. Last crawl:
   221 sitemap paths — 18 indicator files, `/indicators`, 169 real town pages;
   no aggregate `/town/total`.
@@ -278,6 +278,9 @@ A story passes when:
 - Newsletter: external subscriber delivery proven 2026-11-27
   (`deliveries 0 -> 1`, digest run `45939892321`); the newest W48 draft is
   the one Monday's scheduled send will use.
+- Organization schema names the public policies it actually publishes:
+  publishing principles (`/about`), corrections (`/corrections`), feedback
+  (`/about`) and ownership (`/masthead`).
 - Live byte-check after Vercel deploy: title, H1, canonical, JSON-LD, OG.
 - Regenerate story covers only after template changes settle; then rerun
   `publish.publish` so cache tokens match.

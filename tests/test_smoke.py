@@ -121,6 +121,16 @@ class TestRender(unittest.TestCase):
         self.assertNotIn("nameplate", html)
         self.assertIn('href="/archive">Stories</a>', html)
 
+    def test_site_schema_names_public_policies(self):
+        graph = theme.site_json_ld()["@graph"]
+        org = next(n for n in graph if n["@type"] == "Organization")
+        self.assertEqual(org["publishingPrinciples"],
+                         f"{config.SITE_URL}/about")
+        self.assertEqual(org["correctionsPolicy"],
+                         f"{config.SITE_URL}/corrections")
+        self.assertEqual(org["ownershipFundingInfo"],
+                         f"{config.SITE_URL}/masthead")
+
     def test_head_escapes_and_has_no_tag_mismatch(self):
         html = publish.home_html([], {}) if hasattr(publish, "home_html") else ""
         self.assertIn("</h2>", html or "</h2>")
