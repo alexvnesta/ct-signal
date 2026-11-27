@@ -17,7 +17,7 @@ stackup:
       table: B25113
   - id: unemployment
     topic: economy
-    title: Unemployment rate
+    title: Unemployment rate vs. other states
     dcid: UnemploymentRate_Person
     trend: true
     unit: percent
@@ -275,7 +275,7 @@ national:
 
   - id: ct_unemployment
     topic: economy
-    title: Connecticut unemployment rate
+    title: Connecticut unemployment rate (monthly)
     agency: "US Bureau of Labor Statistics, Local Area Unemployment Statistics"
     geo: Connecticut
     fred: {series: CTUR}

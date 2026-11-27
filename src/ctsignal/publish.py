@@ -236,6 +236,10 @@ and the exact query →</a></div></article>"""
 
     latest = f"""<section class="latest" id="signals"><div class="wrap">
 <h1 class="vh">Today\u2019s Connecticut data board</h1>
+<p class="frontdek">Public data answers the questions Connecticut&rsquo;s news
+cycle is already asking.</p>
+<p class="frontlinks"><a href="/towns">Find your town &rarr;</a> &middot;
+<a href="/indicators">Follow a measure &rarr;</a></p>
 <div class="latest-grid">
 {lead}
 <div class="sec2"><h2 class="sec2-head">More from Connecticut data</h2>{sec2}</div>

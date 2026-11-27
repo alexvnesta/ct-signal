@@ -8,7 +8,9 @@ hidden as "—", never as a zero.
 """
 from __future__ import annotations
 
+import csv
 import datetime as dt
+import io
 import json
 import re
 import urllib.request
@@ -196,7 +198,7 @@ def table_for(t: dict, data: dict, esc) -> str:
     rows = ""
     for key, label, _var, kind in LABELS[1:]:
         rank = t.get(f"{key}_rank")
-        rk = f"{_ord(rank)} of {data['n']}" if rank else "not published"
+        rk = f"{_ord(rank)}-highest of {data['n']}" if rank else "not published"
         sid = STORY_FOR.get(key)
         link = (f' <a href="/story/{sid}">the state answer &rarr;</a>' if sid else "")
         rows += (f'<tr><td>{esc(label)}{link}</td><td>{_fmt(t, key, kind)}</td>'
@@ -204,7 +206,7 @@ def table_for(t: dict, data: dict, esc) -> str:
                  f'<td>{_delta(t, ct, key, kind)}</td><td class="dim">{rk}</td></tr>')
     table = (f'<table class="townstats"><thead><tr><th>Measure</th>'
              f'<th>{esc(t["name"])}</th><th>Connecticut</th><th>Difference</th>'
-             f'<th>Rank among towns</th></tr></thead><tbody>{rows}</tbody></table>')
+             f'<th>Rank among towns (1 = highest)</th></tr></thead><tbody>{rows}</tbody></table>')
     return (f'<h2>Where {esc(t["name"])} sits</h2>'
             f'<p class="tablehint">On a phone, swipe the table sideways for the '
             f'difference and rank columns.</p>'
@@ -288,8 +290,10 @@ function fmtV(kind, v){ if (v===null||v===undefined) return "\\u2014";
   if (kind==="pct") return v.toFixed(1)+"%";
   if (kind==="int") return Math.round(v).toLocaleString("en-US");
   return v.toLocaleString("en-US"); }
-function ord(n){ if(!n) return null; const s=["th","st","nd","rd"],
-  v=n%100; return n+(s[v-20]||s[v]||s[0])+"-highest"; }
+function ord(n){ if(!n) return null;
+  const o = n%10===1&&n%100!==11?"st":n%10===2&&n%100!==12?"nd":
+            n%10===3&&n%100!==13?"rd":"th";
+  return n+o+"-highest"; }
 function quantiles(vals){ const v=vals.slice().sort((a,b)=>a-b), q=[];
   for (let i=1;i<5;i++) q.push(v[Math.floor(v.length*i/5)]); return q; }
 function bucket(v, qs){ for (let i=0;i<4;i++) if (v<=qs[i]) return i;
@@ -463,18 +467,27 @@ function facts(s){var t=b.towns[s],v=t.v;
   +' \u00b7 <button id="yt-chg" class="yt-change">change town</button></span>';
  var c=document.getElementById("yt-chg"); if(c)c.onclick=function(){
   try{localStorage.removeItem("ct-town");}catch(e){} pick();};}
+function preview(s){var t=b.towns[s],v=t.v,e=document.getElementById("yt-preview");
+ if(!e)return;
+ e.innerHTML='<span class="yt-facts">income '+fmt("income",v[2])
+  +" \u00b7 poverty "+fmt("poverty",v[3])
+  +" \u00b7 rent "+fmt("rent",v[4])
+  +" \u00b7 home value "+fmt("value",v[5])
+  +" \u00b7 median age "+fmt("age",v[1])
+  +' \u00b7 <a href="/town/'+s+'">full town file \u2192</a></span>';}
 function pick(){
  el.innerHTML='<span class="yt-line1">Your town</span> '
   +'<select id="yt-sel" aria-label="Choose your town">'
   +slugs.map(function(s){return '<option value="'+s+'">'+b.towns[s].n+
     '</option>';}).join("")
-  +'</select> <button id="yt-set" class="ytbtn">Remember it</button>'
-  +'<span id="yt-sug"></span>';
+  +'</select> <button id="yt-set" class="ytbtn">Remember this town</button>'
+  +'<span id="yt-preview"></span><span id="yt-sug"></span>';
+ document.getElementById("yt-sel").onchange=function(){preview(this.value);};
  document.getElementById("yt-set").onclick=function(){
   save(document.getElementById("yt-sel").value);};}
 function save(s){try{localStorage.setItem("ct-town",s);}catch(e){} facts(s);}
 function suggest(s){var e=document.getElementById("yt-sug"); if(!e)return;
- e.innerHTML=' \u00b7 Looks like you\u2019re in <b>'+b.towns[s].n+
+ e.innerHTML=' \u00b7 Looks like you\u2019re near <b>'+b.towns[s].n+
   '</b> \u00b7 <button id="yt-yes" class="ytbtn">Make it my town</button>'
   + ' <button id="yt-no" class="yt-change">not me</button>';
  document.getElementById("yt-yes").onclick=function(){save(s);};
@@ -519,6 +532,8 @@ and home value.</p>
 <table class="townstats" id="tt"><thead><tr><th>Town</th>
 {''.join(f"<th>{lab}</th>" for _, lab, _, _ in LABELS)}</tr></thead>
 <tbody>{rows}</tbody></table></div>
+<p class="meta"><a href="/towns.csv">Download all {data["n"]} towns (CSV)</a>
+— raw values and ranks, no formatting.</p>
 <p class="provenance">US Census Bureau, {data["vintage"]}, county-subdivision
 level. Ranks run across the {data["n"]} places the Census publishes for
 Connecticut. Dashes are Census-suppressed cells, not zeros — the same honesty
@@ -539,6 +554,27 @@ const _m0 = (location.hash.match(/^#m=(\\w+)/) || [])[1];
                       path="/towns", body=_PAGE_CSS + body)
 
 
+def _csv_text(data: dict) -> str:
+    """The town table as CSV: raw values, not formatted display strings, so
+    a spreadsheet can sort and chart them without parsing dollar signs."""
+    cols = [("town", "name"), ("population", "pop"), ("median_age", "age"),
+            ("median_household_income", "income"),
+            ("below_poverty_pct", "poverty"),
+            ("median_gross_rent", "rent"),
+            ("median_home_value", "value")]
+    ranks = [f"{key}_rank" for key, _, _, _ in LABELS[1:]]
+    buf = io.StringIO()
+    writer = csv.writer(buf, lineterminator="\n")
+    writer.writerow([label for label, _ in cols] + ranks)
+    for town in data["towns"]:
+        row = [town.get(key, "") for _, key in cols]
+        for key, _, _, _ in LABELS[1:]:
+            rank = town.get(f"{key}_rank")
+            row.append(rank if isinstance(rank, int) else "")
+        writer.writerow(row)
+    return buf.getvalue()
+
+
 def publish() -> dict | None:
     """Write the town table page and refresh the snapshot file. Individual
     town pages are owned by newsroom (they are card-shaped) and fold in
@@ -554,4 +590,5 @@ def publish() -> dict | None:
               + _MY_TOWN_JS)
     util.atomic_write_text(config.ROOT / "towns.html",
                            page.replace("</body>", inject + "</body>", 1))
+    util.atomic_write_text(config.ROOT / "towns.csv", _csv_text(data))
     return data

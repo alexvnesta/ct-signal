@@ -272,7 +272,7 @@ A story passes when:
 
 ## 9. QA gates
 
-- `.venv/bin/python -m unittest discover -s tests` — 87 tests, OK.
+- `.venv/bin/python -m unittest discover -s tests` — 88 tests, OK.
 - Crawl every page at 320 and 1280; no horizontal overflow. Last crawl
   (2026-11-27): 222 sitemap paths — 18 indicator files, `/indicators`,
   `/privacy`, 169 real town pages; no aggregate `/town/total`; every page
@@ -289,6 +289,9 @@ A story passes when:
   on mobile (last run 2026-11-27; FCP 0.9s, CLS 0, TBT 0). The desk intro and
   town narrative blocks keep the same scores: topic desk and town file both
   100/100/100/100 after the Phase 3 copy shipped.
+- CSV receipts: every indicator file serves `observations.csv` from its own
+  chart rows, and `/towns.csv` serves the 169-town table as raw values and
+  ranks. Both are linked on the page that explains them.
 - Keyboard pass includes the mobile chart toggle: tab to the checkbox, Space
   expands the full chart and shows its caption.
 - Newsletter: external subscriber delivery proven 2026-11-27

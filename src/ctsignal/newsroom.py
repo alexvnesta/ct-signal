@@ -7,9 +7,11 @@ navigation stays root-relative so the deploy preview works on any host.
 """
 from __future__ import annotations
 
+import csv
 import datetime as dt
 import email.utils
 import html
+import io
 import json
 import re
 import shutil
@@ -346,12 +348,23 @@ def _related_html(card: dict, cards: list[dict]) -> str:
     prev/next — no fabricated "related" guesses."""
     esc = html.escape
     lis = []
+    desk_count = 0
+    sib_url = (card.get("headline") or {}).get("url")
+    sib_ids = {c["id"] for c in (cards or [])
+               if c.get("id") != card["id"] and sib_url
+               and (c.get("headline") or {}).get("url") == sib_url}
     for c in (cards or []):
-        if c.get("id") != card["id"] and c.get("topic") == card.get("topic"):
+        if (c.get("id") != card["id"] and c.get("topic") == card.get("topic")
+                and c["id"] not in sib_ids):
             lis.append(f'<li style="padding:.15rem 0"><a href="/story/{c["id"]}">'
                        f'{esc(_finding(c))}</a></li>')
-            if len(lis) == 3:
+            desk_count += 1
+            if desk_count == 3:
                 break
+    if not desk_count and card.get("topic"):
+        lis.append(f'<li style="padding:.15rem 0"><a href="/topic/'
+                   f'{esc(str(card["topic"]))}">{esc(_desk_label(card["topic"]))} '
+                   'desk &rarr;</a></li>')
     town = _TOWN_METRIC.get(card.get("indicator"))
     if town:
         lis.append(f'<li style="padding:.15rem 0"><a href="/towns#m={town[0]}">'
@@ -671,6 +684,39 @@ def _chart_values(card: dict) -> list[dict]:
     return rows
 
 
+def _chart_csv(card: dict) -> str:
+    """The chart's own rows as CSV. Same data the reader sees, no new
+    fetch and no invented columns. Town charts store the place in `state`;
+    the export names that column `town` so it reads correctly."""
+    rows = _chart_values(card)
+    if not rows:
+        return ""
+    town_rows = bool(card.get("towns"))
+
+    def name(key: str) -> str:
+        return "town" if town_rows and key == "state" else key
+
+    skip = {"highlight", "short"}
+    keys = []
+    for key in ("date", "series", "town", "rank", "value"):
+        if any(name(k) == key for row in rows for k in row):
+            keys.append(key)
+    for row in rows:
+        for key in row:
+            mapped = name(key)
+            if (mapped not in keys and mapped not in skip
+                    and not isinstance(row[key], (dict, list))):
+                keys.append(mapped)
+    buf = io.StringIO()
+    writer = csv.writer(buf, lineterminator="\n")
+    writer.writerow(keys)
+    for row in rows:
+        writer.writerow([
+            row.get("state", "") if town_rows and key == "town"
+            else row.get(key, "") for key in keys])
+    return buf.getvalue()
+
+
 def _table_cell(value, meta: dict, kind: str | None = None) -> str:
     number = _num(value)
     if number is None:
@@ -830,6 +876,9 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
                                    "AlbersUSA omits DC and Puerto Rico.")
     cache_badge = ' <span class="badge">cache</span>' if card.get("cache") else ""
     shareline, ver = "", ""
+    csvline = (f'<p class="meta"><a href="{_indicator_path(card)}/observations.csv">'
+               'Download the chart data (CSV)</a> · the same rows, no new fetch.</p>'
+               if _chart_csv(card) else "")
     png = config.ROOT / "assets" / f"share-{card['id']}.png"
     if png.exists():
         stamp = png.with_name(png.name + ".ver")
@@ -858,7 +907,7 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
     data_date = _data_date(vals.get("date"))
     if data_date:
         meta.append(f'<b>Data as of {_ESC(_headline_date(str(vals.get("date"))))}</b>')
-    meta.append('Automated data desk')
+    meta.append('<a href="/masthead">Automated data desk</a>')
     story_meta = '<span class="sep">·</span>'.join(
         f'<span>{m}</span>' for m in meta)
     body = f"""<article class="wrap col story">
@@ -872,7 +921,7 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
 <p class="storylede">{a}</p>
 {_place_line(card)}
 <div class="card"><h2 class="label">The data</h2>{chart}{chart2}
-{_data_table_html(card)}{shareline}</div>
+{_data_table_html(card)}{shareline}{csvline}</div>
 {_context_html(card)}
 {_vote_widget(card)}
 {_trigger_html(card)}
@@ -1038,6 +1087,9 @@ def indicator_html(card: dict) -> str:
                     '</div>') if context else ""
     vintages = _indicator_vintages_html(card)
     vintages_html = f'<div class="card">{vintages}</div>' if vintages else ""
+    csv_link = (f'<p class="meta"><a href="{_indicator_path(card)}/observations.csv">'
+                'Download the chart data (CSV)</a> · every row behind the chart.</p>'
+                if _chart_csv(card) else "")
     body = f"""<article class="wrap col">
 <div class="breadcrumb"><a href="/indicators">← All indicator files</a></div>
 <header class="bloghead">
@@ -1050,6 +1102,7 @@ def indicator_html(card: dict) -> str:
 <p class="indicator-finding">{answer}</p>
 {chart}
 {_data_table_html(card)}
+{csv_link}
 </div>
 {context_html}
 {vintages_html}
@@ -1483,6 +1536,13 @@ def write_all(cards: list[dict]) -> None:
         folder = idir / indicator
         folder.mkdir(parents=True, exist_ok=True)
         util.atomic_write_text(folder / "index.html", indicator_html(card))
+        csv_text = _chart_csv(card)
+        if csv_text:
+            util.atomic_write_text(folder / "observations.csv", csv_text)
+        else:
+            stale_csv = folder / "observations.csv"
+            if stale_csv.exists():
+                stale_csv.unlink()
     live_indicators = set(current_by_indicator)
     for stale in idir.iterdir():
         if stale.is_dir() and stale.name not in live_indicators:
@@ -1723,8 +1783,8 @@ def town_html(town: str, pieces: dict) -> str:
             f'<tr><td>Net grand list, prior vintage</td><td>${row["prior"]:,.0f}</td></tr>'
             f'<tr><td>Change between the latest two assessment rolls</td>'
             f'<td>${row["added"]:,.0f} ({row["pct"]:+.1f}%)</td></tr>'
-            f'<tr><td>Rank among {n} Connecticut places</td>'
-            f'<td>{row["rank"]} of {n}</td></tr>'
+            f'<tr><td>Rank among {n} Connecticut places (1 = highest)</td>'
+            f'<td>{_towns._ord(row["rank"])}-highest of {n}</td></tr>'
             f'<tr><td>Statewide median change (for context)</td>'
             f'<td>{median:+.1f}%</td></tr>'
             f'</tbody></table>')
@@ -1738,8 +1798,8 @@ def town_html(town: str, pieces: dict) -> str:
         rows = [
             f'<tr><td>Mill rate, FY{esc(fy)}</td>'
             f'<td>{row["rate"]:.2f} mills per $1,000</td></tr>',
-            f'<tr><td>Rank among {n} Connecticut places</td>'
-            f'<td>{row["rank"]} of {n}</td></tr>',
+            f'<tr><td>Rank among {n} Connecticut places (1 = highest)</td>'
+            f'<td>{_towns._ord(row["rank"])}-highest of {n}</td></tr>',
             f'<tr><td>Compared with the statewide rate</td>'
             f'<td>{row["vs_state"]:.2f}× the statewide average</td></tr>']
         if av.get("state"):

@@ -8,6 +8,8 @@ newsletter: **Buttondown for sending** (the Substack column was dropped).
 **Status (2026-11-27):** Phase 1 and the share-image/Bluesky parts of Phase 2
 are live. Phase 3 is partly shipped: 169 town files, 18 indicator files, six
 desk explainers and the Buttondown digest. Phase 4 remains institutional work.
+Every indicator file and the town table now also serve raw CSV, so the page
+that explains a number can hand the reader the rows behind it.
 
 ## The ladder
 

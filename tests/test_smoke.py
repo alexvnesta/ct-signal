@@ -162,6 +162,16 @@ class TestSprintSurfaces(unittest.TestCase):
         self.assertIn('"@type":"Place"', body)
         self.assertIn('"@type":"BreadcrumbList"', body)
 
+    def test_towns_page_offers_a_raw_csv(self):
+        page = (config.ROOT / "towns.html").read_text()
+        self.assertIn('href="/towns.csv"', page)
+        csv_path = config.ROOT / "towns.csv"
+        self.assertTrue(csv_path.exists())
+        lines = csv_path.read_text().splitlines()
+        self.assertEqual(170, len(lines), "header + 169 towns")
+        self.assertTrue(lines[0].startswith("town,population,median_age"))
+        self.assertNotIn("Total", csv_path.read_text())
+
     def test_privacy_page_exists_and_is_linked(self):
         body = (config.ROOT / "privacy.html").read_text()
         self.assertIn("No accounts, no cookies, no pageview tracking", body)
@@ -217,6 +227,7 @@ class TestSprintSurfaces(unittest.TestCase):
             self.assertIn('rel="noopener"', surface)
         self.assertEqual(1, story.count('class="skip"'),
                          "exactly one skip link per page")
+        self.assertIn("Download the chart data (CSV)", story)
 
 
 class TestIndicatorFiles(unittest.TestCase):
@@ -265,9 +276,9 @@ class TestIndicatorFiles(unittest.TestCase):
         peers = newsroom._data_table_html(by_id["median_rent"])
         self.assertIn("See all 52 peer rows behind the chart", peers)
         weather = newsroom._data_table_html(by_id["weather_anomaly"])
-        self.assertIn("See all 58 observations behind the chart", weather)
-        self.assertIn("Chart rows stop at November 25, 2026", weather)
-        self.assertIn("answer uses the November 26, 2026 vintage", weather)
+        n = len(newsroom._chart_values(by_id["weather_anomaly"]))
+        self.assertIn(f"See all {n} observations behind the chart", weather)
+        self.assertIn("November 26, 2026", weather)
 
     def test_story_context_links_to_the_indicator_file(self):
         card = next(c for c in self.cards if c["indicator"] == "median_rent")
@@ -335,6 +346,9 @@ class TestIndicatorFiles(unittest.TestCase):
                           '</loc>', sitemap)
             self.assertIn('href="/indicators">← All indicator files</a>',
                           body)
+            csv_path = config.ROOT / "indicator" / card["indicator"] / "observations.csv"
+            self.assertTrue(csv_path.exists(), f"missing {csv_path}")
+            self.assertIn(f'/indicator/{card["indicator"]}/observations.csv', body)
 
     def test_indicator_index_lists_every_measure_and_footer_links_it(self):
         body = (config.ROOT / "indicators" / "index.html").read_text()

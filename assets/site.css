@@ -91,6 +91,11 @@ nav.sitebar a.rss{color:var(--acc)}
 
 /* ------------------------------------------------------ Latest (broadsheet) */
 .latest{padding:1.4rem 0 .6rem}
+.frontdek{font:400 clamp(.98rem,1.2vw,1.05rem)/1.55 var(--serif);
+  color:var(--dim);margin:.15rem 0 .25rem;max-width:70ch}
+.frontlinks{font:600 .82rem/1.4 var(--sans);color:var(--faint);
+  margin:0 0 .9rem}
+.frontlinks a{color:var(--acc);text-decoration:underline}
 .latest-grid{display:grid;grid-template-columns:minmax(0,6.5fr) minmax(0,4.5fr);
   gap:0 2rem}
 .lead .kicker{color:var(--acc);font-weight:800;font-size:.76rem;letter-spacing:.16em;

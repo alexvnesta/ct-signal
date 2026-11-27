@@ -15,10 +15,14 @@ import json
 import os
 import sys
 
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+from ctsignal import newsroom  # noqa: E402
+
 card = next(c for c in json.load(sys.stdin)["cards"]
             if c["id"] == os.environ["ID"])
 url = f"https://ctsignal.org/story/{card['id']}"
-text = (f"{card['answer_text']}\n\n{url}\n"
+headline = newsroom._finding(card) or card["answer_text"]
+text = (f"{headline}\n\n{url}\n"
         "Know where you live — sources on the page.")
 if len(text) > 300:
     # Fit Bluesky's 300-grapheme cap without cutting the claim mid-sentence:
@@ -43,11 +47,11 @@ if blob_file:
 if blob:
     embed = {"$type": "app.bsky.embed.images", "images": [{
         "image": blob,
-        "alt": f"{card['question']} — {card['answer_text']}"[:280]}]}
+        "alt": f"{card['question']} — {headline}"[:280]}]}
 else:
     embed = {"$type": "app.bsky.embed.external", "external": {
         "uri": url, "title": card["question"],
-        "description": card["answer_text"][:200]}}
+        "description": newsroom._display_prose(card["answer_text"])[:200]}}
 rec = {
     "repo": os.environ["BSKY_DID"],
     "collection": "app.bsky.feed.post",
