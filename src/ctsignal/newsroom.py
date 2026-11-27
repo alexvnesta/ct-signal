@@ -1093,7 +1093,8 @@ def indicators_html(cards: list[dict]) -> str:
                 f'<a href="/story/{card["id"]}">{_ESC(_finding(card))}</a></p>'
                 f'</li>')
         blocks.append(
-            f'<h2 class="archive-month">{_ESC(_desk_label(topic))}</h2>'
+            f'<h2 class="archive-month"><a href="/topic/{_ESC(topic)}">'
+            f'{_ESC(_desk_label(topic))}</a></h2>'
             f'<ul class="archive-list">{"".join(items)}</ul>')
     body = f"""<article class="wrap col">
 <div class="breadcrumb"><a href="/">← The board</a></div>

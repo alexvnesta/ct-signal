@@ -315,6 +315,8 @@ white-space:nowrap;border:0;padding:0;margin:-1px;clip-path:inset(50%)}
 .archive-month{font:800 .8rem/1 var(--sans);letter-spacing:.18em;
   text-transform:uppercase;color:var(--ink);border-bottom:3px solid var(--ink);
   padding-bottom:.35rem;margin:1.5rem 0 .3rem}
+.archive-month a{color:inherit;text-decoration:none}
+.archive-month a:hover{color:var(--acc)}
 .archive-list{list-style:none;padding:0;margin:0}
 .archive-list li{padding:1rem 0;border-bottom:1px solid var(--line)}
 .archive-item h3{font:700 1.2rem/1.32 var(--serif);margin:.1rem 0 .3rem;

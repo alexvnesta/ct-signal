@@ -287,6 +287,7 @@ class TestIndicatorFiles(unittest.TestCase):
         self.assertEqual(len(self.cards), body.count('class="archive-item"'))
         for card in self.cards:
             self.assertIn(f'href="/indicator/{card["indicator"]}"', body)
+        self.assertIn('href="/topic/economy"', body)
         self.assertIn('href="/indicators">Indicator files</a>', body)
 
 
