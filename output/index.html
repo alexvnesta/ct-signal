@@ -30,7 +30,7 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css?v=e4460001">
+<link rel="stylesheet" href="/assets/site.css?v=45e678f1">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://ctsignal.org/#website","url":"https://ctsignal.org/","name":"CT Signal","description":"Connecticut data answers to the questions its news cycle is already asking. Know where you live.","inLanguage":"en-US","publisher":{"@id":"https://ctsignal.org/#org"}},{"@type":"Organization","@id":"https://ctsignal.org/#org","name":"CT Signal","url":"https://ctsignal.org/","email":"hello@ctsignal.org","logo":{"@type":"ImageObject","url":"https://ctsignal.org/assets/og-cover.png","width":1200,"height":630},"sameAs":["https://github.com/alexvnesta/ct-signal","https://bsky.app/profile/ctsignal.org"],"publishingPrinciples":"https://ctsignal.org/about","correctionsPolicy":"https://ctsignal.org/corrections","ethicsPolicy":"https://ctsignal.org/about","actionableFeedbackPolicy":"https://ctsignal.org/about","ownershipFundingInfo":"https://ctsignal.org/masthead","privacyPolicy":"https://ctsignal.org/privacy"}]}</script>
 </head>
 <body>
@@ -42,7 +42,8 @@
 <p class="frontdek">Public data answers the questions Connecticut&rsquo;s news
 cycle is already asking.</p>
 <p class="frontlinks"><a href="/towns">Find your town &rarr;</a> &middot;
-<a href="/indicators">Follow a measure &rarr;</a></p>
+<a href="/compare">Compare towns &rarr;</a> &middot;
+<a href="/week">Weekly brief &rarr;</a></p>
 </div>
 <div class="latest-grid">
 <div class="lead-col">
@@ -54,59 +55,60 @@ cycle is already asking.</p>
 <p class="lede">That is 2.6 times the 26.65-mill rate that property pays statewide across 169 towns.</p>
 <figure class="vizwrap"><div class="viz" id="heroviz" role="img" tabindex="0" aria-label="Town ranking chart for “Which Connecticut town has the highest property tax rate?”. In fiscal year 2027, Hartford taxes real property at 69.95 mills, 2.6 times the 26.65-mill rate that property pays statewide across 169 towns." style="--viz-h:308px"><img class="viz-ssr" src="/assets/chart-a3514b53fb39.svg?v=e3fd7a7620ed" alt="" decoding="async" loading="eager"></div><figcaption>Property tax rate, FY2027 (top 10 towns); Hartford highlighted in orange. Source and query on the story page.</figcaption></figure><script type="application/json" class="vs" data-target="heroviz">{"$schema": "https://vega.github.io/schema/vega-lite/v6.json", "autosize": {"contains": "padding"}, "background": "transparent", "config": {"axis": {"domainColor": "#b8b2a6", "gridColor": "#e4dfd3", "labelColor": "#4c5a68", "labelFontSize": 12, "tickColor": "#b8b2a6", "titleColor": "#4c5a68", "titleFontSize": 12}, "legend": {"labelColor": "#4c5a68", "labelFontSize": 12, "symbolStrokeWidth": 0, "titleColor": "#4c5a68", "titleFontSize": 12}, "title": {"color": "#1c2733", "fontSize": 14, "subtitleColor": "#66717e", "subtitleFontSize": 12}, "view": {"continuousHeight": 300, "continuousWidth": 300, "strokeWidth": 0}}, "data": {"values": [{"highlight": true, "rank": 1, "state": "Hartford", "value": 69.95}, {"highlight": false, "rank": 2, "state": "Hamden", "value": 53.67}, {"highlight": false, "rank": 3, "state": "East Hartford", "value": 47.24}, {"highlight": false, "rank": 4, "state": "West Hartford", "value": 46.77}, {"highlight": false, "rank": 5, "state": "Waterbury", "value": 43.34}, {"highlight": false, "rank": 6, "state": "Manchester", "value": 41.0}, {"highlight": false, "rank": 7, "state": "Naugatuck", "value": 40.44}, {"highlight": false, "rank": 8, "state": "Wethersfield", "value": 39.98}, {"highlight": false, "rank": 9, "state": "New Haven", "value": 39.96}, {"highlight": false, "rank": 10, "state": "New Britain", "value": 39.18}]}, "height": 250, "layer": [{"encoding": {"color": {"field": "highlight", "legend": null, "scale": {"domain": [true, false], "range": ["#d9772b", "#b9b3a6"]}, "type": "nominal"}, "tooltip": [{"field": "state", "title": "Town", "type": "nominal"}, {"field": "value", "title": "Property tax rate, FY2027 (top 10 towns)", "type": "quantitative"}, {"field": "rank", "title": "Rank", "type": "quantitative"}], "x": {"axis": {"format": ",.0f", "grid": false}, "field": "value", "scale": {"domain": [0, 82.541], "nice": true}, "title": "mills per $1,000", "type": "quantitative"}, "y": {"field": "state", "sort": ["Hartford", "Hamden", "East Hartford", "West Hartford", "Waterbury", "Manchester", "Naugatuck", "Wethersfield", "New Haven", "New Britain"], "title": null, "type": "nominal"}}, "mark": {"cornerRadiusEnd": 2, "tooltip": false, "type": "bar"}}, {"encoding": {"color": {"field": "highlight", "legend": null, "scale": {"domain": [true, false], "range": ["#1c2733", "#4c5a68"]}, "type": "nominal"}, "text": {"field": "value", "format": ".2f", "type": "quantitative"}, "x": {"field": "value", "type": "quantitative"}, "y": {"field": "state", "sort": ["Hartford", "Hamden", "East Hartford", "West Hartford", "Waterbury", "Manchester", "Naugatuck", "Wethersfield", "New Haven", "New Britain"], "title": null, "type": "nominal"}}, "mark": {"align": "left", "baseline": "middle", "dx": 5, "fontSize": 11, "fontWeight": 600, "type": "text"}}], "title": {"subtitle": "Hartford highlighted", "text": "Property tax rate, FY2027 (top 10 towns)"}, "width": "container", "aria": false}</script>
 <div class="meta"><span class="trig"><span class="srclabel">Source:</span> CT Mirror — <a href="https://ctmirror.org/2026/11/24/lamont-ct-pension-savings-budget/" rel="noopener">Lamont: CT’s savings habits pay big dividends in next budget</a></span><span class="when">
-<time datetime="2026-11-26T20:33:30+00:00">22 h ago · 3:33 PM EST</time></span>
+<time datetime="2026-11-26T20:33:30+00:00">23 h ago · 3:33 PM EST</time></span>
 <a class="more" href="/story/a3514b53fb39">Read the full story — with the chart
 and the exact query →</a></div></article>
 <aside class="front-town" aria-label="Look up your Connecticut town">
 <div class="front-town-h">Know where you live</div>
-<p>Jump straight to any of Connecticut’s 169 town files — mill rate,
-median income, rent, home value, and poverty rate.</p>
+<p>Jump to any of Connecticut’s 169 town files — mill rate,
+property tax estimator, 2024 home sales, school spending, and Census figures.</p>
 <form class="front-town-form" onsubmit="var s=document.getElementById('ft-sel').value;if(s)location.href='/town/'+s;return false;">
 <label class="sr-only" for="ft-sel">Choose a Connecticut town</label>
 <select id="ft-sel"><option value="andover">Andover</option><option value="ansonia">Ansonia</option><option value="ashford">Ashford</option><option value="avon">Avon</option><option value="barkhamsted">Barkhamsted</option><option value="beacon-falls">Beacon Falls</option><option value="berlin">Berlin</option><option value="bethany">Bethany</option><option value="bethel">Bethel</option><option value="bethlehem">Bethlehem</option><option value="bloomfield">Bloomfield</option><option value="bolton">Bolton</option><option value="bozrah">Bozrah</option><option value="branford">Branford</option><option value="bridgeport">Bridgeport</option><option value="bridgewater">Bridgewater</option><option value="bristol">Bristol</option><option value="brookfield">Brookfield</option><option value="brooklyn">Brooklyn</option><option value="burlington">Burlington</option><option value="canaan">Canaan</option><option value="canterbury">Canterbury</option><option value="canton">Canton</option><option value="chaplin">Chaplin</option><option value="cheshire">Cheshire</option><option value="chester">Chester</option><option value="clinton">Clinton</option><option value="colchester">Colchester</option><option value="colebrook">Colebrook</option><option value="columbia">Columbia</option><option value="cornwall">Cornwall</option><option value="coventry">Coventry</option><option value="cromwell">Cromwell</option><option value="danbury">Danbury</option><option value="darien">Darien</option><option value="deep-river">Deep River</option><option value="derby">Derby</option><option value="durham">Durham</option><option value="east-granby">East Granby</option><option value="east-haddam">East Haddam</option><option value="east-hampton">East Hampton</option><option value="east-hartford">East Hartford</option><option value="east-haven">East Haven</option><option value="east-lyme">East Lyme</option><option value="east-windsor">East Windsor</option><option value="eastford">Eastford</option><option value="easton">Easton</option><option value="ellington">Ellington</option><option value="enfield">Enfield</option><option value="essex">Essex</option><option value="fairfield">Fairfield</option><option value="farmington">Farmington</option><option value="franklin">Franklin</option><option value="glastonbury">Glastonbury</option><option value="goshen">Goshen</option><option value="granby">Granby</option><option value="greenwich">Greenwich</option><option value="griswold">Griswold</option><option value="groton">Groton</option><option value="guilford">Guilford</option><option value="haddam">Haddam</option><option value="hamden">Hamden</option><option value="hampton">Hampton</option><option value="hartford">Hartford</option><option value="hartland">Hartland</option><option value="harwinton">Harwinton</option><option value="hebron">Hebron</option><option value="kent">Kent</option><option value="killingly">Killingly</option><option value="killingworth">Killingworth</option><option value="lebanon">Lebanon</option><option value="ledyard">Ledyard</option><option value="lisbon">Lisbon</option><option value="litchfield">Litchfield</option><option value="lyme">Lyme</option><option value="madison">Madison</option><option value="manchester">Manchester</option><option value="mansfield">Mansfield</option><option value="marlborough">Marlborough</option><option value="meriden">Meriden</option><option value="middlebury">Middlebury</option><option value="middlefield">Middlefield</option><option value="middletown">Middletown</option><option value="milford">Milford</option><option value="monroe">Monroe</option><option value="montville">Montville</option><option value="morris">Morris</option><option value="naugatuck">Naugatuck</option><option value="new-britain">New Britain</option><option value="new-canaan">New Canaan</option><option value="new-fairfield">New Fairfield</option><option value="new-hartford">New Hartford</option><option value="new-haven">New Haven</option><option value="new-london">New London</option><option value="new-milford">New Milford</option><option value="newington">Newington</option><option value="newtown">Newtown</option><option value="norfolk">Norfolk</option><option value="north-branford">North Branford</option><option value="north-canaan">North Canaan</option><option value="north-haven">North Haven</option><option value="north-stonington">North Stonington</option><option value="norwalk">Norwalk</option><option value="norwich">Norwich</option><option value="old-lyme">Old Lyme</option><option value="old-saybrook">Old Saybrook</option><option value="orange">Orange</option><option value="oxford">Oxford</option><option value="plainfield">Plainfield</option><option value="plainville">Plainville</option><option value="plymouth">Plymouth</option><option value="pomfret">Pomfret</option><option value="portland">Portland</option><option value="preston">Preston</option><option value="prospect">Prospect</option><option value="putnam">Putnam</option><option value="redding">Redding</option><option value="ridgefield">Ridgefield</option><option value="rocky-hill">Rocky Hill</option><option value="roxbury">Roxbury</option><option value="salem">Salem</option><option value="salisbury">Salisbury</option><option value="scotland">Scotland</option><option value="seymour">Seymour</option><option value="sharon">Sharon</option><option value="shelton">Shelton</option><option value="sherman">Sherman</option><option value="simsbury">Simsbury</option><option value="somers">Somers</option><option value="south-windsor">South Windsor</option><option value="southbury">Southbury</option><option value="southington">Southington</option><option value="sprague">Sprague</option><option value="stafford">Stafford</option><option value="stamford">Stamford</option><option value="sterling">Sterling</option><option value="stonington">Stonington</option><option value="stratford">Stratford</option><option value="suffield">Suffield</option><option value="thomaston">Thomaston</option><option value="thompson">Thompson</option><option value="tolland">Tolland</option><option value="torrington">Torrington</option><option value="trumbull">Trumbull</option><option value="union">Union</option><option value="vernon">Vernon</option><option value="voluntown">Voluntown</option><option value="wallingford">Wallingford</option><option value="warren">Warren</option><option value="washington">Washington</option><option value="waterbury">Waterbury</option><option value="waterford">Waterford</option><option value="watertown">Watertown</option><option value="west-hartford">West Hartford</option><option value="west-haven">West Haven</option><option value="westbrook">Westbrook</option><option value="weston">Weston</option><option value="westport">Westport</option><option value="wethersfield">Wethersfield</option><option value="willington">Willington</option><option value="wilton">Wilton</option><option value="winchester">Winchester</option><option value="windham">Windham</option><option value="windsor">Windsor</option><option value="windsor-locks">Windsor Locks</option><option value="wolcott">Wolcott</option><option value="woodbridge">Woodbridge</option><option value="woodbury">Woodbury</option><option value="woodstock">Woodstock</option></select>
 <button type="submit">Open town file →</button>
-</form></aside></div>
-<div class="sec2"><h2 class="sec2-head">More from Connecticut data</h2><div class="item"><a class="item-fig" href="/story/0785479c5e31" tabindex="-1" aria-hidden="true"><img class="item-thumb" src="/assets/story-0785479c5e31-thumb.png?v=ce7cff52" width="480" height="192" loading="lazy" decoding="async" alt=""></a><div class="item-body">
-<span class="kicker">weather</span>
-<h3><a href="/story/0785479c5e31">Connecticut ran 4.6°F warmer than normal over the 30 days ending Nov 26, 2026</a></h3>
-<p class="item-q">Is Connecticut running warmer or colder than normal?</p>
-<div class="meta"><time datetime="2026-11-27T12:58:29+00:00">6 h ago · 7:58 AM EST</time></div>
-</div></div><div class="item"><a class="item-fig" href="/story/90255dce8175" tabindex="-1" aria-hidden="true"><img class="item-thumb" src="/assets/story-90255dce8175-thumb.png?v=51b9aa5b" width="480" height="192" loading="lazy" decoding="async" alt=""></a><div class="item-body">
-<span class="kicker">justice</span>
-<h3><a href="/story/90255dce8175">Connecticut reports 147 violent crimes per 100k people (2023)</a></h3>
-<p class="item-q">How does Connecticut’s reported violent crime compare with the rest of the country?</p>
-<div class="meta"><time datetime="2026-11-27T12:58:27+00:00">6 h ago · 7:58 AM EST</time></div>
-</div></div><div class="item"><a class="item-fig" href="/story/b37766e764aa" tabindex="-1" aria-hidden="true"><img class="item-thumb" src="/assets/story-b37766e764aa-thumb.png?v=5f10ae87" width="480" height="192" loading="lazy" decoding="async" alt=""></a><div class="item-body">
+</form>
+<p style="margin:.55rem 0 0;font-size:.82rem"><a href="/compare">Compare two Connecticut towns side by side →</a></p></aside></div>
+<div class="sec2"><h2 class="sec2-head">More from Connecticut data</h2><div class="item"><a class="item-fig" href="/story/d83567a6654f" tabindex="-1" aria-hidden="true"><img class="item-thumb" src="/assets/story-d83567a6654f-thumb.png?v=8d449e45" width="480" height="192" loading="lazy" decoding="async" alt=""></a><div class="item-body">
 <span class="kicker">local-finance</span>
-<h3><a href="/story/b37766e764aa">Bridgeport added $4.85B of net taxable property in 2025 (+59.9%)</a></h3>
-<p class="item-q">Which Connecticut towns grew their property tax base fastest?</p>
-<div class="meta"><time datetime="2026-11-26T20:33:29+00:00">22 h ago · 3:33 PM EST</time></div>
+<h3><a href="/story/d83567a6654f">Sharon spent $47,845 per public school student in 2023, the highest of 169 Connecticut towns (statewide median: $20,958)</a></h3>
+<p class="item-q">Which Connecticut towns spend the most per public school student?</p>
+<div class="meta"><time datetime="2026-11-27T19:33:54+00:00">22 min ago · 2:33 PM EST</time></div>
+</div></div><div class="item"><a class="item-fig" href="/story/c77ecc1c1e06" tabindex="-1" aria-hidden="true"><img class="item-thumb" src="/assets/story-c77ecc1c1e06-thumb.png?v=cd930aa5" width="480" height="192" loading="lazy" decoding="async" alt=""></a><div class="item-body">
+<span class="kicker">economy</span>
+<h3><a href="/story/c77ecc1c1e06">Northeast urban electricity averaged $0.266 per kWh in Oct 2026</a></h3>
+<p class="item-q">What are Northeast households paying for electricity?</p>
+<div class="meta"><time datetime="2026-11-27T19:33:54+00:00">22 min ago · 2:33 PM EST</time></div>
+</div></div><div class="item"><a class="item-fig" href="/story/ea89b34f9217" tabindex="-1" aria-hidden="true"><img class="item-thumb" src="/assets/story-ea89b34f9217-thumb.png?v=14fcddf2" width="480" height="192" loading="lazy" decoding="async" alt=""></a><div class="item-body">
+<span class="kicker">housing</span>
+<h3><a href="/story/ea89b34f9217">Single-family homes in Greenwich sold for a median of $2,850,000 in 2024</a></h3>
+<p class="item-q">Where do Connecticut single-family homes sell for the most?</p>
+<div class="meta"><time datetime="2026-11-27T19:33:53+00:00">22 min ago · 2:33 PM EST</time></div>
 </div></div></div>
 <aside class="rail"><h2 class="railhead">Latest from the desk</h2><div class="item"><div class="item-body">
+<span class="kicker">housing · local</span>
+<h3><a href="/story/5db571f537f4">Stamford permitted 1,564 new housing units in 2025, leading 169 Connecticut towns (9,834 units permitted statewide)</a></h3>
+<p class="item-q">Which Connecticut towns permitted the most new housing?</p>
+<div class="meta"><time datetime="2026-11-27T19:33:49+00:00">22 min ago · 2:33 PM EST</time></div>
+</div></div><div class="item"><div class="item-body">
+<span class="kicker">weather · national</span>
+<h3><a href="/story/0785479c5e31">Connecticut ran 4.6°F warmer than normal over the 30 days ending Nov 26, 2026</a></h3>
+<p class="item-q">Is Connecticut running warmer or colder than normal?</p>
+<div class="meta"><time datetime="2026-11-27T12:58:29+00:00">7 h ago · 7:58 AM EST</time></div>
+</div></div><div class="item"><div class="item-body">
+<span class="kicker">justice · stackup</span>
+<h3><a href="/story/90255dce8175">Connecticut reports 147 violent crimes per 100k people (2023)</a></h3>
+<p class="item-q">How does Connecticut’s reported violent crime compare with the rest of the country?</p>
+<div class="meta"><time datetime="2026-11-27T12:58:27+00:00">7 h ago · 7:58 AM EST</time></div>
+</div></div><div class="item"><div class="item-body">
+<span class="kicker">local-finance · local</span>
+<h3><a href="/story/b37766e764aa">Bridgeport added $4.85B of net taxable property in 2025 (+59.9%)</a></h3>
+<p class="item-q">Which Connecticut towns grew their property tax base fastest?</p>
+<div class="meta"><time datetime="2026-11-26T20:33:29+00:00">23 h ago · 3:33 PM EST</time></div>
+</div></div><div class="item"><div class="item-body">
 <span class="kicker">equity · stackup</span>
 <h3><a href="/story/797faed5a836">9.1% of Connecticut residents live below the poverty line (2025)</a></h3>
 <p class="item-q">How many Connecticut residents live below the poverty line compared with the rest of the country?</p>
-<div class="meta"><time datetime="2026-11-26T20:33:19+00:00">22 h ago · 3:33 PM EST</time></div>
-</div></div><div class="item"><div class="item-body">
-<span class="kicker">economy · stackup</span>
-<h3><a href="/story/916a9da3173f">Connecticut&#x27;s median household income is $100,056 (2025)</a></h3>
-<p class="item-q">What do Connecticut households earn compared with the rest of the country?</p>
-<div class="meta"><time datetime="2026-11-24T16:29:03+00:00">Nov 24 · 11:29 AM EST</time></div>
-</div></div><div class="item"><div class="item-body">
-<span class="kicker">housing · stackup</span>
-<h3><a href="/story/0125297ea839">Connecticut&#x27;s median gross rent was $1,679 in 2025</a></h3>
-<p class="item-q">How expensive is renting in Connecticut compared to the rest of America?</p>
-<div class="meta"><time datetime="2026-11-11T05:29:13+00:00">Nov 11 · 12:29 AM EST</time></div>
-</div></div><div class="item"><div class="item-body">
-<span class="kicker">economy · stackup</span>
-<h3><a href="/story/0b26178760d4">Connecticut&#x27;s unemployment rate is 5.8% (2026)</a></h3>
-<p class="item-q">Is Connecticut&#x27;s job market doing better or worse than the rest of the country?</p>
-<div class="meta"><time datetime="2026-11-09T20:58:11+00:00">Nov 9 · 3:58 PM EST</time></div>
-</div></div><div class="item"><div class="item-body">
-<span class="kicker">economy · national</span>
-<h3><a href="/story/9089da248fbd">83.7% of Americans aged 25 to 54 were working or looking for work in Oct 2026</a></h3>
-<p class="item-q">Are working-age Americans in the labor force?</p>
-<div class="meta"><time datetime="2026-11-07T00:25:24+00:00">Nov 6 · 7:25 PM EST</time></div>
+<div class="meta"><time datetime="2026-11-26T20:33:19+00:00">23 h ago · 3:33 PM EST</time></div>
 </div></div><p class="allq"><a href="/archive">All published stories →</a></p></aside>
 </div></div></section>
 
@@ -114,7 +116,7 @@ median income, rent, home value, and poverty rate.</p>
 <div class="sechead"><h2>On the wire</h2>
 <p class="sechelp">Connecticut civic headlines the desk is watching today.</p>
 </div>
-<ul class="wirelist"><li><a href="https://news.google.com/rss/articles/CBMipgFBVV95cUxOUXlvUGN5ZEZVZWJ1MmF2RWE4bm51RWxGN0Y2X29LZmZnbGlpRjU2R0hFeUdQeERXcmJVd21rVERiZHhfZm5aTm9pM3poVVZhSFJWaC1BU3kyUktPMGUxYnpWN2kwaHc4Q3o2NHpobW13T1ZEVUJoWjRTLXFKR3luSm5tVGVRSGp3MGh1dm94TlktXzZGNEMzbTdqUTFWX1NGRGFtSDdn?oc=5" rel="noopener">Thanksgiving nor&#x27;easter hits Connecticut: Rain, 60 mph gusts and coastal flooding - CT Insider</a><span class="wiresrc">Google News (CT) · 30h ago</span> <a class="wireans" href="/story/0785479c5e31">related data</a></li><li><a href="https://www.npr.org/2026/11/27/nx-s1-6054884/thanksgiving-weather-black-friday" rel="noopener">From Thanksgiving blackouts to Black Friday, a holiday hit by wild weather and economic woes</a><span class="wiresrc">NPR · 7h ago</span> <a class="wireans" href="/story/0785479c5e31">related data</a></li><li><a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxOcEVFZ29ic3pWbF9SSVF3UEdOVVd3ckhRSXc5bWJnd0hKZE1JQ0swYUVYV1VNSlZ5RjdlRTVvSkI4a1ItWG90MFFDdjFOLXNLc1lDdmt4U0tKWUxOOS1oLVhuRW5lT2ZPX3J0ekg4bFpmdlJwY3BBbk5obGtuS1ZjYnhGOEV1RlpvRnhWSFRHOWZzcWs5N1BDSHVoQ293V2d5SEQw0gGrAUFVX3lxTFBQTk02NHZtSGN3Um1NUXJfcnk" rel="noopener">Scattered showers and less breezy through Friday - NBC Connecticut</a><span class="wiresrc">Google News (CT) · 6h ago</span></li><li><a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxOdThtU1ZUMXZVcHdXQ3BHM2RCYVFrazlJOE56REtpRnM0ejNCcGZQSXRXd0JyNTlfUUZabzM5TUU5T2JQU25iMXppWTZUOW5JRWpVLUw5SllUZkYxazM0YW9xR3hsemUxNVVySTEybDVtRjdfZ1RfU2EzUC1sQk1MLWJmT2UzSVZVdmZwYjdNUnlDTFN4VnNacllITHNneFVwZDJ0N3VqaXU?oc=5" rel="noopener">Thousands of Connecticut power outages remain after Thanksgiving nor&#x27;easter - CTPost</a><span class="wiresrc">Google News (CT) · 7h ago</span></li><li><a href="https://ctmirror.org/2026/11/27/ct-after-ruling-ice/" rel="noopener">CT looks to next steps after ruling on ICE: ‘We’re not backing down’</a><span class="wiresrc">CT Mirror · 8h ago</span></li><li><a href="https://ctnewsjunkie.com/2026/11/27/food-labels-to-get-more-consistent-under-new-rule/" rel="noopener">Food Labels To Get More Consistent Under New Rule</a><span class="wiresrc">CT News Junkie · 8h ago</span></li><li><a href="https://ctmirror.org/2026/11/27/ct-has-built-something-healthcare-cant-afford-to-waste/" rel="noopener">CT has built something healthcare can’t afford to waste</a><span class="wiresrc">CT Mirror · 13h ago</span></li><li><a href="https://ctmirror.org/2026/11/27/will-the-connecticut-option-work/" rel="noopener">Is the ‘Connecticut Option’ a good one?</a><span class="wiresrc">CT Mirror · 13h ago</span></li></ul>
+<ul class="wirelist"><li><a href="https://news.google.com/rss/articles/CBMipgFBVV95cUxOUXlvUGN5ZEZVZWJ1MmF2RWE4bm51RWxGN0Y2X29LZmZnbGlpRjU2R0hFeUdQeERXcmJVd21rVERiZHhfZm5aTm9pM3poVVZhSFJWaC1BU3kyUktPMGUxYnpWN2kwaHc4Q3o2NHpobW13T1ZEVUJoWjRTLXFKR3luSm5tVGVRSGp3MGh1dm94TlktXzZGNEMzbTdqUTFWX1NGRGFtSDdn?oc=5" rel="noopener">Thanksgiving nor&#x27;easter hits Connecticut: Rain, 60 mph gusts and coastal flooding - CT Insider</a><span class="wiresrc">Google News (CT) · 31h ago</span> <a class="wireans" href="/story/0785479c5e31">related data</a></li><li><a href="https://www.npr.org/2026/11/27/nx-s1-6054884/thanksgiving-weather-black-friday" rel="noopener">From Thanksgiving blackouts to Black Friday, a holiday hit by wild weather and economic woes</a><span class="wiresrc">NPR · 8h ago</span> <a class="wireans" href="/story/0785479c5e31">related data</a></li><li><a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxOcEVFZ29ic3pWbF9SSVF3UEdOVVd3ckhRSXc5bWJnd0hKZE1JQ0swYUVYV1VNSlZ5RjdlRTVvSkI4a1ItWG90MFFDdjFOLXNLc1lDdmt4U0tKWUxOOS1oLVhuRW5lT2ZPX3J0ekg4bFpmdlJwY3BBbk5obGtuS1ZjYnhGOEV1RlpvRnhWSFRHOWZzcWs5N1BDSHVoQ293V2d5SEQw0gGrAUFVX3lxTFBQTk02NHZtSGN3Um1NUXJfcnk" rel="noopener">Scattered showers and less breezy through Friday - NBC Connecticut</a><span class="wiresrc">Google News (CT) · 7h ago</span></li><li><a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxOdThtU1ZUMXZVcHdXQ3BHM2RCYVFrazlJOE56REtpRnM0ejNCcGZQSXRXd0JyNTlfUUZabzM5TUU5T2JQU25iMXppWTZUOW5JRWpVLUw5SllUZkYxazM0YW9xR3hsemUxNVVySTEybDVtRjdfZ1RfU2EzUC1sQk1MLWJmT2UzSVZVdmZwYjdNUnlDTFN4VnNacllITHNneFVwZDJ0N3VqaXU?oc=5" rel="noopener">Thousands of Connecticut power outages remain after Thanksgiving nor&#x27;easter - CTPost</a><span class="wiresrc">Google News (CT) · 8h ago</span></li><li><a href="https://ctmirror.org/2026/11/27/ct-after-ruling-ice/" rel="noopener">CT looks to next steps after ruling on ICE: ‘We’re not backing down’</a><span class="wiresrc">CT Mirror · 9h ago</span></li><li><a href="https://ctnewsjunkie.com/2026/11/27/food-labels-to-get-more-consistent-under-new-rule/" rel="noopener">Food Labels To Get More Consistent Under New Rule</a><span class="wiresrc">CT News Junkie · 9h ago</span></li><li><a href="https://ctmirror.org/2026/11/27/ct-has-built-something-healthcare-cant-afford-to-waste/" rel="noopener">CT has built something healthcare can’t afford to waste</a><span class="wiresrc">CT Mirror · 14h ago</span></li><li><a href="https://ctmirror.org/2026/11/27/will-the-connecticut-option-work/" rel="noopener">Is the ‘Connecticut Option’ a good one?</a><span class="wiresrc">CT Mirror · 14h ago</span></li></ul>
 </div></section>
 <section><div class="wrap">
 <div class="sechead"><h2>The Connecticut board</h2>
@@ -168,18 +170,21 @@ dome, City Place and the downtown towers"></div>
 <div><h2>CT&nbsp;<span class="boltwrap" aria-hidden="true"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg></span>&nbsp;Signal</h2>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
 public data answers it. Know where you live.</p>
-<p><a class="subbtn" href="mailto:hello@ctsignal.org?subject=Board%20sponsorship">Sponsor the board</a></p>
+<p><a class="subbtn" href="/partner">Partner &amp; underwrite</a></p>
 <p><a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a></p>
 <p><a href="mailto:hello@ctsignal.org?subject=Question%20for%20the%20desk&amp;body=Town%3A%20%0AQuestion%20(one%20sentence)%3A%20">Ask the desk a question</a> — every message is read and logged.</p></div>
 <div><h2>Sections</h2><ul>
 <li><a href="/">The board</a></li>
 <li><a href="/archive">Stories</a></li>
+<li><a href="/week">Weekly brief</a></li>
 <li><a href="/towns">Towns</a></li>
+<li><a href="/compare">Compare towns</a></li>
 <li><a href="/indicators">Indicator files</a></li>
 <li><a href="/sources">Data sources</a></li>
 <li><a href="/feed.xml">RSS feed</a></li></ul></div>
 <div><h2>Newsroom</h2><ul>
 <li><a href="/about">About</a></li>
+<li><a href="/partner">Partner &amp; underwrite</a></li>
 <li><a href="/masthead">Who runs this</a></li>
 <li><a href="/corrections">Corrections</a></li>
 <li><a href="/privacy">Privacy</a></li>
@@ -285,9 +290,9 @@ document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementB
   else window.addEventListener("load",boot,{once:true});});</script>
 <script>
 if(/(^|\.)ctsignal\.org$/.test(location.hostname)){
-  var s=document.createElement("script");
-  s.src="/_vercel/speed-insights/script.js";s.defer=true;
-  document.head.appendChild(s);
+  ["/_vercel/speed-insights/script.js","/_vercel/insights/script.js"].forEach(function(u){
+    var s=document.createElement("script");s.src=u;s.defer=true;document.head.appendChild(s);
+  });
 }
 </script>
 </body></html>

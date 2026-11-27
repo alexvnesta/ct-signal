@@ -1,0 +1,1109 @@
+{
+  "answer_text": "Sharon spent $47,845 per public school student in 2023, the highest of 169 Connecticut towns (statewide median: $20,958).",
+  "answer_values": {
+    "date": "2023",
+    "edition": "Report Edition: 2019-2023",
+    "n": 169,
+    "state": 20958,
+    "top": {
+      "town": "Sharon",
+      "value": 47845
+    }
+  },
+  "cache": false,
+  "chart": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "autosize": {
+      "contains": "padding"
+    },
+    "background": "transparent",
+    "config": {
+      "axis": {
+        "domainColor": "#b8b2a6",
+        "gridColor": "#e4dfd3",
+        "labelColor": "#4c5a68",
+        "labelFontSize": 12,
+        "tickColor": "#b8b2a6",
+        "titleColor": "#4c5a68",
+        "titleFontSize": 12
+      },
+      "legend": {
+        "labelColor": "#4c5a68",
+        "labelFontSize": 12,
+        "symbolStrokeWidth": 0,
+        "titleColor": "#4c5a68",
+        "titleFontSize": 12
+      },
+      "title": {
+        "color": "#1c2733",
+        "fontSize": 14,
+        "subtitleColor": "#66717e",
+        "subtitleFontSize": 12
+      },
+      "view": {
+        "continuousHeight": 300,
+        "continuousWidth": 300,
+        "strokeWidth": 0
+      }
+    },
+    "data": {
+      "values": [
+        {
+          "highlight": true,
+          "rank": 1,
+          "state": "Sharon",
+          "value": 47845
+        },
+        {
+          "highlight": false,
+          "rank": 2,
+          "state": "Cornwall",
+          "value": 36885
+        },
+        {
+          "highlight": false,
+          "rank": 3,
+          "state": "Canaan",
+          "value": 35833
+        },
+        {
+          "highlight": false,
+          "rank": 4,
+          "state": "Bridgewater",
+          "value": 35820
+        },
+        {
+          "highlight": false,
+          "rank": 5,
+          "state": "Roxbury",
+          "value": 35820
+        },
+        {
+          "highlight": false,
+          "rank": 6,
+          "state": "Washington",
+          "value": 35820
+        },
+        {
+          "highlight": false,
+          "rank": 7,
+          "state": "Kent",
+          "value": 35655
+        },
+        {
+          "highlight": false,
+          "rank": 8,
+          "state": "Norfolk",
+          "value": 31806
+        },
+        {
+          "highlight": false,
+          "rank": 9,
+          "state": "Westbrook",
+          "value": 30356
+        },
+        {
+          "highlight": false,
+          "rank": 10,
+          "state": "Salisbury",
+          "value": 30167
+        }
+      ]
+    },
+    "height": 250,
+    "layer": [
+      {
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#d9772b",
+                "#b9b3a6"
+              ]
+            },
+            "type": "nominal"
+          },
+          "tooltip": [
+            {
+              "field": "state",
+              "title": "Town",
+              "type": "nominal"
+            },
+            {
+              "field": "value",
+              "title": "Education spending per pupil, 2023 (top 10 towns)",
+              "type": "quantitative"
+            },
+            {
+              "field": "rank",
+              "title": "Rank",
+              "type": "quantitative"
+            }
+          ],
+          "x": {
+            "axis": {
+              "format": "$,.0f",
+              "grid": false
+            },
+            "field": "value",
+            "scale": {
+              "domain": [
+                0,
+                56457.1
+              ],
+              "nice": true
+            },
+            "title": "USD",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "Sharon",
+              "Cornwall",
+              "Canaan",
+              "Bridgewater",
+              "Roxbury",
+              "Washington",
+              "Kent",
+              "Norfolk",
+              "Westbrook",
+              "Salisbury"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
+        },
+        "mark": {
+          "cornerRadiusEnd": 2,
+          "tooltip": false,
+          "type": "bar"
+        }
+      },
+      {
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#1c2733",
+                "#4c5a68"
+              ]
+            },
+            "type": "nominal"
+          },
+          "text": {
+            "field": "value",
+            "format": "$,.0f",
+            "type": "quantitative"
+          },
+          "x": {
+            "field": "value",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "Sharon",
+              "Cornwall",
+              "Canaan",
+              "Bridgewater",
+              "Roxbury",
+              "Washington",
+              "Kent",
+              "Norfolk",
+              "Westbrook",
+              "Salisbury"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
+        },
+        "mark": {
+          "align": "left",
+          "baseline": "middle",
+          "dx": 5,
+          "fontSize": 11,
+          "fontWeight": 600,
+          "type": "text"
+        }
+      }
+    ],
+    "title": {
+      "subtitle": "Sharon highlighted",
+      "text": "Education spending per pupil, 2023 (top 10 towns)"
+    },
+    "width": "container"
+  },
+  "chart_kind": "rank_strip",
+  "citations": [
+    "https://data.ct.gov/d/xgef-f6jp"
+  ],
+  "generated_at": "2026-11-27T19:33:54+00:00",
+  "headline": null,
+  "id": "d83567a6654f",
+  "indicator": "school_spending_per_pupil",
+  "origin": "data desk",
+  "query": "GET /resource/xgef-f6jp.json $where=metric='Net current education expenditures per pupil (CSDE)' AND year='2023' (Report Edition: 2019-2023; 169 towns)",
+  "question": "Which Connecticut towns spend the most per public school student?",
+  "stream": "local",
+  "topic": "local-finance",
+  "towns": [
+    {
+      "rank": 1,
+      "town": "Sharon",
+      "value": 47845
+    },
+    {
+      "rank": 2,
+      "town": "Cornwall",
+      "value": 36885
+    },
+    {
+      "rank": 3,
+      "town": "Canaan",
+      "value": 35833
+    },
+    {
+      "rank": 4,
+      "town": "Bridgewater",
+      "value": 35820
+    },
+    {
+      "rank": 5,
+      "town": "Roxbury",
+      "value": 35820
+    },
+    {
+      "rank": 6,
+      "town": "Washington",
+      "value": 35820
+    },
+    {
+      "rank": 7,
+      "town": "Kent",
+      "value": 35655
+    },
+    {
+      "rank": 8,
+      "town": "Norfolk",
+      "value": 31806
+    },
+    {
+      "rank": 9,
+      "town": "Westbrook",
+      "value": 30356
+    },
+    {
+      "rank": 10,
+      "town": "Salisbury",
+      "value": 30167
+    },
+    {
+      "rank": 11,
+      "town": "Hampton",
+      "value": 29270
+    },
+    {
+      "rank": 12,
+      "town": "Redding",
+      "value": 28775
+    },
+    {
+      "rank": 13,
+      "town": "North Canaan",
+      "value": 28578
+    },
+    {
+      "rank": 14,
+      "town": "Hartland",
+      "value": 28476
+    },
+    {
+      "rank": 15,
+      "town": "Essex",
+      "value": 28152
+    },
+    {
+      "rank": 16,
+      "town": "Colebrook",
+      "value": 27781
+    },
+    {
+      "rank": 17,
+      "town": "Scotland",
+      "value": 27736
+    },
+    {
+      "rank": 18,
+      "town": "Goshen",
+      "value": 27656
+    },
+    {
+      "rank": 19,
+      "town": "Morris",
+      "value": 27656
+    },
+    {
+      "rank": 20,
+      "town": "Warren",
+      "value": 27656
+    },
+    {
+      "rank": 21,
+      "town": "Deep River",
+      "value": 27467
+    },
+    {
+      "rank": 22,
+      "town": "Greenwich",
+      "value": 27323
+    },
+    {
+      "rank": 23,
+      "town": "Chaplin",
+      "value": 27160
+    },
+    {
+      "rank": 24,
+      "town": "Durham",
+      "value": 26476
+    },
+    {
+      "rank": 25,
+      "town": "Middlefield",
+      "value": 26476
+    },
+    {
+      "rank": 26,
+      "town": "Old Saybrook",
+      "value": 26078
+    },
+    {
+      "rank": 27,
+      "town": "Weston",
+      "value": 25891
+    },
+    {
+      "rank": 28,
+      "town": "East Windsor",
+      "value": 25455
+    },
+    {
+      "rank": 29,
+      "town": "Sherman",
+      "value": 25210
+    },
+    {
+      "rank": 30,
+      "town": "Chester",
+      "value": 25174
+    },
+    {
+      "rank": 31,
+      "town": "Hartford",
+      "value": 25101
+    },
+    {
+      "rank": 32,
+      "town": "Bozrah",
+      "value": 25056
+    },
+    {
+      "rank": 33,
+      "town": "Westport",
+      "value": 24864
+    },
+    {
+      "rank": 34,
+      "town": "Bethlehem",
+      "value": 24739
+    },
+    {
+      "rank": 35,
+      "town": "Woodbury",
+      "value": 24739
+    },
+    {
+      "rank": 36,
+      "town": "Milford",
+      "value": 24221
+    },
+    {
+      "rank": 37,
+      "town": "Bloomfield",
+      "value": 24166
+    },
+    {
+      "rank": 38,
+      "town": "Barkhamsted",
+      "value": 24158
+    },
+    {
+      "rank": 39,
+      "town": "Darien",
+      "value": 24153
+    },
+    {
+      "rank": 40,
+      "town": "Ashford",
+      "value": 24026
+    },
+    {
+      "rank": 41,
+      "town": "Clinton",
+      "value": 23881
+    },
+    {
+      "rank": 42,
+      "town": "Norwich",
+      "value": 23772
+    },
+    {
+      "rank": 43,
+      "town": "East Haddam",
+      "value": 23767
+    },
+    {
+      "rank": 44,
+      "town": "Madison",
+      "value": 23726
+    },
+    {
+      "rank": 45,
+      "town": "Middletown",
+      "value": 23704
+    },
+    {
+      "rank": 46,
+      "town": "Lebanon",
+      "value": 23526
+    },
+    {
+      "rank": 47,
+      "town": "Wilton",
+      "value": 23485
+    },
+    {
+      "rank": 48,
+      "town": "Union",
+      "value": 23411
+    },
+    {
+      "rank": 49,
+      "town": "Lyme",
+      "value": 23357
+    },
+    {
+      "rank": 50,
+      "town": "Old Lyme",
+      "value": 23357
+    },
+    {
+      "rank": 51,
+      "town": "New Canaan",
+      "value": 23238
+    },
+    {
+      "rank": 52,
+      "town": "Easton",
+      "value": 23213
+    },
+    {
+      "rank": 53,
+      "town": "Branford",
+      "value": 23191
+    },
+    {
+      "rank": 54,
+      "town": "New London",
+      "value": 23188
+    },
+    {
+      "rank": 55,
+      "town": "Eastford",
+      "value": 23154
+    },
+    {
+      "rank": 56,
+      "town": "Litchfield",
+      "value": 23148
+    },
+    {
+      "rank": 57,
+      "town": "Willington",
+      "value": 23033
+    },
+    {
+      "rank": 58,
+      "town": "Hamden",
+      "value": 22969
+    },
+    {
+      "rank": 59,
+      "town": "Andover",
+      "value": 22962
+    },
+    {
+      "rank": 60,
+      "town": "New Hartford",
+      "value": 22956
+    },
+    {
+      "rank": 61,
+      "town": "Mansfield",
+      "value": 22877
+    },
+    {
+      "rank": 62,
+      "town": "Ridgefield",
+      "value": 22855
+    },
+    {
+      "rank": 63,
+      "town": "Haddam",
+      "value": 22800
+    },
+    {
+      "rank": 64,
+      "town": "Killingworth",
+      "value": 22800
+    },
+    {
+      "rank": 65,
+      "town": "Voluntown",
+      "value": 22767
+    },
+    {
+      "rank": 66,
+      "town": "Fairfield",
+      "value": 22625
+    },
+    {
+      "rank": 67,
+      "town": "Windham",
+      "value": 22623
+    },
+    {
+      "rank": 68,
+      "town": "Windsor Locks",
+      "value": 22516
+    },
+    {
+      "rank": 69,
+      "town": "Middlebury",
+      "value": 22309
+    },
+    {
+      "rank": 70,
+      "town": "Southbury",
+      "value": 22309
+    },
+    {
+      "rank": 71,
+      "town": "Derby",
+      "value": 22265
+    },
+    {
+      "rank": 72,
+      "town": "Wallingford",
+      "value": 22088
+    },
+    {
+      "rank": 73,
+      "town": "Norwalk",
+      "value": 22086
+    },
+    {
+      "rank": 74,
+      "town": "Stonington",
+      "value": 22061
+    },
+    {
+      "rank": 75,
+      "town": "Stamford",
+      "value": 21995
+    },
+    {
+      "rank": 76,
+      "town": "East Granby",
+      "value": 21942
+    },
+    {
+      "rank": 77,
+      "town": "Stafford",
+      "value": 21893
+    },
+    {
+      "rank": 78,
+      "town": "Winchester",
+      "value": 21885
+    },
+    {
+      "rank": 79,
+      "town": "Waterford",
+      "value": 21865
+    },
+    {
+      "rank": 80,
+      "town": "New Fairfield",
+      "value": 21822
+    },
+    {
+      "rank": 81,
+      "town": "New Haven",
+      "value": 21765
+    },
+    {
+      "rank": 82,
+      "town": "Thompson",
+      "value": 21715
+    },
+    {
+      "rank": 83,
+      "town": "North Branford",
+      "value": 21053
+    },
+    {
+      "rank": 84,
+      "town": "East Lyme",
+      "value": 21052
+    },
+    {
+      "rank": 85,
+      "town": "Portland",
+      "value": 20958
+    },
+    {
+      "rank": 86,
+      "town": "Newtown",
+      "value": 20941
+    },
+    {
+      "rank": 87,
+      "town": "Berlin",
+      "value": 20938
+    },
+    {
+      "rank": 88,
+      "town": "Hebron",
+      "value": 20888
+    },
+    {
+      "rank": 89,
+      "town": "Windsor",
+      "value": 20882
+    },
+    {
+      "rank": 90,
+      "town": "Guilford",
+      "value": 20841
+    },
+    {
+      "rank": 91,
+      "town": "Bolton",
+      "value": 20753
+    },
+    {
+      "rank": 92,
+      "town": "Newington",
+      "value": 20571
+    },
+    {
+      "rank": 93,
+      "town": "East Hampton",
+      "value": 20466
+    },
+    {
+      "rank": 94,
+      "town": "Woodbridge",
+      "value": 20361
+    },
+    {
+      "rank": 95,
+      "town": "West Hartford",
+      "value": 20325
+    },
+    {
+      "rank": 96,
+      "town": "Torrington",
+      "value": 20290
+    },
+    {
+      "rank": 97,
+      "town": "Somers",
+      "value": 20287
+    },
+    {
+      "rank": 98,
+      "town": "Preston",
+      "value": 20271
+    },
+    {
+      "rank": 99,
+      "town": "Granby",
+      "value": 20169
+    },
+    {
+      "rank": 100,
+      "town": "Glastonbury",
+      "value": 20127
+    },
+    {
+      "rank": 101,
+      "town": "Canton",
+      "value": 20075
+    },
+    {
+      "rank": 102,
+      "town": "Orange",
+      "value": 20066
+    },
+    {
+      "rank": 103,
+      "town": "Watertown",
+      "value": 20003
+    },
+    {
+      "rank": 104,
+      "town": "Plainville",
+      "value": 19987
+    },
+    {
+      "rank": 105,
+      "town": "Putnam",
+      "value": 19912
+    },
+    {
+      "rank": 106,
+      "town": "Killingly",
+      "value": 19852
+    },
+    {
+      "rank": 107,
+      "town": "Avon",
+      "value": 19819
+    },
+    {
+      "rank": 108,
+      "town": "Stratford",
+      "value": 19786
+    },
+    {
+      "rank": 109,
+      "town": "Farmington",
+      "value": 19784
+    },
+    {
+      "rank": 110,
+      "town": "Marlborough",
+      "value": 19773
+    },
+    {
+      "rank": 111,
+      "town": "Bethany",
+      "value": 19765
+    },
+    {
+      "rank": 112,
+      "town": "Columbia",
+      "value": 19728
+    },
+    {
+      "rank": 113,
+      "town": "Simsbury",
+      "value": 19697
+    },
+    {
+      "rank": 114,
+      "town": "Bristol",
+      "value": 19620
+    },
+    {
+      "rank": 115,
+      "town": "Colchester",
+      "value": 19561
+    },
+    {
+      "rank": 116,
+      "town": "Pomfret",
+      "value": 19552
+    },
+    {
+      "rank": 117,
+      "town": "Suffield",
+      "value": 19510
+    },
+    {
+      "rank": 118,
+      "town": "Franklin",
+      "value": 19500
+    },
+    {
+      "rank": 119,
+      "town": "Salem",
+      "value": 19445
+    },
+    {
+      "rank": 120,
+      "town": "Rocky Hill",
+      "value": 19417
+    },
+    {
+      "rank": 121,
+      "town": "Manchester",
+      "value": 19343
+    },
+    {
+      "rank": 122,
+      "town": "Cheshire",
+      "value": 19342
+    },
+    {
+      "rank": 123,
+      "town": "Sprague",
+      "value": 19339
+    },
+    {
+      "rank": 124,
+      "town": "Brookfield",
+      "value": 19326
+    },
+    {
+      "rank": 125,
+      "town": "Beacon Falls",
+      "value": 19297
+    },
+    {
+      "rank": 126,
+      "town": "Prospect",
+      "value": 19297
+    },
+    {
+      "rank": 127,
+      "town": "Plymouth",
+      "value": 19270
+    },
+    {
+      "rank": 128,
+      "town": "Montville",
+      "value": 19268
+    },
+    {
+      "rank": 129,
+      "town": "North Haven",
+      "value": 19216
+    },
+    {
+      "rank": 130,
+      "town": "Sterling",
+      "value": 19168
+    },
+    {
+      "rank": 131,
+      "town": "Thomaston",
+      "value": 19084
+    },
+    {
+      "rank": 132,
+      "town": "Ansonia",
+      "value": 19083
+    },
+    {
+      "rank": 133,
+      "town": "Bridgeport",
+      "value": 19030
+    },
+    {
+      "rank": 134,
+      "town": "Oxford",
+      "value": 18945
+    },
+    {
+      "rank": 135,
+      "town": "Canterbury",
+      "value": 18928
+    },
+    {
+      "rank": 136,
+      "town": "Vernon",
+      "value": 18921
+    },
+    {
+      "rank": 137,
+      "town": "Groton",
+      "value": 18893
+    },
+    {
+      "rank": 138,
+      "town": "Cromwell",
+      "value": 18706
+    },
+    {
+      "rank": 139,
+      "town": "Waterbury",
+      "value": 18614
+    },
+    {
+      "rank": 140,
+      "town": "Monroe",
+      "value": 18586
+    },
+    {
+      "rank": 141,
+      "town": "New Milford",
+      "value": 18564
+    },
+    {
+      "rank": 142,
+      "town": "Burlington",
+      "value": 18563
+    },
+    {
+      "rank": 143,
+      "town": "Harwinton",
+      "value": 18563
+    },
+    {
+      "rank": 144,
+      "town": "Trumbull",
+      "value": 18486
+    },
+    {
+      "rank": 145,
+      "town": "East Haven",
+      "value": 18413
+    },
+    {
+      "rank": 146,
+      "town": "Wethersfield",
+      "value": 18405
+    },
+    {
+      "rank": 147,
+      "town": "Bethel",
+      "value": 18331
+    },
+    {
+      "rank": 148,
+      "town": "Lisbon",
+      "value": 18280
+    },
+    {
+      "rank": 149,
+      "town": "North Stonington",
+      "value": 18218
+    },
+    {
+      "rank": 150,
+      "town": "Coventry",
+      "value": 18206
+    },
+    {
+      "rank": 151,
+      "town": "Seymour",
+      "value": 18121
+    },
+    {
+      "rank": 152,
+      "town": "Tolland",
+      "value": 18011
+    },
+    {
+      "rank": 153,
+      "town": "New Britain",
+      "value": 17876
+    },
+    {
+      "rank": 154,
+      "town": "Plainfield",
+      "value": 17840
+    },
+    {
+      "rank": 155,
+      "town": "Enfield",
+      "value": 17775
+    },
+    {
+      "rank": 156,
+      "town": "Southington",
+      "value": 17756
+    },
+    {
+      "rank": 157,
+      "town": "Brooklyn",
+      "value": 17375
+    },
+    {
+      "rank": 158,
+      "town": "Woodstock",
+      "value": 17293
+    },
+    {
+      "rank": 159,
+      "town": "Griswold",
+      "value": 17277
+    },
+    {
+      "rank": 160,
+      "town": "Ledyard",
+      "value": 17258
+    },
+    {
+      "rank": 161,
+      "town": "Wolcott",
+      "value": 17240
+    },
+    {
+      "rank": 162,
+      "town": "Shelton",
+      "value": 17236
+    },
+    {
+      "rank": 163,
+      "town": "Ellington",
+      "value": 17197
+    },
+    {
+      "rank": 164,
+      "town": "South Windsor",
+      "value": 16963
+    },
+    {
+      "rank": 165,
+      "town": "West Haven",
+      "value": 16807
+    },
+    {
+      "rank": 166,
+      "town": "Meriden",
+      "value": 16516
+    },
+    {
+      "rank": 167,
+      "town": "East Hartford",
+      "value": 16436
+    },
+    {
+      "rank": 168,
+      "town": "Danbury",
+      "value": 16382
+    },
+    {
+      "rank": 169,
+      "town": "Naugatuck",
+      "value": 16216
+    }
+  ]
+}

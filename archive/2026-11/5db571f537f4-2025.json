@@ -1,0 +1,1277 @@
+{
+  "answer_text": "Stamford permitted 1,564 new housing units in 2025, leading 169 Connecticut towns (9,834 units permitted statewide).",
+  "answer_values": {
+    "date": "2025",
+    "n": 169,
+    "state": 9834,
+    "top": {
+      "town": "Stamford",
+      "value": 1564
+    }
+  },
+  "cache": false,
+  "chart": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "autosize": {
+      "contains": "padding"
+    },
+    "background": "transparent",
+    "config": {
+      "axis": {
+        "domainColor": "#b8b2a6",
+        "gridColor": "#e4dfd3",
+        "labelColor": "#4c5a68",
+        "labelFontSize": 12,
+        "tickColor": "#b8b2a6",
+        "titleColor": "#4c5a68",
+        "titleFontSize": 12
+      },
+      "legend": {
+        "labelColor": "#4c5a68",
+        "labelFontSize": 12,
+        "symbolStrokeWidth": 0,
+        "titleColor": "#4c5a68",
+        "titleFontSize": 12
+      },
+      "title": {
+        "color": "#1c2733",
+        "fontSize": 14,
+        "subtitleColor": "#66717e",
+        "subtitleFontSize": 12
+      },
+      "view": {
+        "continuousHeight": 300,
+        "continuousWidth": 300,
+        "strokeWidth": 0
+      }
+    },
+    "data": {
+      "values": [
+        {
+          "highlight": true,
+          "rank": 1,
+          "state": "Stamford",
+          "value": 1564
+        },
+        {
+          "highlight": false,
+          "rank": 2,
+          "state": "New Haven",
+          "value": 829
+        },
+        {
+          "highlight": false,
+          "rank": 3,
+          "state": "Stratford",
+          "value": 369
+        },
+        {
+          "highlight": false,
+          "rank": 4,
+          "state": "Fairfield",
+          "value": 343
+        },
+        {
+          "highlight": false,
+          "rank": 5,
+          "state": "Shelton",
+          "value": 341
+        },
+        {
+          "highlight": false,
+          "rank": 6,
+          "state": "Wilton",
+          "value": 305
+        },
+        {
+          "highlight": false,
+          "rank": 7,
+          "state": "West Hartford",
+          "value": 295
+        },
+        {
+          "highlight": false,
+          "rank": 8,
+          "state": "Danbury",
+          "value": 273
+        },
+        {
+          "highlight": false,
+          "rank": 9,
+          "state": "Hartford",
+          "value": 255
+        },
+        {
+          "highlight": false,
+          "rank": 10,
+          "state": "Newington",
+          "value": 235
+        }
+      ]
+    },
+    "height": 250,
+    "layer": [
+      {
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#d9772b",
+                "#b9b3a6"
+              ]
+            },
+            "type": "nominal"
+          },
+          "tooltip": [
+            {
+              "field": "state",
+              "title": "Town",
+              "type": "nominal"
+            },
+            {
+              "field": "value",
+              "title": "New housing units permitted, 2025 (top 10 towns)",
+              "type": "quantitative"
+            },
+            {
+              "field": "rank",
+              "title": "Rank",
+              "type": "quantitative"
+            }
+          ],
+          "x": {
+            "axis": {
+              "format": ",.0f",
+              "grid": false
+            },
+            "field": "value",
+            "scale": {
+              "domain": [
+                0,
+                1845.52
+              ],
+              "nice": true
+            },
+            "title": "units",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "Stamford",
+              "New Haven",
+              "Stratford",
+              "Fairfield",
+              "Shelton",
+              "Wilton",
+              "West Hartford",
+              "Danbury",
+              "Hartford",
+              "Newington"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
+        },
+        "mark": {
+          "cornerRadiusEnd": 2,
+          "tooltip": false,
+          "type": "bar"
+        }
+      },
+      {
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#1c2733",
+                "#4c5a68"
+              ]
+            },
+            "type": "nominal"
+          },
+          "text": {
+            "field": "value",
+            "format": ",.1f",
+            "type": "quantitative"
+          },
+          "x": {
+            "field": "value",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "Stamford",
+              "New Haven",
+              "Stratford",
+              "Fairfield",
+              "Shelton",
+              "Wilton",
+              "West Hartford",
+              "Danbury",
+              "Hartford",
+              "Newington"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
+        },
+        "mark": {
+          "align": "left",
+          "baseline": "middle",
+          "dx": 5,
+          "fontSize": 11,
+          "fontWeight": 600,
+          "type": "text"
+        }
+      }
+    ],
+    "title": {
+      "subtitle": "Stamford highlighted",
+      "text": "New housing units permitted, 2025 (top 10 towns)"
+    },
+    "width": "container"
+  },
+  "chart_kind": "rank_strip",
+  "citations": [
+    "https://data.ct.gov/d/stm9-38x4"
+  ],
+  "generated_at": "2026-11-27T19:33:49+00:00",
+  "headline": null,
+  "id": "5db571f537f4",
+  "indicator": "housing_permits",
+  "origin": "data desk",
+  "query": "GET /resource/stm9-38x4.json (column _2025; 169 municipalities)",
+  "question": "Which Connecticut towns permitted the most new housing?",
+  "stream": "local",
+  "topic": "housing",
+  "towns": [
+    {
+      "prior": 132,
+      "rank": 1,
+      "town": "Stamford",
+      "value": 1564
+    },
+    {
+      "prior": 521,
+      "rank": 2,
+      "town": "New Haven",
+      "value": 829
+    },
+    {
+      "prior": 118,
+      "rank": 3,
+      "town": "Stratford",
+      "value": 369
+    },
+    {
+      "prior": 191,
+      "rank": 4,
+      "town": "Fairfield",
+      "value": 343
+    },
+    {
+      "prior": 101,
+      "rank": 5,
+      "town": "Shelton",
+      "value": 341
+    },
+    {
+      "prior": 49,
+      "rank": 6,
+      "town": "Wilton",
+      "value": 305
+    },
+    {
+      "prior": 225,
+      "rank": 7,
+      "town": "West Hartford",
+      "value": 295
+    },
+    {
+      "prior": 37,
+      "rank": 8,
+      "town": "Danbury",
+      "value": 273
+    },
+    {
+      "prior": 468,
+      "rank": 9,
+      "town": "Hartford",
+      "value": 255
+    },
+    {
+      "prior": 7,
+      "rank": 10,
+      "town": "Newington",
+      "value": 235
+    },
+    {
+      "prior": 7,
+      "rank": 11,
+      "town": "Mansfield",
+      "value": 220
+    },
+    {
+      "prior": 485,
+      "rank": 12,
+      "town": "Bridgeport",
+      "value": 215
+    },
+    {
+      "prior": 131,
+      "rank": 13,
+      "town": "Westport",
+      "value": 214
+    },
+    {
+      "prior": 58,
+      "rank": 14,
+      "town": "Bloomfield",
+      "value": 203
+    },
+    {
+      "prior": 79,
+      "rank": 15,
+      "town": "Avon",
+      "value": 176
+    },
+    {
+      "prior": 339,
+      "rank": 16,
+      "town": "Norwalk",
+      "value": 176
+    },
+    {
+      "prior": 8,
+      "rank": 17,
+      "town": "Enfield",
+      "value": 150
+    },
+    {
+      "prior": 15,
+      "rank": 18,
+      "town": "Newtown",
+      "value": 140
+    },
+    {
+      "prior": 61,
+      "rank": 19,
+      "town": "Milford",
+      "value": 139
+    },
+    {
+      "prior": 145,
+      "rank": 20,
+      "town": "Portland",
+      "value": 138
+    },
+    {
+      "prior": 185,
+      "rank": 21,
+      "town": "Berlin",
+      "value": 123
+    },
+    {
+      "prior": 22,
+      "rank": 22,
+      "town": "Canton",
+      "value": 123
+    },
+    {
+      "prior": 9,
+      "rank": 23,
+      "town": "Hamden",
+      "value": 112
+    },
+    {
+      "prior": 33,
+      "rank": 24,
+      "town": "Groton",
+      "value": 97
+    },
+    {
+      "prior": 3,
+      "rank": 25,
+      "town": "Plymouth",
+      "value": 88
+    },
+    {
+      "prior": 29,
+      "rank": 26,
+      "town": "Naugatuck",
+      "value": 87
+    },
+    {
+      "prior": 83,
+      "rank": 27,
+      "town": "East Granby",
+      "value": 80
+    },
+    {
+      "prior": 16,
+      "rank": 28,
+      "town": "Norwich",
+      "value": 79
+    },
+    {
+      "prior": 66,
+      "rank": 29,
+      "town": "Bethel",
+      "value": 78
+    },
+    {
+      "prior": 30,
+      "rank": 30,
+      "town": "Montville",
+      "value": 78
+    },
+    {
+      "prior": 20,
+      "rank": 31,
+      "town": "Seymour",
+      "value": 74
+    },
+    {
+      "prior": 126,
+      "rank": 32,
+      "town": "Simsbury",
+      "value": 73
+    },
+    {
+      "prior": 69,
+      "rank": 33,
+      "town": "East Lyme",
+      "value": 70
+    },
+    {
+      "prior": 70,
+      "rank": 34,
+      "town": "Greenwich",
+      "value": 70
+    },
+    {
+      "prior": 8,
+      "rank": 35,
+      "town": "Windham",
+      "value": 69
+    },
+    {
+      "prior": 155,
+      "rank": 36,
+      "town": "Cheshire",
+      "value": 66
+    },
+    {
+      "prior": 12,
+      "rank": 37,
+      "town": "South Windsor",
+      "value": 63
+    },
+    {
+      "prior": 120,
+      "rank": 38,
+      "town": "Windsor",
+      "value": 58
+    },
+    {
+      "prior": 53,
+      "rank": 39,
+      "town": "Southington",
+      "value": 51
+    },
+    {
+      "prior": 30,
+      "rank": 40,
+      "town": "Waterford",
+      "value": 48
+    },
+    {
+      "prior": 37,
+      "rank": 41,
+      "town": "Bristol",
+      "value": 47
+    },
+    {
+      "prior": 12,
+      "rank": 42,
+      "town": "Colchester",
+      "value": 47
+    },
+    {
+      "prior": 15,
+      "rank": 43,
+      "town": "Tolland",
+      "value": 47
+    },
+    {
+      "prior": 7,
+      "rank": 44,
+      "town": "Lebanon",
+      "value": 45
+    },
+    {
+      "prior": 31,
+      "rank": 45,
+      "town": "Stonington",
+      "value": 42
+    },
+    {
+      "prior": 13,
+      "rank": 46,
+      "town": "Branford",
+      "value": 41
+    },
+    {
+      "prior": 20,
+      "rank": 47,
+      "town": "Darien",
+      "value": 40
+    },
+    {
+      "prior": 25,
+      "rank": 48,
+      "town": "New Canaan",
+      "value": 38
+    },
+    {
+      "prior": 32,
+      "rank": 49,
+      "town": "Watertown",
+      "value": 37
+    },
+    {
+      "prior": 34,
+      "rank": 50,
+      "town": "Woodbridge",
+      "value": 33
+    },
+    {
+      "prior": 14,
+      "rank": 51,
+      "town": "Oxford",
+      "value": 31
+    },
+    {
+      "prior": 15,
+      "rank": 52,
+      "town": "Waterbury",
+      "value": 31
+    },
+    {
+      "prior": 16,
+      "rank": 53,
+      "town": "Brooklyn",
+      "value": 30
+    },
+    {
+      "prior": 19,
+      "rank": 54,
+      "town": "Plainville",
+      "value": 29
+    },
+    {
+      "prior": 28,
+      "rank": 55,
+      "town": "Madison",
+      "value": 28
+    },
+    {
+      "prior": 31,
+      "rank": 56,
+      "town": "Manchester",
+      "value": 28
+    },
+    {
+      "prior": 15,
+      "rank": 57,
+      "town": "North Stonington",
+      "value": 27
+    },
+    {
+      "prior": 154,
+      "rank": 58,
+      "town": "Brookfield",
+      "value": 26
+    },
+    {
+      "prior": 14,
+      "rank": 59,
+      "town": "Ledyard",
+      "value": 26
+    },
+    {
+      "prior": 19,
+      "rank": 60,
+      "town": "Meriden",
+      "value": 25
+    },
+    {
+      "prior": 29,
+      "rank": 61,
+      "town": "West Haven",
+      "value": 25
+    },
+    {
+      "prior": 16,
+      "rank": 62,
+      "town": "Clinton",
+      "value": 23
+    },
+    {
+      "prior": 40,
+      "rank": 63,
+      "town": "Guilford",
+      "value": 23
+    },
+    {
+      "prior": 36,
+      "rank": 64,
+      "town": "Killingly",
+      "value": 23
+    },
+    {
+      "prior": 17,
+      "rank": 65,
+      "town": "Coventry",
+      "value": 22
+    },
+    {
+      "prior": 30,
+      "rank": 66,
+      "town": "Thompson",
+      "value": 22
+    },
+    {
+      "prior": 23,
+      "rank": 67,
+      "town": "Middlebury",
+      "value": 21
+    },
+    {
+      "prior": 18,
+      "rank": 68,
+      "town": "Old Lyme",
+      "value": 21
+    },
+    {
+      "prior": 12,
+      "rank": 69,
+      "town": "Plainfield",
+      "value": 20
+    },
+    {
+      "prior": 40,
+      "rank": 70,
+      "town": "Southbury",
+      "value": 20
+    },
+    {
+      "prior": 21,
+      "rank": 71,
+      "town": "Glastonbury",
+      "value": 19
+    },
+    {
+      "prior": 37,
+      "rank": 72,
+      "town": "East Hampton",
+      "value": 18
+    },
+    {
+      "prior": 243,
+      "rank": 73,
+      "town": "Farmington",
+      "value": 18
+    },
+    {
+      "prior": 16,
+      "rank": 74,
+      "town": "Monroe",
+      "value": 18
+    },
+    {
+      "prior": 6,
+      "rank": 75,
+      "town": "Vernon",
+      "value": 18
+    },
+    {
+      "prior": 5,
+      "rank": 76,
+      "town": "Preston",
+      "value": 17
+    },
+    {
+      "prior": 18,
+      "rank": 77,
+      "town": "Burlington",
+      "value": 16
+    },
+    {
+      "prior": 14,
+      "rank": 78,
+      "town": "East Haddam",
+      "value": 16
+    },
+    {
+      "prior": 12,
+      "rank": 79,
+      "town": "Haddam",
+      "value": 16
+    },
+    {
+      "prior": 53,
+      "rank": 80,
+      "town": "New Milford",
+      "value": 16
+    },
+    {
+      "prior": 13,
+      "rank": 81,
+      "town": "Wallingford",
+      "value": 16
+    },
+    {
+      "prior": 23,
+      "rank": 82,
+      "town": "Cromwell",
+      "value": 15
+    },
+    {
+      "prior": 19,
+      "rank": 83,
+      "town": "Salisbury",
+      "value": 15
+    },
+    {
+      "prior": 13,
+      "rank": 84,
+      "town": "Wolcott",
+      "value": 15
+    },
+    {
+      "prior": 15,
+      "rank": 85,
+      "town": "Middletown",
+      "value": 14
+    },
+    {
+      "prior": 0,
+      "rank": 86,
+      "town": "Bolton",
+      "value": 13
+    },
+    {
+      "prior": 5,
+      "rank": 87,
+      "town": "Killingworth",
+      "value": 13
+    },
+    {
+      "prior": 7,
+      "rank": 88,
+      "town": "Woodstock",
+      "value": 13
+    },
+    {
+      "prior": 12,
+      "rank": 89,
+      "town": "Canterbury",
+      "value": 12
+    },
+    {
+      "prior": 18,
+      "rank": 90,
+      "town": "Ellington",
+      "value": 12
+    },
+    {
+      "prior": 15,
+      "rank": 91,
+      "town": "East Windsor",
+      "value": 11
+    },
+    {
+      "prior": 30,
+      "rank": 92,
+      "town": "Ridgefield",
+      "value": 11
+    },
+    {
+      "prior": 17,
+      "rank": 93,
+      "town": "Woodbury",
+      "value": 11
+    },
+    {
+      "prior": 9,
+      "rank": 94,
+      "town": "Kent",
+      "value": 10
+    },
+    {
+      "prior": 29,
+      "rank": 95,
+      "town": "Stafford",
+      "value": 10
+    },
+    {
+      "prior": 9,
+      "rank": 96,
+      "town": "Sterling",
+      "value": 10
+    },
+    {
+      "prior": 4,
+      "rank": 97,
+      "town": "Trumbull",
+      "value": 10
+    },
+    {
+      "prior": 9,
+      "rank": 98,
+      "town": "Wethersfield",
+      "value": 10
+    },
+    {
+      "prior": 12,
+      "rank": 99,
+      "town": "Goshen",
+      "value": 9
+    },
+    {
+      "prior": 98,
+      "rank": 100,
+      "town": "Granby",
+      "value": 9
+    },
+    {
+      "prior": 5,
+      "rank": 101,
+      "town": "Hampton",
+      "value": 9
+    },
+    {
+      "prior": 30,
+      "rank": 102,
+      "town": "Harwinton",
+      "value": 9
+    },
+    {
+      "prior": 12,
+      "rank": 103,
+      "town": "New Fairfield",
+      "value": 9
+    },
+    {
+      "prior": 7,
+      "rank": 104,
+      "town": "North Branford",
+      "value": 9
+    },
+    {
+      "prior": 104,
+      "rank": 105,
+      "town": "North Haven",
+      "value": 9
+    },
+    {
+      "prior": 8,
+      "rank": 106,
+      "town": "Old Saybrook",
+      "value": 9
+    },
+    {
+      "prior": 5,
+      "rank": 107,
+      "town": "Pomfret",
+      "value": 9
+    },
+    {
+      "prior": 5,
+      "rank": 108,
+      "town": "Roxbury",
+      "value": 9
+    },
+    {
+      "prior": 19,
+      "rank": 109,
+      "town": "Suffield",
+      "value": 9
+    },
+    {
+      "prior": 4,
+      "rank": 110,
+      "town": "Voluntown",
+      "value": 9
+    },
+    {
+      "prior": 2,
+      "rank": 111,
+      "town": "Chester",
+      "value": 8
+    },
+    {
+      "prior": 11,
+      "rank": 112,
+      "town": "East Hartford",
+      "value": 8
+    },
+    {
+      "prior": 2,
+      "rank": 113,
+      "town": "Eastford",
+      "value": 8
+    },
+    {
+      "prior": 6,
+      "rank": 114,
+      "town": "New Hartford",
+      "value": 8
+    },
+    {
+      "prior": 6,
+      "rank": 115,
+      "town": "Salem",
+      "value": 8
+    },
+    {
+      "prior": 15,
+      "rank": 116,
+      "town": "Torrington",
+      "value": 8
+    },
+    {
+      "prior": 5,
+      "rank": 117,
+      "town": "Weston",
+      "value": 8
+    },
+    {
+      "prior": 39,
+      "rank": 118,
+      "town": "Winchester",
+      "value": 8
+    },
+    {
+      "prior": 3,
+      "rank": 119,
+      "town": "Cornwall",
+      "value": 7
+    },
+    {
+      "prior": 7,
+      "rank": 120,
+      "town": "Easton",
+      "value": 7
+    },
+    {
+      "prior": 4,
+      "rank": 121,
+      "town": "Prospect",
+      "value": 7
+    },
+    {
+      "prior": 12,
+      "rank": 122,
+      "town": "Sherman",
+      "value": 7
+    },
+    {
+      "prior": 12,
+      "rank": 123,
+      "town": "Somers",
+      "value": 7
+    },
+    {
+      "prior": 10,
+      "rank": 124,
+      "town": "Westbrook",
+      "value": 7
+    },
+    {
+      "prior": 6,
+      "rank": 125,
+      "town": "Ashford",
+      "value": 6
+    },
+    {
+      "prior": 4,
+      "rank": 126,
+      "town": "Chaplin",
+      "value": 6
+    },
+    {
+      "prior": 8,
+      "rank": 127,
+      "town": "Columbia",
+      "value": 6
+    },
+    {
+      "prior": 4,
+      "rank": 128,
+      "town": "Deep River",
+      "value": 6
+    },
+    {
+      "prior": 213,
+      "rank": 129,
+      "town": "New Britain",
+      "value": 6
+    },
+    {
+      "prior": 2,
+      "rank": 130,
+      "town": "Durham",
+      "value": 5
+    },
+    {
+      "prior": 105,
+      "rank": 131,
+      "town": "East Haven",
+      "value": 5
+    },
+    {
+      "prior": 5,
+      "rank": 132,
+      "town": "Griswold",
+      "value": 5
+    },
+    {
+      "prior": 3,
+      "rank": 133,
+      "town": "Warren",
+      "value": 5
+    },
+    {
+      "prior": 6,
+      "rank": 134,
+      "town": "Washington",
+      "value": 5
+    },
+    {
+      "prior": 3,
+      "rank": 135,
+      "town": "Willington",
+      "value": 5
+    },
+    {
+      "prior": 8,
+      "rank": 136,
+      "town": "Ansonia",
+      "value": 4
+    },
+    {
+      "prior": 7,
+      "rank": 137,
+      "town": "Beacon Falls",
+      "value": 4
+    },
+    {
+      "prior": 1,
+      "rank": 138,
+      "town": "Derby",
+      "value": 4
+    },
+    {
+      "prior": 7,
+      "rank": 139,
+      "town": "Hebron",
+      "value": 4
+    },
+    {
+      "prior": 5,
+      "rank": 140,
+      "town": "Lisbon",
+      "value": 4
+    },
+    {
+      "prior": 10,
+      "rank": 141,
+      "town": "Litchfield",
+      "value": 4
+    },
+    {
+      "prior": 2,
+      "rank": 142,
+      "town": "Lyme",
+      "value": 4
+    },
+    {
+      "prior": 3,
+      "rank": 143,
+      "town": "Middlefield",
+      "value": 4
+    },
+    {
+      "prior": 4,
+      "rank": 144,
+      "town": "Morris",
+      "value": 4
+    },
+    {
+      "prior": 40,
+      "rank": 145,
+      "town": "New London",
+      "value": 4
+    },
+    {
+      "prior": 6,
+      "rank": 146,
+      "town": "Putnam",
+      "value": 4
+    },
+    {
+      "prior": 3,
+      "rank": 147,
+      "town": "Sprague",
+      "value": 4
+    },
+    {
+      "prior": 4,
+      "rank": 148,
+      "town": "Bozrah",
+      "value": 3
+    },
+    {
+      "prior": 0,
+      "rank": 149,
+      "town": "Hartland",
+      "value": 3
+    },
+    {
+      "prior": 77,
+      "rank": 150,
+      "town": "Rocky Hill",
+      "value": 3
+    },
+    {
+      "prior": 11,
+      "rank": 151,
+      "town": "Sharon",
+      "value": 3
+    },
+    {
+      "prior": 1,
+      "rank": 152,
+      "town": "Andover",
+      "value": 2
+    },
+    {
+      "prior": 4,
+      "rank": 153,
+      "town": "Bethany",
+      "value": 2
+    },
+    {
+      "prior": 2,
+      "rank": 154,
+      "town": "Bethlehem",
+      "value": 2
+    },
+    {
+      "prior": 2,
+      "rank": 155,
+      "town": "Bridgewater",
+      "value": 2
+    },
+    {
+      "prior": 10,
+      "rank": 156,
+      "town": "Marlborough",
+      "value": 2
+    },
+    {
+      "prior": 5,
+      "rank": 157,
+      "town": "Redding",
+      "value": 2
+    },
+    {
+      "prior": 1,
+      "rank": 158,
+      "town": "Windsor Locks",
+      "value": 2
+    },
+    {
+      "prior": 6,
+      "rank": 159,
+      "town": "Barkhamsted",
+      "value": 1
+    },
+    {
+      "prior": 1,
+      "rank": 160,
+      "town": "Colebrook",
+      "value": 1
+    },
+    {
+      "prior": 7,
+      "rank": 161,
+      "town": "Essex",
+      "value": 1
+    },
+    {
+      "prior": 4,
+      "rank": 162,
+      "town": "Franklin",
+      "value": 1
+    },
+    {
+      "prior": 0,
+      "rank": 163,
+      "town": "Norfolk",
+      "value": 1
+    },
+    {
+      "prior": 1,
+      "rank": 164,
+      "town": "Orange",
+      "value": 1
+    },
+    {
+      "prior": 3,
+      "rank": 165,
+      "town": "Scotland",
+      "value": 1
+    },
+    {
+      "prior": 1,
+      "rank": 166,
+      "town": "Union",
+      "value": 1
+    },
+    {
+      "prior": 1,
+      "rank": 167,
+      "town": "Canaan",
+      "value": 0
+    },
+    {
+      "prior": 1,
+      "rank": 168,
+      "town": "North Canaan",
+      "value": 0
+    },
+    {
+      "prior": 0,
+      "rank": 169,
+      "town": "Thomaston",
+      "value": 0
+    }
+  ]
+}

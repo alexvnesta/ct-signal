@@ -1,0 +1,1165 @@
+{
+  "answer_text": "Single-family homes in Greenwich sold for a median of $2,850,000 in 2024, the highest of 150 towns with 10 or more sales (statewide median: $426,000).",
+  "answer_values": {
+    "date": "2024",
+    "n": 150,
+    "state": 426000,
+    "top": {
+      "sales": 607,
+      "town": "Greenwich",
+      "value": 2850000
+    },
+    "total_sales": 29507
+  },
+  "cache": false,
+  "chart": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "autosize": {
+      "contains": "padding"
+    },
+    "background": "transparent",
+    "config": {
+      "axis": {
+        "domainColor": "#b8b2a6",
+        "gridColor": "#e4dfd3",
+        "labelColor": "#4c5a68",
+        "labelFontSize": 12,
+        "tickColor": "#b8b2a6",
+        "titleColor": "#4c5a68",
+        "titleFontSize": 12
+      },
+      "legend": {
+        "labelColor": "#4c5a68",
+        "labelFontSize": 12,
+        "symbolStrokeWidth": 0,
+        "titleColor": "#4c5a68",
+        "titleFontSize": 12
+      },
+      "title": {
+        "color": "#1c2733",
+        "fontSize": 14,
+        "subtitleColor": "#66717e",
+        "subtitleFontSize": 12
+      },
+      "view": {
+        "continuousHeight": 300,
+        "continuousWidth": 300,
+        "strokeWidth": 0
+      }
+    },
+    "data": {
+      "values": [
+        {
+          "highlight": true,
+          "rank": 1,
+          "state": "Greenwich",
+          "value": 2850000
+        },
+        {
+          "highlight": false,
+          "rank": 2,
+          "state": "New Canaan",
+          "value": 2400000
+        },
+        {
+          "highlight": false,
+          "rank": 3,
+          "state": "Darien",
+          "value": 2383455
+        },
+        {
+          "highlight": false,
+          "rank": 4,
+          "state": "Westport",
+          "value": 2000000
+        },
+        {
+          "highlight": false,
+          "rank": 5,
+          "state": "Roxbury",
+          "value": 1312500
+        },
+        {
+          "highlight": false,
+          "rank": 6,
+          "state": "Weston",
+          "value": 1299500
+        },
+        {
+          "highlight": false,
+          "rank": 7,
+          "state": "Wilton",
+          "value": 1274000
+        },
+        {
+          "highlight": false,
+          "rank": 8,
+          "state": "Ridgefield",
+          "value": 1025000
+        },
+        {
+          "highlight": false,
+          "rank": 9,
+          "state": "Fairfield",
+          "value": 940000
+        },
+        {
+          "highlight": false,
+          "rank": 10,
+          "state": "Redding",
+          "value": 915000
+        }
+      ]
+    },
+    "height": 250,
+    "layer": [
+      {
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#d9772b",
+                "#b9b3a6"
+              ]
+            },
+            "type": "nominal"
+          },
+          "tooltip": [
+            {
+              "field": "state",
+              "title": "Town",
+              "type": "nominal"
+            },
+            {
+              "field": "value",
+              "title": "Median single-family sale price, 2024 (top 10 towns)",
+              "type": "quantitative"
+            },
+            {
+              "field": "rank",
+              "title": "Rank",
+              "type": "quantitative"
+            }
+          ],
+          "x": {
+            "axis": {
+              "format": "$,.0f",
+              "grid": false
+            },
+            "field": "value",
+            "scale": {
+              "domain": [
+                0,
+                3363000.0
+              ],
+              "nice": true
+            },
+            "title": "USD",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "Greenwich",
+              "New Canaan",
+              "Darien",
+              "Westport",
+              "Roxbury",
+              "Weston",
+              "Wilton",
+              "Ridgefield",
+              "Fairfield",
+              "Redding"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
+        },
+        "mark": {
+          "cornerRadiusEnd": 2,
+          "tooltip": false,
+          "type": "bar"
+        }
+      },
+      {
+        "encoding": {
+          "color": {
+            "field": "highlight",
+            "legend": null,
+            "scale": {
+              "domain": [
+                true,
+                false
+              ],
+              "range": [
+                "#1c2733",
+                "#4c5a68"
+              ]
+            },
+            "type": "nominal"
+          },
+          "text": {
+            "field": "value",
+            "format": "$,.0f",
+            "type": "quantitative"
+          },
+          "x": {
+            "field": "value",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "state",
+            "sort": [
+              "Greenwich",
+              "New Canaan",
+              "Darien",
+              "Westport",
+              "Roxbury",
+              "Weston",
+              "Wilton",
+              "Ridgefield",
+              "Fairfield",
+              "Redding"
+            ],
+            "title": null,
+            "type": "nominal"
+          }
+        },
+        "mark": {
+          "align": "left",
+          "baseline": "middle",
+          "dx": 5,
+          "fontSize": 11,
+          "fontWeight": 600,
+          "type": "text"
+        }
+      }
+    ],
+    "title": {
+      "subtitle": "Greenwich highlighted",
+      "text": "Median single-family sale price, 2024 (top 10 towns)"
+    },
+    "width": "container"
+  },
+  "chart_kind": "rank_strip",
+  "citations": [
+    "https://data.ct.gov/d/5mzw-sjtu"
+  ],
+  "generated_at": "2026-11-27T19:33:53+00:00",
+  "headline": null,
+  "id": "ea89b34f9217",
+  "indicator": "home_sales_price",
+  "origin": "data desk",
+  "query": "GET /resource/5mzw-sjtu.json $where=listyear='2024' AND residentialtype='Single Family' AND saleamount>=50000 (29,507 sales; 150 towns with >=10 sales)",
+  "question": "Where do Connecticut single-family homes sell for the most?",
+  "stream": "local",
+  "topic": "housing",
+  "towns": [
+    {
+      "rank": 1,
+      "sales": 607,
+      "town": "Greenwich",
+      "value": 2850000
+    },
+    {
+      "rank": 2,
+      "sales": 231,
+      "town": "New Canaan",
+      "value": 2400000
+    },
+    {
+      "rank": 3,
+      "sales": 271,
+      "town": "Darien",
+      "value": 2383455
+    },
+    {
+      "rank": 4,
+      "sales": 391,
+      "town": "Westport",
+      "value": 2000000
+    },
+    {
+      "rank": 5,
+      "sales": 54,
+      "town": "Roxbury",
+      "value": 1312500
+    },
+    {
+      "rank": 6,
+      "sales": 148,
+      "town": "Weston",
+      "value": 1299500
+    },
+    {
+      "rank": 7,
+      "sales": 242,
+      "town": "Wilton",
+      "value": 1274000
+    },
+    {
+      "rank": 8,
+      "sales": 277,
+      "town": "Ridgefield",
+      "value": 1025000
+    },
+    {
+      "rank": 9,
+      "sales": 669,
+      "town": "Fairfield",
+      "value": 940000
+    },
+    {
+      "rank": 10,
+      "sales": 133,
+      "town": "Redding",
+      "value": 915000
+    },
+    {
+      "rank": 11,
+      "sales": 105,
+      "town": "Easton",
+      "value": 900000
+    },
+    {
+      "rank": 12,
+      "sales": 774,
+      "town": "Stamford",
+      "value": 899000
+    },
+    {
+      "rank": 13,
+      "sales": 24,
+      "town": "Cornwall",
+      "value": 788500
+    },
+    {
+      "rank": 14,
+      "sales": 69,
+      "town": "Washington",
+      "value": 770000
+    },
+    {
+      "rank": 15,
+      "sales": 568,
+      "town": "Norwalk",
+      "value": 750000
+    },
+    {
+      "rank": 16,
+      "sales": 62,
+      "town": "Salisbury",
+      "value": 722500
+    },
+    {
+      "rank": 17,
+      "sales": 234,
+      "town": "Madison",
+      "value": 713750
+    },
+    {
+      "rank": 18,
+      "sales": 157,
+      "town": "Old Saybrook",
+      "value": 699000
+    },
+    {
+      "rank": 19,
+      "sales": 37,
+      "town": "Lyme",
+      "value": 690000
+    },
+    {
+      "rank": 20,
+      "sales": 101,
+      "town": "Essex",
+      "value": 671000
+    },
+    {
+      "rank": 21,
+      "sales": 112,
+      "town": "Woodbridge",
+      "value": 665000
+    },
+    {
+      "rank": 22,
+      "sales": 56,
+      "town": "Sherman",
+      "value": 652500
+    },
+    {
+      "rank": 23,
+      "sales": 201,
+      "town": "Brookfield",
+      "value": 650000
+    },
+    {
+      "rank": 24,
+      "sales": 372,
+      "town": "Trumbull",
+      "value": 635000
+    },
+    {
+      "rank": 25,
+      "sales": 14,
+      "town": "Canaan",
+      "value": 627500
+    },
+    {
+      "rank": 26,
+      "sales": 346,
+      "town": "Newtown",
+      "value": 627000
+    },
+    {
+      "rank": 27,
+      "sales": 37,
+      "town": "Morris",
+      "value": 625000
+    },
+    {
+      "rank": 28,
+      "sales": 201,
+      "town": "Avon",
+      "value": 620000
+    },
+    {
+      "rank": 29,
+      "sales": 38,
+      "town": "Bridgewater",
+      "value": 616700
+    },
+    {
+      "rank": 30,
+      "sales": 356,
+      "town": "Glastonbury",
+      "value": 615000
+    },
+    {
+      "rank": 31,
+      "sales": 91,
+      "town": "Woodbury",
+      "value": 610000
+    },
+    {
+      "rank": 32,
+      "sales": 318,
+      "town": "Guilford",
+      "value": 608500
+    },
+    {
+      "rank": 33,
+      "sales": 49,
+      "town": "Goshen",
+      "value": 605000
+    },
+    {
+      "rank": 34,
+      "sales": 26,
+      "town": "Warren",
+      "value": 593950
+    },
+    {
+      "rank": 35,
+      "sales": 183,
+      "town": "Southbury",
+      "value": 590000
+    },
+    {
+      "rank": 36,
+      "sales": 80,
+      "town": "Westbrook",
+      "value": 585000
+    },
+    {
+      "rank": 37,
+      "sales": 134,
+      "town": "Orange",
+      "value": 574950
+    },
+    {
+      "rank": 38,
+      "sales": 110,
+      "town": "Burlington",
+      "value": 557500
+    },
+    {
+      "rank": 39,
+      "sales": 344,
+      "town": "Shelton",
+      "value": 546500
+    },
+    {
+      "rank": 40,
+      "sales": 264,
+      "town": "Cheshire",
+      "value": 543000
+    },
+    {
+      "rank": 41,
+      "sales": 180,
+      "town": "Bethel",
+      "value": 532500
+    },
+    {
+      "rank": 42,
+      "sales": 49,
+      "town": "Sharon",
+      "value": 530000
+    },
+    {
+      "rank": 43,
+      "sales": 49,
+      "town": "Chester",
+      "value": 525000
+    },
+    {
+      "rank": 44,
+      "sales": 249,
+      "town": "Farmington",
+      "value": 520000
+    },
+    {
+      "rank": 45,
+      "sales": 626,
+      "town": "West Hartford",
+      "value": 520000
+    },
+    {
+      "rank": 46,
+      "sales": 96,
+      "town": "Middlebury",
+      "value": 515000
+    },
+    {
+      "rank": 47,
+      "sales": 556,
+      "town": "Milford",
+      "value": 515000
+    },
+    {
+      "rank": 48,
+      "sales": 267,
+      "town": "Simsbury",
+      "value": 510000
+    },
+    {
+      "rank": 49,
+      "sales": 244,
+      "town": "Stonington",
+      "value": 500000
+    },
+    {
+      "rank": 50,
+      "sales": 231,
+      "town": "East Lyme",
+      "value": 487000
+    },
+    {
+      "rank": 51,
+      "sales": 70,
+      "town": "Killingworth",
+      "value": 486000
+    },
+    {
+      "rank": 52,
+      "sales": 66,
+      "town": "Bethany",
+      "value": 481450
+    },
+    {
+      "rank": 53,
+      "sales": 309,
+      "town": "New Milford",
+      "value": 480000
+    },
+    {
+      "rank": 54,
+      "sales": 99,
+      "town": "Canton",
+      "value": 475000
+    },
+    {
+      "rank": 55,
+      "sales": 483,
+      "town": "Danbury",
+      "value": 475000
+    },
+    {
+      "rank": 56,
+      "sales": 135,
+      "town": "Granby",
+      "value": 475000
+    },
+    {
+      "rank": 57,
+      "sales": 107,
+      "town": "Woodstock",
+      "value": 475000
+    },
+    {
+      "rank": 58,
+      "sales": 62,
+      "town": "Durham",
+      "value": 473500
+    },
+    {
+      "rank": 59,
+      "sales": 36,
+      "town": "Kent",
+      "value": 467500
+    },
+    {
+      "rank": 60,
+      "sales": 236,
+      "town": "South Windsor",
+      "value": 460000
+    },
+    {
+      "rank": 61,
+      "sales": 141,
+      "town": "Cromwell",
+      "value": 455000
+    },
+    {
+      "rank": 62,
+      "sales": 109,
+      "town": "Litchfield",
+      "value": 453000
+    },
+    {
+      "rank": 63,
+      "sales": 68,
+      "town": "Marlborough",
+      "value": 450500
+    },
+    {
+      "rank": 64,
+      "sales": 184,
+      "town": "Suffield",
+      "value": 450500
+    },
+    {
+      "rank": 65,
+      "sales": 492,
+      "town": "Stratford",
+      "value": 449000
+    },
+    {
+      "rank": 66,
+      "sales": 52,
+      "town": "Salem",
+      "value": 446650
+    },
+    {
+      "rank": 67,
+      "sales": 55,
+      "town": "Harwinton",
+      "value": 445000
+    },
+    {
+      "rank": 68,
+      "sales": 211,
+      "town": "North Haven",
+      "value": 445000
+    },
+    {
+      "rank": 69,
+      "sales": 77,
+      "town": "North Stonington",
+      "value": 442900
+    },
+    {
+      "rank": 70,
+      "sales": 106,
+      "town": "Haddam",
+      "value": 441500
+    },
+    {
+      "rank": 71,
+      "sales": 52,
+      "town": "Deep River",
+      "value": 437000
+    },
+    {
+      "rank": 72,
+      "sales": 51,
+      "town": "Bethlehem",
+      "value": 435000
+    },
+    {
+      "rank": 73,
+      "sales": 113,
+      "town": "Hebron",
+      "value": 435000
+    },
+    {
+      "rank": 74,
+      "sales": 104,
+      "town": "Somers",
+      "value": 434000
+    },
+    {
+      "rank": 75,
+      "sales": 173,
+      "town": "Clinton",
+      "value": 430000
+    },
+    {
+      "rank": 76,
+      "sales": 106,
+      "town": "Rocky Hill",
+      "value": 425000
+    },
+    {
+      "rank": 77,
+      "sales": 53,
+      "town": "Barkhamsted",
+      "value": 420000
+    },
+    {
+      "rank": 78,
+      "sales": 71,
+      "town": "Columbia",
+      "value": 420000
+    },
+    {
+      "rank": 79,
+      "sales": 51,
+      "town": "East Granby",
+      "value": 420000
+    },
+    {
+      "rank": 80,
+      "sales": 173,
+      "town": "East Hampton",
+      "value": 420000
+    },
+    {
+      "rank": 81,
+      "sales": 169,
+      "town": "Ellington",
+      "value": 420000
+    },
+    {
+      "rank": 82,
+      "sales": 91,
+      "town": "New Hartford",
+      "value": 420000
+    },
+    {
+      "rank": 83,
+      "sales": 86,
+      "town": "Portland",
+      "value": 417500
+    },
+    {
+      "rank": 84,
+      "sales": 204,
+      "town": "Berlin",
+      "value": 415000
+    },
+    {
+      "rank": 85,
+      "sales": 275,
+      "town": "Wethersfield",
+      "value": 415000
+    },
+    {
+      "rank": 86,
+      "sales": 203,
+      "town": "Colchester",
+      "value": 405000
+    },
+    {
+      "rank": 87,
+      "sales": 34,
+      "town": "Andover",
+      "value": 402500
+    },
+    {
+      "rank": 88,
+      "sales": 478,
+      "town": "Southington",
+      "value": 401750
+    },
+    {
+      "rank": 89,
+      "sales": 17,
+      "town": "Eastford",
+      "value": 400000
+    },
+    {
+      "rank": 90,
+      "sales": 10,
+      "town": "Thompson",
+      "value": 397500
+    },
+    {
+      "rank": 91,
+      "sales": 239,
+      "town": "Waterford",
+      "value": 395000
+    },
+    {
+      "rank": 92,
+      "sales": 152,
+      "town": "East Haddam",
+      "value": 394812
+    },
+    {
+      "rank": 93,
+      "sales": 239,
+      "town": "Ledyard",
+      "value": 390000
+    },
+    {
+      "rank": 94,
+      "sales": 48,
+      "town": "Middlefield",
+      "value": 385000
+    },
+    {
+      "rank": 95,
+      "sales": 64,
+      "town": "Preston",
+      "value": 385000
+    },
+    {
+      "rank": 96,
+      "sales": 534,
+      "town": "Bridgeport",
+      "value": 383750
+    },
+    {
+      "rank": 97,
+      "sales": 113,
+      "town": "Ansonia",
+      "value": 380000
+    },
+    {
+      "rank": 98,
+      "sales": 348,
+      "town": "Groton",
+      "value": 375938
+    },
+    {
+      "rank": 99,
+      "sales": 66,
+      "town": "Canterbury",
+      "value": 374000
+    },
+    {
+      "rank": 100,
+      "sales": 21,
+      "town": "Hartland",
+      "value": 371000
+    },
+    {
+      "rank": 101,
+      "sales": 64,
+      "town": "Bolton",
+      "value": 370000
+    },
+    {
+      "rank": 102,
+      "sales": 24,
+      "town": "Bozrah",
+      "value": 370000
+    },
+    {
+      "rank": 103,
+      "sales": 278,
+      "town": "Newington",
+      "value": 360000
+    },
+    {
+      "rank": 104,
+      "sales": 234,
+      "town": "Watertown",
+      "value": 360000
+    },
+    {
+      "rank": 105,
+      "sales": 204,
+      "town": "Wolcott",
+      "value": 360000
+    },
+    {
+      "rank": 106,
+      "sales": 72,
+      "town": "Derby",
+      "value": 357500
+    },
+    {
+      "rank": 107,
+      "sales": 222,
+      "town": "Killingly",
+      "value": 357500
+    },
+    {
+      "rank": 108,
+      "sales": 556,
+      "town": "Hamden",
+      "value": 355000
+    },
+    {
+      "rank": 109,
+      "sales": 356,
+      "town": "Middletown",
+      "value": 353500
+    },
+    {
+      "rank": 110,
+      "sales": 57,
+      "town": "Ashford",
+      "value": 350000
+    },
+    {
+      "rank": 111,
+      "sales": 56,
+      "town": "Beacon Falls",
+      "value": 350000
+    },
+    {
+      "rank": 112,
+      "sales": 31,
+      "town": "Colebrook",
+      "value": 350000
+    },
+    {
+      "rank": 113,
+      "sales": 287,
+      "town": "Windsor",
+      "value": 350000
+    },
+    {
+      "rank": 114,
+      "sales": 32,
+      "town": "Hampton",
+      "value": 345000
+    },
+    {
+      "rank": 115,
+      "sales": 309,
+      "town": "Naugatuck",
+      "value": 345000
+    },
+    {
+      "rank": 116,
+      "sales": 285,
+      "town": "East Haven",
+      "value": 341000
+    },
+    {
+      "rank": 117,
+      "sales": 97,
+      "town": "Lebanon",
+      "value": 341000
+    },
+    {
+      "rank": 118,
+      "sales": 136,
+      "town": "Griswold",
+      "value": 340000
+    },
+    {
+      "rank": 119,
+      "sales": 192,
+      "town": "Bloomfield",
+      "value": 336000
+    },
+    {
+      "rank": 120,
+      "sales": 196,
+      "town": "Plainfield",
+      "value": 333500
+    },
+    {
+      "rank": 121,
+      "sales": 68,
+      "town": "Thomaston",
+      "value": 331000
+    },
+    {
+      "rank": 122,
+      "sales": 609,
+      "town": "Bristol",
+      "value": 330000
+    },
+    {
+      "rank": 123,
+      "sales": 109,
+      "town": "East Windsor",
+      "value": 330000
+    },
+    {
+      "rank": 124,
+      "sales": 178,
+      "town": "Plainville",
+      "value": 330000
+    },
+    {
+      "rank": 125,
+      "sales": 280,
+      "town": "Montville",
+      "value": 329500
+    },
+    {
+      "rank": 126,
+      "sales": 384,
+      "town": "New Haven",
+      "value": 329450
+    },
+    {
+      "rank": 127,
+      "sales": 21,
+      "town": "Scotland",
+      "value": 325000
+    },
+    {
+      "rank": 128,
+      "sales": 246,
+      "town": "Vernon",
+      "value": 325000
+    },
+    {
+      "rank": 129,
+      "sales": 68,
+      "town": "Lisbon",
+      "value": 323750
+    },
+    {
+      "rank": 130,
+      "sales": 26,
+      "town": "Franklin",
+      "value": 321750
+    },
+    {
+      "rank": 131,
+      "sales": 507,
+      "town": "Manchester",
+      "value": 321000
+    },
+    {
+      "rank": 132,
+      "sales": 29,
+      "town": "Chaplin",
+      "value": 317500
+    },
+    {
+      "rank": 133,
+      "sales": 533,
+      "town": "Meriden",
+      "value": 317000
+    },
+    {
+      "rank": 134,
+      "sales": 507,
+      "town": "Enfield",
+      "value": 312500
+    },
+    {
+      "rank": 135,
+      "sales": 144,
+      "town": "New London",
+      "value": 310100
+    },
+    {
+      "rank": 136,
+      "sales": 127,
+      "town": "Stafford",
+      "value": 310000
+    },
+    {
+      "rank": 137,
+      "sales": 29,
+      "town": "Sprague",
+      "value": 307000
+    },
+    {
+      "rank": 138,
+      "sales": 151,
+      "town": "Plymouth",
+      "value": 301500
+    },
+    {
+      "rank": 139,
+      "sales": 39,
+      "town": "Sterling",
+      "value": 300000
+    },
+    {
+      "rank": 140,
+      "sales": 160,
+      "town": "Windsor Locks",
+      "value": 300000
+    },
+    {
+      "rank": 141,
+      "sales": 12,
+      "town": "Union",
+      "value": 291250
+    },
+    {
+      "rank": 142,
+      "sales": 392,
+      "town": "Torrington",
+      "value": 290000
+    },
+    {
+      "rank": 143,
+      "sales": 133,
+      "town": "Winchester",
+      "value": 290000
+    },
+    {
+      "rank": 144,
+      "sales": 477,
+      "town": "East Hartford",
+      "value": 285000
+    },
+    {
+      "rank": 145,
+      "sales": 416,
+      "town": "New Britain",
+      "value": 285000
+    },
+    {
+      "rank": 146,
+      "sales": 38,
+      "town": "North Canaan",
+      "value": 283750
+    },
+    {
+      "rank": 147,
+      "sales": 747,
+      "town": "Waterbury",
+      "value": 280000
+    },
+    {
+      "rank": 148,
+      "sales": 459,
+      "town": "Norwich",
+      "value": 275000
+    },
+    {
+      "rank": 149,
+      "sales": 180,
+      "town": "Windham",
+      "value": 262500
+    },
+    {
+      "rank": 150,
+      "sales": 277,
+      "town": "Hartford",
+      "value": 260000
+    }
+  ]
+}

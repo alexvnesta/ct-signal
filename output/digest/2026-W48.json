@@ -1,0 +1,99 @@
+{
+  "issue": "2026-W48",
+  "subject": "CT Signal: Sharon spent $47,845 per public school student in 2023, the highest of 169 Connecticut towns (statewide median: $20,958).",
+  "generated_at": "2026-11-27T19:33:54+00:00",
+  "tiles": [
+    {
+      "title": "Median gross rent",
+      "value": "$1,679",
+      "rank_label": "15th-highest",
+      "n": 52,
+      "date": "2025"
+    },
+    {
+      "title": "Unemployment rate",
+      "value": "5.8%",
+      "rank_label": "3rd-highest",
+      "n": 52,
+      "date": "2026-07"
+    },
+    {
+      "title": "Median home value",
+      "value": "$423,900",
+      "rank_label": "18th-highest",
+      "n": 52,
+      "date": "2025"
+    },
+    {
+      "title": "Median household income",
+      "value": "$100,056",
+      "rank_label": "9th-highest",
+      "n": 52,
+      "date": "2025"
+    },
+    {
+      "title": "Share below poverty line",
+      "value": "9.1%",
+      "rank_label": "6th-lowest",
+      "n": 52,
+      "date": "2025"
+    },
+    {
+      "title": "Violent crime per 100k",
+      "value": "147",
+      "rank_label": "3rd-lowest",
+      "n": 52,
+      "date": "2023"
+    }
+  ],
+  "stories": [
+    {
+      "id": "d83567a6654f",
+      "topic": "local-finance",
+      "stream": "local",
+      "question": "Which Connecticut towns spend the most per public school student?",
+      "answer_text": "Sharon spent $47,845 per public school student in 2023, the highest of 169 Connecticut towns (statewide median: $20,958).",
+      "date": "2023"
+    },
+    {
+      "id": "c77ecc1c1e06",
+      "topic": "economy",
+      "stream": "national",
+      "question": "What are Northeast households paying for electricity?",
+      "answer_text": "Northeast urban electricity averaged $0.266 per kWh in 2026-10 \u2014 unchanged from September 2026 for this BLS series.",
+      "date": "2026-10"
+    },
+    {
+      "id": "ea89b34f9217",
+      "topic": "housing",
+      "stream": "local",
+      "question": "Where do Connecticut single-family homes sell for the most?",
+      "answer_text": "Single-family homes in Greenwich sold for a median of $2,850,000 in 2024, the highest of 150 towns with 10 or more sales (statewide median: $426,000).",
+      "date": "2024"
+    },
+    {
+      "id": "5db571f537f4",
+      "topic": "housing",
+      "stream": "local",
+      "question": "Which Connecticut towns permitted the most new housing?",
+      "answer_text": "Stamford permitted 1,564 new housing units in 2025, leading 169 Connecticut towns (9,834 units permitted statewide).",
+      "date": "2025"
+    },
+    {
+      "id": "0785479c5e31",
+      "topic": "weather",
+      "stream": "national",
+      "question": "Is Connecticut running warmer or colder than normal?",
+      "answer_text": "Connecticut ran 4.6\u00b0F warmer than normal over the 30 days ending 2026-11-26 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
+      "date": "2026-11-26"
+    },
+    {
+      "id": "90255dce8175",
+      "topic": "justice",
+      "stream": "stackup",
+      "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
+      "answer_text": "Connecticut reports 147 violent crimes per 100k people (2023), the 3rd-lowest reported of 52 peers. Reported rates compare reporting, not safety.",
+      "date": "2023"
+    }
+  ]
+}

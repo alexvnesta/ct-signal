@@ -1,6 +1,5488 @@
 {
   "cards": [
     {
+      "answer_text": "Sharon spent $47,845 per public school student in 2023, the highest of 169 Connecticut towns (statewide median: $20,958).",
+      "answer_values": {
+        "date": "2023",
+        "edition": "Report Edition: 2019-2023",
+        "n": 169,
+        "state": 20958,
+        "top": {
+          "town": "Sharon",
+          "value": 47845
+        }
+      },
+      "cache": false,
+      "chart": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+        "autosize": {
+          "contains": "padding"
+        },
+        "background": "transparent",
+        "config": {
+          "axis": {
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "labelFontSize": 12,
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68",
+            "titleFontSize": 12
+          },
+          "legend": {
+            "labelColor": "#4c5a68",
+            "labelFontSize": 12,
+            "symbolStrokeWidth": 0,
+            "titleColor": "#4c5a68",
+            "titleFontSize": 12
+          },
+          "title": {
+            "color": "#1c2733",
+            "fontSize": 14,
+            "subtitleColor": "#66717e",
+            "subtitleFontSize": 12
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
+          }
+        },
+        "data": {
+          "values": [
+            {
+              "highlight": true,
+              "rank": 1,
+              "state": "Sharon",
+              "value": 47845
+            },
+            {
+              "highlight": false,
+              "rank": 2,
+              "state": "Cornwall",
+              "value": 36885
+            },
+            {
+              "highlight": false,
+              "rank": 3,
+              "state": "Canaan",
+              "value": 35833
+            },
+            {
+              "highlight": false,
+              "rank": 4,
+              "state": "Bridgewater",
+              "value": 35820
+            },
+            {
+              "highlight": false,
+              "rank": 5,
+              "state": "Roxbury",
+              "value": 35820
+            },
+            {
+              "highlight": false,
+              "rank": 6,
+              "state": "Washington",
+              "value": 35820
+            },
+            {
+              "highlight": false,
+              "rank": 7,
+              "state": "Kent",
+              "value": 35655
+            },
+            {
+              "highlight": false,
+              "rank": 8,
+              "state": "Norfolk",
+              "value": 31806
+            },
+            {
+              "highlight": false,
+              "rank": 9,
+              "state": "Westbrook",
+              "value": 30356
+            },
+            {
+              "highlight": false,
+              "rank": 10,
+              "state": "Salisbury",
+              "value": 30167
+            }
+          ]
+        },
+        "height": 250,
+        "layer": [
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#d9772b",
+                    "#b9b3a6"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "tooltip": [
+                {
+                  "field": "state",
+                  "title": "Town",
+                  "type": "nominal"
+                },
+                {
+                  "field": "value",
+                  "title": "Education spending per pupil, 2023 (top 10 towns)",
+                  "type": "quantitative"
+                },
+                {
+                  "field": "rank",
+                  "title": "Rank",
+                  "type": "quantitative"
+                }
+              ],
+              "x": {
+                "axis": {
+                  "format": "$,.0f",
+                  "grid": false
+                },
+                "field": "value",
+                "scale": {
+                  "domain": [
+                    0,
+                    56457.1
+                  ],
+                  "nice": true
+                },
+                "title": "USD",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Sharon",
+                  "Cornwall",
+                  "Canaan",
+                  "Bridgewater",
+                  "Roxbury",
+                  "Washington",
+                  "Kent",
+                  "Norfolk",
+                  "Westbrook",
+                  "Salisbury"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
+            },
+            "mark": {
+              "cornerRadiusEnd": 2,
+              "tooltip": false,
+              "type": "bar"
+            }
+          },
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#1c2733",
+                    "#4c5a68"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "text": {
+                "field": "value",
+                "format": "$,.0f",
+                "type": "quantitative"
+              },
+              "x": {
+                "field": "value",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Sharon",
+                  "Cornwall",
+                  "Canaan",
+                  "Bridgewater",
+                  "Roxbury",
+                  "Washington",
+                  "Kent",
+                  "Norfolk",
+                  "Westbrook",
+                  "Salisbury"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
+            },
+            "mark": {
+              "align": "left",
+              "baseline": "middle",
+              "dx": 5,
+              "fontSize": 11,
+              "fontWeight": 600,
+              "type": "text"
+            }
+          }
+        ],
+        "title": {
+          "subtitle": "Sharon highlighted",
+          "text": "Education spending per pupil, 2023 (top 10 towns)"
+        },
+        "width": "container"
+      },
+      "chart_kind": "rank_strip",
+      "citations": [
+        "https://data.ct.gov/d/xgef-f6jp"
+      ],
+      "generated_at": "2026-11-27T19:33:54+00:00",
+      "headline": null,
+      "id": "d83567a6654f",
+      "indicator": "school_spending_per_pupil",
+      "origin": "data desk",
+      "query": "GET /resource/xgef-f6jp.json $where=metric='Net current education expenditures per pupil (CSDE)' AND year='2023' (Report Edition: 2019-2023; 169 towns)",
+      "question": "Which Connecticut towns spend the most per public school student?",
+      "stream": "local",
+      "topic": "local-finance",
+      "towns": [
+        {
+          "rank": 1,
+          "town": "Sharon",
+          "value": 47845
+        },
+        {
+          "rank": 2,
+          "town": "Cornwall",
+          "value": 36885
+        },
+        {
+          "rank": 3,
+          "town": "Canaan",
+          "value": 35833
+        },
+        {
+          "rank": 4,
+          "town": "Bridgewater",
+          "value": 35820
+        },
+        {
+          "rank": 5,
+          "town": "Roxbury",
+          "value": 35820
+        },
+        {
+          "rank": 6,
+          "town": "Washington",
+          "value": 35820
+        },
+        {
+          "rank": 7,
+          "town": "Kent",
+          "value": 35655
+        },
+        {
+          "rank": 8,
+          "town": "Norfolk",
+          "value": 31806
+        },
+        {
+          "rank": 9,
+          "town": "Westbrook",
+          "value": 30356
+        },
+        {
+          "rank": 10,
+          "town": "Salisbury",
+          "value": 30167
+        },
+        {
+          "rank": 11,
+          "town": "Hampton",
+          "value": 29270
+        },
+        {
+          "rank": 12,
+          "town": "Redding",
+          "value": 28775
+        },
+        {
+          "rank": 13,
+          "town": "North Canaan",
+          "value": 28578
+        },
+        {
+          "rank": 14,
+          "town": "Hartland",
+          "value": 28476
+        },
+        {
+          "rank": 15,
+          "town": "Essex",
+          "value": 28152
+        },
+        {
+          "rank": 16,
+          "town": "Colebrook",
+          "value": 27781
+        },
+        {
+          "rank": 17,
+          "town": "Scotland",
+          "value": 27736
+        },
+        {
+          "rank": 18,
+          "town": "Goshen",
+          "value": 27656
+        },
+        {
+          "rank": 19,
+          "town": "Morris",
+          "value": 27656
+        },
+        {
+          "rank": 20,
+          "town": "Warren",
+          "value": 27656
+        },
+        {
+          "rank": 21,
+          "town": "Deep River",
+          "value": 27467
+        },
+        {
+          "rank": 22,
+          "town": "Greenwich",
+          "value": 27323
+        },
+        {
+          "rank": 23,
+          "town": "Chaplin",
+          "value": 27160
+        },
+        {
+          "rank": 24,
+          "town": "Durham",
+          "value": 26476
+        },
+        {
+          "rank": 25,
+          "town": "Middlefield",
+          "value": 26476
+        },
+        {
+          "rank": 26,
+          "town": "Old Saybrook",
+          "value": 26078
+        },
+        {
+          "rank": 27,
+          "town": "Weston",
+          "value": 25891
+        },
+        {
+          "rank": 28,
+          "town": "East Windsor",
+          "value": 25455
+        },
+        {
+          "rank": 29,
+          "town": "Sherman",
+          "value": 25210
+        },
+        {
+          "rank": 30,
+          "town": "Chester",
+          "value": 25174
+        },
+        {
+          "rank": 31,
+          "town": "Hartford",
+          "value": 25101
+        },
+        {
+          "rank": 32,
+          "town": "Bozrah",
+          "value": 25056
+        },
+        {
+          "rank": 33,
+          "town": "Westport",
+          "value": 24864
+        },
+        {
+          "rank": 34,
+          "town": "Bethlehem",
+          "value": 24739
+        },
+        {
+          "rank": 35,
+          "town": "Woodbury",
+          "value": 24739
+        },
+        {
+          "rank": 36,
+          "town": "Milford",
+          "value": 24221
+        },
+        {
+          "rank": 37,
+          "town": "Bloomfield",
+          "value": 24166
+        },
+        {
+          "rank": 38,
+          "town": "Barkhamsted",
+          "value": 24158
+        },
+        {
+          "rank": 39,
+          "town": "Darien",
+          "value": 24153
+        },
+        {
+          "rank": 40,
+          "town": "Ashford",
+          "value": 24026
+        },
+        {
+          "rank": 41,
+          "town": "Clinton",
+          "value": 23881
+        },
+        {
+          "rank": 42,
+          "town": "Norwich",
+          "value": 23772
+        },
+        {
+          "rank": 43,
+          "town": "East Haddam",
+          "value": 23767
+        },
+        {
+          "rank": 44,
+          "town": "Madison",
+          "value": 23726
+        },
+        {
+          "rank": 45,
+          "town": "Middletown",
+          "value": 23704
+        },
+        {
+          "rank": 46,
+          "town": "Lebanon",
+          "value": 23526
+        },
+        {
+          "rank": 47,
+          "town": "Wilton",
+          "value": 23485
+        },
+        {
+          "rank": 48,
+          "town": "Union",
+          "value": 23411
+        },
+        {
+          "rank": 49,
+          "town": "Lyme",
+          "value": 23357
+        },
+        {
+          "rank": 50,
+          "town": "Old Lyme",
+          "value": 23357
+        },
+        {
+          "rank": 51,
+          "town": "New Canaan",
+          "value": 23238
+        },
+        {
+          "rank": 52,
+          "town": "Easton",
+          "value": 23213
+        },
+        {
+          "rank": 53,
+          "town": "Branford",
+          "value": 23191
+        },
+        {
+          "rank": 54,
+          "town": "New London",
+          "value": 23188
+        },
+        {
+          "rank": 55,
+          "town": "Eastford",
+          "value": 23154
+        },
+        {
+          "rank": 56,
+          "town": "Litchfield",
+          "value": 23148
+        },
+        {
+          "rank": 57,
+          "town": "Willington",
+          "value": 23033
+        },
+        {
+          "rank": 58,
+          "town": "Hamden",
+          "value": 22969
+        },
+        {
+          "rank": 59,
+          "town": "Andover",
+          "value": 22962
+        },
+        {
+          "rank": 60,
+          "town": "New Hartford",
+          "value": 22956
+        },
+        {
+          "rank": 61,
+          "town": "Mansfield",
+          "value": 22877
+        },
+        {
+          "rank": 62,
+          "town": "Ridgefield",
+          "value": 22855
+        },
+        {
+          "rank": 63,
+          "town": "Haddam",
+          "value": 22800
+        },
+        {
+          "rank": 64,
+          "town": "Killingworth",
+          "value": 22800
+        },
+        {
+          "rank": 65,
+          "town": "Voluntown",
+          "value": 22767
+        },
+        {
+          "rank": 66,
+          "town": "Fairfield",
+          "value": 22625
+        },
+        {
+          "rank": 67,
+          "town": "Windham",
+          "value": 22623
+        },
+        {
+          "rank": 68,
+          "town": "Windsor Locks",
+          "value": 22516
+        },
+        {
+          "rank": 69,
+          "town": "Middlebury",
+          "value": 22309
+        },
+        {
+          "rank": 70,
+          "town": "Southbury",
+          "value": 22309
+        },
+        {
+          "rank": 71,
+          "town": "Derby",
+          "value": 22265
+        },
+        {
+          "rank": 72,
+          "town": "Wallingford",
+          "value": 22088
+        },
+        {
+          "rank": 73,
+          "town": "Norwalk",
+          "value": 22086
+        },
+        {
+          "rank": 74,
+          "town": "Stonington",
+          "value": 22061
+        },
+        {
+          "rank": 75,
+          "town": "Stamford",
+          "value": 21995
+        },
+        {
+          "rank": 76,
+          "town": "East Granby",
+          "value": 21942
+        },
+        {
+          "rank": 77,
+          "town": "Stafford",
+          "value": 21893
+        },
+        {
+          "rank": 78,
+          "town": "Winchester",
+          "value": 21885
+        },
+        {
+          "rank": 79,
+          "town": "Waterford",
+          "value": 21865
+        },
+        {
+          "rank": 80,
+          "town": "New Fairfield",
+          "value": 21822
+        },
+        {
+          "rank": 81,
+          "town": "New Haven",
+          "value": 21765
+        },
+        {
+          "rank": 82,
+          "town": "Thompson",
+          "value": 21715
+        },
+        {
+          "rank": 83,
+          "town": "North Branford",
+          "value": 21053
+        },
+        {
+          "rank": 84,
+          "town": "East Lyme",
+          "value": 21052
+        },
+        {
+          "rank": 85,
+          "town": "Portland",
+          "value": 20958
+        },
+        {
+          "rank": 86,
+          "town": "Newtown",
+          "value": 20941
+        },
+        {
+          "rank": 87,
+          "town": "Berlin",
+          "value": 20938
+        },
+        {
+          "rank": 88,
+          "town": "Hebron",
+          "value": 20888
+        },
+        {
+          "rank": 89,
+          "town": "Windsor",
+          "value": 20882
+        },
+        {
+          "rank": 90,
+          "town": "Guilford",
+          "value": 20841
+        },
+        {
+          "rank": 91,
+          "town": "Bolton",
+          "value": 20753
+        },
+        {
+          "rank": 92,
+          "town": "Newington",
+          "value": 20571
+        },
+        {
+          "rank": 93,
+          "town": "East Hampton",
+          "value": 20466
+        },
+        {
+          "rank": 94,
+          "town": "Woodbridge",
+          "value": 20361
+        },
+        {
+          "rank": 95,
+          "town": "West Hartford",
+          "value": 20325
+        },
+        {
+          "rank": 96,
+          "town": "Torrington",
+          "value": 20290
+        },
+        {
+          "rank": 97,
+          "town": "Somers",
+          "value": 20287
+        },
+        {
+          "rank": 98,
+          "town": "Preston",
+          "value": 20271
+        },
+        {
+          "rank": 99,
+          "town": "Granby",
+          "value": 20169
+        },
+        {
+          "rank": 100,
+          "town": "Glastonbury",
+          "value": 20127
+        },
+        {
+          "rank": 101,
+          "town": "Canton",
+          "value": 20075
+        },
+        {
+          "rank": 102,
+          "town": "Orange",
+          "value": 20066
+        },
+        {
+          "rank": 103,
+          "town": "Watertown",
+          "value": 20003
+        },
+        {
+          "rank": 104,
+          "town": "Plainville",
+          "value": 19987
+        },
+        {
+          "rank": 105,
+          "town": "Putnam",
+          "value": 19912
+        },
+        {
+          "rank": 106,
+          "town": "Killingly",
+          "value": 19852
+        },
+        {
+          "rank": 107,
+          "town": "Avon",
+          "value": 19819
+        },
+        {
+          "rank": 108,
+          "town": "Stratford",
+          "value": 19786
+        },
+        {
+          "rank": 109,
+          "town": "Farmington",
+          "value": 19784
+        },
+        {
+          "rank": 110,
+          "town": "Marlborough",
+          "value": 19773
+        },
+        {
+          "rank": 111,
+          "town": "Bethany",
+          "value": 19765
+        },
+        {
+          "rank": 112,
+          "town": "Columbia",
+          "value": 19728
+        },
+        {
+          "rank": 113,
+          "town": "Simsbury",
+          "value": 19697
+        },
+        {
+          "rank": 114,
+          "town": "Bristol",
+          "value": 19620
+        },
+        {
+          "rank": 115,
+          "town": "Colchester",
+          "value": 19561
+        },
+        {
+          "rank": 116,
+          "town": "Pomfret",
+          "value": 19552
+        },
+        {
+          "rank": 117,
+          "town": "Suffield",
+          "value": 19510
+        },
+        {
+          "rank": 118,
+          "town": "Franklin",
+          "value": 19500
+        },
+        {
+          "rank": 119,
+          "town": "Salem",
+          "value": 19445
+        },
+        {
+          "rank": 120,
+          "town": "Rocky Hill",
+          "value": 19417
+        },
+        {
+          "rank": 121,
+          "town": "Manchester",
+          "value": 19343
+        },
+        {
+          "rank": 122,
+          "town": "Cheshire",
+          "value": 19342
+        },
+        {
+          "rank": 123,
+          "town": "Sprague",
+          "value": 19339
+        },
+        {
+          "rank": 124,
+          "town": "Brookfield",
+          "value": 19326
+        },
+        {
+          "rank": 125,
+          "town": "Beacon Falls",
+          "value": 19297
+        },
+        {
+          "rank": 126,
+          "town": "Prospect",
+          "value": 19297
+        },
+        {
+          "rank": 127,
+          "town": "Plymouth",
+          "value": 19270
+        },
+        {
+          "rank": 128,
+          "town": "Montville",
+          "value": 19268
+        },
+        {
+          "rank": 129,
+          "town": "North Haven",
+          "value": 19216
+        },
+        {
+          "rank": 130,
+          "town": "Sterling",
+          "value": 19168
+        },
+        {
+          "rank": 131,
+          "town": "Thomaston",
+          "value": 19084
+        },
+        {
+          "rank": 132,
+          "town": "Ansonia",
+          "value": 19083
+        },
+        {
+          "rank": 133,
+          "town": "Bridgeport",
+          "value": 19030
+        },
+        {
+          "rank": 134,
+          "town": "Oxford",
+          "value": 18945
+        },
+        {
+          "rank": 135,
+          "town": "Canterbury",
+          "value": 18928
+        },
+        {
+          "rank": 136,
+          "town": "Vernon",
+          "value": 18921
+        },
+        {
+          "rank": 137,
+          "town": "Groton",
+          "value": 18893
+        },
+        {
+          "rank": 138,
+          "town": "Cromwell",
+          "value": 18706
+        },
+        {
+          "rank": 139,
+          "town": "Waterbury",
+          "value": 18614
+        },
+        {
+          "rank": 140,
+          "town": "Monroe",
+          "value": 18586
+        },
+        {
+          "rank": 141,
+          "town": "New Milford",
+          "value": 18564
+        },
+        {
+          "rank": 142,
+          "town": "Burlington",
+          "value": 18563
+        },
+        {
+          "rank": 143,
+          "town": "Harwinton",
+          "value": 18563
+        },
+        {
+          "rank": 144,
+          "town": "Trumbull",
+          "value": 18486
+        },
+        {
+          "rank": 145,
+          "town": "East Haven",
+          "value": 18413
+        },
+        {
+          "rank": 146,
+          "town": "Wethersfield",
+          "value": 18405
+        },
+        {
+          "rank": 147,
+          "town": "Bethel",
+          "value": 18331
+        },
+        {
+          "rank": 148,
+          "town": "Lisbon",
+          "value": 18280
+        },
+        {
+          "rank": 149,
+          "town": "North Stonington",
+          "value": 18218
+        },
+        {
+          "rank": 150,
+          "town": "Coventry",
+          "value": 18206
+        },
+        {
+          "rank": 151,
+          "town": "Seymour",
+          "value": 18121
+        },
+        {
+          "rank": 152,
+          "town": "Tolland",
+          "value": 18011
+        },
+        {
+          "rank": 153,
+          "town": "New Britain",
+          "value": 17876
+        },
+        {
+          "rank": 154,
+          "town": "Plainfield",
+          "value": 17840
+        },
+        {
+          "rank": 155,
+          "town": "Enfield",
+          "value": 17775
+        },
+        {
+          "rank": 156,
+          "town": "Southington",
+          "value": 17756
+        },
+        {
+          "rank": 157,
+          "town": "Brooklyn",
+          "value": 17375
+        },
+        {
+          "rank": 158,
+          "town": "Woodstock",
+          "value": 17293
+        },
+        {
+          "rank": 159,
+          "town": "Griswold",
+          "value": 17277
+        },
+        {
+          "rank": 160,
+          "town": "Ledyard",
+          "value": 17258
+        },
+        {
+          "rank": 161,
+          "town": "Wolcott",
+          "value": 17240
+        },
+        {
+          "rank": 162,
+          "town": "Shelton",
+          "value": 17236
+        },
+        {
+          "rank": 163,
+          "town": "Ellington",
+          "value": 17197
+        },
+        {
+          "rank": 164,
+          "town": "South Windsor",
+          "value": 16963
+        },
+        {
+          "rank": 165,
+          "town": "West Haven",
+          "value": 16807
+        },
+        {
+          "rank": 166,
+          "town": "Meriden",
+          "value": 16516
+        },
+        {
+          "rank": 167,
+          "town": "East Hartford",
+          "value": 16436
+        },
+        {
+          "rank": 168,
+          "town": "Danbury",
+          "value": 16382
+        },
+        {
+          "rank": 169,
+          "town": "Naugatuck",
+          "value": 16216
+        }
+      ]
+    },
+    {
+      "answer_text": "Northeast urban electricity averaged $0.266 per kWh in 2026-10 \u2014 unchanged from September 2026 for this BLS series.",
+      "answer_values": {
+        "date": "2026-10",
+        "value": 0.266
+      },
+      "cache": false,
+      "chart": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+        "autosize": {
+          "contains": "padding"
+        },
+        "background": "transparent",
+        "config": {
+          "axis": {
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "labelFontSize": 12,
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68",
+            "titleFontSize": 12
+          },
+          "legend": {
+            "labelColor": "#4c5a68",
+            "labelFontSize": 12,
+            "symbolStrokeWidth": 0,
+            "titleColor": "#4c5a68",
+            "titleFontSize": 12
+          },
+          "title": {
+            "color": "#1c2733",
+            "fontSize": 14,
+            "subtitleColor": "#66717e",
+            "subtitleFontSize": 12
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
+          }
+        },
+        "data": {
+          "values": [
+            {
+              "date": "1996-10",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1996-11",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1996-12",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1997-01",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1997-02",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1997-03",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1997-04",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1997-05",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1997-06",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "1997-07",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "1997-08",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "1997-09",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "1997-10",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1997-11",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1997-12",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-01",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-02",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-03",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-04",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-05",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-06",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-07",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-08",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-09",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-10",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-11",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1998-12",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1999-01",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1999-02",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1999-03",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1999-04",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1999-05",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "1999-06",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1999-07",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1999-08",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1999-09",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1999-10",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1999-11",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "1999-12",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2000-01",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2000-02",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2000-03",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2000-04",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2000-05",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2000-06",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2000-07",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "2000-08",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2000-09",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2000-10",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2000-11",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2000-12",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2001-01",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2001-02",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2001-03",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2001-04",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2001-05",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2001-06",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2001-07",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "2001-08",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2001-09",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2001-10",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2001-11",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2001-12",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2002-01",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2002-02",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2002-03",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2002-04",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2002-05",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2002-06",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2002-07",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2002-08",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2002-09",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2002-10",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2002-11",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2002-12",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2003-01",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2003-02",
+              "series": "Northeast Urban",
+              "value": 0.11
+            },
+            {
+              "date": "2003-03",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2003-04",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2003-05",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2003-06",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2003-07",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2003-08",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2003-09",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2003-10",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2003-11",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2003-12",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2004-01",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2004-02",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2004-03",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2004-04",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2004-05",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2004-06",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "2004-07",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "2004-08",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "2004-09",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2004-10",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2004-11",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2004-12",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2005-01",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2005-02",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2005-03",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2005-04",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2005-05",
+              "series": "Northeast Urban",
+              "value": 0.12
+            },
+            {
+              "date": "2005-06",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "2005-07",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2005-08",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2005-09",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2005-10",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "2005-11",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2005-12",
+              "series": "Northeast Urban",
+              "value": 0.13
+            },
+            {
+              "date": "2006-01",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2006-02",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2006-03",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2006-04",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2006-05",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2006-06",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2006-07",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2006-08",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2006-09",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2006-10",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2006-11",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2006-12",
+              "series": "Northeast Urban",
+              "value": 0.14
+            },
+            {
+              "date": "2007-01",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2007-02",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2007-03",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2007-04",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2007-05",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2007-06",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2007-07",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2007-08",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2007-09",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2007-10",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2007-11",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2007-12",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2008-01",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2008-02",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2008-03",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2008-04",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2008-05",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2008-06",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2008-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2008-08",
+              "series": "Northeast Urban",
+              "value": 0.18
+            },
+            {
+              "date": "2008-09",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2008-10",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2008-11",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2008-12",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2009-01",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2009-02",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2009-03",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2009-04",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2009-05",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2009-06",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2009-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2009-08",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2009-09",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2009-10",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2009-11",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2009-12",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2010-01",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2010-02",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2010-03",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2010-04",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2010-05",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2010-06",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2010-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2010-08",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2010-09",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2010-10",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2010-11",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2010-12",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2011-01",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2011-02",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2011-03",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2011-04",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2011-05",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2011-06",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2011-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2011-08",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2011-09",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2011-10",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2011-11",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2011-12",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2012-01",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2012-02",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2012-03",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2012-04",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2012-05",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2012-06",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2012-07",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2012-08",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2012-09",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2012-10",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2012-11",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2012-12",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2013-01",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2013-02",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2013-03",
+              "series": "Northeast Urban",
+              "value": 0.15
+            },
+            {
+              "date": "2013-04",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2013-05",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2013-06",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2013-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2013-08",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2013-09",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2013-10",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2013-11",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2013-12",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2014-01",
+              "series": "Northeast Urban",
+              "value": 0.18
+            },
+            {
+              "date": "2014-02",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2014-03",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2014-04",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2014-05",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2014-06",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2014-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2014-08",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2014-09",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2014-10",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2014-11",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2014-12",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2015-01",
+              "series": "Northeast Urban",
+              "value": 0.18
+            },
+            {
+              "date": "2015-02",
+              "series": "Northeast Urban",
+              "value": 0.18
+            },
+            {
+              "date": "2015-03",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2015-04",
+              "series": "Northeast Urban",
+              "value": 0.18
+            },
+            {
+              "date": "2015-05",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2015-06",
+              "series": "Northeast Urban",
+              "value": 0.18
+            },
+            {
+              "date": "2015-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2015-08",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2015-09",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2015-10",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2015-11",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2015-12",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2016-01",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2016-02",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2016-03",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2016-04",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2016-05",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2016-06",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2016-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2016-08",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2016-09",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2016-10",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2016-11",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2016-12",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-01",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-02",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-03",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-04",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-05",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-06",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-08",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-09",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-10",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-11",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2017-12",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2018-01",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2018-02",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2018-03",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2018-04",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2018-05",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2018-06",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2018-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2018-08",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2018-09",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2018-10",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2018-11",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2018-12",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2019-01",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2019-02",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2019-03",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2019-04",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2019-05",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2019-06",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2019-07",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2019-08",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2019-09",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2019-10",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2019-11",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2019-12",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2020-01",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2020-02",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2020-03",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2020-04",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2020-05",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2020-06",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2020-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2020-08",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2020-09",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2020-10",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2020-11",
+              "series": "Northeast Urban",
+              "value": 0.16
+            },
+            {
+              "date": "2020-12",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2021-01",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2021-02",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2021-03",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2021-04",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2021-05",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2021-06",
+              "series": "Northeast Urban",
+              "value": 0.18
+            },
+            {
+              "date": "2021-07",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2021-08",
+              "series": "Northeast Urban",
+              "value": 0.17
+            },
+            {
+              "date": "2021-09",
+              "series": "Northeast Urban",
+              "value": 0.18
+            },
+            {
+              "date": "2021-10",
+              "series": "Northeast Urban",
+              "value": 0.18
+            },
+            {
+              "date": "2021-11",
+              "series": "Northeast Urban",
+              "value": 0.18
+            },
+            {
+              "date": "2021-12",
+              "series": "Northeast Urban",
+              "value": 0.18
+            },
+            {
+              "date": "2022-01",
+              "series": "Northeast Urban",
+              "value": 0.19
+            },
+            {
+              "date": "2022-02",
+              "series": "Northeast Urban",
+              "value": 0.19
+            },
+            {
+              "date": "2022-03",
+              "series": "Northeast Urban",
+              "value": 0.19
+            },
+            {
+              "date": "2022-04",
+              "series": "Northeast Urban",
+              "value": 0.2
+            },
+            {
+              "date": "2022-05",
+              "series": "Northeast Urban",
+              "value": 0.2
+            },
+            {
+              "date": "2022-06",
+              "series": "Northeast Urban",
+              "value": 0.21
+            },
+            {
+              "date": "2022-07",
+              "series": "Northeast Urban",
+              "value": 0.21
+            },
+            {
+              "date": "2022-08",
+              "series": "Northeast Urban",
+              "value": 0.21
+            },
+            {
+              "date": "2022-09",
+              "series": "Northeast Urban",
+              "value": 0.21
+            },
+            {
+              "date": "2022-10",
+              "series": "Northeast Urban",
+              "value": 0.21
+            },
+            {
+              "date": "2022-11",
+              "series": "Northeast Urban",
+              "value": 0.21
+            },
+            {
+              "date": "2022-12",
+              "series": "Northeast Urban",
+              "value": 0.22
+            },
+            {
+              "date": "2023-01",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2023-02",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2023-03",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2023-04",
+              "series": "Northeast Urban",
+              "value": 0.22
+            },
+            {
+              "date": "2023-05",
+              "series": "Northeast Urban",
+              "value": 0.22
+            },
+            {
+              "date": "2023-06",
+              "series": "Northeast Urban",
+              "value": 0.22
+            },
+            {
+              "date": "2023-07",
+              "series": "Northeast Urban",
+              "value": 0.21
+            },
+            {
+              "date": "2023-08",
+              "series": "Northeast Urban",
+              "value": 0.21
+            },
+            {
+              "date": "2023-09",
+              "series": "Northeast Urban",
+              "value": 0.21
+            },
+            {
+              "date": "2023-10",
+              "series": "Northeast Urban",
+              "value": 0.21
+            },
+            {
+              "date": "2023-11",
+              "series": "Northeast Urban",
+              "value": 0.22
+            },
+            {
+              "date": "2023-12",
+              "series": "Northeast Urban",
+              "value": 0.21
+            },
+            {
+              "date": "2024-01",
+              "series": "Northeast Urban",
+              "value": 0.22
+            },
+            {
+              "date": "2024-02",
+              "series": "Northeast Urban",
+              "value": 0.22
+            },
+            {
+              "date": "2024-03",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2024-04",
+              "series": "Northeast Urban",
+              "value": 0.22
+            },
+            {
+              "date": "2024-05",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2024-06",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2024-07",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2024-08",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2024-09",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2024-10",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2024-11",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2024-12",
+              "series": "Northeast Urban",
+              "value": 0.23
+            },
+            {
+              "date": "2025-01",
+              "series": "Northeast Urban",
+              "value": 0.24
+            },
+            {
+              "date": "2025-02",
+              "series": "Northeast Urban",
+              "value": 0.25
+            },
+            {
+              "date": "2025-03",
+              "series": "Northeast Urban",
+              "value": 0.24
+            },
+            {
+              "date": "2025-04",
+              "series": "Northeast Urban",
+              "value": 0.24
+            },
+            {
+              "date": "2025-05",
+              "series": "Northeast Urban",
+              "value": 0.25
+            },
+            {
+              "date": "2025-06",
+              "series": "Northeast Urban",
+              "value": 0.26
+            },
+            {
+              "date": "2025-07",
+              "series": "Northeast Urban",
+              "value": 0.26
+            },
+            {
+              "date": "2025-08",
+              "series": "Northeast Urban",
+              "value": 0.26
+            },
+            {
+              "date": "2025-09",
+              "series": "Northeast Urban",
+              "value": 0.25
+            },
+            {
+              "date": "2025-11",
+              "series": "Northeast Urban",
+              "value": 0.26
+            },
+            {
+              "date": "2025-12",
+              "series": "Northeast Urban",
+              "value": 0.26
+            },
+            {
+              "date": "2026-01",
+              "series": "Northeast Urban",
+              "value": 0.27
+            },
+            {
+              "date": "2026-02",
+              "series": "Northeast Urban",
+              "value": 0.25
+            },
+            {
+              "date": "2026-03",
+              "series": "Northeast Urban",
+              "value": 0.25
+            },
+            {
+              "date": "2026-04",
+              "series": "Northeast Urban",
+              "value": 0.27
+            },
+            {
+              "date": "2026-05",
+              "series": "Northeast Urban",
+              "value": 0.27
+            },
+            {
+              "date": "2026-06",
+              "series": "Northeast Urban",
+              "value": 0.27
+            },
+            {
+              "date": "2026-07",
+              "series": "Northeast Urban",
+              "value": 0.26
+            },
+            {
+              "date": "2026-08",
+              "series": "Northeast Urban",
+              "value": 0.26
+            },
+            {
+              "date": "2026-09",
+              "series": "Northeast Urban",
+              "value": 0.27
+            },
+            {
+              "date": "2026-10",
+              "series": "Northeast Urban",
+              "value": 0.27
+            }
+          ]
+        },
+        "encoding": {
+          "color": {
+            "field": "series",
+            "legend": {
+              "direction": "horizontal",
+              "labelFontSize": 12,
+              "orient": "bottom",
+              "title": null
+            },
+            "scale": {
+              "domain": [
+                "Northeast Urban"
+              ],
+              "range": [
+                "#d9772b"
+              ]
+            },
+            "type": "nominal"
+          },
+          "tooltip": [
+            {
+              "field": "series",
+              "type": "nominal"
+            },
+            {
+              "field": "date",
+              "format": "%Y-%m",
+              "title": "Month",
+              "type": "temporal"
+            },
+            {
+              "field": "value",
+              "format": ".1f",
+              "type": "quantitative"
+            }
+          ],
+          "x": {
+            "axis": {
+              "domainColor": "#c9c3b6",
+              "format": "%Y",
+              "grid": false,
+              "tickCount": 6
+            },
+            "field": "date",
+            "title": null,
+            "type": "temporal"
+          },
+          "y": {
+            "axis": {
+              "format": ",.0f"
+            },
+            "field": "value",
+            "title": null,
+            "type": "quantitative"
+          }
+        },
+        "height": 200,
+        "mark": {
+          "point": true,
+          "type": "line"
+        },
+        "padding": {
+          "right": 12
+        },
+        "title": {
+          "text": "Northeast urban electricity price (per kWh) (USD/kWh)"
+        },
+        "width": "container"
+      },
+      "chart2": null,
+      "chart_kind": "trend",
+      "citations": [
+        "https://fred.stlouisfed.org/series/APU010072610"
+      ],
+      "generated_at": "2026-11-27T19:33:54+00:00",
+      "headline": null,
+      "id": "c77ecc1c1e06",
+      "indicator": "northeast_electricity",
+      "origin": "data desk",
+      "query": "FRED fredgraph.csv id=APU010072610; agency of record: US Bureau of Labor Statistics, Average Price Data",
+      "question": "What are Northeast households paying for electricity?",
+      "series_freq": "monthly",
+      "stream": "national",
+      "topic": "economy"
+    },
+    {
+      "answer_text": "Single-family homes in Greenwich sold for a median of $2,850,000 in 2024, the highest of 150 towns with 10 or more sales (statewide median: $426,000).",
+      "answer_values": {
+        "date": "2024",
+        "n": 150,
+        "state": 426000,
+        "top": {
+          "sales": 607,
+          "town": "Greenwich",
+          "value": 2850000
+        },
+        "total_sales": 29507
+      },
+      "cache": false,
+      "chart": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+        "autosize": {
+          "contains": "padding"
+        },
+        "background": "transparent",
+        "config": {
+          "axis": {
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "labelFontSize": 12,
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68",
+            "titleFontSize": 12
+          },
+          "legend": {
+            "labelColor": "#4c5a68",
+            "labelFontSize": 12,
+            "symbolStrokeWidth": 0,
+            "titleColor": "#4c5a68",
+            "titleFontSize": 12
+          },
+          "title": {
+            "color": "#1c2733",
+            "fontSize": 14,
+            "subtitleColor": "#66717e",
+            "subtitleFontSize": 12
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
+          }
+        },
+        "data": {
+          "values": [
+            {
+              "highlight": true,
+              "rank": 1,
+              "state": "Greenwich",
+              "value": 2850000
+            },
+            {
+              "highlight": false,
+              "rank": 2,
+              "state": "New Canaan",
+              "value": 2400000
+            },
+            {
+              "highlight": false,
+              "rank": 3,
+              "state": "Darien",
+              "value": 2383455
+            },
+            {
+              "highlight": false,
+              "rank": 4,
+              "state": "Westport",
+              "value": 2000000
+            },
+            {
+              "highlight": false,
+              "rank": 5,
+              "state": "Roxbury",
+              "value": 1312500
+            },
+            {
+              "highlight": false,
+              "rank": 6,
+              "state": "Weston",
+              "value": 1299500
+            },
+            {
+              "highlight": false,
+              "rank": 7,
+              "state": "Wilton",
+              "value": 1274000
+            },
+            {
+              "highlight": false,
+              "rank": 8,
+              "state": "Ridgefield",
+              "value": 1025000
+            },
+            {
+              "highlight": false,
+              "rank": 9,
+              "state": "Fairfield",
+              "value": 940000
+            },
+            {
+              "highlight": false,
+              "rank": 10,
+              "state": "Redding",
+              "value": 915000
+            }
+          ]
+        },
+        "height": 250,
+        "layer": [
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#d9772b",
+                    "#b9b3a6"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "tooltip": [
+                {
+                  "field": "state",
+                  "title": "Town",
+                  "type": "nominal"
+                },
+                {
+                  "field": "value",
+                  "title": "Median single-family sale price, 2024 (top 10 towns)",
+                  "type": "quantitative"
+                },
+                {
+                  "field": "rank",
+                  "title": "Rank",
+                  "type": "quantitative"
+                }
+              ],
+              "x": {
+                "axis": {
+                  "format": "$,.0f",
+                  "grid": false
+                },
+                "field": "value",
+                "scale": {
+                  "domain": [
+                    0,
+                    3363000.0
+                  ],
+                  "nice": true
+                },
+                "title": "USD",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Greenwich",
+                  "New Canaan",
+                  "Darien",
+                  "Westport",
+                  "Roxbury",
+                  "Weston",
+                  "Wilton",
+                  "Ridgefield",
+                  "Fairfield",
+                  "Redding"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
+            },
+            "mark": {
+              "cornerRadiusEnd": 2,
+              "tooltip": false,
+              "type": "bar"
+            }
+          },
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#1c2733",
+                    "#4c5a68"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "text": {
+                "field": "value",
+                "format": "$,.0f",
+                "type": "quantitative"
+              },
+              "x": {
+                "field": "value",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Greenwich",
+                  "New Canaan",
+                  "Darien",
+                  "Westport",
+                  "Roxbury",
+                  "Weston",
+                  "Wilton",
+                  "Ridgefield",
+                  "Fairfield",
+                  "Redding"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
+            },
+            "mark": {
+              "align": "left",
+              "baseline": "middle",
+              "dx": 5,
+              "fontSize": 11,
+              "fontWeight": 600,
+              "type": "text"
+            }
+          }
+        ],
+        "title": {
+          "subtitle": "Greenwich highlighted",
+          "text": "Median single-family sale price, 2024 (top 10 towns)"
+        },
+        "width": "container"
+      },
+      "chart_kind": "rank_strip",
+      "citations": [
+        "https://data.ct.gov/d/5mzw-sjtu"
+      ],
+      "generated_at": "2026-11-27T19:33:53+00:00",
+      "headline": null,
+      "id": "ea89b34f9217",
+      "indicator": "home_sales_price",
+      "origin": "data desk",
+      "query": "GET /resource/5mzw-sjtu.json $where=listyear='2024' AND residentialtype='Single Family' AND saleamount>=50000 (29,507 sales; 150 towns with >=10 sales)",
+      "question": "Where do Connecticut single-family homes sell for the most?",
+      "stream": "local",
+      "topic": "housing",
+      "towns": [
+        {
+          "rank": 1,
+          "sales": 607,
+          "town": "Greenwich",
+          "value": 2850000
+        },
+        {
+          "rank": 2,
+          "sales": 231,
+          "town": "New Canaan",
+          "value": 2400000
+        },
+        {
+          "rank": 3,
+          "sales": 271,
+          "town": "Darien",
+          "value": 2383455
+        },
+        {
+          "rank": 4,
+          "sales": 391,
+          "town": "Westport",
+          "value": 2000000
+        },
+        {
+          "rank": 5,
+          "sales": 54,
+          "town": "Roxbury",
+          "value": 1312500
+        },
+        {
+          "rank": 6,
+          "sales": 148,
+          "town": "Weston",
+          "value": 1299500
+        },
+        {
+          "rank": 7,
+          "sales": 242,
+          "town": "Wilton",
+          "value": 1274000
+        },
+        {
+          "rank": 8,
+          "sales": 277,
+          "town": "Ridgefield",
+          "value": 1025000
+        },
+        {
+          "rank": 9,
+          "sales": 669,
+          "town": "Fairfield",
+          "value": 940000
+        },
+        {
+          "rank": 10,
+          "sales": 133,
+          "town": "Redding",
+          "value": 915000
+        },
+        {
+          "rank": 11,
+          "sales": 105,
+          "town": "Easton",
+          "value": 900000
+        },
+        {
+          "rank": 12,
+          "sales": 774,
+          "town": "Stamford",
+          "value": 899000
+        },
+        {
+          "rank": 13,
+          "sales": 24,
+          "town": "Cornwall",
+          "value": 788500
+        },
+        {
+          "rank": 14,
+          "sales": 69,
+          "town": "Washington",
+          "value": 770000
+        },
+        {
+          "rank": 15,
+          "sales": 568,
+          "town": "Norwalk",
+          "value": 750000
+        },
+        {
+          "rank": 16,
+          "sales": 62,
+          "town": "Salisbury",
+          "value": 722500
+        },
+        {
+          "rank": 17,
+          "sales": 234,
+          "town": "Madison",
+          "value": 713750
+        },
+        {
+          "rank": 18,
+          "sales": 157,
+          "town": "Old Saybrook",
+          "value": 699000
+        },
+        {
+          "rank": 19,
+          "sales": 37,
+          "town": "Lyme",
+          "value": 690000
+        },
+        {
+          "rank": 20,
+          "sales": 101,
+          "town": "Essex",
+          "value": 671000
+        },
+        {
+          "rank": 21,
+          "sales": 112,
+          "town": "Woodbridge",
+          "value": 665000
+        },
+        {
+          "rank": 22,
+          "sales": 56,
+          "town": "Sherman",
+          "value": 652500
+        },
+        {
+          "rank": 23,
+          "sales": 201,
+          "town": "Brookfield",
+          "value": 650000
+        },
+        {
+          "rank": 24,
+          "sales": 372,
+          "town": "Trumbull",
+          "value": 635000
+        },
+        {
+          "rank": 25,
+          "sales": 14,
+          "town": "Canaan",
+          "value": 627500
+        },
+        {
+          "rank": 26,
+          "sales": 346,
+          "town": "Newtown",
+          "value": 627000
+        },
+        {
+          "rank": 27,
+          "sales": 37,
+          "town": "Morris",
+          "value": 625000
+        },
+        {
+          "rank": 28,
+          "sales": 201,
+          "town": "Avon",
+          "value": 620000
+        },
+        {
+          "rank": 29,
+          "sales": 38,
+          "town": "Bridgewater",
+          "value": 616700
+        },
+        {
+          "rank": 30,
+          "sales": 356,
+          "town": "Glastonbury",
+          "value": 615000
+        },
+        {
+          "rank": 31,
+          "sales": 91,
+          "town": "Woodbury",
+          "value": 610000
+        },
+        {
+          "rank": 32,
+          "sales": 318,
+          "town": "Guilford",
+          "value": 608500
+        },
+        {
+          "rank": 33,
+          "sales": 49,
+          "town": "Goshen",
+          "value": 605000
+        },
+        {
+          "rank": 34,
+          "sales": 26,
+          "town": "Warren",
+          "value": 593950
+        },
+        {
+          "rank": 35,
+          "sales": 183,
+          "town": "Southbury",
+          "value": 590000
+        },
+        {
+          "rank": 36,
+          "sales": 80,
+          "town": "Westbrook",
+          "value": 585000
+        },
+        {
+          "rank": 37,
+          "sales": 134,
+          "town": "Orange",
+          "value": 574950
+        },
+        {
+          "rank": 38,
+          "sales": 110,
+          "town": "Burlington",
+          "value": 557500
+        },
+        {
+          "rank": 39,
+          "sales": 344,
+          "town": "Shelton",
+          "value": 546500
+        },
+        {
+          "rank": 40,
+          "sales": 264,
+          "town": "Cheshire",
+          "value": 543000
+        },
+        {
+          "rank": 41,
+          "sales": 180,
+          "town": "Bethel",
+          "value": 532500
+        },
+        {
+          "rank": 42,
+          "sales": 49,
+          "town": "Sharon",
+          "value": 530000
+        },
+        {
+          "rank": 43,
+          "sales": 49,
+          "town": "Chester",
+          "value": 525000
+        },
+        {
+          "rank": 44,
+          "sales": 249,
+          "town": "Farmington",
+          "value": 520000
+        },
+        {
+          "rank": 45,
+          "sales": 626,
+          "town": "West Hartford",
+          "value": 520000
+        },
+        {
+          "rank": 46,
+          "sales": 96,
+          "town": "Middlebury",
+          "value": 515000
+        },
+        {
+          "rank": 47,
+          "sales": 556,
+          "town": "Milford",
+          "value": 515000
+        },
+        {
+          "rank": 48,
+          "sales": 267,
+          "town": "Simsbury",
+          "value": 510000
+        },
+        {
+          "rank": 49,
+          "sales": 244,
+          "town": "Stonington",
+          "value": 500000
+        },
+        {
+          "rank": 50,
+          "sales": 231,
+          "town": "East Lyme",
+          "value": 487000
+        },
+        {
+          "rank": 51,
+          "sales": 70,
+          "town": "Killingworth",
+          "value": 486000
+        },
+        {
+          "rank": 52,
+          "sales": 66,
+          "town": "Bethany",
+          "value": 481450
+        },
+        {
+          "rank": 53,
+          "sales": 309,
+          "town": "New Milford",
+          "value": 480000
+        },
+        {
+          "rank": 54,
+          "sales": 99,
+          "town": "Canton",
+          "value": 475000
+        },
+        {
+          "rank": 55,
+          "sales": 483,
+          "town": "Danbury",
+          "value": 475000
+        },
+        {
+          "rank": 56,
+          "sales": 135,
+          "town": "Granby",
+          "value": 475000
+        },
+        {
+          "rank": 57,
+          "sales": 107,
+          "town": "Woodstock",
+          "value": 475000
+        },
+        {
+          "rank": 58,
+          "sales": 62,
+          "town": "Durham",
+          "value": 473500
+        },
+        {
+          "rank": 59,
+          "sales": 36,
+          "town": "Kent",
+          "value": 467500
+        },
+        {
+          "rank": 60,
+          "sales": 236,
+          "town": "South Windsor",
+          "value": 460000
+        },
+        {
+          "rank": 61,
+          "sales": 141,
+          "town": "Cromwell",
+          "value": 455000
+        },
+        {
+          "rank": 62,
+          "sales": 109,
+          "town": "Litchfield",
+          "value": 453000
+        },
+        {
+          "rank": 63,
+          "sales": 68,
+          "town": "Marlborough",
+          "value": 450500
+        },
+        {
+          "rank": 64,
+          "sales": 184,
+          "town": "Suffield",
+          "value": 450500
+        },
+        {
+          "rank": 65,
+          "sales": 492,
+          "town": "Stratford",
+          "value": 449000
+        },
+        {
+          "rank": 66,
+          "sales": 52,
+          "town": "Salem",
+          "value": 446650
+        },
+        {
+          "rank": 67,
+          "sales": 55,
+          "town": "Harwinton",
+          "value": 445000
+        },
+        {
+          "rank": 68,
+          "sales": 211,
+          "town": "North Haven",
+          "value": 445000
+        },
+        {
+          "rank": 69,
+          "sales": 77,
+          "town": "North Stonington",
+          "value": 442900
+        },
+        {
+          "rank": 70,
+          "sales": 106,
+          "town": "Haddam",
+          "value": 441500
+        },
+        {
+          "rank": 71,
+          "sales": 52,
+          "town": "Deep River",
+          "value": 437000
+        },
+        {
+          "rank": 72,
+          "sales": 51,
+          "town": "Bethlehem",
+          "value": 435000
+        },
+        {
+          "rank": 73,
+          "sales": 113,
+          "town": "Hebron",
+          "value": 435000
+        },
+        {
+          "rank": 74,
+          "sales": 104,
+          "town": "Somers",
+          "value": 434000
+        },
+        {
+          "rank": 75,
+          "sales": 173,
+          "town": "Clinton",
+          "value": 430000
+        },
+        {
+          "rank": 76,
+          "sales": 106,
+          "town": "Rocky Hill",
+          "value": 425000
+        },
+        {
+          "rank": 77,
+          "sales": 53,
+          "town": "Barkhamsted",
+          "value": 420000
+        },
+        {
+          "rank": 78,
+          "sales": 71,
+          "town": "Columbia",
+          "value": 420000
+        },
+        {
+          "rank": 79,
+          "sales": 51,
+          "town": "East Granby",
+          "value": 420000
+        },
+        {
+          "rank": 80,
+          "sales": 173,
+          "town": "East Hampton",
+          "value": 420000
+        },
+        {
+          "rank": 81,
+          "sales": 169,
+          "town": "Ellington",
+          "value": 420000
+        },
+        {
+          "rank": 82,
+          "sales": 91,
+          "town": "New Hartford",
+          "value": 420000
+        },
+        {
+          "rank": 83,
+          "sales": 86,
+          "town": "Portland",
+          "value": 417500
+        },
+        {
+          "rank": 84,
+          "sales": 204,
+          "town": "Berlin",
+          "value": 415000
+        },
+        {
+          "rank": 85,
+          "sales": 275,
+          "town": "Wethersfield",
+          "value": 415000
+        },
+        {
+          "rank": 86,
+          "sales": 203,
+          "town": "Colchester",
+          "value": 405000
+        },
+        {
+          "rank": 87,
+          "sales": 34,
+          "town": "Andover",
+          "value": 402500
+        },
+        {
+          "rank": 88,
+          "sales": 478,
+          "town": "Southington",
+          "value": 401750
+        },
+        {
+          "rank": 89,
+          "sales": 17,
+          "town": "Eastford",
+          "value": 400000
+        },
+        {
+          "rank": 90,
+          "sales": 10,
+          "town": "Thompson",
+          "value": 397500
+        },
+        {
+          "rank": 91,
+          "sales": 239,
+          "town": "Waterford",
+          "value": 395000
+        },
+        {
+          "rank": 92,
+          "sales": 152,
+          "town": "East Haddam",
+          "value": 394812
+        },
+        {
+          "rank": 93,
+          "sales": 239,
+          "town": "Ledyard",
+          "value": 390000
+        },
+        {
+          "rank": 94,
+          "sales": 48,
+          "town": "Middlefield",
+          "value": 385000
+        },
+        {
+          "rank": 95,
+          "sales": 64,
+          "town": "Preston",
+          "value": 385000
+        },
+        {
+          "rank": 96,
+          "sales": 534,
+          "town": "Bridgeport",
+          "value": 383750
+        },
+        {
+          "rank": 97,
+          "sales": 113,
+          "town": "Ansonia",
+          "value": 380000
+        },
+        {
+          "rank": 98,
+          "sales": 348,
+          "town": "Groton",
+          "value": 375938
+        },
+        {
+          "rank": 99,
+          "sales": 66,
+          "town": "Canterbury",
+          "value": 374000
+        },
+        {
+          "rank": 100,
+          "sales": 21,
+          "town": "Hartland",
+          "value": 371000
+        },
+        {
+          "rank": 101,
+          "sales": 64,
+          "town": "Bolton",
+          "value": 370000
+        },
+        {
+          "rank": 102,
+          "sales": 24,
+          "town": "Bozrah",
+          "value": 370000
+        },
+        {
+          "rank": 103,
+          "sales": 278,
+          "town": "Newington",
+          "value": 360000
+        },
+        {
+          "rank": 104,
+          "sales": 234,
+          "town": "Watertown",
+          "value": 360000
+        },
+        {
+          "rank": 105,
+          "sales": 204,
+          "town": "Wolcott",
+          "value": 360000
+        },
+        {
+          "rank": 106,
+          "sales": 72,
+          "town": "Derby",
+          "value": 357500
+        },
+        {
+          "rank": 107,
+          "sales": 222,
+          "town": "Killingly",
+          "value": 357500
+        },
+        {
+          "rank": 108,
+          "sales": 556,
+          "town": "Hamden",
+          "value": 355000
+        },
+        {
+          "rank": 109,
+          "sales": 356,
+          "town": "Middletown",
+          "value": 353500
+        },
+        {
+          "rank": 110,
+          "sales": 57,
+          "town": "Ashford",
+          "value": 350000
+        },
+        {
+          "rank": 111,
+          "sales": 56,
+          "town": "Beacon Falls",
+          "value": 350000
+        },
+        {
+          "rank": 112,
+          "sales": 31,
+          "town": "Colebrook",
+          "value": 350000
+        },
+        {
+          "rank": 113,
+          "sales": 287,
+          "town": "Windsor",
+          "value": 350000
+        },
+        {
+          "rank": 114,
+          "sales": 32,
+          "town": "Hampton",
+          "value": 345000
+        },
+        {
+          "rank": 115,
+          "sales": 309,
+          "town": "Naugatuck",
+          "value": 345000
+        },
+        {
+          "rank": 116,
+          "sales": 285,
+          "town": "East Haven",
+          "value": 341000
+        },
+        {
+          "rank": 117,
+          "sales": 97,
+          "town": "Lebanon",
+          "value": 341000
+        },
+        {
+          "rank": 118,
+          "sales": 136,
+          "town": "Griswold",
+          "value": 340000
+        },
+        {
+          "rank": 119,
+          "sales": 192,
+          "town": "Bloomfield",
+          "value": 336000
+        },
+        {
+          "rank": 120,
+          "sales": 196,
+          "town": "Plainfield",
+          "value": 333500
+        },
+        {
+          "rank": 121,
+          "sales": 68,
+          "town": "Thomaston",
+          "value": 331000
+        },
+        {
+          "rank": 122,
+          "sales": 609,
+          "town": "Bristol",
+          "value": 330000
+        },
+        {
+          "rank": 123,
+          "sales": 109,
+          "town": "East Windsor",
+          "value": 330000
+        },
+        {
+          "rank": 124,
+          "sales": 178,
+          "town": "Plainville",
+          "value": 330000
+        },
+        {
+          "rank": 125,
+          "sales": 280,
+          "town": "Montville",
+          "value": 329500
+        },
+        {
+          "rank": 126,
+          "sales": 384,
+          "town": "New Haven",
+          "value": 329450
+        },
+        {
+          "rank": 127,
+          "sales": 21,
+          "town": "Scotland",
+          "value": 325000
+        },
+        {
+          "rank": 128,
+          "sales": 246,
+          "town": "Vernon",
+          "value": 325000
+        },
+        {
+          "rank": 129,
+          "sales": 68,
+          "town": "Lisbon",
+          "value": 323750
+        },
+        {
+          "rank": 130,
+          "sales": 26,
+          "town": "Franklin",
+          "value": 321750
+        },
+        {
+          "rank": 131,
+          "sales": 507,
+          "town": "Manchester",
+          "value": 321000
+        },
+        {
+          "rank": 132,
+          "sales": 29,
+          "town": "Chaplin",
+          "value": 317500
+        },
+        {
+          "rank": 133,
+          "sales": 533,
+          "town": "Meriden",
+          "value": 317000
+        },
+        {
+          "rank": 134,
+          "sales": 507,
+          "town": "Enfield",
+          "value": 312500
+        },
+        {
+          "rank": 135,
+          "sales": 144,
+          "town": "New London",
+          "value": 310100
+        },
+        {
+          "rank": 136,
+          "sales": 127,
+          "town": "Stafford",
+          "value": 310000
+        },
+        {
+          "rank": 137,
+          "sales": 29,
+          "town": "Sprague",
+          "value": 307000
+        },
+        {
+          "rank": 138,
+          "sales": 151,
+          "town": "Plymouth",
+          "value": 301500
+        },
+        {
+          "rank": 139,
+          "sales": 39,
+          "town": "Sterling",
+          "value": 300000
+        },
+        {
+          "rank": 140,
+          "sales": 160,
+          "town": "Windsor Locks",
+          "value": 300000
+        },
+        {
+          "rank": 141,
+          "sales": 12,
+          "town": "Union",
+          "value": 291250
+        },
+        {
+          "rank": 142,
+          "sales": 392,
+          "town": "Torrington",
+          "value": 290000
+        },
+        {
+          "rank": 143,
+          "sales": 133,
+          "town": "Winchester",
+          "value": 290000
+        },
+        {
+          "rank": 144,
+          "sales": 477,
+          "town": "East Hartford",
+          "value": 285000
+        },
+        {
+          "rank": 145,
+          "sales": 416,
+          "town": "New Britain",
+          "value": 285000
+        },
+        {
+          "rank": 146,
+          "sales": 38,
+          "town": "North Canaan",
+          "value": 283750
+        },
+        {
+          "rank": 147,
+          "sales": 747,
+          "town": "Waterbury",
+          "value": 280000
+        },
+        {
+          "rank": 148,
+          "sales": 459,
+          "town": "Norwich",
+          "value": 275000
+        },
+        {
+          "rank": 149,
+          "sales": 180,
+          "town": "Windham",
+          "value": 262500
+        },
+        {
+          "rank": 150,
+          "sales": 277,
+          "town": "Hartford",
+          "value": 260000
+        }
+      ]
+    },
+    {
+      "answer_text": "Stamford permitted 1,564 new housing units in 2025, leading 169 Connecticut towns (9,834 units permitted statewide).",
+      "answer_values": {
+        "date": "2025",
+        "n": 169,
+        "state": 9834,
+        "top": {
+          "town": "Stamford",
+          "value": 1564
+        }
+      },
+      "cache": false,
+      "chart": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+        "autosize": {
+          "contains": "padding"
+        },
+        "background": "transparent",
+        "config": {
+          "axis": {
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "labelFontSize": 12,
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68",
+            "titleFontSize": 12
+          },
+          "legend": {
+            "labelColor": "#4c5a68",
+            "labelFontSize": 12,
+            "symbolStrokeWidth": 0,
+            "titleColor": "#4c5a68",
+            "titleFontSize": 12
+          },
+          "title": {
+            "color": "#1c2733",
+            "fontSize": 14,
+            "subtitleColor": "#66717e",
+            "subtitleFontSize": 12
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
+          }
+        },
+        "data": {
+          "values": [
+            {
+              "highlight": true,
+              "rank": 1,
+              "state": "Stamford",
+              "value": 1564
+            },
+            {
+              "highlight": false,
+              "rank": 2,
+              "state": "New Haven",
+              "value": 829
+            },
+            {
+              "highlight": false,
+              "rank": 3,
+              "state": "Stratford",
+              "value": 369
+            },
+            {
+              "highlight": false,
+              "rank": 4,
+              "state": "Fairfield",
+              "value": 343
+            },
+            {
+              "highlight": false,
+              "rank": 5,
+              "state": "Shelton",
+              "value": 341
+            },
+            {
+              "highlight": false,
+              "rank": 6,
+              "state": "Wilton",
+              "value": 305
+            },
+            {
+              "highlight": false,
+              "rank": 7,
+              "state": "West Hartford",
+              "value": 295
+            },
+            {
+              "highlight": false,
+              "rank": 8,
+              "state": "Danbury",
+              "value": 273
+            },
+            {
+              "highlight": false,
+              "rank": 9,
+              "state": "Hartford",
+              "value": 255
+            },
+            {
+              "highlight": false,
+              "rank": 10,
+              "state": "Newington",
+              "value": 235
+            }
+          ]
+        },
+        "height": 250,
+        "layer": [
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#d9772b",
+                    "#b9b3a6"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "tooltip": [
+                {
+                  "field": "state",
+                  "title": "Town",
+                  "type": "nominal"
+                },
+                {
+                  "field": "value",
+                  "title": "New housing units permitted, 2025 (top 10 towns)",
+                  "type": "quantitative"
+                },
+                {
+                  "field": "rank",
+                  "title": "Rank",
+                  "type": "quantitative"
+                }
+              ],
+              "x": {
+                "axis": {
+                  "format": ",.0f",
+                  "grid": false
+                },
+                "field": "value",
+                "scale": {
+                  "domain": [
+                    0,
+                    1845.52
+                  ],
+                  "nice": true
+                },
+                "title": "units",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Stamford",
+                  "New Haven",
+                  "Stratford",
+                  "Fairfield",
+                  "Shelton",
+                  "Wilton",
+                  "West Hartford",
+                  "Danbury",
+                  "Hartford",
+                  "Newington"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
+            },
+            "mark": {
+              "cornerRadiusEnd": 2,
+              "tooltip": false,
+              "type": "bar"
+            }
+          },
+          {
+            "encoding": {
+              "color": {
+                "field": "highlight",
+                "legend": null,
+                "scale": {
+                  "domain": [
+                    true,
+                    false
+                  ],
+                  "range": [
+                    "#1c2733",
+                    "#4c5a68"
+                  ]
+                },
+                "type": "nominal"
+              },
+              "text": {
+                "field": "value",
+                "format": ",.1f",
+                "type": "quantitative"
+              },
+              "x": {
+                "field": "value",
+                "type": "quantitative"
+              },
+              "y": {
+                "field": "state",
+                "sort": [
+                  "Stamford",
+                  "New Haven",
+                  "Stratford",
+                  "Fairfield",
+                  "Shelton",
+                  "Wilton",
+                  "West Hartford",
+                  "Danbury",
+                  "Hartford",
+                  "Newington"
+                ],
+                "title": null,
+                "type": "nominal"
+              }
+            },
+            "mark": {
+              "align": "left",
+              "baseline": "middle",
+              "dx": 5,
+              "fontSize": 11,
+              "fontWeight": 600,
+              "type": "text"
+            }
+          }
+        ],
+        "title": {
+          "subtitle": "Stamford highlighted",
+          "text": "New housing units permitted, 2025 (top 10 towns)"
+        },
+        "width": "container"
+      },
+      "chart_kind": "rank_strip",
+      "citations": [
+        "https://data.ct.gov/d/stm9-38x4"
+      ],
+      "generated_at": "2026-11-27T19:33:49+00:00",
+      "headline": null,
+      "id": "5db571f537f4",
+      "indicator": "housing_permits",
+      "origin": "data desk",
+      "query": "GET /resource/stm9-38x4.json (column _2025; 169 municipalities)",
+      "question": "Which Connecticut towns permitted the most new housing?",
+      "stream": "local",
+      "topic": "housing",
+      "towns": [
+        {
+          "prior": 132,
+          "rank": 1,
+          "town": "Stamford",
+          "value": 1564
+        },
+        {
+          "prior": 521,
+          "rank": 2,
+          "town": "New Haven",
+          "value": 829
+        },
+        {
+          "prior": 118,
+          "rank": 3,
+          "town": "Stratford",
+          "value": 369
+        },
+        {
+          "prior": 191,
+          "rank": 4,
+          "town": "Fairfield",
+          "value": 343
+        },
+        {
+          "prior": 101,
+          "rank": 5,
+          "town": "Shelton",
+          "value": 341
+        },
+        {
+          "prior": 49,
+          "rank": 6,
+          "town": "Wilton",
+          "value": 305
+        },
+        {
+          "prior": 225,
+          "rank": 7,
+          "town": "West Hartford",
+          "value": 295
+        },
+        {
+          "prior": 37,
+          "rank": 8,
+          "town": "Danbury",
+          "value": 273
+        },
+        {
+          "prior": 468,
+          "rank": 9,
+          "town": "Hartford",
+          "value": 255
+        },
+        {
+          "prior": 7,
+          "rank": 10,
+          "town": "Newington",
+          "value": 235
+        },
+        {
+          "prior": 7,
+          "rank": 11,
+          "town": "Mansfield",
+          "value": 220
+        },
+        {
+          "prior": 485,
+          "rank": 12,
+          "town": "Bridgeport",
+          "value": 215
+        },
+        {
+          "prior": 131,
+          "rank": 13,
+          "town": "Westport",
+          "value": 214
+        },
+        {
+          "prior": 58,
+          "rank": 14,
+          "town": "Bloomfield",
+          "value": 203
+        },
+        {
+          "prior": 79,
+          "rank": 15,
+          "town": "Avon",
+          "value": 176
+        },
+        {
+          "prior": 339,
+          "rank": 16,
+          "town": "Norwalk",
+          "value": 176
+        },
+        {
+          "prior": 8,
+          "rank": 17,
+          "town": "Enfield",
+          "value": 150
+        },
+        {
+          "prior": 15,
+          "rank": 18,
+          "town": "Newtown",
+          "value": 140
+        },
+        {
+          "prior": 61,
+          "rank": 19,
+          "town": "Milford",
+          "value": 139
+        },
+        {
+          "prior": 145,
+          "rank": 20,
+          "town": "Portland",
+          "value": 138
+        },
+        {
+          "prior": 185,
+          "rank": 21,
+          "town": "Berlin",
+          "value": 123
+        },
+        {
+          "prior": 22,
+          "rank": 22,
+          "town": "Canton",
+          "value": 123
+        },
+        {
+          "prior": 9,
+          "rank": 23,
+          "town": "Hamden",
+          "value": 112
+        },
+        {
+          "prior": 33,
+          "rank": 24,
+          "town": "Groton",
+          "value": 97
+        },
+        {
+          "prior": 3,
+          "rank": 25,
+          "town": "Plymouth",
+          "value": 88
+        },
+        {
+          "prior": 29,
+          "rank": 26,
+          "town": "Naugatuck",
+          "value": 87
+        },
+        {
+          "prior": 83,
+          "rank": 27,
+          "town": "East Granby",
+          "value": 80
+        },
+        {
+          "prior": 16,
+          "rank": 28,
+          "town": "Norwich",
+          "value": 79
+        },
+        {
+          "prior": 66,
+          "rank": 29,
+          "town": "Bethel",
+          "value": 78
+        },
+        {
+          "prior": 30,
+          "rank": 30,
+          "town": "Montville",
+          "value": 78
+        },
+        {
+          "prior": 20,
+          "rank": 31,
+          "town": "Seymour",
+          "value": 74
+        },
+        {
+          "prior": 126,
+          "rank": 32,
+          "town": "Simsbury",
+          "value": 73
+        },
+        {
+          "prior": 69,
+          "rank": 33,
+          "town": "East Lyme",
+          "value": 70
+        },
+        {
+          "prior": 70,
+          "rank": 34,
+          "town": "Greenwich",
+          "value": 70
+        },
+        {
+          "prior": 8,
+          "rank": 35,
+          "town": "Windham",
+          "value": 69
+        },
+        {
+          "prior": 155,
+          "rank": 36,
+          "town": "Cheshire",
+          "value": 66
+        },
+        {
+          "prior": 12,
+          "rank": 37,
+          "town": "South Windsor",
+          "value": 63
+        },
+        {
+          "prior": 120,
+          "rank": 38,
+          "town": "Windsor",
+          "value": 58
+        },
+        {
+          "prior": 53,
+          "rank": 39,
+          "town": "Southington",
+          "value": 51
+        },
+        {
+          "prior": 30,
+          "rank": 40,
+          "town": "Waterford",
+          "value": 48
+        },
+        {
+          "prior": 37,
+          "rank": 41,
+          "town": "Bristol",
+          "value": 47
+        },
+        {
+          "prior": 12,
+          "rank": 42,
+          "town": "Colchester",
+          "value": 47
+        },
+        {
+          "prior": 15,
+          "rank": 43,
+          "town": "Tolland",
+          "value": 47
+        },
+        {
+          "prior": 7,
+          "rank": 44,
+          "town": "Lebanon",
+          "value": 45
+        },
+        {
+          "prior": 31,
+          "rank": 45,
+          "town": "Stonington",
+          "value": 42
+        },
+        {
+          "prior": 13,
+          "rank": 46,
+          "town": "Branford",
+          "value": 41
+        },
+        {
+          "prior": 20,
+          "rank": 47,
+          "town": "Darien",
+          "value": 40
+        },
+        {
+          "prior": 25,
+          "rank": 48,
+          "town": "New Canaan",
+          "value": 38
+        },
+        {
+          "prior": 32,
+          "rank": 49,
+          "town": "Watertown",
+          "value": 37
+        },
+        {
+          "prior": 34,
+          "rank": 50,
+          "town": "Woodbridge",
+          "value": 33
+        },
+        {
+          "prior": 14,
+          "rank": 51,
+          "town": "Oxford",
+          "value": 31
+        },
+        {
+          "prior": 15,
+          "rank": 52,
+          "town": "Waterbury",
+          "value": 31
+        },
+        {
+          "prior": 16,
+          "rank": 53,
+          "town": "Brooklyn",
+          "value": 30
+        },
+        {
+          "prior": 19,
+          "rank": 54,
+          "town": "Plainville",
+          "value": 29
+        },
+        {
+          "prior": 28,
+          "rank": 55,
+          "town": "Madison",
+          "value": 28
+        },
+        {
+          "prior": 31,
+          "rank": 56,
+          "town": "Manchester",
+          "value": 28
+        },
+        {
+          "prior": 15,
+          "rank": 57,
+          "town": "North Stonington",
+          "value": 27
+        },
+        {
+          "prior": 154,
+          "rank": 58,
+          "town": "Brookfield",
+          "value": 26
+        },
+        {
+          "prior": 14,
+          "rank": 59,
+          "town": "Ledyard",
+          "value": 26
+        },
+        {
+          "prior": 19,
+          "rank": 60,
+          "town": "Meriden",
+          "value": 25
+        },
+        {
+          "prior": 29,
+          "rank": 61,
+          "town": "West Haven",
+          "value": 25
+        },
+        {
+          "prior": 16,
+          "rank": 62,
+          "town": "Clinton",
+          "value": 23
+        },
+        {
+          "prior": 40,
+          "rank": 63,
+          "town": "Guilford",
+          "value": 23
+        },
+        {
+          "prior": 36,
+          "rank": 64,
+          "town": "Killingly",
+          "value": 23
+        },
+        {
+          "prior": 17,
+          "rank": 65,
+          "town": "Coventry",
+          "value": 22
+        },
+        {
+          "prior": 30,
+          "rank": 66,
+          "town": "Thompson",
+          "value": 22
+        },
+        {
+          "prior": 23,
+          "rank": 67,
+          "town": "Middlebury",
+          "value": 21
+        },
+        {
+          "prior": 18,
+          "rank": 68,
+          "town": "Old Lyme",
+          "value": 21
+        },
+        {
+          "prior": 12,
+          "rank": 69,
+          "town": "Plainfield",
+          "value": 20
+        },
+        {
+          "prior": 40,
+          "rank": 70,
+          "town": "Southbury",
+          "value": 20
+        },
+        {
+          "prior": 21,
+          "rank": 71,
+          "town": "Glastonbury",
+          "value": 19
+        },
+        {
+          "prior": 37,
+          "rank": 72,
+          "town": "East Hampton",
+          "value": 18
+        },
+        {
+          "prior": 243,
+          "rank": 73,
+          "town": "Farmington",
+          "value": 18
+        },
+        {
+          "prior": 16,
+          "rank": 74,
+          "town": "Monroe",
+          "value": 18
+        },
+        {
+          "prior": 6,
+          "rank": 75,
+          "town": "Vernon",
+          "value": 18
+        },
+        {
+          "prior": 5,
+          "rank": 76,
+          "town": "Preston",
+          "value": 17
+        },
+        {
+          "prior": 18,
+          "rank": 77,
+          "town": "Burlington",
+          "value": 16
+        },
+        {
+          "prior": 14,
+          "rank": 78,
+          "town": "East Haddam",
+          "value": 16
+        },
+        {
+          "prior": 12,
+          "rank": 79,
+          "town": "Haddam",
+          "value": 16
+        },
+        {
+          "prior": 53,
+          "rank": 80,
+          "town": "New Milford",
+          "value": 16
+        },
+        {
+          "prior": 13,
+          "rank": 81,
+          "town": "Wallingford",
+          "value": 16
+        },
+        {
+          "prior": 23,
+          "rank": 82,
+          "town": "Cromwell",
+          "value": 15
+        },
+        {
+          "prior": 19,
+          "rank": 83,
+          "town": "Salisbury",
+          "value": 15
+        },
+        {
+          "prior": 13,
+          "rank": 84,
+          "town": "Wolcott",
+          "value": 15
+        },
+        {
+          "prior": 15,
+          "rank": 85,
+          "town": "Middletown",
+          "value": 14
+        },
+        {
+          "prior": 0,
+          "rank": 86,
+          "town": "Bolton",
+          "value": 13
+        },
+        {
+          "prior": 5,
+          "rank": 87,
+          "town": "Killingworth",
+          "value": 13
+        },
+        {
+          "prior": 7,
+          "rank": 88,
+          "town": "Woodstock",
+          "value": 13
+        },
+        {
+          "prior": 12,
+          "rank": 89,
+          "town": "Canterbury",
+          "value": 12
+        },
+        {
+          "prior": 18,
+          "rank": 90,
+          "town": "Ellington",
+          "value": 12
+        },
+        {
+          "prior": 15,
+          "rank": 91,
+          "town": "East Windsor",
+          "value": 11
+        },
+        {
+          "prior": 30,
+          "rank": 92,
+          "town": "Ridgefield",
+          "value": 11
+        },
+        {
+          "prior": 17,
+          "rank": 93,
+          "town": "Woodbury",
+          "value": 11
+        },
+        {
+          "prior": 9,
+          "rank": 94,
+          "town": "Kent",
+          "value": 10
+        },
+        {
+          "prior": 29,
+          "rank": 95,
+          "town": "Stafford",
+          "value": 10
+        },
+        {
+          "prior": 9,
+          "rank": 96,
+          "town": "Sterling",
+          "value": 10
+        },
+        {
+          "prior": 4,
+          "rank": 97,
+          "town": "Trumbull",
+          "value": 10
+        },
+        {
+          "prior": 9,
+          "rank": 98,
+          "town": "Wethersfield",
+          "value": 10
+        },
+        {
+          "prior": 12,
+          "rank": 99,
+          "town": "Goshen",
+          "value": 9
+        },
+        {
+          "prior": 98,
+          "rank": 100,
+          "town": "Granby",
+          "value": 9
+        },
+        {
+          "prior": 5,
+          "rank": 101,
+          "town": "Hampton",
+          "value": 9
+        },
+        {
+          "prior": 30,
+          "rank": 102,
+          "town": "Harwinton",
+          "value": 9
+        },
+        {
+          "prior": 12,
+          "rank": 103,
+          "town": "New Fairfield",
+          "value": 9
+        },
+        {
+          "prior": 7,
+          "rank": 104,
+          "town": "North Branford",
+          "value": 9
+        },
+        {
+          "prior": 104,
+          "rank": 105,
+          "town": "North Haven",
+          "value": 9
+        },
+        {
+          "prior": 8,
+          "rank": 106,
+          "town": "Old Saybrook",
+          "value": 9
+        },
+        {
+          "prior": 5,
+          "rank": 107,
+          "town": "Pomfret",
+          "value": 9
+        },
+        {
+          "prior": 5,
+          "rank": 108,
+          "town": "Roxbury",
+          "value": 9
+        },
+        {
+          "prior": 19,
+          "rank": 109,
+          "town": "Suffield",
+          "value": 9
+        },
+        {
+          "prior": 4,
+          "rank": 110,
+          "town": "Voluntown",
+          "value": 9
+        },
+        {
+          "prior": 2,
+          "rank": 111,
+          "town": "Chester",
+          "value": 8
+        },
+        {
+          "prior": 11,
+          "rank": 112,
+          "town": "East Hartford",
+          "value": 8
+        },
+        {
+          "prior": 2,
+          "rank": 113,
+          "town": "Eastford",
+          "value": 8
+        },
+        {
+          "prior": 6,
+          "rank": 114,
+          "town": "New Hartford",
+          "value": 8
+        },
+        {
+          "prior": 6,
+          "rank": 115,
+          "town": "Salem",
+          "value": 8
+        },
+        {
+          "prior": 15,
+          "rank": 116,
+          "town": "Torrington",
+          "value": 8
+        },
+        {
+          "prior": 5,
+          "rank": 117,
+          "town": "Weston",
+          "value": 8
+        },
+        {
+          "prior": 39,
+          "rank": 118,
+          "town": "Winchester",
+          "value": 8
+        },
+        {
+          "prior": 3,
+          "rank": 119,
+          "town": "Cornwall",
+          "value": 7
+        },
+        {
+          "prior": 7,
+          "rank": 120,
+          "town": "Easton",
+          "value": 7
+        },
+        {
+          "prior": 4,
+          "rank": 121,
+          "town": "Prospect",
+          "value": 7
+        },
+        {
+          "prior": 12,
+          "rank": 122,
+          "town": "Sherman",
+          "value": 7
+        },
+        {
+          "prior": 12,
+          "rank": 123,
+          "town": "Somers",
+          "value": 7
+        },
+        {
+          "prior": 10,
+          "rank": 124,
+          "town": "Westbrook",
+          "value": 7
+        },
+        {
+          "prior": 6,
+          "rank": 125,
+          "town": "Ashford",
+          "value": 6
+        },
+        {
+          "prior": 4,
+          "rank": 126,
+          "town": "Chaplin",
+          "value": 6
+        },
+        {
+          "prior": 8,
+          "rank": 127,
+          "town": "Columbia",
+          "value": 6
+        },
+        {
+          "prior": 4,
+          "rank": 128,
+          "town": "Deep River",
+          "value": 6
+        },
+        {
+          "prior": 213,
+          "rank": 129,
+          "town": "New Britain",
+          "value": 6
+        },
+        {
+          "prior": 2,
+          "rank": 130,
+          "town": "Durham",
+          "value": 5
+        },
+        {
+          "prior": 105,
+          "rank": 131,
+          "town": "East Haven",
+          "value": 5
+        },
+        {
+          "prior": 5,
+          "rank": 132,
+          "town": "Griswold",
+          "value": 5
+        },
+        {
+          "prior": 3,
+          "rank": 133,
+          "town": "Warren",
+          "value": 5
+        },
+        {
+          "prior": 6,
+          "rank": 134,
+          "town": "Washington",
+          "value": 5
+        },
+        {
+          "prior": 3,
+          "rank": 135,
+          "town": "Willington",
+          "value": 5
+        },
+        {
+          "prior": 8,
+          "rank": 136,
+          "town": "Ansonia",
+          "value": 4
+        },
+        {
+          "prior": 7,
+          "rank": 137,
+          "town": "Beacon Falls",
+          "value": 4
+        },
+        {
+          "prior": 1,
+          "rank": 138,
+          "town": "Derby",
+          "value": 4
+        },
+        {
+          "prior": 7,
+          "rank": 139,
+          "town": "Hebron",
+          "value": 4
+        },
+        {
+          "prior": 5,
+          "rank": 140,
+          "town": "Lisbon",
+          "value": 4
+        },
+        {
+          "prior": 10,
+          "rank": 141,
+          "town": "Litchfield",
+          "value": 4
+        },
+        {
+          "prior": 2,
+          "rank": 142,
+          "town": "Lyme",
+          "value": 4
+        },
+        {
+          "prior": 3,
+          "rank": 143,
+          "town": "Middlefield",
+          "value": 4
+        },
+        {
+          "prior": 4,
+          "rank": 144,
+          "town": "Morris",
+          "value": 4
+        },
+        {
+          "prior": 40,
+          "rank": 145,
+          "town": "New London",
+          "value": 4
+        },
+        {
+          "prior": 6,
+          "rank": 146,
+          "town": "Putnam",
+          "value": 4
+        },
+        {
+          "prior": 3,
+          "rank": 147,
+          "town": "Sprague",
+          "value": 4
+        },
+        {
+          "prior": 4,
+          "rank": 148,
+          "town": "Bozrah",
+          "value": 3
+        },
+        {
+          "prior": 0,
+          "rank": 149,
+          "town": "Hartland",
+          "value": 3
+        },
+        {
+          "prior": 77,
+          "rank": 150,
+          "town": "Rocky Hill",
+          "value": 3
+        },
+        {
+          "prior": 11,
+          "rank": 151,
+          "town": "Sharon",
+          "value": 3
+        },
+        {
+          "prior": 1,
+          "rank": 152,
+          "town": "Andover",
+          "value": 2
+        },
+        {
+          "prior": 4,
+          "rank": 153,
+          "town": "Bethany",
+          "value": 2
+        },
+        {
+          "prior": 2,
+          "rank": 154,
+          "town": "Bethlehem",
+          "value": 2
+        },
+        {
+          "prior": 2,
+          "rank": 155,
+          "town": "Bridgewater",
+          "value": 2
+        },
+        {
+          "prior": 10,
+          "rank": 156,
+          "town": "Marlborough",
+          "value": 2
+        },
+        {
+          "prior": 5,
+          "rank": 157,
+          "town": "Redding",
+          "value": 2
+        },
+        {
+          "prior": 1,
+          "rank": 158,
+          "town": "Windsor Locks",
+          "value": 2
+        },
+        {
+          "prior": 6,
+          "rank": 159,
+          "town": "Barkhamsted",
+          "value": 1
+        },
+        {
+          "prior": 1,
+          "rank": 160,
+          "town": "Colebrook",
+          "value": 1
+        },
+        {
+          "prior": 7,
+          "rank": 161,
+          "town": "Essex",
+          "value": 1
+        },
+        {
+          "prior": 4,
+          "rank": 162,
+          "town": "Franklin",
+          "value": 1
+        },
+        {
+          "prior": 0,
+          "rank": 163,
+          "town": "Norfolk",
+          "value": 1
+        },
+        {
+          "prior": 1,
+          "rank": 164,
+          "town": "Orange",
+          "value": 1
+        },
+        {
+          "prior": 3,
+          "rank": 165,
+          "town": "Scotland",
+          "value": 1
+        },
+        {
+          "prior": 1,
+          "rank": 166,
+          "town": "Union",
+          "value": 1
+        },
+        {
+          "prior": 1,
+          "rank": 167,
+          "town": "Canaan",
+          "value": 0
+        },
+        {
+          "prior": 1,
+          "rank": 168,
+          "town": "North Canaan",
+          "value": 0
+        },
+        {
+          "prior": 0,
+          "rank": 169,
+          "town": "Thomaston",
+          "value": 0
+        }
+      ]
+    },
+    {
       "answer_text": "Connecticut ran 4.6\u00b0F warmer than normal over the 30 days ending 2026-11-26 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
       "answer_values": {
         "date": "2026-11-26",
@@ -28595,5 +34077,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-27T12:58:29+00:00"
+  "generated_at": "2026-11-27T19:33:54+00:00"
 }

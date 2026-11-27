@@ -3,12 +3,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Privacy · CT Signal</title>
-<meta name="description" content="What CT Signal collects: no accounts, no cookies, no pageview tracking; email only when you subscribe.">
+<meta name="description" content="What CT Signal collects: no accounts, no cookies, no ad trackers; cookieless aggregate page counts and email only when you subscribe.">
 <link rel="canonical" href="https://ctsignal.org/privacy">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CT Signal">
 <meta property="og:title" content="Privacy · CT Signal">
-<meta property="og:description" content="What CT Signal collects: no accounts, no cookies, no pageview tracking; email only when you subscribe.">
+<meta property="og:description" content="What CT Signal collects: no accounts, no cookies, no ad trackers; cookieless aggregate page counts and email only when you subscribe.">
 <meta property="og:url" content="https://ctsignal.org/privacy">
 <meta property="og:image" content="https://ctsignal.org/assets/og-cover.png">
 <meta property="og:image:width" content="1200">
@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@ctsignal">
 <meta name="twitter:title" content="Privacy · CT Signal">
-<meta name="twitter:description" content="What CT Signal collects: no accounts, no cookies, no pageview tracking; email only when you subscribe.">
+<meta name="twitter:description" content="What CT Signal collects: no accounts, no cookies, no ad trackers; cookieless aggregate page counts and email only when you subscribe.">
 <meta name="twitter:image" content="https://ctsignal.org/assets/og-cover.png">
 <meta name="twitter:image:alt" content="Privacy · CT Signal">
 <meta name="theme-color" content="#faf8f3">
@@ -30,8 +30,8 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css?v=e4460001">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://ctsignal.org/privacy#webpage","url":"https://ctsignal.org/privacy","name":"Privacy · CT Signal","description":"What CT Signal collects: no accounts, no cookies, no pageview tracking; email only when you subscribe.","isPartOf":{"@type":"WebSite","@id":"https://ctsignal.org/#website"},"inLanguage":"en-US"}</script>
+<link rel="stylesheet" href="/assets/site.css?v=45e678f1">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://ctsignal.org/privacy#webpage","url":"https://ctsignal.org/privacy","name":"Privacy · CT Signal","description":"What CT Signal collects: no accounts, no cookies, no ad trackers; cookieless aggregate page counts and email only when you subscribe.","isPartOf":{"@type":"WebSite","@id":"https://ctsignal.org/#website"},"inLanguage":"en-US"}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a><header class="site" id="top"><div class="compactbar"><a class="brand" href="/">CT<i class="boltwrap" aria-hidden="true"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg></i>Signal</a><nav aria-label="Primary"><a href="/">The board</a><a href="/archive">Stories</a><a href="/towns">Towns</a><a href="/indicators">Indicators</a><a href="/about" aria-current="page">About</a></nav></div></header>
@@ -58,22 +58,25 @@ td:first-child{color:var(--dim);font-size:.78rem;text-transform:uppercase;
 </style>
 <article class="wrap col">
 <h1>Privacy</h1>
-<p class="sub">No accounts, no cookies, no pageview tracking.</p>
+<p class="sub">No accounts, no cookies, no ad trackers.</p>
 
 <h2>What we collect</h2>
-<p>Nothing that identifies you by default. CT Signal has no login, no ad
-network, no tracking pixel, and no third-party analytics script that counts
-page views. Reading the site does not create a profile.</p>
+<p>Nothing that identifies you personally. CT Signal has no login, no ad
+network, no third-party tracking pixel, and no cross-site cookies. Reading
+the site does not create a profile.</p>
 
 <h2>Server logs</h2>
 <p>Our host, Vercel, keeps ordinary request logs for security and reliability.
 They are not joined to a reader identity and are not used to build an audience
 profile.</p>
 
-<h2>Performance measurement</h2>
-<p>Vercel Speed Insights records Core Web Vitals — load speed, layout
-stability, interaction latency — on the production site. It sets no cookies
-and does not count page views. It is the only measurement script we load.</p>
+<h2>Cookieless measurement</h2>
+<p>On production (<code>ctsignal.org</code>), we load two first-party Vercel
+scripts: <strong>Vercel Speed Insights</strong> (Core Web Vitals: load speed,
+layout stability, interaction latency) and <strong>Vercel Web Analytics</strong>
+(aggregate, cookieless page-path counts and referrers so we know which town
+and story pages readers actually use). Neither sets cookies, fingerprints
+browsers, or tracks you across sites.</p>
 
 <h2>The weekly email</h2>
 <p>If you subscribe, Buttondown stores the email address you type and the
@@ -98,18 +101,21 @@ republication requests go to the same address.</p>
 <div><h2>CT&nbsp;<span class="boltwrap" aria-hidden="true"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg></span>&nbsp;Signal</h2>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
 public data answers it. Know where you live.</p>
-<p><a class="subbtn" href="mailto:hello@ctsignal.org?subject=Board%20sponsorship">Sponsor the board</a></p>
+<p><a class="subbtn" href="/partner">Partner &amp; underwrite</a></p>
 <p><a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a></p>
 <p><a href="mailto:hello@ctsignal.org?subject=Question%20for%20the%20desk&amp;body=Town%3A%20%0AQuestion%20(one%20sentence)%3A%20">Ask the desk a question</a> — every message is read and logged.</p></div>
 <div><h2>Sections</h2><ul>
 <li><a href="/">The board</a></li>
 <li><a href="/archive">Stories</a></li>
+<li><a href="/week">Weekly brief</a></li>
 <li><a href="/towns">Towns</a></li>
+<li><a href="/compare">Compare towns</a></li>
 <li><a href="/indicators">Indicator files</a></li>
 <li><a href="/sources">Data sources</a></li>
 <li><a href="/feed.xml">RSS feed</a></li></ul></div>
 <div><h2>Newsroom</h2><ul>
 <li><a href="/about">About</a></li>
+<li><a href="/partner">Partner &amp; underwrite</a></li>
 <li><a href="/masthead">Who runs this</a></li>
 <li><a href="/corrections">Corrections</a></li>
 <li><a href="/privacy">Privacy</a></li>
@@ -131,9 +137,9 @@ inputmode="email" placeholder="you@example.com" required>
 
 <script>
 if(/(^|\.)ctsignal\.org$/.test(location.hostname)){
-  var s=document.createElement("script");
-  s.src="/_vercel/speed-insights/script.js";s.defer=true;
-  document.head.appendChild(s);
+  ["/_vercel/speed-insights/script.js","/_vercel/insights/script.js"].forEach(function(u){
+    var s=document.createElement("script");s.src=u;s.defer=true;document.head.appendChild(s);
+  });
 }
 </script>
 </body></html>

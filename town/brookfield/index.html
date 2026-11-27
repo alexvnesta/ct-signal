@@ -30,7 +30,7 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css?v=e4460001">
+<link rel="stylesheet" href="/assets/site.css?v=45e678f1">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://ctsignal.org/town/brookfield#webpage","url":"https://ctsignal.org/town/brookfield","name":"Brookfield town file · CT Signal","description":"Brookfield, 2024 ACS 5-year (2020–2024): median household income $148,360, 4.1% below poverty, median rent $1,892, median home value $479,700, median age 44. Ranks, sources and the town file: https://ctsignal.org/town/brookfield","isPartOf":{"@type":"WebSite","@id":"https://ctsignal.org/#website"},"inLanguage":"en-US"},{"@type":"Place","@id":"https://ctsignal.org/town/brookfield#place","name":"Brookfield","containedInPlace":{"@type":"AdministrativeArea","name":"Connecticut"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"CT Signal","item":"https://ctsignal.org/"},{"@type":"ListItem","position":2,"name":"Towns","item":"https://ctsignal.org/towns"},{"@type":"ListItem","position":3,"name":"Brookfield","item":"https://ctsignal.org/town/brookfield"}]}]}</script>
 <link rel="alternate" type="application/atom+xml" title="CT Signal — Brookfield (Atom)" href="/town/brookfield/feed.xml"></head>
 <body>
@@ -143,10 +143,71 @@ svg.townsmap path:focus-visible{stroke:var(--acc);stroke-width:2;outline:none}
 <p class="sub">Every local number the desk holds for this town, each naming its
 own source. Know where you live.</p>
 <div class="town-kpis" aria-label="Brookfield key figures"><div class="town-kpi"><div class="town-kpi-k">FY2027 mill rate</div><div class="town-kpi-v">29.97</div><div class="town-kpi-s">54th-highest of 169</div></div><div class="town-kpi"><div class="town-kpi-k">Est. median home tax</div><div class="town-kpi-v">$10,064/yr</div><div class="town-kpi-s">70% of $479,700</div></div><div class="town-kpi"><div class="town-kpi-k">Median income</div><div class="town-kpi-v">$148,360</div><div class="town-kpi-s">24th-highest of 169</div></div><div class="town-kpi"><div class="town-kpi-k">Below poverty</div><div class="town-kpi-v">4.1%</div><div class="town-kpi-s">123rd-highest of 169</div></div></div>
-<p class="townlede">Brookfield's net grand list grew 1.2% between the latest two assessment rolls, 86th-highest of 169 Connecticut places. Its FY2027 mill rate is 29.97 mills per $1,000 of taxable value, 1.12× the statewide average. The Census Bureau's 2024 ACS 5-year (2020–2024) estimate puts median household income at $148,360 and 4.1% of residents below poverty.</p>
-<h2>Property tax base</h2><p class="sub">Net grand list from the CT Open Data Portal, via <a href="/story/b37766e764aa">this story</a>.</p><table class="towntab"><tbody><tr><td>Net grand list, 2025</td><td>$2,927,731,541</td></tr><tr><td>Net grand list, prior vintage</td><td>$2,892,425,001</td></tr><tr><td>Change between the latest two assessment rolls</td><td>$35,306,540 (+1.2%)</td></tr><tr><td>Rank among 169 Connecticut places (1 = highest)</td><td>86th-highest of 169</td></tr><tr><td>Statewide median change (for context)</td><td>+1.2%</td></tr></tbody></table><h2>Property tax rate</h2><p class="sub">Municipal mill rate for real property, fiscal year 2027, from the CT Open Data Portal via <a href="/story/a3514b53fb39">this story</a>. Service-district rates are separate and not shown here.</p><table class="towntab"><tbody><tr><td>Mill rate, FY2027</td><td>29.97 mills per $1,000</td></tr><tr><td>Rank among 169 Connecticut places (1 = highest)</td><td>54th-highest of 169</td></tr><tr><td>Compared with the statewide rate</td><td>1.12× the statewide average</td></tr><tr><td>Statewide rate, weighted by taxable value</td><td>26.65 mills</td></tr><tr><td>Estimated tax on a median-value home (assessment 70% of market per state law)</td><td>$10,064 a year</td></tr></tbody></table>
+<div class="town-actions">
+<a class="town-act-pri" href="/compare?a=brookfield">Compare Brookfield with another town &rarr;</a>
+<button type="button" id="copy-town-sum" class="town-act-btn">Copy town summary to share</button>
+</div>
+<script>(function(){
+  var btn=document.getElementById("copy-town-sum"); if(!btn)return;
+  var txt="Brookfield, CT \u2014 official public data snapshot (CT Signal):\n- FY2027 mill rate: 29.97 mills (54th-highest of 169) (est. $10,064/yr on a $479,700 home)\n- 2024 median single-family home sale: $650,000 (201 sales)\n- 2023 public school spending: $19,326/pupil\n- Median household income: $148,360 (2024 ACS 5-year (2020\u20132024))\nFull sources & tax estimator: https://ctsignal.org/town/brookfield";
+  btn.addEventListener("click",function(){
+    var orig=btn.textContent;
+    function done(){btn.textContent="✓ Summary copied";btn.classList.add("copied");
+      setTimeout(function(){btn.textContent=orig;btn.classList.remove("copied");},2400);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done).catch(fallback);
+    }else fallback();
+    function fallback(){
+      var ta=document.createElement("textarea");ta.value=txt;
+      ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);
+      ta.select();try{document.execCommand("copy");done();}catch(e){}
+      document.body.removeChild(ta);
+    }
+  });
+})();</script>
+<p class="townlede">Brookfield's net grand list grew 1.2% between the latest two assessment rolls, 86th-highest of 169 Connecticut places. Its FY2027 mill rate is 29.97 mills per $1,000 of taxable value, 1.12× the statewide average. Single-family homes sold for a median of $650,000 in 2024 (201 recorded sales). The Census Bureau's 2024 ACS 5-year (2020–2024) estimate puts median household income at $148,360 and 4.1% of residents below poverty.</p>
+<h2>Property tax base</h2><p class="sub">Net grand list from the CT Open Data Portal, via <a href="/story/b37766e764aa">this story</a>.</p><table class="towntab"><tbody><tr><td>Net grand list, 2025</td><td>$2,927,731,541</td></tr><tr><td>Net grand list, prior vintage</td><td>$2,892,425,001</td></tr><tr><td>Change between the latest two assessment rolls</td><td>$35,306,540 (+1.2%)</td></tr><tr><td>Rank among 169 Connecticut places (1 = highest)</td><td>86th-highest of 169</td></tr><tr><td>Statewide median change (for context)</td><td>+1.2%</td></tr></tbody></table><h2>Property tax rate</h2><p class="sub">Municipal mill rate for real property, fiscal year 2027, from the CT Open Data Portal via <a href="/story/a3514b53fb39">this story</a>. Service-district rates are separate and not shown here.</p><table class="towntab"><tbody><tr><td>Mill rate, FY2027</td><td>29.97 mills per $1,000</td></tr><tr><td>Rank among 169 Connecticut places (1 = highest)</td><td>54th-highest of 169</td></tr><tr><td>Compared with the statewide rate</td><td>1.12× the statewide average</td></tr><tr><td>Statewide rate, weighted by taxable value</td><td>26.65 mills</td></tr><tr><td>Estimated tax on a median-value home (assessment 70% of market per state law)</td><td>$10,064 a year</td></tr></tbody></table><div class="taxcalc" id="tax-estimator" aria-label="Property tax estimator for Brookfield">
+<div class="taxcalc-k">Interactive tool · FY2027 rate</div>
+<h3>Estimate a Brookfield property tax bill</h3>
+<p class="taxcalc-sub">Enter a home’s market value to calculate estimated municipal tax using Brookfield’s FY2027 mill rate (29.97 mills) and Connecticut’s statutory 70% assessment ratio.</p>
+<div class="taxcalc-in">
+<label class="sr-only" for="tc-val">Home market value in dollars</label>
+<div class="taxcalc-field"><span>$</span><input id="tc-val" type="number" min="50000" step="10000" value="650000" inputmode="numeric"></div>
+<div class="taxcalc-chips" role="group" aria-label="Preset home values">
+<button type="button" data-v="300000">$300k</button>
+<button type="button" data-v="450000">$450k</button>
+<button type="button" data-v="650000">$650k</button>
+<button type="button" data-v="1000000">$1M</button>
+</div></div>
+<div class="taxcalc-out">
+<div class="taxcalc-box"><div class="tk">Est. annual tax</div><div class="tv" id="tc-yr">$13,636</div><div class="ts" id="tc-mo">$1,136 / month</div></div>
+<div class="taxcalc-box"><div class="tk">Assessed value (70%)</div><div class="tv" id="tc-as">$455,000</div><div class="ts">Per CGS &sect;12-64</div></div>
+<div class="taxcalc-box"><div class="tk">Vs. statewide rate</div><div class="tv" id="tc-df">+$1,510/yr</div><div class="ts" id="tc-ct">Weighted CT avg: 26.65 mills</div></div>
+</div>
+<p class="taxcalc-note">Municipal real-property rate only; separate fire, water, or sewer district mill rates, phase-ins, and personal exemptions are not included.</p>
+</div>
+<script>(function(){
+  var inp=document.getElementById("tc-val"); if(!inp)return;
+  var rate=29.970000, st=26.650000, ratio=0.7000;
+  var elYr=document.getElementById("tc-yr"), elMo=document.getElementById("tc-mo"),
+      elAs=document.getElementById("tc-as"), elDf=document.getElementById("tc-df");
+  function fmt(n){return "$"+Math.round(n).toLocaleString("en-US");}
+  function calc(){
+    var v=Number(String(inp.value||"").replace(/[^0-9.]/g,""));
+    if(!v||v<1000)return;
+    var as=v*ratio, yr=as*rate/1000, mo=yr/12;
+    elYr.textContent=fmt(yr); elMo.textContent=fmt(mo)+" / month";
+    elAs.textContent=fmt(as);
+    if(st>0){var d=Math.round(yr-(as*st/1000));
+      elDf.textContent=(d>=0?"+":"-")+fmt(Math.abs(d))+"/yr";}
+  }
+  inp.addEventListener("input",calc);
+  document.querySelectorAll("#tax-estimator .taxcalc-chips button").forEach(function(b){
+    b.addEventListener("click",function(){inp.value=b.dataset.v; calc();});
+  });
+})();</script><h2>Single-family home sales</h2><p class="sub">Recorded single-family home closings (2024) from the CT Office of Policy and Management via <a href="/story/ea89b34f9217">this story</a>.</p><table class="towntab"><tbody><tr><td>Median single-family sale price, 2024</td><td>$650,000</td></tr><tr><td>Recorded single-family sales (&ge;$50,000)</td><td>201 sales</td></tr><tr><td>Rank among 150 towns with &ge;10 sales (1 = highest)</td><td>23rd-highest of 150</td></tr><tr><td>Statewide median single-family sale</td><td>$426,000</td></tr></tbody></table><h2>New housing permits</h2><p class="sub">Annual residential housing units permitted (2025) from CT DECD via <a href="/story/5db571f537f4">this story</a>.</p><table class="towntab"><tbody><tr><td>Housing units permitted, 2025</td><td>26 units</td></tr><tr><td>Prior year permitted</td><td>154 units</td></tr><tr><td>Rank among 169 Connecticut towns (1 = highest)</td><td>58th-highest of 169</td></tr><tr><td>Statewide total permitted (2025)</td><td>9,834 units</td></tr></tbody></table><h2>Public school spending</h2><p class="sub">Net current education expenditures per pupil (CSDE / OPM Municipal Fiscal Indicators, 2023) via <a href="/story/d83567a6654f">this story</a>.</p><table class="towntab"><tbody><tr><td>Spending per public school student, 2023</td><td>$19,326</td></tr><tr><td>Rank among 169 Connecticut towns (1 = highest)</td><td>124th-highest of 169</td></tr><tr><td>Statewide town median (2023)</td><td>$20,958</td></tr></tbody></table>
 <h2>Where Brookfield sits</h2><p class="tablehint">On a phone, swipe the table sideways for the difference and rank columns.</p><div class="tscroll" role="region" tabindex="0" aria-label="Statistics for Brookfield, scrolls sideways on phones"><table class="townstats"><thead><tr><th>Measure</th><th>Brookfield</th><th>Connecticut</th><th>Difference</th><th>Rank among towns (1 = highest)</th></tr></thead><tbody><tr><td>Median age</td><td>44.3</td><td class="dim">41.1</td><td>8% above CT</td><td class="dim">95th-highest of 169</td></tr><tr><td>Median household income<span class="state-link"><a href="/story/916a9da3173f">Statewide comparison &rarr;</a></span></td><td>$148,360</td><td class="dim">$95,781</td><td>55% above CT</td><td class="dim">24th-highest of 169</td></tr><tr><td>Below poverty line<span class="state-link"><a href="/story/797faed5a836">Statewide comparison &rarr;</a></span></td><td>4.1%</td><td class="dim">10.0%</td><td>5.9 points below CT</td><td class="dim">123rd-highest of 169</td></tr><tr><td>Median gross rent<span class="state-link"><a href="/story/0125297ea839">Statewide comparison &rarr;</a></span></td><td>$1,892</td><td class="dim">$1,488</td><td>27% above CT</td><td class="dim">22nd-highest of 169</td></tr><tr><td>Median home value<span class="state-link"><a href="/story/517fafa716bc">Statewide comparison &rarr;</a></span></td><td>$479,700</td><td class="dim">$366,900</td><td>31% above CT</td><td class="dim">35th-highest of 169</td></tr></tbody></table></div><p class="provenance">US Census Bureau, 2024 ACS 5-year (2020–2024), county-subdivision level — the estimates built for places this size. Ranks run across the 169 places with published values. Suppressed cells are dashes, not zeros. Poverty is the same table the state story uses, so the two pages cannot tell different stories.</p>
-<div class="card related"><h2 class="label">Keep reading</h2><ul class="filelist"><li><a href="/indicator/equalized_grand_list">Equalized assessment growth</a><span>2024</span></li><li><a href="/indicator/grand_list_growth">Net grand list growth</a><span>2025</span></li><li><a href="/indicator/mill_rates">Property tax rate</a><span>FY2027</span></li><li><a href="/topic/local-finance">Local Finance desk</a><span>desk</span></li><li><a href="/towns">All 169 town files</a><span>index</span></li></ul></div>
+<div class="card related"><h2 class="label">Keep reading</h2><ul class="filelist"><li><a href="/indicator/equalized_grand_list">Equalized assessment growth</a><span>2024</span></li><li><a href="/indicator/grand_list_growth">Net grand list growth</a><span>2025</span></li><li><a href="/indicator/home_sales_price">Median single-family sale price</a><span>2024</span></li><li><a href="/indicator/housing_permits">New housing units permitted</a><span>2025</span></li><li><a href="/indicator/mill_rates">Property tax rate</a><span>FY2027</span></li><li><a href="/indicator/school_spending_per_pupil">Education spending per pupil</a><span>2023</span></li><li><a href="/topic/housing">Housing desk</a><span>desk</span></li><li><a href="/topic/local-finance">Local Finance desk</a><span>desk</span></li><li><a href="/towns">All 169 town files</a><span>index</span></li></ul></div>
 <p class="meta" style="margin:.5rem 0 0"><a href="https://ctsignal.org/assets/town-brookfield.png">Share card for Brookfield (PNG, 1200×630)</a> — generated from the numbers on this page. <a href="/town/brookfield/feed.xml">Subscribe</a> to updates for this town (Atom).
 <span id="mt-wrap"></span>
 <script>(function(){var s="brookfield",w=document.getElementById("mt-wrap"),cur=null;
@@ -165,18 +226,21 @@ stories; errors are corrected publicly.</p>
 <div><h2>CT&nbsp;<span class="boltwrap" aria-hidden="true"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg></span>&nbsp;Signal</h2>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
 public data answers it. Know where you live.</p>
-<p><a class="subbtn" href="mailto:hello@ctsignal.org?subject=Board%20sponsorship">Sponsor the board</a></p>
+<p><a class="subbtn" href="/partner">Partner &amp; underwrite</a></p>
 <p><a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a></p>
 <p><a href="mailto:hello@ctsignal.org?subject=Question%20for%20the%20desk&amp;body=Town%3A%20%0AQuestion%20(one%20sentence)%3A%20">Ask the desk a question</a> — every message is read and logged.</p></div>
 <div><h2>Sections</h2><ul>
 <li><a href="/">The board</a></li>
 <li><a href="/archive">Stories</a></li>
+<li><a href="/week">Weekly brief</a></li>
 <li><a href="/towns">Towns</a></li>
+<li><a href="/compare">Compare towns</a></li>
 <li><a href="/indicators">Indicator files</a></li>
 <li><a href="/sources">Data sources</a></li>
 <li><a href="/feed.xml">RSS feed</a></li></ul></div>
 <div><h2>Newsroom</h2><ul>
 <li><a href="/about">About</a></li>
+<li><a href="/partner">Partner &amp; underwrite</a></li>
 <li><a href="/masthead">Who runs this</a></li>
 <li><a href="/corrections">Corrections</a></li>
 <li><a href="/privacy">Privacy</a></li>
@@ -198,9 +262,9 @@ inputmode="email" placeholder="you@example.com" required>
 
 <script>
 if(/(^|\.)ctsignal\.org$/.test(location.hostname)){
-  var s=document.createElement("script");
-  s.src="/_vercel/speed-insights/script.js";s.defer=true;
-  document.head.appendChild(s);
+  ["/_vercel/speed-insights/script.js","/_vercel/insights/script.js"].forEach(function(u){
+    var s=document.createElement("script");s.src=u;s.defer=true;document.head.appendChild(s);
+  });
 }
 </script>
 </body></html>

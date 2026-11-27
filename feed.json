@@ -6,6 +6,78 @@
   "items": [
     {
       "_tags": [
+        "local-finance"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 148928,
+          "url": "https://ctsignal.org/assets/story-d83567a6654f.png"
+        }
+      ],
+      "content_text": "Sharon spent $47,845 per public school student in 2023, the highest of 169 Connecticut towns (statewide median: $20,958).",
+      "date_published": "2026-11-27T19:33:54+00:00",
+      "id": "https://ctsignal.org/story/d83567a6654f",
+      "image": "https://ctsignal.org/assets/story-d83567a6654f.png",
+      "title": "Which Connecticut towns spend the most per public school student?",
+      "url": "https://ctsignal.org/story/d83567a6654f"
+    },
+    {
+      "_tags": [
+        "economy"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 144699,
+          "url": "https://ctsignal.org/assets/story-c77ecc1c1e06.png"
+        }
+      ],
+      "content_text": "Northeast urban electricity averaged $0.266 per kWh in 2026-10 \u2014 unchanged from September 2026 for this BLS series.",
+      "date_published": "2026-11-27T19:33:54+00:00",
+      "id": "https://ctsignal.org/story/c77ecc1c1e06",
+      "image": "https://ctsignal.org/assets/story-c77ecc1c1e06.png",
+      "title": "What are Northeast households paying for electricity?",
+      "url": "https://ctsignal.org/story/c77ecc1c1e06"
+    },
+    {
+      "_tags": [
+        "housing"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 149259,
+          "url": "https://ctsignal.org/assets/story-ea89b34f9217.png"
+        }
+      ],
+      "content_text": "Single-family homes in Greenwich sold for a median of $2,850,000 in 2024, the highest of 150 towns with 10 or more sales (statewide median: $426,000).",
+      "date_published": "2026-11-27T19:33:53+00:00",
+      "id": "https://ctsignal.org/story/ea89b34f9217",
+      "image": "https://ctsignal.org/assets/story-ea89b34f9217.png",
+      "title": "Where do Connecticut single-family homes sell for the most?",
+      "url": "https://ctsignal.org/story/ea89b34f9217"
+    },
+    {
+      "_tags": [
+        "housing"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 146137,
+          "url": "https://ctsignal.org/assets/story-5db571f537f4.png"
+        }
+      ],
+      "content_text": "Stamford permitted 1,564 new housing units in 2025, leading 169 Connecticut towns (9,834 units permitted statewide).",
+      "date_published": "2026-11-27T19:33:49+00:00",
+      "id": "https://ctsignal.org/story/5db571f537f4",
+      "image": "https://ctsignal.org/assets/story-5db571f537f4.png",
+      "title": "Which Connecticut towns permitted the most new housing?",
+      "url": "https://ctsignal.org/story/5db571f537f4"
+    },
+    {
+      "_tags": [
         "weather"
       ],
       "attachments": [
