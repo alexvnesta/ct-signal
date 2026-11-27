@@ -122,6 +122,11 @@ def _thumb_value(card: dict) -> str:
             return f"+{float(top['pct']):.1f}%"
         if "rate" in top:
             return f"{float(top['rate']):.2f}"
+        if "value" in top:
+            v = float(top["value"])
+            if "$" in ans:
+                return f"${v / 1e6:.2f}M" if v >= 1_000_000 else f"${v:,.0f}"
+            return f"{v:,.0f}"
     if (m := re.search(r"([+-]\d+(?:\.\d+)?)\s*(°[FC])", ans)):
         return f"{m.group(1)}{m.group(2)}"
     if (m := re.search(
@@ -131,7 +136,10 @@ def _thumb_value(card: dict) -> str:
     if "per 100k" in ans.lower() and av.get("value") is not None:
         return f"{float(av['value']):,.0f}/100k"
     if "$" in ans:
-        return f"${float(av.get('value', 0)):,.0f}"
+        v = float(av.get("value", 0))
+        if 0 < abs(v) < 10:
+            return f"${v:.3f}"
+        return f"${v:,.0f}"
     if "%" in ans:
         return f"{float(av.get('value', 0)):g}%"
     return f"{float(av.get('value', 0)):,.0f}"

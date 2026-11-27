@@ -12,13 +12,18 @@
       "permanent": true
     },
     {
-      "source": "/:page(about|corrections|masthead|sources|towns|privacy)/",
+      "source": "/:page(about|corrections|masthead|sources|towns|privacy|compare|partner)/",
       "destination": "/:page.html",
       "permanent": true
     },
     {
-      "source": "/:page(about|corrections|masthead|sources|towns|privacy)",
+      "source": "/:page(about|corrections|masthead|sources|towns|privacy|compare|partner)",
       "destination": "/:page.html",
+      "permanent": true
+    },
+    {
+      "source": "/week/:id/",
+      "destination": "/week/:id",
       "permanent": true
     },
     {

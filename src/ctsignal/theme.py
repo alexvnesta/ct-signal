@@ -539,6 +539,70 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
   .sechead h2{letter-spacing:.06em}
   .item-fig{flex:0 0 132px}.item-fig img{width:132px}
   footer.site{padding-bottom:calc(2.2rem + env(safe-area-inset-bottom,0px))}}
+
+/* ------------------------------------------- town tools & weekly archive --- */
+.town-actions{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;
+  margin:0 0 1.2rem}
+.town-act-pri{display:inline-flex;align-items:center;min-height:44px;
+  padding:.45rem .95rem;background:var(--ink);color:#fff!important;
+  border-radius:6px;font:700 .84rem/1 var(--sans);text-decoration:none!important}
+.town-act-pri:hover{background:var(--acc)}
+.town-act-btn{display:inline-flex;align-items:center;min-height:44px;
+  padding:.45rem .9rem;background:var(--panel);color:var(--ink);
+  border:1px solid var(--line);border-radius:6px;font:600 .84rem/1 var(--sans);
+  cursor:pointer;text-decoration:none!important}
+.town-act-btn:hover{border-color:var(--acc);color:var(--acc)}
+.town-act-btn.copied{border-color:var(--ok);color:var(--ok)}
+.taxcalc{background:var(--panel);border:1px solid var(--rule);
+  border-left:3px solid var(--acc);border-radius:6px;
+  padding:1rem 1.15rem;margin:1rem 0 1.4rem}
+.taxcalc-k{font:800 .72rem/1 var(--sans);letter-spacing:.15em;
+  text-transform:uppercase;color:var(--acc);margin:0 0 .35rem}
+.taxcalc h3{font:700 1.15rem/1.25 var(--serif);margin:0 0 .3rem;color:var(--ink)}
+.taxcalc-sub{font-size:.86rem;color:var(--dim);margin:0 0 .75rem}
+.taxcalc-in{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;
+  margin:0 0 .85rem}
+.taxcalc-field{display:inline-flex;align-items:center;background:var(--bg);
+  border:1px solid var(--line);border-radius:5px;padding:0 .65rem;min-height:44px}
+.taxcalc-field span{font:700 .95rem/1 var(--sans);color:var(--dim);margin-right:.2rem}
+.taxcalc-field input{border:0;background:transparent;color:var(--ink);
+  font:700 1rem/1.2 var(--sans);width:125px;font-variant-numeric:tabular-nums}
+.taxcalc-field input:focus{outline:none}
+.taxcalc-field:focus-within{outline:2px solid var(--acc);outline-offset:1px}
+.taxcalc-chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.taxcalc-chips button{background:var(--bg2);border:1px solid var(--line);
+  border-radius:999px;padding:.35rem .7rem;min-height:38px;
+  font:600 .78rem/1 var(--sans);color:var(--dim);cursor:pointer}
+.taxcalc-chips button:hover,.taxcalc-chips button.on{border-color:var(--acc);
+  color:var(--ink);background:var(--panel)}
+.taxcalc-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:.65rem;margin:0 0 .55rem}
+@media(max-width:640px){.taxcalc-out{grid-template-columns:1fr}}
+.taxcalc-box{background:var(--bg2);border:1px solid var(--rule);
+  border-radius:5px;padding:.65rem .8rem}
+.taxcalc-box .tk{font:700 .68rem/1.2 var(--sans);text-transform:uppercase;
+  letter-spacing:.1em;color:var(--dim);margin:0 0 .2rem}
+.taxcalc-box .tv{font:700 1.25rem/1.15 var(--sans);color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.taxcalc-box .ts{font-size:.78rem;color:var(--dim);margin:.15rem 0 0}
+.taxcalc-note{font-size:.76rem;color:var(--faint);margin:0;line-height:1.45}
+.week-list{list-style:none;margin:1rem 0 1.5rem;padding:0}
+.week-list li{border-top:1px solid var(--rule);padding:1rem 0;
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:.4rem 1.2rem;
+  align-items:baseline}
+.week-list li:last-child{border-bottom:1px solid var(--rule)}
+.week-list a{font:700 1.15rem/1.3 var(--serif);color:var(--ink)}
+.week-list a:hover{color:var(--acc)}
+.week-meta{font:600 .78rem/1.2 var(--sans);color:var(--dim);
+  text-transform:uppercase;letter-spacing:.1em}
+.week-board{width:100%;border-collapse:collapse;margin:.8rem 0 1.4rem;
+  background:var(--panel);border:1px solid var(--rule)}
+.week-board th{text-align:left;font:700 .72rem/1.2 var(--sans);
+  text-transform:uppercase;letter-spacing:.09em;color:var(--dim);
+  padding:.55rem .8rem;border-bottom:2px solid var(--ink)}
+.week-board td{padding:.6rem .8rem;border-bottom:1px solid var(--rule);
+  font-size:.92rem;font-variant-numeric:tabular-nums}
+.week-board td.num{font-weight:700;color:var(--ink)}
 """
 
 # ------------------------------------------------------------- components ---
@@ -565,14 +629,14 @@ def _active_nav_href(path: str) -> str:
     p = (path or "").strip()
     if p in ("", "/"):
         return "/"
-    if p.startswith(("/archive", "/story", "/topic")):
+    if p.startswith(("/archive", "/story", "/topic", "/week")):
         return "/archive"
-    if p.startswith("/town"):
+    if p.startswith(("/town", "/compare")):
         return "/towns"
     if p.startswith("/indicator"):
         return "/indicators"
     if p.startswith(("/about", "/masthead", "/corrections", "/privacy",
-                     "/sources")):
+                     "/sources", "/partner")):
         return "/about"
     return ""
 
@@ -657,18 +721,21 @@ def footer() -> str:
 <div><h2>CT&nbsp;<span class="boltwrap" aria-hidden="true"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg></span>&nbsp;Signal</h2>
 <p>An automated newsroom for Connecticut: the news cycle picks the question,
 public data answers it. Know where you live.</p>
-<p><a class="subbtn" href="mailto:{email}?subject=Board%20sponsorship">Sponsor the board</a></p>
+<p><a class="subbtn" href="/partner">Partner &amp; underwrite</a></p>
 <p><a href="mailto:{email}">{email}</a></p>
 <p><a href="mailto:{email}?subject=Question%20for%20the%20desk&amp;body=Town%3A%20%0AQuestion%20(one%20sentence)%3A%20">Ask the desk a question</a> — every message is read and logged.</p></div>
 <div><h2>Sections</h2><ul>
 <li><a href="/">The board</a></li>
 <li><a href="/archive">Stories</a></li>
+<li><a href="/week">Weekly brief</a></li>
 <li><a href="/towns">Towns</a></li>
+<li><a href="/compare">Compare towns</a></li>
 <li><a href="/indicators">Indicator files</a></li>
 <li><a href="/sources">Data sources</a></li>
 <li><a href="/feed.xml">RSS feed</a></li></ul></div>
 <div><h2>Newsroom</h2><ul>
 <li><a href="/about">About</a></li>
+<li><a href="/partner">Partner &amp; underwrite</a></li>
 <li><a href="/masthead">Who runs this</a></li>
 <li><a href="/corrections">Corrections</a></li>
 <li><a href="/privacy">Privacy</a></li>
@@ -808,14 +875,13 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website",
 {ld}"""
 
 
-# Vercel Speed Insights is enabled on the project. Load it only on the
-# production host so local previews do not request a 404 endpoint; it records
-# Core Web Vitals, not page views, and sets no cookies.
+# Vercel Speed Insights + cookieless Web Analytics load only on production
+# ctsignal.org (first-party /_vercel/* endpoints, zero cookies, zero ad tech).
 SPEED_INSIGHTS = r"""<script>
 if(/(^|\.)ctsignal\.org$/.test(location.hostname)){
-  var s=document.createElement("script");
-  s.src="/_vercel/speed-insights/script.js";s.defer=true;
-  document.head.appendChild(s);
+  ["/_vercel/speed-insights/script.js","/_vercel/insights/script.js"].forEach(function(u){
+    var s=document.createElement("script");s.src=u;s.defer=true;document.head.appendChild(s);
+  });
 }
 </script>"""
 

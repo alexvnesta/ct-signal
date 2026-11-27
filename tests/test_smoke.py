@@ -174,7 +174,8 @@ class TestSprintSurfaces(unittest.TestCase):
 
     def test_privacy_page_exists_and_is_linked(self):
         body = (config.ROOT / "privacy.html").read_text()
-        self.assertIn("No accounts, no cookies, no pageview tracking", body)
+        self.assertIn("No accounts, no cookies, no ad trackers", body)
+        self.assertIn("Vercel Web Analytics", body)
         self.assertIn('href="/privacy"', (config.ROOT / "index.html").read_text())
         self.assertIn("/privacy", (config.ROOT / "sitemap.xml").read_text())
 

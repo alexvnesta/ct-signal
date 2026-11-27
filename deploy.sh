@@ -20,12 +20,12 @@ cd "$(dirname "$0")"
 PY=.venv/bin/python
 LOG=.pulse.log
 GEN=(index.html board.json feed.json feed.xml sitemap.xml llms.txt us.json
-     sources.html towns.html towns.csv about.html corrections.html
-     masthead.html privacy.html 404.html
+     sources.html towns.html towns.csv compare.html about.html corrections.html
+     masthead.html privacy.html partner.html 404.html
      data/towns.json data/inventory.json data/watchdog.json
      data/asked_log.json data/revalidation.json data/ledger.json
      data/failures.log data/validation_report.json
-     assets story topic town indicator indicators archive
+     assets story topic town indicator indicators archive week
      output/cards.json output/index.html output/board.json output/us.json
      output/digest)
 

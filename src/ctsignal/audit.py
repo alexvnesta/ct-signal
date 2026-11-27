@@ -16,7 +16,8 @@ import urllib.request
 from . import config, util
 
 STORED = config.ROOT / "data" / "watchdog.json"
-PAGES = {"about", "corrections", "masthead", "sources", "towns"}
+PAGES = {"about", "corrections", "masthead", "sources", "towns", "privacy",
+         "compare", "partner"}
 
 
 def internal_links() -> list[str]:
@@ -41,6 +42,10 @@ def internal_links() -> list[str]:
             return (root / "town" / parts[1] / "index.html").exists()
         if parts[0] == "topic" and len(parts) == 2:
             return (root / "topic" / parts[1] / "index.html").exists()
+        if parts[0] == "week" and len(parts) == 1:
+            return (root / "week" / "index.html").exists()
+        if parts[0] == "week" and len(parts) == 2:
+            return (root / "week" / parts[1] / "index.html").exists()
         if len(parts) == 1 and parts[0] in PAGES:
             return (root / f"{parts[0]}.html").exists()
         if len(parts) == 1 and parts[0] in ("archive",):
@@ -50,8 +55,10 @@ def internal_links() -> list[str]:
         return True                            # api/ and unknown: not file-mapped
 
     html_files = [root / "index.html", root / "towns.html", root / "sources.html",
-                  config.ARCHIVE_DIR / "index.html"]
-    for sub in ("story", "town", "topic"):
+                  root / "compare.html", root / "partner.html",
+                  config.ARCHIVE_DIR / "index.html",
+                  root / "week" / "index.html"]
+    for sub in ("story", "town", "topic", "week"):
         base = root / sub
         if base.exists():
             html_files += list(base.glob("*/*.html"))
@@ -80,7 +87,7 @@ def sitemap_gaps() -> list[str]:
     urls = set(re.findall(r"<loc>([^<]+)</loc>", sm.read_text()))
     base = config.SITE_URL.rstrip("/")
     gaps = []
-    for sub in ("story", "town", "topic"):
+    for sub in ("story", "town", "topic", "week"):
         base_dir = config.ROOT / sub
         if not base_dir.exists():
             continue

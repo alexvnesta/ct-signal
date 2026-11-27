@@ -558,8 +558,9 @@ function render(s,syncSelect){
   +list
   +'<div class="spot-actions">'
   +'<a class="spot-primary" href="/town/'+s+'">Open '+t.n+' file \u2192</a>'
+  +'<a class="spot-sec" href="/compare?a='+s+'">Compare</a>'
   +'<button type="button" id="yt-save" class="spot-sec" aria-pressed="'+(isSaved?'true':'false')+'">'
-  +(isSaved?'\u2713 Saved as my town':'Remember this town')+'</button>'
+  +(isSaved?'\u2713 Saved':'Remember')+'</button>'
   +'</div>'+sugHtml;
  if(syncSelect!==false)highlightMap(s);
  var sel=document.getElementById("yt-sel");
@@ -601,7 +602,10 @@ def index_page(data: dict) -> str:
 <div><h1>Every Connecticut town</h1>
 <p>{data["vintage"]} — five-year estimates, so small towns get honest numbers.
 Click any town on the map or table for its full file.</p></div>
+<div style="display:flex;flex-wrap:wrap;gap:.5rem">
+<a class="towns-head-act" href="/compare">Compare towns &rarr;</a>
 <a class="towns-head-act" href="/towns.csv">Download all {data["n"]} towns (CSV)</a>
+</div>
 </div>
 <div class="towns-controls">
 <input class="filter" id="q" placeholder="Filter {data["n"]} towns…" aria-label="Filter towns"
@@ -679,3 +683,373 @@ def publish() -> dict | None:
                            page.replace("</body>", inject + "</body>", 1))
     util.atomic_write_text(config.ROOT / "towns.csv", _csv_text(data))
     return data
+
+
+_COMPARE_CSS = """<style>
+.cmp-page{padding-top:1.1rem;padding-bottom:2rem}
+.cmp-head{border-bottom:3px solid var(--ink);padding-bottom:.65rem;margin-bottom:1rem}
+.cmp-head h1{font:700 clamp(1.75rem,3.6vw,2.35rem)/1.12 var(--serif);margin:0}
+.cmp-head p{color:var(--dim);font-size:.92rem;margin:.3rem 0 0;max-width:72ch}
+.cmp-presets{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin:0 0 .9rem}
+.cmp-presets span{font:700 .72rem/1 var(--sans);text-transform:uppercase;
+  letter-spacing:.12em;color:var(--dim);margin-right:.25rem}
+.cmp-presets button{background:var(--panel);border:1px solid var(--line);
+  border-radius:999px;padding:.35rem .75rem;min-height:38px;
+  font:600 .78rem/1 var(--sans);color:var(--dim);cursor:pointer}
+.cmp-presets button:hover{border-color:var(--acc);color:var(--ink)}
+.cmp-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:.65rem;margin:0 0 .95rem;background:var(--panel);
+  border:1px solid var(--rule);border-radius:6px;padding:.85rem}
+@media(max-width:860px){.cmp-controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.cmp-controls{grid-template-columns:1fr}}
+.cmp-ctl label{display:block;font:700 .7rem/1.2 var(--sans);text-transform:uppercase;
+  letter-spacing:.1em;color:var(--dim);margin:0 0 .3rem}
+.cmp-ctl select,.cmp-ctl input{width:100%;min-height:44px;background:var(--bg);
+  border:1px solid var(--line);border-radius:5px;color:var(--ink);
+  padding:.45rem .65rem;font:600 .9rem/1.2 var(--sans)}
+.cmp-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1rem}
+.cmp-table{width:100%;border-collapse:collapse;background:var(--panel);
+  border:1px solid var(--rule)}
+.cmp-table th{text-align:left;padding:.75rem .9rem;border-bottom:2px solid var(--ink);
+  font:700 .76rem/1.25 var(--sans);text-transform:uppercase;letter-spacing:.08em;
+  color:var(--dim);vertical-align:bottom}
+.cmp-table th .ct-name{display:block;font:700 1.15rem/1.2 var(--serif);
+  text-transform:none;letter-spacing:0;color:var(--ink);margin-bottom:.15rem}
+.cmp-table th a{font:600 .76rem/1 var(--sans);text-transform:none;letter-spacing:0}
+.cmp-table td{padding:.68rem .9rem;border-bottom:1px solid var(--rule);
+  font-size:.92rem;font-variant-numeric:tabular-nums;vertical-align:top}
+.cmp-table td:first-child{font-weight:600;color:var(--ink);min-width:190px}
+.cmp-table .cm-sub{display:block;font-weight:400;font-size:.74rem;color:var(--faint);
+  margin-top:.12rem}
+.cmp-table .cm-val{font-weight:700;color:var(--ink);font-size:1rem}
+.cmp-table .cm-rk{display:block;font-size:.75rem;color:var(--dim);margin-top:.12rem}
+.cmp-table tr.cm-hi td{background:var(--bg2)}
+.cmp-table td.ct-bench{color:var(--dim);background:var(--bg)}
+</style>"""
+
+
+def compare_data(data: dict, cards: list[dict] | None = None) -> dict:
+    """Merge ACS town snapshot + live local Socrata card tables into one compact
+    JSON payload for the zero-backend /compare tool."""
+    by_slug: dict[str, dict] = {}
+    for t in data.get("towns") or []:
+        by_slug[t["slug"]] = {
+            "n": t["name"],
+            "pop": t.get("pop"),
+            "age": t.get("age"),
+            "income": t.get("income"), "income_r": t.get("income_rank"),
+            "poverty": t.get("poverty"), "poverty_r": t.get("poverty_rank"),
+            "rent": t.get("rent"), "rent_r": t.get("rent_rank"),
+            "value": t.get("value"), "value_r": t.get("value_rank"),
+        }
+    meta: dict = {
+        "vintage": data.get("vintage", ""),
+        "n_acs": data.get("n", len(by_slug)),
+        "ct": {
+            "income": (data.get("ct") or {}).get("income"),
+            "poverty": (data.get("ct") or {}).get("poverty"),
+            "rent": (data.get("ct") or {}).get("rent"),
+            "value": (data.get("ct") or {}).get("value"),
+            "age": (data.get("ct") or {}).get("age"),
+        },
+        "assess_ratio": 0.70,
+    }
+    for c in (cards or []):
+        ind = c.get("indicator")
+        av = c.get("answer_values") or {}
+        trows = c.get("towns") or []
+        if not trows:
+            continue
+        if ind == "mill_rates":
+            meta["mill_fy"] = str(av.get("date") or "")
+            meta["state_mill"] = av.get("state")
+            meta["mill_n"] = av.get("n") or len(trows)
+            if av.get("assess_ratio"):
+                meta["assess_ratio"] = av["assess_ratio"]
+            for r in trows:
+                s = re.sub(r"[^a-z0-9]+", "-", str(r.get("town") or "").lower()).strip("-")
+                if s in by_slug:
+                    by_slug[s]["mill"] = r.get("rate")
+                    by_slug[s]["mill_r"] = r.get("rank")
+        elif ind == "home_sales_price":
+            meta["sale_yr"] = str(av.get("date") or "")
+            meta["state_sale"] = av.get("state")
+            meta["sale_n"] = av.get("n") or len(trows)
+            for r in trows:
+                s = re.sub(r"[^a-z0-9]+", "-", str(r.get("town") or "").lower()).strip("-")
+                if s in by_slug:
+                    by_slug[s]["sale"] = r.get("value")
+                    by_slug[s]["sale_c"] = r.get("sales")
+                    by_slug[s]["sale_r"] = r.get("rank")
+        elif ind == "housing_permits":
+            meta["permits_yr"] = str(av.get("date") or "")
+            meta["state_permits"] = av.get("state")
+            meta["permits_n"] = av.get("n") or len(trows)
+            for r in trows:
+                s = re.sub(r"[^a-z0-9]+", "-", str(r.get("town") or "").lower()).strip("-")
+                if s in by_slug:
+                    by_slug[s]["permits"] = r.get("value")
+                    by_slug[s]["permits_r"] = r.get("rank")
+        elif ind == "school_spending_per_pupil":
+            meta["school_yr"] = str(av.get("date") or "")
+            meta["state_school"] = av.get("state")
+            meta["school_n"] = av.get("n") or len(trows)
+            for r in trows:
+                s = re.sub(r"[^a-z0-9]+", "-", str(r.get("town") or "").lower()).strip("-")
+                if s in by_slug:
+                    by_slug[s]["school"] = r.get("value")
+                    by_slug[s]["school_r"] = r.get("rank")
+        elif ind == "grand_list_growth":
+            meta["gl_yr"] = str(av.get("date") or "")
+            meta["gl_n"] = av.get("n") or len(trows)
+            for r in trows:
+                s = re.sub(r"[^a-z0-9]+", "-", str(r.get("town") or "").lower()).strip("-")
+                if s in by_slug:
+                    by_slug[s]["gl_pct"] = r.get("pct")
+                    by_slug[s]["gl_r"] = r.get("rank")
+    return {"meta": meta, "towns": by_slug}
+
+
+_COMPARE_JS = r"""<script>
+(function(){
+  var D = window.__CMP__;
+  if (!D || !D.towns) return;
+  var T = D.towns, M = D.meta || {};
+  var slugs = Object.keys(T).sort(function(a,b){return T[a].n.localeCompare(T[b].n);});
+  var selA = document.getElementById("cmp-a");
+  var selB = document.getElementById("cmp-b");
+  var selC = document.getElementById("cmp-c");
+  var priceEl = document.getElementById("cmp-price");
+  var out = document.getElementById("cmp-out");
+
+  function fill(sel, allowNone){
+    sel.innerHTML = (allowNone ? '<option value="">None (2-town view)</option>' : '')
+      + slugs.map(function(s){return '<option value="'+s+'">'+T[s].n+'</option>';}).join("");
+  }
+  fill(selA, false); fill(selB, false); fill(selC, true);
+
+  var qp = new URLSearchParams(location.search);
+  var initA = qp.get("a"), initB = qp.get("b"), initC = qp.get("c");
+  selA.value = T[initA] ? initA : (T["hartford"] ? "hartford" : slugs[0]);
+  selB.value = T[initB] ? initB : (selA.value === "west-hartford" ? "new-haven" : (T["west-hartford"] ? "west-hartford" : slugs[1]));
+  selC.value = T[initC] ? initC : "";
+  if (qp.get("price") && !isNaN(Number(qp.get("price")))) priceEl.value = String(Math.max(50000, Number(qp.get("price"))));
+
+  function ord(r){
+    if (!r) return "";
+    var o = r%10===1&&r%100!==11?"st":r%10===2&&r%100!==12?"nd":r%10===3&&r%100!==13?"rd":"th";
+    return r+o;
+  }
+  function usd(v){ return v==null ? "\u2014" : "$"+Math.round(v).toLocaleString("en-US"); }
+  function num(v){ return v==null ? "\u2014" : Math.round(v).toLocaleString("en-US"); }
+  function pct(v){ return v==null ? "\u2014" : Number(v).toFixed(1)+"%"; }
+  function mill(v){ return v==null ? "\u2014" : Number(v).toFixed(2)+" mills"; }
+  function rk(r, n){ return (r && n) ? ord(r)+"-highest of "+n : ""; }
+  function copyText(txt, btn, okLabel){
+    var orig = btn.textContent;
+    function done(){ btn.textContent = okLabel; btn.classList.add("copied");
+      setTimeout(function(){ btn.textContent = orig; btn.classList.remove("copied"); }, 2200); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(done).catch(function(){ fallback(); });
+    } else fallback();
+    function fallback(){
+      var ta=document.createElement("textarea"); ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0";
+      document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){}
+      document.body.removeChild(ta);
+    }
+  }
+
+  function currentPrice(){
+    var v = Number(String(priceEl.value || "").replace(/[^0-9.]/g, ""));
+    return (v && v >= 10000) ? v : 450000;
+  }
+  function currentSlugs(){
+    return [selA.value, selB.value, selC.value].filter(function(s){ return s && T[s]; });
+  }
+  function syncUrl(){
+    var p = new URLSearchParams();
+    p.set("a", selA.value); p.set("b", selB.value);
+    if (selC.value) p.set("c", selC.value);
+    var pr = currentPrice();
+    if (pr !== 450000) p.set("price", String(Math.round(pr)));
+    try { history.replaceState(null, "", location.pathname + "?" + p.toString()); } catch(e){}
+  }
+
+  function render(){
+    syncUrl();
+    var chosen = currentSlugs();
+    var pr = currentPrice();
+    var ratio = M.assess_ratio || 0.70;
+    var stateTax = M.state_mill ? Math.round(pr * ratio * M.state_mill / 1000) : null;
+
+    var headCells = chosen.map(function(s){
+      return '<th><span class="ct-name">'+T[s].n+'</span><a href="/town/'+s+'">Full town file \u2192</a></th>';
+    }).join("");
+    var rows = [
+      {
+        label: "Est. annual tax on a "+usd(pr)+" home",
+        sub: "70% statutory assessment \u00d7 "+(M.mill_fy||"FY2027")+" mill rate",
+        hi: true,
+        bench: stateTax ? usd(stateTax)+"/yr ("+usd(stateTax/12)+"/mo)" : "\u2014",
+        cell: function(t){
+          if (t.mill == null) return '<span class="cm-val">\u2014</span>';
+          var yr = Math.round(pr * ratio * t.mill / 1000);
+          var diff = stateTax ? (yr - stateTax) : null;
+          var ds = diff === null ? "" : (diff >= 0 ? "+"+usd(diff)+" vs. CT" : "-"+usd(Math.abs(diff))+" vs. CT");
+          return '<span class="cm-val">'+usd(yr)+'/yr</span><span class="cm-rk">'+usd(yr/12)+'/mo'+(ds ? ' \u00b7 '+ds : '')+'</span>';
+        }
+      },
+      {
+        label: "Property tax rate ("+(M.mill_fy||"FY2027")+")",
+        sub: "CT OPM municipal real-property mill rate",
+        bench: M.state_mill ? mill(M.state_mill)+" (weighted)" : "\u2014",
+        cell: function(t){ return '<span class="cm-val">'+mill(t.mill)+'</span><span class="cm-rk">'+rk(t.mill_r, M.mill_n)+'</span>'; }
+      },
+      {
+        label: "Median single-family sale ("+(M.sale_yr||"2024")+")",
+        sub: "CT OPM recorded closings (\u226510 sales)",
+        bench: M.state_sale ? usd(M.state_sale) : "\u2014",
+        cell: function(t){ return '<span class="cm-val">'+usd(t.sale)+'</span><span class="cm-rk">'+(t.sale_c ? num(t.sale_c)+' sales \u00b7 '+rk(t.sale_r, M.sale_n) : 'under 10 sales or not reported')+'</span>'; }
+      },
+      {
+        label: "School spending per pupil ("+(M.school_yr||"2023")+")",
+        sub: "CSDE / OPM Municipal Fiscal Indicators",
+        bench: M.state_school ? usd(M.state_school)+" (median)" : "\u2014",
+        cell: function(t){ return '<span class="cm-val">'+usd(t.school)+'</span><span class="cm-rk">'+rk(t.school_r, M.school_n)+'</span>'; }
+      },
+      {
+        label: "New housing permits ("+(M.permits_yr||"2025")+")",
+        sub: "CT DECD annual units permitted",
+        bench: M.state_permits ? num(M.state_permits)+" statewide" : "\u2014",
+        cell: function(t){ return '<span class="cm-val">'+(t.permits!=null?num(t.permits)+" units":"\u2014")+'</span><span class="cm-rk">'+rk(t.permits_r, M.permits_n)+'</span>'; }
+      },
+      {
+        label: "Grand list change ("+(M.gl_yr||"latest")+")",
+        sub: "Net taxable property base growth",
+        bench: "\u2014",
+        cell: function(t){
+          var s = t.gl_pct==null ? "\u2014" : (t.gl_pct>=0?"+":"")+Number(t.gl_pct).toFixed(1)+"%";
+          return '<span class="cm-val">'+s+'</span><span class="cm-rk">'+rk(t.gl_r, M.gl_n)+'</span>';
+        }
+      },
+      {
+        label: "Median household income",
+        sub: M.vintage || "ACS 5-year",
+        bench: usd((M.ct||{}).income),
+        cell: function(t){ return '<span class="cm-val">'+usd(t.income)+'</span><span class="cm-rk">'+rk(t.income_r, M.n_acs)+'</span>'; }
+      },
+      {
+        label: "Median gross rent",
+        sub: M.vintage || "ACS 5-year",
+        bench: usd((M.ct||{}).rent),
+        cell: function(t){ return '<span class="cm-val">'+usd(t.rent)+'</span><span class="cm-rk">'+rk(t.rent_r, M.n_acs)+'</span>'; }
+      },
+      {
+        label: "Below poverty line",
+        sub: M.vintage || "ACS 5-year",
+        bench: pct((M.ct||{}).poverty),
+        cell: function(t){ return '<span class="cm-val">'+pct(t.poverty)+'</span><span class="cm-rk">'+rk(t.poverty_r, M.n_acs)+'</span>'; }
+      },
+      {
+        label: "Population",
+        sub: M.vintage || "ACS 5-year",
+        bench: "Connecticut",
+        cell: function(t){ return '<span class="cm-val">'+num(t.pop)+'</span>'; }
+      }
+    ];
+
+    var bodyHtml = rows.map(function(r){
+      var cls = r.hi ? ' class="cm-hi"' : '';
+      var tds = chosen.map(function(s){ return '<td>'+r.cell(T[s])+'</td>'; }).join("");
+      return '<tr'+cls+'><td>'+r.label+'<span class="cm-sub">'+r.sub+'</span></td>'+tds+'<td class="ct-bench">'+r.bench+'</td></tr>';
+    }).join("");
+
+    out.innerHTML = '<div class="tscroll" role="region" tabindex="0" aria-label="Town comparison table">'
+      + '<table class="cmp-table"><thead><tr><th>Measure</th>'+headCells+'<th>Connecticut</th></tr></thead>'
+      + '<tbody>'+bodyHtml+'</tbody></table></div>';
+  }
+
+  [selA, selB, selC].forEach(function(el){ el.addEventListener("change", render); });
+  priceEl.addEventListener("input", render);
+  document.querySelectorAll(".cmp-presets button").forEach(function(b){
+    b.addEventListener("click", function(){
+      selA.value = b.dataset.a; selB.value = b.dataset.b; selC.value = b.dataset.c || "";
+      render();
+    });
+  });
+  document.getElementById("cmp-copy-link").addEventListener("click", function(){
+    var url = "https://ctsignal.org/compare" + location.search;
+    copyText(url, this, "\u2713 Link copied");
+  });
+  document.getElementById("cmp-copy-sum").addEventListener("click", function(){
+    var chosen = currentSlugs(), pr = currentPrice(), ratio = M.assess_ratio || 0.70;
+    var lines = ["Connecticut town comparison ("+chosen.map(function(s){return T[s].n;}).join(" vs. ")+"):"];
+    chosen.forEach(function(s){
+      var t = T[s];
+      var tax = t.mill!=null ? usd(Math.round(pr * ratio * t.mill / 1000))+"/yr on "+usd(pr)+" home" : "mill rate n/a";
+      var sale = t.sale!=null ? ", 2024 median home sale "+usd(t.sale) : "";
+      var sch = t.school!=null ? ", school spending "+usd(t.school)+"/pupil" : "";
+      lines.push("- "+t.n+": "+(t.mill!=null?t.mill.toFixed(2)+" mills":"n/a")+" ("+tax+")"+sale+sch+".");
+    });
+    lines.push("Official CT OPM, DECD & Census receipts: https://ctsignal.org/compare"+location.search);
+    copyText(lines.join("\n"), this, "\u2713 Summary copied");
+  });
+  render();
+})();
+</script>"""
+
+
+def compare_page(data: dict, cards: list[dict] | None = None) -> str:
+    payload = compare_data(data, cards)
+    body = f"""<div class="wrap cmp-page">
+<div class="breadcrumb"><a href="/towns">&larr; All 169 towns</a></div>
+<div class="cmp-head">
+<h1>Compare Connecticut towns</h1>
+<p>Put two or three municipalities side by side — FY2027 property tax rates and
+estimated tax bills, 2024 recorded single-family home sales, per-pupil school
+spending, 2025 housing permits, and Census benchmarks. Every figure comes from
+a named public dataset.</p>
+</div>
+<div class="cmp-presets" role="group" aria-label="Popular comparisons">
+<span>Quick picks</span>
+<button type="button" data-a="hartford" data-b="west-hartford">Hartford vs. West Hartford</button>
+<button type="button" data-a="greenwich" data-b="stamford">Greenwich vs. Stamford</button>
+<button type="button" data-a="new-haven" data-b="hamden">New Haven vs. Hamden</button>
+<button type="button" data-a="bridgeport" data-b="fairfield">Bridgeport vs. Fairfield</button>
+</div>
+<div class="cmp-controls">
+<div class="cmp-ctl"><label for="cmp-a">Town 1</label><select id="cmp-a"></select></div>
+<div class="cmp-ctl"><label for="cmp-b">Town 2</label><select id="cmp-b"></select></div>
+<div class="cmp-ctl"><label for="cmp-c">Town 3 (optional)</label><select id="cmp-c"></select></div>
+<div class="cmp-ctl"><label for="cmp-price">Compare tax on home value ($)</label>
+<input id="cmp-price" type="number" min="50000" step="25000" value="450000" inputmode="numeric"></div>
+</div>
+<div class="cmp-actions">
+<button type="button" id="cmp-copy-sum" class="town-act-pri">Copy summary to share</button>
+<button type="button" id="cmp-copy-link" class="town-act-btn">Copy comparison link</button>
+</div>
+<div id="cmp-out"><p class="meta">Loading town comparison&hellip;</p></div>
+<p class="provenance">Tax estimates apply Connecticut\u2019s statutory 70%
+assessment ratio (CGS &sect;12-64) to municipal real-property mill rates; fire,
+water, and sewer districts are separate. Sources: CT OPM, CT DECD, CSDE, and
+US Census Bureau ({_ESC(data.get("vintage", ""))}). <a href="/sources">Sources &amp; failure logs</a>.</p>
+</div>"""
+    page = theme.page(
+        title="Compare Connecticut towns · CT Signal",
+        desc="Compare Connecticut towns side by side: property tax rates, "
+             "estimated home tax bills, 2024 home sale prices, school spending, "
+             "housing permits, and Census income and rent.",
+        path="/compare", body=_COMPARE_CSS + body, compact=True,
+    )
+    inject = (f'<script>window.__CMP__='
+              f'{json.dumps(payload, separators=(",", ":"))};</script>'
+              + _COMPARE_JS)
+    return page.replace("</body>", inject + "</body>", 1)
+
+
+def write_compare(cards: list[dict] | None = None) -> None:
+    data = snapshot() or ensure()
+    if not data:
+        return
+    util.atomic_write_text(config.ROOT / "compare.html",
+                           compare_page(data, cards))

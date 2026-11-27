@@ -58,6 +58,27 @@ indicators:
       a town budget into a property bill. Rates alone can mislead because
       assessment ratios differ, so the statewide comparison and the town
       table belong together.
+  housing_permits:
+    why: >-
+      Building permits track how much new housing towns are actually approving.
+      Because Connecticut's 169 municipalities control local zoning, a handful of
+      cities often permit more new units than dozens of smaller suburbs combined.
+  home_sales_price:
+    why: >-
+      Recorded sale prices capture what buyers actually paid at closing, not
+      survey estimates or asking prices. Comparing town medians shows where
+      demand is concentrated while filtering out one-off outlier sales.
+  school_spending_per_pupil:
+    why: >-
+      Public schools make up the largest share of most Connecticut municipal
+      budgets. Per-pupil spending reflects both local tax capacity and fixed
+      costs spread across smaller enrollments in rural towns.
+  northeast_electricity:
+    why: >-
+      Electricity is a monthly household bill that moves with wholesale fuel
+      prices, delivery charges, and regional grid costs. The BLS Northeast
+      urban average tracks the regional price environment Connecticut
+      ratepayers live in.
   hires_rate:
     why: >-
       A hiring rate counts new positions, not total employment. High churn

@@ -173,26 +173,29 @@ from publishing never needed correcting.</p>
 _page(
     "privacy",
     "Privacy · CT Signal",
-    "What CT Signal collects: no accounts, no cookies, no pageview tracking; "
-    "email only when you subscribe.",
+    "What CT Signal collects: no accounts, no cookies, no ad trackers; "
+    "cookieless aggregate page counts and email only when you subscribe.",
     """<article class="wrap col">
 <h1>Privacy</h1>
-<p class="sub">No accounts, no cookies, no pageview tracking.</p>
+<p class="sub">No accounts, no cookies, no ad trackers.</p>
 
 <h2>What we collect</h2>
-<p>Nothing that identifies you by default. CT Signal has no login, no ad
-network, no tracking pixel, and no third-party analytics script that counts
-page views. Reading the site does not create a profile.</p>
+<p>Nothing that identifies you personally. CT Signal has no login, no ad
+network, no third-party tracking pixel, and no cross-site cookies. Reading
+the site does not create a profile.</p>
 
 <h2>Server logs</h2>
 <p>Our host, Vercel, keeps ordinary request logs for security and reliability.
 They are not joined to a reader identity and are not used to build an audience
 profile.</p>
 
-<h2>Performance measurement</h2>
-<p>Vercel Speed Insights records Core Web Vitals — load speed, layout
-stability, interaction latency — on the production site. It sets no cookies
-and does not count page views. It is the only measurement script we load.</p>
+<h2>Cookieless measurement</h2>
+<p>On production (<code>ctsignal.org</code>), we load two first-party Vercel
+scripts: <strong>Vercel Speed Insights</strong> (Core Web Vitals: load speed,
+layout stability, interaction latency) and <strong>Vercel Web Analytics</strong>
+(aggregate, cookieless page-path counts and referrers so we know which town
+and story pages readers actually use). Neither sets cookies, fingerprints
+browsers, or tracks you across sites.</p>
 
 <h2>The weekly email</h2>
 <p>If you subscribe, Buttondown stores the email address you type and the
@@ -211,6 +214,59 @@ other list.</p>
 <p>Questions about this page, or a request to remove an email address:
 <a href="mailto:hello@ctsignal.org">hello@ctsignal.org</a>. Corrections and
 republication requests go to the same address.</p>
+</article>""")
+
+_page(
+    "partner",
+    "Partner & underwrite · CT Signal",
+    "Underwrite CT Signal's Monday digest and 169-town desk, or license "
+    "automated Connecticut town briefs and live chart embeds.",
+    """<article class="wrap col">
+<h1>Partner &amp; underwrite</h1>
+<p class="sub">Clean local underwriting and automated Connecticut data tools —
+strictly separated from the numbers.</p>
+
+<p><strong>CT Signal</strong> publishes live, verifiable public data for all
+169 Connecticut municipalities — property tax rates, recorded home sales,
+housing permits, school spending, and Census benchmarks — with zero LLM-written
+numbers and zero ad-tech trackers.</p>
+
+<h2>1. Underwrite the Monday brief &amp; town desk</h2>
+<p>Flat-rate quarterly underwriting (NPR / public-media style) for Connecticut
+credit unions, regional lenders, real estate brokerages, clean-energy providers,
+universities, and civic organizations who want to reach engaged Connecticut
+homeowners, relocators, and municipal leaders.</p>
+<ul>
+<li><strong>What you get:</strong> A clearly labeled &ldquo;Underwritten by&rdquo;
+acknowledgment in the <a href="/week">Monday weekly brief</a> and across our
+<a href="/towns">169-town reference desk</a> and <a href="/compare">Compare towns</a>
+tool.</li>
+<li><strong>Zero ad tech:</strong> Plain text and link — no tracking pixels,
+no programmatic banners, no third-party cookies.</li>
+</ul>
+
+<h2>2. Newsroom embeds &amp; co-branded town briefs</h2>
+<p>Built for Connecticut newsrooms, hyperlocal newsletters, regional Councils
+of Governments, civic nonprofits, and real estate relocation teams:</p>
+<ul>
+<li><strong>Live story embeds &amp; CSVs:</strong> Every story and indicator
+file offers copy-paste chart embeds, 2&times; PNG graphics, and raw CSV receipts.
+Free for non-commercial republication with attribution.</li>
+<li><strong>White-label briefs &amp; custom feeds:</strong> Automated weekly
+briefs, custom multi-town packets, or scheduled data feeds tailored to your
+region or readership.</li>
+</ul>
+
+<h2>Editorial firewall</h2>
+<p>Underwriting pays for infrastructure and coverage depth — never outcomes.
+<strong>No partner or sponsor can add, remove, round, or influence any dataset,
+ranking, chart, or correction.</strong> Every methodology rule and
+<a href="/corrections">correction log</a> stays public on GitHub.</p>
+
+<h2>Start a conversation</h2>
+<p>Write to <a href="mailto:hello@ctsignal.org?subject=CT%20Signal%20partnership">hello@ctsignal.org</a>
+with a sentence about what you are looking for — underwriting, a newsroom
+reprint, or a custom town data brief.</p>
 </article>""")
 
 def write_pages() -> None:

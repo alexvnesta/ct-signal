@@ -442,6 +442,9 @@ _TOWN_TABLE = {
     "mill_rates": ("rate", "Mill rate (mills per $1,000)", "rate"),
     "grand_list_growth": ("pct", "Net grand list growth (%)", "pct"),
     "equalized_grand_list": ("pct", "Equalized assessment growth (%)", "pct"),
+    "housing_permits": ("value", "New housing units permitted", None),
+    "home_sales_price": ("value", "Median single-family sale price", "usd"),
+    "school_spending_per_pupil": ("value", "Education spending per pupil", "usd"),
 }
 
 
@@ -764,6 +767,8 @@ def _table_cell(value, meta: dict, kind: str | None = None) -> str:
         return f"{number:,.2f}"
     if kind == "pct":
         return f"{number:.2f}%"
+    if kind == "usd":
+        return f"${number:,.0f}"
     unit = str((meta or {}).get("unit") or "")
     if unit == "USD":
         return f"${number:,.0f}"
@@ -1512,8 +1517,18 @@ def sitemap_xml(cards: list[dict]) -> str:
                      f'<lastmod>{now}</lastmod></url>')
     parts.append(f'<url><loc>{config.SITE_URL}/towns</loc>'
                  f'<lastmod>{now}</lastmod></url>')
+    parts.append(f'<url><loc>{config.SITE_URL}/compare</loc>'
+                 f'<lastmod>{now}</lastmod></url>')
     parts.append(f'<url><loc>{config.SITE_URL}/archive</loc>'
                  f'<lastmod>{now}</lastmod></url>')
+    parts.append(f'<url><loc>{config.SITE_URL}/week</loc>'
+                 f'<lastmod>{now}</lastmod></url>')
+    wdir = config.ROOT / "week"
+    if wdir.exists():
+        for d in sorted(wdir.iterdir(), reverse=True):
+            if d.is_dir() and (d / "index.html").exists():
+                parts.append(f'<url><loc>{config.SITE_URL}/week/{d.name}</loc>'
+                             f'<lastmod>{now}</lastmod></url>')
     parts.append(f'<url><loc>{config.SITE_URL}/indicators</loc>'
                  f'<lastmod>{now}</lastmod></url>')
     seen = set()
@@ -1643,6 +1658,9 @@ def write_all(cards: list[dict]) -> None:
                 shutil.rmtree(stale)
     util.atomic_write_text(config.ARCHIVE_DIR / "index.html",
                            archive_html(cards, history))
+    from . import towns as _towns
+    _towns.write_compare(cards)
+    write_week_pages(cards)
     if cards:
         util.atomic_write_text(config.ROOT / "feed.xml", rss_xml(cards))
         util.write_json(config.ROOT / "feed.json", json.loads(json_feed(cards)))
@@ -1775,6 +1793,16 @@ def _town_lede(town: str, pieces: dict, rec: dict | None,
             if vs is not None:
                 s += f", {vs:.2f}× the statewide average"
             parts.append(s + ".")
+    hs = pieces.get("home_sales_price")
+    if hs:
+        row, card = hs
+        yr = str((card.get("answer_values") or {}).get("date") or "")
+        if row.get("value") is not None:
+            s = (f"Single-family homes sold for a median of "
+                 f"${row['value']:,.0f} in {yr}")
+            if row.get("sales"):
+                s += f" ({row['sales']:,} recorded sales)"
+            parts.append(s + ".")
     if rec:
         bits = []
         if rec.get("income") is not None:
@@ -1873,6 +1901,124 @@ def _town_kpis_html(town: str, pieces: dict, rec: dict | None,
     return f'<div class="town-kpis" aria-label="{_ESC(town)} key figures">{items}</div>'
 
 
+def _town_share_bar_html(town: str, slug: str, pieces: dict,
+                         rec: dict | None, snap: dict | None) -> str:
+    """Action bar on every town page: jump straight into a side-by-side
+    comparison or copy a clean plain-text receipt summary for local town
+    groups, Nextdoor, or neighborhood emails."""
+    lines = [f"{town}, CT — official public data snapshot (CT Signal):"]
+    mr = pieces.get("mill_rates")
+    if mr:
+        row, card = mr
+        av = card.get("answer_values") or {}
+        fy = str(av.get("date", "")).replace("FY", "")
+        n = av.get("n") or len(card.get("towns") or [])
+        from . import towns as _tw
+        tax_bit = ""
+        if rec and rec.get("value") and av.get("assess_ratio"):
+            est = rec["value"] * av["assess_ratio"] * row["rate"] / 1000
+            tax_bit = f" (est. ${est:,.0f}/yr on a ${rec['value']:,.0f} home)"
+        lines.append(
+            f"- FY{fy} mill rate: {row['rate']:.2f} mills "
+            f"({_tw._ord(row['rank'])}-highest of {n}){tax_bit}")
+    hs = pieces.get("home_sales_price")
+    if hs:
+        row, card = hs
+        yr = str((card.get("answer_values") or {}).get("date") or "")
+        lines.append(
+            f"- {yr} median single-family home sale: ${row['value']:,.0f} "
+            f"({row.get('sales', 0):,} sales)")
+    sc = pieces.get("school_spending_per_pupil")
+    if sc:
+        row, card = sc
+        yr = str((card.get("answer_values") or {}).get("date") or "")
+        lines.append(f"- {yr} public school spending: ${row['value']:,.0f}/pupil")
+    if rec and rec.get("income") is not None:
+        lines.append(
+            f"- Median household income: ${rec['income']:,.0f} "
+            f"({(snap or {}).get('vintage', 'ACS 5-yr')})")
+    lines.append(f"Full sources & tax estimator: {config.SITE_URL}/town/{slug}")
+    summary = "\n".join(lines)
+    js_sum = json.dumps(summary)
+    return f"""<div class="town-actions">
+<a class="town-act-pri" href="/compare?a={_ESC(slug)}">Compare {_ESC(town)} with another town &rarr;</a>
+<button type="button" id="copy-town-sum" class="town-act-btn">Copy town summary to share</button>
+</div>
+<script>(function(){{
+  var btn=document.getElementById("copy-town-sum"); if(!btn)return;
+  var txt={js_sum};
+  btn.addEventListener("click",function(){{
+    var orig=btn.textContent;
+    function done(){{btn.textContent="\u2713 Summary copied";btn.classList.add("copied");
+      setTimeout(function(){{btn.textContent=orig;btn.classList.remove("copied");}},2400);}}
+    if(navigator.clipboard&&navigator.clipboard.writeText){{
+      navigator.clipboard.writeText(txt).then(done).catch(fallback);
+    }}else fallback();
+    function fallback(){{
+      var ta=document.createElement("textarea");ta.value=txt;
+      ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);
+      ta.select();try{{document.execCommand("copy");done();}}catch(e){{}}
+      document.body.removeChild(ta);
+    }}
+  }});
+}})();</script>"""
+
+
+def _tax_estimator_html(town: str, rate: float, state_rate: float | None,
+                        assess_ratio: float, default_val: int, fy: str) -> str:
+    """Zero-backend interactive CT property tax estimator embedded directly on
+    every town page."""
+    init_assessed = round(default_val * assess_ratio)
+    init_annual = round(init_assessed * rate / 1000)
+    init_monthly = round(init_annual / 12)
+    state_note = ""
+    if state_rate:
+        st_annual = round(init_assessed * state_rate / 1000)
+        diff = init_annual - st_annual
+        sign = "+" if diff >= 0 else "-"
+        state_note = f"{sign}${abs(diff):,}/yr"
+    return f"""<div class="taxcalc" id="tax-estimator" aria-label="Property tax estimator for {_ESC(town)}">
+<div class="taxcalc-k">Interactive tool · FY{_ESC(fy)} rate</div>
+<h3>Estimate a {_ESC(town)} property tax bill</h3>
+<p class="taxcalc-sub">Enter a home\u2019s market value to calculate estimated municipal tax using {_ESC(town)}\u2019s FY{_ESC(fy)} mill rate ({rate:.2f} mills) and Connecticut\u2019s statutory {assess_ratio * 100:.0f}% assessment ratio.</p>
+<div class="taxcalc-in">
+<label class="sr-only" for="tc-val">Home market value in dollars</label>
+<div class="taxcalc-field"><span>$</span><input id="tc-val" type="number" min="50000" step="10000" value="{default_val}" inputmode="numeric"></div>
+<div class="taxcalc-chips" role="group" aria-label="Preset home values">
+<button type="button" data-v="300000">$300k</button>
+<button type="button" data-v="450000">$450k</button>
+<button type="button" data-v="650000">$650k</button>
+<button type="button" data-v="1000000">$1M</button>
+</div></div>
+<div class="taxcalc-out">
+<div class="taxcalc-box"><div class="tk">Est. annual tax</div><div class="tv" id="tc-yr">${init_annual:,}</div><div class="ts" id="tc-mo">${init_monthly:,} / month</div></div>
+<div class="taxcalc-box"><div class="tk">Assessed value ({assess_ratio * 100:.0f}%)</div><div class="tv" id="tc-as">${init_assessed:,}</div><div class="ts">Per CGS &sect;12-64</div></div>
+<div class="taxcalc-box"><div class="tk">Vs. statewide rate</div><div class="tv" id="tc-df">{_ESC(state_note or "—")}</div><div class="ts" id="tc-ct">Weighted CT avg: {f"{state_rate:.2f} mills" if state_rate else "—"}</div></div>
+</div>
+<p class="taxcalc-note">Municipal real-property rate only; separate fire, water, or sewer district mill rates, phase-ins, and personal exemptions are not included.</p>
+</div>
+<script>(function(){{
+  var inp=document.getElementById("tc-val"); if(!inp)return;
+  var rate={rate:.6f}, st={state_rate if state_rate else 0:.6f}, ratio={assess_ratio:.4f};
+  var elYr=document.getElementById("tc-yr"), elMo=document.getElementById("tc-mo"),
+      elAs=document.getElementById("tc-as"), elDf=document.getElementById("tc-df");
+  function fmt(n){{return "$"+Math.round(n).toLocaleString("en-US");}}
+  function calc(){{
+    var v=Number(String(inp.value||"").replace(/[^0-9.]/g,""));
+    if(!v||v<1000)return;
+    var as=v*ratio, yr=as*rate/1000, mo=yr/12;
+    elYr.textContent=fmt(yr); elMo.textContent=fmt(mo)+" / month";
+    elAs.textContent=fmt(as);
+    if(st>0){{var d=Math.round(yr-(as*st/1000));
+      elDf.textContent=(d>=0?"+":"-")+fmt(Math.abs(d))+"/yr";}}
+  }}
+  inp.addEventListener("input",calc);
+  document.querySelectorAll("#tax-estimator .taxcalc-chips button").forEach(function(b){{
+    b.addEventListener("click",function(){{inp.value=b.dataset.v; calc();}});
+  }});
+}})();</script>"""
+
+
 def town_html(town: str, pieces: dict) -> str:
     """A town file is assembled from every local card that measures it.
 
@@ -1934,16 +2080,94 @@ def town_html(town: str, pieces: dict) -> str:
                         f' (assessment {av["assess_ratio"] * 100:.0f}% of market '
                         f'per state law)</td>'
                         f'<td>${est:,.0f} a year</td></tr>')
+        default_home = int(
+            (pieces.get("home_sales_price") or [{}])[0].get("value")
+            or (rec or {}).get("value")
+            or 400000
+        )
+        calc_html = _tax_estimator_html(
+            town, row["rate"], av.get("state"),
+            float(av.get("assess_ratio") or 0.70), default_home, fy,
+        )
         sections.append(
             '<h2>Property tax rate</h2>'
             '<p class="sub">Municipal mill rate for real property, fiscal year '
             f'{esc(fy)}, from the CT Open Data Portal via '
             '<a href="/story/' + card["id"] + '">this story</a>. '
             'Service-district rates are separate and not shown here.</p>'
-            '<table class="towntab"><tbody>' + ''.join(rows) + '</tbody></table>')
+            '<table class="towntab"><tbody>' + ''.join(rows) + '</tbody></table>'
+            + calc_html)
         facts.append(f'mill rate {row["rate"]:.2f} ({row["vs_state"]:.2f}× state)')
+    hs = pieces.get("home_sales_price")
+    if hs:
+        row, card = hs
+        av = card.get("answer_values") or {}
+        yr = str(av.get("date") or "")
+        n = av.get("n") or len(card.get("towns") or [])
+        st = av.get("state")
+        sections.append(
+            f'<h2>Single-family home sales</h2>'
+            f'<p class="sub">Recorded single-family home closings ({esc(yr)}) '
+            f'from the CT Office of Policy and Management via '
+            f'<a href="/story/{card["id"]}">this story</a>.</p>'
+            f'<table class="towntab"><tbody>'
+            f'<tr><td>Median single-family sale price, {esc(yr)}</td>'
+            f'<td>${row["value"]:,.0f}</td></tr>'
+            f'<tr><td>Recorded single-family sales (&ge;$50,000)</td>'
+            f'<td>{row.get("sales", 0):,} sales</td></tr>'
+            f'<tr><td>Rank among {n} towns with &ge;10 sales (1 = highest)</td>'
+            f'<td>{_towns._ord(row["rank"])}-highest of {n}</td></tr>'
+            + (f'<tr><td>Statewide median single-family sale</td>'
+               f'<td>${st:,.0f}</td></tr>' if st else '')
+            + '</tbody></table>')
+        facts.append(f'median {yr} home sale ${row["value"]:,.0f}')
+    hp = pieces.get("housing_permits")
+    if hp:
+        row, card = hp
+        av = card.get("answer_values") or {}
+        yr = str(av.get("date") or "")
+        n = av.get("n") or len(card.get("towns") or [])
+        st = av.get("state")
+        sections.append(
+            f'<h2>New housing permits</h2>'
+            f'<p class="sub">Annual residential housing units permitted '
+            f'({esc(yr)}) from CT DECD via '
+            f'<a href="/story/{card["id"]}">this story</a>.</p>'
+            f'<table class="towntab"><tbody>'
+            f'<tr><td>Housing units permitted, {esc(yr)}</td>'
+            f'<td>{row["value"]:,} units</td></tr>'
+            f'<tr><td>Prior year permitted</td>'
+            f'<td>{row.get("prior", 0):,} units</td></tr>'
+            f'<tr><td>Rank among {n} Connecticut towns (1 = highest)</td>'
+            f'<td>{_towns._ord(row["rank"])}-highest of {n}</td></tr>'
+            + (f'<tr><td>Statewide total permitted ({esc(yr)})</td>'
+               f'<td>{st:,} units</td></tr>' if st else '')
+            + '</tbody></table>')
+        facts.append(f'{row["value"]:,} housing units permitted in {yr}')
+    sc = pieces.get("school_spending_per_pupil")
+    if sc:
+        row, card = sc
+        av = card.get("answer_values") or {}
+        yr = str(av.get("date") or "")
+        n = av.get("n") or len(card.get("towns") or [])
+        st = av.get("state")
+        sections.append(
+            f'<h2>Public school spending</h2>'
+            f'<p class="sub">Net current education expenditures per pupil '
+            f'(CSDE / OPM Municipal Fiscal Indicators, {esc(yr)}) via '
+            f'<a href="/story/{card["id"]}">this story</a>.</p>'
+            f'<table class="towntab"><tbody>'
+            f'<tr><td>Spending per public school student, {esc(yr)}</td>'
+            f'<td>${row["value"]:,.0f}</td></tr>'
+            f'<tr><td>Rank among {n} Connecticut towns (1 = highest)</td>'
+            f'<td>{_towns._ord(row["rank"])}-highest of {n}</td></tr>'
+            + (f'<tr><td>Statewide town median ({esc(yr)})</td>'
+               f'<td>${st:,.0f}</td></tr>' if st else '')
+            + '</tbody></table>')
+        facts.append(f'school spending ${row["value"]:,.0f}/pupil')
     if not sections:
         return ""
+    tslug = _slug(town)
     body = f"""{acs_css}<article class="wrap col">
 <div class="breadcrumb"><a href="/towns">← All 169 towns</a></div>
 <div class="label">Connecticut town file</div>
@@ -1951,6 +2175,7 @@ def town_html(town: str, pieces: dict) -> str:
 <p class="sub">Every local number the desk holds for this town, each naming its
 own source. Know where you live.</p>
 {_town_kpis_html(town, pieces, rec, snap)}
+{_town_share_bar_html(town, tslug, pieces, rec, snap)}
 {_town_lede(town, pieces, rec, snap)}
 {''.join(sections)}
 {acs}
@@ -1958,7 +2183,6 @@ own source. Know where you live.</p>
 <p class="meta">Dataset citations and the literal queries live on the linked
 stories; errors are corrected publicly.</p>
 </article>"""
-    tslug = _slug(town)
     timg = f"{config.SITE_URL}/assets/town-{tslug}.png"
     if (config.ROOT / "assets" / f"town-{tslug}.png").exists():
         body = body.replace(
@@ -2073,3 +2297,223 @@ JSON lives in the repository; this page is the readable index.</p>
                       desc="Every story CT Signal has published, with its "
                            "finding, desk and data vintage kept forever.",
                       path="/archive", body=body, compact=True, json_ld=ld)
+
+
+# --------------------------------------------------------- weekly briefs ---
+
+def _parse_digest_issue(issue: str, ddir: pathlib.Path,
+                        cards_by_id: dict[str, dict]) -> dict | None:
+    """Load structured weekly issue metadata from JSON sidecar, or parse an
+    older HTML-only digest issue cleanly so historical issues stay readable."""
+    jpath = ddir / f"{issue}.json"
+    if jpath.exists():
+        try:
+            return json.loads(jpath.read_text())
+        except (OSError, ValueError):
+            pass
+    hpath = ddir / f"{issue}.html"
+    if not hpath.exists():
+        return None
+    raw = hpath.read_text()
+    m_sub = re.search(r"<h1[^>]*>(.*?)</h1>", raw, re.S)
+    subject = html.unescape(re.sub(r"<[^>]+>", "", m_sub.group(1)).strip()) if m_sub else f"CT Signal: {issue}"
+    seen_ids: list[str] = []
+    for cid in re.findall(r"/story/([0-9a-f]{12})", raw):
+        if cid not in seen_ids:
+            seen_ids.append(cid)
+    stories = []
+    for cid in seen_ids:
+        c = cards_by_id.get(cid)
+        if c:
+            stories.append({
+                "id": cid, "topic": c.get("topic", ""), "stream": c.get("stream", ""),
+                "question": c["question"], "answer_text": c["answer_text"],
+                "date": str((c.get("answer_values") or {}).get("date") or ""),
+            })
+    return {"issue": issue, "subject": subject, "tiles": [], "stories": stories}
+
+
+def _current_week_issue(cards: list[dict]) -> dict | None:
+    if not cards:
+        return None
+    week = dt.date.fromisoformat(
+        max(c["generated_at"] for c in cards)[:10]).isocalendar()
+    issue = f"{week.year}-W{week.week:02d}"
+    board_path = config.ROOT / "board.json"
+    tiles = []
+    if board_path.exists():
+        try:
+            tiles = json.loads(board_path.read_text()).get("tiles") or []
+        except (OSError, ValueError):
+            tiles = []
+    ordered = sorted(
+        cards,
+        key=lambda c: (
+            0 if (c.get("stream") in ("local", "stackup")
+                  or c.get("indicator") in ("weather_anomaly", "ct_unemployment", "northeast_electricity"))
+            else 1,
+        ),
+    )
+    lead = _finding(ordered[0]) or ordered[0]["answer_text"].split(". ")[0]
+    return {
+        "issue": issue,
+        "subject": f"CT Signal: {lead}",
+        "generated_at": max(c["generated_at"] for c in cards),
+        "tiles": [
+            {"title": t["title"], "value": t["value"],
+             "rank_label": t.get("rank_label", ""), "n": t["n"], "date": t["date"]}
+            for t in tiles
+        ],
+        "stories": [
+            {"id": c["id"], "topic": c.get("topic", ""), "stream": c.get("stream", ""),
+             "question": c["question"], "answer_text": c["answer_text"],
+             "date": str((c.get("answer_values") or {}).get("date") or "")}
+            for c in ordered[:6]
+        ],
+    }
+
+
+def week_issue_html(issue_data: dict, all_issues: list[str]) -> str:
+    esc = html.escape
+    iss = issue_data["issue"]
+    tiles = issue_data.get("tiles") or []
+    board_html = ""
+    if tiles:
+        trows = "".join(
+            f'<tr><td>{esc(str(t["title"]))}</td>'
+            f'<td class="num">{esc(str(t["value"]))}</td>'
+            f'<td>{esc(str(t.get("rank_label") or ""))} of {esc(str(t.get("n") or ""))} peers</td>'
+            f'<td>{esc(str(t.get("date") or ""))}</td></tr>'
+            for t in tiles
+        )
+        board_html = (
+            '<h2>Connecticut board snapshot</h2>'
+            '<div class="tscroll"><table class="week-board"><thead><tr>'
+            '<th>Measure</th><th>Connecticut</th><th>Rank</th><th>Data</th>'
+            f'</tr></thead><tbody>{trows}</tbody></table></div>'
+        )
+    cards_html = "".join(
+        f'<article class="card"><div class="label">{esc(str(s.get("topic") or "signal"))}'
+        + (f' · data {esc(str(s["date"]))}' if s.get("date") else '')
+        + f'</div><h2 style="font:700 1.25rem/1.25 var(--serif);margin:.3rem 0 .25rem">'
+        f'<a href="/story/{esc(s["id"])}">{esc(s["question"])}</a></h2>'
+        f'<p style="margin:.25rem 0 .45rem">{esc(s["answer_text"])}</p>'
+        f'<p class="meta"><a href="/story/{esc(s["id"])}">See chart, dataset &amp; exact query &rarr;</a></p>'
+        f'</article>'
+        for s in (issue_data.get("stories") or [])
+    )
+    idx = all_issues.index(iss) if iss in all_issues else -1
+    nav_bits = ['<a href="/week">&larr; All weekly briefs</a>']
+    if idx >= 0 and idx + 1 < len(all_issues):
+        nxt = all_issues[idx + 1]
+        nav_bits.append(f'<a href="/week/{esc(nxt)}">Previous: {esc(nxt)} &rarr;</a>')
+    if idx > 0:
+        prv = all_issues[idx - 1]
+        nav_bits.append(f'<a href="/week/{esc(prv)}">&larr; Newer: {esc(prv)}</a>')
+    headline = re.sub(r"^CT Signal:\s*", "", str(issue_data.get("subject") or f"CT Signal {iss}"))
+    body = f"""<article class="wrap col">
+<div class="breadcrumb"><a href="/week">&larr; Weekly brief archive</a></div>
+<header class="bloghead">
+<div class="label">Weekly brief · Issue {esc(iss)}</div>
+<h1>{esc(headline)}</h1>
+<p class="blogdek">One weekly snapshot of what moved in Connecticut public data —
+the same issue filed Sunday and emailed Monday to subscribers.</p>
+</header>
+{board_html}
+<h2>Top findings this week</h2>
+{cards_html or '<p class="meta">Story receipts for this issue live in <a href="/archive">the story archive</a>.</p>'}
+<div class="card"><h2 class="label">Explore your town</h2>
+<p>Check your town\u2019s property tax rate, 2024 home sales, and school spending on
+<a href="/towns">the 169-town map</a>, or put two municipalities side by side on
+<a href="/compare">Compare towns</a>.</p></div>
+<p class="meta" style="display:flex;flex-wrap:wrap;gap:.5rem 1.2rem">{" ".join(nav_bits)}</p>
+</article>"""
+    url = f"{config.SITE_URL}/week/{iss}"
+    ld = theme.graph_json_ld(
+        {"@type": "WebPage", "@id": f"{url}#webpage", "url": url,
+         "name": f"Weekly brief {iss} · CT Signal",
+         "description": issue_data.get("subject") or f"CT Signal weekly brief {iss}",
+         "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
+         "inLanguage": "en-US"},
+        theme.breadcrumb_json_ld([
+            ("CT Signal", f"{config.SITE_URL}/"),
+            ("Weekly brief", f"{config.SITE_URL}/week"),
+            (iss, url),
+        ]))
+    return theme.page(
+        title=f"Weekly brief {iss} · CT Signal",
+        desc=str(issue_data.get("subject") or f"CT Signal weekly brief {iss}"),
+        path=f"/week/{iss}", body=body, compact=True, json_ld=ld,
+    )
+
+
+def week_index_html(issues: list[dict]) -> str:
+    esc = html.escape
+    lis = "".join(
+        f'<li><div><div class="week-meta">Issue {esc(it["issue"])}</div>'
+        f'<a href="/week/{esc(it["issue"])}">{esc(it.get("subject") or it["issue"])}</a></div>'
+        f'<a class="more" href="/week/{esc(it["issue"])}">Read brief &rarr;</a></li>'
+        for it in issues
+    )
+    body = f"""<article class="wrap col">
+<header class="bloghead">
+<div class="label">Weekly brief</div>
+<h1>What moved in Connecticut data</h1>
+<p class="blogdek">Every Monday morning digest, archived as a permanent web page —
+Connecticut\u2019s board snapshot and top data-backed findings, with zero ad trackers.</p>
+</header>
+<ul class="week-list">{lis}</ul>
+<div class="card"><h2 class="label">Get the Monday email</h2>
+<p>Want this brief in your inbox every Monday morning? Use the subscribe box in
+the footer below — one email per week, one-click unsubscribe.</p></div>
+</article>"""
+    url = f"{config.SITE_URL}/week"
+    ld = theme.graph_json_ld(
+        {"@type": "CollectionPage", "@id": f"{url}#webpage", "url": url,
+         "name": "Weekly brief archive · CT Signal",
+         "description": "Every weekly CT Signal brief archived on the web.",
+         "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
+         "inLanguage": "en-US"},
+        theme.breadcrumb_json_ld([
+            ("CT Signal", f"{config.SITE_URL}/"),
+            ("Weekly brief", url),
+        ]))
+    return theme.page(
+        title="Weekly brief · CT Signal",
+        desc="Every Monday CT Signal data brief archived on the web.",
+        path="/week", body=body, compact=True, json_ld=ld,
+    )
+
+
+def write_week_pages(cards: list[dict]) -> None:
+    """Publish /week/ archive and /week/<YYYY-WNN>/ pages from output/digest."""
+    ddir = config.OUTPUT_DIR / "digest"
+    cards_by_id = {c["id"]: c for c in (cards or [])}
+    found: dict[str, dict] = {}
+    if ddir.exists():
+        stems = sorted({
+            p.stem for p in ddir.iterdir()
+            if re.fullmatch(r"\d{4}-W\d{2}", p.stem)
+        }, reverse=True)
+        for iss in stems:
+            parsed = _parse_digest_issue(iss, ddir, cards_by_id)
+            if parsed:
+                found[iss] = parsed
+    cur = _current_week_issue(cards)
+    if cur:
+        # Refresh current ISO week with latest live board & stories.
+        found[cur["issue"]] = cur
+    if not found:
+        return
+    ordered_ids = sorted(found.keys(), reverse=True)
+    ordered_issues = [found[k] for k in ordered_ids]
+    wroot = config.ROOT / "week"
+    wroot.mkdir(parents=True, exist_ok=True)
+    util.atomic_write_text(wroot / "index.html", week_index_html(ordered_issues))
+    for iss_data in ordered_issues:
+        sub = wroot / iss_data["issue"]
+        sub.mkdir(parents=True, exist_ok=True)
+        util.atomic_write_text(
+            sub / "index.html",
+            week_issue_html(iss_data, ordered_ids),
+        )

@@ -70,13 +70,14 @@ def _front_town_box() -> str:
     )
     return f"""<aside class="front-town" aria-label="Look up your Connecticut town">
 <div class="front-town-h">Know where you live</div>
-<p>Jump straight to any of Connecticut\u2019s {len(snap["towns"])} town files — mill rate,
-median income, rent, home value, and poverty rate.</p>
+<p>Jump to any of Connecticut\u2019s {len(snap["towns"])} town files — mill rate,
+property tax estimator, 2024 home sales, school spending, and Census figures.</p>
 <form class="front-town-form" onsubmit="var s=document.getElementById('ft-sel').value;if(s)location.href='/town/'+s;return false;">
 <label class="sr-only" for="ft-sel">Choose a Connecticut town</label>
 <select id="ft-sel">{opts}</select>
 <button type="submit">Open town file \u2192</button>
-</form></aside>"""
+</form>
+<p style="margin:.55rem 0 0;font-size:.82rem"><a href="/compare">Compare two Connecticut towns side by side \u2192</a></p></aside>"""
 
 
 def home_html(cards: list[dict], board: dict) -> str:
@@ -99,6 +100,16 @@ def home_html(cards: list[dict], board: dict) -> str:
         h = x.get("headline") or {}
         return (x.get("stream") == "ct" or h.get("stream") == "ct"
                 or int(h.get("ct_hits") or 0) >= 2)
+    # Prioritize Connecticut-specific stories (local town tables, CT stackups,
+    # and CT-geo/CT-triggered series) for the lead and middle column so national
+    # macro context never crowds out Connecticut on its own front page.
+    def _is_ct_card(x):
+        if x.get("stream") in ("local", "stackup"):
+            return True
+        if x.get("indicator") in ("weather_anomaly", "ct_unemployment", "northeast_electricity"):
+            return True
+        return _ct_trigger(x)
+
     if cards and not _ct_trigger(cards[0]):
         _i = next((i for i, x in enumerate(cards)
                    if _ct_trigger(x)
@@ -143,12 +154,15 @@ and the exact query \u2192</a></div></article>
 
         # One jobs release must not become five of nine visible cards:
         # max two cards per triggering headline, max three per topic.
+        # Keep Connecticut-specific cards ahead of US macro context in the
+        # middle column; national context still surfaces in the right rail.
         def _trig(x):
             return (x.get("headline") or {}).get("url") or x["id"]
         trig = {_trig(cards[0]): 1}
         topic = {cards[0]["topic"]: 1}
+        rest = sorted(cards[1:], key=lambda x: (0 if _is_ct_card(x) else 1))
         sel = []
-        for c in cards[1:]:
+        for c in rest:
             if len(sel) >= 8:
                 break
             if trig.get(_trig(c), 0) >= 2 or topic.get(c["topic"], 0) >= 3:
@@ -176,8 +190,11 @@ and the exact query \u2192</a></div></article>
 </div></div>"""
 
         for c in sel[3:8]:
+            scope = ("US context" if c.get("stream") == "national"
+                     and c.get("indicator") not in ("weather_anomaly", "ct_unemployment", "northeast_electricity")
+                     else c["stream"])
             rail += f"""<div class="item"><div class="item-body">
-<span class="kicker">{_ESC(c["topic"])} · {_ESC(c["stream"])}{' · <span class="badge">DEMO TRIGGER</span>' if _cards.is_demo_trigger(c) else ""}</span>
+<span class="kicker">{_ESC(c["topic"])} · {_ESC(scope)}{' · <span class="badge">DEMO TRIGGER</span>' if _cards.is_demo_trigger(c) else ""}</span>
 <h3><a href="/story/{c["id"]}">{_ESC(newsroom._finding(c))}</a></h3>
 <p class="item-q">{_ESC(c["question"])}</p>
 <div class="meta">{ago(c["generated_at"], now)}</div>
@@ -262,7 +279,8 @@ and the exact query \u2192</a></div></article>
 <p class="frontdek">Public data answers the questions Connecticut&rsquo;s news
 cycle is already asking.</p>
 <p class="frontlinks"><a href="/towns">Find your town &rarr;</a> &middot;
-<a href="/indicators">Follow a measure &rarr;</a></p>
+<a href="/compare">Compare towns &rarr;</a> &middot;
+<a href="/week">Weekly brief &rarr;</a></p>
 </div>
 <div class="latest-grid">
 {lead}

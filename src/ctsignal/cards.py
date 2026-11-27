@@ -229,3 +229,51 @@ def from_mill_rates(item: dict, proposal: dict, result: dict) -> dict:
         "towns": result.get("all"),
         "cache": False,
     }
+
+
+def from_local_rank(item: dict, proposal: dict, result: dict) -> dict:
+    """Reusable builder for ranked Connecticut town measures (housing permits,
+    single-family home sales, OPM municipal fiscal indicators)."""
+    question = proposal.get("question_override") or item["question"]
+    top = result["top"]
+    val_str = f"{top['value']:,.0f}"
+    state_str = f"{result['state_value']:,.0f}"
+    answer = item["answer"].format(
+        top_town=top["town"],
+        value=val_str,
+        state=state_str,
+        latest_year=result["latest_year"],
+        n=result["n"],
+    )
+    unit = item.get("unit", "")
+    spec = charts.rank_strip(
+        result["rows"],
+        title=f"{item.get('chart_label', item['id'])}, {result['latest_year']} (top 10 towns)",
+        unit=unit, peer_word="Town",
+    )
+    av = {
+        "top": top, "n": result["n"],
+        "state": result["state_value"],
+        "date": str(result["latest_year"]),
+    }
+    if result.get("total_sales"):
+        av["total_sales"] = result["total_sales"]
+    if result.get("edition"):
+        av["edition"] = result["edition"]
+    return {
+        "id": _card_id(item["id"], question),
+        "generated_at": _now(),
+        "stream": "local",
+        "topic": item["topic"],
+        "indicator": item["id"],
+        "headline": proposal.get("headline"),
+        "question": question,
+        "answer_text": answer,
+        "answer_values": av,
+        "chart_kind": "rank_strip",
+        "chart": spec,
+        "citations": [f"https://data.ct.gov/d/{item['socrata_id']}"],
+        "query": result["query"],
+        "towns": result.get("all"),
+        "cache": False,
+    }

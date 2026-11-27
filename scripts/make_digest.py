@@ -53,10 +53,15 @@ def main() -> None:
         + "</tr>"
         for t in board["tiles"])
 
-    # A Connecticut digest should lead with Connecticut receipts; cards still
-    # running on demo triggers sink to the bottom and say so in the draft.
-    cards = sorted(cards, key=lambda c: "fixture" in
-                   str((c.get("headline") or {}).get("source", "")).lower())
+    # Keep Connecticut-specific cards ahead of US macro context in the digest.
+    def _rank_key(c):
+        src = str((c.get("headline") or {}).get("source", "")).lower()
+        is_demo = "fixture" in src
+        is_ct = (c.get("stream") in ("local", "stackup")
+                 or c.get("indicator") in ("weather_anomaly", "ct_unemployment", "northeast_electricity"))
+        return (1 if is_demo else 0, 0 if is_ct else 1)
+
+    cards = sorted(cards, key=_rank_key)
     def demo_tag(c):
         src = str((c.get("headline") or {}).get("source", "")).lower()
         return ('' if "fixture" not in src else
@@ -72,7 +77,7 @@ def main() -> None:
         f'<p style="font:13px/1.4 -apple-system,Segoe UI,Roboto,sans-serif;'
         f'color:#7d91a5;margin:0"><a href="{SITE}/story/{c["id"]}" '
         f'style="color:#f2a65a;text-decoration:none">the chart and the query →</a></p>'
-        for c in cards[:3])
+        for c in cards[:4])
 
     doc = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <title>CT Signal digest {issue}</title></head>
@@ -84,7 +89,7 @@ style="width:100%;border-radius:8px;display:block;margin:0 0 16px">
 <p style="font:700 12px/1 -apple-system,Segoe UI,Roboto,sans-serif;letter-spacing:.14em;
 text-transform:uppercase;color:#f2a65a;margin:0">CT ⚡ SIGNAL · weekly board digest</p>
 <p style="font:13px/1.4 -apple-system,Segoe UI,Roboto,sans-serif;color:#7d91a5;margin:6px 0 0">
-Issue {issue} · know where you live — every figure from a named public dataset</p>
+Issue {issue} · <a href="{SITE}/week/{issue}" style="color:#7fb4ff;text-decoration:none">Read on the web →</a> · <a href="{SITE}/compare" style="color:#7fb4ff;text-decoration:none">Compare CT towns →</a></p>
 <h1 style="font:700 21px/1.3 Georgia,serif;color:#e9eef4;margin:14px 0 10px">
 {E(subject)}</h1>
 <table role="presentation" width="100%" cellspacing="0" style="border-collapse:collapse;
@@ -93,6 +98,8 @@ background:#151d27;border-radius:8px">{rows}</table>
 <hr style="border:0;border-top:1px solid #24394e;margin:22px 0 12px">
 <p style="font:12px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;color:#7d91a5;margin:0">
 CT Signal · <a href="{SITE}" style="color:#7fb4ff;text-decoration:none">{SITE}</a>
+· <a href="{SITE}/week" style="color:#7fb4ff;text-decoration:none">Weekly archive</a>
+· <a href="{SITE}/partner" style="color:#7fb4ff;text-decoration:none">Underwrite this digest</a>
 · RSS: <a href="{SITE}/feed.xml" style="color:#7fb4ff;text-decoration:none">feed.xml</a><br>
 Every dataset cited, with the literal query, on each story page. Corrections are public.<br>
 You get this because you subscribed to the board digest — no trackers in this email.</p>
@@ -102,6 +109,23 @@ You get this because you subscribed to the board digest — no trackers in this 
     out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / f"{issue}.html"
     path.write_text(doc)
+    meta = {
+        "issue": issue,
+        "subject": subject,
+        "generated_at": max(c["generated_at"] for c in cards),
+        "tiles": [
+            {"title": t["title"], "value": t["value"],
+             "rank_label": t.get("rank_label", ""), "n": t["n"], "date": t["date"]}
+            for t in board.get("tiles", [])
+        ],
+        "stories": [
+            {"id": c["id"], "topic": c.get("topic", ""), "stream": c.get("stream", ""),
+             "question": c["question"], "answer_text": c["answer_text"],
+             "date": str((c.get("answer_values") or {}).get("date") or "")}
+            for c in cards[:6]
+        ],
+    }
+    (out_dir / f"{issue}.json").write_text(json.dumps(meta, indent=2))
     # sidecars the send workflow reads: subject line and the newest-issue pointer
     (out_dir / "subject.txt").write_text(subject)
     (out_dir / "latest.txt").write_text(f"{issue}.html")

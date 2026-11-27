@@ -141,16 +141,48 @@ local:
       statewide across {n} towns."
     validated: "row-verified 2026-10-05; weighted state figure documented in adapter"
 
-  - id: municipal_fiscal
-    # Parked: the dataset is verified, the card is not. xgef-f6jp is a
-    # long-format metric/value table with mixed report editions (a "2026"
-    # row belongs to the 2019-2023 edition), so growth needs edition+metric
-    # filters before a year-over-year answer is honest. The proposer skips
-    # entries with no question/answer templates (questions._answerable).
+  - id: housing_permits
+    topic: housing
+    socrata_id: stm9-38x4
+    answerer: housing_permits
+    unit: units
+    columns:
+      socrata_id: stm9-38x4
+    question: Which Connecticut towns permitted the most new housing?
+    chart_label: New housing units permitted
+    keywords: [housing permits, building permits, new housing, zoning, housing supply, multifamily, new homes]
+    answer: "{top_town} permitted {value} new housing units in {latest_year}, leading {n} Connecticut towns ({state} units permitted statewide)."
+    validated: "row-verified 2026-11-27 (169 towns, 2025 vintage, 9,834 units statewide)"
+
+  - id: home_sales_price
+    topic: housing
+    socrata_id: 5mzw-sjtu
+    answerer: home_sales
+    unit: USD
+    prefix: "$"
+    columns:
+      socrata_id: 5mzw-sjtu
+      min_sales: 10
+    question: Where do Connecticut single-family homes sell for the most?
+    chart_label: Median single-family sale price
+    keywords: [home sales, real estate, house prices, closing price, housing market, single-family, homebuyers]
+    answer: "Single-family homes in {top_town} sold for a median of ${value} in {latest_year}, the highest of {n} towns with 10 or more sales (statewide median: ${state})."
+    validated: "row-verified 2026-11-27 (29,507 single-family sales, 150 towns >=10 sales, 2024 list year)"
+
+  - id: school_spending_per_pupil
     topic: local-finance
     socrata_id: xgef-f6jp
-    keywords: [municipal finance, town budget]
-    validated: "dataset row-verified 2026-09-30; no card template yet"
+    answerer: fiscal_metric
+    unit: USD
+    prefix: "$"
+    columns:
+      socrata_id: xgef-f6jp
+      metric: "Net current education expenditures per pupil (CSDE)"
+    question: Which Connecticut towns spend the most per public school student?
+    chart_label: Education spending per pupil
+    keywords: [school budget, per pupil, education spending, board of education, school funding, public schools]
+    answer: "{top_town} spent ${value} per public school student in {latest_year}, the highest of {n} Connecticut towns (statewide median: ${state})."
+    validated: "row-verified 2026-11-27 (169 towns, Report Edition 2019-2023, FY2023)"
 
 # The national weather Connecticut lives in. These series have no state
 # breakdown, so the cards say "US" in the answer instead of faking a
@@ -288,6 +320,23 @@ national:
     answer: "{value} of Connecticut's workforce was unemployed in {date} —
       {extreme} for a series that has run monthly since 1976."
     validated: "live series probe 2026-10-05 (first row 1976-01-01)"
+
+  - id: northeast_electricity
+    topic: economy
+    title: Northeast urban electricity price (per kWh)
+    agency: "US Bureau of Labor Statistics, Average Price Data"
+    geo: Northeast Urban
+    fred: {series: APU010072610}
+    unit: "USD/kWh"
+    prefix: "$"
+    precision: 3
+    extreme: max
+    keywords: [electricity, electric bill, eversource, united illuminating,
+               utility rates, power bill, kilowatt, pura, energy costs]
+    question: What are Northeast households paying for electricity?
+    answer: "Northeast urban electricity averaged ${value} per kWh in {date} —
+      {extreme} for this BLS series."
+    validated: "live series probe 2026-11-27 (577 monthly rows through 2026-10)"
 
 
 removed:

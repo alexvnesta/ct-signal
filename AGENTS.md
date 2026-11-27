@@ -28,7 +28,12 @@ towns.publish()
 '
 
 # Regenerate story OG covers and front-page card thumbnails (idempotent via assets/_art_manifest.json)
+# Note: requires Pillow (in CI via requirements.txt; locally via ~/.dsh/dsh-runtimes/dsh-primary-runtime/dependencies/python/bin/python3 if .venv lacks PIL)
 .venv/bin/python scripts/make_story_covers.py
+
+# Render weekly email digest + JSON sidecar and weekly multi-channel social draft
+.venv/bin/python scripts/make_digest.py
+.venv/bin/python scripts/weekly_social_draft.py
 
 # Run one live pipeline cycle (fetches feeds + APIs)
 .venv/bin/python run.py --once
@@ -36,6 +41,8 @@ towns.publish()
 # Local static preview for visual QA
 .venv/bin/python -m http.server 8765
 ```
+
+For the prioritized autonomous agent queue, weekly maintenance loop, and community distribution guardrails (no Facebook/Nextdoor scraping or bot posting), see `docs/BACKLOG.md`.
 
 ---
 
@@ -45,13 +52,14 @@ towns.publish()
 |---|---|
 | `src/ctsignal/theme.py` | `assets/site.css` (auto-hashed via `CSS_HASH`), masthead/nav (`header()`), footer, JSON-LD, `viz()` chart island + `VEGA_LOAD`. **Never hand-edit `assets/site.css`.** |
 | `src/ctsignal/publish.py` | `output/index.html` → `index.html`, `output/board.json` → `board.json` (front page + wire + Connecticut Board). |
-| `src/ctsignal/newsroom.py` | `story/<id>/index.html`, `story/<id>/embed/index.html`, `indicator/<id>/{index.html,observations.csv}`, `indicators/index.html`, `topic/<desk>/index.html`, `town/<slug>/{index.html,feed.xml}`, `archive/index.html`, `feed.xml`, `feed.json`, `sitemap.xml`. |
-| `src/ctsignal/towns.py` | `towns.html`, `towns.csv`, ACS table fragment `table_for()` embedded into town pages. |
-| `src/ctsignal/pages.py` | `about.html`, `masthead.html`, `corrections.html`, `privacy.html`, `sources.html`, `404.html`. |
+| `src/ctsignal/newsroom.py` | `story/<id>/index.html`, `story/<id>/embed/index.html`, `indicator/<id>/{index.html,observations.csv}`, `indicators/index.html`, `topic/<desk>/index.html`, `town/<slug>/{index.html,feed.xml}` (incl. Property Tax Estimator + Copy Summary bar), `week/{index.html,<YYYY-WNN>/index.html}`, `archive/index.html`, `feed.xml`, `feed.json`, `sitemap.xml`. |
+| `src/ctsignal/towns.py` | `towns.html`, `towns.csv`, `compare.html` (side-by-side 2–3 town comparator), ACS table fragment `table_for()` embedded into town pages. |
+| `src/ctsignal/pages.py` | `about.html`, `partner.html`, `masthead.html`, `corrections.html`, `privacy.html`, `sources.html`, `404.html`. |
 | `src/ctsignal/charts.py` | Altair / Vega-Lite v6 chart specs (`rank_strip`, `shape_strip`, `state_map`, `trend`). |
 | `src/ctsignal/share.py` | Dark 2× share PNGs (`assets/share-<id>.png`) and paper-palette SSR SVGs (`assets/chart-<id>.svg`) via `vl-convert`. |
 | `scripts/make_story_covers.py` | 1200×630 social covers (`assets/story-<id>.png`) and 480×192 front-page card thumbnails (`assets/story-<id>-thumb.png`). |
-| `catalog/indicators.yaml` + `catalog/context.yaml` | Closed indicator catalog, answer templates, evergreen "Why it matters" & desk explainers. |
+| `scripts/select_bsky_posts.py` + `scripts/weekly_social_draft.py` | Bluesky material-change weather gate + cross-desk rotation, and weekly human-approval drafts (`output/weekly-draft.md`). |
+| `catalog/indicators.yaml` + `catalog/context.yaml` | Closed indicator catalog (incl. `housing_permits`, `home_sales_price`, `school_spending_per_pupil`, `northeast_electricity`), answer templates, evergreen "Why it matters" & desk explainers. |
 
 ---
 

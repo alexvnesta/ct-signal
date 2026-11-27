@@ -155,6 +155,15 @@ def _answer_local(proposal: dict, item: dict | None, demo: bool) -> dict | None:
         cfg = {**cfg, "fiscal_year": max(dt.date.today().year, cfg["fiscal_year"])}
         result = socrata.mill_rates(cfg)
         build = cards.from_mill_rates
+    elif answerer == "housing_permits":
+        result = socrata.housing_permits(cfg)
+        build = cards.from_local_rank
+    elif answerer == "home_sales":
+        result = socrata.home_sales(cfg)
+        build = cards.from_local_rank
+    elif answerer == "fiscal_metric":
+        result = socrata.fiscal_metric(cfg)
+        build = cards.from_local_rank
     else:
         fixture = None
         fx_path = config.FIXTURES_DIR / "grand_list.json"
