@@ -310,7 +310,10 @@ A story passes when:
   (`/about`), ownership (`/masthead`) and privacy (`/privacy`).
 - Live byte-check after Vercel deploy: title, H1, canonical, JSON-LD, OG.
 - Regenerate story covers only after template changes settle; then rerun
-  `publish.publish` so cache tokens match.
+  `publish.publish` so cache tokens match. When refreshing archived story
+  pages, do not call `share.export` on archived cards: every vintage writes
+  the same `assets/share-<id>.png`, so an older chart would replace the
+  current one.
 
 ## 10. Non-goals
 
