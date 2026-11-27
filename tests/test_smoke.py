@@ -176,6 +176,7 @@ class TestSprintSurfaces(unittest.TestCase):
         archive = (config.ARCHIVE_DIR / "index.html").read_text()
         self.assertIn("Every story", archive)
         self.assertIn('"@type":"CollectionPage"', archive)
+        self.assertIn('"@type":"ItemList"', archive)
         self.assertIn("webp-fgt3",
                       (config.ROOT / "sources.html").read_text())
 
@@ -303,6 +304,7 @@ class TestIndicatorFiles(unittest.TestCase):
         self.assertIn('<h2 class="label">Indicator files</h2>', body)
         self.assertGreaterEqual(body.count('class="filelist"'), 1)
         self.assertIn('"@type":"CollectionPage"', body)
+        self.assertIn('"@type":"ItemList"', body)
 
     def test_every_desk_has_an_evergreen_intro(self):
         topics = sorted({c["topic"] for c in self.cards})

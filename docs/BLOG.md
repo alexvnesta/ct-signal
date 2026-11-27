@@ -300,8 +300,10 @@ A story passes when:
 - Story, topic, archive and indicator pages carry a `BreadcrumbList` in the
   same `@graph` as their primary entity, matching the visible trail. Static
   pages that carry no richer schema get a plain `WebPage` node, so no page is
-  an untyped document. Town files add a `Place` node and a Towns breadcrumb,
-  so a town page names the place it describes rather than only its URL.
+  an untyped document. Archive and topic pages type their visible list as an
+  `ItemList` under the `CollectionPage`, in the same order the page shows.
+  Town files add a `Place` node and a Towns breadcrumb, so a town page names
+  the place it describes rather than only its URL.
 - `/privacy` states the actual collection surface: no accounts, no cookies,
   no pageview tracking; Speed Insights measures CWV without cookies; the
   digest list lives in Buttondown and is never sold.

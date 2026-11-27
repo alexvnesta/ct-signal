@@ -1244,6 +1244,17 @@ def _archive_blocks(cards: list[dict]) -> str:
     return "".join(blocks)
 
 
+def _item_list_json_ld(cards: list[dict]) -> dict:
+    """The visible list, typed: search engines get the same order the page
+    shows, with each finding as its own ListItem."""
+    return {"@type": "ItemList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": i,
+                 "url": f"{config.SITE_URL}/story/{c['id']}",
+                 "name": _finding(c)}
+                for i, c in enumerate(cards, start=1)]}
+
+
 def topic_html(topic: str, cards: list[dict],
                topics: list[str] | None = None,
                current: dict[str, dict] | None = None) -> str:
@@ -1271,6 +1282,7 @@ it.</p>
          "name": f"{_desk_label(topic)} stories — CT Signal",
          "description": f"All CT Signal findings on {_desk_label(topic)}: "
                         "charts, rankings, and the query behind every number.",
+         "mainEntity": _item_list_json_ld(cards),
          "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
          "inLanguage": "en-US"},
         theme.breadcrumb_json_ld([
@@ -1868,6 +1880,7 @@ JSON lives in the repository; this page is the readable index.</p>
          "name": "Every story CT Signal has published",
          "description": "Every story CT Signal has published, with its finding, "
                         "desk and data vintage kept forever.",
+         "mainEntity": _item_list_json_ld(history),
          "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
          "inLanguage": "en-US"},
         theme.breadcrumb_json_ld([
