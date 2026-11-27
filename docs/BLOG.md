@@ -30,8 +30,8 @@ Four content types, each with a different job:
 
 Signal stories are the base layer. They need a durable article URL, a finding
 headline, and enough context to stand alone. Explainers are the reference
-layer and should eventually live on stable per-indicator pages. The weekly
-brief is distribution, not a substitute for either.
+layer and now live on stable per-indicator pages. The weekly brief is
+distribution, not a substitute for either.
 
 ## 2. Story page anatomy
 

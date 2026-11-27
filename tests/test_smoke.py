@@ -145,8 +145,9 @@ class TestSprintSurfaces(unittest.TestCase):
         self.assertIn("of 169", body)
 
     def test_archive_and_sources_pages_exist(self):
-        self.assertIn("Every story",
-                      (config.ARCHIVE_DIR / "index.html").read_text())
+        archive = (config.ARCHIVE_DIR / "index.html").read_text()
+        self.assertIn("Every story", archive)
+        self.assertIn('"@type":"CollectionPage"', archive)
         self.assertIn("webp-fgt3",
                       (config.ROOT / "sources.html").read_text())
 

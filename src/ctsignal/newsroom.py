@@ -1725,7 +1725,17 @@ JSON lives in the repository; this page is the readable index.</p>
 </header>
 {_archive_blocks(history)}
 </article>"""
+    url = f"{config.SITE_URL}/archive"
+    ld = {
+        "@context": "https://schema.org", "@type": "CollectionPage",
+        "@id": f"{url}#webpage", "url": url,
+        "name": "Every story CT Signal has published",
+        "description": "Every story CT Signal has published, with its finding, "
+                       "desk and data vintage kept forever.",
+        "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
+        "inLanguage": "en-US",
+    }
     return theme.page(title="Stories · CT Signal",
                       desc="Every story CT Signal has published, with its "
                            "finding, desk and data vintage kept forever.",
-                      path="/archive", body=body, compact=True)
+                      path="/archive", body=body, compact=True, json_ld=ld)
