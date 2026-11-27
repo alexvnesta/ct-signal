@@ -616,7 +616,8 @@ def site_json_ld() -> dict:
          "correctionsPolicy": f"{config.SITE_URL}/corrections",
          "ethicsPolicy": f"{config.SITE_URL}/about",
          "actionableFeedbackPolicy": f"{config.SITE_URL}/about",
-         "ownershipFundingInfo": f"{config.SITE_URL}/masthead"},
+         "ownershipFundingInfo": f"{config.SITE_URL}/masthead",
+         "privacyPolicy": f"{config.SITE_URL}/privacy"},
     ]}
 
 

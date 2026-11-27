@@ -130,6 +130,8 @@ class TestRender(unittest.TestCase):
                          f"{config.SITE_URL}/corrections")
         self.assertEqual(org["ownershipFundingInfo"],
                          f"{config.SITE_URL}/masthead")
+        self.assertEqual(org["privacyPolicy"],
+                         f"{config.SITE_URL}/privacy")
 
     def test_head_escapes_and_has_no_tag_mismatch(self):
         html = publish.home_html([], {}) if hasattr(publish, "home_html") else ""

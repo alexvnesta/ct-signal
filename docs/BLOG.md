@@ -291,7 +291,7 @@ A story passes when:
   digest list lives in Buttondown and is never sold.
 - Organization schema names the public policies it actually publishes:
   publishing principles (`/about`), corrections (`/corrections`), feedback
-  (`/about`) and ownership (`/masthead`).
+  (`/about`), ownership (`/masthead`) and privacy (`/privacy`).
 - Live byte-check after Vercel deploy: title, H1, canonical, JSON-LD, OG.
 - Regenerate story covers only after template changes settle; then rerun
   `publish.publish` so cache tokens match.
