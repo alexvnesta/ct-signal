@@ -252,7 +252,8 @@ A story passes when:
 
 ### Phase 4 — measurement and distribution
 
-- Privacy-respecting page analytics and Search Console verification.
+- Privacy-respecting analytics: Search Console is verified and Vercel Speed
+  Insights records Core Web Vitals on production. Pageview counts remain open.
 - Track article entry paths, not just homepage visits.
 - Digest cadence and Bluesky posts measured against story clicks.
 - Reddit/Nextdoor pilot only after the article pages can hold their own.
@@ -278,6 +279,9 @@ A story passes when:
 - Newsletter: external subscriber delivery proven 2026-11-27
   (`deliveries 0 -> 1`, digest run `45939892321`); the newest W48 draft is
   the one Monday's scheduled send will use.
+- Speed Insights loads only on `ctsignal.org`; local previews skip the 404
+  endpoint. It records Core Web Vitals, sets no cookies, and does not count
+  page views.
 - Organization schema names the public policies it actually publishes:
   publishing principles (`/about`), corrections (`/corrections`), feedback
   (`/about`) and ownership (`/masthead`).

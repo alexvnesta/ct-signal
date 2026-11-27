@@ -690,6 +690,18 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website",
 {ld}"""
 
 
+# Vercel Speed Insights is enabled on the project. Load it only on the
+# production host so local previews do not request a 404 endpoint; it records
+# Core Web Vitals, not page views, and sets no cookies.
+SPEED_INSIGHTS = r"""<script>
+if(/(^|\.)ctsignal\.org$/.test(location.hostname)){
+  var s=document.createElement("script");
+  s.src="/_vercel/speed-insights/script.js";s.defer=true;
+  document.head.appendChild(s);
+}
+</script>"""
+
+
 def page(*, title: str, desc: str, path: str, body: str,
          compact: bool = False, **kw) -> str:
     h = head(title=title, desc=desc, path=path, **kw)
@@ -698,7 +710,7 @@ def page(*, title: str, desc: str, path: str, body: str,
     vega = VEGA_LOAD if 'class="vs"' in body else ""
     return (f'<!doctype html>\n<html lang="en"><head>\n{h}\n</head>\n<body>\n'
             f'{header(compact=compact)}\n<main id="main">\n{body}\n</main>\n'
-            f'{footer()}\n{vega}\n</body></html>\n')
+            f'{footer()}\n{vega}\n{SPEED_INSIGHTS}\n</body></html>\n')
 
 
 # Inline JSON spec islands + one loader keep charts dependency-light and work
