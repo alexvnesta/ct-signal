@@ -3,7 +3,11 @@
 Decisions locked 2026-10-02: fully automated publishing (transparency is the
 editorial stance), domain **ctsignal.org** (Porkbun/Cloudflare), social on all
 four platforms in order Bluesky → X → LinkedIn (weekly) → Instagram,
-newsletter: **EmailOctopus for sending + a Substack column for reach**.
+newsletter: **Buttondown for sending** (the Substack column was dropped).
+
+**Status (2026-11-27):** Phase 1 and the share-image/Bluesky parts of Phase 2
+are live. Phase 3 is partly shipped: 169 town files, 18 indicator files, six
+desk explainers and the Buttondown digest. Phase 4 remains institutional work.
 
 ## The ladder
 
@@ -14,7 +18,7 @@ newsletter: **EmailOctopus for sending + a Substack column for reach**.
 - Archive: every card ever, as JSON, at `/archive/<YYYY-MM>/<id>.json` —
   corrections are diffable because the archive is git.
 - RSS (`/feed.xml`) + `sitemap.xml` + newsroom pages: `/about`,
-  `/methodology`, `/masthead`, `/corrections` — the trust furniture a
+  `/sources`, `/masthead`, `/corrections`, `/privacy` — the trust furniture a
   generated newsroom should advertise, not apologize for.
 - GitHub Actions `pulse` workflow replaces the laptop loop: 15-min cron,
   `python run.py --once` → `deploy.sh --deploy`. The commit is still the
@@ -27,18 +31,23 @@ newsletter: **EmailOctopus for sending + a Substack column for reach**.
   → X → weekly LinkedIn digest post. OG tags from Phase 1 make even manual
   shares look produced.
 - Accounts: @ctsignal everywhere available; one branded avatar; bio = the
-  methodology one-liner + link.
+  methodology one-liner + link. Bluesky is live; X, LinkedIn and Instagram
+  remain manual.
 
 **Phase 3 — Newsroom muscle**
-- SOTUS election ingest (the vertical local news must notice).
-- Town pages from the archive (169 grand-list pages = SEO long tail, free).
-- Newsletter sending: EmailOctopus (SES, free ≤2,500 contacts) via API —
-  the digest HTML is already generated; Substack column for human voice.
-- Topic sections + "for teachers" view (the challenge judges' audience).
+- SOTUS election ingest (the vertical local news must notice) — not shipped.
+- Town pages from the archive (169 grand-list pages = SEO long tail, free) —
+  shipped, with a computed town narrative and cross-links.
+- Newsletter sending: Buttondown via API — shipped; the digest HTML is
+  generated from the week's board and filed Sunday, sent Monday.
+- Topic sections + "for teachers" view (the challenge judges' audience) —
+  six topic desks and 18 indicator files shipped; the teacher view is not.
 
 **Phase 4 — Institution**
-- CTData white-label digest (their logo, our pipeline — slide 5, executed).
-- Reprints with CT Mirror / ConnectCT orbit; fiscal sponsorship when grants appear.
+- CTData white-label digest (their logo, our pipeline — slide 5, executed) —
+  not shipped.
+- Reprints with CT Mirror / ConnectCT orbit; fiscal sponsorship when grants
+  appear — not shipped.
 
 ## Ops runbook (Phase 1, one-time)
 1. **Repo secrets**: Settings → Secrets and variables → Actions →
