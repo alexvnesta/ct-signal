@@ -264,6 +264,7 @@ class TestIndicatorFiles(unittest.TestCase):
         self.assertIn('href="/indicator/median_rent"', body)
         self.assertIn('<h2 class="label">Indicator files</h2>', body)
         self.assertGreaterEqual(body.count('class="filelist"'), 1)
+        self.assertIn('"@type":"CollectionPage"', body)
 
     def test_every_indicator_has_a_stable_page_and_sitemap_entry(self):
         sitemap = (config.ROOT / "sitemap.xml").read_text()

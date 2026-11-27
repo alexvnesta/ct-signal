@@ -1224,12 +1224,22 @@ it.</p>
 {_archive_blocks(cards)}
 {_topic_files_html(topic, current)}
 </article>"""
+    url = f"{config.SITE_URL}/topic/{topic}"
+    ld = {
+        "@context": "https://schema.org", "@type": "CollectionPage",
+        "@id": f"{url}#webpage", "url": url,
+        "name": f"{_desk_label(topic)} stories — CT Signal",
+        "description": f"All CT Signal findings on {_desk_label(topic)}: "
+                       "charts, rankings, and the query behind every number.",
+        "isPartOf": {"@type": "WebSite", "@id": f"{config.SITE_URL}/#website"},
+        "inLanguage": "en-US",
+    }
     return theme.page(
         title=f"{_desk_label(topic)} stories · CT Signal",
         desc=f"All CT Signal findings on {_desk_label(topic)}: charts, "
              "rankings, and the query behind every number.",
         path=f"/topic/{topic}", body=body, compact=True,
-        og_title=f"{_desk_label(topic)} — CT Signal")
+        og_title=f"{_desk_label(topic)} — CT Signal", json_ld=ld)
 
 
 
