@@ -723,6 +723,19 @@ if(/(^|\.)ctsignal\.org$/.test(location.hostname)){
 
 def page(*, title: str, desc: str, path: str, body: str,
          compact: bool = False, **kw) -> str:
+    # Every page names its primary entity. Pages that carry a richer schema
+    # (article, collection, indicator file) pass it in; the rest get a plain
+    # WebPage node so search engines never see an untyped document.
+    if kw.get("json_ld") is None:
+        url = f"{config.SITE_URL}{path}"
+        kw["json_ld"] = {
+            "@context": "https://schema.org", "@type": "WebPage",
+            "@id": f"{url}#webpage", "url": url,
+            "name": title, "description": desc,
+            "isPartOf": {"@type": "WebSite",
+                         "@id": f"{config.SITE_URL}/#website"},
+            "inLanguage": "en-US",
+        }
     h = head(title=title, desc=desc, path=path, **kw)
     # The vendored Vega stack is ~280 KB compressed: it loads only on pages
     # that actually contain a chart island (class="vs"), not on prose.

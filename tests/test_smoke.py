@@ -154,6 +154,11 @@ class TestSprintSurfaces(unittest.TestCase):
         self.assertIn("Bridgeport", body)
         self.assertIn("of 169", body)
 
+    def test_static_pages_name_their_primary_entity(self):
+        for name in ("towns.html", "about.html", "sources.html"):
+            body = (config.ROOT / name).read_text()
+            self.assertIn('"@type":"WebPage"', body, name)
+
     def test_archive_and_sources_pages_exist(self):
         archive = (config.ARCHIVE_DIR / "index.html").read_text()
         self.assertIn("Every story", archive)
