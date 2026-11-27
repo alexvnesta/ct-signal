@@ -88,9 +88,8 @@ tested PR per week** for ~2 minutes of human review.
 
 ### P3 — Monetization & Partnership Milestones (Human-Led)
 
-- [ ] **Flip Vercel Web Analytics toggle ON in Vercel Dashboard**
-  - Code (`/_vercel/insights/script.js`) and `/privacy` disclosure are already
-    shipped; enabling the toggle activates cookieless path/referrer counts.
+- [x] **Flip Vercel Web Analytics toggle ON in Vercel Dashboard** (enabled 2026-11-27 on free Hobby tier; triggers fresh edge mount of `/_vercel/insights/script.js`)
+  - Code (`/_vercel/insights/script.js`) and `/privacy` disclosure are live; aggregate cookieless path/referrer counts are active.
 - [ ] **60-day baseline review (Search Console + Vercel Analytics + Buttondown)**
   - Identify top 20 landing `/town/*` and `/compare` queries and subscriber count.
 - [ ] **Outreach wave 1 (once >= 500–1,000 CT digest subscribers or steady `/town/*` search traffic)**
