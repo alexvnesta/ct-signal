@@ -45,7 +45,63 @@ def _export_spec(spec: dict) -> dict:
     view = dict(cfg.get("view") or {})
     view["strokeWidth"] = 0
     cfg["view"] = view
+    # Repaint dark paper-ink direct labels inside layered charts (e.g. top-N
+    # bar-end labels) so they remain readable on the dark share canvas.
+    for layer in copy.get("layer") or []:
+        mark = layer.get("mark")
+        mtype = mark.get("type") if isinstance(mark, dict) else mark
+        if mtype == "text":
+            col = (layer.get("encoding") or {}).get("color") or {}
+            scale = col.get("scale") or {}
+            rng = scale.get("range")
+            if isinstance(rng, list):
+                scale["range"] = [
+                    SHARE_INK if c == "#1c2733" else
+                    SHARE_DIM if c == "#4c5a68" else c
+                    for c in rng
+                ]
     return copy
+
+
+def _paper_svg_spec(spec: dict) -> dict:
+    """Static paper-palette spec for instant zero-JS first paint.
+    Uses a fixed viewport width so vl-convert produces a clean viewBox SVG
+    that scales fluidly before Vega-Embed hydrates interactivity."""
+    copy = json.loads(json.dumps(spec))
+    copy["width"] = 580
+    copy["background"] = "transparent"
+    copy.pop("autosize", None)
+    return copy
+
+
+def export_svg(card: dict, assets_dir: pathlib.Path) -> pathlib.Path | None:
+    """Write assets/chart-<id>.svg (paper palette) for zero-flash SSR chart
+    paint on mobile and desktop before Vega-Embed loads."""
+    spec = card.get("chart")
+    if not spec:
+        return None
+    payload = json.dumps(_paper_svg_spec(spec), sort_keys=True)
+    digest = hashlib.sha1(payload.encode()).hexdigest()
+    out = assets_dir / f"chart-{card['id']}.svg"
+    stamp = assets_dir / f"chart-{card['id']}.svg.ver"
+    if out.exists() and stamp.exists():
+        try:
+            if stamp.read_text().strip() == digest:
+                return out
+        except OSError:
+            pass
+    try:
+        import vl_convert
+        svg = vl_convert.vegalite_to_svg(payload)
+        if not svg:
+            return None
+    except Exception:
+        return None
+    tmp = out.with_name(out.name + ".tmp")
+    tmp.write_text(svg, encoding="utf-8")
+    os.replace(tmp, out)
+    stamp.write_text(digest)
+    return out
 
 
 def export(card: dict, assets_dir: pathlib.Path) -> pathlib.Path | None:

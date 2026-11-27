@@ -57,6 +57,28 @@ def _kicker(card: dict, when: str) -> str:
             f'{cache} · {when}')
 
 
+def _front_town_box() -> str:
+    """Compact town jump widget under the lead card: gives readers an
+    immediate local door right on the front page and balances column height."""
+    from . import towns as _tw
+    snap = _tw.snapshot()
+    if not snap or not snap.get("towns"):
+        return ""
+    opts = "".join(
+        f'<option value="{_ESC(t["slug"])}">{_ESC(t["name"])}</option>'
+        for t in sorted(snap["towns"], key=lambda r: r["name"])
+    )
+    return f"""<aside class="front-town" aria-label="Look up your Connecticut town">
+<div class="front-town-h">Know where you live</div>
+<p>Jump straight to any of Connecticut\u2019s {len(snap["towns"])} town files — mill rate,
+median income, rent, home value, and poverty rate.</p>
+<form class="front-town-form" onsubmit="var s=document.getElementById('ft-sel').value;if(s)location.href='/town/'+s;return false;">
+<label class="sr-only" for="ft-sel">Choose a Connecticut town</label>
+<select id="ft-sel">{opts}</select>
+<button type="submit">Open town file \u2192</button>
+</form></aside>"""
+
+
 def home_html(cards: list[dict], board: dict) -> str:
     # Freshness is measured against the publish moment, never against the
     # lead's own stamp (an unreplaced lead must not claim 'just now' later).
@@ -87,31 +109,37 @@ def home_html(cards: list[dict], board: dict) -> str:
     if cards:
         from . import newsroom
         c = cards[0]
-        lead_kick = ("Today's lead" if _ct_trigger(c)
+        lead_head = ("Today\u2019s lead" if _ct_trigger(c)
                      else "From the data desk")
         heroviz = ""
         if c.get("chart"):
-            vdesc, vlabel = newsroom.chart_intro(c)
-            heroviz = theme.viz(newsroom._spec_json(c["chart"]), "heroviz",
-                                label=vlabel, caption=vdesc)
+            vdesc, vlabel = newsroom.chart_intro(c, on_home=True)
+            heroviz = theme.viz(
+                newsroom._spec_json(c["chart"]), "heroviz",
+                label=vlabel, caption=vdesc,
+                preview_src=newsroom._chart_svg_src(c))
         # A story published today can legitimately rest on an older print
         # (FBI crime is annual) — the kicker says which, so "today" never
         # quietly borrows freshness the dataset does not have.
         _m = re.search(r"\d{4}", str((c.get("answer_values") or {})
                                      .get("date", "")))
-        # "latest print" claimed knowledge of the source’s release
-        # inventory; the kicker states only the vintage answered.
         _vint = (f" · data through {_m.group()}"
                  if _m and int(_m.group()) < dt.datetime.now().year else "")
-        lead = f"""<article class="lead">
-<span class="kicker">{lead_kick} · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk{_vint}</span>
-<h2><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h2>
-<p class="lede">{_ESC(newsroom._display_prose(c["answer_text"]))}</p>
+        finding = newsroom._finding(c)
+        lede_txt = newsroom._story_lede(c)
+        lead = f"""<div class="lead-col">
+<h2 class="lead-head">{lead_head}</h2>
+<article class="lead">
+<span class="kicker">{_ESC(c["topic"])} · {_ESC(c["stream"])} desk{_vint}</span>
+<h2><a href="/story/{c["id"]}">{_ESC(finding)}</a></h2>
+<p class="lead-q">{_ESC(c["question"])}</p>
+<p class="lede">{_ESC(lede_txt)}</p>
 {heroviz}
 <div class="meta">{_trigger_line(c)}<span class="when">
 {ago(c["generated_at"], now)}</span>
 <a class="more" href="/story/{c["id"]}">Read the full story — with the chart
-and the exact query →</a></div></article>"""
+and the exact query \u2192</a></div></article>
+{_front_town_box()}</div>"""
 
         # One jobs release must not become five of nine visible cards:
         # max two cards per triggering headline, max three per topic.
@@ -121,14 +149,14 @@ and the exact query →</a></div></article>"""
         topic = {cards[0]["topic"]: 1}
         sel = []
         for c in cards[1:]:
-            if len(sel) >= 9:
+            if len(sel) >= 8:
                 break
             if trig.get(_trig(c), 0) >= 2 or topic.get(c["topic"], 0) >= 3:
                 continue
             trig[_trig(c)] = trig.get(_trig(c), 0) + 1
             topic[c["topic"]] = topic.get(c["topic"], 0) + 1
             sel.append(c)
-        for c in sel[:4]:
+        for c in sel[:3]:
             fig = ""
             tpath = newsroom._thumb_path(c)
             if tpath:
@@ -142,14 +170,16 @@ and the exact query →</a></div></article>"""
                     if _cards.is_demo_trigger(c) else "")
             sec2 += f"""<div class="item">{fig}<div class="item-body">
 <span class="kicker">{_ESC(c["topic"])}{demo}</span>
-<h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
+<h3><a href="/story/{c["id"]}">{_ESC(newsroom._finding(c))}</a></h3>
+<p class="item-q">{_ESC(c["question"])}</p>
 <div class="meta">{ago(c["generated_at"], now)}</div>
 </div></div>"""
 
-        for c in sel[4:9]:
+        for c in sel[3:8]:
             rail += f"""<div class="item"><div class="item-body">
 <span class="kicker">{_ESC(c["topic"])} · {_ESC(c["stream"])}{' · <span class="badge">DEMO TRIGGER</span>' if _cards.is_demo_trigger(c) else ""}</span>
-<h3><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h3>
+<h3><a href="/story/{c["id"]}">{_ESC(newsroom._finding(c))}</a></h3>
+<p class="item-q">{_ESC(c["question"])}</p>
 <div class="meta">{ago(c["generated_at"], now)}</div>
 </div></div>"""
 
@@ -173,17 +203,14 @@ and the exact query →</a></div></article>"""
     chip = '<span class="badge trend">trending</span> ' if _votes >= 3 else ""
     del chip  # trend badge stays available to story pages this cycle
 
-    # The week's wire, mapped: which questions the news cycle itself pushed
-    # The wire block: yesterday-and-today's actual headlines from the
-    # tracked newsrooms, links going out to them. The desk publishes only
-    # what public data can answer — but it reads everything, and says so.
+    # The wire block: yesterday-and-today's vetted civic/CT headlines from
+    # tracked newsrooms, filtered to keep signal over blotter/sports noise.
     from . import questions as _q2
     by_ind = {c.get("indicator"): c["id"] for c in cards if c.get("indicator")}
     _cat = _q2.load_catalog()
     _ind_kw = {i["id"]: i.get("keywords") or []
                for sec in ("stackup", "local", "national")
                for i in _cat.get(sec, [])}
-    wire_items = ""
     wire_rows: list[tuple] = []
     seen_titles: set[str] = set()
     for e in _q2.recent_wire(hours=30, limit=30):
@@ -195,55 +222,52 @@ and the exact query →</a></div></article>"""
         if key in seen_titles:
             continue
         seen_titles.add(key)
-        # Don't stop at ten: a mapped headline further down the wire still
-        # earns the block; the display cap applies after mapped-first sort.
         age = ("new to the desk" if e.get("undated") else
                "just now" if e["age_h"] < 1 else
                f"{int(e['age_h'])}h ago" if e["age_h"] < 48 else
                f"{int(e['age_h'] // 24)}d ago")
-        # A "related data" badge is itself a receipt: the same bar that
-        # decides whether a headline may open a card decides whether the
-        # wire may advertise that card. The ledger's ingest-time hits are
-        # candidates, not proof — re-check them against today's keywords.
         ans = next((f' <a class="wireans" href="/story/{by_ind[i]}">'
                     f'related data</a>' for i in e.get("hits", [])
                     if i in by_ind
                     and _q2._strong_enough(_q2._keyword_hits(
                         e["title"], _ind_kw.get(i, [])))), "")
-        wire_items += (
-            f'<li><a href="{_ESC(e["url"])}" rel="noopener">'
-            f'{_ESC(e["title"])}</a>'
-            f'<span class="wiresrc"> &nbsp;{_ESC(e["src"])} · {age}'
-            f'</span>{ans}</li>')
+        if not _q2.wire_worthy(e, has_data=bool(ans)):
+            continue
         wire_rows.append((bool(ans), e.get("stream") == "ct", age, e["title"],
                           f'<li><a href="{_ESC(e["url"])}" rel="noopener">'
                           f'{_ESC(e["title"])}</a>'
-                          f'<span class="wiresrc"> &nbsp;{_ESC(e["src"])} · {age}'
+                          f'<span class="wiresrc">{_ESC(e["src"])} · {age}'
                           f'</span>{ans}</li>'))
     any_ans = any(r[0] for r in wire_rows)
     # The wire block earns its place by connecting news to our numbers.
     # An unmapped block is someone else's news ticker; suppressed whole.
     wire_items = ""
     if any_ans:
-        rows = sorted(wire_rows, key=lambda r: (not r[0],))
-        wire_items = "".join(r[4] for r in rows[:10])
+        rows = sorted(wire_rows, key=lambda r: (not r[0], not r[1]))[:8]
+        # Keep an even count for the 2-column grid when we have 4+ items.
+        if len(rows) >= 4 and len(rows) % 2 == 1:
+            rows = rows[:-1]
+        wire_items = "".join(r[4] for r in rows)
     wire_section = (f"""
 <section class="wireblock"><div class="wrap">
 <div class="sechead"><h2>On the wire</h2>
+<p class="sechelp">Connecticut civic headlines the desk is watching today.</p>
 </div>
 <ul class="wirelist">{wire_items}</ul>
 </div></section>""" if wire_items else "")
 
     latest = f"""<section class="latest" id="signals"><div class="wrap">
 <h1 class="vh">Today\u2019s Connecticut data board</h1>
+<div class="frontbar">
 <p class="frontdek">Public data answers the questions Connecticut&rsquo;s news
 cycle is already asking.</p>
 <p class="frontlinks"><a href="/towns">Find your town &rarr;</a> &middot;
 <a href="/indicators">Follow a measure &rarr;</a></p>
+</div>
 <div class="latest-grid">
 {lead}
 <div class="sec2"><h2 class="sec2-head">More from Connecticut data</h2>{sec2}</div>
-<aside class="rail"><h2 class="railhead">Latest questions</h2>{rail}<p class="allq"><a href="/archive">All published questions \u2192</a></p></aside>
+<aside class="rail"><h2 class="railhead">Latest from the desk</h2>{rail}<p class="allq"><a href="/archive">All published stories \u2192</a></p></aside>
 </div></div></section>"""
 
     body = f"""{latest}
@@ -285,8 +309,11 @@ def publish(cards: list[dict], board: dict | None = None) -> None:
     util.write_json(config.OUTPUT_DIR / "cards.json", feed)
     if board is not None:
         util.write_json(config.OUTPUT_DIR / "board.json", board)
+    from . import newsroom, share
+    assets = config.ROOT / "assets"
+    assets.mkdir(exist_ok=True)
+    for card in cards:
+        share.export_svg(card, assets)
     util.atomic_write_text(config.OUTPUT_DIR / "index.html",
                            home_html(cards, board or {}))
-    from . import newsroom
-
     newsroom.write_all(cards)

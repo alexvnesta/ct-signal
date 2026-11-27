@@ -141,7 +141,35 @@ def _keyword_hits(title: str, keywords: list[str]) -> list[str]:
 
 WEAK_KEYWORDS = {"workforce", "labor market", "labor force", "hiring",
                  "labor supply", "heat", "quits", "resignation",
-                 "town council", "storm", "forecast"}
+                 "town council", "storm", "forecast", "shooting", "crime"}
+
+_WIRE_NOISE_RE = re.compile(
+    r"\b("
+    r"soccer|football|basketball|baseball|hockey|softball|lacrosse|"
+    r"senior bowl|varsity|playoffs|quarterback|touchdown|uconn women|"
+    r"sneaking into|sexually assault|arrested for|charged with|"
+    r"accused of|stabbed|sentenced to|mugshot|obituary|marry under|"
+    r"bondi beach|recipes?|black friday deals?|horoscope|celebrity|"
+    r"devastating injuries|gofundme"
+    r")\b",
+    re.I,
+)
+
+
+def wire_worthy(entry: dict, *, has_data: bool = False) -> bool:
+    """Editorial gate for the front-page 'On the wire' block: keep civic,
+    economic, housing, weather, and policy headlines; exclude sports,
+    individual crime blotter, and unrelated non-CT national fluff."""
+    title = str(entry.get("title") or "").strip()
+    if not title:
+        return False
+    if _WIRE_NOISE_RE.search(title):
+        return False
+    if entry.get("stream") == "ct":
+        return True
+    # National wire stories earn a front-page slot only when they genuinely
+    # connect to a live CT Signal data card.
+    return bool(has_data)
 
 
 def _strong_enough(hits: list[str]) -> bool:

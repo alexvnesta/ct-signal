@@ -126,6 +126,44 @@ def _finding(card: dict) -> str:
     return raw or str(card.get("question") or "").strip()
 
 
+def _story_lede(card: dict) -> str:
+    """Continuation lede that avoids repeating the H1 finding word-for-word.
+    Derived strictly from answer_text without inventing numbers or claims."""
+    full = _display_prose(str(card.get("answer_text") or "")).strip()
+    if not full:
+        return ""
+    finding = _finding(card)
+    if finding and full.startswith(finding + ", "):
+        tail = full[len(finding) + 2:].strip()
+        if tail.startswith("the "):
+            if "peer" in tail:
+                return "That ranks " + tail[4:]
+            return "That is " + tail
+        return "That is " + tail
+    if " — " in full:
+        tail = full.split(" — ", 1)[1].strip()
+        if tail:
+            return tail[:1].upper() + tail[1:]
+    if ", adding " in full:
+        tail = full.split(", adding ", 1)[1].strip()
+        if tail:
+            return f"Across the towns measured, that added {tail}"
+    return full
+
+
+def _chart_svg_src(card: dict) -> str | None:
+    """Cache-busted URL for a card's server-rendered paper SVG, or None."""
+    svg = config.ROOT / "assets" / f"chart-{card['id']}.svg"
+    if not svg.exists():
+        return None
+    stamp = svg.with_name(svg.name + ".ver")
+    try:
+        ver = f"?v={stamp.read_text().strip()[:12]}"
+    except OSError:
+        ver = ""
+    return f"/assets/chart-{card['id']}.svg{ver}"
+
+
 def permalink(card: dict) -> str:
     return f"{config.SITE_URL}/story/{card['id']}"
 
@@ -227,11 +265,13 @@ def _place_line(card: dict) -> str:
             f'the middle.</p>')
 
 
-def chart_intro(card: dict) -> tuple[str, str]:
+def chart_intro(card: dict, *, on_home: bool = False) -> tuple[str, str]:
     """(caption, aria-label) for a card's primary chart — the honest artwork
     line, shared by the story page and the home hero so the lead's picture
     is never a different sentence from the story's picture."""
     kind = card.get("chart_kind", "rank_strip")
+    src_tail = ("Source and query on the story page."
+                if on_home else "Source and query below.")
     if card.get("stream") == "national":
         if card.get("series_freq") == "daily":
             chart = card.get("chart") or {}
@@ -244,8 +284,7 @@ def chart_intro(card: dict) -> tuple[str, str]:
             tail = (f"the window ends {_display_prose(str(latest))}"
                     if latest else "the newest observation is at the right edge")
             desc = (f"Daily station readings, {named}, each measured against "
-                    f"its own 1991–2020 normals; {tail}. Source and query "
-                    "below.")
+                    f"its own 1991–2020 normals; {tail}. {src_tail}")
             label = (f'Daily station trend chart for '
                      f'“{_display_prose(card["question"])}”. '
                      f'{_display_prose(card["answer_text"])}')
@@ -253,7 +292,7 @@ def chart_intro(card: dict) -> tuple[str, str]:
         cadence = ("Quarterly" if card.get("series_freq") == "quarterly"
                    else "Monthly")
         desc = (f"{cadence} US series since the early 2000s; the newest "
-                "observation is at the right edge. Source and query below.")
+                f"observation is at the right edge. {src_tail}")
         label = (f'US trend chart for “{_display_prose(card["question"])}”. '
                  f'{_display_prose(card["answer_text"])}')
         return desc, label
@@ -268,19 +307,19 @@ def chart_intro(card: dict) -> tuple[str, str]:
         hl = next((r.get("state") for r in cd if r.get("highlight")), None)
         desc = (f'{what or "Connecticut towns ranked"}; '
                 f'{f"{hl} highlighted in orange" if hl else "ranked first to last"}'
-                ". Source and query below.")
+                f". {src_tail}")
         label = (f'Town ranking chart for '
                  f'“{_display_prose(card["question"])}”. '
                  f'{_display_prose(card["answer_text"])}')
     elif kind == "trend":
         desc = ("Monthly series, Connecticut (orange) against the United "
-                "States average. Source and query below.")
+                f"States average. {src_tail}")
         label = (f'Time-trend chart for '
                  f'“{_display_prose(card["question"])}”. '
                  f'{_display_prose(card["answer_text"])}')
     else:
         desc = ("Every peer ranked; Connecticut highlighted in orange. "
-                "Source and query below.")
+                f"{src_tail}")
         label = (f'Peer ranking chart for '
                  f'“{_display_prose(card["question"])}”. '
                  f'{_display_prose(card["answer_text"])}')
@@ -295,9 +334,9 @@ def _vote_widget(card: dict) -> str:
     without consent, and we removed ours (2026-10-06) rather than argue
     that first-party counts are not tracking."""
     vid = card["id"]
-    return f"""<div class="vote"><span>Useful?</span>
-<button data-v="u" aria-label="yes, mark this story useful"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true" style="width:.72em;height:1em;vertical-align:-.1em"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg> yes</button>
-<button data-v="d" aria-label="no, not useful yet">&#9661; no</button></div>
+    return f"""<div class="vote"><span>Was this story useful?</span>
+<button data-v="u" aria-label="yes, mark this story useful"><svg class="bolt" viewBox="0 0 12 18" aria-hidden="true" style="width:.72em;height:1em"><path fill="currentColor" d="M7.4 0 0 10.6h4.7L3.2 18l8.8-11.2H6.9L8.9 0z"/></svg> Yes</button>
+<button data-v="d" aria-label="no, not useful yet">No</button></div>
 <script>
 (() => {{
   const k = "ctv:{vid}", id = "{vid}";
@@ -861,12 +900,12 @@ def _data_table_html(card: dict) -> str:
 
 def story_html(card: dict, siblings: list[dict] | None = None) -> str:
     q = _ESC(card["question"])
-    a = _ESC(_display_prose(card["answer_text"]))
+    a = _ESC(_story_lede(card))
     url = permalink(card)
     desc, label = chart_intro(card)
     desc, label = _display_prose(desc), _display_prose(label)
     chart = theme.viz(_spec_json(card["chart"]), "chart", label=label,
-                      caption=desc)
+                      caption=desc, preview_src=_chart_svg_src(card))
     chart2 = ""
     if card.get("chart2"):
         chart2 = theme.viz(_spec_json(card["chart2"]), "chart2",
@@ -875,10 +914,10 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
                            caption="Peer map; Connecticut outlined. "
                                    "AlbersUSA omits DC and Puerto Rico.")
     cache_badge = ' <span class="badge">cache</span>' if card.get("cache") else ""
-    shareline, ver = "", ""
-    csvline = (f'<p class="meta"><a href="{_indicator_path(card)}/observations.csv">'
-               'Download the chart data (CSV)</a> · the same rows, no new fetch.</p>'
-               if _chart_csv(card) else "")
+    finding = _finding(card)
+    vals = card.get("answer_values") or {}
+    data_date = _data_date(vals.get("date"))
+    actions: list[str] = []
     png = config.ROOT / "assets" / f"share-{card['id']}.png"
     if png.exists():
         stamp = png.with_name(png.name + ".ver")
@@ -886,11 +925,33 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
             ver = f"?v={stamp.read_text().strip()[:12]}"
         except OSError:
             ver = ""
-        shareline = ('<p class="meta" style="margin:.5rem 0 0">'
-                     f'<a href="/assets/share-{card["id"]}.png{ver}">'
-                     "Download this chart (PNG, 2×)</a>"
-                     " &middot; rendered server-side from the same spec "
-                     "you see above.</p>")
+        actions.append(
+            f'<a href="/assets/share-{card["id"]}.png{ver}">'
+            'Download this chart (PNG, 2×)</a>')
+    if _chart_csv(card):
+        actions.append(
+            f'<a href="{_indicator_path(card)}/observations.csv">'
+            'Download the chart data (CSV)</a>')
+    cite_text = (f'{finding}. CT Signal'
+                 + (f' (data as of {data_date})' if data_date else '')
+                 + f', {url}')
+    actions.append(
+        f'<button type="button" id="cite-btn" '
+        f'data-cite="{_ESC(cite_text)}">Copy citation</button>')
+    action_bar = (
+        '<div class="chart-actions">' + "".join(actions) + '</div>'
+        '<script>(function(){var b=document.getElementById("cite-btn");'
+        'if(!b)return;function ok(){b.textContent="Citation copied";'
+        'b.classList.add("cite-ok");setTimeout(function(){'
+        'b.textContent="Copy citation";b.classList.remove("cite-ok");},2200);}'
+        'function fb(t){var a=document.createElement("textarea");a.value=t;'
+        'a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);'
+        'a.select();try{document.execCommand("copy");ok();}catch(e){}a.remove();}'
+        'b.onclick=function(){var t=b.dataset.cite||"";'
+        'if(navigator.clipboard&&navigator.clipboard.writeText){'
+        'navigator.clipboard.writeText(t).then(ok,function(){fb(t);});'
+        '}else{fb(t);}};})();</script>'
+    )
     kicker = (f'<a class="klink" href="/topic/{_ESC(card["topic"])}">'
               f'{_ESC(card["topic"])}</a> · {_ESC(card["stream"])} desk'
               f'{cache_badge}')
@@ -898,13 +959,10 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
     # The finding owns the H1; the standing question becomes the deck. The
     # 1200×630 social cover is kept out of the reading column so the page
     # opens with type, not a picture of type. It remains the OG artifact.
-    finding = _finding(card)
-    vals = card.get("answer_values") or {}
     meta = [f'Published {_pretty_time(card["generated_at"])}']
     rev = card.get("revalidated_at")
     if rev and str(rev) != str(card["generated_at"]):
         meta.append(f'Updated <time datetime="{rev}">{_ESC(_short_date(rev))}</time>')
-    data_date = _data_date(vals.get("date"))
     if data_date:
         meta.append(f'<b>Data as of {_ESC(_headline_date(str(vals.get("date"))))}</b>')
     meta.append('<a href="/masthead">Automated data desk</a>')
@@ -921,7 +979,7 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
 <p class="storylede">{a}</p>
 {_place_line(card)}
 <div class="card"><h2 class="label">The data</h2>{chart}{chart2}
-{_data_table_html(card)}{shareline}{csvline}</div>
+{_data_table_html(card)}{action_bar}</div>
 {_context_html(card)}
 {_vote_widget(card)}
 {_trigger_html(card)}
@@ -1071,7 +1129,8 @@ def indicator_html(card: dict) -> str:
     desc, chart_label = chart_intro(card)
     chart = theme.viz(_spec_json(card["chart"]), "chart",
                       label=_display_prose(chart_label),
-                      caption=_display_prose(desc))
+                      caption=_display_prose(desc),
+                      preview_src=_chart_svg_src(card))
     why = str((_context_index().get(str(card.get("indicator") or ""), {})
                or {}).get("why") or "").strip()
     changed = _what_changed_paragraph(card)
@@ -1504,7 +1563,8 @@ def write_all(cards: list[dict]) -> None:
     assets.mkdir(exist_ok=True)
     util.atomic_write_text(assets / "site.css", theme.CSS)
     for card in cards:
-        share.export(card, assets)   # before the story renders its link
+        share.export(card, assets)       # dark 2x PNG for social/download
+        share.export_svg(card, assets)   # paper SVG for instant SSR paint
         arch = config.ARCHIVE_DIR / card["generated_at"][:7]
         arch.mkdir(parents=True, exist_ok=True)
         # The archive page promises superseded vintages are "kept
@@ -1753,6 +1813,66 @@ def _town_related_html(pieces: dict) -> str:
             '<ul class="filelist">' + "".join(rows) + '</ul></div>')
 
 
+def _town_kpis_html(town: str, pieces: dict, rec: dict | None,
+                    snap: dict | None) -> str:
+    """Scannable 4-up summary strip at the top of every town page."""
+    from . import towns as _tw
+    cards: list[tuple[str, str, str]] = []
+    mr = pieces.get("mill_rates")
+    if mr:
+        row, card = mr
+        av = card.get("answer_values") or {}
+        n = av.get("n") or len(card.get("towns") or [])
+        fy = str(av.get("date", "")).replace("FY", "")
+        cards.append((
+            f"FY{fy} mill rate" if fy else "Mill rate",
+            f'{row["rate"]:.2f}',
+            f'{_tw._ord(row["rank"])}-highest of {n}',
+        ))
+        if av.get("state") and rec and rec.get("value") and av.get("assess_ratio"):
+            est = rec["value"] * av["assess_ratio"] * row["rate"] / 1000
+            cards.append((
+                "Est. median home tax",
+                f"${est:,.0f}/yr",
+                f'70% of ${rec["value"]:,.0f}',
+            ))
+    if rec:
+        n_acs = (snap or {}).get("n") or 169
+        if rec.get("income") is not None:
+            rk = rec.get("income_rank")
+            cards.append((
+                "Median income",
+                f'${rec["income"]:,.0f}',
+                f'{_tw._ord(rk)}-highest of {n_acs}' if rk else "ACS 5-yr",
+            ))
+        if rec.get("poverty") is not None:
+            rk = rec.get("poverty_rank")
+            cards.append((
+                "Below poverty",
+                f'{rec["poverty"]:.1f}%',
+                f'{_tw._ord(rk)}-highest of {n_acs}' if rk else "ACS 5-yr",
+            ))
+    if len(cards) < 4:
+        gl = pieces.get("grand_list_growth") or pieces.get("equalized_grand_list")
+        if gl:
+            row, card = gl
+            n = card.get("answer_values", {}).get("n") or len(card.get("towns") or [])
+            cards.append((
+                "Grand list change",
+                f'{row["pct"]:+.1f}%',
+                f'{_tw._ord(row["rank"])}-highest of {n}',
+            ))
+    if not cards:
+        return ""
+    items = "".join(
+        f'<div class="town-kpi"><div class="town-kpi-k">{_ESC(k)}</div>'
+        f'<div class="town-kpi-v">{_ESC(v)}</div>'
+        f'<div class="town-kpi-s">{_ESC(s)}</div></div>'
+        for k, v, s in cards[:4]
+    )
+    return f'<div class="town-kpis" aria-label="{_ESC(town)} key figures">{items}</div>'
+
+
 def town_html(town: str, pieces: dict) -> str:
     """A town file is assembled from every local card that measures it.
 
@@ -1825,10 +1945,12 @@ def town_html(town: str, pieces: dict) -> str:
     if not sections:
         return ""
     body = f"""{acs_css}<article class="wrap col">
-<div class="label">Connecticut town file · <a href="/towns">all towns</a></div>
-<h1 style="font:700 clamp(1.7rem,4vw,2.4rem)/1.15 var(--serif);margin:.4rem 0 .3rem">{esc(town)}</h1>
+<div class="breadcrumb"><a href="/towns">← All 169 towns</a></div>
+<div class="label">Connecticut town file</div>
+<h1 style="font:700 clamp(1.85rem,4vw,2.5rem)/1.12 var(--serif);margin:.35rem 0 .3rem">{esc(town)}</h1>
 <p class="sub">Every local number the desk holds for this town, each naming its
 own source. Know where you live.</p>
+{_town_kpis_html(town, pieces, rec, snap)}
 {_town_lede(town, pieces, rec, snap)}
 {''.join(sections)}
 {acs}
@@ -1891,7 +2013,7 @@ stories; errors are corrected publicly.</p>
             (town, url),
         ]))
     page = theme.page(title=title, desc=esc(desc),
-                      path=f'/town/{_slug(town)}', body=body,
+                      path=f'/town/{_slug(town)}', body=body, compact=True,
                       image=(timg if (config.ROOT / 'assets' /
                                f'town-{tslug}.png').exists() else None),
                       json_ld=ld)

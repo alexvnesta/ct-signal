@@ -200,7 +200,8 @@ def table_for(t: dict, data: dict, esc) -> str:
         rank = t.get(f"{key}_rank")
         rk = f"{_ord(rank)}-highest of {data['n']}" if rank else "not published"
         sid = STORY_FOR.get(key)
-        link = (f' <a href="/story/{sid}">the state answer &rarr;</a>' if sid else "")
+        link = (f'<span class="state-link"><a href="/story/{sid}">'
+                f'Statewide comparison &rarr;</a></span>' if sid else "")
         rows += (f'<tr><td>{esc(label)}{link}</td><td>{_fmt(t, key, kind)}</td>'
                  f'<td class="dim">{_fmt(ct, key, kind)}</td>'
                  f'<td>{_delta(t, ct, key, kind)}</td><td class="dim">{rk}</td></tr>')
@@ -229,49 +230,105 @@ def lookup(data: dict, name: str) -> dict | None:
 
 
 _PAGE_CSS = """<style>
-.townstats{width:100%;border-collapse:collapse;margin:1.2rem 0}
+.towns-page{padding-top:1.1rem}
+.towns-head{display:flex;align-items:baseline;justify-content:space-between;
+  flex-wrap:wrap;gap:.4rem 1.2rem;border-bottom:3px solid var(--ink);
+  padding-bottom:.6rem;margin-bottom:1rem}
+.towns-head h1{font:700 clamp(1.75rem,3.6vw,2.35rem)/1.12 var(--serif);
+  margin:0;letter-spacing:-.012em}
+.towns-head p{color:var(--dim);font-size:.9rem;margin:.25rem 0 0;max-width:68ch}
+.towns-head-act{display:inline-flex;align-items:center;min-height:44px;
+  padding:.35rem .8rem;border:1px solid var(--line);border-radius:6px;
+  background:var(--panel);color:var(--ink);font:600 .82rem/1 var(--sans);
+  text-decoration:none!important;white-space:nowrap}
+.towns-head-act:hover{border-color:var(--acc);color:var(--acc)}
+.towns-controls{display:flex;flex-wrap:wrap;align-items:center;
+  justify-content:space-between;gap:.65rem 1rem;margin:0 0 1rem}
+.filter{margin:0;background:var(--panel);border:1px solid var(--line);
+  border-radius:6px;color:var(--ink);padding:.5rem .8rem;font:inherit;
+  font-size:.92rem;min-height:44px;width:min(280px,100%)}
+.filter:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.mapchips{display:flex;flex-wrap:wrap;gap:.4rem;margin:0}
+.mapchips button{background:var(--panel);border:1px solid var(--line);
+  border-radius:999px;padding:.4rem .85rem;min-height:40px;
+  font:.76rem/1.1 var(--sans);font-weight:600;color:var(--dim);cursor:pointer}
+.mapchips button:hover{color:var(--ink);border-color:var(--acc)}
+.mapchips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mapchips button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.towns-stage{display:grid;grid-template-columns:minmax(0,1fr);
+  gap:1.15rem 1.5rem;align-items:start;margin:0 0 1.4rem}
+@media(min-width:920px){
+  .towns-stage{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+}
+.mapblock{margin:0}
+.mapflex{display:block}
+svg.townsmap{display:block;width:100%;height:auto;background:var(--panel);
+  border:1px solid var(--rule);border-radius:8px;padding:8px}
+svg.townsmap path{stroke:#fff;stroke-width:.55;transition:fill .25s;
+  cursor:pointer}
+svg.townsmap path:hover,svg.townsmap path.hl{stroke:var(--ink);stroke-width:1.4}
+svg.townsmap path:focus-visible{stroke:var(--acc);stroke-width:2;outline:none}
+.maplegend{display:flex;flex-wrap:wrap;gap:.35rem .85rem;
+  font:.74rem/1.25 var(--sans);color:var(--dim);width:100%;margin-top:.65rem}
+.maplegend .sw{display:inline-block;width:.85rem;height:.85rem;
+  border:1px solid var(--line);margin-right:.4rem;vertical-align:-1px}
+.mtip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;
+  padding:.45rem .7rem;border-radius:6px;font-size:.8rem;z-index:5;
+  box-shadow:0 4px 14px rgba(20,30,40,.25);max-width:240px}
+.mtip b{display:block;font-size:.86rem;margin-bottom:.15rem}
+.mapnote{color:var(--faint);font-size:.76rem;margin:.45rem 0 0}
+.town-spot{background:var(--panel);border:1px solid var(--rule);
+  border-top:3px solid var(--acc2);padding:1rem 1.15rem}
+.spot-k{font:800 .7rem/1 var(--sans);letter-spacing:.15em;
+  text-transform:uppercase;color:var(--acc);margin:0 0 .45rem}
+.spot-pick{display:flex;gap:.45rem;align-items:center;margin:0 0 .75rem}
+.spot-pick select{flex:1;min-width:0;background:var(--bg);
+  border:1px solid var(--line);border-radius:5px;color:var(--ink);
+  padding:.45rem .65rem;font:600 .9rem/1.2 var(--sans);min-height:44px}
+.spot-name{font:700 1.45rem/1.15 var(--serif);color:var(--ink);margin:0 0 .15rem}
+.spot-sub{font-size:.8rem;color:var(--faint);margin:0 0 .65rem}
+.spot-list{list-style:none;margin:0 0 .85rem;padding:0;border-top:1px solid var(--rule)}
+.spot-list li{display:flex;justify-content:space-between;align-items:baseline;
+  gap:.6rem;padding:.45rem 0;border-bottom:1px solid var(--rule);font-size:.86rem}
+.spot-list .sk{color:var(--dim)}
+.spot-list .sv{font-weight:700;color:var(--ink);text-align:right;
+  font-variant-numeric:tabular-nums}
+.spot-list .sr{display:block;font-weight:400;font-size:.74rem;color:var(--faint)}
+.spot-actions{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.spot-primary{display:inline-flex;align-items:center;min-height:44px;
+  padding:.45rem .9rem;background:var(--ink);color:#fff!important;
+  font:700 .84rem/1 var(--sans);border-radius:5px;text-decoration:none!important}
+.spot-primary:hover{background:var(--acc)}
+.spot-sec{display:inline-flex;align-items:center;min-height:44px;
+  padding:.45rem .8rem;background:var(--bg);color:var(--ink);
+  border:1px solid var(--line);border-radius:5px;font:600 .82rem/1 var(--sans);
+  cursor:pointer}
+.spot-sec:hover{border-color:var(--acc);color:var(--acc)}
+.spot-sec[aria-pressed="true"]{background:var(--bg2);border-color:var(--acc);
+  color:var(--acc)}
+.spot-sug{margin:.7rem 0 0;padding-top:.65rem;border-top:1px solid var(--rule);
+  font-size:.82rem;color:var(--dim);display:flex;flex-wrap:wrap;
+  align-items:center;gap:.4rem}
+.spot-sug button{background:none;border:0;color:var(--acc);font:700 .82rem var(--sans);
+  text-decoration:underline;cursor:pointer;padding:.2rem 0;min-height:36px}
+.spot-sug .yt-dismiss{color:var(--faint);font-weight:400}
+.townstats{width:100%;border-collapse:collapse;margin:.6rem 0 1.2rem}
 .tscroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;
   scrollbar-gutter:stable}
 .tscroll:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .tablehint{color:var(--faint);font-size:.76rem;margin:.9rem 0 -.2rem}
 @media(min-width:721px){.tablehint{display:none}}
-.townstats th{text-align:left;font:700 .72rem/1 var(--sans);color:var(--dim);
-  text-transform:uppercase;letter-spacing:.1em;padding:0 .9rem .6rem 0;
-  border-bottom:1px solid var(--acc)}
+.townstats th{text-align:left;font:700 .72rem/1.2 var(--sans);color:var(--dim);
+  text-transform:uppercase;letter-spacing:.09em;padding:.45rem .9rem .6rem 0;
+  border-bottom:2px solid var(--ink)}
 .townstats td{padding:.6rem .9rem .6rem 0;border-bottom:1px solid var(--line);
-  font-size:.95rem}
+  font-size:.94rem;font-variant-numeric:tabular-nums}
 .townstats .dim{color:var(--dim)}
 @media(max-width:720px){
 .townstats th:first-child,.townstats td:first-child{position:sticky;left:0;
   z-index:1;background:var(--bg);box-shadow:1px 0 0 var(--line)}
 .townstats thead th:first-child{z-index:2}
 }
-.filter{margin:1rem 0;background:var(--panel);border:1px solid var(--line);
-  border-radius:8px;color:var(--ink);padding:.55rem .8rem;font:inherit;width:min(280px,100%)}
-.mapblock{margin:1.2rem 0 .4rem}
-.mapchips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.7rem}
-.mapchips button{background:var(--panel);border:1px solid var(--line);
-  border-radius:999px;padding:.32rem .8rem;font:.72rem/1.1 var(--mono);
-  color:var(--dim);cursor:pointer;letter-spacing:.04em}
-.mapchips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.mapchips button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-.mapflex{display:block}
-svg.townsmap{display:block;width:100%;height:auto;background:var(--panel);
-  border:1px solid var(--line);border-radius:8px;padding:6px}
-svg.townsmap path{stroke:#fff;stroke-width:.5;transition:fill .3s;
-  cursor:pointer}
-svg.townsmap path:hover{stroke:var(--ink);stroke-width:1.2}
-svg.townsmap path:focus-visible{stroke:var(--acc);stroke-width:2;
-  outline:none}
-.maplegend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;
-  font:.74rem/1.2 var(--sans);color:var(--dim);width:100%;margin-top:.7rem}
-.maplegend .sw{display:inline-block;width:.9rem;height:.9rem;
-  border:1px solid var(--line);margin-right:.45rem;vertical-align:-1px}
-.mtip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;
-  padding:.45rem .7rem;border-radius:6px;font-size:.8rem;z-index:5;
-  box-shadow:0 4px 14px rgba(20,30,40,.25);max-width:240px}
-.mtip b{display:block;font-size:.86rem;margin-bottom:.15rem}
-.mapnote{color:var(--faint);font-size:.76rem;margin:.5rem 0 1.1rem}
 </style>"""
 
 
@@ -355,6 +412,7 @@ paths.forEach(p=>{
     tip.style.display="block";
     tip.style.left=Math.min(e.clientX+14, innerWidth-260)+"px";
     tip.style.top=(e.clientY+16)+"px";
+    if (window._spotTown && p.dataset.s) window._spotTown(p.dataset.s, false);
   });
   p.addEventListener("mouseleave",()=>{tip.style.display="none";});
   p.addEventListener("focus",()=>{
@@ -396,6 +454,7 @@ def _map_html(data: dict) -> str:
           for t in data["towns"] if t["name"] in slug}
     paths = "".join(
         f'<path d="{g["d"]}" data-n="{_ESC(g["name"])}" '
+        f'data-s="{slug[g["name"]]}" '
         f'data-h="/town/{slug[g["name"]]}"></path>'
         for g in geo["towns"] if g["name"] in slug)
     chips = "".join(
@@ -412,17 +471,20 @@ def _map_html(data: dict) -> str:
     js = (_MAP_JS.replace("__MT__", json.dumps(mt, separators=(",", ":")))
           .replace("__MMETA__", json.dumps(mm))
           .replace("__N__", json.dumps(n)))
-    return ('<div class="mapblock">\n<div class="mapchips" role="group" '
-            'aria-label="Color the map by">\n' + chips + '</div>\n'
-            '<div class="mapflex">\n<svg class="townsmap" viewBox="0 0 '
-            + str(geo["width"]) + " " + str(geo["height"]) +
-            '" role="group" aria-label="Map of Connecticut towns shaded by '
-            'the chosen measure">' + paths + '</svg>\n'
-            '<div class="maplegend" id="ml"></div>\n</div>\n'
-            '<p class="mapnote">Click a town for its full page. Shading '
-            'is a quintile split of <span id="mlab">median household '
-            'income</span> among towns with published values; boundaries: '
-            + _ESC(geo["source"]) + '.</p>\n</div>\n' + js)
+    chips_html = ('<div class="mapchips" role="group" '
+                  'aria-label="Color the map by">\n' + chips + '</div>')
+    map_body = ('<div class="mapblock">\n'
+                '<div class="mapflex">\n<svg class="townsmap" viewBox="0 0 '
+                + str(geo["width"]) + " " + str(geo["height"]) +
+                '" role="group" aria-label="Map of Connecticut towns shaded by '
+                'the chosen measure">' + paths + '</svg>\n'
+                '<div class="maplegend" id="ml"></div>\n</div>\n'
+                '<p class="mapnote">Hover a town to preview on the right; click '
+                'for its full file. Shading is a quintile split of '
+                '<span id="mlab">median household income</span> among towns '
+                'with published values; boundaries: '
+                + _ESC(geo["source"]) + '.</p>\n</div>\n' + js)
+    return chips_html, map_body
 
 
 def briefs() -> dict:
@@ -455,85 +517,110 @@ function fmt(i,p){var v=p[0],r=p[1],n=b.n[i];
  var o=r%10===1&&r%100!==11?"st":r%10===2&&r%100!==12?"nd":
        r%10===3&&r%100!==13?"rd":"th";
  return s+" ("+r+o+"-highest of "+n+")";}
+function splitVal(full){var idx=full.indexOf(" (");
+ if(idx<0)return [full,""];
+ return [full.slice(0,idx),full.slice(idx+2,-1)];}
 var el=document.getElementById("yourtown");
-function facts(s){var t=b.towns[s],v=t.v;
- el.innerHTML='<span class="yt-line1">Your town \u00b7 '+t.n+
-  ' \u00b7 <a href="/town/'+s+'">full town file \u2192</a></span>'
-  +'<span class="yt-facts">income '+fmt("income",v[2])
-  +" \u00b7 poverty "+fmt("poverty",v[3])
-  +" \u00b7 rent "+fmt("rent",v[4])
-  +" \u00b7 home value "+fmt("value",v[5])
-  +" \u00b7 median age "+fmt("age",v[1])
-  +' \u00b7 <button id="yt-chg" class="yt-change">change town</button></span>';
- var c=document.getElementById("yt-chg"); if(c)c.onclick=function(){
-  try{localStorage.removeItem("ct-town");}catch(e){} pick();};}
-function preview(s){var t=b.towns[s],v=t.v,e=document.getElementById("yt-preview");
- if(!e)return;
- e.innerHTML='<span class="yt-facts">income '+fmt("income",v[2])
-  +" \u00b7 poverty "+fmt("poverty",v[3])
-  +" \u00b7 rent "+fmt("rent",v[4])
-  +" \u00b7 home value "+fmt("value",v[5])
-  +" \u00b7 median age "+fmt("age",v[1])
-  +' \u00b7 <a href="/town/'+s+'">full town file \u2192</a></span>';}
-function pick(){
- el.innerHTML='<span class="yt-line1">Your town</span> '
-  +'<select id="yt-sel" aria-label="Choose your town">'
-  +slugs.map(function(s){return '<option value="'+s+'">'+b.towns[s].n+
-    '</option>';}).join("")
-  +'</select> <button id="yt-set" class="ytbtn">Remember this town</button>'
-  +'<span id="yt-preview"></span><span id="yt-sug"></span>';
- document.getElementById("yt-sel").onchange=function(){preview(this.value);};
- document.getElementById("yt-set").onclick=function(){
-  save(document.getElementById("yt-sel").value);};}
-function save(s){try{localStorage.setItem("ct-town",s);}catch(e){} facts(s);}
-function suggest(s){var e=document.getElementById("yt-sug"); if(!e)return;
- e.innerHTML=' \u00b7 Looks like you\u2019re near <b>'+b.towns[s].n+
-  '</b> \u00b7 <button id="yt-yes" class="ytbtn">Make it my town</button>'
-  + ' <button id="yt-no" class="yt-change">not me</button>';
- document.getElementById("yt-yes").onclick=function(){save(s);};
- document.getElementById("yt-no").onclick=function(){
-  try{localStorage.setItem("ct-town-no","1");}catch(x){} e.innerHTML="";};}
-var saved=null,dismiss=null;
+var saved=null,dismiss=null,sugSlug=null;
 try{saved=localStorage.getItem("ct-town");
     dismiss=localStorage.getItem("ct-town-no");}catch(e){}
-if(saved&&b.towns[saved]){facts(saved);}else{pick();
- // The location hint is a production-only Vercel function. Previews and
- // the local static harness have no api/geo, so asking there would only
- // produce a 404 in the console. The picker still works without it.
- var prod=/(^|\.)ctsignal\.org$/.test(location.hostname);
- if(!dismiss&&prod)fetch("/api/geo").then(function(r){return r.json();})
-  .then(function(g){if(!g||g.region!=="CT"||!g.city)return;
-   var s=g.city.toLowerCase().replace(/[^a-z]+/g,"-").replace(/^-|-$/g,"");
-   if(b.towns[s])suggest(s);}).catch(function(){});}
+var active=saved&&b.towns[saved]?saved:(b.towns["hartford"]?"hartford":slugs[0]);
+function highlightMap(s){
+ document.querySelectorAll("svg.townsmap path.hl").forEach(function(p){p.classList.remove("hl");});
+ var p=document.querySelector('svg.townsmap path[data-s="'+s+'"]');
+ if(p)p.classList.add("hl");}
+function row(label,txt){var parts=splitVal(txt);
+ return '<li><span class="sk">'+label+'</span><span class="sv">'+parts[0]+
+  (parts[1]?'<span class="sr">'+parts[1]+'</span>':'')+'</span></li>';}
+function render(s,syncSelect){
+ var t=b.towns[s]; if(!t)return; active=s; var v=t.v,isSaved=(saved===s);
+ var selHtml='<div class="spot-pick"><label class="sr-only" for="yt-sel">Choose a town</label>'
+  +'<select id="yt-sel" aria-label="Choose your town">'
+  +slugs.map(function(k){return '<option value="'+k+'"'+(k===s?' selected':'')+'>'+b.towns[k].n+'</option>';}).join("")
+  +'</select></div>';
+ var list='<ul class="spot-list">'
+  +row("Population",fmt("pop",v[0]))
+  +row("Median income",fmt("income",v[2]))
+  +row("Below poverty",fmt("poverty",v[3]))
+  +row("Median gross rent",fmt("rent",v[4]))
+  +row("Median home value",fmt("value",v[5]))
+  +row("Median age",fmt("age",v[1]))
+  +'</ul>';
+ var sugHtml=(sugSlug&&sugSlug!==saved&&b.towns[sugSlug])
+  ?'<div class="spot-sug"><span>Near <b>'+b.towns[sugSlug].n+'</b>?</span>'
+   +'<button type="button" id="yt-yes">Switch to '+b.towns[sugSlug].n+'</button>'
+   +'<button type="button" id="yt-no" class="yt-dismiss">dismiss</button></div>'
+  :'';
+ el.innerHTML='<div class="spot-k">'+(isSaved?'Your saved town':'Town spotlight')+'</div>'
+  +selHtml
+  +'<h2 class="spot-name">'+t.n+'</h2>'
+  +'<p class="spot-sub">'+b.vintage+'</p>'
+  +list
+  +'<div class="spot-actions">'
+  +'<a class="spot-primary" href="/town/'+s+'">Open '+t.n+' file \u2192</a>'
+  +'<button type="button" id="yt-save" class="spot-sec" aria-pressed="'+(isSaved?'true':'false')+'">'
+  +(isSaved?'\u2713 Saved as my town':'Remember this town')+'</button>'
+  +'</div>'+sugHtml;
+ if(syncSelect!==false)highlightMap(s);
+ var sel=document.getElementById("yt-sel");
+ if(sel)sel.onchange=function(){render(this.value,true);};
+ var btn=document.getElementById("yt-save");
+ if(btn)btn.onclick=function(){
+  if(saved===s){try{localStorage.removeItem("ct-town");}catch(e){} saved=null;}
+  else{try{localStorage.setItem("ct-town",s);}catch(e){} saved=s;}
+  render(s,true);};
+ var yes=document.getElementById("yt-yes");
+ if(yes)yes.onclick=function(){
+  try{localStorage.setItem("ct-town",sugSlug);}catch(e){}
+  saved=sugSlug; sugSlug=null; render(saved,true);};
+ var no=document.getElementById("yt-no");
+ if(no)no.onclick=function(){
+  try{localStorage.setItem("ct-town-no","1");}catch(e){}
+  sugSlug=null; render(active,false);};}
+window._spotTown=function(s,sync){if(b.towns[s])render(s,sync);};
+render(active,true);
+var prod=/(^|\.)ctsignal\.org$/.test(location.hostname);
+if(!saved&&!dismiss&&prod)fetch("/api/geo").then(function(r){return r.json();})
+ .then(function(g){if(!g||g.region!=="CT"||!g.city)return;
+  var s=g.city.toLowerCase().replace(/[^a-z]+/g,"-").replace(/^-|-$/g,"");
+  if(b.towns[s]){sugSlug=s; render(active,false);}}).catch(function(){});
 })();
 </script>"""
 
 def index_page(data: dict) -> str:
-    map_html = _map_html(data)
+    map_parts = _map_html(data)
+    chips_html, map_body = map_parts if isinstance(map_parts, tuple) else ("", map_parts)
     rows = ""
     for t in data["towns"]:
         cells = "".join(f"<td>{_fmt(t, k, kind)}</td>"
                         for k, _, _, kind in LABELS)
         rows += (f'<tr><td><a href="/town/{t["slug"]}">{_ESC(t["name"])}</a></td>'
                  f"{cells}</tr>")
-    body = f"""<div class="wrap col">
-<div class="sechead"><h1>Every Connecticut town, one table</h1>
-<p class="sechelp">{data["vintage"]} — five-year estimates, because that is what
-makes a town of 800 readable. Sort is by population; type to find your town.</p></div>
-<p class="yourtown" id="yourtown">Pick your town and the numbers
-become about where you live. Every town also has its own file, linked in
-the table.</p>
-<input class="filter" id="q" placeholder="Filter towns…" aria-label="Filter towns"
+    body = f"""<div class="wrap towns-page">
+<div class="towns-head">
+<div><h1>Every Connecticut town</h1>
+<p>{data["vintage"]} — five-year estimates, so small towns get honest numbers.
+Click any town on the map or table for its full file.</p></div>
+<a class="towns-head-act" href="/towns.csv">Download all {data["n"]} towns (CSV)</a>
+</div>
+<div class="towns-controls">
+<input class="filter" id="q" placeholder="Filter {data["n"]} towns…" aria-label="Filter towns"
  autocomplete="off">
-{map_html}
+{chips_html}
+</div>
+<div class="towns-stage">
+{map_body}
+<aside class="town-spot" id="yourtown" aria-label="Town spotlight">
+<div class="spot-k">Town spotlight</div>
+<p>Pick a town on the map or table to inspect its five key Census measures.</p>
+</aside>
+</div>
 <p class="tablehint">On a phone, swipe the table sideways for poverty, rent
 and home value.</p>
 <div class="tscroll" role="region" aria-label="Town statistics table, scrolls sideways on phones" tabindex="0">
 <table class="townstats" id="tt"><thead><tr><th>Town</th>
 {''.join(f"<th>{lab}</th>" for _, lab, _, _ in LABELS)}</tr></thead>
 <tbody>{rows}</tbody></table></div>
-<p class="meta"><a href="/towns.csv">Download all {data["n"]} towns (CSV)</a>
-— raw values and ranks, no formatting.</p>
 <p class="provenance">US Census Bureau, {data["vintage"]}, county-subdivision
 level. Ranks run across the {data["n"]} places the Census publishes for
 Connecticut. Dashes are Census-suppressed cells, not zeros — the same honesty
@@ -551,7 +638,7 @@ const _m0 = (location.hash.match(/^#m=(\\w+)/) || [])[1];
     return theme.page(title="Connecticut towns · CT Signal",
                       desc="Every Connecticut town's income, poverty, rent, and "
                            f"home value against the state — {data['vintage']}.",
-                      path="/towns", body=_PAGE_CSS + body)
+                      path="/towns", body=_PAGE_CSS + body, compact=True)
 
 
 def _csv_text(data: dict) -> str:

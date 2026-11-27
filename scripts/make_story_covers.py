@@ -12,7 +12,10 @@ import json
 import pathlib
 import re
 
-from PIL import Image, ImageDraw, ImageFont
+try:
+    from PIL import Image, ImageDraw, ImageFont
+except ImportError:  # allows pure-Python helpers & unit tests without Pillow
+    Image = ImageDraw = ImageFont = None  # type: ignore[assignment]
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / "assets"
@@ -20,7 +23,8 @@ OUT.mkdir(exist_ok=True)
 
 import sys as _sys
 _sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from _brand import BG2, PANEL, LINE, INK, DIM, ACC, OK, SANS, SERIF, font, SITE, wrap
+if Image is not None:
+    from _brand import BG2, PANEL, LINE, INK, DIM, ACC, OK, SANS, SERIF, font, SITE, wrap
 
 
 
@@ -106,6 +110,33 @@ def cover(card: dict) -> Image.Image:
     return img
 
 
+def _thumb_value(card: dict) -> str:
+    """Format the hero figure printed inside a board-card thumbnail.
+    Always preserves direction and unit so anomalies never degrade to a
+    bare rounded integer (e.g. '5' instead of '+4.6°F')."""
+    ans = str(card.get("answer_text") or "")
+    av = card.get("answer_values") or {}
+    if card.get("stream") == "local" and isinstance(av.get("top"), dict):
+        top = av["top"]
+        if "pct" in top:
+            return f"+{float(top['pct']):.1f}%"
+        if "rate" in top:
+            return f"{float(top['rate']):.2f}"
+    if (m := re.search(r"([+-]\d+(?:\.\d+)?)\s*(°[FC])", ans)):
+        return f"{m.group(1)}{m.group(2)}"
+    if (m := re.search(
+            r"(\d+(?:\.\d+)?)\s*(°[FC])\s+(warmer|cooler|colder)", ans, re.I)):
+        sign = "-" if m.group(3).lower() in ("cooler", "colder") else "+"
+        return f"{sign}{m.group(1)}{m.group(2)}"
+    if "per 100k" in ans.lower() and av.get("value") is not None:
+        return f"{float(av['value']):,.0f}/100k"
+    if "$" in ans:
+        return f"${float(av.get('value', 0)):,.0f}"
+    if "%" in ans:
+        return f"{float(av.get('value', 0)):g}%"
+    return f"{float(av.get('value', 0)):,.0f}"
+
+
 def thumb(card: dict) -> Image.Image | None:
     """Board-card thumbnail: the shape of the answer, no sentences. The card
     itself carries kicker/question/answer; text inside the art just repeated
@@ -131,26 +162,7 @@ def thumb(card: dict) -> Image.Image | None:
     W, H = 1200, 480
     img = Image.new("RGB", (W, H), BG2)
     d = ImageDraw.Draw(img)
-    ans = card["answer_text"]
-    av = card.get("answer_values") or {}
-    unit = ""
-    if card.get("stream") == "local" and isinstance(av.get("top"), dict):
-        top = av["top"]
-        if "pct" in top:
-            val_txt = f"+{top['pct']:.1f}%"
-        elif "rate" in top:  # mill-rate grammar: the rate is the figure
-            val_txt = f"{top['rate']:.2f}"
-            unit = " mills per $1,000"
-    elif (m := re.search(r"([+-]\d+(?:\.\d+)?)\s*(°[FC])", ans)):
-        # Signed anomaly in the answer: a bare "5" hides both direction
-        # and unit, so the cover prints the figure the sentence states.
-        val_txt = f"{m.group(1)}{m.group(2)}"
-    elif "$" in ans:
-        val_txt = f"${float(av.get('value', 0)):,.0f}"
-    elif "%" in ans:
-        val_txt = f"{float(av.get('value', 0)):g}%"
-    else:
-        val_txt = f"{float(av.get('value', 0)):,.0f}"
+    val_txt = _thumb_value(card)
     # No caption line: at the size a board thumb actually displays (~216px
     # wide) a 30px subtitle scales to ~5px — decoration, not text. The card
     # itself spells out "across 52 peers"; the figure needs no help. So the
@@ -211,7 +223,7 @@ if __name__ == "__main__":
     manifest = json.loads(mpath.read_text()) if mpath.exists() else {}
     for c in feed["cards"]:
         key = hashlib.sha256(
-            (json.dumps(c, sort_keys=True) + "|thumb-v2").encode()
+            (json.dumps(c, sort_keys=True) + "|thumb-v3").encode()
         ).hexdigest()[:16]
         if manifest.get(c["id"]) == key:
             continue

@@ -216,12 +216,12 @@ republication requests go to the same address.</p>
 def write_pages() -> None:
     for slug, (title, desc, body) in _PAGES.items():
         page = theme.page(title=title, desc=desc, path=f"/{slug}",
-                          body=_PAGE_CSS + body)
+                          body=_PAGE_CSS + body, compact=True)
         (config.ROOT / f"{slug}.html").write_text(page)
     (config.ROOT / "404.html").write_text(theme.page(
         title="Page not found · CT Signal",
         desc="This page doesn't exist (yet). The board is always moving.",
-        path="/404",
+        path="/404", compact=True,
         body=_PAGE_CSS + """<article class="wrap col">
 <h1>404 — off the board</h1>
 <p class="sub">This page doesn't exist. Cards keep their permalinks for life,

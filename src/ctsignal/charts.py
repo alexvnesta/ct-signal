@@ -68,31 +68,94 @@ def _highlight_color() -> dict:
     }
 
 
+def _label_fmt(unit: str) -> str:
+    return {
+        "USD": "$,.0f",
+        "percent": ".1f",
+        "%": ".1f",
+        "per 100k": ",.0f",
+        "mills per $1,000": ".2f",
+    }.get(unit, ".2f" if "mill" in unit.lower() else ",.1f")
+
+
 def rank_strip(rows: list[dict], *, title: str, unit: str = "",
              peer_word: str = "Peer") -> dict:
-    order = [r["state"] for r in sorted(rows, key=lambda r: -r["rank"])]
+    # Rank 1 at top (descending value top-to-bottom): readers scan from top.
+    order = [r["state"] for r in sorted(rows, key=lambda r: r["rank"])]
     hl = next((r["state"] for r in rows if r.get("highlight")), None)
     sub = (f'{hl} highlighted' if hl else
            'orange marks the peer the story is about')
-    axis = (f'{title} ({unit})' if unit and unit not in title
-            else f'{title}{f" ({unit})" if unit else ""}')
-    chart = (
-        alt.Chart(alt.Data(values=rows))
-        .mark_bar(tooltip=False)
-        .encode(
-            x=alt.X("value:Q").title(axis)
-                .axis(alt.Axis(format=_tick_fmt(unit))),
-            y=alt.Y("state:N").sort(order).title(None),
-            color=cast(Any, _highlight_color()),
-            tooltip=[
-                alt.Tooltip("state:N").title(peer_word),
-                alt.Tooltip("value:Q").title(title),
-                alt.Tooltip("rank:Q").title("Rank"),
-            ],
-        )
-        .properties(width="container", height=max(140, 14 * len(rows)),
-                    title=alt.TitleParams(text=title, subtitle=sub))
+    # Title already names the measure; axis carries only the unit so the
+    # same phrase is never printed three times inside one chart frame.
+    axis_title = unit or None
+    vals = [float(r["value"]) for r in rows if isinstance(r.get("value"), (int, float))]
+    min_v = min(vals) if vals else 0.0
+    max_v = max(vals) if vals else 0.0
+    short = len(rows) <= 15
+    x_scale = (
+        alt.Scale(domain=[0, round(max_v * (1.18 if short else 1.08), 4)],
+                  nice=True)
+        if max_v > 0 and min_v >= 0
+        else alt.Scale(nice=True)
     )
+    x_enc = (
+        alt.X("value:Q")
+        .title(axis_title)
+        .scale(x_scale)
+        .axis(alt.Axis(format=_tick_fmt(unit), grid=not short))
+    )
+    y_enc = alt.Y("state:N").sort(order).title(None)
+    tt = [
+        alt.Tooltip("state:N").title(peer_word),
+        alt.Tooltip("value:Q").title(title),
+        alt.Tooltip("rank:Q").title("Rank"),
+    ]
+    if short:
+        bars = (
+            alt.Chart()
+            .mark_bar(tooltip=False, cornerRadiusEnd=2)
+            .encode(x=x_enc, y=y_enc, color=cast(Any, _highlight_color()),
+                    tooltip=tt)
+        )
+        lbl_color: dict[str, Any] = {
+            "field": "highlight",
+            "type": "nominal",
+            "legend": None,
+            "scale": {"domain": [True, False],
+                      "range": ["#1c2733", "#4c5a68"]},
+        }
+        labels = (
+            alt.Chart()
+            .mark_text(align="left", baseline="middle", dx=5, fontSize=11,
+                       fontWeight=600)
+            .encode(
+                x=alt.X("value:Q"),
+                y=y_enc,
+                text=alt.Text("value:Q", format=_label_fmt(unit)),
+                color=cast(Any, lbl_color),
+            )
+        )
+        chart = (
+            alt.layer(bars, labels, data=alt.Data(values=rows))
+            .properties(
+                width="container",
+                height=max(210, 25 * len(rows)),
+                title=alt.TitleParams(text=title, subtitle=sub),
+                autosize=alt.AutoSizeParams(contains="padding"),
+            )
+        )
+    else:
+        chart = (
+            alt.Chart(alt.Data(values=rows))
+            .mark_bar(tooltip=False)
+            .encode(x=x_enc, y=y_enc, color=cast(Any, _highlight_color()),
+                    tooltip=tt)
+            .properties(
+                width="container",
+                height=max(140, 14 * len(rows)),
+                title=alt.TitleParams(text=title, subtitle=sub),
+            )
+        )
     chart = _paper(chart)
     return _pin_schema(cast(dict, chart.to_dict(validate=False)))
 

@@ -107,6 +107,7 @@ nav.sitebar a{color:var(--dim);font:600 .8rem/1 var(--sans);padding:.65rem .85re
   min-height:44px;display:inline-flex;align-items:center;text-transform:uppercase;
   letter-spacing:.09em;text-decoration:none!important;border-bottom:2px solid transparent}
 nav.sitebar a:hover{color:var(--acc)}
+nav.sitebar a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--acc)}
 nav.sitebar a.rss{color:var(--acc)}
 
 /* article pages get a compact bar: the story is the front page, the
@@ -117,48 +118,71 @@ nav.sitebar a.rss{color:var(--acc)}
 .compactbar .brand{padding-bottom:0;font:700 clamp(1.3rem,2.2vw,1.55rem)/1.05
   var(--serif);letter-spacing:.04em}
 .compactbar .brand .boltwrap svg{width:.6em;height:.9em}
-.compactbar nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:.1rem .25rem}
+.compactbar nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:.1rem .35rem}
 .compactbar nav a{color:var(--dim);font:600 .74rem/1 var(--sans);
-  padding:.44rem .35rem;min-height:36px;display:inline-flex;align-items:center;
-  text-transform:uppercase;letter-spacing:.08em;text-decoration:none!important}
+  padding:.44rem .4rem;min-height:44px;display:inline-flex;align-items:center;
+  text-transform:uppercase;letter-spacing:.08em;text-decoration:none!important;
+  border-bottom:2px solid transparent}
 .compactbar nav a:hover{color:var(--acc)}
+.compactbar nav a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--acc)}
 .compactbar nav a.rss{color:var(--acc)}
 
 /* ------------------------------------------------------ Latest (broadsheet) */
-.latest{padding:1.4rem 0 .6rem}
-.frontdek{font:400 clamp(.98rem,1.2vw,1.05rem)/1.55 var(--serif);
-  color:var(--dim);margin:.15rem 0 .25rem;max-width:70ch}
-.frontlinks{font:600 .82rem/1.4 var(--sans);color:var(--faint);
-  margin:0 0 .9rem}
-.frontlinks a{color:var(--acc);text-decoration:underline}
+.latest{padding:1.25rem 0 .6rem}
+.frontbar{display:flex;flex-wrap:wrap;align-items:baseline;
+  justify-content:space-between;gap:.35rem 1.2rem;
+  border-bottom:1px solid var(--rule);padding-bottom:.75rem;margin-bottom:1.15rem}
+.frontdek{font:400 clamp(.95rem,1.2vw,1.02rem)/1.5 var(--sans);
+  color:var(--dim);margin:0;max-width:64ch}
+.frontlinks{display:flex;flex-wrap:wrap;align-items:center;gap:.2rem .9rem;
+  font:600 .82rem/1.4 var(--sans);color:var(--faint);margin:0}
+.frontlinks a{color:var(--acc);text-decoration:underline;display:inline-flex;
+  align-items:center;min-height:36px}
 .latest-grid{display:grid;grid-template-columns:minmax(0,6.5fr) minmax(0,4.5fr);
-  gap:0 2rem}
-.lead .kicker{color:var(--acc);font-weight:800;font-size:.76rem;letter-spacing:.16em;
-  text-transform:uppercase}
-.lead h2{font:700 clamp(1.6rem,3.4vw,2.3rem)/1.15 var(--serif);margin:.45rem 0 .55rem;
-  text-wrap:balance}
+  gap:1.4rem 2rem;align-items:start}
+.lead-col{display:flex;flex-direction:column;gap:1.1rem}
+.lead .kicker{display:block;color:var(--acc);font-weight:800;font-size:.74rem;
+  letter-spacing:.15em;text-transform:uppercase;margin-top:.55rem}
+.lead h2{font:700 clamp(1.55rem,3vw,2.15rem)/1.14 var(--serif);margin:.35rem 0 .45rem;
+  letter-spacing:-.012em;text-wrap:balance}
 .lead h2 a{color:var(--ink)}
 .lead h2 a:hover{color:var(--acc);text-decoration:none}
-.lead .lede{font:400 1.12rem/1.55 var(--serif);color:var(--dim);margin:0 0 .8rem}
+.lead-q{font:500 .95rem/1.45 var(--sans);color:var(--dim);margin:0 0 .45rem}
+.lead .lede{font:400 1.02rem/1.55 var(--sans);color:var(--ink);margin:0 0 .8rem}
 .lead .vizwrap{margin:.2rem 0 .6rem;background:var(--panel);border:1px solid var(--rule);
-  padding:.6rem .5rem .3rem}
+  padding:.65rem .6rem .4rem}
+.front-town{background:var(--bg2);border:1px solid var(--rule);
+  border-left:3px solid var(--acc);padding:.85rem 1rem}
+.front-town-h{font:800 .72rem/1 var(--sans);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--acc);margin:0 0 .35rem}
+.front-town p{margin:0 0 .6rem;font-size:.88rem;line-height:1.45;color:var(--dim)}
+.front-town-form{display:flex;gap:.45rem;flex-wrap:wrap}
+.front-town-form select{flex:1 1 180px;min-width:0;background:var(--panel);
+  border:1px solid var(--line);color:var(--ink);padding:.45rem .65rem;
+  font:inherit;font-size:.88rem;min-height:44px;border-radius:4px}
+.front-town-form button{background:var(--ink);color:#fff;border:0;
+  padding:.45rem .95rem;font:700 .84rem/1 var(--sans);cursor:pointer;
+  min-height:44px;border-radius:4px}
+.front-town-form button:hover,.front-town-form button:focus-visible{background:var(--acc)}
 .sec2 .item,.rail .item{border-top:1px solid var(--rule);padding:.85rem 0}
-.sec2 .item:first-child,.rail .item:first-child{border-top:3px solid var(--ink)}
-.item-fig{flex:0 0 216px}
-.item-fig img{width:216px;height:auto;display:block;border:1px solid var(--rule)}
+.sec2 .item:first-of-type,.rail .item:first-of-type{border-top:0;padding-top:.65rem}
+.item-fig{display:block;margin-bottom:.45rem}
+.item-fig img{width:100%;max-width:260px;height:auto;display:block;border:1px solid var(--rule)}
 .item-body{min-width:0}
-.sec2 h3,.rail h3{font:700 1.08rem/1.3 var(--serif);margin:.1rem 0 .3rem}
+.sec2 h3,.rail h3{font:700 1.04rem/1.28 var(--serif);margin:.15rem 0 .25rem;
+  text-wrap:balance}
 .sec2 h3 a,.rail h3 a{color:var(--ink)}
 .sec2 h3 a:hover,.rail h3 a:hover{color:var(--acc);text-decoration:none}
-.item .meta{color:var(--faint);font-size:.8rem;line-height:1.5}
+.item-q{color:var(--dim);font-size:.84rem;line-height:1.4;margin:0 0 .3rem}
+.item .meta{color:var(--faint);font-size:.78rem;line-height:1.45}
 .item .kicker{display:block;color:var(--acc);font-weight:700;font-size:.68rem;
   letter-spacing:.14em;text-transform:uppercase;margin-bottom:.15rem}
 .sec2{align-self:start}
-.rail{margin-top:1.6rem;border-top:0}
-.railhead,.lead-head,.sec2-head{font:800 .8rem/1 var(--sans);letter-spacing:.18em;
+.rail{margin-top:0;border-top:0;align-self:start}
+.railhead,.lead-head,.sec2-head{font:800 .78rem/1 var(--sans);letter-spacing:.18em;
   text-transform:uppercase;color:var(--ink);border-bottom:3px solid var(--ink);
-  padding-bottom:.5rem;margin:0 0 .2rem}
-@media(min-width:1000px){.latest-grid{grid-template-columns:minmax(0,6fr) minmax(0,3.6fr) minmax(0,3fr)}}
+  padding-bottom:.48rem;margin:0 0 .2rem}
+@media(min-width:1000px){.latest-grid{grid-template-columns:minmax(0,5.8fr) minmax(0,3.5fr) minmax(0,3.1fr)}}
 
 /* --------------------------------------------------------------- board ---- */
 section{padding:1.6rem 0}
@@ -177,13 +201,16 @@ section{padding:1.6rem 0}
   padding:1rem 1.15rem;display:flex;flex-direction:column;gap:.15rem}
 .tile:hover{border-color:var(--acc2)}
 .tname{color:var(--dim);font-size:.82rem;font-weight:600}
-.val{font:800 2rem/1.15 var(--sans);color:var(--ok);letter-spacing:-.01em}
+.val{font:800 2rem/1.15 var(--sans);color:var(--ink);letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums}
 .tile .viz{min-height:58px;margin:.15rem 0 .2rem}
 .tile .viz,.tile .viz .vega-embed,.tile .viz .chart-wrapper{display:block;width:100%}
-.vote{display:flex;align-items:center;gap:.6rem;margin-top:.85rem;
+.vote{display:flex;align-items:center;gap:.55rem;margin-top:.85rem;
   color:var(--dim);font-size:.9rem}
 .vote button{background:var(--panel2);color:var(--dim);border:1px solid var(--line);
-  border-radius:99px;padding:.25rem .85rem;font:inherit;font-size:.85rem;cursor:pointer}
+  border-radius:99px;padding:.35rem .95rem;min-height:44px;font:inherit;
+  font-size:.86rem;font-weight:600;cursor:pointer;display:inline-flex;
+  align-items:center;gap:.3rem}
 .vote button:hover{color:var(--ink);border-color:var(--acc)}
 .vote button[data-chosen]{color:#fff;background:var(--acc);border-color:var(--acc)}
 .vote button:disabled{cursor:default}
@@ -201,10 +228,35 @@ section{padding:1.6rem 0}
 .indicator-finding{font:700 1.2rem/1.3 var(--serif);margin:.1rem 0 .45rem}
 .indicator-finding a{color:inherit;text-decoration:none}
 .indicator-finding a:hover{color:var(--acc);text-decoration:underline}
-.databox{border-top:1px solid var(--rule);margin:.9rem 0 .2rem;padding-top:.6rem}
-.databox summary{cursor:pointer;color:var(--dim);font:700 .86rem/1.4 var(--sans);
-  min-height:44px;display:flex;align-items:center;padding:.2rem 0}
-.databox summary:hover,.databox summary:focus-visible{color:var(--ink)}
+.databox{border:1px solid var(--rule);border-radius:6px;background:var(--bg);
+  margin:.9rem 0 .6rem;padding:.15rem .85rem}
+.databox summary{cursor:pointer;color:var(--ink);font:700 .86rem/1.4 var(--sans);
+  min-height:44px;display:flex;align-items:center;gap:.45rem;list-style:none}
+.databox summary::-webkit-details-marker{display:none}
+.databox summary::before{content:"\\25b8";color:var(--acc);font-size:.9em;
+  transition:transform .15s}
+.databox[open] summary::before{transform:rotate(90deg)}
+.databox summary:hover,.databox summary:focus-visible{color:var(--acc)}
+.chart-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;
+  margin:.75rem 0 .15rem}
+.chart-actions a,.chart-actions button{display:inline-flex;align-items:center;
+  min-height:44px;padding:.35rem .8rem;border:1px solid var(--line);
+  border-radius:6px;background:var(--bg);color:var(--ink);
+  font:600 .82rem/1.2 var(--sans);text-decoration:none!important;cursor:pointer}
+.chart-actions a:hover,.chart-actions button:hover{border-color:var(--acc);
+  color:var(--acc)}
+.chart-actions .cite-ok{color:var(--ok);border-color:var(--ok)}
+.town-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:.75rem;margin:1rem 0 1.35rem}
+.town-kpi{background:var(--panel);border:1px solid var(--rule);
+  border-top:3px solid var(--acc2);padding:.75rem .9rem}
+.town-kpi-k{font:700 .68rem/1.2 var(--sans);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--dim)}
+.town-kpi-v{font:800 1.45rem/1.2 var(--sans);color:var(--ink);
+  font-variant-numeric:tabular-nums;margin:.2rem 0 .1rem}
+.town-kpi-s{font:.76rem/1.3 var(--sans);color:var(--faint)}
+.state-link{display:block;font-size:.78rem;margin-top:.15rem}
+.state-link a{white-space:nowrap}
 .tablewrap{overflow-x:auto;margin:.35rem 0 .5rem}
 .datatable{width:100%;border-collapse:collapse;font-size:.8rem;line-height:1.4}
 .datatable th,.datatable td{padding:.4rem .55rem;border-bottom:1px solid var(--rule);
@@ -217,7 +269,8 @@ section{padding:1.6rem 0}
 .towntab{width:100%;border-collapse:collapse;margin:.8rem 0}
 .towntab td{padding:.45rem .6rem;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
 .towntab td:first-child{color:var(--dim)}
-.towntab td:last-child{text-align:right;font-weight:700}
+.towntab td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+@media(max-width:480px){.towntab td:last-child{white-space:normal}}
 /* .footgrid a out-ranks .subbtn for the color property — the button needs
    the footer-scoped rule or it renders gray-on-rust, which reads as broken */
 a.subbtn{display:inline-block;background:var(--acc);color:#fff;padding:.4rem .9rem;
@@ -235,13 +288,12 @@ details.embed textarea{width:100%;box-sizing:border-box;background:var(--bg2);
   font:.8rem/1.5 var(--mono);margin-top:.6rem}
 .legend{color:var(--faint);font-size:.8rem;margin:1rem 0 0}
 .wire{color:var(--faint);font-size:.8rem;margin:.2rem 0 .9rem}
-.wireblock{border-top:3px double var(--ink);margin-top:2.2rem;padding-top:.2rem}
-.wirelist{list-style:none;padding:0;margin:.4rem 0 0;column-count:2;
-  column-gap:2.4rem}
-.wirelist li{padding:.5rem 0;border-bottom:1px solid var(--rule);
-  break-inside:avoid;list-style:none}
-.wirelist{padding-left:0}
-.wirelist li a{font-weight:600;font-size:.95rem}
+.wireblock{border-top:3px double var(--ink);margin-top:2rem;padding-top:.2rem}
+.wirelist{list-style:none;padding:0;margin:.4rem 0 0;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 2.4rem}
+.wirelist li{padding:.65rem 0;border-bottom:1px solid var(--rule);
+  list-style:none}
+.wirelist li a{font-weight:600;font-size:.95rem;line-height:1.38}
 .wiresrc{display:block;color:var(--faint);font:.7rem/1.4 var(--mono);
   margin-top:.1rem;text-transform:uppercase;letter-spacing:.06em}
 .wireans{display:inline-block;background:#eee9df;color:#6e3705;
@@ -278,6 +330,9 @@ figure.vizwrap{margin:0}
 figure.vizwrap figcaption{color:var(--faint);font-size:.8rem;margin-top:.4rem;
   line-height:1.45}
 .viz{width:100%;max-width:100%;overflow-x:auto;min-height:var(--viz-h,0px)}
+.viz:empty{background:linear-gradient(180deg,var(--panel) 0%,var(--bg2) 100%);
+  border-radius:4px}
+.viz-ssr{display:block;width:100%;height:auto}
 .viz svg{max-width:100%;height:auto}
 .viz:focus-visible{outline:2px solid var(--acc);outline-offset:4px}
 .viz .vega-embed .chart-wrapper{margin:0}
@@ -336,11 +391,11 @@ white-space:nowrap;border:0;padding:0;margin:-1px;clip-path:inset(50%)}
 .storymeta time{font-variant-numeric:tabular-nums;white-space:nowrap}
 .storylede{font:400 clamp(1.125rem,1.5vw,1.2rem)/1.62 var(--sans);
   color:var(--ink);margin:1.1rem 0 1.35rem;max-width:68ch}
-.townlede{font:400 clamp(1.02rem,1.3vw,1.1rem)/1.62 var(--serif);
+.townlede{font:400 clamp(1rem,1.3vw,1.08rem)/1.62 var(--sans);
   color:var(--ink);margin:.2rem 0 1.2rem;max-width:66ch}
 .deskintro p{font-size:.98rem;line-height:1.6;margin:.3rem 0 .5rem;
   max-width:65ch}
-.deskblurb{font:400 .94rem/1.55 var(--serif);color:var(--dim);
+.deskblurb{font:400 .94rem/1.55 var(--sans);color:var(--dim);
   margin:.15rem 0 .55rem;max-width:65ch}
 .story .card{max-width:var(--col)}
 
@@ -450,7 +505,8 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
   nav.sitebar a{white-space:nowrap;padding:.5rem .3rem;font-size:.68rem;
     letter-spacing:.06em}
   .kicker,.lead .kicker{letter-spacing:.08em;font-size:.72rem}
-  .wirelist{column-count:1}
+  .wirelist{grid-template-columns:1fr}
+  .frontlinks a{min-height:44px}
   .nameplate{padding:.9rem .8rem 0}
   .brand{font-size:1.85rem;padding-bottom:1.7rem}
   .plate-art{height:70px}
@@ -458,7 +514,7 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
   .compactbar{display:block;padding:.55rem .8rem .2rem;text-align:center}
   .compactbar .brand{display:inline-block;font-size:1.35rem}
   .compactbar nav{justify-content:center;margin-top:.15rem}
-  .compactbar nav a{font-size:.65rem;padding:.4rem .25rem;min-height:34px}
+  .compactbar nav a{font-size:.68rem;padding:.4rem .3rem;min-height:44px}
   .storyhead{padding-top:1rem}
   .storyh1{font-size:1.75rem}
   .storylede{font-size:1.08rem}
@@ -496,13 +552,41 @@ _BOLT = ('<i class="boltwrap" aria-hidden="true">' + _BOLT_SVG + '</i>')
 _BRAND = f'<a class="brand" href="/">CT{_BOLT}Signal</a>'
 _RSS_BOLT = _BOLT_SVG
 
-_NAV = (
-    '<a href="/">The board</a>'
-    '<a href="/archive">Stories</a>'
-    '<a href="/towns">Towns</a>'
-    '<a href="/about">About</a>'
-    f'<a class="rss" href="/feed.xml">RSS {_RSS_BOLT}</a>'
+_NAV_ITEMS = (
+    ("/", "The board"),
+    ("/archive", "Stories"),
+    ("/towns", "Towns"),
+    ("/indicators", "Indicators"),
+    ("/about", "About"),
 )
+
+
+def _active_nav_href(path: str) -> str:
+    p = (path or "").strip()
+    if p in ("", "/"):
+        return "/"
+    if p.startswith(("/archive", "/story", "/topic")):
+        return "/archive"
+    if p.startswith("/town"):
+        return "/towns"
+    if p.startswith("/indicator"):
+        return "/indicators"
+    if p.startswith(("/about", "/masthead", "/corrections", "/privacy",
+                     "/sources")):
+        return "/about"
+    return ""
+
+
+def _nav_html(active_path: str = "") -> str:
+    active = _active_nav_href(active_path) if active_path else ""
+    parts = []
+    for href, label in _NAV_ITEMS:
+        cur = ' aria-current="page"' if href == active else ""
+        parts.append(f'<a href="{href}"{cur}>{label}</a>')
+    return "".join(parts)
+
+
+_NAV = _nav_html()
 
 
 def dateline(now: dt.datetime | None = None) -> str:
@@ -514,18 +598,19 @@ def dateline(now: dt.datetime | None = None) -> str:
     return now.strftime("%A, %B %-d, %Y") + "\u00a0\u00b7 automated data desk"
 
 
-def header(*, compact: bool = False) -> str:
+def header(*, compact: bool = False, active_path: str = "") -> str:
     # The nameplate carries the house drawing itself: the light skyline sits
     # behind the wordmark like a printer's ornament, at quarter strength.
     # (The full-strength copy stays as the page's tailpiece at the bottom.)
-    # On an article page the finding is the front page, so the masthead
+    # On inner pages the content is the front page, so the masthead
     # reduces to one compact bar.
+    nav = _nav_html(active_path)
     if compact:
         return (
             '<a class="skip" href="#main">Skip to content</a>'
             '<header class="site" id="top">'
             f'<div class="compactbar">{_BRAND}'
-            f'<nav aria-label="Primary">{_NAV}</nav></div></header>'
+            f'<nav aria-label="Primary">{nav}</nav></div></header>'
         )
     return (
         '<a class="skip" href="#main">Skip to content</a>'
@@ -535,7 +620,7 @@ def header(*, compact: bool = False) -> str:
         'width="900" height="336" alt="" aria-hidden="true">'
         + _BRAND + '</div>'
         f'<div class="dateline">{dateline()}</div>'
-        f'<nav class="sitebar" aria-label="Primary">{_NAV}</nav></header>'
+        f'<nav class="sitebar" aria-label="Primary">{nav}</nav></header>'
     )
 
 
@@ -755,7 +840,7 @@ def page(*, title: str, desc: str, path: str, body: str,
     # that actually contain a chart island (class="vs"), not on prose.
     vega = VEGA_LOAD if 'class="vs"' in body else ""
     return (f'<!doctype html>\n<html lang="en"><head>\n{h}\n</head>\n<body>\n'
-            f'{header(compact=compact)}\n<main id="main">\n{body}\n</main>\n'
+            f'{header(compact=compact, active_path=path)}\n<main id="main">\n{body}\n</main>\n'
             f'{footer()}\n{vega}\n{SPEED_INSIGHTS}\n</body></html>\n')
 
 
@@ -898,12 +983,15 @@ def _peer_summary(spec: dict) -> tuple[str, int] | None:
 
 
 def viz(spec_json: str, el_id: str, *, label: str,
-        caption: str | None = None) -> str:
+        caption: str | None = None,
+        preview_src: str | None = None) -> str:
     """Chart island with a text alternative (WCAG 1.1.1): the container carries
     role=img + aria-label and is keyboard-scrollable; an optional visible
     figcaption doubles as the takeaway line. The spec is normalized here —
     transparent background, no vega-internal ARIA (the wrapper already speaks),
-    and a reserved min-height so SVG injection never shifts layout."""
+    and a reserved min-height so SVG injection never shifts layout. When
+    preview_src is given, an instant server-rendered SVG paints immediately
+    before Vega-Embed hydrates interactivity."""
     try:
         spec = json.loads(spec_json)
     except ValueError:
@@ -934,8 +1022,11 @@ def viz(spec_json: str, el_id: str, *, label: str,
                f'Show all {n} peers</label>'
                f'<label class="peersum-c" for="{el_id}-pp">'
                f'Hide full peer chart</label>')
+    ssr = (f'<img class="viz-ssr" src="{_ESC(preview_src)}" alt="" '
+           f'decoding="async" loading="eager">'
+           if preview_src else "")
     return (f'<figure class="vizwrap">{ctl}<div class="viz" id="{el_id}" role="img" '
-            f'tabindex="0" aria-label="{_ESC(label)}"{reserve}></div>'
+            f'tabindex="0" aria-label="{_ESC(label)}"{reserve}>{ssr}</div>'
             f'{summary or ""}{cap}</figure>'
             f'<script type="application/json" class="vs" '
             f'data-target="{el_id}">{safe}</script>')
