@@ -155,6 +155,13 @@ commits publicly. The key was rotated the moment we caught it; the log is
 scrubbed, and failure lines are now redacted before they are ever written. The
 old key's value is a dead credential; the lesson is printed where you can
 check it.</li>
+<li><strong>2026-11-26 — a statewide total was counted as a town.</strong>
+The equalized-assessment growth card said 170 towns; Connecticut has 169. The
+source table's “Total” row is a statewide aggregate, not a municipality, and
+one card had admitted it into the town list at rank 37. We now exclude
+aggregate rows before ranking, so the card says 169 towns and the fake
+<code>/town/total</code> page is gone. The finding is unchanged: Old Lyme still
+led at +57.4%.</li>
 </ol>
 <p>That is a small list, not a claim of perfection —
 <a href="https://github.com/alexvnesta/ct-signal">our failure log is public</a>

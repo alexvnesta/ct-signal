@@ -468,26 +468,13 @@ function pick(){
   +'<select id="yt-sel" aria-label="Choose your town">'
   +slugs.map(function(s){return '<option value="'+s+'">'+b.towns[s].n+
     '</option>';}).join("")
-  +'</select> <button id="yt-set" class="ytbtn">Remember it</button>'
-  +'<span id="yt-sug"></span>';
+  +'</select> <button id="yt-set" class="ytbtn">Remember it</button>';
  document.getElementById("yt-set").onclick=function(){
   save(document.getElementById("yt-sel").value);};}
 function save(s){try{localStorage.setItem("ct-town",s);}catch(e){} facts(s);}
-function suggest(s){var e=document.getElementById("yt-sug"); if(!e)return;
- e.innerHTML=' \u00b7 Looks like you\u2019re in <b>'+b.towns[s].n+
-  '</b> \u00b7 <button id="yt-yes" class="ytbtn">Make it my town</button>'
-  +' <button id="yt-no" class="yt-change">not me</button>';
- document.getElementById("yt-yes").onclick=function(){save(s);};
- document.getElementById("yt-no").onclick=function(){
-  try{localStorage.setItem("ct-town-no","1");}catch(x){} e.innerHTML="";};}
-var saved=null,dismiss=null;
-try{saved=localStorage.getItem("ct-town");
-    dismiss=localStorage.getItem("ct-town-no");}catch(e){}
-if(saved&&b.towns[saved]){facts(saved);}else{pick();
- if(!dismiss)fetch("/api/geo").then(function(r){return r.json();})
-  .then(function(g){if(!g||g.region!=="CT"||!g.city)return;
-   var s=g.city.toLowerCase().replace(/[^a-z]+/g,"-").replace(/^-|-$/g,"");
-   if(b.towns[s])suggest(s);}).catch(function(){});}
+var saved=null;
+try{saved=localStorage.getItem("ct-town");}catch(e){}
+if(saved&&b.towns[saved]){facts(saved);}else{pick();}
 })();
 </script>"""
 

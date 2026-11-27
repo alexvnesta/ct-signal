@@ -10,8 +10,8 @@ from __future__ import annotations
 import datetime as dt
 import email.utils
 import html
-import hashlib
 import json
+import re
 import shutil
 
 from . import config, theme, util
@@ -41,6 +41,87 @@ def _day(ts: str) -> str:
     return ts[:10]
 
 
+def _short_date(ts: str) -> str:
+    d = util.et(ts)
+    return f"{d:%B} {d.day}, {d.year}"
+
+
+def _data_date(value) -> str:
+    """Human label for the observation date carried by a card. Annual
+    vintage ('2025'), monthly ('2026-10'), daily ('2026-11-21'), and the
+    local fiscal label ('FY2027') all stay honest instead of being forced
+    into one timestamp shape."""
+    text = str(value or "").strip()
+    if not text:
+        return ""
+    try:
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", text):
+            d = dt.date.fromisoformat(text)
+            return f"{d:%B} {d.day}, {d.year}"
+        if re.fullmatch(r"\d{4}-\d{2}", text):
+            d = dt.date.fromisoformat(text + "-01")
+            return f"{d:%B} {d.year}"
+        if re.fullmatch(r"\d{4}", text):
+            return text
+    except ValueError:
+        pass
+    return text
+
+
+def _headline_date(value: str) -> str:
+    """Compact month form for display type; the byline keeps the full date."""
+    try:
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+            d = dt.date.fromisoformat(value)
+            return f"{d:%b} {d.day}, {d.year}"
+        if re.fullmatch(r"\d{4}-\d{2}", value):
+            d = dt.date.fromisoformat(value + "-01")
+            return f"{d:%b} {d.year}"
+    except ValueError:
+        pass
+    return value
+
+
+def _display_prose(text: str) -> str:
+    """Render prose dates the way people say them. The card JSON keeps ISO
+    for machines; the page keeps months for readers."""
+    return re.sub(r"\b\d{4}-\d{2}(?:-\d{2})?\b",
+                  lambda m: _data_date(m.group(0)), str(text))
+
+
+def _finding(card: dict) -> str:
+    """The headline is the finding, not the standing question. Derived from
+    the answer so every page is reproducible from its own card JSON; the
+    question survives as the deck, never as a duplicated H1."""
+    raw = str(card.get("answer_text") or card.get("question") or "").strip()
+    # The answer often carries a receipt tail after an em dash; the headline
+    # needs the finding before it.
+    raw = raw.split(" — ")[0]
+    # First sentence only, so a reporting caveat does not become display type.
+    raw = re.split(r"(?<=[.!?])\s+", raw)[0]
+    # Peer-rank comparisons belong in the lede, not the headline.
+    raw = re.sub(r",\s+(?:the\s+)?\d+(?:st|nd|rd|th)-[A-Za-z][A-Za-z-]*"
+                 r"\s+of\s+\d+\s+peers\.?$", "", raw)
+    raw = re.sub(r",\s+the fastest growth of \d+ towns\.?$", "", raw)
+    raw = re.sub(r",\s+adding \$[\d.]+[BMK]\.?$", "", raw)
+    raw = re.sub(r",\s+\d+(?:\.\d+)? times .*\.?$", "", raw)
+    # A few indicators use a town-first preamble. This is a plain-language
+    # compression of the same fact, not a second claim.
+    raw = re.sub(r"\bled the \d+ towns measured in\b",
+                 "led Connecticut towns in", raw)
+    # Raw ISO dates belong in JSON, not display type.
+    raw = re.sub(r"\b\d{4}-\d{2}(?:-\d{2})?\b",
+                 lambda m: _headline_date(m.group(0)), raw)
+    # If a future template still produces a long line, fall back to the
+    # first comma clause rather than letting the H1 run to four lines.
+    if len(raw) > 95:
+        cut = raw.find(", ")
+        if cut >= 55:
+            raw = raw[:cut]
+    raw = raw.rstrip(" .")
+    return raw or str(card.get("question") or "").strip()
+
+
 def permalink(card: dict) -> str:
     return f"{config.SITE_URL}/story/{card['id']}"
 
@@ -57,7 +138,7 @@ def _spec_json(obj) -> str:
 
 def _trigger_html(card: dict) -> str:
     prefix, title = theme.trigger_parts(card)
-    return (f'<div class="card"><div class="label">Source</div>'
+    return (f'<div class="card"><h2 class="label">Source</h2>'
             f'<div style="font-size:1.05rem;line-height:1.35">{prefix}{title}</div></div>')
 
 
@@ -65,12 +146,12 @@ def _provenance_html(card: dict) -> str:
     cites = "<br>".join(f'<a href="{_ESC(c)}">{_ESC(c)}</a>' for c in card["citations"])
     vals = card.get("answer_values") or {}
     if vals.get("date"):
-        data_date = f' · data as of <b>{_ESC(str(vals.get("date")))}</b>'
+        data_date = f' · data as of <b>{_ESC(_data_date(str(vals.get("date"))))}</b>'
     else:
         data_date = ' · data vintage: see query above'
     cache = ' <span class="badge">cache</span>' if card.get("cache") else ""
-    return (f'<div class="card provenance"><div class="label">'
-            f'Provenance · fetched, never written</div>'
+    return (f'<div class="card provenance"><h2 class="label">'
+            f'Provenance · fetched, never written</h2>'
             f'<div class="meta">dataset: {cites}<br>query: <code>{_ESC(str(card["query"]))}</code>'
             f'<br>published {_pretty_time(card["generated_at"])}{data_date}{cache}</div></div>')
 
@@ -156,20 +237,21 @@ def chart_intro(card: dict) -> tuple[str, str]:
                      if names == ["Bradley Intl", "Danbury"]
                      else ", ".join(names) or "the stations")
             latest = (card.get("answer_values") or {}).get("date")
-            tail = (f"the window ends {latest}" if latest
-                    else "the newest observation is at the right edge")
+            tail = (f"the window ends {_display_prose(str(latest))}"
+                    if latest else "the newest observation is at the right edge")
             desc = (f"Daily station readings, {named}, each measured against "
                     f"its own 1991–2020 normals; {tail}. Source and query "
                     "below.")
-            label = (f'Daily station trend chart for “{card["question"]}”. '
-                     f'{card["answer_text"]}')
+            label = (f'Daily station trend chart for '
+                     f'“{_display_prose(card["question"])}”. '
+                     f'{_display_prose(card["answer_text"])}')
             return desc, label
         cadence = ("Quarterly" if card.get("series_freq") == "quarterly"
                    else "Monthly")
         desc = (f"{cadence} US series since the early 2000s; the newest "
                 "observation is at the right edge. Source and query below.")
-        label = (f'US trend chart for “{card["question"]}”. '
-                 f'{card["answer_text"]}')
+        label = (f'US trend chart for “{_display_prose(card["question"])}”. '
+                 f'{_display_prose(card["answer_text"])}')
         return desc, label
     if card.get("stream") == "local":
         # Derived from the chart's own data: a memorized sentence fitted
@@ -183,18 +265,21 @@ def chart_intro(card: dict) -> tuple[str, str]:
         desc = (f'{what or "Connecticut towns ranked"}; '
                 f'{f"{hl} highlighted in orange" if hl else "ranked first to last"}'
                 ". Source and query below.")
-        label = (f'Town ranking chart for “{card["question"]}”. '
-                 f'{card["answer_text"]}')
+        label = (f'Town ranking chart for '
+                 f'“{_display_prose(card["question"])}”. '
+                 f'{_display_prose(card["answer_text"])}')
     elif kind == "trend":
         desc = ("Monthly series, Connecticut (orange) against the United "
                 "States average. Source and query below.")
-        label = (f'Time-trend chart for “{card["question"]}”. '
-                 f'{card["answer_text"]}')
+        label = (f'Time-trend chart for '
+                 f'“{_display_prose(card["question"])}”. '
+                 f'{_display_prose(card["answer_text"])}')
     else:
         desc = ("Every peer ranked; Connecticut highlighted in orange. "
                 "Source and query below.")
-        label = (f'Peer ranking chart for “{card["question"]}”. '
-                 f'{card["answer_text"]}')
+        label = (f'Peer ranking chart for '
+                 f'“{_display_prose(card["question"])}”. '
+                 f'{_display_prose(card["answer_text"])}')
     return desc, label
 
 
@@ -239,10 +324,10 @@ def _siblings_html(card: dict, cards: list[dict]) -> str:
     if not sibs:
         return ""
     lis = "".join(f'<li style="padding:.2rem 0">'
-                  f'<a href="/story/{c["id"]}">{_ESC(c["question"])}</a></li>'
+                  f'<a href="/story/{c["id"]}">{_ESC(_finding(c))}</a></li>'
                   for c in sibs)
-    return (f'<div class="card"><div class="label">Same headline, '
-            f'more honest questions</div>'
+    return (f'<div class="card"><h2 class="label">Same headline, '
+            f'more honest questions</h2>'
             f'<ul style="list-style:none;margin:.2rem 0 0;padding:0">{lis}'
             f'</ul></div>')
 
@@ -262,7 +347,7 @@ def _related_html(card: dict, cards: list[dict]) -> str:
     for c in (cards or []):
         if c.get("id") != card["id"] and c.get("topic") == card.get("topic"):
             lis.append(f'<li style="padding:.15rem 0"><a href="/story/{c["id"]}">'
-                       f'{esc(c["question"])}</a></li>')
+                       f'{esc(_finding(c))}</a></li>')
             if len(lis) == 3:
                 break
     town = _TOWN_METRIC.get(card.get("indicator"))
@@ -284,23 +369,24 @@ def _related_html(card: dict, cards: list[dict]) -> str:
                  if i > 0 else "")
         pn = (f'<p class="meta" style="display:flex;justify-content:space-between;'
               f'gap:1rem;margin:.5rem 0 0">{newer}{older}</p>')
-    return (f'<div class="card"><div class="label">Keep reading</div>'
+    return (f'<div class="card"><h2 class="label">Keep reading</h2>'
             f'<ul style="margin:.2rem 0 0;padding-left:1.1rem">{"".join(lis)}</ul>'
             f'{pn}</div>')
 
 
 def story_html(card: dict, siblings: list[dict] | None = None) -> str:
     q = _ESC(card["question"])
-    a = _ESC(card["answer_text"])
+    a = _ESC(_display_prose(card["answer_text"]))
     url = permalink(card)
     desc, label = chart_intro(card)
+    desc, label = _display_prose(desc), _display_prose(label)
     chart = theme.viz(_spec_json(card["chart"]), "chart", label=label,
                       caption=desc)
     chart2 = ""
     if card.get("chart2"):
         chart2 = theme.viz(_spec_json(card["chart2"]), "chart2",
                            label=f'United States map, same data: '
-                                 f'{card["answer_text"]}',
+                                 f'{_display_prose(card["answer_text"])}',
                            caption="Peer map; Connecticut outlined. "
                                    "AlbersUSA omits DC and Puerto Rico.")
     cache_badge = ' <span class="badge">cache</span>' if card.get("cache") else ""
@@ -321,30 +407,33 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
               f'{_ESC(card["topic"])}</a> · {_ESC(card["stream"])} desk'
               f'{cache_badge}')
     og = _story_og(card)
-    # On a story page the social cover IS the headline treatment: same words,
-    # one voice, so the page matches its own preview instead of printing the
-    # question twice.
-    # The cover art repeats the question and answer inside pixels; the
-    # real h1 and lede sit under it, visible, so text scales, selects
-    # and survives reader modes. The art is decoration on top.
-    hero_art, h1 = "", f'<h1 class="storyh1">{q}</h1>'
-    cover = config.ROOT / "assets" / f"story-{card['id']}.png"
-    if cover.exists():
-        cv = hashlib.md5(cover.read_bytes()).hexdigest()[:8]
-        hero_art = (f'<img class="storyhero" src="/assets/story-{card["id"]}.png?v={cv}"'
-                    f' width="1200" height="630" alt="" role="presentation">')
-    else:
-        h1 = ('<h1 style="font:700 clamp(1.6rem,4vw,2.3rem)/1.2 '
-              'var(--serif);margin:.4rem 0 .3rem">' + q + '</h1>')
-    lede = f'<div class="answerbox">{a}</div>'
-    body = f"""<div class="wrap col">
-<div class="breadcrumb"><a href="/">← The board</a></div>
+    # The finding owns the H1; the standing question becomes the deck. The
+    # 1200×630 social cover is kept out of the reading column so the page
+    # opens with type, not a picture of type. It remains the OG artifact.
+    finding = _finding(card)
+    vals = card.get("answer_values") or {}
+    meta = [f'Published {_pretty_time(card["generated_at"])}']
+    rev = card.get("revalidated_at")
+    if rev and str(rev) != str(card["generated_at"]):
+        meta.append(f'Updated <time datetime="{rev}">{_ESC(_short_date(rev))}</time>')
+    data_date = _data_date(vals.get("date"))
+    if data_date:
+        meta.append(f'<b>Data as of {_ESC(_headline_date(str(vals.get("date"))))}</b>')
+    meta.append('Automated data desk')
+    story_meta = '<span class="sep">·</span>'.join(
+        f'<span>{m}</span>' for m in meta)
+    body = f"""<article class="wrap col story">
+<div class="breadcrumb"><a href="/archive">← All stories</a></div>
+<header class="storyhead">
 <div class="kicker">{kicker}</div>
-{hero_art}{h1}
-<div class="meta">Published {_pretty_time(card["generated_at"])} · CT Signal
-automated data desk</div>
-{lede}{_place_line(card)}{_vote_widget(card)}
-<div class="card"><div class="label">The data</div>{chart}{chart2}{shareline}</div>
+<h1 class="storyh1">{_ESC(finding)}</h1>
+<p class="storyq">{q}</p>
+<p class="storymeta">{story_meta}</p>
+</header>
+<p class="storylede">{a}</p>
+{_place_line(card)}
+<div class="card"><h2 class="label">The data</h2>{chart}{chart2}{shareline}</div>
+{_vote_widget(card)}
 {_trigger_html(card)}
 {_siblings_html(card, siblings)}
 {_related_html(card, siblings)}
@@ -357,16 +446,16 @@ the underlying data refreshes.</p>
 </details>
 <p class="meta">Found an error? Corrections are public, annotated, and diffable —
 see <a href="/corrections">the corrections policy</a>.</p>
-</div>"""
+</article>"""
     return theme.page(
-        title=f"{card['question']} · CT Signal",
+        title=f"{finding} · CT Signal",
         desc=card["answer_text"][:200],
         path=f"/story/{card['id']}",
-        body=body, og_type="article", og_title=card["question"],
+        body=body, compact=True, og_type="article", og_title=finding,
         og_desc=card["answer_text"][:200], published=card["generated_at"],
         image=og,
         json_ld=theme.article_json_ld(
-            card_id=card["id"], headline=card["question"],
+            card_id=card["id"], headline=finding,
             description=card["answer_text"][:200],
             published=card["generated_at"], section=card["topic"],
             image=og,
@@ -385,7 +474,7 @@ font:16px/1.6 var(--sans);padding:1rem 1.2rem;min-height:100vh;box-sizing:border
 <div class="kicker"><a class="klink" href="/story/{card["id"]}" target="_blank"
 rel="noopener">{_ESC(card["topic"])}</a> · CT Signal</div>
 <h1 style="font:700 1.25rem/1.3 var(--serif);margin:.4rem 0">{_ESC(card["question"])}</h1>
-<div class="answerbox" style="font-size:.95rem">{_ESC(card["answer_text"])}</div>
+<div class="answerbox" style="font-size:.95rem">{_ESC(_display_prose(card["answer_text"]))}</div>
 {chart}
 <p class="meta" style="margin:.8rem 0 0">Data refreshes automatically ·
 <a href="/story/{card["id"]}" target="_blank" rel="noopener">full story with
@@ -405,28 +494,77 @@ def _topics(cards: list[dict]) -> dict:
     return out
 
 
-def topic_html(topic: str, cards: list[dict]) -> str:
-    items = "".join(
-        f"""<li class="sig">
-<div class="kicker"><span class="badge">{_ESC(c["stream"])} desk</span> ·
-{_pretty_time(c["generated_at"])}</div>
-<h2><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h2>
-<p class="answer">{_ESC(c["answer_text"])}</p>
-</li>""" for c in cards)
-    body = f"""<div class="wrap col">
-<div class="breadcrumb"><a href="/">← The board</a></div>
-<div class="kicker">Topic desk</div>
-<h1 style="font:700 clamp(1.6rem,4vw,2.3rem)/1.2 var(--serif);margin:.4rem 0 .3rem">{_ESC(topic).replace("-", " ").capitalize()}</h1>
-<p class="meta">Every question this desk has answered, newest first. Know
-where you live.</p>
-<ol class="signals">{items}</ol>
-</div>"""
+def _desk_label(topic: str) -> str:
+    return topic.replace("-", " ").title()
+
+
+def _topic_chips(topics: list[str], active: str | None = None) -> str:
+    links = ['<a href="/archive"%s>All</a>' % (
+        ' aria-current="page"' if active is None else "")]
+    for topic in topics:
+        mark = ' aria-current="page"' if topic == active else ""
+        links.append(f'<a href="/topic/{_ESC(topic)}"{mark}>'
+                     f'{_ESC(_desk_label(topic))}</a>')
+    return ('<nav class="topicchips" aria-label="Browse stories by desk">'
+            + "".join(links) + "</nav>")
+
+
+def _archive_item(card: dict) -> str:
+    when = card.get("generated_at", "")
+    date = _ESC(_short_date(when)) if when else "date unknown"
+    topic = card.get("topic", "")
+    return (
+        f'<li class="archive-item">'
+        f'<div class="archive-row">'
+        f'<h3><a href="/story/{card["id"]}">{_ESC(_finding(card))}</a></h3>'
+        f'<span class="archive-meta">'
+        f'<a href="/topic/{_ESC(topic)}">{_ESC(_desk_label(topic))} desk</a> '
+        f'&middot; {date}</span></div>'
+        f'<p class="archive-q">{_ESC(card.get("question", ""))}</p></li>')
+
+
+def _archive_blocks(cards: list[dict]) -> str:
+    months: dict[str, list[dict]] = {}
+    for card in cards:
+        months.setdefault(card.get("generated_at", "?")[:7], []).append(card)
+    blocks = []
+    for month in sorted(months, reverse=True):
+        rows = sorted(months[month], key=lambda c: c.get("generated_at", ""),
+                      reverse=True)
+        try:
+            label = f"{dt.date.fromisoformat(month + '-01'):%B %Y}"
+        except ValueError:
+            label = month
+        blocks.append(
+            f'<h2 class="archive-month">{_ESC(label)}</h2>'
+            f'<ul class="archive-list">'
+            + "".join(_archive_item(c) for c in rows) + "</ul>")
+    return "".join(blocks)
+
+
+def topic_html(topic: str, cards: list[dict],
+               topics: list[str] | None = None) -> str:
+    label = _ESC(_desk_label(topic))
+    topics = topics or sorted({c.get("topic", "") for c in cards
+                               if c.get("topic")})
+    body = f"""<article class="wrap col">
+<div class="breadcrumb"><a href="/archive">← All stories</a></div>
+<header class="bloghead">
+<div class="label">Topic desk</div>
+<h1>{label}</h1>
+<p class="blogdek">{len(cards)} finding{'s' if len(cards) != 1 else ''} from
+this desk, newest first — each with its data vintage and the question behind
+it.</p>
+{_topic_chips(topics, topic)}
+</header>
+{_archive_blocks(cards)}
+</article>"""
     return theme.page(
-        title=f"{topic.capitalize()} stories · CT Signal",
-        desc=f"All CT Signal answers on {topic}: charts, rankings, and the "
-             "query behind every number.",
-        path=f"/topic/{topic}", body=body,
-        og_title=f"{topic.capitalize()} — CT Signal")
+        title=f"{_desk_label(topic)} stories · CT Signal",
+        desc=f"All CT Signal findings on {_desk_label(topic)}: charts, "
+             "rankings, and the query behind every number.",
+        path=f"/topic/{topic}", body=body, compact=True,
+        og_title=f"{_desk_label(topic)} — CT Signal")
 
 
 
@@ -543,6 +681,8 @@ def sitemap_xml(cards: list[dict]) -> str:
     cited, card_day = set(), {}
     for c in cards:
         for row in (c.get("towns") or [])[:200]:
+            if not _is_town(row):
+                continue
             slug = _slug(row["town"])
             cited.add(slug)
             card_day[slug] = max(card_day.get(slug, ""),
@@ -582,12 +722,15 @@ def write_all(cards: list[dict]) -> None:
         emb = story / "embed"
         emb.mkdir(exist_ok=True)
         util.atomic_write_text(emb / "index.html", embed_html(card))
+    history = _archive_index()
+    topics = sorted({c.get("topic", "") for c in history if c.get("topic")})
     tdir = config.ROOT / "topic"
     tdir.mkdir(exist_ok=True)
-    for topic, tcards in _topics(cards).items():
+    for topic, tcards in _topics(history).items():
         hd = tdir / topic
         hd.mkdir(exist_ok=True)
-        (hd / "index.html").write_text(topic_html(topic, tcards))
+        util.atomic_write_text(hd / "index.html",
+                               topic_html(topic, tcards, topics))
     troot = config.ROOT / "town"
     # One page per town, every local fact that town has: two cards may
     # measure the same place (grand-list growth and the current tax rate),
@@ -595,6 +738,8 @@ def write_all(cards: list[dict]) -> None:
     by_town: dict[str, dict[str, tuple[dict, dict]]] = {}
     for c in cards:
         for row in (c.get("towns") or []):
+            if not _is_town(row):
+                continue
             by_town.setdefault(row["town"], {})[c["indicator"]] = (row, c)
     for town, pieces in by_town.items():
         hd = troot / _slug(town)
@@ -603,12 +748,13 @@ def write_all(cards: list[dict]) -> None:
         util.atomic_write_text(hd / "feed.xml",
                                town_feed(town, _slug(town), cards))
     if troot.exists():
-        live = {_slug(r["town"]) for c in cards for r in (c.get("towns") or [])}
+        live = {_slug(r["town"]) for c in cards
+                for r in (c.get("towns") or []) if _is_town(r)}
         for stale in troot.iterdir():
             if stale.is_dir() and stale.name not in live:
                 shutil.rmtree(stale)
     util.atomic_write_text(config.ARCHIVE_DIR / "index.html",
-                           archive_html(cards))
+                           archive_html(cards, history))
     if cards:
         util.atomic_write_text(config.ROOT / "feed.xml", rss_xml(cards))
         util.write_json(config.ROOT / "feed.json", json.loads(json_feed(cards)))
@@ -618,6 +764,17 @@ def write_all(cards: list[dict]) -> None:
 def _slug(name: str) -> str:
     import re as _re
     return _re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
+# A deck card can carry a statewide total alongside its 169 real town rows.
+# That aggregate is a spreadsheet convenience, not a place page: rendering it
+# produced a fake /town/total page (and sitemap entry) with no town identity.
+_TOWN_AGGREGATES = {"total", "connecticut", "statewide"}
+
+
+def _is_town(row: dict) -> bool:
+    name = str(row.get("town") or "").strip().lower()
+    return bool(name) and name not in _TOWN_AGGREGATES
 
 
 def _freshness_html(card: dict) -> str:
@@ -825,9 +982,8 @@ stories; errors are corrected publicly.</p>
     return page.replace("</head>", alt + "</head>", 1)
 
 
-def archive_html(cards: list[dict]) -> str:
-    """On-site index of every card ever published (the audit trail, browsable)."""
-    esc = html.escape
+def _archive_index() -> list[dict]:
+    """Newest surviving vintage per card, from the raw JSON audit trail."""
     seen: dict[str, tuple[str, dict]] = {}
     for path in config.ARCHIVE_DIR.rglob("*.json"):
         try:
@@ -837,33 +993,27 @@ def archive_html(cards: list[dict]) -> str:
         prev = seen.get(c["id"])
         if prev is None or c.get("generated_at", "") > prev[0]:
             seen[c["id"]] = (c.get("generated_at", ""), c)
-    months: dict[str, list[dict]] = {}
-    for _, c in seen.values():
-        months.setdefault(c.get("generated_at", "?")[:7], []).append(c)
-    blocks = []
-    for month in sorted(months, reverse=True):
-        rows = sorted(months[month], key=lambda c: c.get("generated_at", ""),
-                      reverse=True)
-        lis = "".join(
-            f'<li><div class="archive-row">'
-            f'<a href="/story/{c["id"]}">{esc(c["question"])}</a>'
-            f'<span class="archive-meta">{esc(c.get("topic", ""))} &middot; '
-            f'{esc(c.get("generated_at", ""))[:10]}</span></div></li>'
-            for c in rows)
-        blocks.append(
-            f'<h2 class="archive-month">{esc(month)}</h2>'
-            f'<ul class="archive-list">{lis}</ul>')
-    total = len(seen)
+    return [c for _, c in sorted(seen.values(),
+                                key=lambda pair: pair[0], reverse=True)]
+
+
+def archive_html(cards: list[dict], history: list[dict] | None = None) -> str:
+    """Publication index: every card ever published, newest first, with the
+    finding visible before the click. Raw JSON stays the audit trail."""
+    history = history if history is not None else _archive_index()
+    topics = sorted({c.get("topic", "") for c in history if c.get("topic")})
     body = f"""<article class="wrap col">
-<div class="label">Public archive</div>
-<h1 style="font:700 clamp(1.7rem,4vw,2.3rem)/1.15 var(--serif);margin:.4rem 0 .3rem">
-Every question we have answered</h1>
-<p class="sub">{total} published cards, kept forever &mdash; including every
-story whose data vintage was superseded. Raw JSON lives in the repository,
-one file per card per month; this page is the human-readable index.</p>
-{''.join(blocks)}
+<header class="bloghead">
+<div class="label">Stories</div>
+<h1>Every story we&rsquo;ve published</h1>
+<p class="blogdek">{len(history)} findings, kept forever &mdash; each with the
+data vintage it was built from, and every vintage that superseded it. Raw
+JSON lives in the repository; this page is the readable index.</p>
+{_topic_chips(topics)}
+</header>
+{_archive_blocks(history)}
 </article>"""
-    return theme.page(title="Card archive · CT Signal",
-                      desc="Every question CT Signal has answered, kept "
-                           "forever with its data vintage.",
-                      path="/archive", body=body)
+    return theme.page(title="Stories · CT Signal",
+                      desc="Every story CT Signal has published, with its "
+                           "finding, desk and data vintage kept forever.",
+                      path="/archive", body=body, compact=True)

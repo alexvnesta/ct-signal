@@ -81,6 +81,46 @@ class TestRender(unittest.TestCase):
         self.assertIsNone(
             newsroom._cover_path({"id": "deadbeefdead"}))
 
+    def test_finding_headline_drops_peer_rank_tail(self):
+        card = {"question": "How rich is Connecticut?",
+                "answer_text": "Connecticut's median household income is "
+                               "$100,056 (2025), the 9th-highest of 52 peers."}
+        self.assertEqual(newsroom._finding(card),
+                         "Connecticut's median household income is $100,056 (2025)")
+
+    def test_finding_headline_drops_any_peer_rank_tail(self):
+        card = {"question": "How safe is Connecticut?",
+                "answer_text": "Connecticut reports 147 violent crimes per "
+                               "100k people (2023), the 3rd-safest of 52 peers."}
+        self.assertEqual(newsroom._finding(card),
+                         "Connecticut reports 147 violent crimes per "
+                         "100k people (2023)")
+
+    def test_finding_headline_is_reproducible_from_answer(self):
+        card = {"question": "What happened?",
+                "answer_text": "Only 2.1% of US workers quit their jobs in "
+                               "2026-09 — the lowest since 2022."}
+        self.assertEqual(newsroom._finding(card),
+                         "Only 2.1% of US workers quit their jobs in Sep 2026")
+
+    def test_display_prose_humanizes_iso_dates(self):
+        self.assertEqual(newsroom._display_prose(
+            "The window ends 2026-11-25, after 2026-10."),
+            "The window ends November 25, 2026, after October 2026.")
+
+    def test_data_date_labels_are_human_not_raw(self):
+        self.assertEqual(newsroom._data_date("2026-11-25"),
+                         "November 25, 2026")
+        self.assertEqual(newsroom._data_date("2026-10"), "October 2026")
+        self.assertEqual(newsroom._data_date("2025"), "2025")
+        self.assertEqual(newsroom._data_date("FY2027"), "FY2027")
+
+    def test_article_header_is_compact(self):
+        html = theme.header(compact=True)
+        self.assertIn("compactbar", html)
+        self.assertNotIn("nameplate", html)
+        self.assertIn('href="/archive">Stories</a>', html)
+
     def test_head_escapes_and_has_no_tag_mismatch(self):
         html = publish.home_html([], {}) if hasattr(publish, "home_html") else ""
         self.assertIn("</h2>", html or "</h2>")
@@ -105,7 +145,7 @@ class TestSprintSurfaces(unittest.TestCase):
         self.assertIn("of 169", body)
 
     def test_archive_and_sources_pages_exist(self):
-        self.assertIn("Every question",
+        self.assertIn("Every story",
                       (config.ARCHIVE_DIR / "index.html").read_text())
         self.assertIn("webp-fgt3",
                       (config.ROOT / "sources.html").read_text())
@@ -242,9 +282,35 @@ class TestCharts(unittest.TestCase):
         }
         desc, _ = newsroom.chart_intro(card)
         self.assertIn("Daily station readings", desc)
-        self.assertIn("window ends 2026-11-25", desc)
+        self.assertIn("window ends November 25, 2026", desc)
         self.assertIn("Bradley Intl", desc)
         self.assertNotIn("Monthly US", desc)
+
+    def test_statewide_total_is_not_a_town_page(self):
+        self.assertFalse(newsroom._is_town({"town": "Total"}))
+        self.assertFalse(newsroom._is_town({"town": "Connecticut"}))
+        self.assertTrue(newsroom._is_town({"town": "Bridgeport"}))
+        self.assertFalse(newsroom._is_town({}))
+
+    def test_peer_map_is_lazy_and_keeps_its_accessible_wrapper(self):
+        """The second chart sits below the fold; mounting it on first paint
+        costs map-compile time and TBT. It must still keep role=img + label
+        after Vega replaces the target."""
+        self.assertIn('s.dataset.target==="chart2"', theme.VEGA_LOAD)
+        self.assertIn("threshold:.2", theme.VEGA_LOAD)
+        self.assertIn('setAttribute("role","img")', theme.VEGA_LOAD)
+        self.assertIn('setAttribute("aria-label",label)', theme.VEGA_LOAD)
+
+    def test_chart_reserve_survives_mobile_css(self):
+        """The mobile chart rule must cap the reserve, not delete it: a
+        min-height of zero lets Vega injection push every later block down
+        (the 0.26 CLS regression this test guards)."""
+        html = theme.viz(json.dumps({"height": 200,
+                                     "title": {"text": "A chart"}}),
+                         "probe", label="A chart")
+        self.assertIn("--viz-h:258px", html)
+        self.assertNotIn("min-height:0!important", theme.CSS)
+        self.assertIn("min-height:min(var(--viz-h,0px),340px)", theme.CSS)
 
     def test_weather_answer_is_a_direction_not_a_signed_puzzle(self):
         from ctsignal import questions
@@ -418,8 +484,10 @@ class TestShareExport(unittest.TestCase):
             page = newsroom.story_html(card, [card])
             self.assertIn("Download this chart", page)
             self.assertIn("/assets/share-aa.png?v=deadbeefcafe", page)
-            # The cachebuster must never displace the page's real headline.
-            self.assertIn(f'>{card["question"]}</h1>', page)
+            # The cachebuster must never displace the story's headline or
+            # the standing question under it.
+            self.assertIn('<h1 class="storyh1">A</h1>', page)
+            self.assertIn(f'<p class="storyq">{card["question"]}</p>', page)
             self.assertNotIn('>?v=deadbeefcafe</h1>', page)
         finally:
             f.unlink(missing_ok=True)

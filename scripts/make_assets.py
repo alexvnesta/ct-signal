@@ -156,6 +156,17 @@ def digest_header():
     img.convert("RGB").save(OUT / "digest-header.png", optimize=True)
 
 
+def skyline_webp():
+    # The nameplate foreground is decorative and displayed at most ~395px
+    # wide on desktop. Serving the full 2340×875 PNG made every mobile first
+    # paint decode 2 megapixels for an ornament: Lighthouse measured 4.4s FCP
+    # until this 900×336 WebP derivative replaced it. The full PNG stays for
+    # the lazy tailpiece, where it is read after the fold.
+    src = Image.open(OUT / "skyline-light.png").convert("RGBA")
+    src.resize((900, 336), Image.LANCZOS).save(
+        OUT / "skyline-light-900.webp", quality=70, method=6)
+
+
 def favicon_png(size, path):
     img = Image.new("RGBA", (size, size), BG)
     d = ImageDraw.Draw(img)
@@ -198,4 +209,5 @@ if __name__ == "__main__":
     m.save(OUT / "icon-maskable-512.png", optimize=True)
     favicon_png(180, OUT / "apple-touch-icon.png")
     favicon_svg()
+    skyline_webp()
     print("assets written:", sorted(p.name for p in OUT.iterdir()))

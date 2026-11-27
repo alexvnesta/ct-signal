@@ -210,8 +210,9 @@ if __name__ == "__main__":
     mpath = OUT / "_art_manifest.json"
     manifest = json.loads(mpath.read_text()) if mpath.exists() else {}
     for c in feed["cards"]:
-        key = hashlib.sha256(json.dumps(c, sort_keys=True).encode()
-                             ).hexdigest()[:16]
+        key = hashlib.sha256(
+            (json.dumps(c, sort_keys=True) + "|thumb-v2").encode()
+        ).hexdigest()[:16]
         if manifest.get(c["id"]) == key:
             continue
         path = OUT / f"story-{c['id']}.png"
@@ -219,8 +220,12 @@ if __name__ == "__main__":
         print("wrote", path.name)
         t = thumb(c)
         if t is not None:
+            # Board art is displayed at 216×86 desktop and 132×54 phone.
+            # The 1200×480 master made the first four cards decode six times
+            # the pixels they use, competing with the nameplate on first
+            # paint; 480×192 is still ≥2× at every display size.
             tpath = OUT / f"story-{c['id']}-thumb.png"
-            t.save(tpath, optimize=True)
+            t.resize((480, 192), Image.LANCZOS).save(tpath, optimize=True)
             print("wrote", tpath.name)
         manifest[c["id"]] = key
     mpath.write_text(json.dumps(manifest, indent=1))

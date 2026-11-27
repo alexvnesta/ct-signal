@@ -38,7 +38,7 @@ CSS = """
    dim #4c5a68 6.6 · faint #66717e 4.6 · acc #a85408 4.9 · blue #2b62b8 5.2
    ok #1a6e41 5.3 · badge #4c5a68/#eee9df 6.0 — all >= 4.5:1 normal text */
 @font-face{font-family:"Newsreader";font-style:normal;font-weight:700;
-  font-display:swap;src:url("/assets/fonts/newsreader-700-latin.woff2")
+  font-display:optional;src:url("/assets/fonts/newsreader-700-latin.woff2")
   format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,
   U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,
   U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
@@ -61,8 +61,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline;text-underline-offset:3px}
 /* in-content links carry a non-color cue (WCAG 1.4.1); brand + nav opt out */
-.meta a, .breadcrumb a, .provenance a, .footgrid a, .card a, .item a.r
-{text-decoration:underline;text-underline-offset:3px}
+.meta a, .breadcrumb a, .provenance a, .footgrid a, .card a, .item a.r,
+#main p a, #main td a, #main .label a
+{text-decoration:underline;text-underline-offset:3px;
+ text-decoration-thickness:1px}
 ::selection{background:#d9772b33}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:2px}
 .skip{position:absolute;left:-9999px;top:0;z-index:20;background:var(--acc);color:#fff;
@@ -106,6 +108,21 @@ nav.sitebar a{color:var(--dim);font:600 .8rem/1 var(--sans);padding:.65rem .85re
   letter-spacing:.09em;text-decoration:none!important;border-bottom:2px solid transparent}
 nav.sitebar a:hover{color:var(--acc)}
 nav.sitebar a.rss{color:var(--acc)}
+
+/* article pages get a compact bar: the story is the front page, the
+   nameplate is chrome. One row on desktop, brand over nav on phones. */
+.compactbar{max-width:var(--wrap);margin:0 auto;padding:.55rem 1.2rem;
+  display:flex;align-items:center;justify-content:space-between;gap:.6rem 1.2rem;
+  border-bottom:3px double var(--ink)}
+.compactbar .brand{padding-bottom:0;font:700 clamp(1.3rem,2.2vw,1.55rem)/1.05
+  var(--serif);letter-spacing:.04em}
+.compactbar .brand .boltwrap svg{width:.6em;height:.9em}
+.compactbar nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:.1rem .25rem}
+.compactbar nav a{color:var(--dim);font:600 .74rem/1 var(--sans);
+  padding:.44rem .35rem;min-height:36px;display:inline-flex;align-items:center;
+  text-transform:uppercase;letter-spacing:.08em;text-decoration:none!important}
+.compactbar nav a:hover{color:var(--acc)}
+.compactbar nav a.rss{color:var(--acc)}
 
 /* ------------------------------------------------------ Latest (broadsheet) */
 .latest{padding:1.4rem 0 .6rem}
@@ -230,14 +247,14 @@ li.sig .meta{font-size:.88rem}
 .card{background:var(--panel);border:1px solid var(--rule);
   padding:1rem 1.2rem;margin:1.2rem 0}
 .card .label{color:var(--dim);font-weight:700;font-size:.72rem;letter-spacing:.16em;
-  text-transform:uppercase;margin-bottom:.5rem}
+  text-transform:uppercase;margin:0 0 .5rem}
 .answerbox{background:var(--bg2);border:1px solid var(--rule);
   border-left:4px solid var(--ok);padding:1rem 1.2rem;
   font:600 1.3rem/1.4 var(--sans);margin:.9rem 0 1.2rem}
 figure.vizwrap{margin:0}
 figure.vizwrap figcaption{color:var(--faint);font-size:.8rem;margin-top:.4rem;
   line-height:1.45}
-.viz{width:100%;max-width:100%;overflow-x:auto}
+.viz{width:100%;max-width:100%;overflow-x:auto;min-height:var(--viz-h,0px)}
 .viz svg{max-width:100%;height:auto}
 .viz:focus-visible{outline:2px solid var(--acc);outline-offset:4px}
 .viz .vega-embed .chart-wrapper{margin:0}
@@ -279,14 +296,56 @@ code{background:var(--panel2);color:var(--ink);padding:.1rem .35rem;
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
 white-space:nowrap;border:0;padding:0;margin:-1px;clip-path:inset(50%)}
 
-/* ----------------------------------------------------------- archive ----- */
-.archive-month{font:700 1.15rem/1.3 var(--serif);margin:1.4rem 0 .2rem}
+/* story-first header: finding H1, standing question as a deck, then a
+   three-clock byline. No cover art in the reading column. */
+.storyhead{padding:1.35rem 0 .25rem;max-width:var(--col)}
+.storyh1{font:700 clamp(1.85rem,4vw,2.45rem)/1.15 var(--serif);
+  margin:.55rem 0 .6rem;letter-spacing:-.012em;text-wrap:balance}
+.storyq{font:400 clamp(1.02rem,1.8vw,1.18rem)/1.5 var(--sans);
+  color:var(--dim);margin:0 0 .8rem;max-width:62ch}
+.storymeta{color:var(--faint);font:.875rem/1.65 var(--sans);
+  border-top:1px solid var(--rule);padding-top:.55rem;overflow-wrap:anywhere;
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .35rem}
+.storymeta>span{white-space:nowrap}
+.storymeta b{color:var(--ink);font-weight:600}
+.storymeta .sep{color:var(--faint)}
+.storymeta time{font-variant-numeric:tabular-nums}
+.storylede{font:400 clamp(1.125rem,1.5vw,1.2rem)/1.62 var(--sans);
+  color:var(--ink);margin:1.1rem 0 1.35rem;max-width:68ch}
+.story .card{max-width:var(--col)}
+
+/* ------------------------------------------------------ stories index ---- */
+.bloghead{padding:1.2rem 0 .3rem;max-width:var(--col)}
+.bloghead h1{font:700 clamp(1.7rem,3.7vw,2.3rem)/1.15 var(--serif);
+  margin:.35rem 0 .35rem;text-wrap:balance}
+.blogdek{color:var(--dim);font-size:.98rem;line-height:1.55;margin:0 0 .8rem;
+  max-width:65ch}
+.topicchips{display:flex;flex-wrap:wrap;gap:.35rem;margin:.4rem 0 .7rem}
+.topicchips a{display:inline-flex;align-items:center;min-height:44px;
+  color:var(--dim);font:600 .8rem/1 var(--sans);text-decoration:none!important;
+  background:var(--panel);border:1px solid var(--rule);border-radius:99px;
+  padding:.35rem .8rem}
+.topicchips a:hover{color:var(--ink);border-color:var(--acc)}
+.topicchips a[aria-current="page"]{background:var(--acc);border-color:var(--acc);
+  color:#fff}
+.archive-month{font:800 .8rem/1 var(--sans);letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink);border-bottom:3px solid var(--ink);
+  padding-bottom:.35rem;margin:1.5rem 0 .3rem}
 .archive-list{list-style:none;padding:0;margin:0}
-.archive-list li{padding:.55rem 0;border-bottom:1px solid var(--line)}
-.archive-row{display:flex;align-items:baseline;justify-content:space-between;
-  gap:.5rem 1rem;flex-wrap:wrap}
-.archive-row a{flex:1 1 20rem;line-height:1.45}
-.archive-meta{color:var(--faint);font-size:.8rem;white-space:nowrap}
+.archive-list li{padding:1rem 0;border-bottom:1px solid var(--line)}
+.archive-item h3{font:700 1.2rem/1.32 var(--serif);margin:.1rem 0 .3rem;
+  text-wrap:balance}
+.archive-item h3 a{color:var(--ink)}
+.archive-item h3 a:hover{color:var(--acc);text-decoration:none}
+.archive-q{color:var(--dim);font-size:.92rem;line-height:1.45;margin:0 0 .35rem}
+.archive-row{display:block}
+.archive-meta{color:var(--faint);font-size:.78rem;line-height:1.4;
+  margin:.1rem 0 .25rem}
+.archive-meta a{color:var(--dim);text-decoration:underline}
+@media(max-width:420px){
+  .archive-item h3{font-size:1.12rem}
+  .archive-meta{white-space:normal}
+}
 
 /* ------------------------------------------------------------ tailpiece --- */
 /* our Hartford skyline as a printer's tailpiece — the drawing that matches
@@ -352,7 +411,14 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
   .brand{font-size:1.85rem;padding-bottom:1.7rem}
   .plate-art{height:70px}
   .dateline{font-size:.62rem;letter-spacing:.08em;padding:.3rem .8rem}
-  .vizwrap .viz{min-height:0!important;max-height:340px;
+  .compactbar{display:block;padding:.55rem .8rem .2rem;text-align:center}
+  .compactbar .brand{display:inline-block;font-size:1.35rem}
+  .compactbar nav{justify-content:center;margin-top:.15rem}
+  .compactbar nav a{font-size:.65rem;padding:.4rem .25rem;min-height:34px}
+  .storyhead{padding-top:1rem}
+  .storyh1{font-size:1.75rem}
+  .storylede{font-size:1.08rem}
+  .vizwrap .viz{min-height:min(var(--viz-h,0px),340px);max-height:340px;
     overflow-y:auto;scrollbar-width:none;overscroll-behavior-x:contain}
   .vizwrap .viz::-webkit-scrollbar{display:none}
   .peershow~.viz,.peershow~.viz.vega-embed{display:none}
@@ -382,7 +448,7 @@ _RSS_BOLT = _BOLT_SVG
 
 _NAV = (
     '<a href="/">The board</a>'
-    '<a href="/#signals">Latest questions</a>'
+    '<a href="/archive">Stories</a>'
     '<a href="/towns">Towns</a>'
     '<a href="/about">About</a>'
     f'<a class="rss" href="/feed.xml">RSS {_RSS_BOLT}</a>'
@@ -398,16 +464,25 @@ def dateline(now: dt.datetime | None = None) -> str:
     return now.strftime("%A, %B %-d, %Y") + "\u00a0\u00b7 automated data desk"
 
 
-def header() -> str:
+def header(*, compact: bool = False) -> str:
     # The nameplate carries the house drawing itself: the light skyline sits
     # behind the wordmark like a printer's ornament, at quarter strength.
     # (The full-strength copy stays as the page's tailpiece at the bottom.)
+    # On an article page the finding is the front page, so the masthead
+    # reduces to one compact bar.
+    if compact:
+        return (
+            '<a class="skip" href="#main">Skip to content</a>'
+            '<header class="site" id="top">'
+            f'<div class="compactbar">{_BRAND}'
+            f'<nav aria-label="Primary">{_NAV}</nav></div></header>'
+        )
     return (
         '<a class="skip" href="#main">Skip to content</a>'
         '<header class="site" id="top">'
         '<div class="wrap nameplate">'
-        '<img class="plate-art" src="/assets/skyline-light.png" '
-        'width="2340" height="875" alt="" aria-hidden="true">'
+        '<img class="plate-art" src="/assets/skyline-light-900.webp" '
+        'width="900" height="336" alt="" aria-hidden="true">'
         + _BRAND + '</div>'
         f'<div class="dateline">{dateline()}</div>'
         f'<nav class="sitebar" aria-label="Primary">{_NAV}</nav></header>'
@@ -452,8 +527,7 @@ public data answers it. Know where you live.</p>
 <p><a href="mailto:{email}?subject=Question%20for%20the%20desk&amp;body=Town%3A%20%0AQuestion%20(one%20sentence)%3A%20">Ask the desk a question</a> — every message is read and logged.</p></div>
 <div><h2>Sections</h2><ul>
 <li><a href="/">The board</a></li>
-<li><a href="/#signals">Latest questions</a></li>
-<li><a href="/archive">Card archive</a></li>
+<li><a href="/archive">Stories</a></li>
 <li><a href="/towns">Towns</a></li>
 <li><a href="/sources">Data sources</a></li>
 <li><a href="/feed.xml">RSS feed</a></li></ul></div>
@@ -571,14 +645,15 @@ def head(*, title: str, desc: str, path: str, og_type: str = "website",
 {ld}"""
 
 
-def page(*, title: str, desc: str, path: str, body: str, **kw) -> str:
+def page(*, title: str, desc: str, path: str, body: str,
+         compact: bool = False, **kw) -> str:
     h = head(title=title, desc=desc, path=path, **kw)
     # The vendored Vega stack is ~280 KB compressed: it loads only on pages
     # that actually contain a chart island (class="vs"), not on prose.
     vega = VEGA_LOAD if 'class="vs"' in body else ""
     return (f'<!doctype html>\n<html lang="en"><head>\n{h}\n</head>\n<body>\n'
-            f'{header()}\n<main id="main">\n{body}\n</main>\n{footer()}\n'
-            f'{vega}\n</body></html>\n')
+            f'{header(compact=compact)}\n<main id="main">\n{body}\n</main>\n'
+            f'{footer()}\n{vega}\n</body></html>\n')
 
 
 # Inline JSON spec islands + one loader keep charts dependency-light and work
@@ -588,10 +663,7 @@ def page(*, title: str, desc: str, path: str, body: str, **kw) -> str:
 # the renderer ourselves. Pinned copies in assets/vendor/ — same bytes
 # every visitor gets, no CDN request that leaks a page view to a
 # third party, and the CSP shrinks to this origin.
-VEGA_LOAD = """<script defer src="/assets/vendor/vega.min.js?v=6-6-7"></script>
-<script defer src="/assets/vendor/vega-lite.min.js?v=6-6-7"></script>
-<script defer src="/assets/vendor/vega-embed.min.js?v=6-6-7"></script>
-<script>window.addEventListener("DOMContentLoaded",()=>{
+VEGA_LOAD = """<script>window.addEventListener("DOMContentLoaded",()=>{
 // vega-embed replaces the target div, so re-assert the accessible wrapper
 // (role=img + label + tabindex) on the node that ends up in the DOM, and make
 // the injected SVG presentational — its nested graphics-symbol roles would
@@ -641,15 +713,41 @@ document.querySelectorAll("script.vs").forEach(s=>{const el=document.getElementB
   label=el.getAttribute("aria-label"); let spec;
   try{ spec=JSON.parse(s.textContent); }catch(e){ console.warn("spec:",e);
     return; }
-  // A container that is display:none reports width 0, and Vega then keeps a
-  // 0-wide SVG even after CSS reveals it. The peer chart is hidden until its
-  // "show all" box is checked, so mount it only when it actually has width.
-  const peer=holder.querySelector(".peershow");
-  if(!(narrow && peer && !peer.checked)) mount(el,holder,label,spec);
-  if(peer) peer.addEventListener("change",()=>{ if(peer.checked)
-    mount(el,holder,label,spec); });
+  const start=()=>{
+    // A container that is display:none reports width 0, and Vega then keeps a
+    // 0-wide SVG even after CSS reveals it. The peer chart is hidden until its
+    // "show all" box is checked, so mount it only when it actually has width.
+    const peer=holder.querySelector(".peershow");
+    if(!(narrow && peer && !peer.checked)) mount(el,holder,label,spec);
+    if(peer) peer.addEventListener("change",()=>{ if(peer.checked)
+      mount(el,holder,label,spec); });
+  };
+  // The peer map is always below the article's first screen. Mount it when it
+  // approaches the viewport so its map compile does not compete with the
+  // finding's first paint; the reserved height keeps the page stable.
+  if(s.dataset.target==="chart2" && "IntersectionObserver" in window){
+    const io=new IntersectionObserver((ents)=>{ if(ents.some(e=>e.isIntersecting)){
+      io.disconnect(); start(); } },{threshold:.2});
+    io.observe(el);
+  } else start();
 });};
-  if(window.vegaEmbed) go(); else window.addEventListener("load",go);});</script>"""
+  // The publisher is 833 KB of renderer. If it loads before first paint,
+  // Lighthouse's throttled model puts the whole stack on the critical path:
+  // the finding waits behind 4s of chart JavaScript it does not need yet.
+  // Load it after the page's own content has had its first paint, then render
+  // into the reserved chart boxes (no layout shift in the meantime).
+  const boot=()=>{
+    if(window.vegaEmbed){go();return;}
+    const files=["/assets/vendor/vega.min.js?v=6-6-7",
+      "/assets/vendor/vega-lite.min.js?v=6-6-7",
+      "/assets/vendor/vega-embed.min.js?v=6-6-7"];
+    const next=()=>{ if(i>=files.length){go();return;}
+      const s=document.createElement("script"); s.src=files[i++];
+      s.onload=next; s.onerror=next; document.head.appendChild(s); };
+    let i=0; next();
+  };
+  if(document.readyState==="complete") boot();
+  else window.addEventListener("load",boot,{once:true});});</script>"""
 
 
 def _peer_summary(spec: dict) -> tuple[str, int] | None:
@@ -714,10 +812,10 @@ def viz(spec_json: str, el_id: str, *, label: str,
         h = spec.get("height")
         if isinstance(h, (int, float)):
             pad = 58 if spec.get("title") else 16
-            reserve = f' style="min-height:{int(h) + pad}px"'
+            reserve = f' style="--viz-h:{int(h) + pad}px"'
         spec_json = json.dumps(spec, default=str)
     else:
-        reserve = ' style="min-height:120px"'
+        reserve = ' style="--viz-h:120px"'
     safe = (spec_json.replace("</", "<\\/")
             .replace("<!--", "<\\u0021--"))
     cap = f'<figcaption>{_ESC(caption)}</figcaption>' if caption else ''

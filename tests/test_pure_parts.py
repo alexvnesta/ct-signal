@@ -47,6 +47,27 @@ class TestMillRates(unittest.TestCase):
 
 
 
+class TestTownGrowth(unittest.TestCase):
+    def test_statewide_total_is_not_a_municipality(self):
+        fixture = {
+            "latest_year": 2024, "prior_year": 2023,
+            "rows": [
+                {"town": "Old Lyme", "latest": 2521783821.0,
+                 "prior": 1602561640.0},
+                {"town": "Total", "latest": 487379691392.0,
+                 "prior": 468175513739.0},
+                {"town": "Killingly", "latest": 1878279578.0,
+                 "prior": 2165220236.0},
+            ],
+        }
+        out = socrata.town_metric_growth({}, fixture=fixture)
+        self.assertEqual(out["n"], 2)
+        self.assertEqual(out["top"][0]["town"], "Old Lyme")
+        self.assertEqual([r["town"] for r in out["all"]],
+                         ["Old Lyme", "Killingly"])
+        self.assertEqual([r["rank"] for r in out["all"]], [1, 2])
+
+
 class TestFailureScrub(unittest.TestCase):
     """The public failure log must never carry a credential (it once did)."""
 

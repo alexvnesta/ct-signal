@@ -106,7 +106,7 @@ def home_html(cards: list[dict], board: dict) -> str:
         lead = f"""<article class="lead">
 <span class="kicker">{lead_kick} · {_ESC(c["topic"])} · {_ESC(c["stream"])} desk{_vint}</span>
 <h2><a href="/story/{c["id"]}">{_ESC(c["question"])}</a></h2>
-<p class="lede">{_ESC(c["answer_text"])}</p>
+<p class="lede">{_ESC(newsroom._display_prose(c["answer_text"]))}</p>
 {heroviz}
 <div class="meta">{_trigger_line(c)}<span class="when">
 {ago(c["generated_at"], now)}</span>
@@ -136,7 +136,8 @@ and the exact query →</a></div></article>"""
                 fig = (f'<a class="item-fig" href="/story/{c["id"]}" tabindex="-1" '
                        f'aria-hidden="true"><img class="item-thumb" '
                        f'src="/assets/story-{c["id"]}-thumb.png?v={v}" '
-                       f'width="1200" height="480" loading="lazy" alt=""></a>')
+                       f'width="480" height="192" loading="lazy" '
+                       f'decoding="async" alt=""></a>')
             demo = (' · <span class="badge">DEMO TRIGGER</span>'
                     if _cards.is_demo_trigger(c) else "")
             sec2 += f"""<div class="item">{fig}<div class="item-body">

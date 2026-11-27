@@ -91,12 +91,27 @@ def _proj(x: float, y: float) -> tuple[float, float]:
     return ((x - LON0) * KX * SCALE, (LAT0 - y) * SCALE)
 
 
-def _path(rings, ox: float, oy: float, rnd=1) -> str:
+def _path(rings, ox: float, oy: float, rnd=0) -> str:
+    # Integer, relative-coordinate paths: the map is drawn at ~1 px per
+    # unit, so a tenth of a unit is invisible, while absolute decimals cost
+    # ~40 KB of HTML on a page whose first paint is otherwise prose. One
+    # absolute M opens each ring, then the whole outline travels as a single
+    # relative l command; z closes it.
     d = []
     for ring, _ in rings:
-        pts = [(px - ox, py - oy) for px, py in (_proj(*p) for p in ring)]
-        d.append("M" + "L".join(f"{x:.{rnd}f},{y:.{rnd}f}"
-                                for x, y in pts) + "Z")
+        pts = [(int(round(px - ox)), int(round(py - oy)))
+               for px, py in (_proj(*p) for p in ring)]
+        if not pts:
+            continue
+        x0, y0 = pts[0]
+        d.append(f"M{x0},{y0}")
+        if len(pts) > 1:
+            dxdy, px, py = [], x0, y0
+            for x, y in pts[1:]:
+                dxdy.append(f"{x - px},{y - py}")
+                px, py = x, y
+            d.append("l" + ",".join(dxdy))
+        d.append("z")
     return "".join(d)
 
 
@@ -150,7 +165,7 @@ def main() -> None:
     w, h = mx - ox + 12, my - oy + 12
     towns.sort(key=lambda t: t["name"])
     OUT.write_text(json.dumps({
-        "v": 1,
+        "v": 2,
         "source": ("US Census Bureau cartographic boundaries, 2024, "
                    "county subdivisions of Connecticut (1:500,000)"),
         "width": round(w, 1), "height": round(h, 1), "towns": towns}))

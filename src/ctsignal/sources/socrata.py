@@ -32,6 +32,17 @@ def rows(dataset_id: str, **soql: str) -> list[dict]:
     return _paginated(fetch)
 
 
+_PLACE_TOTALS = {"total", "connecticut", "statewide"}
+
+
+def _is_municipality(name) -> bool:
+    """Socrata town tables carry a statewide 'Total' row beside the 169 real
+    municipalities. It is an aggregate, not a place: counting it inflates n
+    and inserts a rank no town owns."""
+    name = str(name or "").strip()
+    return bool(name) and name.lower() not in _PLACE_TOTALS
+
+
 def town_metric_growth(cfg: dict, fixture: dict | None = None) -> dict | None:
     if fixture is not None:
         latest_year = int(fixture["latest_year"])
@@ -59,6 +70,8 @@ def town_metric_growth(cfg: dict, fixture: dict | None = None) -> dict | None:
         ]
     scored = []
     for r in rows_in:
+        if not _is_municipality(r.get("town")):
+            continue
         latest, prior = float(r["latest"]), float(r["prior"])
         if prior <= 0:
             continue

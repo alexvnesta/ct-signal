@@ -28,3 +28,8 @@ Stable Horde / SDXL anonymous-worker generations from the first brand kit.
 
 `scripts/ct_poly.json`: Connecticut outline extracted from Natural Earth 10m
 admin-1 boundaries (public domain, ne_10m_admin_1_states_provinces).
+
+The full 2340×875 `assets/skyline-light.png` is the tailpiece drawing. The
+nameplate serves a 900×336 WebP derivative, `skyline-light-900.webp`, made
+with `scripts/make_assets.py:skyline_webp()` — a decorative ornament should
+not make a phone decode two megapixels before it can paint the wordmark.
