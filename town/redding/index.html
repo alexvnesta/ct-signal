@@ -30,7 +30,7 @@
  href="https://ctsignal.org/feed.xml">
 <link rel="alternate" type="application/feed+json" title="CT Signal (JSON)"
  href="https://ctsignal.org/feed.json">
-<link rel="stylesheet" href="/assets/site.css?v=45e678f1">
+<link rel="stylesheet" href="/assets/site.css?v=a41740f0">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://ctsignal.org/town/redding#webpage","url":"https://ctsignal.org/town/redding","name":"Redding, CT: FY2027 Mill Rate, Property Tax & Home Sales · CT Signal","description":"Redding, CT: FY2027 mill rate (30.47), property tax calculator, 2024 median home sale ($915,000), school spending & Census income — official CT public data.","isPartOf":{"@type":"WebSite","@id":"https://ctsignal.org/#website"},"inLanguage":"en-US"},{"@type":"Place","@id":"https://ctsignal.org/town/redding#place","name":"Redding","containedInPlace":{"@type":"AdministrativeArea","name":"Connecticut"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"CT Signal","item":"https://ctsignal.org/"},{"@type":"ListItem","position":2,"name":"Towns","item":"https://ctsignal.org/towns"},{"@type":"ListItem","position":3,"name":"Redding","item":"https://ctsignal.org/town/redding"}]}]}</script>
 <link rel="alternate" type="application/atom+xml" title="CT Signal — Redding (Atom)" href="/town/redding/feed.xml"></head>
 <body>
@@ -166,14 +166,17 @@ own source. Know where you live.</p>
   });
 })();</script>
 <p class="townlede">Redding's net grand list grew 1.1% between the latest two assessment rolls, 103rd-highest of 169 Connecticut places. Its FY2027 mill rate is 30.47 mills per $1,000 of taxable value, 1.14× the statewide average. Single-family homes sold for a median of $915,000 in 2024 (133 recorded sales). The Census Bureau's 2024 ACS 5-year (2020–2024) estimate puts median household income at $186,060 and 4.0% of residents below poverty.</p>
-<h2>Property tax base</h2><p class="sub">Net grand list from the CT Open Data Portal, via <a href="/story/b37766e764aa">this story</a>.</p><table class="towntab"><tbody><tr><td>Net grand list, 2025</td><td>$1,961,342,699</td></tr><tr><td>Net grand list, prior vintage</td><td>$1,940,294,516</td></tr><tr><td>Change between the latest two assessment rolls</td><td>$21,048,183 (+1.1%)</td></tr><tr><td>Rank among 169 Connecticut places (1 = highest)</td><td>103rd-highest of 169</td></tr><tr><td>Statewide median change (for context)</td><td>+1.2%</td></tr></tbody></table><h2>Property tax rate</h2><p class="sub">Municipal mill rate for real property, fiscal year 2027, from the CT Open Data Portal via <a href="/story/a3514b53fb39">this story</a>. Service-district rates are separate and not shown here.</p><table class="towntab"><tbody><tr><td>Mill rate, FY2027</td><td>30.47 mills per $1,000</td></tr><tr><td>Rank among 169 Connecticut places (1 = highest)</td><td>48th-highest of 169</td></tr><tr><td>Compared with the statewide rate</td><td>1.14× the statewide average</td></tr><tr><td>Statewide rate, weighted by taxable value</td><td>26.65 mills</td></tr><tr><td>Estimated tax on a median-value home (assessment 70% of market per state law)</td><td>$15,065 a year</td></tr></tbody></table><div class="taxcalc" id="tax-estimator" aria-label="Property tax estimator for Redding">
-<div class="taxcalc-k">Interactive tool · FY2027 rate</div>
-<h3>Estimate a Redding property tax bill</h3>
-<p class="taxcalc-sub">Enter a home’s market value to calculate estimated municipal tax using Redding’s FY2027 mill rate (30.47 mills) and Connecticut’s statutory 70% assessment ratio.</p>
+<h2>Property tax base</h2><p class="sub">Net grand list from the CT Open Data Portal, via <a href="/story/b37766e764aa">this story</a>.</p><table class="towntab"><tbody><tr><td>Net grand list, 2025</td><td>$1,961,342,699</td></tr><tr><td>Net grand list, prior vintage</td><td>$1,940,294,516</td></tr><tr><td>Change between the latest two assessment rolls</td><td>$21,048,183 (+1.1%)</td></tr><tr><td>Rank among 169 Connecticut places (1 = highest)</td><td>103rd-highest of 169</td></tr><tr><td>Statewide median change (for context)</td><td>+1.2%</td></tr></tbody></table><h2>Property &amp; car tax rate</h2><p class="sub">Municipal mill rates for real property and motor vehicles, fiscal year 2027, from the CT Open Data Portal via <a href="/story/a3514b53fb39">this story</a>. Service-district rates are separate and not shown here.</p><table class="towntab"><tbody><tr><td>Mill rate, FY2027 (real property)</td><td>30.47 mills per $1,000</td></tr><tr><td>Rank among 169 Connecticut places (1 = highest)</td><td>48th-highest of 169</td></tr><tr><td>Compared with the statewide rate</td><td>1.14× the statewide average</td></tr><tr><td>Motor vehicle (car) mill rate, FY2027</td><td>30.47 mills per $1,000</td></tr><tr><td>Statewide rate, weighted by taxable value</td><td>26.65 mills</td></tr><tr><td>Estimated tax on a median-value home (assessment 70% of market per state law)</td><td>$15,065 a year</td></tr></tbody></table><div class="taxcalc" id="tax-estimator" aria-label="Property and car tax estimator for Redding">
+<div class="taxcalc-head">
+<div class="taxcalc-k">Interactive calculator · FY2027 rates</div>
+<div class="taxcalc-tabs" role="tablist" aria-label="Tax calculator mode"><button type="button" role="tab" aria-selected="true" class="on" data-mode="home">Home tax</button><button type="button" role="tab" aria-selected="false" data-mode="car">Car tax</button></div>
+</div>
+<h3 id="tc-title">Estimate a Redding home property tax bill</h3>
+<p class="taxcalc-sub" id="tc-sub">Enter a home’s market value to calculate estimated municipal tax using Redding’s FY2027 mill rate (30.47 mills) and Connecticut’s statutory 70% assessment ratio.</p>
 <div class="taxcalc-in">
-<label class="sr-only" for="tc-val">Home market value in dollars</label>
-<div class="taxcalc-field"><span>$</span><input id="tc-val" type="number" min="50000" step="10000" value="915000" inputmode="numeric"></div>
-<div class="taxcalc-chips" role="group" aria-label="Preset home values">
+<label class="sr-only" for="tc-val" id="tc-lab">Home market value in dollars</label>
+<div class="taxcalc-field"><span>$</span><input id="tc-val" type="number" min="1000" step="10000" value="915000" inputmode="numeric"></div>
+<div class="taxcalc-chips" id="tc-chips" role="group" aria-label="Preset values">
 <button type="button" data-v="300000">$300k</button>
 <button type="button" data-v="450000">$450k</button>
 <button type="button" data-v="650000">$650k</button>
@@ -181,31 +184,77 @@ own source. Know where you live.</p>
 </div></div>
 <div class="taxcalc-out">
 <div class="taxcalc-box"><div class="tk">Est. annual tax</div><div class="tv" id="tc-yr">$19,516</div><div class="ts" id="tc-mo">$1,626 / month</div></div>
-<div class="taxcalc-box"><div class="tk">Assessed value (70%)</div><div class="tv" id="tc-as">$640,500</div><div class="ts">Per CGS &sect;12-64</div></div>
-<div class="taxcalc-box"><div class="tk">Vs. statewide rate</div><div class="tv" id="tc-df">+$2,447/yr</div><div class="ts" id="tc-ct">Weighted CT avg: 26.65 mills</div></div>
+<div class="taxcalc-box"><div class="tk">Assessed value (70%)</div><div class="tv" id="tc-as">$640,500</div><div class="ts" id="tc-stat">Per CGS &sect;12-64</div></div>
+<div class="taxcalc-box"><div class="tk" id="tc-dfk">Vs. statewide rate</div><div class="tv" id="tc-df">+$2,447/yr</div><div class="ts" id="tc-ct">Weighted CT avg: 26.65 mills</div></div>
 </div>
-<p class="taxcalc-note">Municipal real-property rate only; separate fire, water, or sewer district mill rates, phase-ins, and personal exemptions are not included.</p>
+<p class="taxcalc-note" id="tc-note">Municipal real-property rate only; separate fire, water, or sewer district mill rates, phase-ins, and personal exemptions are not included.</p>
 </div>
 <script>(function(){
   var inp=document.getElementById("tc-val"); if(!inp)return;
-  var rate=30.470000, st=26.650000, ratio=0.7000;
+  var homeRate=30.470000, mvRate=30.470000, stRate=26.650000,
+      ratio=0.7000, mvCap=32.46, town="Redding", fy="2027",
+      defHome=915000, mode="home";
   var elYr=document.getElementById("tc-yr"), elMo=document.getElementById("tc-mo"),
-      elAs=document.getElementById("tc-as"), elDf=document.getElementById("tc-df");
+      elAs=document.getElementById("tc-as"), elDf=document.getElementById("tc-df"),
+      elDfk=document.getElementById("tc-dfk"), elCt=document.getElementById("tc-ct"),
+      elTitle=document.getElementById("tc-title"), elSub=document.getElementById("tc-sub"),
+      elNote=document.getElementById("tc-note"), elStat=document.getElementById("tc-stat"),
+      elChips=document.getElementById("tc-chips");
   function fmt(n){return "$"+Math.round(n).toLocaleString("en-US");}
+  function bindChips(){
+    elChips.querySelectorAll("button").forEach(function(b){
+      b.addEventListener("click",function(){inp.value=b.dataset.v; calc();});
+    });
+  }
+  function setMode(next){
+    if(next==="car"&&mvRate<=0)return;
+    mode=next;
+    document.querySelectorAll("#tax-estimator .taxcalc-tabs button").forEach(function(b){
+      var on=b.dataset.mode===mode; b.classList.toggle("on",on);
+      b.setAttribute("aria-selected",on?"true":"false");
+    });
+    if(mode==="car"){
+      elTitle.textContent="Estimate a "+town+" car (motor vehicle) tax bill";
+      elSub.textContent="Enter a vehicle’s value (MSRP/depreciated value) to estimate annual CT car tax using "+town+"’s FY"+fy+" motor-vehicle rate ("+mvRate.toFixed(2)+" mills; CT statutory cap is 32.46 mills).";
+      elDfk.textContent="Vs. 32.46-mill cap";
+      elCt.textContent=mvRate>=32.45?"At CT statutory cap (32.46 mills)":"CT max car cap: 32.46 mills";
+      elStat.textContent="Per CGS §12-71e";
+      elNote.textContent="Connecticut caps municipal motor-vehicle mill rates at 32.46 mills. Actual bills depend on the state’s statutory depreciation schedule for your vehicle’s model year.";
+      inp.step="1000"; inp.value="25000";
+      elChips.innerHTML='<button type="button" data-v="15000">$15k</button><button type="button" data-v="25000">$25k</button><button type="button" data-v="40000">$40k</button><button type="button" data-v="60000">$60k</button>';
+    }else{
+      elTitle.textContent="Estimate a "+town+" home property tax bill";
+      elSub.textContent="Enter a home’s market value to calculate estimated municipal tax using "+town+"’s FY"+fy+" mill rate ("+homeRate.toFixed(2)+" mills) and Connecticut’s statutory 70% assessment ratio.";
+      elDfk.textContent="Vs. statewide rate";
+      elCt.textContent=stRate>0?"Weighted CT avg: "+stRate.toFixed(2)+" mills":"—";
+      elStat.textContent="Per CGS §12-64";
+      elNote.textContent="Municipal real-property rate only; separate fire, water, or sewer district mill rates, phase-ins, and personal exemptions are not included.";
+      inp.step="10000"; inp.value=String(defHome);
+      elChips.innerHTML='<button type="button" data-v="300000">$300k</button><button type="button" data-v="450000">$450k</button><button type="button" data-v="650000">$650k</button><button type="button" data-v="1000000">$1M</button>';
+    }
+    bindChips(); calc();
+  }
   function calc(){
     var v=Number(String(inp.value||"").replace(/[^0-9.]/g,""));
-    if(!v||v<1000)return;
-    var as=v*ratio, yr=as*rate/1000, mo=yr/12;
+    if(!v||v<500)return;
+    var r=mode==="car"?mvRate:homeRate;
+    var as=v*ratio, yr=as*r/1000, mo=yr/12;
     elYr.textContent=fmt(yr); elMo.textContent=fmt(mo)+" / month";
     elAs.textContent=fmt(as);
-    if(st>0){var d=Math.round(yr-(as*st/1000));
-      elDf.textContent=(d>=0?"+":"-")+fmt(Math.abs(d))+"/yr";}
+    if(mode==="car"){
+      var d=Math.round(yr-(as*mvCap/1000));
+      elDf.textContent=Math.abs(d)<=1?"At state cap":((d>=0?"+":"-")+fmt(Math.abs(d))+"/yr");
+    }else if(stRate>0){
+      var d=Math.round(yr-(as*stRate/1000));
+      elDf.textContent=(d>=0?"+":"-")+fmt(Math.abs(d))+"/yr";
+    }
   }
   inp.addEventListener("input",calc);
-  document.querySelectorAll("#tax-estimator .taxcalc-chips button").forEach(function(b){
-    b.addEventListener("click",function(){inp.value=b.dataset.v; calc();});
+  bindChips();
+  document.querySelectorAll("#tax-estimator .taxcalc-tabs button").forEach(function(b){
+    b.addEventListener("click",function(){setMode(b.dataset.mode);});
   });
-})();</script><h2>Single-family home sales</h2><p class="sub">Recorded single-family home closings (2024) from the CT Office of Policy and Management via <a href="/story/ea89b34f9217">this story</a>.</p><table class="towntab"><tbody><tr><td>Median single-family sale price, 2024</td><td>$915,000</td></tr><tr><td>Recorded single-family sales (&ge;$50,000)</td><td>133 sales</td></tr><tr><td>Rank among 150 towns with &ge;10 sales (1 = highest)</td><td>10th-highest of 150</td></tr><tr><td>Statewide median single-family sale</td><td>$426,000</td></tr></tbody></table><h2>New housing permits</h2><p class="sub">Annual residential housing units permitted (2025) from CT DECD via <a href="/story/5db571f537f4">this story</a>.</p><table class="towntab"><tbody><tr><td>Housing units permitted, 2025</td><td>2 units</td></tr><tr><td>Prior year permitted</td><td>5 units</td></tr><tr><td>Rank among 169 Connecticut towns (1 = highest)</td><td>157th-highest of 169</td></tr><tr><td>Statewide total permitted (2025)</td><td>9,834 units</td></tr></tbody></table><h2>Public school spending</h2><p class="sub">Net current education expenditures per pupil (CSDE / OPM Municipal Fiscal Indicators, 2023) via <a href="/story/d83567a6654f">this story</a>.</p><table class="towntab"><tbody><tr><td>Spending per public school student, 2023</td><td>$28,775</td></tr><tr><td>Rank among 169 Connecticut towns (1 = highest)</td><td>12th-highest of 169</td></tr><tr><td>Statewide town median (2023)</td><td>$20,958</td></tr></tbody></table>
+})();</script><div class="mh-wrap"><h3>Redding mill rate history (FY2022&ndash;FY2027)</h3><div class="tscroll" role="region" tabindex="0" aria-label="Redding mill rate history table"><table class="mh-table"><thead><tr><th>Real property</th><th scope="col">FY2022</th><th scope="col">FY2023</th><th scope="col">FY2024</th><th scope="col">FY2025</th><th scope="col">FY2026</th><th scope="col">FY2027</th><th>Change</th></tr></thead><tbody><tr><td>Mills per $1,000</td><td>32.84</td><td>33.34</td><td>27.69</td><td>28.72</td><td>29.54</td><td>30.47</td><td class="mh-delta">-2.37 mills</td></tr></tbody></table></div><p class="meta">Official CT OPM municipal real-property mill rates (excluding separate service-district levies). Large single-year drops typically follow a townwide 5-year property revaluation.</p></div><h2>Single-family home sales</h2><p class="sub">Recorded single-family home closings (2024) from the CT Office of Policy and Management via <a href="/story/ea89b34f9217">this story</a>.</p><table class="towntab"><tbody><tr><td>Median single-family sale price, 2024</td><td>$915,000</td></tr><tr><td>Recorded single-family sales (&ge;$50,000)</td><td>133 sales</td></tr><tr><td>Rank among 150 towns with &ge;10 sales (1 = highest)</td><td>10th-highest of 150</td></tr><tr><td>Statewide median single-family sale</td><td>$426,000</td></tr></tbody></table><h2>New housing permits</h2><p class="sub">Annual residential housing units permitted (2025) from CT DECD via <a href="/story/5db571f537f4">this story</a>.</p><table class="towntab"><tbody><tr><td>Housing units permitted, 2025</td><td>2 units</td></tr><tr><td>Prior year permitted</td><td>5 units</td></tr><tr><td>Rank among 169 Connecticut towns (1 = highest)</td><td>157th-highest of 169</td></tr><tr><td>Statewide total permitted (2025)</td><td>9,834 units</td></tr></tbody></table><h2>Public school spending</h2><p class="sub">Net current education expenditures per pupil (CSDE / OPM Municipal Fiscal Indicators, 2023) via <a href="/story/d83567a6654f">this story</a>.</p><table class="towntab"><tbody><tr><td>Spending per public school student, 2023</td><td>$28,775</td></tr><tr><td>Rank among 169 Connecticut towns (1 = highest)</td><td>12th-highest of 169</td></tr><tr><td>Statewide town median (2023)</td><td>$20,958</td></tr></tbody></table>
 <h2>Where Redding sits</h2><p class="tablehint">On a phone, swipe the table sideways for the difference and rank columns.</p><div class="tscroll" role="region" tabindex="0" aria-label="Statistics for Redding, scrolls sideways on phones"><table class="townstats"><thead><tr><th>Measure</th><th>Redding</th><th>Connecticut</th><th>Difference</th><th>Rank among towns (1 = highest)</th></tr></thead><tbody><tr><td>Median age</td><td>52.0</td><td class="dim">41.1</td><td>27% above CT</td><td class="dim">20th-highest of 169</td></tr><tr><td>Median household income<span class="state-link"><a href="/story/916a9da3173f">Statewide comparison &rarr;</a></span></td><td>$186,060</td><td class="dim">$95,781</td><td>94% above CT</td><td class="dim">9th-highest of 169</td></tr><tr><td>Below poverty line<span class="state-link"><a href="/story/797faed5a836">Statewide comparison &rarr;</a></span></td><td>4.0%</td><td class="dim">10.0%</td><td>6.0 points below CT</td><td class="dim">128th-highest of 169</td></tr><tr><td>Median gross rent<span class="state-link"><a href="/story/0125297ea839">Statewide comparison &rarr;</a></span></td><td>$2,101</td><td class="dim">$1,488</td><td>41% above CT</td><td class="dim">15th-highest of 169</td></tr><tr><td>Median home value<span class="state-link"><a href="/story/517fafa716bc">Statewide comparison &rarr;</a></span></td><td>$706,300</td><td class="dim">$366,900</td><td>93% above CT</td><td class="dim">12th-highest of 169</td></tr></tbody></table></div><p class="provenance">US Census Bureau, 2024 ACS 5-year (2020–2024), county-subdivision level — the estimates built for places this size. Ranks run across the 169 places with published values. Suppressed cells are dashes, not zeros. Poverty is the same table the state story uses, so the two pages cannot tell different stories.</p>
 <div class="card related"><h2 class="label">Keep reading</h2><ul class="filelist"><li><a href="/indicator/equalized_grand_list">Equalized assessment growth</a><span>2024</span></li><li><a href="/indicator/grand_list_growth">Net grand list growth</a><span>2025</span></li><li><a href="/indicator/home_sales_price">Median single-family sale price</a><span>2024</span></li><li><a href="/indicator/housing_permits">New housing units permitted</a><span>2025</span></li><li><a href="/indicator/mill_rates">Property tax rate</a><span>FY2027</span></li><li><a href="/indicator/school_spending_per_pupil">Education spending per pupil</a><span>2023</span></li><li><a href="/topic/housing">Housing desk</a><span>desk</span></li><li><a href="/topic/local-finance">Local Finance desk</a><span>desk</span></li><li><a href="/towns">All 169 town files</a><span>index</span></li></ul></div>
 <p class="meta" style="margin:.5rem 0 0"><a href="https://ctsignal.org/assets/town-redding.png">Share card for Redding (PNG, 1200×630)</a> — generated from the numbers on this page. <a href="/town/redding/feed.xml">Subscribe</a> to updates for this town (Atom).
