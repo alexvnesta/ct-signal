@@ -252,5 +252,34 @@ class TestEditorialCleanups(unittest.TestCase):
         self.assertIn("Hartford", md)
 
 
+class TestSeoSignals(unittest.TestCase):
+    def test_vercel_uses_rewrites_not_308_for_clean_canonical_pages(self):
+        cfg = json.loads((ROOT / "vercel.json").read_text())
+        rewrites = cfg.get("rewrites") or []
+        redirects = cfg.get("redirects") or []
+        self.assertTrue(
+            any("compare" in r.get("source", "") and r.get("destination") == "/:page.html"
+                for r in rewrites),
+            "clean canonical pages must use rewrites (HTTP 200), not 308 redirects",
+        )
+        self.assertFalse(
+            any("compare" in r.get("source", "") and r.get("destination") == "/:page.html"
+                for r in redirects),
+            "clean canonical URLs must not 308-redirect to .html",
+        )
+
+    def test_town_and_directory_titles_target_ct_search_intent(self):
+        import re as _re
+        hartford = (ROOT / "town" / "hartford" / "index.html").read_text()
+        self.assertIn("<title>Hartford, CT: FY2027 Mill Rate, Property Tax &amp; Home Sales · CT Signal</title>", hartford)
+        m = _re.search(r'<meta name="description" content="([^"]+)"', hartford)
+        self.assertIsNotNone(m)
+        self.assertIn("69.95", m.group(1))
+        self.assertIn("property tax calculator", m.group(1))
+        self.assertLessEqual(len(m.group(1)), 175)
+        self.assertIn("Mill Rates, Property Tax", (ROOT / "compare.html").read_text())
+        self.assertIn("Mill Rates, Home Prices", (ROOT / "towns.html").read_text())
+
+
 if __name__ == "__main__":
     unittest.main()

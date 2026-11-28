@@ -639,10 +639,12 @@ const _m0 = (location.hash.match(/^#m=(\\w+)/) || [])[1];
     r.hidden = !r.textContent.toLowerCase().includes(v); }});
 }});
 </script>"""
-    return theme.page(title="Connecticut towns · CT Signal",
-                      desc="Every Connecticut town's income, poverty, rent, and "
-                           f"home value against the state — {data['vintage']}.",
-                      path="/towns", body=_PAGE_CSS + body, compact=True)
+    return theme.page(
+        title="Connecticut Mill Rates, Home Prices & Income by Town (All 169) · CT Signal",
+        desc="Compare all 169 Connecticut towns: FY2027 mill rates, property tax "
+             "calculator, 2024 home sales, school spending, income, rent & "
+             "poverty from official CT data.",
+        path="/towns", body=_PAGE_CSS + body, compact=True)
 
 
 def _csv_text(data: dict) -> str:
@@ -1035,10 +1037,10 @@ water, and sewer districts are separate. Sources: CT OPM, CT DECD, CSDE, and
 US Census Bureau ({_ESC(data.get("vintage", ""))}). <a href="/sources">Sources &amp; failure logs</a>.</p>
 </div>"""
     page = theme.page(
-        title="Compare Connecticut towns · CT Signal",
-        desc="Compare Connecticut towns side by side: property tax rates, "
-             "estimated home tax bills, 2024 home sale prices, school spending, "
-             "housing permits, and Census income and rent.",
+        title="Compare Connecticut Towns: Mill Rates, Property Tax & Home Sales · CT Signal",
+        desc="Compare any 2 or 3 Connecticut towns side by side: FY2027 property "
+             "tax rates, estimated tax bills, 2024 home sale prices, school "
+             "spending & Census income.",
         path="/compare", body=_COMPARE_CSS + body, compact=True,
     )
     inject = (f'<script>window.__CMP__='

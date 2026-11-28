@@ -313,10 +313,10 @@ and Sailors arch, the stone-arch bridge, the State Capitol with its gilded
 dome, City Place and the downtown towers"></div>"""
 
     return theme.page(
-        title="CT Signal — Connecticut's automated data desk",
-        desc="Connecticut's automated newsroom: the news cycle picks the "
-             "question, public data answers it. Charts, rankings, and the "
-             "query behind every number.",
+        title="CT Signal — Connecticut Mill Rates, 169 Towns & Public Data Desk",
+        desc="Connecticut's automated public data desk: FY2027 mill rates, "
+             "property tax estimator, 2024 home sales, housing permits, and "
+             "school spending across all 169 towns.",
         path="/", body=body,
         og_title="CT Signal — Connecticut's automated data desk",
         json_ld=theme.site_json_ld())

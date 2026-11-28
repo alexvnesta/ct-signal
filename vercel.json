@@ -13,12 +13,7 @@
     },
     {
       "source": "/:page(about|corrections|masthead|sources|towns|privacy|compare|partner)/",
-      "destination": "/:page.html",
-      "permanent": true
-    },
-    {
-      "source": "/:page(about|corrections|masthead|sources|towns|privacy|compare|partner)",
-      "destination": "/:page.html",
+      "destination": "/:page",
       "permanent": true
     },
     {
@@ -40,6 +35,12 @@
       "source": "/story/ed851796295a",
       "destination": "/story/90255dce8175",
       "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:page(about|corrections|masthead|sources|towns|privacy|compare|partner)",
+      "destination": "/:page.html"
     }
   ],
   "headers": [

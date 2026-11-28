@@ -2194,9 +2194,23 @@ stories; errors are corrected publicly.</p>
             ' to updates for this town (Atom).'
             + (_MY_TOWN_BTN % tslug) + '</p>'
             '<p class="meta">Dataset citations')
-    title = f"{town} town file · CT Signal"
-    # The og:description must match the share card the preview shows:
-    # the same five numbers, the same vintage, no mill-rate surprise.
+    mr = pieces.get("mill_rates")
+    hs = pieces.get("home_sales_price")
+    fy_lbl = str((mr[1].get("answer_values") or {}).get("date") or "FY2027") if mr else ""
+    if mr and fy_lbl:
+        title = f"{town}, CT: {fy_lbl} Mill Rate, Property Tax & Home Sales · CT Signal"
+    else:
+        title = f"{town}, CT: Property Tax, Home Sales & Census Data · CT Signal"
+    seo_bits = []
+    if mr:
+        seo_bits.append(f"{fy_lbl} mill rate ({mr[0]['rate']:.2f})")
+    seo_bits.append("property tax calculator")
+    if hs and hs[0].get("value"):
+        hs_yr = str((hs[1].get("answer_values") or {}).get("date") or "2024")
+        seo_bits.append(f"{hs_yr} median home sale (${hs[0]['value']:,.0f})")
+    seo_bits.append("school spending & Census income")
+    seo_desc = f"{town}, CT: {', '.join(seo_bits)} — official CT public data."
+    # The og:description stays synced to the share card's five Census numbers.
     from . import towns as _tw
     _b = _tw.briefs()
     _r = _b.get("towns", {}).get(_slug(town))
@@ -2212,19 +2226,19 @@ stories; errors are corrected publicly.</p>
                 return str(round(v))
             return (f"${v/1e6:.2f}M" if v >= 1_000_000
                     else f"${v:,.0f}")
-        desc = (f"{town}, {_b['vintage']}: median household "
-                f"income {_f(2, 'income')}, {_f(3, 'poverty')} "
-                f"below poverty, median rent {_f(4, 'rent')}, "
-                f"median home value {_f(5, 'value')}, median age "
-                f"{_f(1, 'age')}.")
-        desc = desc + " Ranks, sources and the town file: "
-        desc += f"{config.SITE_URL}/town/{_slug(town)}"
+        og_desc = (f"{town}, {_b['vintage']}: median household "
+                   f"income {_f(2, 'income')}, {_f(3, 'poverty')} "
+                   f"below poverty, median rent {_f(4, 'rent')}, "
+                   f"median home value {_f(5, 'value')}, median age "
+                   f"{_f(1, 'age')}.")
+        og_desc = og_desc + " Ranks, sources and the town file: "
+        og_desc += f"{config.SITE_URL}/town/{_slug(town)}"
     else:
-        desc = f"{town}: " + "; ".join(facts) + "."
+        og_desc = seo_desc
     url = f"{config.SITE_URL}/town/{_slug(town)}"
     ld = theme.graph_json_ld(
         {"@type": "WebPage", "@id": f"{url}#webpage", "url": url,
-         "name": title, "description": desc,
+         "name": title, "description": seo_desc,
          "isPartOf": {"@type": "WebSite",
                       "@id": f"{config.SITE_URL}/#website"},
          "inLanguage": "en-US"},
@@ -2236,7 +2250,7 @@ stories; errors are corrected publicly.</p>
             ("Towns", f"{config.SITE_URL}/towns"),
             (town, url),
         ]))
-    page = theme.page(title=title, desc=esc(desc),
+    page = theme.page(title=title, desc=seo_desc, og_desc=og_desc,
                       path=f'/town/{_slug(town)}', body=body, compact=True,
                       image=(timg if (config.ROOT / 'assets' /
                                f'town-{tslug}.png').exists() else None),
