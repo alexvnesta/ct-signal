@@ -6,6 +6,24 @@
   "items": [
     {
       "_tags": [
+        "weather"
+      ],
+      "attachments": [
+        {
+          "mime_type": "image/png",
+          "size_in_bytes": 138507,
+          "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
+        }
+      ],
+      "content_text": "Connecticut ran 4.8\u00b0F warmer than normal over the 30 days ending 2026-11-27 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals. Source: Google News (CT) \u2014 How much rain did Connecticut get from Thanksgiving nor'easter? - CT Insider",
+      "date_published": "2026-11-28T03:46:00+00:00",
+      "id": "https://ctsignal.org/story/0785479c5e31",
+      "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
+      "title": "Is Connecticut running warmer or colder than normal?",
+      "url": "https://ctsignal.org/story/0785479c5e31"
+    },
+    {
+      "_tags": [
         "local-finance"
       ],
       "attachments": [
@@ -111,24 +129,6 @@
       "image": "https://ctsignal.org/assets/story-5db571f537f4.png",
       "title": "Which Connecticut towns permitted the most new housing?",
       "url": "https://ctsignal.org/story/5db571f537f4"
-    },
-    {
-      "_tags": [
-        "weather"
-      ],
-      "attachments": [
-        {
-          "mime_type": "image/png",
-          "size_in_bytes": 138507,
-          "url": "https://ctsignal.org/assets/story-0785479c5e31.png"
-        }
-      ],
-      "content_text": "Connecticut ran 4.6\u00b0F warmer than normal over the 30 days ending 2026-11-26 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals. Source: NPR \u2014 From Thanksgiving blackouts to Black Friday, a holiday hit by wild weather and economic woes",
-      "date_published": "2026-11-27T12:58:29+00:00",
-      "id": "https://ctsignal.org/story/0785479c5e31",
-      "image": "https://ctsignal.org/assets/story-0785479c5e31.png",
-      "title": "Is Connecticut running warmer or colder than normal?",
-      "url": "https://ctsignal.org/story/0785479c5e31"
     },
     {
       "_tags": [

@@ -1,6 +1,436 @@
 {
   "cards": [
     {
+      "answer_text": "Connecticut ran 4.8\u00b0F warmer than normal over the 30 days ending 2026-11-27 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
+      "answer_values": {
+        "date": "2026-11-27",
+        "value": 4.8
+      },
+      "cache": false,
+      "chart": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+        "autosize": {
+          "contains": "padding"
+        },
+        "background": "transparent",
+        "config": {
+          "axis": {
+            "domainColor": "#b8b2a6",
+            "gridColor": "#e4dfd3",
+            "labelColor": "#4c5a68",
+            "labelFontSize": 12,
+            "tickColor": "#b8b2a6",
+            "titleColor": "#4c5a68",
+            "titleFontSize": 12
+          },
+          "legend": {
+            "labelColor": "#4c5a68",
+            "labelFontSize": 12,
+            "symbolStrokeWidth": 0,
+            "titleColor": "#4c5a68",
+            "titleFontSize": 12
+          },
+          "title": {
+            "color": "#1c2733",
+            "fontSize": 14,
+            "subtitleColor": "#66717e",
+            "subtitleFontSize": 12
+          },
+          "view": {
+            "continuousHeight": 300,
+            "continuousWidth": 300,
+            "strokeWidth": 0
+          }
+        },
+        "data": {
+          "values": [
+            {
+              "date": "2026-10-29",
+              "series": "Bradley Intl",
+              "value": 4.5
+            },
+            {
+              "date": "2026-10-30",
+              "series": "Bradley Intl",
+              "value": 10.5
+            },
+            {
+              "date": "2026-10-31",
+              "series": "Bradley Intl",
+              "value": -1.0
+            },
+            {
+              "date": "2026-11-01",
+              "series": "Bradley Intl",
+              "value": -2.0
+            },
+            {
+              "date": "2026-11-02",
+              "series": "Bradley Intl",
+              "value": 5.5
+            },
+            {
+              "date": "2026-11-03",
+              "series": "Bradley Intl",
+              "value": 13.0
+            },
+            {
+              "date": "2026-11-04",
+              "series": "Bradley Intl",
+              "value": 16.0
+            },
+            {
+              "date": "2026-11-05",
+              "series": "Bradley Intl",
+              "value": 17.0
+            },
+            {
+              "date": "2026-11-06",
+              "series": "Bradley Intl",
+              "value": 16.5
+            },
+            {
+              "date": "2026-11-07",
+              "series": "Bradley Intl",
+              "value": 9.0
+            },
+            {
+              "date": "2026-11-08",
+              "series": "Bradley Intl",
+              "value": 7.0
+            },
+            {
+              "date": "2026-11-09",
+              "series": "Bradley Intl",
+              "value": 4.5
+            },
+            {
+              "date": "2026-11-10",
+              "series": "Bradley Intl",
+              "value": 6.5
+            },
+            {
+              "date": "2026-11-11",
+              "series": "Bradley Intl",
+              "value": 7.5
+            },
+            {
+              "date": "2026-11-12",
+              "series": "Bradley Intl",
+              "value": 0.5
+            },
+            {
+              "date": "2026-11-13",
+              "series": "Bradley Intl",
+              "value": -5.0
+            },
+            {
+              "date": "2026-11-14",
+              "series": "Bradley Intl",
+              "value": -4.0
+            },
+            {
+              "date": "2026-11-15",
+              "series": "Bradley Intl",
+              "value": -1.0
+            },
+            {
+              "date": "2026-11-16",
+              "series": "Bradley Intl",
+              "value": -0.5
+            },
+            {
+              "date": "2026-11-17",
+              "series": "Bradley Intl",
+              "value": 1.0
+            },
+            {
+              "date": "2026-11-18",
+              "series": "Bradley Intl",
+              "value": 8.5
+            },
+            {
+              "date": "2026-11-19",
+              "series": "Bradley Intl",
+              "value": 5.0
+            },
+            {
+              "date": "2026-11-20",
+              "series": "Bradley Intl",
+              "value": 7.5
+            },
+            {
+              "date": "2026-11-21",
+              "series": "Bradley Intl",
+              "value": 7.5
+            },
+            {
+              "date": "2026-11-22",
+              "series": "Bradley Intl",
+              "value": 7.5
+            },
+            {
+              "date": "2026-11-23",
+              "series": "Bradley Intl",
+              "value": 17.0
+            },
+            {
+              "date": "2026-11-24",
+              "series": "Bradley Intl",
+              "value": 0.0
+            },
+            {
+              "date": "2026-11-25",
+              "series": "Bradley Intl",
+              "value": -7.0
+            },
+            {
+              "date": "2026-11-26",
+              "series": "Bradley Intl",
+              "value": -0.5
+            },
+            {
+              "date": "2026-10-29",
+              "series": "Danbury",
+              "value": 4.0
+            },
+            {
+              "date": "2026-10-30",
+              "series": "Danbury",
+              "value": 6.5
+            },
+            {
+              "date": "2026-10-31",
+              "series": "Danbury",
+              "value": -3.0
+            },
+            {
+              "date": "2026-11-01",
+              "series": "Danbury",
+              "value": -1.5
+            },
+            {
+              "date": "2026-11-02",
+              "series": "Danbury",
+              "value": 4.0
+            },
+            {
+              "date": "2026-11-03",
+              "series": "Danbury",
+              "value": 9.0
+            },
+            {
+              "date": "2026-11-04",
+              "series": "Danbury",
+              "value": 14.5
+            },
+            {
+              "date": "2026-11-05",
+              "series": "Danbury",
+              "value": 16.5
+            },
+            {
+              "date": "2026-11-06",
+              "series": "Danbury",
+              "value": 17.5
+            },
+            {
+              "date": "2026-11-07",
+              "series": "Danbury",
+              "value": 8.5
+            },
+            {
+              "date": "2026-11-08",
+              "series": "Danbury",
+              "value": 6.0
+            },
+            {
+              "date": "2026-11-09",
+              "series": "Danbury",
+              "value": 2.5
+            },
+            {
+              "date": "2026-11-10",
+              "series": "Danbury",
+              "value": 4.0
+            },
+            {
+              "date": "2026-11-11",
+              "series": "Danbury",
+              "value": 4.0
+            },
+            {
+              "date": "2026-11-12",
+              "series": "Danbury",
+              "value": 6.0
+            },
+            {
+              "date": "2026-11-13",
+              "series": "Danbury",
+              "value": -1.5
+            },
+            {
+              "date": "2026-11-14",
+              "series": "Danbury",
+              "value": -2.5
+            },
+            {
+              "date": "2026-11-15",
+              "series": "Danbury",
+              "value": -2.5
+            },
+            {
+              "date": "2026-11-16",
+              "series": "Danbury",
+              "value": -2.5
+            },
+            {
+              "date": "2026-11-17",
+              "series": "Danbury",
+              "value": -1.0
+            },
+            {
+              "date": "2026-11-18",
+              "series": "Danbury",
+              "value": 2.5
+            },
+            {
+              "date": "2026-11-19",
+              "series": "Danbury",
+              "value": 5.0
+            },
+            {
+              "date": "2026-11-20",
+              "series": "Danbury",
+              "value": 8.0
+            },
+            {
+              "date": "2026-11-21",
+              "series": "Danbury",
+              "value": 7.5
+            },
+            {
+              "date": "2026-11-22",
+              "series": "Danbury",
+              "value": 10.5
+            },
+            {
+              "date": "2026-11-23",
+              "series": "Danbury",
+              "value": 14.0
+            },
+            {
+              "date": "2026-11-24",
+              "series": "Danbury",
+              "value": -1.5
+            },
+            {
+              "date": "2026-11-25",
+              "series": "Danbury",
+              "value": -7.5
+            },
+            {
+              "date": "2026-11-26",
+              "series": "Danbury",
+              "value": 3.0
+            }
+          ]
+        },
+        "encoding": {
+          "color": {
+            "field": "series",
+            "legend": {
+              "direction": "horizontal",
+              "labelFontSize": 12,
+              "orient": "bottom",
+              "title": null
+            },
+            "scale": {
+              "domain": [
+                "Bradley Intl",
+                "Danbury"
+              ],
+              "range": [
+                "#d9772b",
+                "#b9b3a6"
+              ]
+            },
+            "type": "nominal"
+          },
+          "tooltip": [
+            {
+              "field": "series",
+              "type": "nominal"
+            },
+            {
+              "field": "date",
+              "format": "%Y-%m-%d",
+              "title": "Date",
+              "type": "temporal"
+            },
+            {
+              "field": "value",
+              "format": ".1f",
+              "type": "quantitative"
+            }
+          ],
+          "x": {
+            "axis": {
+              "domainColor": "#c9c3b6",
+              "format": "%b %d",
+              "grid": false,
+              "tickCount": 4
+            },
+            "field": "date",
+            "title": null,
+            "type": "temporal"
+          },
+          "y": {
+            "axis": {
+              "format": ",.0f"
+            },
+            "field": "value",
+            "title": null,
+            "type": "quantitative"
+          }
+        },
+        "height": 200,
+        "mark": {
+          "point": true,
+          "type": "line"
+        },
+        "padding": {
+          "right": 12
+        },
+        "title": {
+          "text": "Connecticut temperature anomaly (30 days) (\u00b0F)"
+        },
+        "width": "container"
+      },
+      "chart2": null,
+      "chart_kind": "trend",
+      "citations": [
+        "https://data.rcc-acis.org/StnData"
+      ],
+      "generated_at": "2026-11-28T03:46:00+00:00",
+      "headline": {
+        "id": "aa825fa8bbbb",
+        "published": "Fri, 27 Nov 2026 22:02:31 GMT",
+        "published_sort": 1795816951,
+        "source": "Google News (CT)",
+        "stream": "ct",
+        "title": "How much rain did Connecticut get from Thanksgiving nor'easter? - CT Insider",
+        "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQbV8ycC1rWG9SZHNfOTFXZXhpT0ozZ0N4S1g0eUREd3NqdkpYaWs5MFRVSXpmbnpZckM0T3B4VlFNaFlKUnFhanFoXzFoTXcwMmhjb1ZkOEUtMUF4SktJWnlNYWR6QXBoc3pBRjR4bXNkek84NzFWNmwxdXN0UXB1R0g5QklVUUNmTk1uSzhTbkI1dGhyRFJ0QU93Y05oNlAxTHA0?oc=5"
+      },
+      "id": "0785479c5e31",
+      "indicator": "weather_anomaly",
+      "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
+      "question": "Is Connecticut running warmer or colder than normal?",
+      "series_freq": "daily",
+      "stream": "national",
+      "topic": "weather"
+    },
+    {
       "answer_text": "In fiscal year 2027, Hartford taxes real property at 69.95 mills, 2.6 times the 26.65-mill rate that property pays statewide across 169 towns.",
       "answer_values": {
         "assess_ratio": 0.7,
@@ -9915,446 +10345,6 @@
       ]
     },
     {
-      "answer_text": "Connecticut ran 4.6\u00b0F warmer than normal over the 30 days ending 2026-11-26 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
-      "answer_values": {
-        "date": "2026-11-26",
-        "value": 4.6
-      },
-      "cache": false,
-      "chart": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-        "autosize": {
-          "contains": "padding"
-        },
-        "background": "transparent",
-        "config": {
-          "axis": {
-            "domainColor": "#b8b2a6",
-            "gridColor": "#e4dfd3",
-            "labelColor": "#4c5a68",
-            "labelFontSize": 12,
-            "tickColor": "#b8b2a6",
-            "titleColor": "#4c5a68",
-            "titleFontSize": 12
-          },
-          "legend": {
-            "labelColor": "#4c5a68",
-            "labelFontSize": 12,
-            "symbolStrokeWidth": 0,
-            "titleColor": "#4c5a68",
-            "titleFontSize": 12
-          },
-          "title": {
-            "color": "#1c2733",
-            "fontSize": 14,
-            "subtitleColor": "#66717e",
-            "subtitleFontSize": 12
-          },
-          "view": {
-            "continuousHeight": 300,
-            "continuousWidth": 300,
-            "strokeWidth": 0
-          }
-        },
-        "data": {
-          "values": [
-            {
-              "date": "2026-10-28",
-              "series": "Bradley Intl",
-              "value": -5.0
-            },
-            {
-              "date": "2026-10-29",
-              "series": "Bradley Intl",
-              "value": 4.5
-            },
-            {
-              "date": "2026-10-30",
-              "series": "Bradley Intl",
-              "value": 10.5
-            },
-            {
-              "date": "2026-10-31",
-              "series": "Bradley Intl",
-              "value": -1.0
-            },
-            {
-              "date": "2026-11-01",
-              "series": "Bradley Intl",
-              "value": -2.0
-            },
-            {
-              "date": "2026-11-02",
-              "series": "Bradley Intl",
-              "value": 5.5
-            },
-            {
-              "date": "2026-11-03",
-              "series": "Bradley Intl",
-              "value": 13.0
-            },
-            {
-              "date": "2026-11-04",
-              "series": "Bradley Intl",
-              "value": 16.0
-            },
-            {
-              "date": "2026-11-05",
-              "series": "Bradley Intl",
-              "value": 17.0
-            },
-            {
-              "date": "2026-11-06",
-              "series": "Bradley Intl",
-              "value": 16.5
-            },
-            {
-              "date": "2026-11-07",
-              "series": "Bradley Intl",
-              "value": 9.0
-            },
-            {
-              "date": "2026-11-08",
-              "series": "Bradley Intl",
-              "value": 7.0
-            },
-            {
-              "date": "2026-11-09",
-              "series": "Bradley Intl",
-              "value": 4.5
-            },
-            {
-              "date": "2026-11-10",
-              "series": "Bradley Intl",
-              "value": 6.5
-            },
-            {
-              "date": "2026-11-11",
-              "series": "Bradley Intl",
-              "value": 7.5
-            },
-            {
-              "date": "2026-11-12",
-              "series": "Bradley Intl",
-              "value": 0.5
-            },
-            {
-              "date": "2026-11-13",
-              "series": "Bradley Intl",
-              "value": -5.0
-            },
-            {
-              "date": "2026-11-14",
-              "series": "Bradley Intl",
-              "value": -4.0
-            },
-            {
-              "date": "2026-11-15",
-              "series": "Bradley Intl",
-              "value": -1.0
-            },
-            {
-              "date": "2026-11-16",
-              "series": "Bradley Intl",
-              "value": -0.5
-            },
-            {
-              "date": "2026-11-17",
-              "series": "Bradley Intl",
-              "value": 1.0
-            },
-            {
-              "date": "2026-11-18",
-              "series": "Bradley Intl",
-              "value": 8.5
-            },
-            {
-              "date": "2026-11-19",
-              "series": "Bradley Intl",
-              "value": 5.0
-            },
-            {
-              "date": "2026-11-20",
-              "series": "Bradley Intl",
-              "value": 7.5
-            },
-            {
-              "date": "2026-11-21",
-              "series": "Bradley Intl",
-              "value": 7.5
-            },
-            {
-              "date": "2026-11-22",
-              "series": "Bradley Intl",
-              "value": 7.5
-            },
-            {
-              "date": "2026-11-23",
-              "series": "Bradley Intl",
-              "value": 17.0
-            },
-            {
-              "date": "2026-11-24",
-              "series": "Bradley Intl",
-              "value": 0.0
-            },
-            {
-              "date": "2026-11-25",
-              "series": "Bradley Intl",
-              "value": -7.0
-            },
-            {
-              "date": "2026-11-26",
-              "series": "Bradley Intl",
-              "value": -0.5
-            },
-            {
-              "date": "2026-10-28",
-              "series": "Danbury",
-              "value": -1.5
-            },
-            {
-              "date": "2026-10-29",
-              "series": "Danbury",
-              "value": 4.0
-            },
-            {
-              "date": "2026-10-30",
-              "series": "Danbury",
-              "value": 6.5
-            },
-            {
-              "date": "2026-10-31",
-              "series": "Danbury",
-              "value": -3.0
-            },
-            {
-              "date": "2026-11-01",
-              "series": "Danbury",
-              "value": -1.5
-            },
-            {
-              "date": "2026-11-02",
-              "series": "Danbury",
-              "value": 4.0
-            },
-            {
-              "date": "2026-11-03",
-              "series": "Danbury",
-              "value": 9.0
-            },
-            {
-              "date": "2026-11-04",
-              "series": "Danbury",
-              "value": 14.5
-            },
-            {
-              "date": "2026-11-05",
-              "series": "Danbury",
-              "value": 16.5
-            },
-            {
-              "date": "2026-11-06",
-              "series": "Danbury",
-              "value": 17.5
-            },
-            {
-              "date": "2026-11-07",
-              "series": "Danbury",
-              "value": 8.5
-            },
-            {
-              "date": "2026-11-08",
-              "series": "Danbury",
-              "value": 6.0
-            },
-            {
-              "date": "2026-11-09",
-              "series": "Danbury",
-              "value": 2.5
-            },
-            {
-              "date": "2026-11-10",
-              "series": "Danbury",
-              "value": 4.0
-            },
-            {
-              "date": "2026-11-11",
-              "series": "Danbury",
-              "value": 4.0
-            },
-            {
-              "date": "2026-11-12",
-              "series": "Danbury",
-              "value": 6.0
-            },
-            {
-              "date": "2026-11-13",
-              "series": "Danbury",
-              "value": -1.5
-            },
-            {
-              "date": "2026-11-14",
-              "series": "Danbury",
-              "value": -2.5
-            },
-            {
-              "date": "2026-11-15",
-              "series": "Danbury",
-              "value": -2.5
-            },
-            {
-              "date": "2026-11-16",
-              "series": "Danbury",
-              "value": -2.5
-            },
-            {
-              "date": "2026-11-17",
-              "series": "Danbury",
-              "value": -1.0
-            },
-            {
-              "date": "2026-11-18",
-              "series": "Danbury",
-              "value": 2.5
-            },
-            {
-              "date": "2026-11-19",
-              "series": "Danbury",
-              "value": 5.0
-            },
-            {
-              "date": "2026-11-20",
-              "series": "Danbury",
-              "value": 8.0
-            },
-            {
-              "date": "2026-11-21",
-              "series": "Danbury",
-              "value": 7.5
-            },
-            {
-              "date": "2026-11-22",
-              "series": "Danbury",
-              "value": 10.5
-            },
-            {
-              "date": "2026-11-23",
-              "series": "Danbury",
-              "value": 14.0
-            },
-            {
-              "date": "2026-11-24",
-              "series": "Danbury",
-              "value": -1.5
-            },
-            {
-              "date": "2026-11-25",
-              "series": "Danbury",
-              "value": -7.5
-            },
-            {
-              "date": "2026-11-26",
-              "series": "Danbury",
-              "value": 3.0
-            }
-          ]
-        },
-        "encoding": {
-          "color": {
-            "field": "series",
-            "legend": {
-              "direction": "horizontal",
-              "labelFontSize": 12,
-              "orient": "bottom",
-              "title": null
-            },
-            "scale": {
-              "domain": [
-                "Bradley Intl",
-                "Danbury"
-              ],
-              "range": [
-                "#d9772b",
-                "#b9b3a6"
-              ]
-            },
-            "type": "nominal"
-          },
-          "tooltip": [
-            {
-              "field": "series",
-              "type": "nominal"
-            },
-            {
-              "field": "date",
-              "format": "%Y-%m-%d",
-              "title": "Date",
-              "type": "temporal"
-            },
-            {
-              "field": "value",
-              "format": ".1f",
-              "type": "quantitative"
-            }
-          ],
-          "x": {
-            "axis": {
-              "domainColor": "#c9c3b6",
-              "format": "%b %d",
-              "grid": false,
-              "tickCount": 4
-            },
-            "field": "date",
-            "title": null,
-            "type": "temporal"
-          },
-          "y": {
-            "axis": {
-              "format": ",.0f"
-            },
-            "field": "value",
-            "title": null,
-            "type": "quantitative"
-          }
-        },
-        "height": 200,
-        "mark": {
-          "point": true,
-          "type": "line"
-        },
-        "padding": {
-          "right": 12
-        },
-        "title": {
-          "text": "Connecticut temperature anomaly (30 days) (\u00b0F)"
-        },
-        "width": "container"
-      },
-      "chart2": null,
-      "chart_kind": "trend",
-      "citations": [
-        "https://data.rcc-acis.org/StnData"
-      ],
-      "generated_at": "2026-11-27T12:58:29+00:00",
-      "headline": {
-        "id": "897eabb27d21",
-        "published": "Fri, 27 Nov 2026 05:59:36 -0500",
-        "published_sort": 1795777176,
-        "source": "NPR",
-        "stream": "national",
-        "title": "From Thanksgiving blackouts to Black Friday, a holiday hit by wild weather and economic woes",
-        "url": "https://www.npr.org/2026/11/27/nx-s1-6054884/thanksgiving-weather-black-friday"
-      },
-      "id": "0785479c5e31",
-      "indicator": "weather_anomaly",
-      "query": "NOAA ACIS StnData sid=KBDL,KDXR elems=maxt,mint,pcpn normals=1991-2020; agency of record: NOAA Regional Climate Centers",
-      "question": "Is Connecticut running warmer or colder than normal?",
-      "series_freq": "daily",
-      "stream": "national",
-      "topic": "weather"
-    },
-    {
       "answer_text": "Connecticut reports 147 violent crimes per 100k people (2023), the 3rd-lowest reported of 52 peers. Reported rates compare reporting, not safety.",
       "answer_values": {
         "date": "2023",
@@ -11271,7 +11261,7 @@
       "origin": "data desk",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-27T21:54:57+00:00",
+      "revalidated_at": "2026-11-28T03:46:13+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -12199,7 +12189,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-27T21:54:57+00:00",
+      "revalidated_at": "2026-11-28T03:46:13+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -13120,7 +13110,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-27T21:54:57+00:00",
+      "revalidated_at": "2026-11-28T03:46:13+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -14048,7 +14038,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-27T21:54:57+00:00",
+      "revalidated_at": "2026-11-28T03:46:13+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -14722,7 +14712,7 @@
       "indicator": "unemployment",
       "query": "FRED fredgraph.csv 50 states + DC (<ST>UR, 2026-10); agency of record: US Bureau of Labor Statistics, Local Area Unemployment Statistics (seasonally adjusted)",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-27T21:54:57+00:00",
+      "revalidated_at": "2026-11-28T03:46:13+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -21350,7 +21340,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-27T21:54:57+00:00",
+      "revalidated_at": "2026-11-28T03:46:13+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -35577,5 +35567,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-27T21:54:57+00:00"
+  "generated_at": "2026-11-28T03:46:00+00:00"
 }
