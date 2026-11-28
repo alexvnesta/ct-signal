@@ -341,10 +341,11 @@ const MMETA = __MMETA__;
 window._n = __N__;
 const RAMP = ["#f6f0e3","#ecd9bd","#dfb183","#c9722f","#a85408"];
 const NOVAL = "#eae5da";
-let metric = "income";
+let metric = __DEFAULT_M__;
 function fmtV(kind, v){ if (v===null||v===undefined) return "\\u2014";
   if (kind==="usd") return "$"+Math.round(v).toLocaleString("en-US");
   if (kind==="pct") return v.toFixed(1)+"%";
+  if (kind==="mill") return Number(v).toFixed(2)+" mills";
   if (kind==="int") return Math.round(v).toLocaleString("en-US");
   return v.toLocaleString("en-US"); }
 function ord(n){ if(!n) return null;
@@ -437,21 +438,100 @@ paint();
 </script>"""
 
 
-def _map_html(data: dict) -> str:
+def _load_local_cards(cards: list[dict] | None = None) -> list[dict]:
+    if cards is not None:
+        return cards
+    path = config.OUTPUT_DIR / "cards.json"
+    if not path.exists():
+        return []
+    try:
+        return json.loads(path.read_text()).get("cards") or []
+    except (OSError, ValueError):
+        return []
+
+
+def _local_town_extras(cards: list[dict] | None = None) -> tuple[dict[str, dict], dict]:
+    """Extract FY2027 mill rate, car tax rate, 2024 median home sale, and
+    per-pupil school spending per town slug from live local cards."""
+    extras: dict[str, dict] = {}
+    meta: dict = {}
+    for c in _load_local_cards(cards):
+        ind = c.get("indicator")
+        av = c.get("answer_values") or {}
+        trows = c.get("towns") or []
+        if not trows:
+            continue
+        if ind == "mill_rates":
+            meta["mill_fy"] = str(av.get("date") or "FY2027")
+            meta["mill_n"] = av.get("n") or len(trows)
+            meta["mill_rows"] = trows
+            for r in trows:
+                s = re.sub(r"[^a-z0-9]+", "-", str(r.get("town") or "").lower()).strip("-")
+                slot = extras.setdefault(s, {})
+                slot["mill"] = r.get("rate")
+                slot["mill_r"] = r.get("rank")
+                if r.get("mv_rate") is not None:
+                    slot["mv_rate"] = r.get("mv_rate")
+        elif ind == "home_sales_price":
+            meta["sale_yr"] = str(av.get("date") or "2024")
+            meta["sale_n"] = av.get("n") or len(trows)
+            for r in trows:
+                s = re.sub(r"[^a-z0-9]+", "-", str(r.get("town") or "").lower()).strip("-")
+                slot = extras.setdefault(s, {})
+                slot["sale"] = r.get("value")
+                slot["sale_r"] = r.get("rank")
+        elif ind == "school_spending_per_pupil":
+            meta["school_yr"] = str(av.get("date") or "2023")
+            meta["school_n"] = av.get("n") or len(trows)
+            for r in trows:
+                s = re.sub(r"[^a-z0-9]+", "-", str(r.get("town") or "").lower()).strip("-")
+                slot = extras.setdefault(s, {})
+                slot["school"] = r.get("value")
+                slot["school_r"] = r.get("rank")
+    return extras, meta
+
+
+def _map_html(data: dict, extras: dict[str, dict] | None = None,
+              meta: dict | None = None) -> tuple[str, str] | str:
     """The choropleth, baked: Census boundaries as inline SVG paths, town
-    values embedded, five lines of vanilla JS doing quintile coloring. No
-    tile provider, no scripts phoning home — the map is the data."""
+    values embedded, vanilla JS doing quintile coloring. Includes FY2027 mill
+    rate, 2024 single-family home sales, and school spending beside ACS data."""
     if not _MAP_JSON.exists():
         return ""
     try:
         geo = json.loads(_MAP_JSON.read_text())
     except ValueError:
         return ""
+    extras = extras or {}
+    meta = meta or {}
+    has_mill = any(e.get("mill") is not None for e in extras.values())
+    has_sale = any(e.get("sale") is not None for e in extras.values())
+    has_school = any(e.get("school") is not None for e in extras.values())
+    extra_defs: list[tuple[str, str, str]] = []
+    if has_mill:
+        extra_defs.append(("mill", f'{meta.get("mill_fy", "FY2027")} mill rate', "mill"))
+    if has_sale:
+        extra_defs.append(("sale", f'{meta.get("sale_yr", "2024")} home sale', "usd"))
+    if has_school:
+        extra_defs.append(("school", "School spending/pupil", "usd"))
+    default_m = "mill" if has_mill else "income"
+    all_chips = extra_defs + [(k, lab, kind) for k, lab, _, kind in LABELS[1:]]
+
     slug = {t["name"]: t["slug"] for t in data["towns"]}
-    mt = {t["name"]: {**{k: t.get(k) for k, _, _, _ in LABELS},
-                      **{f"{k}_r": t.get(f"{k}_rank")
-                         for k, _, _, _ in LABELS}}
-          for t in data["towns"] if t["name"] in slug}
+    mt = {}
+    for t in data["towns"]:
+        if t["name"] not in slug:
+            continue
+        ex = extras.get(t["slug"], {})
+        row_m = {
+            **{k: t.get(k) for k, _, _, _ in LABELS},
+            **{f"{k}_r": t.get(f"{k}_rank") for k, _, _, _ in LABELS},
+        }
+        for ek in ("mill", "sale", "school"):
+            if ek in ex:
+                row_m[ek] = ex[ek]
+                row_m[f"{ek}_r"] = ex.get(f"{ek}_r")
+        mt[t["name"]] = row_m
     paths = "".join(
         f'<path d="{g["d"]}" data-n="{_ESC(g["name"])}" '
         f'data-s="{slug[g["name"]]}" '
@@ -459,32 +539,75 @@ def _map_html(data: dict) -> str:
         for g in geo["towns"] if g["name"] in slug)
     chips = "".join(
         f'<button type="button" data-m="{k}"'
-        f' aria-pressed="{("true" if k == "income" else "false")}"'
-        f' class="{("on" if k == "income" else "")}">{_ESC(lab)}</button>'
-        for k, lab, _, _ in LABELS[1:])
+        f' aria-pressed="{("true" if k == default_m else "false")}"'
+        f' class="{("on" if k == default_m else "")}">{_ESC(lab)}</button>'
+        for k, lab, _ in all_chips)
     mm = {k: {"label": lab, "kind": kind} for k, lab, _, kind in LABELS}
-    # "of 169" was a lie for any suppressed measure: a rank can only
-    # run across the towns that actually have a published value.
+    for k, lab, kind in extra_defs:
+        mm[k] = {"label": lab, "kind": kind}
     n = {k: sum(1 for t in data["towns"]
                 if isinstance(t.get(f"{k}_rank"), int))
          for k, _, _, _ in LABELS}
+    for ek, mk in (("mill", "mill_n"), ("sale", "sale_n"), ("school", "school_n")):
+        n[ek] = meta.get(mk) or sum(1 for e in extras.values() if e.get(ek) is not None)
     js = (_MAP_JS.replace("__MT__", json.dumps(mt, separators=(",", ":")))
           .replace("__MMETA__", json.dumps(mm))
-          .replace("__N__", json.dumps(n)))
+          .replace("__N__", json.dumps(n))
+          .replace("__DEFAULT_M__", json.dumps(default_m)))
     chips_html = ('<div class="mapchips" role="group" '
                   'aria-label="Color the map by">\n' + chips + '</div>')
+    default_label = mm[default_m]["label"].lower()
     map_body = ('<div class="mapblock">\n'
                 '<div class="mapflex">\n<svg class="townsmap" viewBox="0 0 '
                 + str(geo["width"]) + " " + str(geo["height"]) +
-                '" role="group" aria-label="Map of Connecticut towns shaded by '
-                'the chosen measure">' + paths + '</svg>\n'
+                '" role="group" aria-label="Connecticut mill rate and town data map">' + paths + '</svg>\n'
                 '<div class="maplegend" id="ml"></div>\n</div>\n'
                 '<p class="mapnote">Hover a town to preview on the right; click '
-                'for its full file. Shading is a quintile split of '
-                '<span id="mlab">median household income</span> among towns '
+                'for its full file and tax calculator. Shading is a quintile split of '
+                f'<span id="mlab">{_ESC(default_label)}</span> among towns '
                 'with published values; boundaries: '
                 + _ESC(geo["source"]) + '.</p>\n</div>\n' + js)
     return chips_html, map_body
+
+
+def _mill_extremes_html(meta: dict) -> str:
+    """Side-by-side 10 lowest and 10 highest Connecticut FY2027 mill rates."""
+    rows = meta.get("mill_rows") or []
+    if len(rows) < 20:
+        return ""
+    fy = _ESC(str(meta.get("mill_fy") or "FY2027"))
+    highest = rows[:10]
+    lowest = list(reversed(rows[-10:]))
+
+    def _tbl(items: list[dict]) -> str:
+        body = ""
+        for r in items:
+            s = re.sub(r"[^a-z0-9]+", "-", str(r["town"]).lower()).strip("-")
+            mv = f'{r["mv_rate"]:.2f}' if r.get("mv_rate") is not None else "—"
+            body += (
+                f'<tr><td><a href="/town/{_ESC(s)}">{_ESC(r["town"])}</a></td>'
+                f'<td class="num">{r["rate"]:.2f}</td>'
+                f'<td class="num">{mv}</td></tr>'
+            )
+        return (
+            '<table><thead><tr><th>Town</th>'
+            '<th class="num">Real property</th>'
+            '<th class="num">Car (MV)</th></tr></thead>'
+            f'<tbody>{body}</tbody></table>'
+        )
+
+    return f"""<section class="extremes-grid" aria-label="Lowest and highest Connecticut mill rates">
+<div class="extremes-card low">
+<div class="spot-k">Lowest property tax rates · {fy}</div>
+<h2>10 lowest mill rates in Connecticut</h2>
+{_tbl(lowest)}
+</div>
+<div class="extremes-card high">
+<div class="spot-k">Highest property tax rates · {fy}</div>
+<h2>10 highest mill rates in Connecticut</h2>
+{_tbl(highest)}
+</div>
+</section>"""
 
 
 def briefs() -> dict:
@@ -538,8 +661,12 @@ function render(s,syncSelect){
   +'<select id="yt-sel" aria-label="Choose your town">'
   +slugs.map(function(k){return '<option value="'+k+'"'+(k===s?' selected':'')+'>'+b.towns[k].n+'</option>';}).join("")
   +'</select></div>';
+ var millRow = t.m ? row((b.mill_fy||"FY2027")+" mill rate",
+   Number(t.m[0]).toFixed(2)+" mills"+(t.m[1]?" ("+t.m[1]+(t.m[1]%10===1&&t.m[1]%100!==11?"st":t.m[1]%10===2&&t.m[1]%100!==12?"nd":t.m[1]%10===3&&t.m[1]%100!==13?"rd":"th")+"-highest of "+(b.mill_n||169)+")":"")) : "";
+ var carRow = (t.m && t.m[2]!=null) ? row("Car (MV) mill rate", Number(t.m[2]).toFixed(2)+" mills") : "";
+ var saleRow = t.s ? row("2024 median home sale", "$"+Math.round(t.s[0]).toLocaleString("en-US")) : "";
  var list='<ul class="spot-list">'
-  +row("Population",fmt("pop",v[0]))
+  +millRow+carRow+saleRow
   +row("Median income",fmt("income",v[2]))
   +row("Below poverty",fmt("poverty",v[3]))
   +row("Median gross rent",fmt("rent",v[4]))
@@ -588,20 +715,29 @@ if(!saved&&!dismiss&&prod)fetch("/api/geo").then(function(r){return r.json();})
 })();
 </script>"""
 
-def index_page(data: dict) -> str:
-    map_parts = _map_html(data)
+def index_page(data: dict, cards: list[dict] | None = None) -> str:
+    extras, meta = _local_town_extras(cards)
+    map_parts = _map_html(data, extras=extras, meta=meta)
     chips_html, map_body = map_parts if isinstance(map_parts, tuple) else ("", map_parts)
+    extremes_html = _mill_extremes_html(meta)
+    has_mill = any(e.get("mill") is not None for e in extras.values())
+    fy_lbl = _ESC(str(meta.get("mill_fy") or "FY2027"))
     rows = ""
     for t in data["towns"]:
+        ex = extras.get(t["slug"], {})
+        mill_cell = (f'<td>{ex["mill"]:.2f}</td>' if has_mill and ex.get("mill") is not None
+                     else ('<td>—</td>' if has_mill else ''))
         cells = "".join(f"<td>{_fmt(t, k, kind)}</td>"
                         for k, _, _, kind in LABELS)
         rows += (f'<tr><td><a href="/town/{t["slug"]}">{_ESC(t["name"])}</a></td>'
-                 f"{cells}</tr>")
+                 f"{mill_cell}{cells}</tr>")
+    mill_th = f"<th>{fy_lbl} Mill Rate</th>" if has_mill else ""
     body = f"""<div class="wrap towns-page">
 <div class="towns-head">
-<div><h1>Every Connecticut town</h1>
-<p>{data["vintage"]} — five-year estimates, so small towns get honest numbers.
-Click any town on the map or table for its full file.</p></div>
+<div><h1>Connecticut mill rates &amp; town data</h1>
+<p>Interactive map and directory for all {data["n"]} Connecticut municipalities —
+{fy_lbl} OPM property &amp; car mill rates, 2024 single-family home sales,
+per-pupil school spending, and {data["vintage"]} Census benchmarks.</p></div>
 <div style="display:flex;flex-wrap:wrap;gap:.5rem">
 <a class="towns-head-act" href="/compare">Compare towns &rarr;</a>
 <a class="towns-head-act" href="/towns.csv">Download all {data["n"]} towns (CSV)</a>
@@ -616,19 +752,20 @@ Click any town on the map or table for its full file.</p></div>
 {map_body}
 <aside class="town-spot" id="yourtown" aria-label="Town spotlight">
 <div class="spot-k">Town spotlight</div>
-<p>Pick a town on the map or table to inspect its five key Census measures.</p>
+<p>Pick a town on the map or table to inspect its key municipal and Census figures.</p>
 </aside>
 </div>
+{extremes_html}
 <p class="tablehint">On a phone, swipe the table sideways for poverty, rent
 and home value.</p>
 <div class="tscroll" role="region" aria-label="Town statistics table, scrolls sideways on phones" tabindex="0">
-<table class="townstats" id="tt"><thead><tr><th>Town</th>
+<table class="townstats" id="tt"><thead><tr><th>Town</th>{mill_th}
 {''.join(f"<th>{lab}</th>" for _, lab, _, _ in LABELS)}</tr></thead>
 <tbody>{rows}</tbody></table></div>
-<p class="provenance">US Census Bureau, {data["vintage"]}, county-subdivision
-level. Ranks run across the {data["n"]} places the Census publishes for
-Connecticut. Dashes are Census-suppressed cells, not zeros — the same honesty
-rule as the board. <a href="/sources">Sources &amp; failure logs</a>.</p>
+<p class="provenance">Sources: CT OPM ({fy_lbl} mill rates &amp; 2024 real-estate
+sales), CSDE/OPM school spending, and US Census Bureau ({data["vintage"]},
+county-subdivision level). Dashes are suppressed or unavailable cells, not zeros.
+<a href="/sources">Sources &amp; failure logs</a>.</p>
 </div>
 <script>
 const _m0 = (location.hash.match(/^#m=(\\w+)/) || [])[1];
@@ -647,28 +784,36 @@ const _m0 = (location.hash.match(/^#m=(\\w+)/) || [])[1];
         path="/towns", body=_PAGE_CSS + body, compact=True)
 
 
-def _csv_text(data: dict) -> str:
+def _csv_text(data: dict, cards: list[dict] | None = None) -> str:
     """The town table as CSV: raw values, not formatted display strings, so
     a spreadsheet can sort and chart them without parsing dollar signs."""
+    extras, _ = _local_town_extras(cards)
     cols = [("town", "name"), ("population", "pop"), ("median_age", "age"),
             ("median_household_income", "income"),
             ("below_poverty_pct", "poverty"),
             ("median_gross_rent", "rent"),
             ("median_home_value", "value")]
     ranks = [f"{key}_rank" for key, _, _, _ in LABELS[1:]]
+    extra_cols = ["mill_rate_fy2027", "motor_vehicle_mill_rate",
+                  "median_home_sale_2024", "school_spending_per_pupil"]
     buf = io.StringIO()
     writer = csv.writer(buf, lineterminator="\n")
-    writer.writerow([label for label, _ in cols] + ranks)
+    writer.writerow([label for label, _ in cols] + ranks + extra_cols)
     for town in data["towns"]:
         row = [town.get(key, "") for _, key in cols]
         for key, _, _, _ in LABELS[1:]:
             rank = town.get(f"{key}_rank")
             row.append(rank if isinstance(rank, int) else "")
+        ex = extras.get(town["slug"], {})
+        row.extend([
+            ex.get("mill", ""), ex.get("mv_rate", ""),
+            ex.get("sale", ""), ex.get("school", ""),
+        ])
         writer.writerow(row)
     return buf.getvalue()
 
 
-def publish() -> dict | None:
+def publish(cards: list[dict] | None = None) -> dict | None:
     """Write the town table page and refresh the snapshot file. Individual
     town pages are owned by newsroom (they are card-shaped) and fold in
     table_for(); two modules must not write the same file."""
@@ -677,13 +822,22 @@ def publish() -> dict | None:
         return None
     from . import towns as _self
     tb = _self.briefs() or {"towns": {}, "n": {}}
-    page = index_page(data)
+    extras, meta = _local_town_extras(cards)
+    for slug, ex in extras.items():
+        if slug in tb.get("towns", {}):
+            if ex.get("mill") is not None:
+                tb["towns"][slug]["m"] = [ex["mill"], ex.get("mill_r"), ex.get("mv_rate")]
+            if ex.get("sale") is not None:
+                tb["towns"][slug]["s"] = [ex["sale"], ex.get("sale_r")]
+    tb["mill_fy"] = meta.get("mill_fy", "FY2027")
+    tb["mill_n"] = meta.get("mill_n", 169)
+    page = index_page(data, cards=cards)
     inject = (f'<script>window.__TB__='
               f'{json.dumps(tb, separators=(",", ":"))};</script>'
               + _MY_TOWN_JS)
     util.atomic_write_text(config.ROOT / "towns.html",
                            page.replace("</body>", inject + "</body>", 1))
-    util.atomic_write_text(config.ROOT / "towns.csv", _csv_text(data))
+    util.atomic_write_text(config.ROOT / "towns.csv", _csv_text(data, cards=cards))
     return data
 
 
@@ -773,6 +927,8 @@ def compare_data(data: dict, cards: list[dict] | None = None) -> dict:
                 if s in by_slug:
                     by_slug[s]["mill"] = r.get("rate")
                     by_slug[s]["mill_r"] = r.get("rank")
+                    if r.get("mv_rate") is not None:
+                        by_slug[s]["mv_rate"] = r.get("mv_rate")
         elif ind == "home_sales_price":
             meta["sale_yr"] = str(av.get("date") or "")
             meta["state_sale"] = av.get("state")
@@ -906,6 +1062,16 @@ _COMPARE_JS = r"""<script>
         sub: "CT OPM municipal real-property mill rate",
         bench: M.state_mill ? mill(M.state_mill)+" (weighted)" : "\u2014",
         cell: function(t){ return '<span class="cm-val">'+mill(t.mill)+'</span><span class="cm-rk">'+rk(t.mill_r, M.mill_n)+'</span>'; }
+      },
+      {
+        label: "Car tax rate (motor vehicle)",
+        sub: "CT OPM motor-vehicle mill rate (32.46 statutory cap)",
+        bench: "32.46 mills max cap",
+        cell: function(t){
+          if (t.mv_rate == null) return '<span class="cm-val">\u2014</span>';
+          var note = t.mv_rate >= 32.45 ? "at CT statutory cap" : "town MV rate";
+          return '<span class="cm-val">'+mill(t.mv_rate)+'</span><span class="cm-rk">'+note+'</span>';
+        }
       },
       {
         label: "Median single-family sale ("+(M.sale_yr||"2024")+")",

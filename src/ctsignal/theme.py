@@ -558,6 +558,43 @@ font:inherit;font-size:.87rem;font-weight:700;cursor:pointer;min-height:44px}
   padding:1rem 1.15rem;margin:1rem 0 1.4rem}
 .taxcalc-k{font:800 .72rem/1 var(--sans);letter-spacing:.15em;
   text-transform:uppercase;color:var(--acc);margin:0 0 .35rem}
+.taxcalc-head{display:flex;flex-wrap:wrap;align-items:center;
+  justify-content:space-between;gap:.5rem;margin:0 0 .35rem}
+.taxcalc-tabs{display:inline-flex;background:var(--bg2);border:1px solid var(--line);
+  border-radius:999px;padding:2px;gap:2px}
+.taxcalc-tabs button{border:0;background:transparent;color:var(--dim);
+  font:700 .76rem/1 var(--sans);padding:.42rem .85rem;min-height:36px;
+  border-radius:999px;cursor:pointer}
+.taxcalc-tabs button.on{background:var(--ink);color:#fff}
+.taxcalc-tabs button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.mh-wrap{margin:1rem 0 1.4rem}
+.mh-wrap h3{font:700 1.08rem/1.25 var(--serif);margin:0 0 .25rem;color:var(--ink)}
+.mh-table{width:100%;border-collapse:collapse;background:var(--panel);
+  border:1px solid var(--rule);margin:.45rem 0 .4rem}
+.mh-table th{text-align:right;font:700 .72rem/1.2 var(--sans);
+  text-transform:uppercase;letter-spacing:.08em;color:var(--dim);
+  padding:.5rem .65rem;border-bottom:2px solid var(--ink);white-space:nowrap}
+.mh-table td{text-align:right;padding:.55rem .65rem;font:700 .92rem/1.2 var(--sans);
+  color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.mh-table th:first-child,.mh-table td:first-child{text-align:left}
+.mh-table td.mh-delta{color:var(--dim);font-weight:600}
+.extremes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem 1.4rem;margin:1.2rem 0 1.5rem}
+@media(max-width:760px){.extremes-grid{grid-template-columns:1fr}}
+.extremes-card{background:var(--panel);border:1px solid var(--rule);
+  border-top:3px solid var(--ink);padding:.95rem 1.1rem}
+.extremes-card.low{border-top-color:var(--ok)}
+.extremes-card.high{border-top-color:var(--acc)}
+.extremes-card h2{font:700 1.15rem/1.2 var(--serif);margin:.2rem 0 .5rem;color:var(--ink)}
+.extremes-card table{width:100%;border-collapse:collapse}
+.extremes-card th{text-align:left;font:700 .68rem/1.2 var(--sans);
+  text-transform:uppercase;letter-spacing:.09em;color:var(--dim);
+  padding:.35rem .4rem .45rem 0;border-bottom:1px solid var(--ink)}
+.extremes-card th.num,.extremes-card td.num{text-align:right;
+  font-variant-numeric:tabular-nums}
+.extremes-card td{padding:.42rem .4rem .42rem 0;border-bottom:1px solid var(--rule);
+  font-size:.88rem}
+.extremes-card tr:last-child td{border-bottom:0}
 .taxcalc h3{font:700 1.15rem/1.25 var(--serif);margin:0 0 .3rem;color:var(--ink)}
 .taxcalc-sub{font-size:.86rem;color:var(--dim);margin:0 0 .75rem}
 .taxcalc-in{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;

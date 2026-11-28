@@ -75,10 +75,8 @@ tested PR per week** for ~2 minutes of human review.
   - *Why:* Include FY2027 mill rate + 2024 median single-family home sale price
     on `/assets/town-<slug>.png` so pasting `/town/<slug>` into Facebook town
     groups, Nextdoor, or X shows crisp local numbers in the link preview.
-- [ ] **Add Mill Rate + 2024 Home Sale Price to `/towns` choropleth map pills**
-  - *Why:* Let readers shade the 169-town map on `/towns` by mill rate, 2024
-    home sale price, school spending, and 2025 housing permits in addition to
-    the 5 ACS Census measures.
+- [x] **Add Mill Rate + 2024 Home Sale Price to `/towns` choropleth map pills** (shipped 2026-11-27 alongside 6-year mill rate history, Home/Car tax calculator toggle, and 10 lowest vs. 10 highest mill rates)
+  - `/towns` now defaults to the FY2027 CT Mill Rate Map and supports 2024 home sales, school spending, and all 5 ACS Census measures.
 - [ ] **Interactive "Download town dossier (CSV / Print-friendly PDF view)" on `/town/*`**
   - *Why:* Gives realtors, town finance boards, and reporters a clean `@media print`
     1-page town sheet with zero backend cost.

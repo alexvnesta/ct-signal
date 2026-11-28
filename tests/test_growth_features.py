@@ -281,5 +281,52 @@ class TestSeoSignals(unittest.TestCase):
         self.assertIn("Mill Rates, Home Prices", (ROOT / "towns.html").read_text())
 
 
+class TestSearchMatchedUpgrades(unittest.TestCase):
+    def test_mill_rates_adapter_keeps_car_rate_and_history(self):
+        fx = {
+            "fiscal_year": 2027,
+            "rows": [
+                {"town": "Hartford", "rate": 69.95, "grand_list": 1000,
+                 "mv_rate": 32.46, "history": {"FY2025": 68.95, "FY2027": 69.95}},
+                {"town": "Salisbury", "rate": 9.8, "grand_list": 2000,
+                 "mv_rate": 9.8, "history": {"FY2025": 11.0, "FY2027": 9.8}},
+            ],
+        }
+        res = socrata.mill_rates({"highlight": "Hartford"}, fixture=fx)
+        self.assertEqual(res["all"][0]["mv_rate"], 32.46)
+        self.assertEqual(res["all"][0]["history"]["FY2027"], 69.95)
+        self.assertEqual(res["all"][1]["mv_rate"], 9.8)
+
+    def test_towns_page_has_mill_rate_map_and_lowest_highest_tables(self):
+        towns_html = (ROOT / "towns.html").read_text()
+        self.assertIn('data-m="mill"', towns_html)
+        self.assertIn('data-m="sale"', towns_html)
+        self.assertIn('data-m="school"', towns_html)
+        self.assertIn('let metric = "mill"', towns_html)
+        self.assertIn("10 lowest mill rates in Connecticut", towns_html)
+        self.assertIn("10 highest mill rates in Connecticut", towns_html)
+        self.assertIn("Salisbury", towns_html)
+        csv_head = (ROOT / "towns.csv").read_text().splitlines()[0]
+        self.assertIn("mill_rate_fy2027", csv_head)
+        self.assertIn("motor_vehicle_mill_rate", csv_head)
+
+    def test_town_page_has_car_tax_toggle_and_six_year_mill_history(self):
+        wh = (ROOT / "town" / "west-hartford" / "index.html").read_text()
+        self.assertIn('data-mode="car"', wh)
+        self.assertIn("Motor vehicle (car) mill rate, FY2027", wh)
+        self.assertIn("32.46 mills per $1,000 (CT statutory cap)", wh)
+        self.assertIn("West Hartford mill rate history (FY2022&ndash;FY2027)", wh)
+        self.assertIn("42.42", wh)
+        self.assertIn("46.77", wh)
+
+    def test_mill_rates_story_and_indicator_show_lowest_towns(self):
+        story = (ROOT / "story" / "a3514b53fb39" / "index.html").read_text()
+        ind = (ROOT / "indicator" / "mill_rates" / "index.html").read_text()
+        for doc in (story, ind):
+            self.assertIn("Lowest mill rates in Connecticut (FY2027)", doc)
+            self.assertIn("Salisbury", doc)
+            self.assertIn("Greenwich", doc)
+
+
 if __name__ == "__main__":
     unittest.main()

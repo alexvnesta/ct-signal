@@ -159,28 +159,54 @@ def mill_rates(cfg: dict, fixture: dict | None = None) -> dict | None:
     """
     import statistics
     fy_col = cfg.get("year", "fiscal_year")
+    mv_rates: dict[str, float] = {}
+    history: dict[str, dict[str, float]] = {}
     if fixture is not None:
         fy = int(fixture["fiscal_year"])
         pairs = [(r["town"], float(r["rate"]), float(r["grand_list"]))
                  for r in fixture["rows"]]
         rates = {t: r for t, r, _ in pairs}
+        for r in fixture["rows"]:
+            if r.get("mv_rate") is not None:
+                mv_rates[r["town"]] = round(float(r["mv_rate"]), 2)
+            if isinstance(r.get("history"), dict):
+                history[r["town"]] = {
+                    str(k): round(float(v), 2) for k, v in r["history"].items()
+                }
         ratio = fixture.get("assess_ratio") or _assess_ratio()
     else:
-        raw = rows(cfg["socrata_id"], **{fy_col: str(cfg["fiscal_year"])})
+        fy = int(cfg["fiscal_year"])
+        hist_years = [str(y) for y in range(fy - 5, fy + 1)]
+        in_clause = ",".join(f"'{y}'" for y in hist_years)
+        raw = rows(cfg["socrata_id"], **{"$where": f"{fy_col} in ({in_clause})"})
         rates = {}
         for r in raw:
             town = r.get(cfg.get("town", "municipality"), "")
             if "-" in town:
                 continue
+            tc = r.get("town_code")
+            sd = r.get("service_district_code")
+            if tc and sd and str(tc).strip() != str(sd).strip():
+                continue
+            row_fy = str(r.get(fy_col) or "").strip()
             try:
                 rate = float(r.get("mill_rate_real_personal") or 0)
             except (TypeError, ValueError):
                 continue
-            if rate > 0:
+            if rate <= 0:
+                continue
+            if row_fy.isdigit():
+                history.setdefault(town, {})[f"FY{row_fy}"] = round(rate, 2)
+            if row_fy == str(fy):
                 rates[town] = rate
+                try:
+                    mv = float(r.get("mill_rate_motor_vehicle") or 0)
+                except (TypeError, ValueError):
+                    mv = 0.0
+                if mv > 0:
+                    mv_rates[town] = round(mv, 2)
         if not rates:
             return None
-        fy = int(cfg["fiscal_year"])
         gl_year = cfg.get("grand_list_year")
         gl_rows = rows(cfg["grand_list_id"], **({"year": str(gl_year)}
                                                 if gl_year else {}))
@@ -197,6 +223,17 @@ def mill_rates(cfg: dict, fixture: dict | None = None) -> dict | None:
         scored = [(t, r, g / top_g) for t, r, g in scored]
     median = statistics.median(sorted(r for _, r, _ in pairs))
     top = scored[0]
+    all_rows = []
+    for i, (t, r, _) in enumerate(scored):
+        rec_row: dict = {
+            "town": t, "rate": round(r, 2), "rank": i + 1,
+            "vs_state": round(r / state, 2),
+        }
+        if t in mv_rates:
+            rec_row["mv_rate"] = mv_rates[t]
+        if history.get(t):
+            rec_row["history"] = dict(sorted(history[t].items()))
+        all_rows.append(rec_row)
     return {
         "fiscal_year": fy, "n": len(pairs),
         "state_rate": round(state, 2), "median_rate": round(median, 2),
@@ -208,11 +245,9 @@ def mill_rates(cfg: dict, fixture: dict | None = None) -> dict | None:
                   # name asserted in the catalog
                   "highlight": t == cfg.get("highlight", scored[0][0])}
                  for i, (t, r, _) in enumerate(scored[:10])],
-        "all": [{"town": t, "rate": round(r, 2), "rank": i + 1,
-                 "vs_state": round(r / state, 2)}
-                for i, (t, r, _) in enumerate(scored)],
+        "all": all_rows,
         "query": (f"GET /resource/{cfg.get('socrata_id', 'fixture')}.json"
-                  f"?{fy_col}={fy} (municipal rows, split rates;"
+                  f"?$where={fy_col} in (FY{fy - 5}..FY{fy}) (municipal rows, real & motor vehicle rates;"
                   f" weighted by {cfg.get('grand_list_id','grand list')}"
                   f" {cfg.get('grand_list_year', '')})"),
     }

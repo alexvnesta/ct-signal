@@ -903,6 +903,40 @@ def _data_table_html(card: dict) -> str:
                         f"Observations behind the chart: {label}")
 
 
+def _lowest_mill_rates_html(card: dict) -> str:
+    """Beside the 10-highest chart on the mill-rates story & indicator file,
+    surface the 10 lowest-taxing municipalities so readers searching 'lowest
+    property taxes in Connecticut' see both ends of the distribution."""
+    if card.get("indicator") != "mill_rates":
+        return ""
+    towns = [r for r in (card.get("towns") or []) if _is_town(r)]
+    if len(towns) < 20:
+        return ""
+    fy = _ESC(str((card.get("answer_values") or {}).get("date") or "FY2027"))
+    lowest = list(reversed(towns[-10:]))
+    rows = ""
+    for r in lowest:
+        s = _slug(r["town"])
+        mv = f'{r["mv_rate"]:.2f}' if r.get("mv_rate") is not None else "—"
+        rows += (
+            f'<tr><td>{r.get("rank", "")}</td>'
+            f'<td><a href="/town/{_ESC(s)}">{_ESC(r["town"])}</a></td>'
+            f'<td class="num">{r["rate"]:.2f}</td>'
+            f'<td class="num">{mv}</td></tr>'
+        )
+    return (
+        f'<div class="card"><h2 class="label">Lowest mill rates in Connecticut ({fy})</h2>'
+        '<p class="meta" style="margin:.15rem 0 .65rem">Low mill rates often pair '
+        'with high home values — click any town to run its home &amp; car property '
+        'tax calculator or see its 6-year mill rate history.</p>'
+        '<div class="tablewrap"><table class="datatable">'
+        '<thead><tr><th scope="col">Rank</th><th scope="col">Town</th>'
+        '<th scope="col" class="num">Real property</th>'
+        '<th scope="col" class="num">Car (MV)</th></tr></thead>'
+        f'<tbody>{rows}</tbody></table></div></div>'
+    )
+
+
 def story_html(card: dict, siblings: list[dict] | None = None) -> str:
     q = _ESC(card["question"])
     a = _ESC(_story_lede(card))
@@ -985,6 +1019,7 @@ def story_html(card: dict, siblings: list[dict] | None = None) -> str:
 {_place_line(card)}
 <div class="card"><h2 class="label">The data</h2>{chart}{chart2}
 {_data_table_html(card)}{action_bar}</div>
+{_lowest_mill_rates_html(card)}
 {_context_html(card)}
 {_vote_widget(card)}
 {_trigger_html(card)}
@@ -1168,6 +1203,7 @@ def indicator_html(card: dict) -> str:
 {_data_table_html(card)}
 {csv_link}
 </div>
+{_lowest_mill_rates_html(card)}
 {context_html}
 {vintages_html}
 {_provenance_html(card)}
@@ -1965,9 +2001,10 @@ def _town_share_bar_html(town: str, slug: str, pieces: dict,
 
 
 def _tax_estimator_html(town: str, rate: float, state_rate: float | None,
-                        assess_ratio: float, default_val: int, fy: str) -> str:
-    """Zero-backend interactive CT property tax estimator embedded directly on
-    every town page."""
+                        assess_ratio: float, default_val: int, fy: str,
+                        mv_rate: float | None = None) -> str:
+    """Zero-backend interactive CT home & car (motor vehicle) property tax
+    estimator embedded directly on every town page."""
     init_assessed = round(default_val * assess_ratio)
     init_annual = round(init_assessed * rate / 1000)
     init_monthly = round(init_annual / 12)
@@ -1977,14 +2014,24 @@ def _tax_estimator_html(town: str, rate: float, state_rate: float | None,
         diff = init_annual - st_annual
         sign = "+" if diff >= 0 else "-"
         state_note = f"{sign}${abs(diff):,}/yr"
-    return f"""<div class="taxcalc" id="tax-estimator" aria-label="Property tax estimator for {_ESC(town)}">
-<div class="taxcalc-k">Interactive tool · FY{_ESC(fy)} rate</div>
-<h3>Estimate a {_ESC(town)} property tax bill</h3>
-<p class="taxcalc-sub">Enter a home\u2019s market value to calculate estimated municipal tax using {_ESC(town)}\u2019s FY{_ESC(fy)} mill rate ({rate:.2f} mills) and Connecticut\u2019s statutory {assess_ratio * 100:.0f}% assessment ratio.</p>
+    tabs_html = (
+        '<div class="taxcalc-tabs" role="tablist" aria-label="Tax calculator mode">'
+        '<button type="button" role="tab" aria-selected="true" class="on" data-mode="home">Home tax</button>'
+        '<button type="button" role="tab" aria-selected="false" data-mode="car">Car tax</button>'
+        '</div>'
+    ) if mv_rate is not None else ""
+    mv_js = f"{mv_rate:.6f}" if mv_rate is not None else "0"
+    return f"""<div class="taxcalc" id="tax-estimator" aria-label="Property and car tax estimator for {_ESC(town)}">
+<div class="taxcalc-head">
+<div class="taxcalc-k">Interactive calculator · FY{_ESC(fy)} rates</div>
+{tabs_html}
+</div>
+<h3 id="tc-title">Estimate a {_ESC(town)} home property tax bill</h3>
+<p class="taxcalc-sub" id="tc-sub">Enter a home\u2019s market value to calculate estimated municipal tax using {_ESC(town)}\u2019s FY{_ESC(fy)} mill rate ({rate:.2f} mills) and Connecticut\u2019s statutory {assess_ratio * 100:.0f}% assessment ratio.</p>
 <div class="taxcalc-in">
-<label class="sr-only" for="tc-val">Home market value in dollars</label>
-<div class="taxcalc-field"><span>$</span><input id="tc-val" type="number" min="50000" step="10000" value="{default_val}" inputmode="numeric"></div>
-<div class="taxcalc-chips" role="group" aria-label="Preset home values">
+<label class="sr-only" for="tc-val" id="tc-lab">Home market value in dollars</label>
+<div class="taxcalc-field"><span>$</span><input id="tc-val" type="number" min="1000" step="10000" value="{default_val}" inputmode="numeric"></div>
+<div class="taxcalc-chips" id="tc-chips" role="group" aria-label="Preset values">
 <button type="button" data-v="300000">$300k</button>
 <button type="button" data-v="450000">$450k</button>
 <button type="button" data-v="650000">$650k</button>
@@ -1992,31 +2039,104 @@ def _tax_estimator_html(town: str, rate: float, state_rate: float | None,
 </div></div>
 <div class="taxcalc-out">
 <div class="taxcalc-box"><div class="tk">Est. annual tax</div><div class="tv" id="tc-yr">${init_annual:,}</div><div class="ts" id="tc-mo">${init_monthly:,} / month</div></div>
-<div class="taxcalc-box"><div class="tk">Assessed value ({assess_ratio * 100:.0f}%)</div><div class="tv" id="tc-as">${init_assessed:,}</div><div class="ts">Per CGS &sect;12-64</div></div>
-<div class="taxcalc-box"><div class="tk">Vs. statewide rate</div><div class="tv" id="tc-df">{_ESC(state_note or "—")}</div><div class="ts" id="tc-ct">Weighted CT avg: {f"{state_rate:.2f} mills" if state_rate else "—"}</div></div>
+<div class="taxcalc-box"><div class="tk">Assessed value ({assess_ratio * 100:.0f}%)</div><div class="tv" id="tc-as">${init_assessed:,}</div><div class="ts" id="tc-stat">Per CGS &sect;12-64</div></div>
+<div class="taxcalc-box"><div class="tk" id="tc-dfk">Vs. statewide rate</div><div class="tv" id="tc-df">{_ESC(state_note or "—")}</div><div class="ts" id="tc-ct">Weighted CT avg: {f"{state_rate:.2f} mills" if state_rate else "—"}</div></div>
 </div>
-<p class="taxcalc-note">Municipal real-property rate only; separate fire, water, or sewer district mill rates, phase-ins, and personal exemptions are not included.</p>
+<p class="taxcalc-note" id="tc-note">Municipal real-property rate only; separate fire, water, or sewer district mill rates, phase-ins, and personal exemptions are not included.</p>
 </div>
 <script>(function(){{
   var inp=document.getElementById("tc-val"); if(!inp)return;
-  var rate={rate:.6f}, st={state_rate if state_rate else 0:.6f}, ratio={assess_ratio:.4f};
+  var homeRate={rate:.6f}, mvRate={mv_js}, stRate={state_rate if state_rate else 0:.6f},
+      ratio={assess_ratio:.4f}, mvCap=32.46, town={json.dumps(town)}, fy={json.dumps(fy)},
+      defHome={default_val}, mode="home";
   var elYr=document.getElementById("tc-yr"), elMo=document.getElementById("tc-mo"),
-      elAs=document.getElementById("tc-as"), elDf=document.getElementById("tc-df");
+      elAs=document.getElementById("tc-as"), elDf=document.getElementById("tc-df"),
+      elDfk=document.getElementById("tc-dfk"), elCt=document.getElementById("tc-ct"),
+      elTitle=document.getElementById("tc-title"), elSub=document.getElementById("tc-sub"),
+      elNote=document.getElementById("tc-note"), elStat=document.getElementById("tc-stat"),
+      elChips=document.getElementById("tc-chips");
   function fmt(n){{return "$"+Math.round(n).toLocaleString("en-US");}}
+  function bindChips(){{
+    elChips.querySelectorAll("button").forEach(function(b){{
+      b.addEventListener("click",function(){{inp.value=b.dataset.v; calc();}});
+    }});
+  }}
+  function setMode(next){{
+    if(next==="car"&&mvRate<=0)return;
+    mode=next;
+    document.querySelectorAll("#tax-estimator .taxcalc-tabs button").forEach(function(b){{
+      var on=b.dataset.mode===mode; b.classList.toggle("on",on);
+      b.setAttribute("aria-selected",on?"true":"false");
+    }});
+    if(mode==="car"){{
+      elTitle.textContent="Estimate a "+town+" car (motor vehicle) tax bill";
+      elSub.textContent="Enter a vehicle\u2019s value (MSRP/depreciated value) to estimate annual CT car tax using "+town+"\u2019s FY"+fy+" motor-vehicle rate ("+mvRate.toFixed(2)+" mills; CT statutory cap is 32.46 mills).";
+      elDfk.textContent="Vs. 32.46-mill cap";
+      elCt.textContent=mvRate>=32.45?"At CT statutory cap (32.46 mills)":"CT max car cap: 32.46 mills";
+      elStat.textContent="Per CGS \u00a712-71e";
+      elNote.textContent="Connecticut caps municipal motor-vehicle mill rates at 32.46 mills. Actual bills depend on the state\u2019s statutory depreciation schedule for your vehicle\u2019s model year.";
+      inp.step="1000"; inp.value="25000";
+      elChips.innerHTML='<button type="button" data-v="15000">$15k</button><button type="button" data-v="25000">$25k</button><button type="button" data-v="40000">$40k</button><button type="button" data-v="60000">$60k</button>';
+    }}else{{
+      elTitle.textContent="Estimate a "+town+" home property tax bill";
+      elSub.textContent="Enter a home\u2019s market value to calculate estimated municipal tax using "+town+"\u2019s FY"+fy+" mill rate ("+homeRate.toFixed(2)+" mills) and Connecticut\u2019s statutory 70% assessment ratio.";
+      elDfk.textContent="Vs. statewide rate";
+      elCt.textContent=stRate>0?"Weighted CT avg: "+stRate.toFixed(2)+" mills":"\u2014";
+      elStat.textContent="Per CGS \u00a712-64";
+      elNote.textContent="Municipal real-property rate only; separate fire, water, or sewer district mill rates, phase-ins, and personal exemptions are not included.";
+      inp.step="10000"; inp.value=String(defHome);
+      elChips.innerHTML='<button type="button" data-v="300000">$300k</button><button type="button" data-v="450000">$450k</button><button type="button" data-v="650000">$650k</button><button type="button" data-v="1000000">$1M</button>';
+    }}
+    bindChips(); calc();
+  }}
   function calc(){{
     var v=Number(String(inp.value||"").replace(/[^0-9.]/g,""));
-    if(!v||v<1000)return;
-    var as=v*ratio, yr=as*rate/1000, mo=yr/12;
+    if(!v||v<500)return;
+    var r=mode==="car"?mvRate:homeRate;
+    var as=v*ratio, yr=as*r/1000, mo=yr/12;
     elYr.textContent=fmt(yr); elMo.textContent=fmt(mo)+" / month";
     elAs.textContent=fmt(as);
-    if(st>0){{var d=Math.round(yr-(as*st/1000));
-      elDf.textContent=(d>=0?"+":"-")+fmt(Math.abs(d))+"/yr";}}
+    if(mode==="car"){{
+      var d=Math.round(yr-(as*mvCap/1000));
+      elDf.textContent=Math.abs(d)<=1?"At state cap":((d>=0?"+":"-")+fmt(Math.abs(d))+"/yr");
+    }}else if(stRate>0){{
+      var d=Math.round(yr-(as*stRate/1000));
+      elDf.textContent=(d>=0?"+":"-")+fmt(Math.abs(d))+"/yr";
+    }}
   }}
   inp.addEventListener("input",calc);
-  document.querySelectorAll("#tax-estimator .taxcalc-chips button").forEach(function(b){{
-    b.addEventListener("click",function(){{inp.value=b.dataset.v; calc();}});
+  bindChips();
+  document.querySelectorAll("#tax-estimator .taxcalc-tabs button").forEach(function(b){{
+    b.addEventListener("click",function(){{setMode(b.dataset.mode);}});
   }});
 }})();</script>"""
+
+
+def _mill_history_html(town: str, history: dict | None) -> str:
+    """Compact multi-year municipal mill rate history table (FY2022–FY2027)
+    sourced directly from CT OPM emyx-j53e."""
+    if not isinstance(history, dict) or len(history) < 2:
+        return ""
+    items = sorted(history.items())
+    first_fy, first_val = items[0]
+    last_fy, last_val = items[-1]
+    diff = round(float(last_val) - float(first_val), 2)
+    diff_str = f"{diff:+.2f} mills"
+    ths = "".join(f'<th scope="col">{_ESC(fy)}</th>' for fy, _ in items)
+    tds = "".join(f'<td>{float(v):.2f}</td>' for _, v in items)
+    return (
+        f'<div class="mh-wrap">'
+        f'<h3>{_ESC(town)} mill rate history ({_ESC(first_fy)}&ndash;{_ESC(last_fy)})</h3>'
+        '<div class="tscroll" role="region" tabindex="0" '
+        f'aria-label="{_ESC(town)} mill rate history table">'
+        f'<table class="mh-table"><thead><tr><th>Real property</th>{ths}'
+        f'<th>Change</th></tr></thead>'
+        f'<tbody><tr><td>Mills per $1,000</td>{tds}'
+        f'<td class="mh-delta">{_ESC(diff_str)}</td></tr></tbody></table></div>'
+        '<p class="meta">Official CT OPM municipal real-property mill rates '
+        '(excluding separate service-district levies). Large single-year drops '
+        'typically follow a townwide 5-year property revaluation.</p></div>'
+    )
 
 
 def town_html(town: str, pieces: dict) -> str:
@@ -2062,12 +2182,18 @@ def town_html(town: str, pieces: dict) -> str:
         n = av.get("n") or len(card.get("towns") or [])
         fy = str(av.get("date", "")).replace("FY", "")
         rows = [
-            f'<tr><td>Mill rate, FY{esc(fy)}</td>'
+            f'<tr><td>Mill rate, FY{esc(fy)} (real property)</td>'
             f'<td>{row["rate"]:.2f} mills per $1,000</td></tr>',
             f'<tr><td>Rank among {n} Connecticut places (1 = highest)</td>'
             f'<td>{_towns._ord(row["rank"])}-highest of {n}</td></tr>',
             f'<tr><td>Compared with the statewide rate</td>'
             f'<td>{row["vs_state"]:.2f}× the statewide average</td></tr>']
+        if row.get("mv_rate") is not None:
+            mv = float(row["mv_rate"])
+            cap_note = " (CT statutory cap)" if mv >= 32.45 else ""
+            rows.append(
+                f'<tr><td>Motor vehicle (car) mill rate, FY{esc(fy)}</td>'
+                f'<td>{mv:.2f} mills per $1,000{cap_note}</td></tr>')
         if av.get("state"):
             rows.append('<tr><td>Statewide rate, weighted by taxable value'
                         f'</td><td>{av["state"]:.2f} mills</td></tr>')
@@ -2088,15 +2214,17 @@ def town_html(town: str, pieces: dict) -> str:
         calc_html = _tax_estimator_html(
             town, row["rate"], av.get("state"),
             float(av.get("assess_ratio") or 0.70), default_home, fy,
+            mv_rate=row.get("mv_rate"),
         )
+        hist_html = _mill_history_html(town, row.get("history"))
         sections.append(
-            '<h2>Property tax rate</h2>'
-            '<p class="sub">Municipal mill rate for real property, fiscal year '
-            f'{esc(fy)}, from the CT Open Data Portal via '
+            '<h2>Property &amp; car tax rate</h2>'
+            '<p class="sub">Municipal mill rates for real property and motor '
+            f'vehicles, fiscal year {esc(fy)}, from the CT Open Data Portal via '
             '<a href="/story/' + card["id"] + '">this story</a>. '
             'Service-district rates are separate and not shown here.</p>'
             '<table class="towntab"><tbody>' + ''.join(rows) + '</tbody></table>'
-            + calc_html)
+            + calc_html + hist_html)
         facts.append(f'mill rate {row["rate"]:.2f} ({row["vs_state"]:.2f}× state)')
     hs = pieces.get("home_sales_price")
     if hs:

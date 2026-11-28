@@ -594,7 +594,7 @@ def run_cycle(catalog: dict, demo: bool, use_llm: bool = True) -> int:
             for b in broken[:10]:
                 fh.write(f"linkcheck: {b}\n")
         print(f"  linkcheck: {len(broken)} broken internal link(s)")
-    _towns.publish()          # ACS town snapshot + the town table page
+    _towns.publish(ordered)   # ACS + live mill rate/sales/school town map & CSV
     board = build_board(catalog)
     board["trend"] = _trend()
     publish.publish(ordered, board)
