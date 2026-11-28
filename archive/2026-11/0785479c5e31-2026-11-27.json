@@ -1,8 +1,8 @@
 {
-  "answer_text": "Connecticut ran 4.8\u00b0F warmer than normal over the 30 days ending 2026-11-27 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
+  "answer_text": "Connecticut ran 5.0\u00b0F warmer than normal over the 30 days ending 2026-11-27 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
   "answer_values": {
     "date": "2026-11-27",
-    "value": 4.8
+    "value": 5.0
   },
   "cache": false,
   "chart": {
@@ -188,6 +188,11 @@
           "value": -0.5
         },
         {
+          "date": "2026-11-27",
+          "series": "Bradley Intl",
+          "value": 9.0
+        },
+        {
           "date": "2026-10-29",
           "series": "Danbury",
           "value": 4.0
@@ -331,6 +336,11 @@
           "date": "2026-11-26",
           "series": "Danbury",
           "value": 3.0
+        },
+        {
+          "date": "2026-11-27",
+          "series": "Danbury",
+          "value": 10.5
         }
       ]
     },
@@ -410,15 +420,15 @@
   "citations": [
     "https://data.rcc-acis.org/StnData"
   ],
-  "generated_at": "2026-11-28T03:46:00+00:00",
+  "generated_at": "2026-11-28T12:47:33+00:00",
   "headline": {
-    "id": "aa825fa8bbbb",
-    "published": "Fri, 27 Nov 2026 22:02:31 GMT",
-    "published_sort": 1795816951,
-    "source": "Google News (CT)",
-    "stream": "ct",
-    "title": "How much rain did Connecticut get from Thanksgiving nor'easter? - CT Insider",
-    "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQbV8ycC1rWG9SZHNfOTFXZXhpT0ozZ0N4S1g0eUREd3NqdkpYaWs5MFRVSXpmbnpZckM0T3B4VlFNaFlKUnFhanFoXzFoTXcwMmhjb1ZkOEUtMUF4SktJWnlNYWR6QXBoc3pBRjR4bXNkek84NzFWNmwxdXN0UXB1R0g5QklVUUNmTk1uSzhTbkI1dGhyRFJ0QU93Y05oNlAxTHA0?oc=5"
+    "id": "897eabb27d21",
+    "published": "Fri, 27 Nov 2026 05:59:36 -0500",
+    "published_sort": 1795777176,
+    "source": "NPR",
+    "stream": "national",
+    "title": "From Thanksgiving blackouts to Black Friday, a holiday hit by wild weather and economic woes",
+    "url": "https://www.npr.org/2026/11/27/nx-s1-6054884/thanksgiving-weather-black-friday"
   },
   "id": "0785479c5e31",
   "indicator": "weather_anomaly",

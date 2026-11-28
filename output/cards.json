@@ -1,10 +1,10 @@
 {
   "cards": [
     {
-      "answer_text": "Connecticut ran 4.8\u00b0F warmer than normal over the 30 days ending 2026-11-27 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
+      "answer_text": "Connecticut ran 5.0\u00b0F warmer than normal over the 30 days ending 2026-11-27 \u2014 measured at Bradley International and Danbury, each against its own 1991-2020 normals.",
       "answer_values": {
         "date": "2026-11-27",
-        "value": 4.8
+        "value": 5.0
       },
       "cache": false,
       "chart": {
@@ -190,6 +190,11 @@
               "value": -0.5
             },
             {
+              "date": "2026-11-27",
+              "series": "Bradley Intl",
+              "value": 9.0
+            },
+            {
               "date": "2026-10-29",
               "series": "Danbury",
               "value": 4.0
@@ -333,6 +338,11 @@
               "date": "2026-11-26",
               "series": "Danbury",
               "value": 3.0
+            },
+            {
+              "date": "2026-11-27",
+              "series": "Danbury",
+              "value": 10.5
             }
           ]
         },
@@ -412,15 +422,15 @@
       "citations": [
         "https://data.rcc-acis.org/StnData"
       ],
-      "generated_at": "2026-11-28T03:46:00+00:00",
+      "generated_at": "2026-11-28T12:47:33+00:00",
       "headline": {
-        "id": "aa825fa8bbbb",
-        "published": "Fri, 27 Nov 2026 22:02:31 GMT",
-        "published_sort": 1795816951,
-        "source": "Google News (CT)",
-        "stream": "ct",
-        "title": "How much rain did Connecticut get from Thanksgiving nor'easter? - CT Insider",
-        "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQbV8ycC1rWG9SZHNfOTFXZXhpT0ozZ0N4S1g0eUREd3NqdkpYaWs5MFRVSXpmbnpZckM0T3B4VlFNaFlKUnFhanFoXzFoTXcwMmhjb1ZkOEUtMUF4SktJWnlNYWR6QXBoc3pBRjR4bXNkek84NzFWNmwxdXN0UXB1R0g5QklVUUNmTk1uSzhTbkI1dGhyRFJ0QU93Y05oNlAxTHA0?oc=5"
+        "id": "897eabb27d21",
+        "published": "Fri, 27 Nov 2026 05:59:36 -0500",
+        "published_sort": 1795777176,
+        "source": "NPR",
+        "stream": "national",
+        "title": "From Thanksgiving blackouts to Black Friday, a holiday hit by wild weather and economic woes",
+        "url": "https://www.npr.org/2026/11/27/nx-s1-6054884/thanksgiving-weather-black-friday"
       },
       "id": "0785479c5e31",
       "indicator": "weather_anomaly",
@@ -11261,7 +11271,7 @@
       "origin": "data desk",
       "query": "DC v2 observations variable=Count_CriminalActivities_ViolentCrime parent=country/USA type=State",
       "question": "How does Connecticut\u2019s reported violent crime compare with the rest of the country?",
-      "revalidated_at": "2026-11-28T03:46:13+00:00",
+      "revalidated_at": "2026-11-28T12:47:59+00:00",
       "stream": "stackup",
       "topic": "justice"
     },
@@ -12189,7 +12199,7 @@
       "indicator": "poverty",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B17020&for=state:*",
       "question": "How many Connecticut residents live below the poverty line compared with the rest of the country?",
-      "revalidated_at": "2026-11-28T03:46:13+00:00",
+      "revalidated_at": "2026-11-28T12:47:59+00:00",
       "stream": "stackup",
       "topic": "equity"
     },
@@ -13110,7 +13120,7 @@
       "origin": "data desk",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B19013&for=state:*",
       "question": "What do Connecticut households earn compared with the rest of the country?",
-      "revalidated_at": "2026-11-28T03:46:13+00:00",
+      "revalidated_at": "2026-11-28T12:47:59+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -14038,7 +14048,7 @@
       "indicator": "median_rent",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25113&for=state:*",
       "question": "How expensive is renting in Connecticut compared to the rest of America?",
-      "revalidated_at": "2026-11-28T03:46:13+00:00",
+      "revalidated_at": "2026-11-28T12:47:59+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -14712,7 +14722,7 @@
       "indicator": "unemployment",
       "query": "FRED fredgraph.csv 50 states + DC (<ST>UR, 2026-10); agency of record: US Bureau of Labor Statistics, Local Area Unemployment Statistics (seasonally adjusted)",
       "question": "Is Connecticut's job market doing better or worse than the rest of the country?",
-      "revalidated_at": "2026-11-28T03:46:13+00:00",
+      "revalidated_at": "2026-11-28T12:47:59+00:00",
       "stream": "stackup",
       "topic": "economy"
     },
@@ -21340,7 +21350,7 @@
       "indicator": "median_home_value",
       "query": "api.census.gov ACS 1-Year 2025: get=NAME,B25077&for=state:*",
       "question": "Are Connecticut homes expensive by national standards?",
-      "revalidated_at": "2026-11-28T03:46:13+00:00",
+      "revalidated_at": "2026-11-28T12:47:59+00:00",
       "stream": "stackup",
       "topic": "housing"
     },
@@ -35567,5 +35577,5 @@
       "topic": "equity"
     }
   ],
-  "generated_at": "2026-11-28T03:46:00+00:00"
+  "generated_at": "2026-11-28T12:47:33+00:00"
 }
